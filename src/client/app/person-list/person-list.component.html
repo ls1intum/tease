@@ -1,1 +1,9 @@
 <h1>Person List</h1>
+
+<div class="grid grid-pad">
+  <div *ngFor="let person of persons" (click)="gotoDetail(person)" class="col-1-4">
+    <div>
+      <h4>{{person.name}}</h4>
+    </div>
+  </div>
+</div>

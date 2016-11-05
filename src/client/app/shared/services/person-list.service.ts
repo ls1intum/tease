@@ -6,7 +6,7 @@ import {PERSONS} from "../models/mock-persons";
  */
 
 @Injectable
-export class PersonListService {
+export class PersonService {
   getPersons(): Promise<Person[]>{
     return Promise.resolve(PERSONS);
   }

@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { ToolbarComponent } from './toolbar/index';
 import { NavbarComponent } from './navbar/index';
 import { NameListService } from './name-list/index';
+import {PersonService} from "./services/person-list.service";
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -14,7 +15,7 @@ import { NameListService } from './name-list/index';
 @NgModule({
   imports: [CommonModule, RouterModule],
   declarations: [ToolbarComponent, NavbarComponent],
-  exports: [ToolbarComponent, NavbarComponent,
+  exports: [ToolbarComponent, NavbarComponent, PersonService,
     CommonModule, FormsModule, RouterModule]
 })
 export class SharedModule {
