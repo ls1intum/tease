@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {PersonListService} from "../shared/person-list/person-list.service";
 import {Person} from "../shared/models/person";
+import {Router} from "@angular/router";
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -14,7 +15,8 @@ import {Person} from "../shared/models/person";
 export class PersonListComponent implements OnInit {
   persons: Person[];
 
-  constructor(public personService: PersonListService){
+  constructor(private personService: PersonListService,
+  private router: Router){
 
   }
 
@@ -25,8 +27,7 @@ export class PersonListComponent implements OnInit {
   }
 
   gotoDetail(person: Person){
-    // TODO implement
-    // let link = ["/detail", pokemon.id];
-    // this.router.navigate(link);
+    let link = ["/detail", person.id];
+    this.router.navigate(link);
   }
 }

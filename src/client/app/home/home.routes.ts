@@ -3,7 +3,7 @@ import { HomeComponent } from './index';
 
 export const HomeRoutes: Route[] = [
   {
-    path: '',
+    path: 'science',
     component: HomeComponent
   }
 ];
