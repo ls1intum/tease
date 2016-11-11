@@ -5,8 +5,8 @@ import {PERSONS} from "../models/mock-persons";
  * Created by wanur on 05/11/2016.
  */
 
-@Injectable
-export class PersonService {
+@Injectable()
+export class PersonListService {
   getPersons(): Promise<Person[]>{
     return Promise.resolve(PERSONS);
   }

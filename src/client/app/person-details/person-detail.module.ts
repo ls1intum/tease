@@ -2,28 +2,12 @@
 import {NgModule, OnInit} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {PersonDetailComponent} from "./person-detail.component";
-import {Person} from "../shared/models/person";
-import {PersonService} from "../shared/services/person-list.service";
-import {ActivatedRoute} from "@angular/router";
+import {PersonListService} from "../shared/person-list/person-list.service";
+import {SharedModule} from "../shared/shared.module";
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, SharedModule],
   declarations: [PersonDetailComponent],
   exports: [PersonDetailComponent],
+  providers: [PersonListService]
 })
-export class PersonDetailModule implements OnInit {
-  person: Person;
-
-  constructor(private personService: PersonService,
-              private activatedRoute: ActivatedRoute) {
-
-  }
-
-  ngOnInit(): void {
-    this.activatedRoute.params.forEach(params => {
-      let id = +params['id'];
-      this.personService.getPerson(id).then(person =>
-        this.person = person
-      )
-    })
-  }
-}
+export class PersonDetailModule { }

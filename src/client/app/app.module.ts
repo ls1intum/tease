@@ -10,12 +10,13 @@ import { AboutModule } from './about/about.module';
 import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
 import {PersonDetailModule} from "./person-details/person-detail.module";
-import {PersonService} from "./shared/services/person-list.service";
+import {PersonListModule} from "./person-list/person-list.module";
 
 @NgModule({
-  imports: [BrowserModule, HttpModule, RouterModule.forRoot(routes), AboutModule, PersonDetailModule, HomeModule, SharedModule.forRoot()],
+  imports: [BrowserModule, HttpModule, RouterModule.forRoot(routes), AboutModule, PersonDetailModule, PersonListModule,
+    HomeModule, SharedModule.forRoot()],
   declarations: [AppComponent],
-  providers: [PersonService, {
+  providers: [{
     provide: APP_BASE_HREF,
     useValue: '<%= APP_BASE %>'
   }],

@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {PersonService} from "../shared/services/person-list.service";
+import {PersonListService} from "../shared/person-list/person-list.service";
 import {Person} from "../shared/models/person";
 /**
  * Created by wanur on 05/11/2016.
@@ -14,7 +14,7 @@ import {Person} from "../shared/models/person";
 export class PersonListComponent implements OnInit {
   persons: Person[];
 
-  constructor(private personService: PersonService){
+  constructor(public personService: PersonListService){
 
   }
 
