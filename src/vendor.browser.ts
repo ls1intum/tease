@@ -6,6 +6,7 @@ import '@angular/platform-browser';
 import '@angular/core';
 import '@angular/http';
 import '@angular/router';
+import 'hammerjs'
 
 
 // RxJS 5

@@ -8,6 +8,7 @@ import {HttpModule} from "@angular/http";
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import {PersonDetailModule} from "./person-details/person-detail.module";
 import {PersonListModule} from "./person-list/person-list.module";
+import {MaterialModule} from "@angular/material";
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +16,7 @@ import {PersonListModule} from "./person-list/person-list.module";
     FormsModule, HttpModule,
     RouterModule.forRoot(rootRouterConfig),
   PersonDetailModule,
-  PersonListModule],
+  PersonListModule, MaterialModule.forRoot()],
   providers   : [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap   : [AppComponent]
 })
