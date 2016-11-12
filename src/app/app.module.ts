@@ -12,10 +12,18 @@ import {RepoBrowserComponent} from './github/repo-browser/repo-browser.component
 import {RepoListComponent} from './github/repo-list/repo-list.component';
 import {RepoDetailComponent} from './github/repo-detail/repo-detail.component';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import {PersonDetailComponent} from "./person-details/person-detail.component";
+import {PersonDetailModule} from "./person-details/person-detail.module";
+import {PersonListModule} from "./person-list/person-list.module";
 
 @NgModule({
-  declarations: [AppComponent, AboutComponent, RepoBrowserComponent, RepoListComponent, RepoDetailComponent, HomeComponent],
-  imports     : [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(rootRouterConfig)],
+  declarations: [AppComponent, AboutComponent, RepoBrowserComponent,
+    RepoListComponent, RepoDetailComponent, HomeComponent],
+  imports     : [BrowserModule,
+    FormsModule, HttpModule,
+    RouterModule.forRoot(rootRouterConfig),
+  PersonDetailModule,
+  PersonListModule],
   providers   : [GithubService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap   : [AppComponent]
 })
