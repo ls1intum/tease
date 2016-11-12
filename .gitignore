@@ -4,8 +4,10 @@
 
 #IDE configuration files
 .idea
-*.iml
 
 # Logs
 logs
 *.log
+
+
+desktop.ini
