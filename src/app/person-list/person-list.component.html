@@ -1,9 +1,9 @@
 <h1 align="center">Your talents</h1>
 
-<div class="grid grid-pad">
+<div>
   <div *ngFor="let person of persons" (click)="gotoDetail(person)" class="col-1-4">
       <md-card>
-        <md-card-title>{{person.firstName}} {{person.lastName}}</md-card-title>
+        <md-card-title>o{{person.firstName}} {{person.lastName}}</md-card-title>
         <md-card-subtitle>Major: {{person.major}}</md-card-subtitle>
       </md-card>
   </div>

@@ -2,6 +2,9 @@ import {Component, OnInit} from "@angular/core";
 import {Person} from "../shared/models/person";
 import {PersonListService} from "../shared/person-list/person-list.service";
 import {ActivatedRoute} from "@angular/router";
+import { MaterialModule } from '@angular/material';
+
+
 /**
  * Created by wanur on 05/11/2016.
  */
