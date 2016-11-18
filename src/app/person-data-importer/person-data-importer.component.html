@@ -1,4 +1,2 @@
 
-<button id="upload-button" md-raised-button color="accent" [routerLink]="['/persons']">
-  Import person data
-</button>
+<input type="file" name="Choose file" (change)="onFileChanged($event)" accept="text/csv">
