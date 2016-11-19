@@ -9,8 +9,8 @@ export class Person {
   currentTerm: number;
   major: string;
 
-  constructor(id: number, firstName: string){
-    this.id = id;
-    this.firstName = firstName;
+  constructor(id?: number, firstName?: string){
+    this.id = id || 0;
+    this.firstName = firstName || "no name";
   }
 }

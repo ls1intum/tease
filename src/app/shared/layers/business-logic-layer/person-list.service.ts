@@ -26,6 +26,25 @@ export class PersonListService {
     });
   }
 
+  private parsePersons(csvString: Array<any>): Person[] {
+    var persons: Person[] = new Person[0]();
+
+    // TODO use MAP
+    for(let personProps in csvString)[
+      persons.push(parsePerson(personProps));
+    ]
+  }
+
+  private parsePerson(personProps: Array<any>): Person {
+    let person = new Person();
+
+    // TODO extract constants
+    person.firstName = csvRowString["firstname"];
+    person.major = csvRowString["major"];
+
+    return person;
+  }
+
   getPerson(id: number): Promise<Person>{
     return this.getSavedPersons().then(persons => persons.find(person => person.id == id))
   }
