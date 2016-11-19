@@ -1,9 +1,9 @@
 import {Component, OnInit} from "@angular/core";
+import Papa = require("papaparse");
+
 /**
  * Created by wanur on 18/11/2016.
  */
-import Papa = require("papaparse");
-
 
 @Component({
   templateUrl: './person-data-importer.component.html',
@@ -34,7 +34,10 @@ export class PersonDataImporterComponent implements OnInit {
     Papa.parse(files[0], {
       complete: function(results){
         console.log(results);
-      }
+      },
+      header: true
     });
+
+    Papa.parse
   }
 }
