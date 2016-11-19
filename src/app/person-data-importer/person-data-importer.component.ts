@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
-import Papa = require("papaparse");
+import {Person} from "../shared/models/person";
+import {PersonListService} from "../shared/layers/business-logic-layer/person-list.service";
 
 /**
  * Created by wanur on 18/11/2016.
@@ -11,33 +12,21 @@ import Papa = require("papaparse");
   selector: 'person-data-importer',
 })
 export class PersonDataImporterComponent implements OnInit {
+  private persons: Person[];
+
+  constructor(private personService: PersonListService) {
+
+  }
+
   ngOnInit(): void {
-     // let fileReader = new FileReader();
-
-    console.log("data: "+Papa.parse("d,dududu,d").data[0]);
-
-    Papa.parse("3,3,3", {
-      delimiter: ',',
-      comments: false,
-
-      step: function(results, p) {
-        p.abort();
-        console.log(results.data.length);
-      }
-    });
   }
 
   onFileChanged(event){
     let files = event.srcElement.files;
     if(files.length != 1)return;
 
-    Papa.parse(files[0], {
-      complete: function(results){
-        console.log(results);
-      },
-      header: true
-    });
+    this.personService.readPersons(files[0], persons => {
 
-    Papa.parse
+    });
   }
 }

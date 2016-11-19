@@ -1,7 +1,7 @@
 import {PersonListComponent} from "./person-list.component";
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
-import {PersonListService} from "../shared/person-list/person-list.service";
+import {PersonListService} from "../shared/layers/business-logic-layer/person-list.service";
 import {MaterialModule} from "@angular/material";
 
 /**

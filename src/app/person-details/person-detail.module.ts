@@ -2,7 +2,7 @@
 import {NgModule, OnInit} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {PersonDetailComponent} from "./person-detail.component";
-import {PersonListService} from "../shared/person-list/person-list.service";
+import {PersonListService} from "../shared/layers/business-logic-layer/person-list.service";
 import {SharedModule} from "../shared/shared.module";
 import {MaterialModule} from "@angular/material";
 @NgModule({
