@@ -15,32 +15,23 @@ export class PersonListService {
 
   readPersons(csvFile: File, callback: (persons: Person[])=>void) {
     Papa.parse(csvFile, {
-      complete: function(results){
-        console.log(results);
-
-        console.log(results.data[0]["firstname"]);
-
-        callback(null);
+      complete: results => {
+        callback(this.parsePersons(results.data));
       },
       header: true
     });
   }
 
-  private parsePersons(csvString: Array<any>): Person[] {
-    var persons: Person[] = new Person[0]();
-
-    // TODO use MAP
-    for(let personProps in csvString)[
-      persons.push(parsePerson(personProps));
-    ]
+  parsePersons(csvString: Array<any>): Person[] {
+    return csvString.map((personProps: Array<any>) => { return this.parsePerson(personProps) });
   }
 
-  private parsePerson(personProps: Array<any>): Person {
+  parsePerson(personProps: Array<any>): Person {
     let person = new Person();
 
     // TODO extract constants
-    person.firstName = csvRowString["firstname"];
-    person.major = csvRowString["major"];
+    person.firstName = personProps["firstname"];
+    person.major = personProps["major"];
 
     return person;
   }

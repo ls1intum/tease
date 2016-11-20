@@ -26,7 +26,7 @@ export class PersonDataImporterComponent implements OnInit {
     if(files.length != 1)return;
 
     this.personService.readPersons(files[0], persons => {
-
+      console.log(persons);
     });
   }
 }
