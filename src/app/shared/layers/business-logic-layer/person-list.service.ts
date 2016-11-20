@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {Person} from "../../models/person";
 import {PERSONS} from "../../models/mock-persons";
 import Papa = require("papaparse");
+import {CsvColumnNames} from "../../constants/data-access-constants";
 
 /**
  * Created by wanur on 05/11/2016.
@@ -22,16 +23,16 @@ export class PersonListService {
     });
   }
 
-  parsePersons(csvString: Array<any>): Person[] {
+  private parsePersons(csvString: Array<any>): Person[] {
     return csvString.map((personProps: Array<any>) => { return this.parsePerson(personProps) });
   }
 
-  parsePerson(personProps: Array<any>): Person {
+  private parsePerson(personProps: Array<any>): Person {
     let person = new Person();
 
-    // TODO extract constants
-    person.firstName = personProps["firstname"];
-    person.major = personProps["major"];
+    person.firstName = personProps[CsvColumnNames.FirstName];
+    person.major = personProps[CsvColumnNames.Major];
+    // TODO parse other props
 
     return person;
   }
