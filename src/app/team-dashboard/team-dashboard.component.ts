@@ -1,4 +1,5 @@
 import {Component} from "@angular/core";
+import {TeamService} from "../shared/layers/business-logic-layer/team.service";
 /**
  * Created by Malte Bucksch on 25/11/2016.
  */
@@ -10,5 +11,9 @@ import {Component} from "@angular/core";
   selector: 'team-dashboard'
 })
 export class TeamDashboardComponent {
+  constructor(private teamService: TeamService){
+
+  }
+
 
 }
