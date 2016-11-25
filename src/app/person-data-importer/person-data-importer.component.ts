@@ -1,6 +1,7 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, Output, EventEmitter} from "@angular/core";
 import {Person} from "../shared/models/person";
 import {PersonListService} from "../shared/layers/business-logic-layer/person-list.service";
+import {Router} from "@angular/router";
 
 /**
  * Created by wanur on 18/11/2016.
@@ -12,9 +13,10 @@ import {PersonListService} from "../shared/layers/business-logic-layer/person-li
   selector: 'person-data-importer',
 })
 export class PersonDataImporterComponent implements OnInit {
-  private persons: Person[];
+  @Output() onPersonDataParsed = new EventEmitter<Person[]>();
 
-  constructor(private personService: PersonListService) {
+  constructor(private personService: PersonListService,
+              private router: Router) {
 
   }
 
@@ -26,7 +28,7 @@ export class PersonDataImporterComponent implements OnInit {
     if(files.length != 1)return;
 
     this.personService.readPersons(files[0], persons => {
-      console.log(persons);
+      this.onPersonDataParsed.emit(persons);
     });
   }
 }
