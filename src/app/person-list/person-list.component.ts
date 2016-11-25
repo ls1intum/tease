@@ -15,18 +15,28 @@ export class PersonListComponent implements OnInit {
   persons: Person[];
 
   constructor(private personService: PersonService,
-  private router: Router){
+              private router: Router) {
 
   }
 
   ngOnInit(): void {
     this.personService.readPersons().then(
-      persons => this.persons = persons
+      persons => {
+        this.persons = persons;
+
+        if (persons == null || persons.length == 0)
+          this.gotoImport();
+      }
     )
   }
 
-  gotoDetail(person: Person){
+  gotoDetail(person: Person) {
     let link = ["/detail", person.id];
+    this.router.navigate(link);
+  }
+
+  gotoImport() {
+    let link = ["/import"];
     this.router.navigate(link);
   }
 }

@@ -5,13 +5,13 @@ import {PersonAccessService} from "./person.access.service";
  */
 
 export class NonPersistentPersonAccessService extends PersonAccessService {
-  private static savedPersons: Person[];
+  private savedPersons: Person[];
 
   save(persons: Person[]) {
-    NonPersistentPersonAccessService.savedPersons = persons;
+    this.savedPersons = persons;
   }
 
   read(): Promise<Person[]> {
-    return Promise.resolve(NonPersistentPersonAccessService.savedPersons);
+    return Promise.resolve(this.savedPersons);
   }
 }
