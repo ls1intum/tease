@@ -7,7 +7,8 @@ import {TeamService} from "../shared/layers/business-logic-layer/team.service";
 
 @Component({
   templateUrl: 'team-dashboard.component.html',
-  styleUrls: ['team-dashboard.component.css'],
+  styleUrls: ['styles/team-dashboard.component.css',
+              'styles/dragula.min.css'],
   selector: 'team-dashboard'
 })
 export class TeamDashboardComponent {

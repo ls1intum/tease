@@ -13,6 +13,7 @@ import {PersonDataImporterComponent} from "./person-data-importer/person-data-im
 import {PersonDataImporterModule} from "./person-data-importer/person-data-importer.module";
 import {TeamDashboardComponent} from "./team-dashboard/team-dashboard.component";
 import {TeamDashboardModule} from "./team-dashboard/team-dashboard.module";
+import {DragulaModule} from "ng2-dragula/ng2-dragula";
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +21,7 @@ import {TeamDashboardModule} from "./team-dashboard/team-dashboard.module";
     FormsModule, HttpModule,
     RouterModule.forRoot(rootRouterConfig),
   PersonDetailModule, PersonDataImporterModule,
-  PersonListModule,TeamDashboardModule, MaterialModule.forRoot()],
+  PersonListModule,TeamDashboardModule, MaterialModule.forRoot(), DragulaModule],
   providers   : [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap   : [AppComponent],
 })
