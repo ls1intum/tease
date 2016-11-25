@@ -26,7 +26,7 @@ export class PersonListComponent implements OnInit {
   }
 
   gotoDetail(person: Person){
-    let link = ["/persons"];
+    let link = ["/detail", person.id];
     this.router.navigate(link);
   }
 }

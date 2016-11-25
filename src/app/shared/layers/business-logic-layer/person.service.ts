@@ -45,6 +45,7 @@ export class PersonService {
   private parsePerson(personProps: Array<any>): Person {
     let person = new Person();
 
+    person.id = personProps[CsvColumnNames.Id];
     person.firstName = personProps[CsvColumnNames.FirstName];
     person.lastName = personProps[CsvColumnNames.LastName];
     person.major = personProps[CsvColumnNames.Major];
