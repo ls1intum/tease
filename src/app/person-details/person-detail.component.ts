@@ -17,18 +17,11 @@ import {MaterialModule, MdDialogRef} from '@angular/material';
 export class PersonDetailComponent implements OnInit {
   person: Person;
 
-  constructor(public personService: PersonService,
-              private activatedRoute: ActivatedRoute,
-              public dialogRef: MdDialogRef<PersonDetailComponent>) {
+  constructor(public dialogRef: MdDialogRef<PersonDetailComponent>) {
 
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.forEach(params => {
-      let id = +params['id'];
-      this.personService.readPerson(id).then(person =>
-        this.person = person
-      )
-    })
+
   }
 }

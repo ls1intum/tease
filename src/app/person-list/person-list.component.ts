@@ -44,10 +44,10 @@ export class PersonListComponent implements OnInit {
     config.viewContainerRef = this.viewContainerRef;
 
     this.dialogRef = this.dialog.open(PersonDetailComponent, config);
+    this.dialogRef.componentInstance.person = person;
     this.dialogRef.afterClosed().subscribe(result => {
       this.dialogRef = undefined;
     });
-
   }
 
   gotoImport() {
