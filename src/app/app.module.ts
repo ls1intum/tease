@@ -11,6 +11,8 @@ import {PersonListModule} from "./person-list/person-list.module";
 import {MaterialModule} from "@angular/material";
 import {PersonDataImporterComponent} from "./person-data-importer/person-data-importer.component";
 import {PersonDataImporterModule} from "./person-data-importer/person-data-importer.module";
+import {TeamDashboardComponent} from "./team-dashboard/team-dashboard.component";
+import {TeamDashboardModule} from "./team-dashboard/team-dashboard.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +20,7 @@ import {PersonDataImporterModule} from "./person-data-importer/person-data-impor
     FormsModule, HttpModule,
     RouterModule.forRoot(rootRouterConfig),
   PersonDetailModule, PersonDataImporterModule,
-  PersonListModule, MaterialModule.forRoot()],
+  PersonListModule,TeamDashboardModule, MaterialModule.forRoot()],
   providers   : [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap   : [AppComponent],
 })
