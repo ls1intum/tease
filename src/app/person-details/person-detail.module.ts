@@ -10,5 +10,6 @@ import {MaterialModule} from "@angular/material";
   declarations: [PersonDetailComponent],
   exports: [PersonDetailComponent],
   providers: [PersonService]
+
 })
 export class PersonDetailModule { }

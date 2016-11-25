@@ -3,6 +3,7 @@ import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {PersonService} from "../shared/layers/business-logic-layer/person.service";
 import {MaterialModule} from "@angular/material";
+import {PersonDetailComponent} from "../person-details/person-detail.component";
 
 /**
  * Created by wanur on 05/11/2016.
@@ -11,7 +12,8 @@ import {MaterialModule} from "@angular/material";
   imports: [CommonModule, MaterialModule.forRoot()],
   declarations: [PersonListComponent],
   exports: [PersonListComponent],
-  providers: [PersonService]
+  providers: [PersonService],
+  entryComponents: [PersonDetailComponent]
 })
 export class PersonListModule {
 

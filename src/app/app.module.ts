@@ -20,7 +20,7 @@ import {PersonDataImporterModule} from "./person-data-importer/person-data-impor
   PersonDetailModule, PersonDataImporterModule,
   PersonListModule, MaterialModule.forRoot()],
   providers   : [{provide: LocationStrategy, useClass: HashLocationStrategy}],
-  bootstrap   : [AppComponent]
+  bootstrap   : [AppComponent],
 })
 export class AppModule {
 

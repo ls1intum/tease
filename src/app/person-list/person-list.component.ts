@@ -1,7 +1,9 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewContainerRef} from "@angular/core";
 import {PersonService} from "../shared/layers/business-logic-layer/person.service";
 import {Person} from "../shared/models/person";
 import {Router} from "@angular/router";
+import {MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
+import {PersonDetailComponent} from "../person-details/person-detail.component";
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -12,10 +14,13 @@ import {Router} from "@angular/router";
   selector: 'person-list'
 })
 export class PersonListComponent implements OnInit {
-  persons: Person[];
+  private persons: Person[];
+  private dialogRef: MdDialogRef<PersonDetailComponent>;
 
   constructor(private personService: PersonService,
-              private router: Router) {
+              private router: Router,
+              public dialog: MdDialog,
+              public viewContainerRef: ViewContainerRef) {
 
   }
 
@@ -24,15 +29,25 @@ export class PersonListComponent implements OnInit {
       persons => {
         this.persons = persons;
 
-        if (persons == null || persons.length == 0)
+        if (persons == undefined || persons.length == 0)
           this.gotoImport();
       }
     )
   }
 
   gotoDetail(person: Person) {
-    let link = ["/detail", person.id];
-    this.router.navigate(link);
+    // let link = ["/detail", person.id];
+    // this.router.navigate(link);
+    if(this.dialogRef != undefined)this.dialogRef.close();
+
+    let config = new MdDialogConfig();
+    config.viewContainerRef = this.viewContainerRef;
+
+    this.dialogRef = this.dialog.open(PersonDetailComponent, config);
+    this.dialogRef.afterClosed().subscribe(result => {
+      this.dialogRef = undefined;
+    });
+
   }
 
   gotoImport() {

@@ -6,6 +6,7 @@ import {PersonDataImporterComponent} from "./person-data-importer.component";
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import {FileUploadModule} from "ng2-file-upload";
 import {PersonService} from "../shared/layers/business-logic-layer/person.service";
+import {PersonDetailComponent} from "../person-details/person-detail.component";
 
 /**
  * Created by wanur on 18/11/2016.
@@ -15,7 +16,7 @@ import {PersonService} from "../shared/layers/business-logic-layer/person.servic
   imports: [CommonModule, SharedModule,  MaterialModule.forRoot()],
   declarations: [PersonDataImporterComponent],
   exports: [PersonDataImporterComponent],
-  providers: [PersonService]
-
+  providers: [PersonService],
+  entryComponents: [PersonDetailComponent]
 })
 export class PersonDataImporterModule {}
