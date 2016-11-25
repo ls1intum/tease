@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {PersonListService} from "../shared/layers/business-logic-layer/person-list.service";
+import {PersonService} from "../shared/layers/business-logic-layer/person.service";
 import {Person} from "../shared/models/person";
 import {Router} from "@angular/router";
 /**
@@ -14,13 +14,13 @@ import {Router} from "@angular/router";
 export class PersonListComponent implements OnInit {
   persons: Person[];
 
-  constructor(private personService: PersonListService,
+  constructor(private personService: PersonService,
   private router: Router){
 
   }
 
   ngOnInit(): void {
-    this.personService.getSavedPersons().then(
+    this.personService.readPersons().then(
       persons => this.persons = persons
     )
   }

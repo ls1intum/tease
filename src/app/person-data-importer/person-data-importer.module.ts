@@ -5,7 +5,7 @@ import {MaterialModule} from "@angular/material";
 import {PersonDataImporterComponent} from "./person-data-importer.component";
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import {FileUploadModule} from "ng2-file-upload";
-import {PersonListService} from "../shared/layers/business-logic-layer/person-list.service";
+import {PersonService} from "../shared/layers/business-logic-layer/person.service";
 
 /**
  * Created by wanur on 18/11/2016.
@@ -15,7 +15,7 @@ import {PersonListService} from "../shared/layers/business-logic-layer/person-li
   imports: [CommonModule, SharedModule,  MaterialModule.forRoot()],
   declarations: [PersonDataImporterComponent],
   exports: [PersonDataImporterComponent],
-  providers: [PersonListService]
+  providers: [PersonService]
 
 })
 export class PersonDataImporterModule {}

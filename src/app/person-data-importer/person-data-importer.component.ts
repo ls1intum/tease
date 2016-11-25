@@ -1,6 +1,6 @@
 import {Component, OnInit, Output, EventEmitter} from "@angular/core";
 import {Person} from "../shared/models/person";
-import {PersonListService} from "../shared/layers/business-logic-layer/person-list.service";
+import {PersonService} from "../shared/layers/business-logic-layer/person.service";
 import {Router} from "@angular/router";
 
 /**
@@ -13,9 +13,7 @@ import {Router} from "@angular/router";
   selector: 'person-data-importer',
 })
 export class PersonDataImporterComponent implements OnInit {
-  @Output() onPersonDataParsed = new EventEmitter<Person[]>();
-
-  constructor(private personService: PersonListService,
+  constructor(private personService: PersonService,
               private router: Router) {
 
   }
@@ -27,8 +25,15 @@ export class PersonDataImporterComponent implements OnInit {
     let files = event.srcElement.files;
     if(files.length != 1)return;
 
-    this.personService.readPersons(files[0], persons => {
-      this.onPersonDataParsed.emit(persons);
+    this.personService.parsePersons(files[0], persons => {
+      this.personService.savePersons(persons)
+
+      this.gotoPersonList();
     });
+  }
+
+  gotoPersonList(){
+    let link = ["/persons"];
+    this.router.navigate(link);
   }
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Person} from "../shared/models/person";
-import {PersonListService} from "../shared/layers/business-logic-layer/person-list.service";
+import {PersonService} from "../shared/layers/business-logic-layer/person.service";
 import {ActivatedRoute} from "@angular/router";
 import { MaterialModule } from '@angular/material';
 
@@ -17,7 +17,7 @@ import { MaterialModule } from '@angular/material';
 export class PersonDetailComponent implements OnInit {
   person: Person;
 
-  constructor(public personService: PersonListService,
+  constructor(public personService: PersonService,
               private activatedRoute: ActivatedRoute) {
 
   }
@@ -25,7 +25,7 @@ export class PersonDetailComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.forEach(params => {
       let id = +params['id'];
-      this.personService.getPerson(id).then(person =>
+      this.personService.readPerson(id).then(person =>
         this.person = person
       )
     })

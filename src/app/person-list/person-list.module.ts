@@ -1,7 +1,7 @@
 import {PersonListComponent} from "./person-list.component";
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
-import {PersonListService} from "../shared/layers/business-logic-layer/person-list.service";
+import {PersonService} from "../shared/layers/business-logic-layer/person.service";
 import {MaterialModule} from "@angular/material";
 
 /**
@@ -11,7 +11,7 @@ import {MaterialModule} from "@angular/material";
   imports: [CommonModule, MaterialModule.forRoot()],
   declarations: [PersonListComponent],
   exports: [PersonListComponent],
-  providers: [PersonListService]
+  providers: [PersonService]
 })
 export class PersonListModule {
 

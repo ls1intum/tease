@@ -6,8 +6,10 @@ import {Team} from "../../models/team";
  * Created by wanur on 05/11/2016.
  */
 
+// TODO extract saving to data access layer
+
 @Injectable()
-export class TeamListService {
+export class TeamService {
   getSavedTeams(): Promise<Person[]>{
     return Promise.resolve(PERSONS);
   }
