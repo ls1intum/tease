@@ -28,6 +28,7 @@ export class PersonService {
     this.personAccessService.save(persons);
   }
 
+  // TODO extract parsing to parser
   parsePersons(csvFile: File, callback: (persons: Person[])=>void) {
     Papa.parse(csvFile, {
       complete: results => {
@@ -45,6 +46,7 @@ export class PersonService {
     let person = new Person();
 
     person.firstName = personProps[CsvColumnNames.FirstName];
+    person.lastName = personProps[CsvColumnNames.LastName];
     person.major = personProps[CsvColumnNames.Major];
     // TODO parse other props
 
