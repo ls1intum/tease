@@ -8,8 +8,8 @@ export class Team {
   name: string;
   persons: Person[];
 
-  constructor(id: number, name: string){
+  constructor(id: number, persons: Person[]){
     this.id = id;
-    this.name = name;
+    this.persons = persons;
   }
 }
