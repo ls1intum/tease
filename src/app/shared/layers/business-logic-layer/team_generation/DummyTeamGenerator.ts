@@ -1,10 +1,12 @@
 import {TeamGenerator} from "./TeamGenerator";
 import {Team} from "../../../models/team";
 import {Person} from "../../../models/person";
+import {Injectable} from "@angular/core";
 /**
  * Created by Malte Bucksch on 25/11/2016.
  */
 
+@Injectable()
 export class DummyTeamGenerator implements TeamGenerator {
   private readonly NumberOfTeams = 3;
 

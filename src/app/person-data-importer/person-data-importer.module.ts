@@ -5,7 +5,7 @@ import {MaterialModule} from "@angular/material";
 import {PersonDataImporterComponent} from "./person-data-importer.component";
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import {FileUploadModule} from "ng2-file-upload";
-import {PersonService} from "../shared/layers/business-logic-layer/person.service";
+import {PersonService} from "../shared/layers/business-logic-layer/services/person.service";
 import {PersonDetailComponent} from "../person-details/person-detail.component";
 
 /**

@@ -1,6 +1,6 @@
 import {Component, OnInit, Output, EventEmitter} from "@angular/core";
 import {Person} from "../shared/models/person";
-import {PersonService} from "../shared/layers/business-logic-layer/person.service";
+import {PersonService} from "../shared/layers/business-logic-layer/services/person.service";
 import {Router} from "@angular/router";
 
 /**

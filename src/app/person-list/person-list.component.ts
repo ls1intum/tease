@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef} from "@angular/core";
-import {PersonService} from "../shared/layers/business-logic-layer/person.service";
+import {PersonService} from "../shared/layers/business-logic-layer/services/person.service";
 import {Person} from "../shared/models/person";
 import {Router} from "@angular/router";
 import {MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";

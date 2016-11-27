@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core";
-import {Person} from "../../models/person";
-import {PERSONS} from "../../models/mock-persons";
+import {Person} from "../../../models/person";
+import {PERSONS} from "../../../models/mock-persons";
 import Papa = require("papaparse");
-import {CsvColumnNames} from "../../constants/data-access-constants";
-import {PersonAccessService} from "../data-access-layer/person.access.service";
-import {NonPersistentPersonAccessService} from "../data-access-layer/non-persistent-person.access.service";
+import {CsvColumnNames} from "../../../constants/data-access-constants";
+import {PersonAccessService} from "../../data-access-layer/person.access.service";
+import {NonPersistentPersonAccessService} from "../../data-access-layer/non-persistent-person.access.service";
 
 /**
  * Created by wanur on 05/11/2016.

@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Person} from "../shared/models/person";
-import {PersonService} from "../shared/layers/business-logic-layer/person.service";
+import {PersonService} from "../shared/layers/business-logic-layer/services/person.service";
 import {ActivatedRoute} from "@angular/router";
 import {MaterialModule, MdDialogRef} from '@angular/material';
 

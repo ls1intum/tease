@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
-import {Person} from "../../models/person";
-import {PERSONS} from "../../models/mock-persons";
-import {Team} from "../../models/team";
-import {TeamGenerator} from "./team_generation/TeamGenerator";
-import {TeamAccessService} from "../data-access-layer/team.access.service";
+import {Person} from "../../../models/person";
+import {PERSONS} from "../../../models/mock-persons";
+import {Team} from "../../../models/team";
+import {TeamGenerator} from "../team_generation/TeamGenerator";
+import {TeamAccessService} from "../../data-access-layer/team.access.service";
 /**
  * Created by wanur on 05/11/2016.
  */
