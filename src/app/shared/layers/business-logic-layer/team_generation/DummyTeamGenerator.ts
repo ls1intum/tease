@@ -15,6 +15,7 @@ export class DummyTeamGenerator implements TeamGenerator {
 
     // TODO slice into parts
 
+    // TODO make team size the <NumberOfTeams>
     return Promise.resolve([new Team(1,persons)]);
   }
 }

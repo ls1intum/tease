@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {TeamService} from "../shared/layers/business-logic-layer/services/team.service";
 /**
  * Created by Malte Bucksch on 25/11/2016.
@@ -11,10 +11,14 @@ import {TeamService} from "../shared/layers/business-logic-layer/services/team.s
               'styles/dragula.min.css'],
   selector: 'team-dashboard'
 })
-export class TeamDashboardComponent {
+export class TeamDashboardComponent implements OnInit{
   constructor(private teamService: TeamService){
 
   }
 
-
+  ngOnInit(): void {
+    this.teamService.readTeams().then((teams) => {
+      console.log(teams);
+    });
+  }
 }
