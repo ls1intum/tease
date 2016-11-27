@@ -35,6 +35,11 @@ export class PersonListComponent implements OnInit {
     )
   }
 
+  gotoTeamGeneration(){
+    let link = ["/constraints"];
+    this.router.navigate(link);
+  }
+
   gotoDetail(person: Person) {
     // let link = ["/detail", person.id];
     // this.router.navigate(link);
