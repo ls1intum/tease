@@ -1,7 +1,7 @@
 #dashboard {
   overflow-x: scroll;
   width: auto;
-  height: 600px;
+  height: 100%;
   display:flex;
   white-space: nowrap;
 }
@@ -10,13 +10,12 @@
   height: 100%;
   width: auto;
   flex-direction: column;
-
 }
 
 .drag-container {
   display:flex;
   flex-direction: column;
-  width:300px;
+  width:auto;
   height:500px;
   overflow-y: auto;
 
