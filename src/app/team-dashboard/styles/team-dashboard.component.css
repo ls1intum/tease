@@ -1,16 +1,28 @@
 #dashboard {
+  overflow-x: scroll;
+  width: auto;
+  height: 600px;
+  display:flex;
+  white-space: nowrap;
 }
 
-.container {
+.element-container {
+  height: 100%;
+  width: auto;
+  flex-direction: column;
+
+}
+
+.drag-container {
   display:flex;
   flex-direction: column;
+  width:300px;
+  height:500px;
+  overflow-y: auto;
+
   border: 5px solid;
   border-radius: 10px;
   padding: 14px;
-  width:auto;
-  height:500px;
-  text-decoration: none;
-  overflow-y: auto;
 }
 
 .sub-element {

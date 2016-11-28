@@ -1,7 +1,9 @@
 <div *ngIf="teams" id="dashboard">
-  <div *ngFor="let team of teams" class='container' [dragula]='"first-bag"'>
-    <div class='sub-element' *ngFor="let person of team.persons">
-      <person-preview [person]="person"></person-preview>
+  <div *ngFor="let team of teams" class="element-container">
+    <div class='drag-container' [dragula]='"first-bag"'>
+      <div class='sub-element' *ngFor="let person of team.persons">
+        <person-preview [person]="person"></person-preview>
+      </div>
     </div>
   </div>
 </div>
