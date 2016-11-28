@@ -1,16 +1,14 @@
-.container {
-  border: 5px solid;
-  border-radius: 10px;
-}
-
 #dashboard {
   overflow: auto;
   white-space: nowrap;
-
 }
 
-.container {
-  display: inline-block;
+.box {
+  display:flex;
+  align-items: flex-start;
+  border: 5px solid;
+  border-radius: 10px;
   padding: 14px;
   text-decoration: none;
+  overflow-y: auto;
 }
