@@ -1,5 +1,5 @@
 #dashboard {
-  overflow-x: scroll;
+  overflow-x: auto;
   width: auto;
   height: 100%;
   display:flex;
@@ -7,7 +7,7 @@
 }
 
 .element-container {
-  height: 100%;
+  height: 100vh;
   width: auto;
   flex-direction: column;
 }
@@ -16,7 +16,7 @@
   display:flex;
   flex-direction: column;
   width:auto;
-  height:500px;
+  height:100%;
   overflow-y: auto;
 
   border: 5px solid;
