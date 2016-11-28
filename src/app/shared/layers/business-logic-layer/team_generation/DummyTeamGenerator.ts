@@ -11,11 +11,15 @@ export class DummyTeamGenerator implements TeamGenerator {
   private readonly NumberOfTeams = 3;
 
   generate(persons: Person[]): Promise<Team[]> {
-    let teamSize = persons.length / this.NumberOfTeams;
+    let teams: Team[] = [];
+
+    for(let teamIndex = 0;teamIndex<this.NumberOfTeams;teamIndex++){
+      teams.push(new Team(teamIndex,[]));
+    }
+    teams[0].persons.push.apply(teams[0].persons,persons);
 
     // TODO slice into parts
 
-    // TODO make team size the <NumberOfTeams>
-    return Promise.resolve([new Team(1,persons)]);
+    return Promise.resolve(teams);
   }
 }
