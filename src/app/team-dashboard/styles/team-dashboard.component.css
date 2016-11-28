@@ -2,3 +2,15 @@
   border: 5px solid;
   border-radius: 10px;
 }
+
+#dashboard {
+  overflow: auto;
+  white-space: nowrap;
+
+}
+
+.container {
+  display: inline-block;
+  padding: 14px;
+  text-decoration: none;
+}

@@ -8,7 +8,7 @@ import {Injectable} from "@angular/core";
 
 @Injectable()
 export class DummyTeamGenerator implements TeamGenerator {
-  private readonly NumberOfTeams = 3;
+  private readonly NumberOfTeams = 10;
 
   generate(persons: Person[]): Promise<Team[]> {
     let teams: Team[] = [];

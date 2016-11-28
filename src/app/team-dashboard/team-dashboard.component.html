@@ -1,4 +1,4 @@
-<div *ngIf="teams">
+<div *ngIf="teams" id="dashboard">
   <div *ngFor="let team of teams" class='container' [dragula]='"first-bag"'>
     <div *ngFor="let person of team.persons">
       <person-preview [person]="person"></person-preview>
