@@ -5,10 +5,16 @@
 
 .container {
   display:flex;
-  align-items: flex-start;
+  flex-direction: column;
   border: 5px solid;
   border-radius: 10px;
   padding: 14px;
+  width:auto;
+  height:500px;
   text-decoration: none;
   overflow-y: auto;
+}
+
+.sub-element {
+
 }
