@@ -2,19 +2,21 @@
   overflow-x: auto;
   width: auto;
   height: 100%;
+  display:flex;
   white-space: nowrap;
 }
 
 .element-container {
   height: 100%;
   width: auto;
+  flex-direction: row;
 }
 
 .drag-container {
   display:flex;
   flex-direction: column;
   width:auto;
-  height:100%;
+  height:300px;
   overflow-y: auto;
 
   border: 5px solid;
