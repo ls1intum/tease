@@ -14,7 +14,7 @@ import {PersonPreviewComponent} from "./person-preview.component";
   declarations: [PersonListComponent, PersonPreviewComponent],
   exports: [PersonListComponent, PersonPreviewComponent],
   providers: [PersonService],
-  entryComponents: [PersonDetailComponent]
+  entryComponents: [PersonDetailComponent],
 })
 export class PersonListModule {
 

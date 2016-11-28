@@ -6,11 +6,12 @@ import {PersonService} from "../shared/layers/business-logic-layer/services/pers
 import {TeamService} from "../shared/layers/business-logic-layer/services/team.service";
 import {PersonDetailComponent} from "../person-details/person-detail.component";
 import {DragulaModule} from "ng2-dragula/ng2-dragula";
+import {PersonListModule} from "../person-list/person-list.module";
 /**
  * Created by Malte Bucksch on 25/11/2016.
  */
 @NgModule({
-  imports: [CommonModule, MaterialModule.forRoot(), DragulaModule],
+  imports: [CommonModule, MaterialModule.forRoot(), DragulaModule, PersonListModule],
   declarations: [TeamDashboardComponent],
   exports: [TeamDashboardComponent],
   providers: [PersonService,TeamService],
