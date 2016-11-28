@@ -2,14 +2,12 @@
   overflow-x: auto;
   width: auto;
   height: 100%;
-  display:flex;
   white-space: nowrap;
 }
 
 .element-container {
-  height: 100vh;
+  height: 100%;
   width: auto;
-  flex-direction: column;
 }
 
 .drag-container {
