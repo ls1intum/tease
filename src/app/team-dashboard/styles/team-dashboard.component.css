@@ -3,7 +3,7 @@
   white-space: nowrap;
 }
 
-.box {
+.container {
   display:flex;
   align-items: flex-start;
   border: 5px solid;
