@@ -1,1 +1,5 @@
 @import '~@angular/material/core/theming/prebuilt/purple-green.css';
+
+#toolbar {
+  height:8vh;
+}
