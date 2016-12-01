@@ -10,6 +10,13 @@ import {Team} from "../../models/team";
  */
 
 export class NonPersistentTeamAccessService extends TeamAccessService {
+  addTeamMember(person: Person, team: Team) {
+    team.add(person);
+  }
+
+  removeTeamMember(person: Person, team: Team) {
+    team.remove(person);
+  }
   private savedTeams: Team[];
 
   save(teams: Team[]) {

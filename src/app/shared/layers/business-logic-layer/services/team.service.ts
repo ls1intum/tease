@@ -27,4 +27,12 @@ export class TeamService {
   saveTeams(teams: Team[]){
     this.teamAccessService.save(teams);
   }
+
+  addTeamMember(person: Person, team: Team){
+    // TODO implement
+  }
+
+  removeTeamMember(person: Person, team: Team){
+    // TODO implement
+  }
 }

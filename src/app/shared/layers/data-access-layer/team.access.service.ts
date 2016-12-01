@@ -3,6 +3,8 @@ import {Person} from "../../models/person";
 import {Team} from "../../models/team";
 @Injectable()
 export abstract class TeamAccessService {
-  abstract save(persons: Team[]);
+  abstract save(teams: Team[]);
   abstract read(): Promise<Team[]>;
+  abstract addTeamMember(person: Person, team: Team);
+  abstract removeTeamMember(person: Person, team: Team);
 }
