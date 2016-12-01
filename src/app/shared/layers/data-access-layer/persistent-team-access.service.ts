@@ -13,7 +13,9 @@ export class PersistentTeamAccessService extends TeamAccessService {
   }
 
   save(teams: Team[]) {
-    let result = Papa.unparse(TeamSerializer.getTeamListProperties(teams));
+    let teamListProperties = TeamSerializer.getTeamListProperties(teams);
+    debugger;
+    let result = Papa.unparse(teamListProperties);
 
     console.log(result);
   }
