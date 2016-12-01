@@ -10,6 +10,7 @@ import {TeamAccessService} from "./layers/data-access-layer/team.access.service"
 import {NonPersistentTeamAccessService} from "./layers/data-access-layer/non-persistent-team.access.service";
 import {TeamGenerator} from "./layers/business-logic-layer/team_generation/TeamGenerator";
 import {DummyTeamGenerator} from "./layers/business-logic-layer/team_generation/DummyTeamGenerator";
+import {PersistentTeamAccessService} from "./layers/data-access-layer/persistent-team-access.service";
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -22,7 +23,7 @@ import {DummyTeamGenerator} from "./layers/business-logic-layer/team_generation/
     CommonModule, FormsModule, RouterModule],
   providers: [
     {provide: PersonAccessService, useClass: NonPersistentPersonAccessService},
-    {provide: TeamAccessService, useClass: NonPersistentTeamAccessService},
+    {provide: TeamAccessService, useClass: PersistentTeamAccessService},
     {provide: TeamGenerator, useClass: DummyTeamGenerator}
   ]
 })

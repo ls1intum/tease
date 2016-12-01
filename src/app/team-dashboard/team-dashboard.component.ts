@@ -55,4 +55,8 @@ export class TeamDashboardComponent implements OnInit{
     let link = ["/import"];
     this.router.navigate(link);
   }
+
+  exportTeams(){
+    this.teamService.saveTeams(this.teams);
+  }
 }
