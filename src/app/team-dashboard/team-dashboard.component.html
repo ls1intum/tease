@@ -2,7 +2,7 @@
   <div *ngFor="let team of teams" class="element-container">
     <div class='drag-container' [dragula]='"first-bag"'>
       <div class='sub-element' *ngFor="let person of team.persons">
-        <person-preview [person]="person"></person-preview>
+        <person-preview [person]="person" (click)="gotoDetail(person)"></person-preview>
       </div>
     </div>
   </div>

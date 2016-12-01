@@ -41,8 +41,6 @@ export class PersonListComponent implements OnInit {
   }
 
   gotoDetail(person: Person) {
-    // let link = ["/detail", person.id];
-    // this.router.navigate(link);
     if(this.dialogRef != undefined)this.dialogRef.close();
 
     let config = new MdDialogConfig();
