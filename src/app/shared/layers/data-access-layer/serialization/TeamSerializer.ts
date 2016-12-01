@@ -10,6 +10,7 @@ export class TeamSerializer {
 
   static getTeamListProperties(teams: Team[]): {}[] {
     let propList = teams.map(team => TeamSerializer.getTeamProperties(team));
+
     return [].concat(...propList);
   }
 }
