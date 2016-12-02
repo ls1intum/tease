@@ -14,7 +14,7 @@ export class TeamParser {
     let persons = teamCsvData.map((personProps: Array<any>) => {
       let person = PersonParser.parsePerson(personProps);
 
-      this.parsePriorities(teams, personProps);
+      this.parsePriorities(teams, person, personProps);
       this.addTeam(teams, personProps[CsvColumnNamesTeam.TeamName], person);
 
       return person;
@@ -36,21 +36,26 @@ export class TeamParser {
     }
   }
 
-  private static parsePriorities(teams: TeamList, personProps: Array<any>) {
+  private static parsePriorities(teams: TeamList, person: Person, personProps: Array<any>) {
     for (let prio = 1; prio < CsvTeamPrioritiesCount; prio++) {
       let columnName = StringHelper.format(CsvColumnNamesTeam.Priority, prio);
 
-      this.addTeam(teams, personProps[columnName]);
+      if(!personProps[columnName])continue;
+
+      let team = this.addTeam(teams, personProps[columnName]);
+      person.teamPriorities.push(team);
     }
   }
 
-  private static addTeam(teams: TeamList, name: string, person?: Person) {
-    if (name == undefined)return;
+  private static addTeam(teams: TeamList, name: string, person?: Person): Team {
+    if (name == undefined)return undefined;
 
     if (teams[name] == undefined)
       teams[name] = new Team(name);
 
-    if (person == undefined)return;
+    if (person == undefined)return teams[name];
     teams[name].add(person);
+
+    return teams[name];
   }
 }

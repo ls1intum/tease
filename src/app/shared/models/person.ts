@@ -10,9 +10,14 @@ export class Person {
   major: string;
   team: Team;
   supervisorRating: number;
+  teamPriorities: Team[] = [];
 
   constructor(id?: number, firstName?: string){
     this.id = id || 0;
     this.firstName = firstName || "no name";
+  }
+
+  getTeamPriority(team: Team): number {
+    return this.teamPriorities.indexOf(team) + 1;
   }
 }

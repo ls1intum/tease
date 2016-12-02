@@ -27,7 +27,6 @@ export class PersonDataImporterComponent implements OnInit {
     if(files.length != 1)return;
 
     this.teamService.readCsv(files[0]).then(teams => {
-      debugger;
       this.teamService.save(teams);
 
       this.gotoPersonList();

@@ -32,7 +32,6 @@ export class TeamDashboardComponent implements OnInit{
   ngOnInit(): void {
     this.teamService.read().then((teams) => {
       this.teams = teams;
-      debugger;
 
       if (teams == undefined || teams.length == 0)
         this.gotoImport();
