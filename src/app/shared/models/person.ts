@@ -9,6 +9,7 @@ export class Person {
   lastName: string;
   major: string;
   team: Team;
+  supervisorRating: number;
 
   constructor(id?: number, firstName?: string){
     this.id = id || 0;

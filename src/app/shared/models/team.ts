@@ -7,12 +7,10 @@ import {Project} from "./project";
 export class Team {
   id: number;
   name: string;
-  persons: Person[];
+  persons: Person[] = [];
   project: Project;
 
-  constructor(id: number, persons: Person[]) {
-    this.id = id;
-    this.persons = persons;
+  constructor(name: string) {
   }
 
   remove(person: Person) {

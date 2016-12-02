@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Person} from "../../../models/person";
 import {PERSONS} from "../../../models/mock-persons";
 import Papa = require("papaparse");
-import {CsvColumnNames} from "../../../constants/data-access-constants";
+import {CsvColumnNamesPerson} from "../../../constants/data-access-constants";
 import {PersonAccessService} from "../../data-access-layer/person.access.service";
 import {NonPersistentPersonAccessService} from "../../data-access-layer/non-persistent-person.access.service";
 
@@ -45,10 +45,10 @@ export class PersonService {
   private parsePerson(personProps: Array<any>): Person {
     let person = new Person();
 
-    person.id = personProps[CsvColumnNames.Id];
-    person.firstName = personProps[CsvColumnNames.FirstName];
-    person.lastName = personProps[CsvColumnNames.LastName];
-    person.major = personProps[CsvColumnNames.Major];
+    person.id = personProps[CsvColumnNamesPerson.Id];
+    person.firstName = personProps[CsvColumnNamesPerson.FirstName];
+    person.lastName = personProps[CsvColumnNamesPerson.LastName];
+    person.major = personProps[CsvColumnNamesPerson.Major];
     // TODO parse other props
 
     return person;

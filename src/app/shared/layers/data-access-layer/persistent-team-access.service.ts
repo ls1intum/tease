@@ -11,15 +11,15 @@ export class PersistentTeamAccessService extends TeamAccessService {
 
   read(): Promise<Team[]> {
     let teamData = localStorage.getItem(PersistentTeamAccessService.TeamStorageKey);
-    Papa.parse(teamData, {
-      complete: results => {
-        // TODO use promise for all of this!!!! wrap everything in promise
-        callback(TeamParser.parseTeams(results.data));
-      },
-      header: true
-    });
 
-    return Promise.resolve(this.savedTeams);
+    return new Promise((resolve,reject) => {
+      Papa.parse(teamData, {
+        complete: results => {
+          resolve(TeamParser.parseTeams(results.data));
+        },
+        header: true
+      });
+    });
   }
 
   save(teams: Team[]) {
