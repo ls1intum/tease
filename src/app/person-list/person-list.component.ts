@@ -4,6 +4,7 @@ import {Person} from "../shared/models/person";
 import {Router} from "@angular/router";
 import {MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
 import {PersonDetailComponent} from "../person-details/person-detail.component";
+import {TeamService} from "../shared/layers/business-logic-layer/services/team.service";
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -17,7 +18,7 @@ export class PersonListComponent implements OnInit {
   private persons: Person[];
   private dialogRef: MdDialogRef<PersonDetailComponent>;
 
-  constructor(private personService: PersonService,
+  constructor(private teamService: TeamService,
               private router: Router,
               public dialog: MdDialog,
               public viewContainerRef: ViewContainerRef) {
@@ -25,11 +26,11 @@ export class PersonListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.personService.readPersons().then(
-      persons => {
-        this.persons = persons;
+    this.teamService.read().then(
+      teams => {
+        this.persons = [].concat(...teams.map(team => team.persons));
 
-        if (persons == undefined || persons.length == 0)
+        if (this.persons == undefined || this.persons.length == 0)
           this.gotoImport();
       }
     )

@@ -1,5 +1,5 @@
 import {Person} from "../../../models/person";
-import {CsvColumnNamesPerson} from "../../../constants/data-access-constants";
+import {CsvColumnNamesPerson, CsvColumnNamesTeam} from "../../../constants/data-access-constants";
 /**
  * Created by Malte Bucksch on 01/12/2016.
  */

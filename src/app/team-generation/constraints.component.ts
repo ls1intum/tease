@@ -20,17 +20,16 @@ export class ConstraintsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.generateTeams(() => this.gotoDashboard());
   }
 
-  generateTeams(onFinish: ()=>void){
+  // generateTeams(onFinish: ()=>void){
     // this.personService.readPersons().then(persons => {
     //   this.teamService.generateTeams(persons).then((teams => {
     //     this.teamService.save(teams);
     //     onFinish();
     //   }));
     // });
-  }
+  // }
 
   gotoDashboard(){
     let link = ["/dashboard"];

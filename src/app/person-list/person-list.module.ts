@@ -5,6 +5,7 @@ import {PersonService} from "../shared/layers/business-logic-layer/services/pers
 import {MaterialModule} from "@angular/material";
 import {PersonDetailComponent} from "../person-details/person-detail.component";
 import {PersonPreviewComponent} from "./person-preview.component";
+import {TeamService} from "../shared/layers/business-logic-layer/services/team.service";
 
 /**
  * Created by wanur on 05/11/2016.
@@ -13,7 +14,7 @@ import {PersonPreviewComponent} from "./person-preview.component";
   imports: [CommonModule, MaterialModule.forRoot()],
   declarations: [PersonListComponent, PersonPreviewComponent],
   exports: [PersonListComponent, PersonPreviewComponent],
-  providers: [PersonService],
+  providers: [TeamService],
   entryComponents: [PersonDetailComponent]
 })
 export class PersonListModule {
