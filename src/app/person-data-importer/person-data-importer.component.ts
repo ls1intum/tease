@@ -2,6 +2,7 @@ import {Component, OnInit, Output, EventEmitter} from "@angular/core";
 import {Person} from "../shared/models/person";
 import {PersonService} from "../shared/layers/business-logic-layer/services/person.service";
 import {Router} from "@angular/router";
+import {TeamService} from "../shared/layers/business-logic-layer/services/team.service";
 
 /**
  * Created by wanur on 18/11/2016.
@@ -13,7 +14,7 @@ import {Router} from "@angular/router";
   selector: 'person-data-importer',
 })
 export class PersonDataImporterComponent implements OnInit {
-  constructor(private personService: PersonService,
+  constructor(private teamService: TeamService,
               private router: Router) {
 
   }
@@ -25,8 +26,9 @@ export class PersonDataImporterComponent implements OnInit {
     let files = event.srcElement.files;
     if(files.length != 1)return;
 
-    this.personService.parsePersons(files[0], persons => {
-      this.personService.savePersons(persons)
+    this.teamService.readCsv(files[0]).then(teams => {
+      debugger;
+      this.teamService.save(teams);
 
       this.gotoPersonList();
     });

@@ -24,12 +24,12 @@ export class ConstraintsComponent implements OnInit{
   }
 
   generateTeams(onFinish: ()=>void){
-    this.personService.readPersons().then(persons => {
-      this.teamService.generateTeams(persons).then((teams => {
-        this.teamService.saveTeams(teams);
-        onFinish();
-      }));
-    });
+    // this.personService.readPersons().then(persons => {
+    //   this.teamService.generateTeams(persons).then((teams => {
+    //     this.teamService.save(teams);
+    //     onFinish();
+    //   }));
+    // });
   }
 
   gotoDashboard(){

@@ -22,6 +22,17 @@ export class PersistentTeamAccessService extends TeamAccessService {
     });
   }
 
+  readCsv(csvFile: File): Promise<Team[]> {
+    return new Promise((resolve,reject) => {
+      Papa.parse(csvFile, {
+        complete: results => {
+          resolve(TeamParser.parseTeams(results.data));
+        },
+        header: true
+      });
+    });
+  }
+
   save(teams: Team[]) {
     let teamListProperties = TeamSerializer.getTeamListProperties(teams);
     let result = Papa.unparse(teamListProperties);

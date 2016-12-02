@@ -13,6 +13,7 @@ export class Team {
   project: Project;
 
   constructor(name: string) {
+    this.name = name;
   }
 
   remove(person: Person) {

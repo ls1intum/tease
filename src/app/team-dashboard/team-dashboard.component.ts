@@ -30,7 +30,7 @@ export class TeamDashboardComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.teamService.readTeams().then((teams) => {
+    this.teamService.read().then((teams) => {
       this.teams = teams;
 
       if (teams == undefined || teams.length == 0)
@@ -57,6 +57,6 @@ export class TeamDashboardComponent implements OnInit{
   }
 
   exportTeams(){
-    this.teamService.saveTeams(this.teams);
+    this.teamService.save(this.teams);
   }
 }

@@ -14,7 +14,7 @@ export class DummyTeamGenerator implements TeamGenerator {
     let teams: Team[] = [];
 
     for(let teamIndex = 0;teamIndex<this.NumberOfTeams;teamIndex++){
-      teams.push(new Team(teamIndex,[]));
+      teams.push(new Team("test"));
     }
     teams[0].persons.push.apply(teams[0].persons,persons);
 

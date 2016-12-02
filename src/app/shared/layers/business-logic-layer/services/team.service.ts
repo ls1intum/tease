@@ -20,11 +20,15 @@ export class TeamService {
     return this.teamGenerator.generate(persons);
   }
 
-  readTeams(): Promise<Team[]>{
+  read(): Promise<Team[]>{
     return this.teamAccessService.read();
   }
 
-  saveTeams(teams: Team[]){
+  readCsv(csvFile: File): Promise<Team[]> {
+    return this.teamAccessService.readCsv(csvFile);
+  }
+
+  save(teams: Team[]){
     this.teamAccessService.save(teams);
   }
 

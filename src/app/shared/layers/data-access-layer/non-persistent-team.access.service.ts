@@ -12,6 +12,10 @@ import {Team} from "../../models/team";
 export class NonPersistentTeamAccessService extends TeamAccessService {
   private savedTeams: Team[];
 
+  readCsv(csvFile: File): Promise<Team[]> {
+    return undefined;
+  }
+
   addTeamMember(person: Person, team: Team) {
     team.add(person);
   }
