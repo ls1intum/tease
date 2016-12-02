@@ -5,8 +5,10 @@ import {Project} from "./project";
  */
 
 export class Team {
-  id: number;
   name: string;
+  static readonly OrphanTeamName = "NO_TEAM";
+
+  id: number;
   persons: Person[] = [];
   project: Project;
 

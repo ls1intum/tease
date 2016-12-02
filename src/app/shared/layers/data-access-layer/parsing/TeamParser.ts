@@ -8,7 +8,7 @@ declare type TeamList = {[id: string]: Team};
 
 export class TeamParser {
 
-  parseTeams(teamCsvData: Array<any>): Team[] {
+  static parseTeams(teamCsvData: Array<any>): Team[] {
     let teams: TeamList = {};
 
     let persons = teamCsvData.map((personProps: Array<any>) => {
@@ -25,11 +25,18 @@ export class TeamParser {
     return Object.values(teams);
   }
 
-  private addOrphansTeam(teams: TeamList, persons: Person[]){
-    // TODO check for persons without team
+  private static addOrphansTeam(teams: TeamList, persons: Person[]){
+    if(teams[Team.OrphanTeamName] == undefined)teams[Team.OrphanTeamName] = new Team(Team.OrphanTeamName);
+    let orphanTeam = teams[Team.OrphanTeamName];
+
+    for(let person of persons){
+      if(person.team != undefined)continue;
+
+      orphanTeam.add(person);
+    }
   }
 
-  private parsePriorities(teams: TeamList, personProps: Array<any>) {
+  private static parsePriorities(teams: TeamList, personProps: Array<any>) {
     for (let prio = 1; prio < CsvTeamPrioritiesCount; prio++) {
       let columnName = StringHelper.format(CsvColumnNamesTeam.Priority, prio);
 
@@ -37,7 +44,7 @@ export class TeamParser {
     }
   }
 
-  private addTeam(teams: TeamList, name: string, person?: Person) {
+  private static addTeam(teams: TeamList, name: string, person?: Person) {
     if (name == undefined)return;
 
     if (teams[name] == undefined)
