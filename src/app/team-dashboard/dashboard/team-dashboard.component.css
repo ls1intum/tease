@@ -17,7 +17,6 @@
   flex-direction: column;
   width:auto;
   height:83vh;
-  overflow-y: auto;
 }
 
 .sub-element {
