@@ -3,11 +3,10 @@
   width: auto;
   height: auto;
   display:flex;
-  white-space: nowrap;
   flex-direction: row;
 }
 
 team-container {
   width:auto;
-  height:83vh;
+  height:auto;
 }
