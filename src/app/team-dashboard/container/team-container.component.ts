@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, ViewEncapsulation} from "@angular/core";
 import {Person} from "../../shared/models/person";
 import {Team} from "../../shared/models/team";
 /**
@@ -8,7 +8,8 @@ import {Team} from "../../shared/models/team";
 @Component({
   templateUrl: './team-container.component.html',
   selector: 'team-container',
-  styleUrls: ['./team-container.component.css']
+  styleUrls: ['./team-container.component.css',
+    '../styles/dragula.min.css'],
 })
 export class TeamContainerComponent {
   @Input()

@@ -1,11 +1,11 @@
 <div *ngIf="teams" id="dashboard">
   <div *ngFor="let team of teams" class="element-container">
-    <div class='drag-container' [dragula]='"first-bag"' [dragulaModel]="team.persons">
-      <div class='sub-element' *ngFor="let person of team.persons" >
-        <person-preview [person]="person" (click)="gotoDetail(person)"></person-preview>
-      </div>
-    </div>
+    <team-container [team]="team" class='drag-container'>
+
+    </team-container>
   </div>
+
+
   <span class="app-action" [class.m2app-dark]="isDarkTheme">
     <button md-fab (click)="exportTeams()"><md-icon>check circle</md-icon></button>
   </span>

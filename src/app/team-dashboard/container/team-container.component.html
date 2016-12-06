@@ -1,2 +1,5 @@
-<div *ngIf="team" class='drag-container'>
+<div *ngIf="team" class='drag-container'  [dragula]='"first-bag"' [dragulaModel]="team.persons">
+  <div class='sub-element' *ngFor="let person of team.persons" >
+    <person-preview [person]="person"></person-preview>
+  </div>
 </div>

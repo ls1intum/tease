@@ -15,8 +15,8 @@ import {PersonPreviewComponent} from "../../person-list/preview/person-preview.c
 
 @Component({
   templateUrl: 'team-dashboard.component.html',
-  styleUrls: ['styles/team-dashboard.component.css',
-    'styles/dragula.min.css'],
+  styleUrls: ['team-dashboard.component.css',
+    '../styles/dragula.min.css'],
   selector: 'team-dashboard',
 })
 export class TeamDashboardComponent implements OnInit {
