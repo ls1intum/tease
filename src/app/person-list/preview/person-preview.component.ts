@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {Person} from "../shared/models/person";
+import {Person} from "../../shared/models/person";
 /**
  * Created by Malte Bucksch on 28/11/2016.
  */
@@ -7,7 +7,7 @@ import {Person} from "../shared/models/person";
 
 
 @Component({
-  templateUrl: './person-preview.component.html',
+  templateUrl: 'person-preview.component.html',
   selector: 'person-preview'
 })
 export class PersonPreviewComponent {

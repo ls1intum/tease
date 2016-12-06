@@ -1,13 +1,13 @@
 import {Component, OnInit, ViewContainerRef} from "@angular/core";
-import {TeamService} from "../shared/layers/business-logic-layer/services/team.service";
-import {Team} from "../shared/models/team";
+import {TeamService} from "../../shared/layers/business-logic-layer/services/team.service";
+import {Team} from "../../shared/models/team";
 import {Router} from "@angular/router";
 import {MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
-import {PersonService} from "../shared/layers/business-logic-layer/services/person.service";
-import {PersonDetailComponent} from "../person-details/person-detail.component";
-import {Person} from "../shared/models/person";
+import {PersonService} from "../../shared/layers/business-logic-layer/services/person.service";
+import {PersonDetailComponent} from "../../person-details/person-detail.component";
+import {Person} from "../../shared/models/person";
 import {DragulaService} from "ng2-dragula/components/dragula.provider";
-import {PersonPreviewComponent} from "../person-list/person-preview.component";
+import {PersonPreviewComponent} from "../../person-list/preview/person-preview.component";
 /**
  * Created by Malte Bucksch on 25/11/2016.
  */
@@ -17,7 +17,7 @@ import {PersonPreviewComponent} from "../person-list/person-preview.component";
   templateUrl: 'team-dashboard.component.html',
   styleUrls: ['styles/team-dashboard.component.css',
     'styles/dragula.min.css'],
-  selector: 'team-dashboard'
+  selector: 'team-dashboard',
 })
 export class TeamDashboardComponent implements OnInit {
   private teams: Team[];
