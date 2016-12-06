@@ -7,9 +7,5 @@ import {Person} from "./shared/models/person";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  private persons: Person[];
 
-  onPersonDataParsed(persons: Person[]){
-    console.log(persons);
-  }
 }

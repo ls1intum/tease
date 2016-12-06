@@ -6,6 +6,8 @@ import {MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
 import {PersonService} from "../shared/layers/business-logic-layer/services/person.service";
 import {PersonDetailComponent} from "../person-details/person-detail.component";
 import {Person} from "../shared/models/person";
+import {DragulaService} from "ng2-dragula/components/dragula.provider";
+import {PersonPreviewComponent} from "../person-list/person-preview.component";
 /**
  * Created by Malte Bucksch on 25/11/2016.
  */
@@ -14,19 +16,35 @@ import {Person} from "../shared/models/person";
 @Component({
   templateUrl: 'team-dashboard.component.html',
   styleUrls: ['styles/team-dashboard.component.css',
-              'styles/dragula.min.css'],
+    'styles/dragula.min.css'],
   selector: 'team-dashboard'
 })
-export class TeamDashboardComponent implements OnInit{
+export class TeamDashboardComponent implements OnInit {
   private teams: Team[];
   private dialogRef: MdDialogRef<PersonDetailComponent>;
 
-  constructor(private personService: PersonService,
+  constructor(private dragulaService: DragulaService,
               private router: Router,
               public dialog: MdDialog,
               public viewContainerRef: ViewContainerRef,
               private teamService: TeamService) {
+    dragulaService.dropModel.subscribe((value) => {
+      let [bagName, el, target, source] = value;
+      this.onDrop(el, target, source);
+    });
+  }
 
+  onDrop(el: HTMLDivElement, target: HTMLDivElement, source) {
+    // TODO find out how to mak use of these "HTMLDIVELEMENT" params
+
+    this.updateReferences();
+    this.teamService.save(this.teams);
+  }
+
+  // TODO this is a time saving solution: optimal would be to
+  // TODO ONLY update the references of the just moved element
+  updateReferences() {
+    this.teams.forEach(team => team.persons.forEach(person => person.team = team))
   }
 
   ngOnInit(): void {
@@ -39,7 +57,7 @@ export class TeamDashboardComponent implements OnInit{
   }
 
   gotoDetail(person: Person) {
-    if(this.dialogRef != undefined)this.dialogRef.close();
+    if (this.dialogRef != undefined) this.dialogRef.close();
 
     let config = new MdDialogConfig();
     config.viewContainerRef = this.viewContainerRef;
@@ -56,7 +74,7 @@ export class TeamDashboardComponent implements OnInit{
     this.router.navigate(link);
   }
 
-  exportTeams(){
+  exportTeams() {
     this.teamService.save(this.teams);
   }
 }
