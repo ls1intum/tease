@@ -1,7 +1,7 @@
 <div *ngIf="teams" id="dashboard">
   <div *ngFor="let team of teams" class="element-container">
-    <div class='drag-container' [dragula]='"first-bag"'>
-      <div class='sub-element' *ngFor="let person of team.persons">
+    <div class='drag-container' [dragula]='"first-bag"' [dragulaModel]="team.persons">
+      <div class='sub-element' *ngFor="let person of team.persons" >
         <person-preview [person]="person" (click)="gotoDetail(person)"></person-preview>
       </div>
     </div>
