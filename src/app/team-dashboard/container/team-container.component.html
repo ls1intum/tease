@@ -1,6 +1,13 @@
 <div *ngIf="team" id="container">
   <div id="title-container">
     <h1>{{team.name}}</h1>
+    <button md-raised-button (click)="showStatistics()">
+      Statistics</button>
+    <hr>
+  </div>
+  <div *ngIf="isStatisticsVisible" id="statistics-container">
+    <p>{{team.persons.length}}</p>
+    <p>{{team.persons.length}}</p>
     <hr>
   </div>
   <div [dragula]='"first-bag"' class='drag-container' [dragulaModel]="team.persons">

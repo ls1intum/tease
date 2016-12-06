@@ -14,6 +14,9 @@ import {Team} from "../../shared/models/team";
 export class TeamContainerComponent {
   @Input()
   private team: Team;
+  private isStatisticsVisible = false;
 
-
+  showStatistics(){
+    this.isStatisticsVisible = !this.isStatisticsVisible;
+  }
 }
