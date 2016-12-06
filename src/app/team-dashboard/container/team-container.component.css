@@ -1,9 +1,15 @@
-.drag-container {
+#container {
+  height:100%;
+  width: 300px;
+
   border: 5px solid;
   border-radius: 10px;
-  padding: 14px;
+  display:flex;
+  flex-direction: column;
+}
 
+.drag-container {
   height:100%;
-  width: auto;
+  width: 300px;
   overflow-y: auto;
 }

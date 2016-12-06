@@ -8,8 +8,6 @@
 }
 
 team-container {
-  display:flex;
-  flex-direction: column;
   width:auto;
   height:83vh;
 }

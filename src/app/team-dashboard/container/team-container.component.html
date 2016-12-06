@@ -1,5 +1,10 @@
-<div *ngIf="team" class='drag-container'  [dragula]='"first-bag"' [dragulaModel]="team.persons">
-  <div class='sub-element' *ngFor="let person of team.persons" >
-    <person-preview [person]="person"></person-preview>
+<div *ngIf="team" id="container">
+  <!--<div>-->
+    <!--<h1>{{team.name}}</h1>-->
+  <!--</div>-->
+  <div [dragula]='"first-bag"' class='drag-container' [dragulaModel]="team.persons">
+    <div class='sub-element' *ngFor="let person of team.persons">
+      <person-preview [person]="person"></person-preview>
+    </div>
   </div>
 </div>
