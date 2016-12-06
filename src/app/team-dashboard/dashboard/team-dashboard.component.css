@@ -4,21 +4,12 @@
   height: auto;
   display:flex;
   white-space: nowrap;
-}
-
-.element-container {
-  height: auto;
-  width: auto;
   flex-direction: row;
 }
 
-.drag-container {
+team-container {
   display:flex;
   flex-direction: column;
   width:auto;
   height:83vh;
-}
-
-.sub-element {
-
 }
