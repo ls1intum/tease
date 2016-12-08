@@ -12,7 +12,7 @@ import {MaterialModule} from "@angular/material";
 import {PersonDataImporterComponent} from "./person-data-importer/person-data-importer.component";
 import {PersonDataImporterModule} from "./person-data-importer/person-data-importer.module";
 import {TeamDashboardComponent} from "./team-dashboard/dashboard/team-dashboard.component";
-import {TeamDashboardModule} from "./team-dashboard/dashboard/team-dashboard.module";
+import {TeamDashboardModule} from "./team-dashboard/team-dashboard.module";
 import {DragulaModule} from "ng2-dragula/ng2-dragula";
 import {TeamGenerationModule} from "./team-generation/team-generation.module";
 

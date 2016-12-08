@@ -11,7 +11,7 @@
     <hr>
   </div>
   <div [dragula]='"first-bag"' class='drag-container' [dragulaModel]="team.persons">
-    <div class='sub-element' *ngFor="let person of team.persons">
+    <div class='sub-element' *ngFor="let person of team.persons" (click)="showPersonDetails(person)">
       <person-preview [person]="person"></person-preview>
     </div>
   </div>
