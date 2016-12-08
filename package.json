@@ -21,7 +21,7 @@
     "css-loader": "^0.25.0",
     "raw-loader": "^0.5.1",
     "to-string-loader": "^1.1.4",
-    "typescript": "^2.0.2",
+    "typescript": "2.0.10",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2",
     "webpack-merge": "^0.15.0"

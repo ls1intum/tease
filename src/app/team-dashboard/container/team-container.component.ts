@@ -1,5 +1,4 @@
-import {Component, Input, ViewEncapsulation} from "@angular/core";
-import {Person} from "../../shared/models/person";
+import {Component, Input} from "@angular/core";
 import {Team} from "../../shared/models/team";
 /**
  * Created by Malte Bucksch on 06/12/2016.

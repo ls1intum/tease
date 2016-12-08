@@ -13,7 +13,5 @@ import {Person} from "../../shared/models/person";
 })
 export class PersonPreviewComponent {
   @Input()
-  private person: Person;
-
-
+  person: Person;
 }

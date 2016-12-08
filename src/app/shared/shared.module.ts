@@ -10,13 +10,15 @@ import {TeamAccessService} from "./layers/data-access-layer/team.access.service"
 import {TeamGenerator} from "./layers/business-logic-layer/team_generation/TeamGenerator";
 import {DummyTeamGenerator} from "./layers/business-logic-layer/team_generation/DummyTeamGenerator";
 import {PersistentTeamAccessService} from "./layers/data-access-layer/persistent-team-access.service";
+import {DialogService} from "./ui/dialog.service";
+import {MaterialModule} from "@angular/material";
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
  */
 
 @NgModule({
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MaterialModule.forRoot()],
   declarations: [],
   exports: [
     CommonModule, FormsModule, RouterModule],
@@ -30,7 +32,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [PersonService, TeamService]
+      providers: [PersonService, TeamService,DialogService]
     };
   }
 }
