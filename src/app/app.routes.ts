@@ -6,7 +6,7 @@ import {TeamDashboardRoutes} from "./team-dashboard/dashboard/team-dashboard.rou
 import {TeamGenerationRoutes} from "./team-generation/team-generation.routes";
 
 export const rootRouterConfig: Routes = [
-  {path: '', redirectTo: 'persons', pathMatch: 'full'},
+  {path: '', redirectTo: 'import', pathMatch: 'full'},
   ...PersonDetailRoutes,
   ...PersonListRoutes,
   ...PersonDataImporterRoutes,

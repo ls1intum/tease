@@ -1,2 +1,6 @@
 
 <input type="file" name="Choose file" (change)="onFileChanged($event)" accept="text/csv">
+
+<span class="app-action" *ngIf="isDataAvailable" [class.m2app-dark]="isDarkTheme">
+  <button md-fab (click)="gotoPersonList()"><md-icon>check circle</md-icon></button>
+</span>

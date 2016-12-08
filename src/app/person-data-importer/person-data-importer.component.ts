@@ -14,9 +14,11 @@ import {TeamService} from "../shared/layers/business-logic-layer/services/team.s
   selector: 'person-data-importer',
 })
 export class PersonDataImporterComponent implements OnInit {
+  private isDataAvailable = false;
+
   constructor(private teamService: TeamService,
               private router: Router) {
-
+    this.checkIfDataAvailable();
   }
 
   ngOnInit(): void {
@@ -36,5 +38,13 @@ export class PersonDataImporterComponent implements OnInit {
   gotoPersonList(){
     let link = ["/persons"];
     this.router.navigate(link);
+  }
+
+  checkIfDataAvailable() {
+    this.teamService.read().then(
+      teams => {
+        this.isDataAvailable = teams != undefined && teams.length != 0;
+      }
+    )
   }
 }
