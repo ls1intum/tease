@@ -11,6 +11,7 @@ export class PersistentTeamAccessService extends TeamAccessService {
 
   read(): Promise<Team[]> {
     let teamData = localStorage.getItem(PersistentTeamAccessService.TeamStorageKey);
+    if(teamData == undefined)return Promise.resolve([]);
 
     return new Promise((resolve,reject) => {
       Papa.parse(teamData, {
@@ -39,6 +40,10 @@ export class PersistentTeamAccessService extends TeamAccessService {
 
     localStorage.setItem(PersistentTeamAccessService.TeamStorageKey,
       result);
+  }
+
+  dropData(){
+    localStorage.removeItem(PersistentTeamAccessService.TeamStorageKey);
   }
 
   addTeamMember(person: Person, team: Team) {

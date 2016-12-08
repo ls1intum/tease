@@ -32,6 +32,10 @@ export class TeamService {
     this.teamAccessService.save(teams);
   }
 
+  dropData(){
+    this.teamAccessService.dropData();
+  }
+
   addTeamMember(person: Person, team: Team){
     // TODO implement
   }

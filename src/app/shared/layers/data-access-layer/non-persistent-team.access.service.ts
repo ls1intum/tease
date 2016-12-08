@@ -24,6 +24,10 @@ export class NonPersistentTeamAccessService extends TeamAccessService {
     team.remove(person);
   }
 
+  dropData(){
+    this.savedTeams = [];
+  }
+
   save(teams: Team[]) {
     this.savedTeams = teams;
   }
