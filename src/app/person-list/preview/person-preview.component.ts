@@ -8,7 +8,8 @@ import {Person} from "../../shared/models/person";
 
 @Component({
   templateUrl: 'person-preview.component.html',
-  selector: 'person-preview'
+  selector: 'person-preview',
+  styleUrls: ['person-preview.component.css']
 })
 export class PersonPreviewComponent {
   @Input()
