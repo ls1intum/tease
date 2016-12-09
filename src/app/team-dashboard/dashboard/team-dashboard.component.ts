@@ -20,7 +20,7 @@ import {PersonPreviewComponent} from "../../person-list/preview/person-preview.c
   selector: 'team-dashboard',
 })
 export class TeamDashboardComponent implements OnInit {
-  private readonly EXPORT_FILE_NAME = "team_data";
+  private readonly EXPORT_FILE_NAME = "team_data.csv";
 
   private teams: Team[];
   private dialogRef: MdDialogRef<PersonDetailComponent>;
