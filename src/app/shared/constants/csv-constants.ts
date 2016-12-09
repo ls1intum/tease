@@ -5,7 +5,8 @@
 // colums
 export class CsvColumNames {
   static readonly Person = {Id: "id", FirstName:"firstname",LastName:"lastname",Major:"major",
-    MajorOther: "major[other]", Term: "semester", IosDevExperience: "iOSDevExp"};
+    MajorOther: "major[other]", Term: "semester", IosDevExperience: "iOSDevExp", IosDevExperienceDescription: "iOSDevExplained",
+    Email: "email", GitExperience: "gitExperience"};
   static readonly Team = {TeamName: "teamName", Priority: "Priorities[{d}]"};
 }
 

@@ -16,7 +16,10 @@ export abstract class PersonParser {
     if (person.major === CsvValueNames.MajorOther)
       person.major = personProps[CsvColumNames.Person.MajorOther];
     person.currentTerm = personProps[CsvColumNames.Person.Term];
-    person.iosDevExperience = personProps[CsvColumNames.Person.IosDevExperience];
+    person.iosDevExp = personProps[CsvColumNames.Person.IosDevExperience];
+    person.iosDevExpDescription = personProps[CsvColumNames.Person.IosDevExperienceDescription];
+    person.gitExpDescription = personProps[CsvColumNames.Person.GitExperience];
+    person.email = personProps[CsvColumNames.Person.Email];
 
     // TODO parse other props
 

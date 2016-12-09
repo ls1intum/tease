@@ -10,8 +10,8 @@ export class Person {
   firstName: string;
   lastName: string;
   email: string;
-  iosDevExperience: string;
-  devExpDescription: string;
+  iosDevExp: string;
+  iosDevExpDescription: string;
   gitExpDescription: string;
   skills: Skill[];
   languages: Language[];
