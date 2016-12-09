@@ -2,20 +2,49 @@
   {{person.firstName}} {{person.lastName}}
 </md-toolbar>
 <div id="dialog_container">
-  <h3>Major: {{person.major}}</h3>
-  <h3>Term: {{person.currentTerm}}</h3>
-  <h3>ios Exp: {{person.iosDevExp}}</h3>
-  <h3>email: {{person.email}}</h3>
-  <h3>git: <br>{{person.gitExpDescription}}</h3>
-  <p *ngFor="let device of person.devices">{{device.toString()}}</p>
+  <md-list>
+    <md-list-item>
+      <h3 md-line> Major </h3>
+      <p md-line>{{person.major}}</p>
+    </md-list-item>
+    <md-list-item>
+      <h3 md-line> Term </h3>
+      <p md-line>{{person.currentTerm}}</p>
+    </md-list-item>
+    <md-list-item>
+      <h3 md-line> E-Mail </h3>
+      <p md-line>{{person.email}}</p>
+    </md-list-item>
 
-  <h3>ios Exp:<br> {{person.iosDevExpDescription}}</h3>
+    <!--<md-list-item>-->
+    <!--<h3 md-line> Devices </h3>-->
+    <!--<p md-line *ngFor="let device of person.devices">{{device.toString()}}</p>-->
+    <!--</md-list-item>-->
+    <!--<md-list-item>-->
+    <!--<h3 md-line> Project priorities </h3>-->
+    <!--<p md-line *ngFor="let priority of getTeamPriorities()">{{priority}}</p>-->
+    <!--</md-list-item>-->
+    <!--<md-list-item>-->
+    <!--<h3 md-line> Skills </h3>-->
+    <!--<p md-line *ngFor="let skill of person.skills">{{skill}}</p>-->
+    <!--</md-list-item>-->
+  </md-list>
 
-  <h2>Priority List</h2>
+  <md-divider></md-divider>
+
+  <h3> Git-Experience </h3>
+  <p>{{person.gitExpDescription}}</p>
+  <h3> Experience with iOS </h3>
+  <p>{{person.iosDevExp}}</p>
+
+  <md-divider></md-divider>
+
+  <h3>Priority List</h3>
   <p *ngFor="let priority of getTeamPriorities()">{{priority}}</p>
-  <h2>Skill List</h2>
+  <h3>Skill List</h3>
   <p *ngFor="let skill of person.skills">{{skill.toString()}}</p>
 
+  <p *ngFor="let device of person.devices">{{device.toString()}}</p>
 </div>
 
 

@@ -2,3 +2,8 @@
   overflow-y: auto;
   max-height: 80vh;
 }
+
+md-list-item {
+  max-width: 300px;
+}
+
