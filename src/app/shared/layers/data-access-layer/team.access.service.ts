@@ -7,6 +7,7 @@ export abstract class TeamAccessService {
   abstract read(): Promise<Team[]>;
   abstract readCsv(csvFile: File): Promise<Team[]>;
   abstract dropData();
+  abstract readCsvData(): string;
   abstract addTeamMember(person: Person, team: Team);
   abstract removeTeamMember(person: Person, team: Team);
 }

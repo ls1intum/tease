@@ -27,19 +27,21 @@ export class TeamService {
     return this.teamAccessService.readCsv(csvFile);
   }
 
+  exportTeams(){
+    // let csvData = this.teamAccessService.readCsvData();
+    // let uriContent = "data:csv/octet-stream," + encodeURIComponent(csvData);
+    // window.open(uriContent, 'neuesDokument');
+
+    // let blob = new Blob([csvData], { type: 'text/csv' });
+    // let url= window.URL.createObjectURL(blob);
+    // window.open(url);
+  }
+
   save(teams: Team[]){
     this.teamAccessService.save(teams);
   }
 
   dropData(){
     this.teamAccessService.dropData();
-  }
-
-  addTeamMember(person: Person, team: Team){
-    // TODO implement
-  }
-
-  removeTeamMember(person: Person, team: Team){
-    // TODO implement
   }
 }

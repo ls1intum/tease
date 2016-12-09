@@ -8,4 +8,5 @@ export const TeamDashboardRoutes: Routes = [
     path: 'dashboard',
     component: TeamDashboardComponent
   }
+
 ];

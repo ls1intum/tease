@@ -23,6 +23,10 @@ export class PersistentTeamAccessService extends TeamAccessService {
     });
   }
 
+  readCsvData(): string {
+    return localStorage.getItem(PersistentTeamAccessService.TeamStorageKey);
+  }
+
   readCsv(csvFile: File): Promise<Team[]> {
     return new Promise((resolve,reject) => {
       Papa.parse(csvFile, {
