@@ -7,10 +7,12 @@ import {TeamAccessService} from "../../data-access-layer/team.access.service";
  * Created by wanur on 05/11/2016.
  */
 
-// TODO extract saving to data access layer
+let FileSaver = require('file-saver');
 
 @Injectable()
 export class TeamService {
+  private readonly EXPORT_DATA_TYPE = "text/csv;charset=utf-8";
+
   constructor(private teamGenerator: TeamGenerator, private teamAccessService: TeamAccessService){
 
   }
@@ -27,14 +29,10 @@ export class TeamService {
     return this.teamAccessService.readCsv(csvFile);
   }
 
-  exportTeams(){
-    // let csvData = this.teamAccessService.readCsvData();
-    // let uriContent = "data:csv/octet-stream," + encodeURIComponent(csvData);
-    // window.open(uriContent, 'neuesDokument');
-
-    // let blob = new Blob([csvData], { type: 'text/csv' });
-    // let url= window.URL.createObjectURL(blob);
-    // window.open(url);
+  exportTeams(fileName: string){
+    let csvData = this.teamAccessService.readCsvData();
+    let blob = new Blob([csvData], {type: this.EXPORT_DATA_TYPE});
+    FileSaver.saveAs(blob, fileName);
   }
 
   save(teams: Team[]){

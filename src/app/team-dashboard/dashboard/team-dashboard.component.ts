@@ -20,6 +20,8 @@ import {PersonPreviewComponent} from "../../person-list/preview/person-preview.c
   selector: 'team-dashboard',
 })
 export class TeamDashboardComponent implements OnInit {
+  private readonly EXPORT_FILE_NAME = "team_data";
+
   private teams: Team[];
   private dialogRef: MdDialogRef<PersonDetailComponent>;
 
@@ -75,6 +77,6 @@ export class TeamDashboardComponent implements OnInit {
   }
 
   exportTeams() {
-    this.teamService.exportTeams();
+    this.teamService.exportTeams(this.EXPORT_FILE_NAME);
   }
 }
