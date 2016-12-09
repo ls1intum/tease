@@ -1,7 +1,7 @@
 import {Team} from "./team";
 import {Language} from "./language";
 import {Skill} from "./skill";
-import {Device} from "./device";
+import {Device, DeviceType} from "./device";
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -37,5 +37,9 @@ export class Person {
 
   addDevice(device: Device) {
     this.devices.push(device);
+  }
+
+  ownsDevice(deviceType: DeviceType): boolean {
+    return this.devices.filter(d => d.deviceType === deviceType).length >0;
   }
 }

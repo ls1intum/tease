@@ -4,10 +4,10 @@
   <h1>Last name: {{person.lastName}}</h1>
   <h2>Major: {{person.major}}</h2>
   <h3>Term: {{person.currentTerm}}</h3>
-  <h3>ios Exp: {{person.iosDevExp}}</h3>
-  <h3>email: {{person.email}}</h3>
-  <h3>git: {{person.gitExpDescription}}</h3>
-  <p *ngFor="let device of person.devices">{{Device[device]}}</p>
+  <!--<h3>ios Exp: {{person.iosDevExp}}</h3>-->
+  <!--<h3>email: {{person.email}}</h3>-->
+  <!--<h3>git: {{person.gitExpDescription}}</h3>-->
+  <p *ngFor="let device of person.devices">{{device.toString()}}</p>
 
   <!--<h3>ios Exp: {{person.iosDevExpDescription}}</h3>-->
 

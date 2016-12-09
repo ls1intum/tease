@@ -2,7 +2,7 @@ import {Person} from "../../../models/person";
 import {StringHelper} from "../../../helpers/StringHelper";
 import {debug} from "util";
 import {CsvColumNames, CsvValueNames} from "../../../constants/csv-constants";
-import {Device} from "../../../models/device";
+import {Device, DeviceType} from "../../../models/device";
 /**
  * Created by Malte Bucksch on 01/12/2016.
  */
@@ -39,15 +39,15 @@ export class PersonSerializer {
   }
 
   private static serializePersonDevices(person: Person, personProps: {}) {
-    personProps[CsvColumNames.PersonDevices.Ipad] = person.devices.indexOf(Device.Ipad) ?
+    personProps[CsvColumNames.PersonDevices.Ipad] = person.ownsDevice(DeviceType.Ipad) ?
       CsvValueNames.DeviceAvailableBoolean.Available : CsvValueNames.DeviceAvailableBoolean.Unavailable;
-    personProps[CsvColumNames.PersonDevices.Iphone] = person.devices.indexOf(Device.Iphone) ?
+    personProps[CsvColumNames.PersonDevices.Iphone] = person.ownsDevice(DeviceType.Iphone) ?
       CsvValueNames.DeviceAvailableBoolean.Available : CsvValueNames.DeviceAvailableBoolean.Unavailable;
-    personProps[CsvColumNames.PersonDevices.Ipod] = person.devices.indexOf(Device.Ipod) ?
+    personProps[CsvColumNames.PersonDevices.Ipod] = person.ownsDevice(DeviceType.Ipod) ?
       CsvValueNames.DeviceAvailableBoolean.Available : CsvValueNames.DeviceAvailableBoolean.Unavailable;
-    personProps[CsvColumNames.PersonDevices.Watch] = person.devices.indexOf(Device.Watch) ?
+    personProps[CsvColumNames.PersonDevices.Watch] = person.ownsDevice(DeviceType.Watch) ?
       CsvValueNames.DeviceAvailableBoolean.Available : CsvValueNames.DeviceAvailableBoolean.Unavailable;
-    personProps[CsvColumNames.PersonDevices.Mac] = person.devices.indexOf(Device.Mac) ?
+    personProps[CsvColumNames.PersonDevices.Mac] = person.ownsDevice(DeviceType.Mac) ?
       CsvValueNames.DeviceAvailableBoolean.Available : CsvValueNames.DeviceAvailableBoolean.Unavailable;
   }
 }

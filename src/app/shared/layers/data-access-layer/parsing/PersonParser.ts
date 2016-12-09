@@ -1,6 +1,6 @@
 import {Person} from "../../../models/person";
 import {CsvColumNames, CsvValueNames} from "../../../constants/csv-constants";
-import {Device} from "../../../models/device";
+import {Device, DeviceType} from "../../../models/device";
 /**
  * Created by Malte Bucksch on 01/12/2016.
  */
@@ -29,15 +29,17 @@ export abstract class PersonParser {
   }
 
   private static parsePersonDevices(person: Person, personProps: Array<any>) {
-    if(personProps[CsvColumNames.PersonDevices.Ipad])
-      person.addDevice(Device.Ipad);
-    if(personProps[CsvColumNames.PersonDevices.Mac])
-      person.addDevice(Device.Mac);
-    if(personProps[CsvColumNames.PersonDevices.Ipod])
-      person.addDevice(Device.Ipod);
-    if(personProps[CsvColumNames.PersonDevices.Watch])
-      person.addDevice(Device.Watch);
-    if(personProps[CsvColumNames.PersonDevices.Iphone])
-      person.addDevice(Device.Iphone);
+    let available = CsvValueNames.DeviceAvailableBoolean.Available;
+
+    if(personProps[CsvColumNames.PersonDevices.Ipad] === available)
+      person.addDevice(new Device(DeviceType.Ipad));
+    if(personProps[CsvColumNames.PersonDevices.Mac] === available)
+      person.addDevice(new Device(DeviceType.Mac));
+    if(personProps[CsvColumNames.PersonDevices.Ipod] === available)
+      person.addDevice(new Device(DeviceType.Ipod));
+    if(personProps[CsvColumNames.PersonDevices.Watch] === available)
+      person.addDevice(new Device(DeviceType.Watch));
+    if(personProps[CsvColumNames.PersonDevices.Iphone] === available)
+      person.addDevice(new Device(DeviceType.Iphone));
   }
 }
