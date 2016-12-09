@@ -1,6 +1,7 @@
 import {Team} from "./team";
 import {Language} from "./language";
 import {Skill} from "./skill";
+import {Device} from "./device";
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -13,9 +14,9 @@ export class Person {
   iosDevExp: string;
   iosDevExpDescription: string;
   gitExpDescription: string;
-  skills: Skill[];
-  languages: Language[];
-  devices: Device[];
+  skills: Skill[] = [];
+  languages: Language[] = [];
+  devices: Device[] = [];
 
   currentTerm: number;
   major: string;
@@ -25,12 +26,16 @@ export class Person {
 
   supervisorRating: number;
 
-  constructor(id?: number, firstName?: string){
+  constructor(id?: number, firstName?: string) {
     this.id = id || 0;
     this.firstName = firstName || "no name";
   }
 
   getTeamPriority(team: Team): number {
     return this.teamPriorities.indexOf(team) + 1;
+  }
+
+  addDevice(device: Device) {
+    this.devices.push(device);
   }
 }

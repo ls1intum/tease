@@ -1,7 +1,8 @@
 import {Person} from "../../../models/person";
 import {StringHelper} from "../../../helpers/StringHelper";
 import {debug} from "util";
-import {CsvColumNames} from "../../../constants/csv-constants";
+import {CsvColumNames, CsvValueNames} from "../../../constants/csv-constants";
+import {Device} from "../../../models/device";
 /**
  * Created by Malte Bucksch on 01/12/2016.
  */
@@ -19,9 +20,15 @@ export class PersonSerializer {
     personProps[CsvColumNames.Person.IosDevExperienceDescription] = person.iosDevExpDescription;
     personProps[CsvColumNames.Person.GitExperience] = person.gitExpDescription;
     personProps[CsvColumNames.Person.Email] = person.email;
+    this.serializePersonDevices(person,personProps);
+    this.serializePriorities(person, personProps);
 
-    for(let teamPrio of person.teamPriorities){
-      if(teamPrio == undefined)
+    return personProps;
+  }
+
+  private static serializePriorities(person: Person, personProps: {}) {
+    for (let teamPrio of person.teamPriorities) {
+      if (teamPrio == undefined)
         debugger;
 
       let columnName = StringHelper.format(CsvColumNames.Team.Priority,
@@ -29,7 +36,18 @@ export class PersonSerializer {
 
       personProps[columnName] = teamPrio.name;
     }
+  }
 
-    return personProps;
+  private static serializePersonDevices(person: Person, personProps: {}) {
+    personProps[CsvColumNames.PersonDevices.Ipad] = person.devices.indexOf(Device.Ipad) ?
+      CsvValueNames.DeviceAvailableBoolean.Available : CsvValueNames.DeviceAvailableBoolean.Unavailable;
+    personProps[CsvColumNames.PersonDevices.Iphone] = person.devices.indexOf(Device.Iphone) ?
+      CsvValueNames.DeviceAvailableBoolean.Available : CsvValueNames.DeviceAvailableBoolean.Unavailable;
+    personProps[CsvColumNames.PersonDevices.Ipod] = person.devices.indexOf(Device.Ipod) ?
+      CsvValueNames.DeviceAvailableBoolean.Available : CsvValueNames.DeviceAvailableBoolean.Unavailable;
+    personProps[CsvColumNames.PersonDevices.Watch] = person.devices.indexOf(Device.Watch) ?
+      CsvValueNames.DeviceAvailableBoolean.Available : CsvValueNames.DeviceAvailableBoolean.Unavailable;
+    personProps[CsvColumNames.PersonDevices.Mac] = person.devices.indexOf(Device.Mac) ?
+      CsvValueNames.DeviceAvailableBoolean.Available : CsvValueNames.DeviceAvailableBoolean.Unavailable;
   }
 }
