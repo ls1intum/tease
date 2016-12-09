@@ -15,6 +15,7 @@ export class DialogService {
   public showPersonDetails(person: Person, viewContainerRef: ViewContainerRef): Observable<boolean> {
     let dialogRef: MdDialogRef<PersonDetailComponent>;
     let config = new MdDialogConfig();
+
     config.viewContainerRef = viewContainerRef;
 
     dialogRef = this.dialog.open(PersonDetailComponent, config);
