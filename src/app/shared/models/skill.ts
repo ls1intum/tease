@@ -12,7 +12,7 @@ export class Skill {
   }
 }
 
-enum SkillLevel {
+export enum SkillLevel {
   VeryHigh,
   High,
   Medium,

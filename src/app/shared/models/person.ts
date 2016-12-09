@@ -1,6 +1,6 @@
 import {Team} from "./team";
 import {Language} from "./language";
-import {Skill} from "./skill";
+import {Skill, SkillLevel} from "./skill";
 import {Device, DeviceType} from "./device";
 /**
  * Created by wanur on 05/11/2016.
@@ -37,6 +37,10 @@ export class Person {
 
   addDevice(device: Device) {
     this.devices.push(device);
+  }
+
+  addSkill(skillName: string, skillLevel:SkillLevel) {
+    this.skills.push(new Skill(skillName,skillLevel));
   }
 
   ownsDevice(deviceType: DeviceType): boolean {
