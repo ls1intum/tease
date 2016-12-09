@@ -75,6 +75,6 @@ export class TeamDashboardComponent implements OnInit {
   }
 
   exportTeams() {
-    this.teamService.save(this.teams);
+
   }
 }

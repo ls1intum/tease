@@ -24,4 +24,9 @@ export class PersonDetailComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
+  private getTeamPriorities(): string[]{
+    return this.person.teamPriorities.map(
+      prio => (this.person.teamPriorities.indexOf(prio)+1) + " " + prio.name)
+  }
 }

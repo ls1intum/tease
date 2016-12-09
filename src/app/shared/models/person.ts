@@ -7,10 +7,15 @@ export class Person {
   id: number;
   firstName: string;
   lastName: string;
+  nativeLanguage: string;
+
+  currentTerm: number;
   major: string;
+
   team: Team;
-  supervisorRating: number;
   teamPriorities: Team[] = [];
+
+  supervisorRating: number;
 
   constructor(id?: number, firstName?: string){
     this.id = id || 0;
