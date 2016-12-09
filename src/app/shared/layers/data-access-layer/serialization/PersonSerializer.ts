@@ -15,6 +15,7 @@ export class PersonSerializer {
     personProps[CsvColumNames.Person.FirstName] = person.firstName;
     personProps[CsvColumNames.Person.LastName] = person.lastName;
     personProps[CsvColumNames.Person.Term] = person.currentTerm;
+    personProps[CsvColumNames.Person.IosDevExperience] = person.iosDevExperience;
 
     for(let teamPrio of person.teamPriorities){
       if(teamPrio == undefined)
