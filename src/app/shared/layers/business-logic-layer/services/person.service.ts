@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {Person} from "../../../models/person";
-import {PERSONS} from "../../../models/mock-persons";
 import Papa = require("papaparse");
 import {PersonAccessService} from "../../data-access-layer/person.access.service";
 import {NonPersistentPersonAccessService} from "../../data-access-layer/non-persistent-person.access.service";
