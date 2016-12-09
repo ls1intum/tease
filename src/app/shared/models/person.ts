@@ -39,8 +39,8 @@ export class Person {
     this.devices.push(device);
   }
 
-  addSkill(skillName: string, skillLevel:SkillLevel) {
-    this.skills.push(new Skill(skillName,skillLevel));
+  addSkill(skillName: string, skillType: string, skillLevel:SkillLevel) {
+    this.skills.push(new Skill(skillName,skillType,skillLevel));
   }
 
   ownsDevice(deviceType: DeviceType): boolean {

@@ -23,6 +23,7 @@ export abstract class PersonParser {
     person.iosDevExpDescription = personProps[CsvColumNames.Person.IosDevExperienceDescription];
     person.gitExpDescription = personProps[CsvColumNames.Person.GitExperience];
     person.email = personProps[CsvColumNames.Person.Email];
+
     this.parsePersonDevices(person,personProps);
     this.parsePersonSkills(person,personProps);
 
@@ -35,13 +36,13 @@ export abstract class PersonParser {
     let conceptProps = this.parseArray(CsvColumNames.PersonSkills.Concept,personProps);
     for(let skillKey in conceptProps){
       let skillLevel=this.parseSkillLevel(conceptProps[skillKey]);
-      person.addSkill(skillKey,skillLevel);
+      person.addSkill(skillKey,CsvColumNames.PersonSkills.Concept,skillLevel);
     }
 
     let techProps = this.parseArray(CsvColumNames.PersonSkills.Technology,personProps);
     for(let skillKey in techProps){
       let skillLevel=this.parseSkillLevel(techProps[skillKey]);
-      person.addSkill(skillKey,skillLevel);
+      person.addSkill(skillKey,CsvColumNames.PersonSkills.Technology,skillLevel);
     }
   }
 

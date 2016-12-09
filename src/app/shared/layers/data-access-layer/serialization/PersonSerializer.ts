@@ -1,8 +1,8 @@
 import {Person} from "../../../models/person";
 import {StringHelper} from "../../../helpers/StringHelper";
-import {debug} from "util";
 import {CsvColumNames, CsvValueNames} from "../../../constants/csv-constants";
-import {Device, DeviceType} from "../../../models/device";
+import {DeviceType} from "../../../models/device";
+import {SkillLevel} from "../../../models/skill";
 /**
  * Created by Malte Bucksch on 01/12/2016.
  */
@@ -22,6 +22,7 @@ export class PersonSerializer {
     personProps[CsvColumNames.Person.Email] = person.email;
     this.serializePersonDevices(person,personProps);
     this.serializePriorities(person, personProps);
+    this.serializeSkills(person,personProps);
 
     return personProps;
   }
@@ -35,6 +36,28 @@ export class PersonSerializer {
         person.getTeamPriority(teamPrio));
 
       personProps[columnName] = teamPrio.name;
+    }
+  }
+
+  private static serializeSkills(person: Person, personProps: {}) {
+    for(let skill of person.skills){
+      let columnName = skill.skillType + CsvColumNames.ArrayBraces.Open + skill.skill + CsvColumNames.ArrayBraces.Close;
+      personProps[columnName] = this.serializeSkillLevel(skill.skillLevel);
+    }
+  }
+
+  static serializeSkillLevel(skillLevel: SkillLevel){
+    switch (skillLevel){
+      case SkillLevel.VeryHigh:
+        return CsvValueNames.SkillLevel.VeryHigh;
+      case SkillLevel.High:
+        return CsvValueNames.SkillLevel.High;
+      case SkillLevel.Medium:
+        return CsvValueNames.SkillLevel.Medium;
+      case SkillLevel.Low:
+        return CsvValueNames.SkillLevel.Low;
+      case SkillLevel.None:
+        return CsvValueNames.SkillLevel.None;
     }
   }
 

@@ -7,12 +7,13 @@
   <!--<h3>ios Exp: {{person.iosDevExp}}</h3>-->
   <!--<h3>email: {{person.email}}</h3>-->
   <!--<h3>git: {{person.gitExpDescription}}</h3>-->
-  <p *ngFor="let device of person.devices">{{device.toString()}}</p>
+  <!--<p *ngFor="let device of person.devices">{{device.toString()}}</p>-->
 
   <!--<h3>ios Exp: {{person.iosDevExpDescription}}</h3>-->
 
   <!--<h2>Priority List</h2>-->
   <!--<p *ngFor="let priority of getTeamPriorities()">{{priority}}</p>-->
+  <p *ngFor="let skill of person.skills">{{skill.toString()}}</p>
 
   <button md-raised-button (click)="dialogRef.close()">
     Close dialog</button>`
