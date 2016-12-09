@@ -1,25 +1,26 @@
 import {Person} from "../../../models/person";
-import {CsvColumnNamesPerson, CsvColumnNamesTeam} from "../../../constants/data-access-constants";
 import {StringHelper} from "../../../helpers/StringHelper";
 import {debug} from "util";
+import {CsvColumNames} from "../../../constants/csv-constants";
 /**
  * Created by Malte Bucksch on 01/12/2016.
  */
 
 export class PersonSerializer {
-  static getProperties(person: Person): {} {
+  static serializePerson(person: Person): {} {
     let personProps = {};
 
-    personProps[CsvColumnNamesPerson.Id] = person.id;
-    personProps[CsvColumnNamesPerson.Major] = person.major;
-    personProps[CsvColumnNamesPerson.FirstName] = person.firstName;
-    personProps[CsvColumnNamesPerson.LastName] = person.lastName;
+    personProps[CsvColumNames.Person.Id] = person.id;
+    personProps[CsvColumNames.Person.Major] = person.major;
+    personProps[CsvColumNames.Person.FirstName] = person.firstName;
+    personProps[CsvColumNames.Person.LastName] = person.lastName;
+    personProps[CsvColumNames.Person.Term] = person.currentTerm;
 
     for(let teamPrio of person.teamPriorities){
       if(teamPrio == undefined)
         debugger;
 
-      let columnName = StringHelper.format(CsvColumnNamesTeam.Priority,
+      let columnName = StringHelper.format(CsvColumNames.Team.Priority,
         person.getTeamPriority(teamPrio));
 
       personProps[columnName] = teamPrio.name;
@@ -27,6 +28,4 @@ export class PersonSerializer {
 
     return personProps;
   }
-
-
 }

@@ -3,8 +3,9 @@
   <h1>First name: {{person.firstName}}</h1>
   <h1>Last name: {{person.lastName}}</h1>
   <h2>Major: {{person.major}}</h2>
-  <h2>Priority List</h2>
-  <p *ngFor="let priority of getTeamPriorities()">{{priority}}</p>
+  <h3>Term: {{person.currentTerm}}</h3>
+  <!--<h2>Priority List</h2>-->
+  <!--<p *ngFor="let priority of getTeamPriorities()">{{priority}}</p>-->
 
   <button md-raised-button (click)="dialogRef.close()">
     Close dialog</button>`

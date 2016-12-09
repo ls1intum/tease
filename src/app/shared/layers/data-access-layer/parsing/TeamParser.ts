@@ -1,6 +1,6 @@
 import {Team} from "../../../models/team";
 import {PersonParser} from "./PersonParser";
-import {CsvColumnNamesTeam, CsvTeamPrioritiesCount} from "../../../constants/data-access-constants";
+import {CsvTeamPrioritiesCount, CsvColumNames} from "../../../constants/csv-constants";
 import {Person} from "../../../models/person";
 import {StringHelper} from "../../../helpers/StringHelper";
 
@@ -15,7 +15,7 @@ export class TeamParser {
       let person = PersonParser.parsePerson(personProps);
 
       this.parsePriorities(teams, person, personProps);
-      this.addTeam(teams, personProps[CsvColumnNamesTeam.TeamName], person);
+      this.addTeam(teams, personProps[CsvColumNames.Team.TeamName], person);
 
       return person;
     });
@@ -37,8 +37,8 @@ export class TeamParser {
   }
 
   private static parsePriorities(teams: TeamList, person: Person, personProps: Array<any>) {
-    for (let prio = 1; prio < CsvTeamPrioritiesCount; prio++) {
-      let columnName = StringHelper.format(CsvColumnNamesTeam.Priority, prio);
+    for (let prio = 1; prio <= CsvTeamPrioritiesCount; prio++) {
+      let columnName = StringHelper.format(CsvColumNames.Team.Priority, prio);
 
       if(!personProps[columnName])continue;
 

@@ -1,4 +1,6 @@
 import {Team} from "./team";
+import {Language} from "./language";
+import {Skill} from "./skill";
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -7,7 +9,13 @@ export class Person {
   id: number;
   firstName: string;
   lastName: string;
-  nativeLanguage: string;
+  email: string;
+  iosDevExperience: string;
+  devExpDescription: string;
+  gitExpDescription: string;
+  skills: Skill[];
+  languages: Language[];
+  devices: Device[];
 
   currentTerm: number;
   major: string;

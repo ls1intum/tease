@@ -1,20 +1,21 @@
 
 import {Team} from "../../../models/team";
 import {PersonSerializer} from "./PersonSerializer";
-import {CsvColumnNamesTeam} from "../../../constants/data-access-constants";
-export class TeamSerializer {
-  static getTeamProperties(team: Team): {}[] {
-    return team.persons.map(person => {
-      let personProperties = PersonSerializer.getProperties(person);
+import {CsvColumNames} from "../../../constants/csv-constants";
 
-      personProperties[CsvColumnNamesTeam.TeamName] = team.name;
+export class TeamSerializer {
+  static serializeTeam(team: Team): {}[] {
+    return team.persons.map(person => {
+      let personProperties = PersonSerializer.serializePerson(person);
+
+      personProperties[CsvColumNames.Team.TeamName] = team.name;
 
       return personProperties;
     });
   }
 
-  static getTeamListProperties(teams: Team[]): {}[] {
-    let propList = teams.map(team => TeamSerializer.getTeamProperties(team));
+  static serializeTeamList(teams: Team[]): {}[] {
+    let propList = teams.map(team => TeamSerializer.serializeTeam(team));
 
     return [].concat(...propList);
   }

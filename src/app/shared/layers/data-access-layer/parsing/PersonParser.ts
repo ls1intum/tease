@@ -1,5 +1,5 @@
 import {Person} from "../../../models/person";
-import {CsvColumnNamesPerson} from "../../../constants/data-access-constants";
+import {CsvColumNames, CsvValueNames} from "../../../constants/csv-constants";
 /**
  * Created by Malte Bucksch on 01/12/2016.
  */
@@ -9,12 +9,20 @@ export abstract class PersonParser {
     let person = new Person();
 
     // TODO check if this conversion works
-    person.id = personProps[CsvColumnNamesPerson.Id];
-    person.firstName = personProps[CsvColumnNamesPerson.FirstName];
-    person.lastName = personProps[CsvColumnNamesPerson.LastName];
-    person.major = personProps[CsvColumnNamesPerson.Major];
+    person.id = personProps[CsvColumNames.Person.Id];
+    person.firstName = personProps[CsvColumNames.Person.FirstName];
+    person.lastName = personProps[CsvColumNames.Person.LastName];
+    person.major = personProps[CsvColumNames.Person.Major];
+    if (person.major === CsvValueNames.MajorOther)
+      person.major = personProps[CsvColumNames.Person.MajorOther];
+    person.currentTerm = personProps[CsvColumNames.Person.Term];
+
     // TODO parse other props
 
     return person;
+  }
+
+  private parseLanguages() {
+
   }
 }

@@ -35,7 +35,7 @@ export class PersistentTeamAccessService extends TeamAccessService {
   }
 
   save(teams: Team[]) {
-    let teamListProperties = TeamSerializer.getTeamListProperties(teams);
+    let teamListProperties = TeamSerializer.serializeTeamList(teams);
     let result = Papa.unparse(teamListProperties);
 
     localStorage.setItem(PersistentTeamAccessService.TeamStorageKey,
