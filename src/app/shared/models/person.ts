@@ -24,7 +24,7 @@ export class Person {
   team: Team;
   teamPriorities: Team[] = [];
 
-  supervisorRating: number;
+  supervisorRating: SkillLevel;
 
   constructor(id?: number, firstName?: string) {
     this.id = id || 0;

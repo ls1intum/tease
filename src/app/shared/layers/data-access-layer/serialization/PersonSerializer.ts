@@ -23,6 +23,7 @@ export class PersonSerializer {
     this.serializePersonDevices(person,personProps);
     this.serializePriorities(person, personProps);
     this.serializeSkills(person,personProps);
+    personProps[CsvColumNames.Person.SupervisorRating] = this.serializeSkillLevel(person.supervisorRating);
 
     return personProps;
   }

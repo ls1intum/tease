@@ -23,6 +23,7 @@ export abstract class PersonParser {
     person.iosDevExpDescription = personProps[CsvColumNames.Person.IosDevExperienceDescription];
     person.gitExpDescription = personProps[CsvColumNames.Person.GitExperience];
     person.email = personProps[CsvColumNames.Person.Email];
+    person.supervisorRating = this.parseSkillLevel(personProps[CsvColumNames.Person.SupervisorRating]);
 
     this.parsePersonDevices(person,personProps);
     this.parsePersonSkills(person,personProps);
