@@ -19,23 +19,22 @@ import {TeamService} from "../shared/layers/business-logic-layer/services/team.s
 export class PersonDetailComponent implements OnInit {
   person: Person;
   public PersonSkillLevel = SkillLevel;
-  private skillString;
+  private skillString: string;
 
   constructor(public dialogRef: MdDialogRef<PersonDetailComponent>,
               private teamService: TeamService) {
   }
 
   ngOnInit(): void {
-    this.skillString = this.person.supervisorRating;
+    this.skillString = this.person.supervisorRating.toString();
   }
 
-  private getTeamPriorities(): string[]{
+  private getTeamPriorities(): string[] {
     return this.person.teamPriorities.map(
-      prio => (this.person.teamPriorities.indexOf(prio)+1) + " " + prio.name)
+      prio => (this.person.teamPriorities.indexOf(prio) + 1) + " " + prio.name)
   }
-
 
   onChangeRating(value: string) {
-    this.person.supervisorRating = SkillLevel[value];
+    this.person.supervisorRating = +value;
   }
 }
