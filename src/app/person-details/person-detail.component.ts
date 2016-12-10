@@ -18,7 +18,11 @@ import {TeamService} from "../shared/layers/business-logic-layer/services/team.s
 })
 export class PersonDetailComponent implements OnInit {
   person: Person;
+  // enums can only be used in a template with this shitty work around.
+  // how stupid is angular 2 here?
   public PersonSkillLevel = SkillLevel;
+  // work around for setting the value of the radio group on init
+  // again: wtf. enums dont seem to be well integrated into typescript/angular
   private skillString: string;
 
   constructor(public dialogRef: MdDialogRef<PersonDetailComponent>,
