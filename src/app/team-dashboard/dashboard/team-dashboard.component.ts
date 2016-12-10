@@ -40,6 +40,10 @@ export class TeamDashboardComponent implements OnInit {
     // TODO find out how to mak use of these "HTMLDIVELEMENT" params
 
     this.updateReferences();
+    this.saveAll();
+  }
+
+  private saveAll() {
     this.teamService.save(this.teams);
   }
 
@@ -58,22 +62,13 @@ export class TeamDashboardComponent implements OnInit {
     });
   }
 
-  gotoDetail(person: Person) {
-    if (this.dialogRef != undefined) this.dialogRef.close();
-
-    let config = new MdDialogConfig();
-    config.viewContainerRef = this.viewContainerRef;
-
-    this.dialogRef = this.dialog.open(PersonDetailComponent, config);
-    this.dialogRef.componentInstance.person = person;
-    this.dialogRef.afterClosed().subscribe(result => {
-      this.dialogRef = undefined;
-    });
-  }
-
   gotoImport() {
     let link = ["/import"];
     this.router.navigate(link);
+  }
+
+  onPersonDialogClosed(){
+    this.saveAll();
   }
 
   exportTeams() {

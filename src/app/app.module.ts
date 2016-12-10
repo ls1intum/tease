@@ -7,7 +7,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {HttpModule} from "@angular/http";
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import {PersonDetailModule} from "./person-details/person-detail.module";
-import {PersonListModule} from "./person-list/list/person-list.module";
+import {PersonListModule} from "./person-list/person-list.module";
 import {MaterialModule} from "@angular/material";
 import {PersonDataImporterComponent} from "./person-data-importer/person-data-importer.component";
 import {PersonDataImporterModule} from "./person-data-importer/person-data-importer.module";

@@ -1,4 +1,4 @@
-import {Component, Input, ViewContainerRef} from "@angular/core";
+import {Component, Input, ViewContainerRef, Output, EventEmitter} from "@angular/core";
 import {Team} from "../../shared/models/team";
 import {DialogService} from "../../shared/ui/dialog.service";
 import {Person} from "../../shared/models/person";
@@ -16,6 +16,7 @@ export class TeamContainerComponent {
   @Input()
   private team: Team;
   private isStatisticsVisible = false;
+  @Output() personClose = new EventEmitter();
 
   constructor(private dialogService: DialogService,
               private viewContainerRef: ViewContainerRef){
@@ -23,7 +24,9 @@ export class TeamContainerComponent {
   }
 
   showPersonDetails(person: Person){
-    this.dialogService.showPersonDetails(person,this.viewContainerRef);
+    this.dialogService.showPersonDetails(person,this.viewContainerRef).subscribe(result => {
+      this.personClose.emit();
+    });
   }
 
   showStatistics(){
