@@ -8,6 +8,7 @@ import {PersonPreviewComponent} from "./preview/person-preview.component";
 import {TeamService} from "../shared/layers/business-logic-layer/services/team.service";
 import {DialogService} from "../shared/ui/dialog.service";
 import {SharedModule} from "../shared/shared.module";
+import {IconMapperService} from "../shared/ui/icon-mapper.service";
 
 /**
  * Created by wanur on 05/11/2016.
@@ -16,7 +17,7 @@ import {SharedModule} from "../shared/shared.module";
   imports: [CommonModule, MaterialModule.forRoot()],
   declarations: [PersonListComponent, PersonPreviewComponent],
   exports: [PersonListComponent, PersonPreviewComponent],
-  providers: [TeamService, DialogService],
+  providers: [TeamService, DialogService, IconMapperService],
   entryComponents: [PersonDetailComponent]
 })
 export class PersonListModule {

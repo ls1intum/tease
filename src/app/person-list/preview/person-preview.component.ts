@@ -1,5 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {Person} from "../../shared/models/person";
+import {IconMapperService} from "../../shared/ui/icon-mapper.service";
 /**
  * Created by Malte Bucksch on 28/11/2016.
  */
@@ -14,4 +15,11 @@ import {Person} from "../../shared/models/person";
 export class PersonPreviewComponent {
   @Input()
   person: Person;
+  constructor(private imageService: IconMapperService){
+
+  }
+
+  getIconPath(): string{
+    return this.imageService.getSkillIcon(this.person.supervisorRating);
+  }
 }
