@@ -23,6 +23,7 @@ export class PersonSerializer {
     this.serializePersonDevices(person,personProps);
     this.serializePriorities(person, personProps);
     this.serializeSkills(person,personProps);
+
     personProps[CsvColumNames.Person.SupervisorRating] = this.serializeSkillLevel(person.supervisorRating);
 
     return personProps;
@@ -50,28 +51,28 @@ export class PersonSerializer {
   static serializeSkillLevel(skillLevel: SkillLevel){
     switch (skillLevel){
       case SkillLevel.VeryHigh:
-        return CsvValueNames.SkillLevel.VeryHigh;
+        return CsvValueNames.SkillLevelValue.VeryHigh;
       case SkillLevel.High:
-        return CsvValueNames.SkillLevel.High;
+        return CsvValueNames.SkillLevelValue.High;
       case SkillLevel.Medium:
-        return CsvValueNames.SkillLevel.Medium;
+        return CsvValueNames.SkillLevelValue.Medium;
       case SkillLevel.Low:
-        return CsvValueNames.SkillLevel.Low;
+        return CsvValueNames.SkillLevelValue.Low;
       case SkillLevel.None:
-        return CsvValueNames.SkillLevel.None;
+        return CsvValueNames.SkillLevelValue.None;
     }
   }
 
   private static serializePersonDevices(person: Person, personProps: {}) {
     personProps[CsvColumNames.PersonDevices.Ipad] = person.ownsDevice(DeviceType.Ipad) ?
-      CsvValueNames.DeviceAvailableBoolean.Available : CsvValueNames.DeviceAvailableBoolean.Unavailable;
+      CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
     personProps[CsvColumNames.PersonDevices.Iphone] = person.ownsDevice(DeviceType.Iphone) ?
-      CsvValueNames.DeviceAvailableBoolean.Available : CsvValueNames.DeviceAvailableBoolean.Unavailable;
+      CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
     personProps[CsvColumNames.PersonDevices.Ipod] = person.ownsDevice(DeviceType.Ipod) ?
-      CsvValueNames.DeviceAvailableBoolean.Available : CsvValueNames.DeviceAvailableBoolean.Unavailable;
+      CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
     personProps[CsvColumNames.PersonDevices.Watch] = person.ownsDevice(DeviceType.Watch) ?
-      CsvValueNames.DeviceAvailableBoolean.Available : CsvValueNames.DeviceAvailableBoolean.Unavailable;
+      CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
     personProps[CsvColumNames.PersonDevices.Mac] = person.ownsDevice(DeviceType.Mac) ?
-      CsvValueNames.DeviceAvailableBoolean.Available : CsvValueNames.DeviceAvailableBoolean.Unavailable;
+      CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
   }
 }

@@ -1,9 +1,5 @@
-#dialog_container {
+#scroll_container {
   overflow-y: auto;
-  max-height: 80vh;
+  max-height: 65vh;
+  background-color: lightgray;
 }
-
-md-list-item {
-  max-width: 300px;
-}
-

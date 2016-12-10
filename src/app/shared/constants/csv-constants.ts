@@ -15,11 +15,11 @@ export class CsvColumNames {
 }
 
 export class CsvValueNames {
-  static readonly SkillLevel = {VeryHigh:"Expert",High: "High",Medium: "Med",
+  static readonly SkillLevelValue = {VeryHigh:"Expert",High: "High",Medium: "Med",
     Low: "Low", None: "No"};
-  static readonly LanguageLevel = {Native:"Native",C: "C1/C2",B: "B1/B2", A: "A1/A2"};
-  static readonly DeviceAvailableBoolean = {Available: "Yes", Unavailable: "No"};
-  static readonly MajorOther = "Other";
+  static readonly LanguageLevelValue = {Native:"Native",C: "C1/C2",B: "B1/B2", A: "A1/A2"};
+  static readonly DeviceAvailableBooleanValue = {Available: "Yes", Unavailable: "No"};
+  static readonly MajorOtherValue = "Other";
 }
 
 export const CsvTeamPrioritiesCount = 11;

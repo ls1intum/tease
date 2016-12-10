@@ -1,51 +1,48 @@
-<md-toolbar color="primary">
-  {{person.firstName}} {{person.lastName}}
-</md-toolbar>
-<div id="dialog_container">
-  <md-list>
-    <md-list-item>
-      <h3 md-line> Major </h3>
-      <p md-line>{{person.major}}</p>
-    </md-list-item>
-    <md-list-item>
-      <h3 md-line> Term </h3>
-      <p md-line>{{person.currentTerm}}</p>
-    </md-list-item>
-    <md-list-item>
-      <h3 md-line> E-Mail </h3>
-      <p md-line>{{person.email}}</p>
-    </md-list-item>
+<div >
+  <md-toolbar color="primary">
+    {{person.firstName}} {{person.lastName}}
+  </md-toolbar>
+  <div id="scroll_container">
+    <md-list>
+      <md-list-item>
+        <h3 md-line> Major </h3>
+        <p md-line>{{person.major}}</p>
+      </md-list-item>
+      <md-list-item>
+        <h3 md-line> Term </h3>
+        <p md-line>{{person.currentTerm}}</p>
+      </md-list-item>
+      <md-list-item>
+        <h3 md-line> E-Mail </h3>
+        <p md-line>{{person.email}}</p>
+      </md-list-item>
+    </md-list>
 
-    <!--<md-list-item>-->
-    <!--<h3 md-line> Devices </h3>-->
-    <!--<p md-line *ngFor="let device of person.devices">{{device.toString()}}</p>-->
-    <!--</md-list-item>-->
-    <!--<md-list-item>-->
-    <!--<h3 md-line> Project priorities </h3>-->
-    <!--<p md-line *ngFor="let priority of getTeamPriorities()">{{priority}}</p>-->
-    <!--</md-list-item>-->
-    <!--<md-list-item>-->
-    <!--<h3 md-line> Skills </h3>-->
-    <!--<p md-line *ngFor="let skill of person.skills">{{skill}}</p>-->
-    <!--</md-list-item>-->
-  </md-list>
+    <md-divider></md-divider>
 
-  <md-divider></md-divider>
+    <h3> Git-Experience </h3>
+    <p>{{person.gitExpDescription}}</p>
+    <h3> Experience with iOS </h3>
+    <p>{{person.iosDevExp}}</p>
 
-  <h3> Git-Experience </h3>
-  <p>{{person.gitExpDescription}}</p>
-  <h3> Experience with iOS </h3>
-  <p>{{person.iosDevExp}}</p>
+    <md-divider></md-divider>
+
+    <h3>Priority List</h3>
+    <p *ngFor="let priority of getTeamPriorities()">{{priority}}</p>
+    <h3>Skill List</h3>
+    <p *ngFor="let skill of person.skills">{{skill.toString()}}</p>
+
+    <p *ngFor="let device of person.devices">{{device.toString()}}</p>
+  </div>
 
   <md-divider></md-divider>
-
-  <h3>Priority List</h3>
-  <p *ngFor="let priority of getTeamPriorities()">{{priority}}</p>
-  <h3>Skill List</h3>
-  <p *ngFor="let skill of person.skills">{{skill.toString()}}</p>
-
-  <p *ngFor="let device of person.devices">{{device.toString()}}</p>
+  <h2>Your rating of this person: </h2>
+  <md-radio-group [(value)]="skillString" (change)="onChangeRating($event.value)">
+    <md-radio-button value="{{PersonSkillLevel.VeryHigh}}">Expert</md-radio-button>
+    <md-radio-button value="{{PersonSkillLevel.High}}">Advanced</md-radio-button>
+    <md-radio-button value="{{PersonSkillLevel.Medium}}">Normal</md-radio-button>
+    <md-radio-button value="{{PersonSkillLevel.Low}}">Novice</md-radio-button>
+  </md-radio-group>
 </div>
-
 
 

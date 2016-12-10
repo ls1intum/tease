@@ -16,7 +16,7 @@ export abstract class PersonParser {
     person.firstName = personProps[CsvColumNames.Person.FirstName];
     person.lastName = personProps[CsvColumNames.Person.LastName];
     person.major = personProps[CsvColumNames.Person.Major];
-    if (person.major === CsvValueNames.MajorOther)
+    if (person.major === CsvValueNames.MajorOtherValue)
       person.major = personProps[CsvColumNames.Person.MajorOther];
     person.currentTerm = personProps[CsvColumNames.Person.Term];
     person.iosDevExp = personProps[CsvColumNames.Person.IosDevExperience];
@@ -47,23 +47,23 @@ export abstract class PersonParser {
     }
   }
 
-  private static parseSkillLevel(skillLevelString: string): SkillLevel {
-    if(skillLevelString === CsvValueNames.SkillLevel.VeryHigh)
+  static parseSkillLevel(skillLevelString: string): SkillLevel {
+    if(skillLevelString === CsvValueNames.SkillLevelValue.VeryHigh)
       return SkillLevel.VeryHigh;
-    if(skillLevelString === CsvValueNames.SkillLevel.High)
+    if(skillLevelString === CsvValueNames.SkillLevelValue.High)
       return SkillLevel.High;
-    if(skillLevelString === CsvValueNames.SkillLevel.Medium)
+    if(skillLevelString === CsvValueNames.SkillLevelValue.Medium)
       return SkillLevel.Medium;
-    if(skillLevelString === CsvValueNames.SkillLevel.Low)
+    if(skillLevelString === CsvValueNames.SkillLevelValue.Low)
       return SkillLevel.Low;
-    if(skillLevelString === CsvValueNames.SkillLevel.None)
+    if(skillLevelString === CsvValueNames.SkillLevelValue.None)
       return SkillLevel.None;
 
     return SkillLevel.None;
   }
 
   private static parsePersonDevices(person: Person, personProps: Array<any>) {
-    let available = CsvValueNames.DeviceAvailableBoolean.Available;
+    let available = CsvValueNames.DeviceAvailableBooleanValue.Available;
 
     if(personProps[CsvColumNames.PersonDevices.Ipad] === available)
       person.addDevice(new Device(DeviceType.Ipad));
