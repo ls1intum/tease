@@ -1,5 +1,13 @@
+<input #fileInput type="file" class="hidden" name="Choose file" (change)="onFileChanged($event)" accept="text/csv">
 
-<input type="file" name="Choose file" (change)="onFileChanged($event)" accept="text/csv">
+
+<div class="centered">
+  <h1 class="heading">Choose a CSV file with data about your talents.Then let's build a one-of-a-kind team together.</h1>
+
+  <button md-raised-button color="accent" (click)="onUploadClicked()">
+    Upload
+  </button>
+</div>
 
 <span class="app-action" *ngIf="isDataAvailable" [class.m2app-dark]="isDarkTheme">
   <button md-fab (click)="gotoPersonList()"><md-icon>check circle</md-icon></button>

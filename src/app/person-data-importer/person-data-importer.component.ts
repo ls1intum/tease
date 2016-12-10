@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from "@angular/core";
+import {Component, OnInit, Output, EventEmitter, ViewChild, Input, ElementRef, Renderer} from "@angular/core";
 import {Person} from "../shared/models/person";
 import {PersonService} from "../shared/layers/business-logic-layer/services/person.service";
 import {Router} from "@angular/router";
@@ -15,18 +15,20 @@ import {TeamService} from "../shared/layers/business-logic-layer/services/team.s
 })
 export class PersonDataImporterComponent implements OnInit {
   private isDataAvailable = false;
+  @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(private teamService: TeamService,
-              private router: Router) {
+              private router: Router,
+              private renderer: Renderer) {
     this.checkIfDataAvailable();
   }
 
   ngOnInit(): void {
   }
 
-  onFileChanged(event){
+  onFileChanged(event) {
     let files = event.srcElement.files;
-    if(files.length != 1)return;
+    if (files.length != 1)return;
 
     this.teamService.readCsv(files[0]).then(teams => {
       this.teamService.save(teams);
@@ -35,7 +37,13 @@ export class PersonDataImporterComponent implements OnInit {
     });
   }
 
-  gotoPersonList(){
+  onUploadClicked() {
+    let event = new MouseEvent('click', {bubbles: true});
+    this.renderer.invokeElementMethod(
+      this.fileInput.nativeElement, 'dispatchEvent', [event]);
+  }
+
+  gotoPersonList() {
     let link = ["/persons"];
     this.router.navigate(link);
   }
