@@ -26,6 +26,10 @@ export class PersonPreviewComponent {
     return this.imageService.getSkillIcon(this.person.supervisorRating);
   }
 
+  getGenderIconPath(): string{
+    return this.imageService.getGenderIcon(this.person.gender);
+  }
+
   getGravatarIconPath(): string {
     if(this.person.email == undefined)return PersonPreviewComponent.GRAVATAR_URL;
 

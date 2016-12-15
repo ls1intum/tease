@@ -1,4 +1,4 @@
-import {Person} from "../../../models/person";
+import {Person, Gender} from "../../../models/person";
 import {CsvColumNames, CsvValueNames} from "../../../constants/csv-constants";
 import {Device, DeviceType} from "../../../models/device";
 import {StringHelper} from "../../../helpers/StringHelper";
@@ -24,6 +24,7 @@ export abstract class PersonParser {
     person.gitExpDescription = personProps[CsvColumNames.Person.GitExperience];
     person.email = personProps[CsvColumNames.Person.Email];
     person.supervisorRating = this.parseSkillLevel(personProps[CsvColumNames.Person.SupervisorRating]);
+    person.gender = this.parseGender(personProps[CsvColumNames.Person.Gender]);
 
     this.parsePersonDevices(person,personProps);
     this.parsePersonSkills(person,personProps);
@@ -60,6 +61,15 @@ export abstract class PersonParser {
       return SkillLevel.None;
 
     return SkillLevel.None;
+  }
+
+  static parseGender(genderString: string): Gender {
+    if(genderString === CsvValueNames.GenderValue.Male)
+      return Gender.Male;
+    if(genderString === CsvValueNames.GenderValue.Female)
+      return Gender.Female;
+
+    return Gender.Male;
   }
 
   private static parsePersonDevices(person: Person, personProps: Array<any>) {

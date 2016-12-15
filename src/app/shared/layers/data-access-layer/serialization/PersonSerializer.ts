@@ -1,4 +1,4 @@
-import {Person} from "../../../models/person";
+import {Person, Gender} from "../../../models/person";
 import {StringHelper} from "../../../helpers/StringHelper";
 import {CsvColumNames, CsvValueNames} from "../../../constants/csv-constants";
 import {DeviceType} from "../../../models/device";
@@ -20,6 +20,8 @@ export class PersonSerializer {
     personProps[CsvColumNames.Person.IosDevExperienceDescription] = person.iosDevExpDescription;
     personProps[CsvColumNames.Person.GitExperience] = person.gitExpDescription;
     personProps[CsvColumNames.Person.Email] = person.email;
+    personProps[CsvColumNames.Person.Gender] = this.serializeGender(person.gender);
+
     this.serializePersonDevices(person,personProps);
     this.serializePriorities(person, personProps);
     this.serializeSkills(person,personProps);
@@ -45,6 +47,15 @@ export class PersonSerializer {
     for(let skill of person.skills){
       let columnName = skill.skillType + CsvColumNames.ArrayBraces.Open + skill.skill + CsvColumNames.ArrayBraces.Close;
       personProps[columnName] = this.serializeSkillLevel(skill.skillLevel);
+    }
+  }
+
+  private static serializeGender(gender: Gender){
+    switch(gender){
+      case Gender.Male:
+        return CsvValueNames.GenderValue.Male;
+      case Gender.Female:
+        return CsvValueNames.GenderValue.Female;
     }
   }
 

@@ -17,6 +17,7 @@ export class Person {
   skills: Skill[] = [];
   languages: Language[] = [];
   devices: Device[] = [];
+  gender: Gender = Gender.Male;
 
   currentTerm: number;
   major: string;
@@ -46,4 +47,9 @@ export class Person {
   ownsDevice(deviceType: DeviceType): boolean {
     return this.devices.filter(d => d.deviceType === deviceType).length >0;
   }
+}
+
+export enum Gender {
+  Male,
+  Female
 }
