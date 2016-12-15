@@ -19,7 +19,11 @@ export class PersonPreviewComponent {
 
   }
 
-  getIconPath(): string{
+  getSkillIconPath(): string{
     return this.imageService.getSkillIcon(this.person.supervisorRating);
+  }
+
+  getGravatarIconPath(): string {
+    return "http://www.gravatar.com/avatar/d";
   }
 }

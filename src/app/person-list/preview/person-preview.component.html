@@ -1,9 +1,10 @@
 <div *ngIf="person">
   <md-card>
     <md-card-title-group>
-      <md-card-title>{{person.firstName}} {{person.lastName}}     <img class="ratingImage" src="{{getIconPath()}}">  </md-card-title>
-      <md-card-subtitle>Major: {{person.major}}</md-card-subtitle>
+      <img md-card-sm-image src="{{getGravatarIconPath()}}">
 
+      <md-card-title>{{person.firstName}} {{person.lastName}}     <img class="ratingImage" src="{{getSkillIconPath()}}">  </md-card-title>
+      <md-card-subtitle>Major: {{person.major}}</md-card-subtitle>
     </md-card-title-group>
   </md-card>
 </div>
