@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 import {Person} from "./shared/models/person";
 import {ToolbarService} from "./shared/ui/toolbar.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector   : 'app',
@@ -10,7 +11,8 @@ import {ToolbarService} from "./shared/ui/toolbar.service";
 export class AppComponent {
   private buttonName: string = "Skip";
 
-  constructor(private toolbarService: ToolbarService){
+  constructor(private toolbarService: ToolbarService,
+  private router: Router){
     toolbarService.buttonNameChanged.subscribe(newName => {
       this.buttonName = newName;
     });
@@ -18,5 +20,10 @@ export class AppComponent {
 
   onButtonClicked(){
     this.toolbarService.onButtonClicked();
+  }
+
+  gotoHome() {
+    let link = ["/"];
+    this.router.navigate(link);
   }
 }
