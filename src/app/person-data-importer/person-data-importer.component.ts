@@ -1,6 +1,6 @@
 import {Component, OnInit, Output, EventEmitter, ViewChild, Input, ElementRef, Renderer} from "@angular/core";
 import {Router} from "@angular/router";
-import {TeamService} from "../shared/layers/business-logic-layer/services/team.service";
+import {TeamService} from "../shared/layers/business-logic-layer/team.service";
 import {ToolbarService} from "../shared/ui/toolbar.service";
 import {LangImport} from "../shared/constants/language-constants";
 

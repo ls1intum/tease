@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef, OnDestroy} from "@angular/core";
-import {TeamService} from "../../shared/layers/business-logic-layer/services/team.service";
+import {TeamService} from "../../shared/layers/business-logic-layer/team.service";
 import {Team} from "../../shared/models/team";
 import {Router} from "@angular/router";
 import {MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";

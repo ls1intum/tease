@@ -2,10 +2,10 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import {TeamService} from "./layers/business-logic-layer/services/team.service";
+import {TeamService} from "./layers/business-logic-layer/team.service";
 import {TeamAccessService} from "./layers/data-access-layer/team.access.service";
-import {TeamGenerator} from "./layers/business-logic-layer/team_generation/TeamGenerator";
-import {DummyTeamGenerator} from "./layers/business-logic-layer/team_generation/DummyTeamGenerator";
+import {TeamGenerationService} from "./layers/business-logic-layer/team-generation.service";
+import {DummyTeamGenerationService} from "./layers/business-logic-layer/dummy-team-generation.service";
 import {PersistentTeamAccessService} from "./layers/data-access-layer/persistent-team-access.service";
 import {DialogService} from "./ui/dialog.service";
 import {MaterialModule} from "@angular/material";
@@ -21,7 +21,7 @@ import {MaterialModule} from "@angular/material";
     CommonModule, FormsModule, RouterModule],
   providers: [
     {provide: TeamAccessService, useClass: PersistentTeamAccessService},
-    {provide: TeamGenerator, useClass: DummyTeamGenerator}
+    {provide: TeamGenerationService, useClass: DummyTeamGenerationService}
   ]
 })
 export class SharedModule {

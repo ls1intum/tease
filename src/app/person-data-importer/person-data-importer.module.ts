@@ -4,7 +4,7 @@ import {SharedModule} from "../shared/shared.module";
 import {MaterialModule} from "@angular/material";
 import {PersonDataImporterComponent} from "./person-data-importer.component";
 import {PersonDetailComponent} from "../person-details/person-detail.component";
-import {TeamService} from "../shared/layers/business-logic-layer/services/team.service";
+import {TeamService} from "../shared/layers/business-logic-layer/team.service";
 import {ToolbarService} from "../shared/ui/toolbar.service";
 
 /**

@@ -1,8 +1,9 @@
 import {Injectable} from "@angular/core";
-import {Person} from "../../../models/person";
-import {Team} from "../../../models/team";
-import {TeamGenerator} from "../team_generation/TeamGenerator";
-import {TeamAccessService} from "../../data-access-layer/team.access.service";
+import {Person} from "../../models/person";
+import {Team} from "../../models/team";
+import {TeamGenerationService} from "./team-generation.service";
+import {TeamAccessService} from "../data-access-layer/team.access.service";
+import {TeamHelper} from "../../helpers/TeamHelper";
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -13,12 +14,8 @@ let FileSaver = require('file-saver');
 export class TeamService {
   private readonly EXPORT_DATA_TYPE = "text/csv;charset=utf-8";
 
-  constructor(private teamGenerator: TeamGenerator, private teamAccessService: TeamAccessService){
+  constructor(private teamAccessService: TeamAccessService){
 
-  }
-
-  generateTeams(teams: Team[]): Promise<Team[]> {
-    return this.teamGenerator.generate(teams);
   }
 
   read(): Promise<Team[]>{
@@ -41,5 +38,13 @@ export class TeamService {
 
   dropData(){
     this.teamAccessService.dropData();
+  }
+
+  readPersons(): Promise<Person[]>{
+    return new Promise((resolve,reject) => {
+      this.read().then(teams => {
+          resolve(TeamHelper.getPersons(teams));
+        });
+    });
   }
 }
