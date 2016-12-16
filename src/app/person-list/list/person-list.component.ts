@@ -7,6 +7,7 @@ import {PersonDetailComponent} from "../../person-details/person-detail.componen
 import {TeamService} from "../../shared/layers/business-logic-layer/services/team.service";
 import {DialogService} from "../../shared/ui/dialog.service";
 import {Team} from "../../shared/models/team";
+import {ToolbarService} from "../../shared/ui/toolbar.service";
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -23,8 +24,9 @@ export class PersonListComponent implements OnInit {
   constructor(private teamService: TeamService,
               private router: Router,
               private viewContainerRef: ViewContainerRef,
-              private dialogService: DialogService) {
-
+              private dialogService: DialogService,
+              private toolbarService: ToolbarService) {
+    this.toolbarService.changeButtonName("Next");
   }
 
   ngOnInit(): void {

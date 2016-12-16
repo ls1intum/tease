@@ -1,5 +1,5 @@
 import {Routes} from "@angular/router";
-import {ConstraintsComponent} from "./constraints.component";
+import {ConstraintsComponent} from "./constraints/constraints.component";
 /**
  * Created by Malte Bucksch on 27/11/2016.
  */

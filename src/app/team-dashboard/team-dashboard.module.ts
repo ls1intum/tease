@@ -10,6 +10,7 @@ import {PersonListModule} from "../person-list/person-list.module";
 import {DragulaService} from "ng2-dragula/components/dragula.provider";
 import {TeamContainerComponent} from "./container/team-container.component";
 import {DialogService} from "../shared/ui/dialog.service";
+import {ToolbarService} from "../shared/ui/toolbar.service";
 /**
  * Created by Malte Bucksch on 25/11/2016.
  */
@@ -17,7 +18,7 @@ import {DialogService} from "../shared/ui/dialog.service";
   imports: [CommonModule, MaterialModule.forRoot(), DragulaModule, PersonListModule],
   declarations: [TeamDashboardComponent, TeamContainerComponent],
   exports: [TeamDashboardComponent],
-  providers: [PersonService,TeamService, DragulaService, DialogService],
+  providers: [PersonService,TeamService, ToolbarService, DragulaService, DialogService],
   entryComponents: [PersonDetailComponent]
 })
 export class TeamDashboardModule {

@@ -3,6 +3,7 @@ import {Person} from "../shared/models/person";
 import {PersonService} from "../shared/layers/business-logic-layer/services/person.service";
 import {Router} from "@angular/router";
 import {TeamService} from "../shared/layers/business-logic-layer/services/team.service";
+import {ToolbarService} from "../shared/ui/toolbar.service";
 
 /**
  * Created by wanur on 18/11/2016.
@@ -19,7 +20,9 @@ export class PersonDataImporterComponent implements OnInit {
 
   constructor(private teamService: TeamService,
               private router: Router,
-              private renderer: Renderer) {
+              private renderer: Renderer,
+              private toolbarService: ToolbarService) {
+    this.toolbarService.changeButtonName("Skip");
     this.checkIfDataAvailable();
   }
 

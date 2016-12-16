@@ -8,6 +8,7 @@ import {PersonDetailComponent} from "../../person-details/person-detail.componen
 import {Person} from "../../shared/models/person";
 import {DragulaService} from "ng2-dragula/components/dragula.provider";
 import {PersonPreviewComponent} from "../../person-list/preview/person-preview.component";
+import {ToolbarService} from "../../shared/ui/toolbar.service";
 /**
  * Created by Malte Bucksch on 25/11/2016.
  */
@@ -29,7 +30,10 @@ export class TeamDashboardComponent implements OnInit {
               private router: Router,
               public dialog: MdDialog,
               public viewContainerRef: ViewContainerRef,
-              private teamService: TeamService) {
+              private teamService: TeamService,
+              private toolbarService: ToolbarService) {
+    this.toolbarService.changeButtonName("Export");
+
     dragulaService.dropModel.subscribe((value) => {
       let [bagName, el, target, source] = value;
       this.onDrop(el, target, source);
