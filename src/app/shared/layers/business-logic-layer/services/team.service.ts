@@ -17,8 +17,8 @@ export class TeamService {
 
   }
 
-  generateTeams(persons: Person[]): Promise<Team[]> {
-    return this.teamGenerator.generate(persons);
+  generateTeams(teams: Team[]): Promise<Team[]> {
+    return this.teamGenerator.generate(teams);
   }
 
   read(): Promise<Team[]>{

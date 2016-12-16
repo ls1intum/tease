@@ -1,9 +1,6 @@
 import {Component, OnInit, ViewContainerRef} from "@angular/core";
-import {PersonService} from "../../shared/layers/business-logic-layer/services/person.service";
 import {Person} from "../../shared/models/person";
 import {Router} from "@angular/router";
-import {MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
-import {PersonDetailComponent} from "../../person-details/person-detail.component";
 import {TeamService} from "../../shared/layers/business-logic-layer/services/team.service";
 import {DialogService} from "../../shared/ui/dialog.service";
 import {Team} from "../../shared/models/team";

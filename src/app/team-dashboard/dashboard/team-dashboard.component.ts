@@ -3,7 +3,6 @@ import {TeamService} from "../../shared/layers/business-logic-layer/services/tea
 import {Team} from "../../shared/models/team";
 import {Router} from "@angular/router";
 import {MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
-import {PersonService} from "../../shared/layers/business-logic-layer/services/person.service";
 import {PersonDetailComponent} from "../../person-details/person-detail.component";
 import {Person} from "../../shared/models/person";
 import {DragulaService} from "ng2-dragula/components/dragula.provider";

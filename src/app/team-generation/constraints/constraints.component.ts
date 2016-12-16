@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {TeamService} from "../../shared/layers/business-logic-layer/services/team.service";
-import {PersonService} from "../../shared/layers/business-logic-layer/services/person.service";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
 import {LangConstraints} from "../../shared/constants/language-constants";
 
@@ -17,7 +16,6 @@ import {LangConstraints} from "../../shared/constants/language-constants";
 export class ConstraintsComponent implements OnInit{
   constructor(private router: Router,
             private teamService: TeamService,
-            private personService: PersonService,
               private toolbarService: ToolbarService) {
     this.toolbarService.changeButtonName(LangConstraints.ToolbarButtonName);
     this.toolbarService.buttonClicked.subscribe(() => {
@@ -34,12 +32,12 @@ export class ConstraintsComponent implements OnInit{
   }
 
   generateTeams(onFinish: ()=>void){
-    this.personService.readPersons().then(persons => {
-      this.teamService.generateTeams(persons).then((teams => {
-        this.teamService.save(teams);
-        onFinish();
-      }));
-    });
+    // this.personService.readPersons().then(persons => {
+    //   this.teamService.generateTeams(persons).then((teams => {
+    //     this.teamService.save(teams);
+    //     onFinish();
+    //   }));
+    // });
   }
 
   gotoDashboard(){

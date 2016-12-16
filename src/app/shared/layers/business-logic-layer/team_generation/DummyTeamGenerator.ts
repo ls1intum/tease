@@ -10,16 +10,16 @@ import {Injectable} from "@angular/core";
 export class DummyTeamGenerator implements TeamGenerator {
   private readonly NumberOfTeams = 10;
 
-  generate(persons: Person[]): Promise<Team[]> {
-    let teams: Team[] = [];
-
-    for(let teamIndex = 0;teamIndex<this.NumberOfTeams;teamIndex++){
-      teams.push(new Team("test"));
-    }
-    teams[0].persons.push.apply(teams[0].persons,persons);
-
-    // TODO slice into parts
-
+  generate(teams: Team[]): Promise<Team[]> {
+    // let teams: Team[] = [];
+    //
+    // for(let teamIndex = 0;teamIndex<this.NumberOfTeams;teamIndex++){
+    //   teams.push(new Team("test"));
+    // }
+    // teams[0].persons.push.apply(teams[0].persons,persons);
+    //
+    // // TODO slice into parts
+    //
     return Promise.resolve(teams);
   }
 }

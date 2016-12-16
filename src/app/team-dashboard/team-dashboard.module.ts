@@ -2,7 +2,6 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {MaterialModule} from "@angular/material";
 import {TeamDashboardComponent} from "./dashboard/team-dashboard.component";
-import {PersonService} from "../shared/layers/business-logic-layer/services/person.service";
 import {TeamService} from "../shared/layers/business-logic-layer/services/team.service";
 import {PersonDetailComponent} from "../person-details/person-detail.component";
 import {DragulaModule} from "ng2-dragula/ng2-dragula";
@@ -18,7 +17,7 @@ import {ToolbarService} from "../shared/ui/toolbar.service";
   imports: [CommonModule, MaterialModule.forRoot(), DragulaModule, PersonListModule],
   declarations: [TeamDashboardComponent, TeamContainerComponent],
   exports: [TeamDashboardComponent],
-  providers: [PersonService,TeamService, ToolbarService, DragulaService, DialogService],
+  providers: [TeamService, ToolbarService, DragulaService, DialogService],
   entryComponents: [PersonDetailComponent]
 })
 export class TeamDashboardModule {
