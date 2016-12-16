@@ -1,5 +1,5 @@
 <div *ngIf="person">
-  <md-card class="skillColored">
+  <md-card [style.border-color]="getColor()" class="skillColored">
     <md-card-title-group>
       <img md-card-sm-image src="{{getGravatarIconPath()}}">
 
