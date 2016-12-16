@@ -8,6 +8,7 @@ import {TeamService} from "../../shared/layers/business-logic-layer/services/tea
 import {DialogService} from "../../shared/ui/dialog.service";
 import {Team} from "../../shared/models/team";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
+import {LangPersonList} from "../../shared/constants/language-constants";
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -26,7 +27,7 @@ export class PersonListComponent implements OnInit {
               private viewContainerRef: ViewContainerRef,
               private dialogService: DialogService,
               private toolbarService: ToolbarService) {
-    this.toolbarService.changeButtonName("Next");
+    this.toolbarService.changeButtonName(LangPersonList.ToolbarButtonName);
     this.toolbarService.buttonClicked.subscribe(() => {
       this.gotoTeamGeneration();
     });

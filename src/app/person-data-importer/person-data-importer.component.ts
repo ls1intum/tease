@@ -4,6 +4,7 @@ import {PersonService} from "../shared/layers/business-logic-layer/services/pers
 import {Router} from "@angular/router";
 import {TeamService} from "../shared/layers/business-logic-layer/services/team.service";
 import {ToolbarService} from "../shared/ui/toolbar.service";
+import {LangImport} from "../shared/constants/language-constants";
 
 /**
  * Created by wanur on 18/11/2016.
@@ -22,7 +23,7 @@ export class PersonDataImporterComponent implements OnInit {
               private router: Router,
               private renderer: Renderer,
               private toolbarService: ToolbarService) {
-    this.toolbarService.changeButtonName("Skip");
+    this.toolbarService.changeButtonName(LangImport.ToolbarButtonName);
     this.toolbarService.buttonClicked.subscribe(() => {
       this.gotoPersonList();
     });

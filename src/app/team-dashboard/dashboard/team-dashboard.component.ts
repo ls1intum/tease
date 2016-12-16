@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewContainerRef} from "@angular/core";
+import {Component, OnInit, ViewContainerRef, OnDestroy} from "@angular/core";
 import {TeamService} from "../../shared/layers/business-logic-layer/services/team.service";
 import {Team} from "../../shared/models/team";
 import {Router} from "@angular/router";
@@ -9,6 +9,8 @@ import {Person} from "../../shared/models/person";
 import {DragulaService} from "ng2-dragula/components/dragula.provider";
 import {PersonPreviewComponent} from "../../person-list/preview/person-preview.component";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
+import {LangDashbaord} from "../../shared/constants/language-constants";
+import {Subscription} from "rxjs";
 /**
  * Created by Malte Bucksch on 25/11/2016.
  */
@@ -20,11 +22,12 @@ import {ToolbarService} from "../../shared/ui/toolbar.service";
     '../styles/dragula.min.css'],
   selector: 'team-dashboard',
 })
-export class TeamDashboardComponent implements OnInit {
+export class TeamDashboardComponent implements OnInit,OnDestroy {
   private readonly EXPORT_FILE_NAME = "team_data.csv";
 
   private teams: Team[];
   private dialogRef: MdDialogRef<PersonDetailComponent>;
+  private exportButtonSubscription: Subscription;
 
   constructor(private dragulaService: DragulaService,
               private router: Router,
@@ -32,10 +35,7 @@ export class TeamDashboardComponent implements OnInit {
               public viewContainerRef: ViewContainerRef,
               private teamService: TeamService,
               private toolbarService: ToolbarService) {
-    this.toolbarService.changeButtonName("Export");
-    this.toolbarService.buttonClicked.subscribe(() => {
-      this.exportTeams();
-    });
+    this.toolbarService.changeButtonName(LangDashbaord.ToolbarButtonName);
 
     dragulaService.dropModel.subscribe((value) => {
       let [bagName, el, target, source] = value;
@@ -61,6 +61,10 @@ export class TeamDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.exportButtonSubscription = this.toolbarService.buttonClicked.subscribe(() => {
+      this.exportTeams();
+    });
+
     this.teamService.read().then((teams) => {
       this.teams = teams;
 
@@ -80,5 +84,9 @@ export class TeamDashboardComponent implements OnInit {
 
   exportTeams() {
     this.teamService.exportTeams(this.EXPORT_FILE_NAME);
+  }
+
+  ngOnDestroy(): void {
+    this.exportButtonSubscription.unsubscribe();
   }
 }
