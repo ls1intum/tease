@@ -1,3 +1,7 @@
 #toolbar {
   height:8vh;
 }
+
+.app-toolbar-filler {
+  flex: 1 1 auto;
+}

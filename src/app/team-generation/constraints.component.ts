@@ -22,14 +22,14 @@ export class ConstraintsComponent implements OnInit{
   ngOnInit(): void {
   }
 
-  // generateTeams(onFinish: ()=>void){
-    // this.personService.readPersons().then(persons => {
-    //   this.teamService.generateTeams(persons).then((teams => {
-    //     this.teamService.save(teams);
-    //     onFinish();
-    //   }));
-    // });
-  // }
+  generateTeams(onFinish: ()=>void){
+    this.personService.readPersons().then(persons => {
+      this.teamService.generateTeams(persons).then((teams => {
+        this.teamService.save(teams);
+        onFinish();
+      }));
+    });
+  }
 
   gotoDashboard(){
     let link = ["/dashboard"];
