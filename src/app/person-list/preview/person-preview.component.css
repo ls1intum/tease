@@ -3,6 +3,11 @@ md-card {
 }
 
 .icon {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
+}
+
+.skillColored {
+  border: dotted;
+  border-color: red;
 }
