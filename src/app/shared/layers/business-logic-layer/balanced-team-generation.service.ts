@@ -15,12 +15,13 @@ export class BalancedTeamGenerationService implements TeamGenerationService {
   generate(teams: Team[]): Promise<Team[]> {
     let persons = TeamHelper.getPersons(teams);
     teams.forEach(team => team.clear());
+    let realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
 
     let skillTypes = this.getSkillLevelKeys();
 
     for(let key of skillTypes){
       let similarPersons = persons.filter(p => p.supervisorRating.valueOf() === key);
-      this.distributePersonsEqually(similarPersons,teams);
+      this.distributePersonsEqually(similarPersons,realTeams);
     }
 
     return Promise.resolve(teams);
