@@ -5,11 +5,18 @@
       Statistics</button>
     <hr>
   </div>
+
   <div *ngIf="isStatisticsVisible" id="statistics-container">
-    <p>{{team.persons.length}}</p>
-    <p>{{team.persons.length}}</p>
+    <p>Team size: {{team.persons.length}}</p>
+    <p>Ipads: {{getDeviceCount(LocalDeviceType.Ipad)}}</p>
+    <p>Ipods: {{getDeviceCount(LocalDeviceType.Ipod)}}</p>
+    <p>Watches: {{getDeviceCount(LocalDeviceType.Watch)}}</p>
+    <p>iPhones: {{getDeviceCount(LocalDeviceType.Iphone)}}</p>
+    <p>Macs: {{getDeviceCount(LocalDeviceType.Mac)}}</p>
+
     <hr>
   </div>
+
   <div [dragula]='"first-bag"' class='drag-container' [dragulaModel]="team.persons">
     <div class='sub-element' *ngFor="let person of team.persons" (click)="showPersonDetails(person)">
       <person-preview [person]="person"></person-preview>
