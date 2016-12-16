@@ -28,4 +28,11 @@ export class Team {
     this.persons.push(person);
     person.team = this;
   }
+
+  clear(){
+    while(this.persons.length != 0){
+      let person: Person = this.persons.pop();
+      person.team = undefined;
+    }
+  }
 }

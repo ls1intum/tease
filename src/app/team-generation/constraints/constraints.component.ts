@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {TeamService} from "../../shared/layers/business-logic-layer/team.service";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
 import {LangConstraints} from "../../shared/constants/language-constants";
+import {TeamGenerationService} from "../../shared/layers/business-logic-layer/team-generation.service";
 
 /**
  * Created by Malte Bucksch on 27/11/2016.
@@ -15,8 +16,9 @@ import {LangConstraints} from "../../shared/constants/language-constants";
 })
 export class ConstraintsComponent implements OnInit{
   constructor(private router: Router,
-            private teamService: TeamService,
-              private toolbarService: ToolbarService) {
+            private teamGenerationService: TeamGenerationService,
+              private toolbarService: ToolbarService,
+              private teamService: TeamService) {
     this.toolbarService.changeButtonName(LangConstraints.ToolbarButtonName);
     this.toolbarService.buttonClicked.subscribe(() => {
       this.gotoDashboard();
@@ -28,16 +30,12 @@ export class ConstraintsComponent implements OnInit{
   }
 
   onGenerateClicked(){
+    this.teamService.read().then(teams => {
+      this.teamGenerationService.generate(teams);
+      this.teamService.save(teams);
 
-  }
-
-  generateTeams(onFinish: ()=>void){
-    // this.personService.readPersons().then(persons => {
-    //   this.teamService.generateTeams(persons).then((teams => {
-    //     this.teamService.save(teams);
-    //     onFinish();
-    //   }));
-    // });
+      this.gotoDashboard();
+    });
   }
 
   gotoDashboard(){
