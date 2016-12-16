@@ -10,8 +10,6 @@ import {SkillLevel} from "../../models/skill";
 
 @Injectable()
 export class BalancedTeamGenerationService implements TeamGenerationService {
-  private readonly NumberOfTeams = 10;
-
   generate(teams: Team[]): Promise<Team[]> {
     let persons = TeamHelper.getPersons(teams);
     teams.forEach(team => team.clear());
