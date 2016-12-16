@@ -2,8 +2,4 @@
   <team-container *ngFor="let team of teams" [team]="team"
                   (personClose)="onPersonDialogClosed()" class='drag-container'>
   </team-container>
-
-  <span class="app-action" [class.m2app-dark]="isDarkTheme">
-    <button md-fab (click)="exportTeams()"><md-icon>check circle</md-icon></button>
-  </span>
 </div>

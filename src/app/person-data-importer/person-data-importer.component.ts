@@ -23,6 +23,10 @@ export class PersonDataImporterComponent implements OnInit {
               private renderer: Renderer,
               private toolbarService: ToolbarService) {
     this.toolbarService.changeButtonName("Skip");
+    this.toolbarService.buttonClicked.subscribe(() => {
+      this.gotoPersonList();
+    });
+
     this.checkIfDataAvailable();
   }
 

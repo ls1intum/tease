@@ -15,4 +15,8 @@ export class AppComponent {
       this.buttonName = newName;
     });
   }
+
+  onButtonClicked(){
+    this.toolbarService.onButtonClicked();
+  }
 }

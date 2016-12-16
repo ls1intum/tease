@@ -2,7 +2,8 @@
   <md-toolbar color="primary" id="toolbar">
     Teamify
     <span class="app-toolbar-filler"></span>
-    <button md-raised-button color="accent">{{buttonName}}</button>
+    <button md-raised-button color="accent"
+     (click)="onButtonClicked()">{{buttonName}}</button>
   </md-toolbar>
 
   <router-outlet>

@@ -27,6 +27,9 @@ export class PersonListComponent implements OnInit {
               private dialogService: DialogService,
               private toolbarService: ToolbarService) {
     this.toolbarService.changeButtonName("Next");
+    this.toolbarService.buttonClicked.subscribe(() => {
+      this.gotoTeamGeneration();
+    });
   }
 
   ngOnInit(): void {

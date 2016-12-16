@@ -33,6 +33,9 @@ export class TeamDashboardComponent implements OnInit {
               private teamService: TeamService,
               private toolbarService: ToolbarService) {
     this.toolbarService.changeButtonName("Export");
+    this.toolbarService.buttonClicked.subscribe(() => {
+      this.exportTeams();
+    });
 
     dragulaService.dropModel.subscribe((value) => {
       let [bagName, el, target, source] = value;

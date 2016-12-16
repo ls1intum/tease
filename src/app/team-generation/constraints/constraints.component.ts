@@ -19,6 +19,9 @@ export class ConstraintsComponent implements OnInit{
             private personService: PersonService,
               private toolbarService: ToolbarService) {
     this.toolbarService.changeButtonName("Skip");
+    this.toolbarService.buttonClicked.subscribe(() => {
+      this.gotoDashboard();
+    });
 
   }
 
