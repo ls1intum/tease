@@ -4,10 +4,11 @@
 }
 
 .row {
-  height: 75px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 18px;
+  margin-top: 18px;
 }
 .row h3 {
   padding: 0;
