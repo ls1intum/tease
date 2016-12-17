@@ -5,7 +5,8 @@
       Statistics
     </button>
   </div>
-  <hr class="divider">
+  <md-divider class="divider"></md-divider>
+
 
   <div *ngIf="isStatisticsVisible">
     <div class="iconList">
@@ -19,7 +20,7 @@
       <img class="icon" src="{{getDeviceIconPath(LocalDeviceType.Ipad)}}"> {{getDeviceCount(LocalDeviceType.Ipad)}}
       <img class="icon" src="{{getDeviceIconPath(LocalDeviceType.Watch)}}"> {{getDeviceCount(LocalDeviceType.Watch)}}
     </div>
-    <hr>
+    <md-divider></md-divider>
   </div>
 
   <div [dragula]='"first-bag"' class='drag-container' [dragulaModel]="team.persons">

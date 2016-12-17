@@ -1,5 +1,11 @@
 #scroll_container {
   overflow-y: auto;
   max-height: 65vh;
-  background-color: lightgray;
+}
+
+.row {
+  height: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
