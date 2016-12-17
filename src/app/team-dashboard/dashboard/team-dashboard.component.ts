@@ -65,11 +65,25 @@ export class TeamDashboardComponent implements OnInit,OnDestroy {
     });
 
     this.teamService.read().then((teams) => {
-      this.teams = teams;
+      this.teams = this.getSortedAlphabetically(teams);
 
       if (teams == undefined || teams.length == 0)
         this.gotoImport();
     });
+  }
+
+  private getSortedAlphabetically(teams): Team[] {
+    let sortedTeams = teams.filter(team => team.name !== Team.OrphanTeamName).sort((a, b) => {
+      let nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
+      if (nameA < nameB)
+        return -1;
+      if (nameA > nameB)
+        return 1;
+      return 0;
+    });
+    sortedTeams.push(...teams.filter(team => team.name === Team.OrphanTeamName));
+
+    return sortedTeams;
   }
 
   gotoImport() {
