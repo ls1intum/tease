@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewContainerRef} from "@angular/core";
+import {Component, OnInit, ViewContainerRef, OnDestroy} from "@angular/core";
 import {Person} from "../../shared/models/person";
 import {Router} from "@angular/router";
 import {TeamService} from "../../shared/layers/business-logic-layer/team.service";
@@ -16,9 +16,10 @@ import {TeamHelper} from "../../shared/helpers/TeamHelper";
   styleUrls: ['person-list.component.css'],
   selector: 'person-list'
 })
-export class PersonListComponent implements OnInit {
+export class PersonListComponent implements OnInit, OnDestroy {
   private persons: Person[];
   private teams: Team[];
+  private nextSubscription;
 
   constructor(private teamService: TeamService,
               private router: Router,
@@ -26,12 +27,13 @@ export class PersonListComponent implements OnInit {
               private dialogService: DialogService,
               private toolbarService: ToolbarService) {
     this.toolbarService.changeButtonName(LangPersonList.ToolbarButtonName);
-    this.toolbarService.buttonClicked.subscribe(() => {
-      this.gotoTeamGeneration();
-    });
   }
 
   ngOnInit(): void {
+    this.nextSubscription = this.toolbarService.buttonClicked.subscribe(() => {
+      this.gotoTeamGeneration();
+    });
+
     this.teamService.read().then(
       teams => {
         this.teams = teams;
@@ -41,6 +43,10 @@ export class PersonListComponent implements OnInit {
           this.gotoImport();
       }
     )
+  }
+
+  ngOnDestroy(): void {
+    this.nextSubscription.unsubscribe();
   }
 
   gotoTeamGeneration(){
