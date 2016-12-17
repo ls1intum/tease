@@ -3,6 +3,7 @@ import {Team} from "../../shared/models/team";
 import {DialogService} from "../../shared/ui/dialog.service";
 import {Person} from "../../shared/models/person";
 import {DeviceType} from "../../shared/models/device";
+import {IconMapperService} from "../../shared/ui/icon-mapper.service";
 /**
  * Created by Malte Bucksch on 06/12/2016.
  */
@@ -21,7 +22,8 @@ export class TeamContainerComponent {
   @Output() personClose = new EventEmitter();
 
   constructor(private dialogService: DialogService,
-              private viewContainerRef: ViewContainerRef){
+              private viewContainerRef: ViewContainerRef,
+              private iconMapperService: IconMapperService){
 
   }
 
@@ -35,6 +37,10 @@ export class TeamContainerComponent {
     return this.team.persons
       .map(person => this.getPersonDeviceCount(person,device))
       .reduce((sum, count)=>sum+count);
+  }
+
+  getDeviceIconPath(deviceType: DeviceType): string {
+    return this.iconMapperService.getDeviceTypeIconPath(deviceType);
   }
 
   private getPersonDeviceCount(person: Person, targetDevice: DeviceType): number {

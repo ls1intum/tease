@@ -19,3 +19,16 @@
 #title-container {
 
 }
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+.iconList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  font-weight: bold;
+}

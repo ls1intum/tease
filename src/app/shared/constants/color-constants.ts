@@ -18,4 +18,7 @@ export abstract class Colors {
         return "#FFFFFF";
     }
   }
+
+  static readonly LightGray = "";
+  static readonly DarkGray = "#424242";
 }

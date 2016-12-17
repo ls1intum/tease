@@ -29,11 +29,11 @@ export class PersonPreviewComponent {
   }
 
   getSkillIconPath(): string{
-    return this.imageService.getSkillIcon(this.person.supervisorRating);
+    return this.imageService.getSkillIconPath(this.person.supervisorRating);
   }
 
   getGenderIconPath(): string{
-    return this.imageService.getGenderIcon(this.person.gender);
+    return this.imageService.getGenderIconPath(this.person.gender);
   }
 
   getGravatarIconPath(): string {

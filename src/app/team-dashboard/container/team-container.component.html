@@ -2,18 +2,20 @@
   <div id="title-container">
     <h1>{{team.name}}</h1>
     <button md-raised-button (click)="showStatistics()">
-      Statistics</button>
+      Statistics
+    </button>
     <hr>
   </div>
 
   <div *ngIf="isStatisticsVisible" id="statistics-container">
     <p>Team size: {{team.persons.length}}</p>
-    <p>Ipads: {{getDeviceCount(LocalDeviceType.Ipad)}}</p>
-    <p>Ipods: {{getDeviceCount(LocalDeviceType.Ipod)}}</p>
-    <p>Watches: {{getDeviceCount(LocalDeviceType.Watch)}}</p>
-    <p>iPhones: {{getDeviceCount(LocalDeviceType.Iphone)}}</p>
-    <p>Macs: {{getDeviceCount(LocalDeviceType.Mac)}}</p>
-
+    <div class="iconList">
+      <img class="icon" src="{{getDeviceIconPath(LocalDeviceType.Mac)}}"> {{getDeviceCount(LocalDeviceType.Mac)}}
+      <img class="icon" src="{{getDeviceIconPath(LocalDeviceType.Iphone)}}"> {{getDeviceCount(LocalDeviceType.Iphone)}}
+      <img class="icon" src="{{getDeviceIconPath(LocalDeviceType.Ipod)}}"> {{getDeviceCount(LocalDeviceType.Ipod)}}
+      <img class="icon" src="{{getDeviceIconPath(LocalDeviceType.Ipad)}}"> {{getDeviceCount(LocalDeviceType.Ipad)}}
+      <img class="icon" src="{{getDeviceIconPath(LocalDeviceType.Watch)}}"> {{getDeviceCount(LocalDeviceType.Watch)}}
+    </div>
     <hr>
   </div>
 
