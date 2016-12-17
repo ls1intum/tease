@@ -8,7 +8,10 @@
   </div>
 
   <div *ngIf="isStatisticsVisible" id="statistics-container">
-    <p>Team size: {{team.persons.length}}</p>
+    <div class="iconList">
+      <div class="iconTextPair"><img class="icon" src="../../../assets/images/person.png">{{team.persons.length}}</div>
+    </div>
+    <br>
     <div class="iconList">
       <img class="icon" src="{{getDeviceIconPath(LocalDeviceType.Mac)}}"> {{getDeviceCount(LocalDeviceType.Mac)}}
       <img class="icon" src="{{getDeviceIconPath(LocalDeviceType.Iphone)}}"> {{getDeviceCount(LocalDeviceType.Iphone)}}
