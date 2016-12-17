@@ -4,8 +4,17 @@
 }
 
 .row {
-  height: 10%;
+  height: 75px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: center;
+}
+.row h3 {
+  padding: 0;
+  margin: 0;
+}
+
+.row p {
+  padding: 0;
+  margin: 0;
 }
