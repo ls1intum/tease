@@ -36,7 +36,7 @@ export class TeamContainerComponent {
   getDeviceCount(device: DeviceType): number{
     return this.team.persons
       .map(person => this.getPersonDeviceCount(person,device))
-      .reduce((sum, count)=>sum+count);
+      .reduce((sum, count)=>sum+count, 0);
   }
 
   getDeviceIconPath(deviceType: DeviceType): string {

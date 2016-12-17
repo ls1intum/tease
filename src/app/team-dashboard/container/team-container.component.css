@@ -4,7 +4,9 @@
   width: 300px;
 
   border: 5px solid;
-  border-radius: 10px;
+  border-radius: 6px;
+  border-color: #424242;
+  margin: 5px;
   display:flex;
   flex-direction: column;
 }
@@ -14,10 +16,15 @@
   width: 100%;
   min-height: 30px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
-#title-container {
-
+#titleContainer {
+  height:170px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .icon {
@@ -41,3 +48,12 @@
   justify-content: space-around;
   font-weight: bold;
 }
+
+#teamName {
+  display: inline;
+}
+
+.divider {
+  width: 100%;
+}
+

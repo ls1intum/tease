@@ -1,13 +1,13 @@
 <div *ngIf="team" id="container">
-  <div id="title-container">
-    <h1>{{team.name}}</h1>
+  <div id="titleContainer">
+    <h1 id="teamName">{{team.name}} </h1>
     <button md-raised-button (click)="showStatistics()">
       Statistics
     </button>
-    <hr>
   </div>
+  <hr class="divider">
 
-  <div *ngIf="isStatisticsVisible" id="statistics-container">
+  <div *ngIf="isStatisticsVisible">
     <div class="iconList">
       <div class="iconTextPair"><img class="icon" src="../../../assets/images/person.png">{{team.persons.length}}</div>
     </div>
