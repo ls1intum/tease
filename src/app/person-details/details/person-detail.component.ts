@@ -1,8 +1,8 @@
 import {Component, OnInit, OnDestroy, ViewChild} from "@angular/core";
-import {Person} from "../shared/models/person";
+import {Person} from "../../shared/models/person";
 import {MaterialModule, MdDialogRef, MdRadioGroup} from '@angular/material';
-import {SkillLevel} from "../shared/models/skill";
-import {TeamService} from "../shared/layers/business-logic-layer/team.service";
+import {SkillLevel} from "../../shared/models/skill";
+import {TeamService} from "../../shared/layers/business-logic-layer/team.service";
 
 
 /**
