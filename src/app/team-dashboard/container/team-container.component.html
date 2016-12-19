@@ -5,8 +5,7 @@
       Statistics
     </button>
   </div>
-  <md-divider class="divider"></md-divider>
-
+  <hr>
 
   <div *ngIf="isStatisticsVisible">
     <div class="iconList">
@@ -22,6 +21,8 @@
     </div>
     <md-divider></md-divider>
   </div>
+
+  <hr>
 
   <div [dragula]='"first-bag"' class='drag-container' [dragulaModel]="team.persons">
     <div class='sub-element' *ngFor="let person of team.persons" (click)="showPersonDetails(person)">
