@@ -6,7 +6,8 @@
     "build": "webpack --inline --colors --progress --display-error-details --display-cached",
     "watch": "npm run build -- --watch",
     "server": "webpack-dev-server --host 0.0.0.0 --inline --colors --progress --display-error-details --display-cached --port 80  --content-base src",
-    "start": "npm run server"
+    "start": "npm run server",
+    "build:prod": "webpack --config config/webpack.prod.js  --progress --profile --bail"
   },
   "contributors": [
     "Malte Bucksch <malte.bucksch@gmail.com>"
