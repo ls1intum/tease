@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 // Webpack Config
@@ -17,6 +18,9 @@ var webpackConfig = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(true),
     new webpack.optimize.CommonsChunkPlugin({ name: ['main', 'vendor', 'polyfills'], minChunks: Infinity }),
+    new HtmlWebpackPlugin({
+      template: 'src/index.html'
+    })
   ],
 
   module: {
