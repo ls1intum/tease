@@ -8,7 +8,7 @@ import {DeviceType} from "../models/device";
 
 @Injectable()
 export class IconMapperService {
-  private static readonly BASE_PATH_IMAGES = "../../../assets/images/";
+  private static readonly BASE_PATH_IMAGES = "assets/images/";
 
   constructor() { }
 

@@ -20,7 +20,7 @@ import {TeamGenerationModule} from "./team-generation/team-generation.module";
   declarations: [AppComponent],
   imports     : [BrowserModule,
     FormsModule, HttpModule,
-    RouterModule.forRoot(rootRouterConfig),
+    RouterModule.forRoot(rootRouterConfig,  {useHash: false}),
   PersonDetailModule, PersonDataImporterModule,
   PersonListModule,TeamDashboardModule,TeamGenerationModule, MaterialModule.forRoot(), DragulaModule],
   providers   : [{provide: LocationStrategy, useClass: HashLocationStrategy}],
