@@ -1,7 +1,7 @@
 
 import {Team} from "../../../models/team";
 import {PersonSerializer} from "./PersonSerializer";
-import {CsvColumNames} from "../../../constants/csv-constants";
+import {CsvColumNames} from "../../../constants/csv.constants";
 
 export class TeamSerializer {
   static serializeTeam(team: Team): {}[] {

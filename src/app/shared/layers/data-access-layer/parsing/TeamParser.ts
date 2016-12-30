@@ -1,8 +1,8 @@
 import {Team} from "../../../models/team";
 import {PersonParser} from "./PersonParser";
-import {CsvTeamPrioritiesCount, CsvColumNames} from "../../../constants/csv-constants";
+import {CsvTeamPrioritiesCount, CsvColumNames} from "../../../constants/csv.constants";
 import {Person} from "../../../models/person";
-import {StringHelper} from "../../../helpers/StringHelper";
+import {StringHelper} from "../../../helpers/string.helper";
 
 declare type TeamList = {[id: string]: Team};
 

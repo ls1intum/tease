@@ -3,7 +3,7 @@ import {Person} from "../../models/person";
 import {Team} from "../../models/team";
 import {TeamGenerationService} from "./team-generation.service";
 import {TeamAccessService} from "../data-access-layer/team.access.service";
-import {TeamHelper} from "../../helpers/TeamHelper";
+import {TeamHelper} from "../../helpers/team.helper";
 /**
  * Created by wanur on 05/11/2016.
  */

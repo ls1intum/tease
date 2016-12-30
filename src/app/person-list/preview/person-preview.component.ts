@@ -3,7 +3,7 @@ import {Person} from "../../shared/models/person";
 import {IconMapperService} from "../../shared/ui/icon-mapper.service";
 import {Md5} from 'ts-md5/dist/md5';
 import {SkillLevel} from "../../shared/models/skill";
-import {Colors} from "../../shared/constants/color-constants";
+import {Colors} from "../../shared/constants/color.constants";
 
 /**
  * Created by Malte Bucksch on 28/11/2016.

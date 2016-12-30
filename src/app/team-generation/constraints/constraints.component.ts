@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from "@angular/core";
 import {Router} from "@angular/router";
 import {TeamService} from "../../shared/layers/business-logic-layer/team.service";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
-import {LangConstraints} from "../../shared/constants/language-constants";
+import {LangConstraints} from "../../shared/constants/language.constants";
 import {TeamGenerationService} from "../../shared/layers/business-logic-layer/team-generation.service";
 
 /**

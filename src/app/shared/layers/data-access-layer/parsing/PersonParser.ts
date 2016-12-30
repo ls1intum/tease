@@ -1,7 +1,7 @@
 import {Person, Gender} from "../../../models/person";
-import {CsvColumNames, CsvValueNames} from "../../../constants/csv-constants";
+import {CsvColumNames, CsvValueNames} from "../../../constants/csv.constants";
 import {Device, DeviceType} from "../../../models/device";
-import {StringHelper} from "../../../helpers/StringHelper";
+import {StringHelper} from "../../../helpers/string.helper";
 import {SkillLevel} from "../../../models/skill";
 /**
  * Created by Malte Bucksch on 01/12/2016.

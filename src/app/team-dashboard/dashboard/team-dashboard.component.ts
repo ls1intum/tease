@@ -8,7 +8,7 @@ import {Person} from "../../shared/models/person";
 import {DragulaService} from "ng2-dragula/components/dragula.provider";
 import {PersonPreviewComponent} from "../../person-list/preview/person-preview.component";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
-import {LangDashbaord} from "../../shared/constants/language-constants";
+import {LangDashbaord} from "../../shared/constants/language.constants";
 import {Subscription} from "rxjs";
 /**
  * Created by Malte Bucksch on 25/11/2016.

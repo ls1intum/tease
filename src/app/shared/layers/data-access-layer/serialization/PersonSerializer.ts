@@ -1,6 +1,6 @@
 import {Person, Gender} from "../../../models/person";
-import {StringHelper} from "../../../helpers/StringHelper";
-import {CsvColumNames, CsvValueNames} from "../../../constants/csv-constants";
+import {StringHelper} from "../../../helpers/string.helper";
+import {CsvColumNames, CsvValueNames} from "../../../constants/csv.constants";
 import {DeviceType} from "../../../models/device";
 import {SkillLevel} from "../../../models/skill";
 /**

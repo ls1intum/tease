@@ -5,8 +5,8 @@ import {TeamService} from "../../shared/layers/business-logic-layer/team.service
 import {DialogService} from "../../shared/ui/dialog.service";
 import {Team} from "../../shared/models/team";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
-import {LangPersonList} from "../../shared/constants/language-constants";
-import {TeamHelper} from "../../shared/helpers/TeamHelper";
+import {LangPersonList} from "../../shared/constants/language.constants";
+import {TeamHelper} from "../../shared/helpers/team.helper";
 /**
  * Created by wanur on 05/11/2016.
  */
