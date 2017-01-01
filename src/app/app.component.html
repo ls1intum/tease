@@ -2,7 +2,7 @@
   <md-toolbar color="primary" id="toolbar">
     <div class="clickable" (click)="gotoHome()">Teamify</div>
     <span class="app-toolbar-filler"></span>
-    <button md-raised-button color="accent"
+    <button *ngIf="isButtonVisible" md-raised-button color="accent"
      (click)="onButtonClicked()">{{buttonName}}</button>
   </md-toolbar>
 

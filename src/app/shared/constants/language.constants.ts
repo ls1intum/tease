@@ -2,6 +2,13 @@
  * Created by Malte Bucksch on 16/12/2016.
  */
 
+// default values
+export abstract class LangDefaults {
+  static readonly ToolbarButtonName = "Skip";
+  static readonly ToolbarButtonIsVisible = true;
+
+}
+
 // team import
 export abstract class LangImport {
   static readonly ToolbarButtonName = "Skip";

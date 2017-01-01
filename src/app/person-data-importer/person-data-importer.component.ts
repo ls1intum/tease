@@ -18,7 +18,6 @@ import {Subscription} from "rxjs";
   selector: 'person-data-importer',
 })
 export class PersonDataImporterComponent implements OnInit,OnDestroy {
-  private isDataAvailable = false;
   private skipSubscription: Subscription;
   @ViewChild('fileInput') fileInput: ElementRef;
 
@@ -26,6 +25,7 @@ export class PersonDataImporterComponent implements OnInit,OnDestroy {
               private router: Router,
               private renderer: Renderer,
               private toolbarService: ToolbarService) {
+    this.toolbarService.resetToDefaultValues();
     this.toolbarService.changeButtonName(LangImport.ToolbarButtonName);
 
     this.checkIfDataAvailable();
@@ -70,7 +70,8 @@ export class PersonDataImporterComponent implements OnInit,OnDestroy {
   checkIfDataAvailable() {
     this.teamService.read().then(
       teams => {
-        this.isDataAvailable = teams != undefined && teams.length != 0;
+        this.toolbarService.setButtonVisibility(teams != undefined
+          && teams.length != 0);
       }
     )
   }

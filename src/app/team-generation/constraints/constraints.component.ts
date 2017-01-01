@@ -21,6 +21,7 @@ export class ConstraintsComponent implements OnInit,OnDestroy{
             private teamGenerationService: TeamGenerationService,
               private toolbarService: ToolbarService,
               private teamService: TeamService) {
+    this.toolbarService.resetToDefaultValues();
     this.toolbarService.changeButtonName(LangConstraints.ToolbarButtonName);
   }
 

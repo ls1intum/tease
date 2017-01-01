@@ -26,6 +26,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
               private viewContainerRef: ViewContainerRef,
               private dialogService: DialogService,
               private toolbarService: ToolbarService) {
+    this.toolbarService.resetToDefaultValues();
     this.toolbarService.changeButtonName(LangPersonList.ToolbarButtonName);
   }
 
