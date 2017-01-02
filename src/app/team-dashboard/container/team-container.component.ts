@@ -2,7 +2,7 @@ import {Component, Input, ViewContainerRef, Output, EventEmitter} from "@angular
 import {Team} from "../../shared/models/team";
 import {DialogService} from "../../shared/ui/dialog.service";
 import {Person} from "../../shared/models/person";
-import {DeviceType} from "../../shared/models/device";
+import {DeviceType, Device} from "../../shared/models/device";
 import {IconMapperService} from "../../shared/ui/icon-mapper.service";
 /**
  * Created by Malte Bucksch on 06/12/2016.
@@ -33,14 +33,8 @@ export class TeamContainerComponent {
     });
   }
 
-  getDeviceCount(device: DeviceType): number{
-    return this.team.persons
-      .map(person => this.getPersonDeviceCount(person,device))
-      .reduce((sum, count)=>sum+count, 0);
-  }
-
-  getDeviceIconPath(deviceType: DeviceType): string {
-    return this.iconMapperService.getDeviceTypeIconPath(deviceType);
+  getDevices(): Device[]{
+    return [].concat(...this.team.persons.map(person => person.devices));
   }
 
   private getPersonDeviceCount(person: Person, targetDevice: DeviceType): number {
