@@ -1,14 +1,17 @@
 #container {
   max-height:83vh;
-  height:auto;
+  height:100%;
   width: 300px;
 
-  border: 5px solid;
   border-radius: 6px;
-  border-color: #424242;
+  border: 5px solid #424242;
   margin: 5px;
   display:flex;
   flex-direction: column;
+}
+
+.containerHeader {
+  height:auto;
 }
 
 .drag-container {
@@ -20,11 +23,7 @@
 }
 
 #titleContainer {
-  height:170px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+  height:auto;
 }
 
 .icon {
@@ -51,9 +50,15 @@
 
 #teamName {
   display: inline;
+  padding: 0;
+  margin: 0;
 }
 
 .divider {
   width: 100%;
+}
+
+#infoButton {
+
 }
 

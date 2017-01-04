@@ -3,3 +3,6 @@
   min-width: 400px;
   text-align: start;
 }
+.action_button {
+  color:white !important;
+}

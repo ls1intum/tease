@@ -1,22 +1,20 @@
 <div *ngIf="team" id="container">
-  <div id="titleContainer">
-    <h1 id="teamName">{{team.name}} </h1>
-    <button md-raised-button (click)="showStatistics()">
-      Statistics
-    </button>
-  </div>
-  <hr>
-
-  <div *ngIf="isStatisticsVisible">
-    <div class="iconList">
-      <div class="iconTextPair"><img class="icon" src="../../../assets/images/person.png">{{team.persons.length}}</div>
+  <div class="containerHeader">
+    <div id="titleContainer">
+      <h1 id="teamName">{{team.name}} ({{team.persons.length}})</h1>
+      <button align="end" md-button id="infoButton" (click)="showStatistics()">
+        <md-icon color="accent">info</md-icon>
+      </button>
     </div>
-    <br>
-    <devices [devices]="getDevices()"></devices>
-    <md-divider></md-divider>
-  </div>
 
-  <hr>
+    <div *ngIf="isStatisticsVisible">
+      <hr>
+      <devices [devices]="getDevices()"></devices>
+      <md-divider></md-divider>
+    </div>
+
+    <hr>
+  </div>
 
   <div [dragula]='"first-bag"' class='drag-container' [dragulaModel]="team.persons">
     <div class='sub-element' *ngFor="let person of team.persons" (click)="showPersonDetails(person)">
