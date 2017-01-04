@@ -1,7 +1,7 @@
 <h1 align="center">Your talents</h1>
 
-<div>
-  <div *ngFor="let person of persons" (click)="gotoDetail(person)" class="col-1-4">
+<div align="center">
+  <div *ngFor="let person of persons" (click)="gotoDetail(person)" class="col-1-4 personPreview">
       <person-preview [person]="person"></person-preview>
   </div>
 </div>
