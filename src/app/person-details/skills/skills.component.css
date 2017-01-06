@@ -1,0 +1,32 @@
+#container {
+
+}
+
+.priorityBoxContainer{
+  display: inline-block;
+  margin: 6px;
+}
+.priorityBox {
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border: 2px solid;
+  border-radius: 3px;
+}
+
+.verticalDivider {
+  border-left: 2px solid;
+  width: 1px;
+  height: 100%;
+}
+
+.column {
+  margin: 6px;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+}

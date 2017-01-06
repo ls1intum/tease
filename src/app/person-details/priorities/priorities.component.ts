@@ -16,7 +16,7 @@ export class PrioritiesComponent {
   private teamPriorities: Team[];
 
   constructor(){
-    debugger;
+
   }
 
   getPriorityNumber(priority: Team): number{

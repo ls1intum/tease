@@ -1,0 +1,13 @@
+<div id="container">
+
+  <div class="priorityBoxContainer" *ngFor="let skill of skills">
+    <div class="priorityBox">
+      <div class="column">{{getSkillName(skill)}}</div>
+      <div class="verticalDivider"></div>
+      <div class="column">
+        <img class="icon" src="{{getSkillIconPath(skill)}}">
+      </div>
+    </div>
+  </div>
+
+</div>

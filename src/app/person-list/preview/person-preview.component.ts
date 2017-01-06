@@ -42,4 +42,8 @@ export class PersonPreviewComponent {
     let emailHash = Md5.hashStr(this.person.email);
     return PersonPreviewComponent.GRAVATAR_URL+emailHash;
   }
+
+  isPersonRated():boolean {
+    return this.person.supervisorRating != undefined && this.person.supervisorRating != SkillLevel.None;
+  }
 }

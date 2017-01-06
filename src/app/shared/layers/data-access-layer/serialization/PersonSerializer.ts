@@ -45,7 +45,7 @@ export class PersonSerializer {
 
   private static serializeSkills(person: Person, personProps: {}) {
     for(let skill of person.skills){
-      let columnName = skill.skillType + CsvColumNames.ArrayBraces.Open + skill.skill + CsvColumNames.ArrayBraces.Close;
+      let columnName = skill.skillType + CsvColumNames.ArrayBraces.Open + skill.skillName + CsvColumNames.ArrayBraces.Close;
       personProps[columnName] = this.serializeSkillLevel(skill.skillLevel);
     }
   }

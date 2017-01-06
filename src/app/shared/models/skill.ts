@@ -5,23 +5,17 @@ import {PersonSerializer} from "../layers/data-access-layer/serialization/Person
 
 export class Skill {
   private _skillLevel: SkillLevel;
-  skill: string;
+  skillName: string;
   skillType: string;
 
   constructor(skill: string, skillType: string, skillLevel: SkillLevel) {
-    this.skill = skill;
+    this.skillName = skill;
     this._skillLevel = skillLevel;
     this.skillType = skillType;
   }
 
   get skillLevel(): SkillLevel {
     return this._skillLevel;
-  }
-
-  toString(): string {
-    return this.skill + ": "+
-      this.skillType + " = "+
-      PersonSerializer.serializeSkillLevel(this._skillLevel);
   }
 }
 
