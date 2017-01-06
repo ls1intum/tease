@@ -21,6 +21,7 @@ export class Person {
 
   currentTerm: number;
   major: string;
+  tumId: string;
 
   team: Team;
   teamPriorities: Team[] = [];
@@ -40,12 +41,12 @@ export class Person {
     this.devices.push(device);
   }
 
-  addSkill(skillName: string, skillType: string, skillLevel:SkillLevel) {
-    this.skills.push(new Skill(skillName,skillType,skillLevel));
+  addSkill(skillName: string, skillType: string, skillLevel: SkillLevel) {
+    this.skills.push(new Skill(skillName, skillType, skillLevel));
   }
 
   ownsDevice(deviceType: DeviceType): boolean {
-    return this.devices.filter(d => d.deviceType === deviceType).length >0;
+    return this.devices.filter(d => d.deviceType === deviceType).length > 0;
   }
 }
 

@@ -19,6 +19,7 @@ export abstract class PersonParser {
     if (person.major === CsvValueNames.MajorOtherValue)
       person.major = personProps[CsvColumNames.Person.MajorOther];
     person.currentTerm = personProps[CsvColumNames.Person.Term];
+    person.tumId = personProps[CsvColumNames.Person.TumId];
     person.iosDevExp = personProps[CsvColumNames.Person.IosDevExperience];
     person.iosDevExpDescription = personProps[CsvColumNames.Person.IosDevExperienceDescription];
     person.gitExpDescription = personProps[CsvColumNames.Person.GitExperience];

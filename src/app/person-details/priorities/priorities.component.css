@@ -25,3 +25,8 @@
 .column {
   margin: 6px;
 }
+
+.marked {
+  border-width: 4px;
+}
+

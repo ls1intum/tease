@@ -16,6 +16,7 @@ export class PersonSerializer {
     personProps[CsvColumNames.Person.FirstName] = person.firstName;
     personProps[CsvColumNames.Person.LastName] = person.lastName;
     personProps[CsvColumNames.Person.Term] = person.currentTerm;
+    personProps[CsvColumNames.Person.TumId] = person.tumId;
     personProps[CsvColumNames.Person.IosDevExperience] = person.iosDevExp;
     personProps[CsvColumNames.Person.IosDevExperienceDescription] = person.iosDevExpDescription;
     personProps[CsvColumNames.Person.GitExperience] = person.gitExpDescription;

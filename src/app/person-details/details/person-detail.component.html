@@ -15,6 +15,10 @@
       <h3> E-Mail </h3>
       <p>{{person.email}}</p>
     </div>
+    <div class="row">
+      <h3> Tum-Id </h3>
+      <p>{{person.tumId}}</p>
+    </div>
 
     <hr>
 
@@ -31,7 +35,7 @@
     <hr>
     <div class="row">
       <h3>Project Priorities</h3>
-      <priorities [teamPriorities]="person.teamPriorities"></priorities>
+      <priorities [teamPriorities]="person.teamPriorities" [markedPriorities]="[person.team]"></priorities>
     </div>
     <div class="row">
       <h3>Skills</h3>

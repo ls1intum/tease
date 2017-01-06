@@ -14,16 +14,23 @@ import {Team} from "../../shared/models/team";
 export class PrioritiesComponent {
   @Input()
   private teamPriorities: Team[];
+  @Input()
+  private markedPriorities: Team[];
 
   constructor(){
 
   }
 
-  getPriorityNumber(priority: Team): number{
-    return this.teamPriorities.indexOf(priority)+1;
+  getPriorityNumber(teamPriority: Team): number{
+    return this.teamPriorities.indexOf(teamPriority)+1;
   }
 
-  getPriorityName(priority: Team): string {
-    return priority.name;
+  getPriorityName(teamPriority: Team): string {
+    return teamPriority.name;
+  }
+
+  isMarked(teamPriority: Team): boolean {
+    if(this.markedPriorities === undefined)return false;
+    return this.markedPriorities.includes(teamPriority);
   }
 }

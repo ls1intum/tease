@@ -1,9 +1,9 @@
 <div id="container">
 
   <div class="priorityBoxContainer" *ngFor="let prio of teamPriorities">
-    <div class="priorityBox">
+    <div class="priorityBox" [class.marked]="isMarked(prio)">
       <div class="column">{{getPriorityName(prio)}}</div>
-      <div class="verticalDivider"></div>
+      <div class="verticalDivider" [class.marked]="isMarked(prio)"></div>
       <div class="column">{{getPriorityNumber(prio)}}</div>
     </div>
   </div>
