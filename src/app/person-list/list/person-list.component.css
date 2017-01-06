@@ -1,8 +1,5 @@
-.personPreview {
+.person-preview {
   width: 70%;
   min-width: 400px;
   text-align: start;
-}
-.action_button {
-  color:white !important;
 }

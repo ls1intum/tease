@@ -2,12 +2,11 @@
   max-height:83vh;
   height:100%;
   width: 300px;
-
-  border-radius: 6px;
-  border: 5px solid #424242;
-  margin: 5px;
+  border-radius: 4px;
+  margin: 10px;
   display:flex;
   flex-direction: column;
+  background-color: #E0E0E0;
 }
 
 .containerHeader {
@@ -20,6 +19,7 @@
   min-height: 30px;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: #E0E0E0;
 }
 
 #titleContainer {

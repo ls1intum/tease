@@ -1,13 +1,20 @@
 <div *ngIf="person">
   <md-card [style.border-color]="getColor()" class="skillColored">
-    <md-card-title-group>
-      <img md-card-sm-image class="img-circle" src="{{getGravatarIconPath()}}">
+    <div class="card-content">
+      <img md-card-avatar src="{{getGravatarIconPath()}}">
 
-      <md-card-title>{{person.firstName}} {{person.lastName}}
+      <div class="data-container">
+        <div class="name-container">
+            {{person.firstName}}
+            {{person.lastName}}
+        </div>
         <img class="icon" src="{{getGenderIconPath()}}">
-        <img *ngIf="isPersonRated()" class="icon" src="{{getSkillIconPath()}}">
-      </md-card-title>
-      <md-card-subtitle>{{person.major}}</md-card-subtitle>
-    </md-card-title-group>
+      </div>
+
+      <!--shows an icon for the supervisor rating-->
+      <!--<div class="end-aligned">-->
+        <!--<img *ngIf="isPersonRated()" class="icon" src="{{getSkillIconPath()}}">-->
+      <!--</div>-->
+    </div>
   </md-card>
 </div>
