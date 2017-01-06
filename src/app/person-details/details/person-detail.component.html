@@ -36,10 +36,9 @@
     <hr>
 
     <h3>Priority List</h3>
-    <p *ngFor="let priority of getTeamPriorities()">{{priority}}</p>
+    <priorities [teamPriorities]="person.teamPriorities"></priorities>
     <h3>Skill List</h3>
     <p *ngFor="let skill of person.skills">{{skill.toString()}}</p>
-
   </div>
 
   <md-toolbar color="primary">

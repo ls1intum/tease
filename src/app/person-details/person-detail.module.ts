@@ -6,9 +6,10 @@ import {SharedModule} from "../shared/shared.module";
 import {MaterialModule} from "@angular/material";
 import {DevicesComponent} from "./devices/devices.component";
 import {IconMapperService} from "../shared/ui/icon-mapper.service";
+import {PrioritiesComponent} from "./priorities/priorities.component";
 @NgModule({
   imports: [CommonModule, SharedModule,  MaterialModule.forRoot()],
-  declarations: [PersonDetailComponent,DevicesComponent],
+  declarations: [PersonDetailComponent,DevicesComponent,PrioritiesComponent],
   exports: [PersonDetailComponent,DevicesComponent],
   providers: [IconMapperService]
 })

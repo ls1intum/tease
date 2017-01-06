@@ -31,11 +31,6 @@ export class PersonDetailComponent implements OnInit {
     this.skillString = this.person.supervisorRating.toString();
   }
 
-  private getTeamPriorities(): string[] {
-    return this.person.teamPriorities.map(
-      prio => (this.person.teamPriorities.indexOf(prio) + 1) + " " + prio.name)
-  }
-
   onChangeRating(value: string) {
     this.person.supervisorRating = +value;
   }
