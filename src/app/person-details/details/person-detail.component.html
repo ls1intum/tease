@@ -19,12 +19,7 @@
     <hr>
 
     <div class="row">
-      <h3> Devices </h3>
-      <devices [devices]="person.devices"></devices>
-    </div>
-
-    <div class="row">
-      <h3>  iOS-Experience </h3>
+      <h3> iOS-Experience </h3>
       <p>{{person.iosDevExp}}</p>
     </div>
 
@@ -34,11 +29,18 @@
     </div>
 
     <hr>
-
-    <h3>Project Priorities</h3>
-    <priorities [teamPriorities]="person.teamPriorities"></priorities>
-    <h3>Skills</h3>
-    <skills [skills]="person.skills"></skills>
+    <div class="row">
+      <h3>Project Priorities</h3>
+      <priorities [teamPriorities]="person.teamPriorities"></priorities>
+    </div>
+    <div class="row">
+      <h3>Skills</h3>
+      <skills [skills]="person.skills"></skills>
+    </div>
+    <div class="row">
+      <h3> Devices </h3>
+      <devices [devices]="person.devices"></devices>
+    </div>
   </div>
 
   <md-toolbar color="primary">
