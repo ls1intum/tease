@@ -15,7 +15,7 @@ import {MaterialModule} from "@angular/material";
  */
 
 @NgModule({
-  imports: [CommonModule, RouterModule, MaterialModule.forRoot()],
+  imports: [CommonModule, RouterModule, MaterialModule],
   declarations: [],
   exports: [
     CommonModule, FormsModule, RouterModule],

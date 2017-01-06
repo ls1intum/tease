@@ -13,11 +13,12 @@ import {PersonDataImporterModule} from "./person-data-importer/person-data-impor
 import {TeamDashboardModule} from "./team-dashboard/team-dashboard.module";
 import {DragulaModule} from "ng2-dragula/ng2-dragula";
 import {TeamGenerationModule} from "./team-generation/team-generation.module";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [AppComponent],
   imports     : [BrowserModule,
-    FormsModule, HttpModule,
+    FormsModule, HttpModule,NgbModule.forRoot(),
     RouterModule.forRoot(rootRouterConfig,  {useHash: false}),
   PersonDetailModule, PersonDataImporterModule,
   PersonListModule,TeamDashboardModule,TeamGenerationModule, MaterialModule.forRoot(), DragulaModule],

@@ -12,7 +12,7 @@ import {ToolbarService} from "../shared/ui/toolbar.service";
  */
 
 @NgModule({
-  imports: [CommonModule, SharedModule,  MaterialModule.forRoot()],
+  imports: [CommonModule, SharedModule,  MaterialModule],
   declarations: [PersonDataImporterComponent],
   exports: [PersonDataImporterComponent],
   providers: [TeamService, ToolbarService],

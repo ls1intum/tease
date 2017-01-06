@@ -4,7 +4,7 @@
       <img md-card-sm-image src="{{getGravatarIconPath()}}">
 
       <md-card-title>{{person.firstName}} {{person.lastName}}
-        <img class="icon" src="{{getGenderIconPath()}}">
+        <img class="icon img-circle" src="{{getGenderIconPath()}}">
         <img *ngIf="isPersonRated()" class="icon" src="{{getSkillIconPath()}}">
       </md-card-title>
       <md-card-subtitle>{{person.major}}</md-card-subtitle>

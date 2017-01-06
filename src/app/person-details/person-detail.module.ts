@@ -9,7 +9,7 @@ import {IconMapperService} from "../shared/ui/icon-mapper.service";
 import {PrioritiesComponent} from "./priorities/priorities.component";
 import {SkillsComponent} from "./skills/skills.component";
 @NgModule({
-  imports: [CommonModule, SharedModule,  MaterialModule.forRoot()],
+  imports: [CommonModule, SharedModule,  MaterialModule],
   declarations: [PersonDetailComponent,DevicesComponent,PrioritiesComponent,SkillsComponent],
   exports: [PersonDetailComponent,DevicesComponent],
   providers: [IconMapperService]

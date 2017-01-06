@@ -15,7 +15,7 @@ import {PersonDetailModule} from "../person-details/person-detail.module";
  * Created by Malte Bucksch on 25/11/2016.
  */
 @NgModule({
-  imports: [CommonModule, MaterialModule.forRoot(), DragulaModule, PersonDetailModule, PersonListModule],
+  imports: [CommonModule, MaterialModule, DragulaModule, PersonDetailModule, PersonListModule],
   declarations: [TeamDashboardComponent, TeamContainerComponent],
   exports: [TeamDashboardComponent],
   providers: [TeamService, ToolbarService, DragulaService, DialogService],

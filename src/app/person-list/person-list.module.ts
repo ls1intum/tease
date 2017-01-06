@@ -8,12 +8,13 @@ import {TeamService} from "../shared/layers/business-logic-layer/team.service";
 import {DialogService} from "../shared/ui/dialog.service";
 import {IconMapperService} from "../shared/ui/icon-mapper.service";
 import {ToolbarService} from "../shared/ui/toolbar.service";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 /**
  * Created by wanur on 05/11/2016.
  */
 @NgModule({
-  imports: [CommonModule, MaterialModule.forRoot()],
+  imports: [CommonModule, MaterialModule,NgbModule],
   declarations: [PersonListComponent, PersonPreviewComponent],
   exports: [PersonListComponent, PersonPreviewComponent],
   providers: [TeamService, DialogService, IconMapperService,ToolbarService],
