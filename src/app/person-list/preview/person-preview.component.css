@@ -10,3 +10,7 @@ md-card {
 .skillColored {
   border: dotted;
 }
+
+.img-circle {
+  border-radius: 50%;
+}

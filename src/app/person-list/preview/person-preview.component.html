@@ -1,10 +1,10 @@
 <div *ngIf="person">
   <md-card [style.border-color]="getColor()" class="skillColored">
     <md-card-title-group>
-      <img md-card-sm-image src="{{getGravatarIconPath()}}">
+      <img md-card-sm-image class="img-circle" src="{{getGravatarIconPath()}}">
 
       <md-card-title>{{person.firstName}} {{person.lastName}}
-        <img class="icon img-circle" src="{{getGenderIconPath()}}">
+        <img class="icon" src="{{getGenderIconPath()}}">
         <img *ngIf="isPersonRated()" class="icon" src="{{getSkillIconPath()}}">
       </md-card-title>
       <md-card-subtitle>{{person.major}}</md-card-subtitle>
