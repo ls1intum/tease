@@ -23,7 +23,11 @@
 }
 
 #titleContainer {
-  height:auto;
+  height:45px;
+  display: flex;
+  align-items: center;
+  padding:10px;
+  background: white;
 }
 
 #teamName {
@@ -37,6 +41,10 @@
 }
 
 #infoButton {
+  margin-left: auto;
+}
 
+hr {
+  margin: 0;
 }
 
