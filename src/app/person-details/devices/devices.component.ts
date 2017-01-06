@@ -13,6 +13,9 @@ import {IconMapperService} from "../../shared/ui/icon-mapper.service";
 export class DevicesComponent {
   @Input()
   private devices: Device[];
+  @Input()
+  private alignCenter: boolean = true;
+
   public LocalDeviceType = DeviceType;
 
   constructor(private iconMapperService: IconMapperService){
