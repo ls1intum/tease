@@ -9,3 +9,9 @@
 .clickable {
   cursor: pointer;
 }
+
+.app-content {
+  background-color: deepskyblue;
+  /*TODO find out how to make app content bury the whole screen exxactly*/
+  height: 100%;
+}
