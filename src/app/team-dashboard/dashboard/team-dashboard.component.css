@@ -1,12 +1,16 @@
 #dashboard {
   overflow-x: auto;
   width: auto;
-  height: auto;
+  height: 100%;
   display:flex;
   flex-direction: row;
 }
 
 team-container {
   width:auto;
-  height:auto;
+  /*feeling dirty*/
+  /*work around for the fact that css margins push parent borders and therefore a scrollbar is shown*/
+  height: calc(100% - 20px);
+  padding-top: 10px;
+  padding-bottom: 10px;
 }

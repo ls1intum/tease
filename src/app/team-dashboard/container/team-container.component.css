@@ -1,9 +1,9 @@
 #container {
-  max-height:83vh;
   height:100%;
   width: 300px;
-  border-radius: 4px;
-  margin: 10px;
+  border-radius: 7px;
+  margin-left: 10px;
+  margin-right: 10px;
   display:flex;
   flex-direction: column;
   background-color: #E0E0E0;
