@@ -22,7 +22,8 @@ var webpackConfig = {
       template: 'src/index.html'
     }),
     new CopyWebpackPlugin([
-      { from: 'src/assets', to: 'assets' }
+      { from: 'src/assets', to: 'assets' },
+      { from: 'src/css', to: 'css' }
     ])
   ],
 
