@@ -1,5 +1,9 @@
+.container {
+  height: calc(100% - 64px);
+}
+
 #toolbar {
-  height:8vh;
+ height: 64px;
 }
 
 .app-toolbar-filler {
@@ -13,5 +17,6 @@
 .app-content {
   background-color: deepskyblue;
   /*TODO find out how to make app content bury the whole screen exxactly --TEST433-*/
-  height: 100%;
+  height:100%
 }
+

@@ -1,15 +1,16 @@
+<div class="container">
+  <input #fileInput type="file" class="state_hidden" name="Choose file" (change)="onFileChanged($event)" accept="text/csv">
 
 
-<input #fileInput type="file" class="hidden" name="Choose file" (change)="onFileChanged($event)" accept="text/csv">
+  <div class="state_centered">
+    <h1 class="heading">Choose a CSV file with data about your talents. <br>Then let's build a one-of-a-kind team
+      together.</h1>
 
-
-<div class="centered">
-  <h1 class="heading">Choose a CSV file with data about your talents. <br>Then let's build a one-of-a-kind team together.</h1>
-
-  <button md-raised-button color="accent" (click)="onUploadClicked()">
-    Upload
-  </button>
-  <!--<button md-raised-button color="accent" (click)="onUploadClicked()">-->
+    <button md-raised-button color="accent" (click)="onUploadClicked()">
+      Upload
+    </button>
+    <!--<button md-raised-button color="accent" (click)="onUploadClicked()">-->
     <!--I just want to test-->
-  <!--</button>-->
+    <!--</button>-->
+  </div>
 </div>

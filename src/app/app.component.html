@@ -1,4 +1,4 @@
-<main>
+<div class="container">
   <md-toolbar color="primary" id="toolbar">
     <div class="clickable" (click)="gotoHome()">Teamify</div>
     <span class="app-toolbar-filler"></span>
@@ -6,10 +6,10 @@
      (click)="onButtonClicked()">{{buttonName}}</button>
   </md-toolbar>
 
-  <div class="app-content">
-  <router-outlet>
+    <div class="app-content">
+      <router-outlet>
 
-  </router-outlet>
-  </div>
-</main>
+      </router-outlet>
+    </div>
+</div>
 
