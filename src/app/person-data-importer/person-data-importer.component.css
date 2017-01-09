@@ -1,6 +1,4 @@
-.container {
-  height: 100px;
-  overflow: auto;
+.main {
 }
 
 .state_hidden {
@@ -8,6 +6,7 @@
 }
 
 .state_centered {
+  padding: 50px;
   width: 50%;
   margin: 0 auto;
   text-align:center;

@@ -1,4 +1,9 @@
+.main {
+  padding: 20px;
+}
+
 .state_centered {
+  padding: 50px;
   width: 50%;
   margin: 0 auto;
   text-align:center;
