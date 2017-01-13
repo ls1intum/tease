@@ -14,7 +14,8 @@ import {Subscription} from "rxjs";
 
 @Component({
   templateUrl: './person-data-importer.component.html',
-  styleUrls: ['./person-data-importer.component.css'],
+  styleUrls: ["./person-data-importer.component.css",
+    "./person-data-importer.component.scss"],
   selector: 'person-data-importer',
 })
 export class PersonDataImporterComponent implements OnInit,OnDestroy {
