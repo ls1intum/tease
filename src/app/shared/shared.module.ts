@@ -9,6 +9,9 @@ import {BalancedTeamGenerationService} from "./layers/business-logic-layer/balan
 import {PersistentTeamAccessService} from "./layers/data-access-layer/persistent-team-access.service";
 import {DialogService} from "./ui/dialog.service";
 import {MaterialModule} from "@angular/material";
+import {PersonService} from "./layers/business-logic-layer/person.service";
+import {SimplePersonService} from "./layers/business-logic-layer/simple-person.service";
+import {PersonStatisticsService} from "./layers/business-logic-layer/person-statistics.service";
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -19,8 +22,9 @@ import {MaterialModule} from "@angular/material";
   declarations: [],
   exports: [
     CommonModule, FormsModule, RouterModule],
-  providers: [
+  providers: [ PersonStatisticsService,
     {provide: TeamAccessService, useClass: PersistentTeamAccessService},
+    {provide: PersonService, useClass: SimplePersonService},
     {provide: TeamGenerationService, useClass: BalancedTeamGenerationService}
   ]
 })
