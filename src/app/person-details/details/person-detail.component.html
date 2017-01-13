@@ -48,14 +48,17 @@
   </div>
 
   <md-toolbar color="primary">
-    Rating
+    <md-radio-group [(value)]="skillString" (change)="onChangeRating($event.value)">
+      <md-radio-button value="{{PersonSkillLevel.VeryHigh}}">Expert</md-radio-button>
+      <md-radio-button value="{{PersonSkillLevel.High}}">Advanced</md-radio-button>
+      <md-radio-button value="{{PersonSkillLevel.Medium}}">Normal</md-radio-button>
+      <md-radio-button value="{{PersonSkillLevel.Low}}">Novice</md-radio-button>
+    </md-radio-group>
     <md-toolbar-row>
-      <md-radio-group [(value)]="skillString" (change)="onChangeRating($event.value)">
-        <md-radio-button value="{{PersonSkillLevel.VeryHigh}}">Expert</md-radio-button>
-        <md-radio-button value="{{PersonSkillLevel.High}}">Advanced</md-radio-button>
-        <md-radio-button value="{{PersonSkillLevel.Medium}}">Normal</md-radio-button>
-        <md-radio-button value="{{PersonSkillLevel.Low}}">Novice</md-radio-button>
-      </md-radio-group>
+      <span class="app-toolbar-filler"></span>
+
+      <div id="unratedPersons">5/93</div>
+      <button md-raised-button color="accent">Next unrated person</button>
     </md-toolbar-row>
   </md-toolbar>
 </div>

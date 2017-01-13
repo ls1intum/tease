@@ -19,3 +19,11 @@
   padding: 0;
   margin: 0;
 }
+.app-toolbar-filler {
+  flex: 1 1 auto;
+}
+
+#unratedPersons{
+  padding-right: 14px;
+}
+
