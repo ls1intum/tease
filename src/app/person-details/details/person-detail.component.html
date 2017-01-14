@@ -58,7 +58,7 @@
       <span class="app-toolbar-filler"></span>
 
       <div id="unratedPersons">{{getRatedPersonCount()}}/{{getPersonCount()}}</div>
-      <button md-raised-button color="accent">Next unrated person</button>
+      <button md-raised-button [disabled]="isNextButtonDisabled" (click)="onNextPersonClicked()" color="accent">Next unrated person</button>
     </md-toolbar-row>
   </md-toolbar>
 </div>

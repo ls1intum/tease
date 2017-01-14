@@ -2,12 +2,13 @@ import {Component, OnInit, ViewContainerRef, OnDestroy} from "@angular/core";
 import {Person} from "../../shared/models/person";
 import {Router} from "@angular/router";
 import {TeamService} from "../../shared/layers/business-logic-layer/team.service";
-import {DialogService} from "../../shared/ui/dialog.service";
+import {DialogService, EventTypePersonDetails} from "../../shared/ui/dialog.service";
 import {Team} from "../../shared/models/team";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
 import {LangPersonList} from "../../shared/constants/language.constants";
 import {TeamHelper} from "../../shared/helpers/team.helper";
 import {Subscription} from "rxjs";
+import {PersonService} from "../../shared/layers/business-logic-layer/person.service";
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -24,6 +25,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
 
   constructor(private teamService: TeamService,
               private router: Router,
+              private personService: PersonService,
               private viewContainerRef: ViewContainerRef,
               private dialogService: DialogService,
               private toolbarService: ToolbarService) {
@@ -57,9 +59,23 @@ export class PersonListComponent implements OnInit, OnDestroy {
   }
 
   gotoDetail(person: Person) {
-    this.dialogService.showPersonDetails(person, this.persons, this.viewContainerRef).subscribe(result => {
-      this.teamService.save(this.teams);
-    });
+    this.dialogService.showPersonDetails(person, this.persons, this.viewContainerRef)
+      .subscribe(event => {
+        this.teamService.save(this.teams);
+
+        if (event === EventTypePersonDetails.NextPersonPressed)
+          this.showNextUnratedPerson();
+      });
+  }
+
+  showNextUnratedPerson() {
+    let nextPerson = this.personService.getNextUnratedPerson(this.persons);
+    if (nextPerson === undefined) {
+      console.log("Already rated all persons");
+      return;
+    }
+
+    this.gotoDetail(nextPerson);
   }
 
   gotoImport() {

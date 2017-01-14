@@ -4,6 +4,7 @@ import {MaterialModule, MdDialogRef, MdRadioGroup} from '@angular/material';
 import {SkillLevel} from "../../shared/models/skill";
 import {TeamService} from "../../shared/layers/business-logic-layer/team.service";
 import {PersonStatisticsService} from "../../shared/layers/business-logic-layer/person-statistics.service";
+import {Observable, Subject} from "rxjs";
 
 
 /**
@@ -25,6 +26,8 @@ export class PersonDetailComponent implements OnInit {
   // work around for setting the value of the radio group on init
   // again: wtf. enums dont seem to be well integrated into typescript/angular
   private skillString: string;
+  private isNextButtonDisabled = false;
+  private nextPersonClickSubject = new Subject<any>();
 
   constructor(public dialogRef: MdDialogRef<PersonDetailComponent>,
               private personStatisticsService: PersonStatisticsService) {
@@ -32,17 +35,36 @@ export class PersonDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.skillString = this.person.supervisorRating.toString();
+    this.setNextButtonState();
   }
 
-  onChangeRating(value: string) {
+  private setNextButtonState(){
+    this.isNextButtonDisabled = this.isEveryPersonRated() || !this.person.hasSupervisorRating();
+  }
+
+  private isEveryPersonRated(): boolean {
+    return this.personStatisticsService.getRatedPersonCount(this.persons) === this.persons.length;
+  }
+
+  private onChangeRating(value: string) {
     this.person.supervisorRating = +value;
+    this.setNextButtonState();
   }
 
-  getRatedPersonCount():number{
+  private getRatedPersonCount(): number {
     return this.personStatisticsService.getRatedPersonCount(this.persons);
   }
 
-  getPersonCount(){
+  private getPersonCount() {
     return this.persons.length;
+  }
+
+  private onNextPersonClicked() {
+    this.dialogRef.close();
+    this.nextPersonClickSubject.next();
+  }
+
+  nextPersonClicked(): Observable<any> {
+    return this.nextPersonClickSubject.asObservable();
   }
 }
