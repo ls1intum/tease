@@ -7,6 +7,7 @@ import {Team} from "../../shared/models/team";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
 import {LangPersonList} from "../../shared/constants/language.constants";
 import {TeamHelper} from "../../shared/helpers/team.helper";
+import {Subscription} from "rxjs";
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -19,7 +20,7 @@ import {TeamHelper} from "../../shared/helpers/team.helper";
 export class PersonListComponent implements OnInit, OnDestroy {
   private persons: Person[];
   private teams: Team[];
-  private nextSubscription;
+  private nextSubscription: Subscription;
 
   constructor(private teamService: TeamService,
               private router: Router,
@@ -50,13 +51,13 @@ export class PersonListComponent implements OnInit, OnDestroy {
     this.nextSubscription.unsubscribe();
   }
 
-  gotoTeamGeneration(){
+  gotoTeamGeneration() {
     let link = ["/constraints"];
     this.router.navigate(link);
   }
 
   gotoDetail(person: Person) {
-    this.dialogService.showPersonDetails(person,this.viewContainerRef).subscribe(result => {
+    this.dialogService.showPersonDetails(person, this.persons, this.viewContainerRef).subscribe(result => {
       this.teamService.save(this.teams);
     });
   }

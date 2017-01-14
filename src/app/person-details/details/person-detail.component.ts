@@ -3,6 +3,7 @@ import {Person} from "../../shared/models/person";
 import {MaterialModule, MdDialogRef, MdRadioGroup} from '@angular/material';
 import {SkillLevel} from "../../shared/models/skill";
 import {TeamService} from "../../shared/layers/business-logic-layer/team.service";
+import {PersonStatisticsService} from "../../shared/layers/business-logic-layer/person-statistics.service";
 
 
 /**
@@ -16,6 +17,8 @@ import {TeamService} from "../../shared/layers/business-logic-layer/team.service
 })
 export class PersonDetailComponent implements OnInit {
   person: Person;
+  persons: Person[];
+
   // enums can only be used in a template with this shitty work around.
   // how stupid is angular 2 here?
   public PersonSkillLevel = SkillLevel;
@@ -24,7 +27,7 @@ export class PersonDetailComponent implements OnInit {
   private skillString: string;
 
   constructor(public dialogRef: MdDialogRef<PersonDetailComponent>,
-              private teamService: TeamService) {
+              private personStatisticsService: PersonStatisticsService) {
   }
 
   ngOnInit(): void {
@@ -33,5 +36,13 @@ export class PersonDetailComponent implements OnInit {
 
   onChangeRating(value: string) {
     this.person.supervisorRating = +value;
+  }
+
+  getRatedPersonCount():number{
+    return this.personStatisticsService.getRatedPersonCount(this.persons);
+  }
+
+  getPersonCount(){
+    return this.persons.length;
   }
 }

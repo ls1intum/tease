@@ -12,7 +12,7 @@ export class DialogService {
 
   constructor(private dialog: MdDialog) { }
 
-  public showPersonDetails(person: Person, viewContainerRef: ViewContainerRef): Observable<boolean> {
+  public showPersonDetails(person: Person, persons: Person[], viewContainerRef: ViewContainerRef): Observable<any> {
     let dialogRef: MdDialogRef<PersonDetailComponent>;
     let config = new MdDialogConfig();
 
@@ -21,6 +21,7 @@ export class DialogService {
     dialogRef = this.dialog.open(PersonDetailComponent, config);
 
     dialogRef.componentInstance.person = person;
+    dialogRef.componentInstance.persons = persons;
 
     return dialogRef.afterClosed();
   }

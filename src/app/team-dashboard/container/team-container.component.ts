@@ -4,6 +4,7 @@ import {DialogService} from "../../shared/ui/dialog.service";
 import {Person} from "../../shared/models/person";
 import {DeviceType, Device} from "../../shared/models/device";
 import {IconMapperService} from "../../shared/ui/icon-mapper.service";
+import {TeamHelper} from "../../shared/helpers/team.helper";
 /**
  * Created by Malte Bucksch on 06/12/2016.
  */
@@ -17,6 +18,9 @@ import {IconMapperService} from "../../shared/ui/icon-mapper.service";
 export class TeamContainerComponent {
   @Input()
   private team: Team;
+  @Input()
+  private teams: Team[];
+
   private isStatisticsVisible = false;
   public LocalDeviceType = DeviceType;
   @Output() personClose = new EventEmitter();
@@ -28,7 +32,8 @@ export class TeamContainerComponent {
   }
 
   showPersonDetails(person: Person){
-    this.dialogService.showPersonDetails(person,this.viewContainerRef).subscribe(result => {
+    let persons = TeamHelper.getPersons(this.teams);
+    this.dialogService.showPersonDetails(person,persons, this.viewContainerRef).subscribe(result => {
       this.personClose.emit();
     });
   }

@@ -48,6 +48,10 @@ export class Person {
   ownsDevice(deviceType: DeviceType): boolean {
     return this.devices.filter(d => d.deviceType === deviceType).length > 0;
   }
+
+  hasSupervisorRating(): boolean {
+    return this.supervisorRating !== undefined && this.supervisorRating != SkillLevel.None;
+  }
 }
 
 export enum Gender {
