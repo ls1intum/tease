@@ -1,9 +1,8 @@
 <main>
   <canvas baseChart
           class="chart"
-          [datasets]="datasets"
-          [labels]="labels"
-          [options]="options"
-          [chartType]="'line'">
+          [datasets]="getDataset()"
+          [labels]="getLabels()"
+          [chartType]="'bar'">
   </canvas>
 </main>
