@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {Person} from "../../shared/models/person"
 import 'chart.js'
 import {PersonStatisticsService} from "../../shared/layers/business-logic-layer/person-statistics.service";
@@ -15,31 +15,32 @@ import {Team} from "../../shared/models/team";
   selector: 'priority-chart',
   styleUrls: ['./priority-chart.component.scss'],
 })
-export class PriorityChartComponent {
+export class PriorityChartComponent implements OnInit {
   @Input()
   private team: Team;
+  private dataSet: {label: string; data: number[]}[]=[];
+  private labels: string[]=[];
 
   constructor(private personStatisticsService: PersonStatisticsService) {
+
   }
 
-  private datasets = [
-    {
-      label: "# of persons",
-      data: [12, 19, 3, 5, 2, 3]
-    }
-  ];
+  ngOnInit(): void {
+    this.updateDataset()
+    this.updateLabels();
+  }
 
-  getDataset(): {label: string; data: number[]}[] {
+  private updateDataset() {
     let priorities = ArrayHelper.createNumberRange(this.personStatisticsService.getPriorityCountMax(this.team));
     let priorityCount = priorities.map(prio =>
       this.personStatisticsService.getNumberOfPersonsForPriority(prio, this.team));
 
-    return [{label: "# of persons", data: priorityCount}];
+    this.dataSet =  [{label: "# of persons", data: priorityCount}];
   }
 
-  getLabels(): string[]{
+  private updateLabels(){
     let priorities = ArrayHelper.createNumberRange(this.personStatisticsService.getPriorityCountMax(this.team));
 
-    return priorities.map(prio => String(prio+1));
+    this.labels = priorities.map(prio => String(prio+1));
   }
 }
