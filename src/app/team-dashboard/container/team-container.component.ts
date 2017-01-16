@@ -6,6 +6,8 @@ import {DeviceType, Device} from "../../shared/models/device";
 import {IconMapperService} from "../../shared/ui/icon-mapper.service";
 import {TeamHelper} from "../../shared/helpers/team.helper";
 import {PersonService} from "../../shared/layers/business-logic-layer/person.service";
+import 'chart.js'
+
 /**
  * Created by Malte Bucksch on 06/12/2016.
  */
@@ -68,4 +70,23 @@ export class TeamContainerComponent implements AfterViewInit {
   showStatistics() {
     this.isStatisticsVisible = !this.isStatisticsVisible;
   }
+
+  private datasets = [
+    {
+      label: "# of Votes",
+      data: [12, 19, 3, 5, 2, 3]
+    }
+  ];
+
+  private labels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
+
+  private options = {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  };
 }

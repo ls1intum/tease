@@ -10,6 +10,13 @@
       <div *ngIf="isStatisticsVisible">
         <hr>
         <devices [devices]="getDevices()"></devices>
+        <canvas baseChart
+                class="chart"
+                [datasets]="datasets"
+                [labels]="labels"
+                [options]="options"
+                [chartType]="'line'">
+        </canvas>
         <md-divider></md-divider>
       </div>
 

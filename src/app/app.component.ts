@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
-import {Person} from "./shared/models/person";
 import {ToolbarService} from "./shared/ui/toolbar.service";
 import {Router} from "@angular/router";
+
 
 @Component({
   selector   : 'app',
