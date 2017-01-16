@@ -1,0 +1,5 @@
+@import '../../node_modules/@angular/material/core/theming/prebuilt/deeppurple-amber';
+
+.app-content {
+  background-color: md-color($primary, 0.6)
+}
