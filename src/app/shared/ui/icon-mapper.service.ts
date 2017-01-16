@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {SkillLevel} from "../models/skill";
 import {Gender} from "../models/person";
 import {DeviceType} from "../models/device";
+import {Md5} from "ts-md5/dist/md5";
 /**
  * Created by Malte Bucksch on 10/12/2016.
  */
@@ -9,6 +10,7 @@ import {DeviceType} from "../models/device";
 @Injectable()
 export class IconMapperService {
   private static readonly BASE_PATH_IMAGES = "/assets/images/";
+  private static readonly GRAVATAR_URL="http://www.gravatar.com/avatar/";
 
   constructor() { }
 
@@ -49,5 +51,12 @@ export class IconMapperService {
       case Gender.Female:
         return IconMapperService.BASE_PATH_IMAGES+"female.png";
     }
+  }
+
+  getGravatarIcon(email: string): string {
+    if(email == undefined)return IconMapperService.GRAVATAR_URL;
+
+    let emailHash = Md5.hashStr(email);
+    return IconMapperService.GRAVATAR_URL+emailHash;
   }
 }

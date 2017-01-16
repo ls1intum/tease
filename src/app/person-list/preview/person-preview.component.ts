@@ -1,7 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {Person} from "../../shared/models/person";
 import {IconMapperService} from "../../shared/ui/icon-mapper.service";
-import {Md5} from 'ts-md5/dist/md5';
 import {SkillLevel} from "../../shared/models/skill";
 import {Colors} from "../../shared/constants/color.constants";
 
@@ -17,10 +16,9 @@ import {Colors} from "../../shared/constants/color.constants";
   styleUrls: ['person-preview.component.css']
 })
 export class PersonPreviewComponent {
-  private static readonly GRAVATAR_URL="http://www.gravatar.com/avatar/";
   @Input()
   person: Person;
-  constructor(private imageService: IconMapperService){
+  constructor(private iconMapperService: IconMapperService){
 
   }
 
@@ -29,18 +27,15 @@ export class PersonPreviewComponent {
   }
 
   getSkillIconPath(): string{
-    return this.imageService.getSkillIconPath(this.person.supervisorRating);
+    return this.iconMapperService.getSkillIconPath(this.person.supervisorRating);
   }
 
   getGenderIconPath(): string{
-    return this.imageService.getGenderIconPath(this.person.gender);
+    return this.iconMapperService.getGenderIconPath(this.person.gender);
   }
 
   getGravatarIconPath(): string {
-    if(this.person.email == undefined)return PersonPreviewComponent.GRAVATAR_URL;
-
-    let emailHash = Md5.hashStr(this.person.email);
-    return PersonPreviewComponent.GRAVATAR_URL+emailHash;
+    return this.iconMapperService.getGravatarIcon(this.person.email);
   }
 
   isPersonRated():boolean {

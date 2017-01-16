@@ -5,6 +5,7 @@ import {SkillLevel} from "../../shared/models/skill";
 import {TeamService} from "../../shared/layers/business-logic-layer/team.service";
 import {PersonStatisticsService} from "../../shared/layers/business-logic-layer/person-statistics.service";
 import {Observable, Subject} from "rxjs";
+import {IconMapperService} from "../../shared/ui/icon-mapper.service";
 
 
 /**
@@ -30,6 +31,7 @@ export class PersonDetailComponent implements OnInit {
   private nextPersonClickSubject = new Subject<any>();
 
   constructor(public dialogRef: MdDialogRef<PersonDetailComponent>,
+              private iconMapperService: IconMapperService,
               private personStatisticsService: PersonStatisticsService) {
   }
 
@@ -62,6 +64,10 @@ export class PersonDetailComponent implements OnInit {
   private onNextPersonClicked() {
     this.dialogRef.close();
     this.nextPersonClickSubject.next();
+  }
+
+  getGravatarIconPath(): string {
+    return this.iconMapperService.getGravatarIcon(this.person.email);
   }
 
   nextPersonClicked(): Observable<any> {

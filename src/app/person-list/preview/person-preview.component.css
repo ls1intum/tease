@@ -18,10 +18,6 @@ md-card-title{
   border: dotted;
 }
 
-.img-circle {
-  border-radius: 50%;
-}
-
 .card-content {
   display: flex;
   flex-direction: row;
