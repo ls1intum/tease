@@ -12,6 +12,7 @@ import {DialogService} from "../shared/ui/dialog.service";
 import {ToolbarService} from "../shared/ui/toolbar.service";
 import {PersonDetailModule} from "../person-details/person-detail.module";
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import {PriorityChartComponent} from "./priority-chart/priority-chart.component";
 
 /**
  * Created by Malte Bucksch on 25/11/2016.
@@ -19,7 +20,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 @NgModule({
   imports: [CommonModule, MaterialModule, DragulaModule, PersonDetailModule,
     PersonListModule,ChartsModule],
-  declarations: [TeamDashboardComponent, TeamContainerComponent],
+  declarations: [TeamDashboardComponent, TeamContainerComponent,PriorityChartComponent],
   exports: [TeamDashboardComponent],
   providers: [TeamService, ToolbarService, DragulaService, DialogService],
   entryComponents: [PersonDetailComponent]
