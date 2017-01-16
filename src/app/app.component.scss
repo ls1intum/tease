@@ -1,5 +1,10 @@
 @import '../../node_modules/@angular/material/core/theming/prebuilt/deeppurple-amber';
+@import '../../node_modules/@angular/material/core/style/_variables';
 
 .app-content {
   background-color: md-color($primary, 0.6)
+}
+
+* {
+  font-family: $md-font-family;
 }
