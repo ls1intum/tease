@@ -6,6 +6,7 @@ import {DeviceType, Device} from "../../shared/models/device";
 import {IconMapperService} from "../../shared/ui/icon-mapper.service";
 import {TeamHelper} from "../../shared/helpers/team.helper";
 import {PersonService} from "../../shared/layers/business-logic-layer/person.service";
+import {Observable} from "rxjs";
 
 /**
  * Created by Malte Bucksch on 06/12/2016.
