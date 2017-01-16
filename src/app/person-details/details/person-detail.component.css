@@ -12,6 +12,7 @@
   justify-content: center;
   margin-bottom: 18px;
   margin-top: 18px;
+  min-width: 70px;
 }
 .row h3 {
   padding: 0;
@@ -28,5 +29,12 @@
 
 #unratedPersons{
   padding-right: 14px;
+}
+
+.gridLayout {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 

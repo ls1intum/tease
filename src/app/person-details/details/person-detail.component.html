@@ -3,21 +3,23 @@
     {{person.firstName}} {{person.lastName}}
   </md-toolbar>
   <div id="scroll_container">
-    <div class="row">
-      <h3> Major </h3>
-      <p>{{person.major}}</p>
-    </div>
-    <div class="row">
-      <h3> Term </h3>
-      <p>{{person.currentTerm}}</p>
-    </div>
-    <div class="row">
-      <h3> E-Mail </h3>
-      <p>{{person.email}}</p>
-    </div>
-    <div class="row">
-      <h3> Tum-Id </h3>
-      <p>{{person.tumId}}</p>
+    <div class="gridLayout">
+      <div class="row">
+        <h3> Major </h3>
+        <p>{{person.major}}</p>
+      </div>
+      <div class="row">
+        <h3> Term </h3>
+        <p>{{person.currentTerm}}</p>
+      </div>
+      <div class="row">
+        <h3> E-Mail </h3>
+        <p>{{person.email}}</p>
+      </div>
+      <div class="row">
+        <h3> Tum-Id </h3>
+        <p>{{person.tumId}}</p>
+      </div>
     </div>
 
     <hr>
@@ -58,7 +60,9 @@
       <span class="app-toolbar-filler"></span>
 
       <div id="unratedPersons">{{getRatedPersonCount()}}/{{getPersonCount()}}</div>
-      <button md-raised-button [disabled]="isNextButtonDisabled" (click)="onNextPersonClicked()" color="accent">Next unrated person</button>
+      <button md-raised-button [disabled]="isNextButtonDisabled" (click)="onNextPersonClicked()" color="accent">Next
+        unrated person
+      </button>
     </md-toolbar-row>
   </md-toolbar>
 </div>
