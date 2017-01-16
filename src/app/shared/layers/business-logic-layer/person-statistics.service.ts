@@ -18,11 +18,13 @@ export class PersonStatisticsService {
   private getPersonsForTeamPriority(team: Team, priorityNumber: number) {
     return team.persons.filter(person => {
       if (person.teamPriorities.length < priorityNumber)return false;
-      return person.teamPriorities[priorityNumber - 1] === team;
+      return person.teamPriorities[priorityNumber] === team;
     });
   }
 
   getPriorityCountMax(team: Team): number {
+    if(team.persons.length == 0)return 0;
+
     return Math.max(...team.persons
       .map(person => person.teamPriorities.length));
   }
