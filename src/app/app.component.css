@@ -15,7 +15,19 @@
   cursor: pointer;
 }
 
+.centered {
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
+}
+
 .app-content {
   /*TODO find out how to make app content bury the whole screen exxactly --TEST433-*/
   height:100%
+}
+
+.icon {
+  height: 50px;
+  margin-right: 15px;
 }
