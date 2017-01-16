@@ -41,7 +41,6 @@
     "@angular/platform-server": "~2.3.1",
     "@angular/router": "~3.3.1",
     "@angular/upgrade": "~2.3.1",
-    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.16",
     "angular2-in-memory-web-api": "0.0.21",
     "core-js": "^2.4.1",
     "dragula": "^3.7.2",
