@@ -1,7 +1,6 @@
 #scroll_container {
   overflow-y: auto;
   max-height: 65vh;
-  background-color: lightgray;
   padding-left: 10px;
   padding-right: 10px;
 }
