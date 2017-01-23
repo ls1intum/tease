@@ -50,7 +50,7 @@ export class PriorityChartComponent implements OnInit,DoCheck {
     let priorities = ArrayHelper.createNumberRange(this.personStatisticsService.getPriorityCountMax(this.team));
     let priorityCount = priorities.map(prio =>
       this.personStatisticsService.getNumberOfPersonsForPriority(prio, this.team));
-    this.dataSet = [{label: "# of persons", data: priorityCount}];
+    this.dataSet = [{label: "# number of persons with project priority", data: priorityCount}];
   }
 
   private updateLabels() {
