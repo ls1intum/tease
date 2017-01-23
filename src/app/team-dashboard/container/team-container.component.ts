@@ -41,7 +41,7 @@ export class TeamContainerComponent implements AfterViewInit,OnInit {
   ngOnInit() {
     this.opts = {
       position: 'right',
-      barBackground: '#000000'}
+      barBackground: '#FFD740'}
   }
 
   ngAfterViewInit(): void {
