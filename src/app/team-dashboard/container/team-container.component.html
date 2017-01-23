@@ -1,6 +1,6 @@
-<div *ngIf="team" id="container">
-    <div class="containerHeader">
-      <div id="titleContainer">
+<div *ngIf="team" id="container" class="roundedUpperCorners roundedLowerCorners">
+    <div class="containerHeader roundedUpperCorners">
+      <div id="titleContainer" class="roundedUpperCorners">
         <h1 id="teamName">{{team.name}} ({{team.persons.length}})</h1>
         <button md-button id="infoButton" (click)="showStatistics()">
           <md-icon color="accent">info</md-icon>
@@ -17,7 +17,7 @@
       <hr>
     </div>
 
-    <div [dragula]='"first-bag"' class='drag-container' slimScroll [options]="opts" [dragulaModel]="team.persons">
+    <div [dragula]='"first-bag"' class='drag-container roundedLowerCorners' slimScroll [options]="opts" [dragulaModel]="team.persons">
       <div class='sub-element' *ngFor="let person of team.persons" (click)="showPersonDetails(person)">
         <person-preview [person]="person"></person-preview>
       </div>

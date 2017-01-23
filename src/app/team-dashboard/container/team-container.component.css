@@ -1,7 +1,6 @@
 #container {
   height:100%;
   width: 300px;
-  border-radius: 7px;
   margin-left: 10px;
   margin-right: 10px;
   display:flex;
@@ -9,6 +8,15 @@
   background-color: #E0E0E0;
 }
 
+.roundedUpperCorners {
+  border-top-right-radius: 7px;
+  border-top-left-radius: 7px;
+}
+
+.roundedLowerCorners {
+  border-bottom-right-radius: 7px;
+  border-bottom-left-radius: 7px;
+}
 .containerHeader {
   height:auto;
 }
