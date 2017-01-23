@@ -1,18 +1,16 @@
 <div class="container">
-  <md-toolbar color="primary" id="toolbar">
-    <div class="clickable centered" (click)="gotoHome()">
+  <div class="centerContentVertically" color="primary" id="toolbar">
+    <div class="clickable centerContentVertically" (click)="gotoHome()">
       <img class="icon" src="/assets/images/icon.png">
       TEASE
     </div>
 
     <span class="app-toolbar-filler"></span>
 
-    <div class="centered">
-      <button *ngIf="isButtonVisible" md-raised-button color="accent"
-              (click)="onButtonClicked()">{{buttonName}}
-      </button>
-    </div>
-  </md-toolbar>
+    <button id="mainActionButton" *ngIf="isButtonVisible" md-raised-button color="accent"
+            (click)="onButtonClicked()">{{buttonName}}
+    </button>
+  </div>
 
   <div class="app-content md-primary">
     <router-outlet>

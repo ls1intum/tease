@@ -1,8 +1,19 @@
 @import '../../node_modules/@angular/material/core/theming/prebuilt/deeppurple-amber';
 @import '../../node_modules/@angular/material/core/style/_variables';
+@import '../../node_modules/@angular/material/toolbar/toolbar';
 
 .app-content {
   background-color: md-color($primary, 0.6)
+}
+
+#toolbar {
+  font-size: $md-toolbar-font-size;
+  font-weight: 400;
+  font-family: $md-font-family;
+  color: white;
+  background-color: md-color($primary);
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 * {
