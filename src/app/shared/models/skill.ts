@@ -1,4 +1,5 @@
 import {PersonSerializer} from "../layers/data-access-layer/serialization/PersonSerializer";
+import {CsvValueNames} from "../constants/csv.constants";
 /**
  * Created by Malte Bucksch on 09/12/2016.
  */
@@ -16,6 +17,10 @@ export class Skill {
 
   get skillLevel(): SkillLevel {
     return this._skillLevel;
+  }
+
+  toString(): string {
+    return CsvValueNames.SkillLevelValue[SkillLevel[this.skillLevel]];
   }
 }
 
