@@ -9,7 +9,7 @@ import {Team} from "../../shared/models/team";
 @Component({
   selector: 'priorities',
   templateUrl: 'priorities.component.html',
-  styleUrls: ["priorities.component.css"]
+  styleUrls: ["priorities.component.css","priorities.component.scss"]
 })
 export class PrioritiesComponent {
   @Input()
