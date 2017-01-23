@@ -5,3 +5,9 @@ body {
 
 html,body { height: 100%; }
 .full-height { height: 100%;}
+
+.gu-mirror {
+  transform: rotate(4deg);
+  -moz-transform: rotate(4deg);
+  -webkit-transform: rotate(4deg);
+}

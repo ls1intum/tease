@@ -7,8 +7,8 @@ md-card-title {
 }
 
 .icon {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
 }
 
 .end-aligned {
@@ -17,6 +17,7 @@ md-card-title {
 
 .skillColored {
   border: dotted;
+  border-width: 5px;
 }
 
 .card-content {
