@@ -17,7 +17,7 @@
   height:100%;
   width: 100%;
   min-height: 30px;
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-x: hidden;
   background-color: #E0E0E0;
 }

@@ -1,8 +1,8 @@
 md-card {
-  margin:6px;
+  margin: 6px;
 }
 
-md-card-title{
+md-card-title {
   margin: 0;
 }
 
@@ -10,6 +10,7 @@ md-card-title{
   width: 30px;
   height: 30px;
 }
+
 .end-aligned {
   margin-left: auto;
 }
@@ -25,19 +26,20 @@ md-card-title{
 }
 
 .data-container {
+  width: 100%;
   align-items: center;
   display: flex;
   flex-direction: row;
 }
 
 .name-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
+  width: 130px;
   margin: 10px;
-
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+#gender {
+  margin-left: auto;
 }
