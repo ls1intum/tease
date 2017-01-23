@@ -1,8 +1,6 @@
 main {
   height:100%;
   width: 100%;
-  display: flex;
-  align-items: center;
 }
 
 .state_hidden {
@@ -12,7 +10,6 @@ main {
 .state_centered {
   padding: 50px;
   width: 50%;
-  height: auto;
   margin: 0 auto;
   text-align:center;
 }
