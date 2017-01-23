@@ -39,6 +39,7 @@ export class TeamContainerComponent implements AfterViewInit,OnInit {
   }
 
   ngOnInit() {
+    // TODO fetch color for scrollbar from material theme dynamically
     this.opts = {
       position: 'right',
       barBackground: '#FFD740'}
