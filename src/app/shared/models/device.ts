@@ -23,10 +23,6 @@ export class Device {
         return "Mac";
     }
   }
-
-  getIcon() {
-    // TODO implement
-  }
 }
 
 export enum DeviceType {

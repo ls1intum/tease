@@ -1,21 +1,17 @@
 <div class="iconList" [class.align-start]="!alignCenter">
-  <div class="iconTextPair">
+  <div class="iconTextPair" mdTooltip="{{getDeviceName(LocalDeviceType.Mac)}}">
     <img class="icon" src="{{getDeviceIconPath(LocalDeviceType.Mac)}}"> {{getDeviceCount(LocalDeviceType.Mac)}}
   </div>
 
-  <div class="iconTextPair">
+  <div class="iconTextPair" mdTooltip="{{getDeviceName(LocalDeviceType.Iphone)}}">
     <img class="icon" src="{{getDeviceIconPath(LocalDeviceType.Iphone)}}"> {{getDeviceCount(LocalDeviceType.Iphone)}}
   </div>
 
-  <div class="iconTextPair">
-    <img class="icon" src="{{getDeviceIconPath(LocalDeviceType.Ipod)}}"> {{getDeviceCount(LocalDeviceType.Ipod)}}
-  </div>
-
-  <div class="iconTextPair">
+  <div  mdTooltip="{{getDeviceName(LocalDeviceType.Ipad)}}" class="iconTextPair">
     <img class="icon" src="{{getDeviceIconPath(LocalDeviceType.Ipad)}}"> {{getDeviceCount(LocalDeviceType.Ipad)}}
   </div>
 
-  <div class="iconTextPair">
+  <div class="iconTextPair" mdTooltip="{{getDeviceName(LocalDeviceType.Watch)}}">
     <img class="icon" src="{{getDeviceIconPath(LocalDeviceType.Watch)}}">
     {{getDeviceCount(LocalDeviceType.Watch)}}
   </div>

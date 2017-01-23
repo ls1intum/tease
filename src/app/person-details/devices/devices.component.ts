@@ -18,7 +18,7 @@ export class DevicesComponent {
 
   public LocalDeviceType = DeviceType;
 
-  constructor(private iconMapperService: IconMapperService){
+  constructor(private iconMapperService: IconMapperService) {
 
   }
 
@@ -26,7 +26,16 @@ export class DevicesComponent {
     return this.iconMapperService.getDeviceTypeIconPath(deviceType);
   }
 
+  getDeviceName(deviceType: DeviceType): string {
+    return new Device(deviceType).toString();
+  }
+
   private getDeviceCount(targetDevice: DeviceType): number {
-    return this.devices.filter(device => device.deviceType === targetDevice).length;
+    let deviceCount = this.devices.filter(device => device.deviceType === targetDevice).length;
+
+    if (targetDevice === DeviceType.Iphone)
+      deviceCount += this.getDeviceCount(DeviceType.Ipod);
+
+    return deviceCount;
   }
 }
