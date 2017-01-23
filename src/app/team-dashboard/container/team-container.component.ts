@@ -1,4 +1,4 @@
-import {Component, Input, ViewContainerRef, Output, EventEmitter, AfterViewInit} from "@angular/core";
+import {Component, Input, ViewContainerRef, Output, EventEmitter, AfterViewInit, OnInit} from "@angular/core";
 import {Team} from "../../shared/models/team";
 import {DialogService, EventTypePersonDetails} from "../../shared/ui/dialog.service";
 import {Person} from "../../shared/models/person";
@@ -7,6 +7,7 @@ import {IconMapperService} from "../../shared/ui/icon-mapper.service";
 import {TeamHelper} from "../../shared/helpers/team.helper";
 import {PersonService} from "../../shared/layers/business-logic-layer/person.service";
 import {Observable} from "rxjs";
+import {ISlimScrollOptions} from "ng2-slimscroll/src/directives/slimscroll.directive";
 
 /**
  * Created by Malte Bucksch on 06/12/2016.
@@ -18,7 +19,7 @@ import {Observable} from "rxjs";
   styleUrls: ['./team-container.component.css',
     '../styles/dragula.min.css'],
 })
-export class TeamContainerComponent implements AfterViewInit {
+export class TeamContainerComponent implements AfterViewInit,OnInit {
   @Input()
   private team: Team;
   @Input()
@@ -29,10 +30,18 @@ export class TeamContainerComponent implements AfterViewInit {
   public LocalDeviceType = DeviceType;
   @Output() personClose = new EventEmitter();
 
+  opts: ISlimScrollOptions;
+
   constructor(private dialogService: DialogService,
               private personService: PersonService,
               private viewContainerRef: ViewContainerRef,
               private iconMapperService: IconMapperService) {
+  }
+
+  ngOnInit() {
+    this.opts = {
+      position: 'right',
+      barBackground: '#000000'}
   }
 
   ngAfterViewInit(): void {

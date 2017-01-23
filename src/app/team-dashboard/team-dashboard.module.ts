@@ -13,13 +13,14 @@ import {ToolbarService} from "../shared/ui/toolbar.service";
 import {PersonDetailModule} from "../person-details/person-detail.module";
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import {PriorityChartComponent} from "./priority-chart/priority-chart.component";
+import {SlimScrollModule} from "ng2-slimscroll";
 
 /**
  * Created by Malte Bucksch on 25/11/2016.
  */
 @NgModule({
   imports: [CommonModule, MaterialModule, DragulaModule, PersonDetailModule,
-    PersonListModule,ChartsModule],
+    PersonListModule,ChartsModule,SlimScrollModule],
   declarations: [TeamDashboardComponent, TeamContainerComponent,PriorityChartComponent],
   exports: [TeamDashboardComponent],
   providers: [TeamService, ToolbarService, DragulaService, DialogService],
