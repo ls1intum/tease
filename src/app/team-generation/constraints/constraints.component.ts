@@ -3,7 +3,7 @@ import {Router} from "@angular/router";
 import {TeamService} from "../../shared/layers/business-logic-layer/team.service";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
 import {LangConstraints} from "../../shared/constants/language.constants";
-import {TeamGenerationService} from "../../shared/layers/business-logic-layer/team-generation.service";
+import {TeamGenerationService} from "../../shared/layers/business-logic-layer/team-generation/team-generation.service";
 
 /**
  * Created by Malte Bucksch on 27/11/2016.

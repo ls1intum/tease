@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Person} from "../../models/person";
 import {Team} from "../../models/team";
-import {TeamGenerationService} from "./team-generation.service";
+import {TeamGenerationService} from "./team-generation/team-generation.service";
 import {TeamAccessService} from "../data-access-layer/team.access.service";
 import {TeamHelper} from "../../helpers/team.helper";
 /**
