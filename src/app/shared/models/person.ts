@@ -14,6 +14,7 @@ export class Person {
   iosDevExp: string;
   iosDevExpDescription: string;
   gitExpDescription: string;
+  generalComments: string;
   skills: Skill[] = [];
   languages: Language[] = [];
   devices: Device[] = [];

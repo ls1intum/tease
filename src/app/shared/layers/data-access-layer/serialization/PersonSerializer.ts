@@ -22,6 +22,7 @@ export class PersonSerializer {
     personProps[CsvColumNames.Person.GitExperience] = person.gitExpDescription;
     personProps[CsvColumNames.Person.Email] = person.email;
     personProps[CsvColumNames.Person.Gender] = this.serializeGender(person.gender);
+    personProps[CsvColumNames.Person.Comments] = person.generalComments;
 
     this.serializePersonDevices(person,personProps);
     this.serializePriorities(person, personProps);
