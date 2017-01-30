@@ -1,12 +1,22 @@
-
 <main>
-  <input #fileInput type="file" class="state_hidden" name="Choose file" (change)="onFileChanged($event)" accept="text/csv">
+  <input #fileInput type="file" class="state_hidden" name="Choose file" (change)="onFileChanged($event)"
+         accept="text/csv">
 
   <div class="state_centered">
-    <h1 class="heading">Upload the details for your talents.</h1>
+    <div class="section">
+      <h1 class="heading">Upload the details for your talents.</h1>
 
-    <button md-raised-button color="accent" (click)="onUploadClicked()">
-      Upload
-    </button>
+      <button md-raised-button color="accent" (click)="onUploadClicked()">
+        Upload
+      </button>
+    </div>
+
+    <div>
+      <h1 class="heading">... or just want to play around?</h1>
+
+      <button md-raised-button color="accent" (click)="onUseExampleClicked()">
+        Use our example
+      </button>
+    </div>
   </div>
 </main>

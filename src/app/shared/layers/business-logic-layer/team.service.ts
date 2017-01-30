@@ -18,31 +18,36 @@ export class TeamService {
 
   }
 
-  read(): Promise<Team[]>{
-    return this.teamAccessService.read();
+
+  readSavedTeams(): Promise<Team[]>{
+    return this.teamAccessService.readSavedTeams();
   }
 
-  readCsv(csvFile: File): Promise<Team[]> {
-    return this.teamAccessService.readCsv(csvFile);
+  readLocalTeamData(csvFile: File): Promise<Team[]> {
+    return this.teamAccessService.readTeamsFromSource(csvFile);
+  }
+
+  readRemoteTeamData(remoteFilePath: string): Promise<Team[]> {
+    return this.teamAccessService.readTeamsFromRemote(remoteFilePath);
   }
 
   exportTeams(fileName: string){
-    let csvData = this.teamAccessService.readCsvData();
+    let csvData = this.teamAccessService.exportSavedTeamsAsCsv();
     let blob = new Blob([csvData], {type: this.EXPORT_DATA_TYPE});
     FileSaver.saveAs(blob, fileName);
   }
 
-  save(teams: Team[]){
-    this.teamAccessService.save(teams);
+  saveTeams(teams: Team[]){
+    this.teamAccessService.saveTeams(teams);
   }
 
   dropData(){
     this.teamAccessService.dropData();
   }
 
-  readPersons(): Promise<Person[]>{
+  readSavedPersons(): Promise<Person[]>{
     return new Promise((resolve,reject) => {
-      this.read().then(teams => {
+      this.readSavedTeams().then(teams => {
           resolve(TeamHelper.getPersons(teams));
         });
     });

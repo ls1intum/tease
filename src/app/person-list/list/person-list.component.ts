@@ -38,7 +38,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
       this.gotoTeamGeneration();
     });
 
-    this.teamService.read().then(
+    this.teamService.readSavedTeams().then(
       teams => {
         this.teams = teams;
         this.persons = TeamHelper.getPersons(teams);
@@ -61,7 +61,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
   gotoDetail(person: Person) {
     this.dialogService.showPersonDetails(person, this.persons, this.viewContainerRef)
       .subscribe(event => {
-        this.teamService.save(this.teams);
+        this.teamService.saveTeams(this.teams);
 
         if (event === EventTypePersonDetails.NextPersonPressed)
           this.showNextUnratedPerson();

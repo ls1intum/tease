@@ -9,7 +9,7 @@ import {TeamParser} from "./parsing/TeamParser";
 export class PersistentTeamAccessService extends TeamAccessService {
   private static readonly TeamStorageKey = "Teams";
 
-  read(): Promise<Team[]> {
+  readSavedTeams(): Promise<Team[]> {
     let teamData = localStorage.getItem(PersistentTeamAccessService.TeamStorageKey);
     if(teamData == undefined)return Promise.resolve([]);
 
@@ -23,11 +23,11 @@ export class PersistentTeamAccessService extends TeamAccessService {
     });
   }
 
-  readCsvData(): string {
+  exportSavedTeamsAsCsv(): string {
     return localStorage.getItem(PersistentTeamAccessService.TeamStorageKey);
   }
 
-  readCsv(csvFile: File): Promise<Team[]> {
+  readTeamsFromSource(csvFile: File): Promise<Team[]> {
     return new Promise((resolve,reject) => {
       Papa.parse(csvFile, {
         complete: results => {
@@ -38,7 +38,19 @@ export class PersistentTeamAccessService extends TeamAccessService {
     });
   }
 
-  save(teams: Team[]) {
+  readTeamsFromRemote(remoteFilePath: string): Promise<Team[]> {
+    return new Promise((resolve,reject) => {
+      Papa.parse(remoteFilePath, {
+        download: true,
+        complete: results => {
+          resolve(TeamParser.parseTeams(results.data));
+        },
+        header: true
+      });
+    });
+  }
+
+  saveTeams(teams: Team[]) {
     let teamListProperties = TeamSerializer.serializeTeamList(teams);
     let result = Papa.unparse(teamListProperties);
 

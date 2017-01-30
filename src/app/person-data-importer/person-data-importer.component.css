@@ -8,8 +8,12 @@ main {
 }
 
 .state_centered {
-  padding: 50px;
+  padding: 60px;
   width: 50%;
   margin: 0 auto;
   text-align:center;
+}
+
+.section {
+  padding-bottom: 60px;
 }

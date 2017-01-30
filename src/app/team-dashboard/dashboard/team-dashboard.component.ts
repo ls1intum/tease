@@ -51,7 +51,7 @@ export class TeamDashboardComponent implements OnInit,OnDestroy {
   }
 
   private saveAll() {
-    this.teamService.save(this.teams);
+    this.teamService.saveTeams(this.teams);
   }
 
   // TODO this is a time saving solution: optimal would be to
@@ -65,7 +65,7 @@ export class TeamDashboardComponent implements OnInit,OnDestroy {
       this.exportTeams();
     });
 
-    this.teamService.read().then((teams) => {
+    this.teamService.readSavedTeams().then((teams) => {
       this.teams = this.getSortedAlphabetically(teams);
 
       if (teams == undefined || teams.length == 0)

@@ -36,9 +36,9 @@ export class ConstraintsComponent implements OnInit,OnDestroy{
   }
 
   onGenerateClicked(){
-    this.teamService.read().then(teams => {
+    this.teamService.readSavedTeams().then(teams => {
       this.teamGenerationService.generate(teams);
-      this.teamService.save(teams);
+      this.teamService.saveTeams(teams);
 
       this.gotoDashboard();
     });

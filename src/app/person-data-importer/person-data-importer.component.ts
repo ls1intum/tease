@@ -7,6 +7,7 @@ import {TeamService} from "../shared/layers/business-logic-layer/team.service";
 import {ToolbarService} from "../shared/ui/toolbar.service";
 import {LangImport} from "../shared/constants/language.constants";
 import {Subscription} from "rxjs";
+import {ExamplePersonPropertyCsvRemotePath} from "../shared/constants/csv.constants";
 
 /**
  * Created by wanur on 18/11/2016.
@@ -46,21 +47,30 @@ export class PersonDataImporterComponent implements OnInit,OnDestroy {
     let files = event.srcElement.files;
     if (files.length != 1)return;
 
-    this.teamService.readCsv(files[0]).then(teams => {
-      this.teamService.save(teams);
+    this.teamService.readLocalTeamData(files[0]).then(teams => {
+      this.teamService.saveTeams(teams);
 
       this.gotoPersonList();
     });
   }
 
   onUploadClicked() {
-    let event = new MouseEvent('click', {bubbles: true});
+    let event = new MouseEvent('click', {
+      "view": window,
+      "bubbles": true,
+      "cancelable": false
+    });
     this.renderer.invokeElementMethod(
       this.fileInput.nativeElement, 'dispatchEvent', [event]);
   }
 
-  onTestClicked() {
-      // TODO load file from test path
+  onUseExampleClicked() {
+    this.teamService.readRemoteTeamData
+    (ExamplePersonPropertyCsvRemotePath).then(teams => {
+      this.teamService.saveTeams(teams);
+
+      this.gotoPersonList();
+    });
   }
 
   gotoPersonList() {
@@ -69,7 +79,7 @@ export class PersonDataImporterComponent implements OnInit,OnDestroy {
   }
 
   checkIfDataAvailable() {
-    this.teamService.read().then(
+    this.teamService.readSavedTeams().then(
       teams => {
         this.toolbarService.setButtonVisibility(teams != undefined
           && teams.length != 0);
