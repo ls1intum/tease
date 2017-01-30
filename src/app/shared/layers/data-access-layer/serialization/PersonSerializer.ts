@@ -23,6 +23,8 @@ export class PersonSerializer {
     personProps[CsvColumNames.Person.Email] = person.email;
     personProps[CsvColumNames.Person.Gender] = this.serializeGender(person.gender);
     personProps[CsvColumNames.Person.Comments] = person.generalComments;
+    personProps[CsvColumNames.Person.GermanLanguageLevel] = person.germanLanguageLevel;
+    personProps[CsvColumNames.Person.EnglishLanguageLevel] = person.englishLanguageLevel;
 
     this.serializePersonDevices(person,personProps);
     this.serializePriorities(person, personProps);

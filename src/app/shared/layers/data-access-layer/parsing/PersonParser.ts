@@ -27,6 +27,8 @@ export abstract class PersonParser {
     person.supervisorRating = this.parseSkillLevel(personProps[CsvColumNames.Person.SupervisorRating]);
     person.gender = this.parseGender(personProps[CsvColumNames.Person.Gender]);
     person.generalComments = personProps[CsvColumNames.Person.Comments];
+    person.englishLanguageLevel = personProps[CsvColumNames.Person.EnglishLanguageLevel];
+    person.germanLanguageLevel = personProps[CsvColumNames.Person.GermanLanguageLevel];
 
     this.parsePersonDevices(person,personProps);
     this.parsePersonSkills(person,personProps);

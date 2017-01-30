@@ -19,6 +19,8 @@ export class Person {
   languages: Language[] = [];
   devices: Device[] = [];
   gender: Gender = Gender.Male;
+  germanLanguageLevel: string;
+  englishLanguageLevel: string;
 
   currentTerm: number;
   major: string;
