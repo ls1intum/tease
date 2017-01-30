@@ -82,7 +82,7 @@ export class TeamDashboardComponent implements OnInit,OnDestroy {
         return 1;
       return 0;
     });
-    sortedTeams.push(...teams.filter(team => team.name === Team.OrphanTeamName));
+    sortedTeams.unshift(...teams.filter(team => team.name === Team.OrphanTeamName));
 
     return sortedTeams;
   }
