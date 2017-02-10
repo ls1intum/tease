@@ -8,6 +8,7 @@ import {TeamHelper} from "../../shared/helpers/team.helper";
 import {PersonService} from "../../shared/layers/business-logic-layer/person.service";
 import {Observable} from "rxjs";
 import {ISlimScrollOptions} from "ng2-slimscroll/src/directives/slimscroll.directive";
+import {Colors} from "../../shared/constants/color.constants";
 
 /**
  * Created by Malte Bucksch on 06/12/2016.
@@ -42,7 +43,7 @@ export class TeamContainerComponent implements AfterViewInit,OnInit {
     // TODO fetch color for scrollbar from material theme dynamically
     this.opts = {
       position: 'right',
-      barBackground: '#FFD740'}
+      barBackground: Colors.ScrollBarButtonColor}
   }
 
   ngAfterViewInit(): void {

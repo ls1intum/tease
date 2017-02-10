@@ -21,4 +21,5 @@ export abstract class Colors {
 
   static readonly LightGray = "#E0E0E0";
   static readonly DarkGray = "#424242";
+  static readonly ScrollBarButtonColor = "#69f0ae";
 }
