@@ -1,7 +1,19 @@
 <div class="state_centered">
-  <h1 class="heading">Generate a suggestion for your team constellation.</h1>
 
-  <button md-raised-button color="accent" (click)="onGenerateClicked()">
+  <h1 class="heading">Constraints</h1>
+
+  <md-card *ngFor="let constraint of ExampleConstraintData">
+    <div class="constraintConfig">
+      <div class="name">{{constraint[0]}}</div>
+      <div class="comparator"> {{constraint[1]}}</div>
+      <input class="number" mdInput placeholder="Constraint Value" value="{{constraint[2]}}">
+    </div>
+
+    <div class="constraintConfig"><md-slide-toggle [checked]="true"></md-slide-toggle></div>
+
+  </md-card>
+
+  <button id="generateButton" md-raised-button color="accent" (click)="onGenerateClicked()">
     Generate Teams
   </button>
 </div>

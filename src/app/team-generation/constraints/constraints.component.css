@@ -1,7 +1,37 @@
 
 .state_centered {
   padding: 50px;
-  width: 50%;
+  width: 70%;
   margin: 0 auto;
   text-align:center;
+}
+
+md-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.constraintConfig {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.name {
+  min-width: 120px;
+}
+
+.comparator {
+  width: 50px;
+}
+
+.number {
+  width:25px
+}
+
+#generateButton {
+  margin-top: 50px;
 }
