@@ -17,22 +17,22 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
 
   saveConstraint(constraint: Constraint) {
     if (constraint instanceof IosDeviceConstraint) {
-      localStorage.setItem(KeyValueConstraintAccessService.KeyIosDeviceConstraint,String(constraint.getValue()))
+      localStorage.setItem(KeyValueConstraintAccessService.KeyIosDeviceConstraint,String(constraint.getValue());
       return;
     }
 
     if (constraint instanceof MacDeviceConstraint) {
-      localStorage.setItem(KeyValueConstraintAccessService.KeyMacDeviceConstraint,String(constraint.getValue()))
+      localStorage.setItem(KeyValueConstraintAccessService.KeyMacDeviceConstraint,String(constraint.getValue()));
       return;
     }
 
     if (constraint instanceof FemalePersonConstraint) {
-      localStorage.setItem(KeyValueConstraintAccessService.KeyFemalePersonConstraint,String(constraint.getValue()))
+      localStorage.setItem(KeyValueConstraintAccessService.KeyFemalePersonConstraint,String(constraint.getValue()));
       return;
     }
 
     if (constraint instanceof TeamSizeConstraint) {
-      localStorage.setItem(KeyValueConstraintAccessService.KeyTeamSizeConstraint,String(constraint.getValue()))
+      localStorage.setItem(KeyValueConstraintAccessService.KeyTeamSizeConstraint,String(constraint.getValue()));
       return;
     }
   }
