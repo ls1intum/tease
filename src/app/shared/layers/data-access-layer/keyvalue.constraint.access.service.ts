@@ -17,7 +17,7 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
 
   saveConstraint(constraint: Constraint) {
     if (constraint instanceof IosDeviceConstraint) {
-      localStorage.setItem(KeyValueConstraintAccessService.KeyIosDeviceConstraint,String(constraint.getValue());
+      localStorage.setItem(KeyValueConstraintAccessService.KeyIosDeviceConstraint,String(constraint.getValue()));
       return;
     }
 
