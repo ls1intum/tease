@@ -54,6 +54,7 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
 
   private fetchSavedNumberValue(key: string, fallbackValue): number {
     let value = localStorage.getItem(key);
-    return value === undefined ? fallbackValue : +value;
+    // debugger;
+    return value === undefined || value === "0" ? fallbackValue : +value;
   }
 }

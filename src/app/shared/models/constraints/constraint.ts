@@ -4,8 +4,18 @@ import {Team} from "../team";
  */
 
 export abstract class Constraint {
-  abstract toString(): string;
   abstract isSatisfied(team: Team): boolean;
+
   abstract calculateSatisfactionScore(team: Team): number;
+
   abstract getValue(): number;
+  abstract setValue(value: number);
+
+  abstract getName(): string;
+
+  abstract getComparator(): string;
+
+  toString(): string {
+    return this.getName() + " " + this.getComparator() + " " + this.getValue();
+  }
 }

@@ -15,10 +15,6 @@ export class MacDeviceConstraint extends Constraint {
     this.minimumCount = minimumCount;
   }
 
-  toString(): string {
-    return "Mac devices >= " + this.minimumCount;
-  }
-
   isSatisfied(team: Team): boolean {
     return this.getDeviceCountOfType(team) >= this.minimumCount;
   }
@@ -40,4 +36,17 @@ export class MacDeviceConstraint extends Constraint {
   getValue(): number {
     return this.minimumCount;
   }
+
+  getName(): string {
+    return "Mac Devices";
+  }
+
+  getComparator(): string {
+    return ">=";
+  }
+
+  setValue(value: number) {
+    this.minimumCount = value;
+  }
+
 }

@@ -13,10 +13,6 @@ export class TeamSizeConstraint extends Constraint {
     this.maximumCount = maximumCount;
   }
 
-  toString(): string {
-    return "Female persons >= " + this.maximumCount;
-  }
-
   isSatisfied(team: Team): boolean {
     return team.persons.length <= this.maximumCount;
   }
@@ -35,5 +31,17 @@ export class TeamSizeConstraint extends Constraint {
 
   getValue(): number {
     return this.maximumCount;
+  }
+
+  getName(): string {
+    return "Team Size";
+  }
+
+  getComparator(): string {
+    return "<=";
+  }
+
+  setValue(value: number) {
+    this.maximumCount = value;
   }
 }

@@ -7,11 +7,12 @@ import {TeamService} from "../shared/layers/business-logic-layer/team.service";
 import {ToolbarService} from "../shared/ui/toolbar.service";
 import {TeamGenerationService} from "../shared/layers/business-logic-layer/team-generation/team-generation.service";
 import {BalancedTeamGenerationService} from "../shared/layers/business-logic-layer/team-generation/balanced-team-generation.service";
+import {ConstraintService} from "../shared/layers/business-logic-layer/constraint.service";
 @NgModule({
   imports: [CommonModule, SharedModule, MaterialModule],
   declarations: [ConstraintsComponent],
   exports: [ConstraintsComponent],
-  providers: [TeamService, ToolbarService,
+  providers: [TeamService, ToolbarService, ConstraintService,
     {provide: TeamGenerationService, useClass: BalancedTeamGenerationService}]
 })
 export class TeamGenerationModule {

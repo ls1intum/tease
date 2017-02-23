@@ -13,10 +13,6 @@ export class FemalePersonConstraint extends Constraint {
     this.minimumCount = minimumCount;
   }
 
-  toString(): string {
-    return "Female persons >= " + this.minimumCount;
-  }
-
   isSatisfied(team: Team): boolean {
     return this.getFemalesPersonsInTeam(team) >= this.minimumCount;
   }
@@ -35,5 +31,18 @@ export class FemalePersonConstraint extends Constraint {
 
   getValue(): number {
     return this.minimumCount;
+  }
+
+  getName(): string {
+    return "Female Persons";
+  }
+
+  getComparator(): string {
+    return ">=";
+  }
+
+
+  setValue(value: number) {
+    this.minimumCount = value;
   }
 }
