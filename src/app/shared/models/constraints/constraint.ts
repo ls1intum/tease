@@ -7,4 +7,5 @@ export abstract class Constraint {
   abstract toString(): string;
   abstract isSatisfied(team: Team): boolean;
   abstract calculateSatisfactionScore(team: Team): number;
+  abstract getValue(): number;
 }

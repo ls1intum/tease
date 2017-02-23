@@ -4,8 +4,14 @@ import {Gender} from "../person";
 /**
  * Created by Malte Bucksch on 23/02/2017.
  */
-class FemalePersonConstraint extends Constraint {
+export class FemalePersonConstraint extends Constraint {
   minimumCount: number;
+
+  constructor(minimumCount: number) {
+    super();
+
+    this.minimumCount = minimumCount;
+  }
 
   toString(): string {
     return "Female persons >= " + this.minimumCount;
@@ -27,4 +33,7 @@ class FemalePersonConstraint extends Constraint {
     return this.isSatisfied(team) ? 10 : 0;
   }
 
+  getValue(): number {
+    return this.minimumCount;
+  }
 }

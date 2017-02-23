@@ -6,12 +6,17 @@ import {TeamHelper} from "../../helpers/team.helper";
  * Created by Malte Bucksch on 23/02/2017.
  */
 
-class DeviceConstraint extends Constraint {
-  deviceType: DeviceType;
+export class MacDeviceConstraint extends Constraint {
   minimumCount: number;
 
+  constructor(minimumCount: number) {
+    super();
+
+    this.minimumCount = minimumCount;
+  }
+
   toString(): string {
-    return this.deviceType.toString() + " number >= " + this.minimumCount;
+    return "Mac devices >= " + this.minimumCount;
   }
 
   isSatisfied(team: Team): boolean {
@@ -20,7 +25,7 @@ class DeviceConstraint extends Constraint {
 
   private getDeviceCountOfType(team: Team): number {
     return team.persons
-      .map(person => TeamHelper.getDevicesOfType(person.devices, this.deviceType).length)
+      .map(person => TeamHelper.getDevicesOfType(person.devices, DeviceType.Mac).length)
       .reduce((sum, count) => sum + count);
   }
 
@@ -32,4 +37,7 @@ class DeviceConstraint extends Constraint {
     return this.isSatisfied(team) ? 10 : 0;
   }
 
+  getValue(): number {
+    return this.minimumCount;
+  }
 }
