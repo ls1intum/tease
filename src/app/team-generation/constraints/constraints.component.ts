@@ -16,8 +16,8 @@ import {TeamGenerationService} from "../../shared/layers/business-logic-layer/te
 })
 export class ConstraintsComponent implements OnInit,OnDestroy{
   private skipSubscription;
-  private readonly ExampleConstraintData = [["Team Size","<","10"],
-    ["iOS Devices",">","3"],["Female Persons",">","2"]];
+  private readonly ExampleConstraintData = [["Team Size","<=","10"],
+    ["iOS Devices",">=","3"],["Female Persons",">=","2"],["Macs",">=","2"]];
 
   constructor(private router: Router,
             private teamGenerationService: TeamGenerationService,

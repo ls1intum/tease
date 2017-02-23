@@ -12,6 +12,7 @@ md-card {
   align-items: center;
   justify-content: space-between;
   margin: 10px;
+  height: 15px;
 }
 
 .constraintConfig {

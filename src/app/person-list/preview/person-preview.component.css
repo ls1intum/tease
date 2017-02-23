@@ -24,6 +24,7 @@ md-card-title {
   display: flex;
   flex-direction: row;
   align-items: center;
+  height: 10px;
 }
 
 .data-container {
