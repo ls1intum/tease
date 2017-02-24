@@ -32,8 +32,10 @@ export class TeamScoreComponent implements OnInit {
     this.constraints = this.constraintService.fetchConstraints();
   }
 
-  calculateOverallScore(): number {
-    return this.statisticsService.calcTeamQualityScore(this.team, this.constraints);
+  calculateOverallScore(): string {
+    let score = this.statisticsService.calcTeamQualityScore(this.team, this.constraints);
+    if(isNaN(score))return "None";
+    return score.toFixed(1);
   }
 
   isSatisfied(constraint: Constraint): boolean {
