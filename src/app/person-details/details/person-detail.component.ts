@@ -105,10 +105,10 @@ export class PersonDetailComponent implements OnInit {
   }
 
   private onOpenInPopupClicked() {
+    this.openAsPopupClickSubject.next();
+
     let url = "/#/persons/"+this.person.tumId;
     window.open(url, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
-
-    this.openAsPopupClickSubject.next();
   }
 
   private onNextPersonClicked() {

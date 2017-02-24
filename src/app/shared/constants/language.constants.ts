@@ -16,7 +16,7 @@ export abstract class LangImport {
 }
 // person list
 export abstract class LangPersonList {
-  static readonly ToolbarButtonName = "Next";
+  static readonly ToolbarButtonName = "Set Constraints";
 
 }
 // person preview

@@ -5,7 +5,7 @@
       <span class="app-toolbar-filler"></span>
       <img id="personPic" src="{{getGravatarIconPath()}}">
     </div>
-    <button class="popupButton" md-raised-button color="accent" (click)="onOpenInPopupClicked()" *ngIf="!isDialog">
+    <button class="popupButton" mdTooltip="Show in separate window" md-raised-button color="accent" (click)="onOpenInPopupClicked()" *ngIf="!isDialog">
       <md-icon style="color: white">fullscreen</md-icon>
     </button>
   </md-toolbar>
