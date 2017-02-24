@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="centerContentVertically" color="primary" id="toolbar">
+  <div *ngIf="isToolbarVisible" class="centerContentVertically" color="primary" id="toolbar">
     <div class="clickable centerContentVertically" (click)="gotoHome()">
       <img class="icon" src="/assets/images/icon.png">
       TEASE

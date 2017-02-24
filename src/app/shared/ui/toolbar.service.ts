@@ -10,10 +10,12 @@ export class ToolbarService {
   private buttonNameSource = new Subject<string>();
   private buttonVisibilitySource = new Subject<boolean>();
   private buttonClickSource = new Subject<void>();
+  private toolbarVisibilitySource = new Subject<boolean>();
 
   buttonNameChanged = this.buttonNameSource.asObservable();
   buttonClicked = this.buttonClickSource.asObservable();
   buttonVisibilityChanged = this.buttonVisibilitySource.asObservable();
+  toolbarVisibilityChanged = this.toolbarVisibilitySource.asObservable();
 
   constructor() {
 
@@ -22,6 +24,7 @@ export class ToolbarService {
   resetToDefaultValues(){
     this.buttonNameSource.next(LangDefaults.ToolbarButtonName);
     this.buttonVisibilitySource.next(LangDefaults.ToolbarButtonIsVisible);
+    this.setToolbarVisible(true);
   }
 
   setButtonVisibility(isVisible: boolean){
@@ -34,5 +37,9 @@ export class ToolbarService {
 
   onButtonClicked(){
     this.buttonClickSource.next();
+  }
+
+  setToolbarVisible(isVisible: boolean){
+    this.toolbarVisibilitySource.next(isVisible);
   }
 }

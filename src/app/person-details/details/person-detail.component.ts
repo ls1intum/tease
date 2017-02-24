@@ -6,7 +6,8 @@ import {TeamService} from "../../shared/layers/business-logic-layer/team.service
 import {PersonStatisticsService} from "../../shared/layers/business-logic-layer/person-statistics.service";
 import {Observable, Subject} from "rxjs";
 import {IconMapperService} from "../../shared/ui/icon-mapper.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Params} from "@angular/router";
+import {ToolbarService} from "../../shared/ui/toolbar.service";
 
 
 /**
@@ -31,28 +32,45 @@ export class PersonDetailComponent implements OnInit {
   private isNextButtonDisabled = false;
   private nextPersonClickSubject = new Subject<any>();
 
-  constructor(public dialogRef: MdDialogRef<PersonDetailComponent>,
-              private iconMapperService: IconMapperService,
+  constructor(private iconMapperService: IconMapperService,
               private personStatisticsService: PersonStatisticsService,
               private route: ActivatedRoute,
-              private teamService: TeamService) {
-    debugger;
+              private teamService: TeamService,
+              private toolbarService: ToolbarService) {
   }
 
   ngOnInit(): void {
-    debugger;
-
-    this.skillString = this.person.supervisorRating.toString();
-    this.setNextButtonState();
-
-    let tumId = this.route.params['id'];
-    if(tumId !== undefined){
-      this.teamService.readPersonWithId(tumId)
-        .then(person => this.person = person);
+    if (this.person !== undefined) {
+      this.init();
+      return;
     }
+
+    this.fetchPersonFromUrlId();
   }
 
-  private setNextButtonState(){
+  private fetchPersonFromUrlId() {
+    this.route.params.subscribe(params => {
+      let id = params['id'];
+      if(id === undefined){
+        console.log("No id for fetching given!");
+        return;
+      }
+
+      this.teamService.readPersonWithId(params['id'])
+        .then(person => {
+          this.person = person;
+          this.init();
+          this.toolbarService.setToolbarVisible(false);
+        })
+    });
+  }
+
+  private init() {
+    this.skillString = this.person.supervisorRating.toString();
+    this.setNextButtonState();
+  }
+
+  private setNextButtonState() {
     this.isNextButtonDisabled = this.isEveryPersonRated() || !this.person.hasSupervisorRating();
   }
 
@@ -74,7 +92,6 @@ export class PersonDetailComponent implements OnInit {
   }
 
   private onNextPersonClicked() {
-    this.dialogRef.close();
     this.nextPersonClickSubject.next();
   }
 

@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 export class AppComponent {
   private buttonName: string = "Skip";
   private isButtonVisible: boolean = true;
+  private isToolbarVisible: boolean = true;
 
   constructor(private toolbarService: ToolbarService,
   private router: Router){
@@ -19,6 +20,9 @@ export class AppComponent {
     });
     toolbarService.buttonVisibilityChanged.subscribe(isVisible => {
       this.isButtonVisible = isVisible;
+    });
+    toolbarService.toolbarVisibilityChanged.subscribe(isVisible => {
+      this.isToolbarVisible = isVisible;
     });
   }
 

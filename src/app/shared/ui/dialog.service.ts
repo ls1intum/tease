@@ -13,7 +13,7 @@ export class DialogService {
 
   public showPersonDetails(person: Person, persons: Person[], viewContainerRef: ViewContainerRef): Observable<EventTypePersonDetails> {
     let dialogRef: MdDialogRef<PersonDetailComponent>;
-    
+
     let config = new MdDialogConfig();
     config.viewContainerRef = viewContainerRef;
 
@@ -26,6 +26,7 @@ export class DialogService {
       eventSubject.next(EventTypePersonDetails.DialogClosed);
     });
     dialogRef.componentInstance.nextPersonClicked().subscribe(() => {
+      dialogRef.close();
       eventSubject.next(EventTypePersonDetails.NextPersonPressed);
     });
 

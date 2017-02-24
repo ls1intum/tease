@@ -1,8 +1,12 @@
+main {
+  height: 100%;
+}
+
 #scroll_container {
   overflow-y: auto;
-  max-height: 65vh;
   padding-left: 10px;
   padding-right: 10px;
+  background-color: white;
 }
 
 .row {
