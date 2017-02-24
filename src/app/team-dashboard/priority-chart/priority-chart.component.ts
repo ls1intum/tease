@@ -22,6 +22,7 @@ export class PriorityChartComponent implements OnInit,DoCheck {
 
   private dataSet: {label: string; data: number[]}[] = [];
   private labels: string[] = [];
+  private averagePriority = 0;
 
   private lastPersonLength = 0;
 
@@ -48,14 +49,23 @@ export class PriorityChartComponent implements OnInit,DoCheck {
 
   private updateDataset() {
     let priorities = ArrayHelper.createNumberRange(this.personStatisticsService.getPriorityCountMax(this.team));
-    let priorityCount = priorities.map(prio =>
+    let priorityCountMap = priorities.map(prio =>
       this.personStatisticsService.getNumberOfPersonsForPriority(prio, this.team));
-    this.dataSet = [{label: "# number of persons with project priority", data: priorityCount}];
+    this.dataSet = [{label: "# number of persons with project priority", data: priorityCountMap}];
+    this.averagePriority = this.personStatisticsService.getAverageTeamPriorityOfPersons(this.team);
+  }
+
+  private isAnyPriorityGiven(): boolean {
+    return !isNaN(this.averagePriority);
   }
 
   private updateLabels() {
     let priorities = ArrayHelper.createNumberRange(this.personStatisticsService.getPriorityCountMax(this.team));
 
     this.labels = priorities.map(prio => String(prio + 1));
+  }
+
+  private getAverageTeamPriority(): string {
+    return this.averagePriority.toFixed(1);
   }
 }

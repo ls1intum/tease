@@ -1,12 +1,24 @@
 <main>
-  <button md-button class="overallScore">
-    {{calculateOverallScore()}}
-  </button>
+  <div class="scoreContainer">
+    <div class="overallScore"
+         mdTooltip="Based on Constraints and Priorities">
+      <md-icon color="primary">star_rate
+      </md-icon>
+      <div class="title">Team Quality Score:</div>
+      {{calculateOverallScore()}}
+    </div>
+  </div>
+  <hr>
   <div class="scoreFactors">
-    <div *ngFor="let constraint of constraints">
-        {{constraint.toString()+"   "}}
-        <md-icon *ngIf="isSatisfied(constraint)" color="primary">check_circle</md-icon>
-        <md-icon *ngIf="!isSatisfied(constraint)" style="color:red;" >error_outline</md-icon>
+    <div class="constraintContainer" *ngFor="let constraint of constraints">
+      <div class="constraint">
+        <div class="title">{{constraint.toString()}}</div>
+        <md-icon mdTooltip="Constraint satisfied" *ngIf="isSatisfied(constraint)" color="primary">check_circle
+        </md-icon>
+        <md-icon mdTooltip="Constraint not satisfied" *ngIf="!isSatisfied(constraint)" style="color:red;">
+          error_outline
+        </md-icon>
+      </div>
     </div>
   </div>
 </main>

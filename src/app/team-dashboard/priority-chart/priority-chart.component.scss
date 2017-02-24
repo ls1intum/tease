@@ -2,4 +2,24 @@ main {
   display: block;
   height: 100%;
   width: 100%;
+  padding-top: 5px;
+}
+
+.averagePrioContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.averagePrio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.title {
+  margin-right: 10px;
+  margin-left: 10px;
 }

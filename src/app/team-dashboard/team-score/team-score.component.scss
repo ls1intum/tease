@@ -1,13 +1,42 @@
 @import '../../../css/theme';
 
 main {
+  padding: 5px;
 
 }
 
+.scoreContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .overallScore {
-  width:50px;
-  height:50px;
-  margin: 5px;
-  border-radius: 50%;
-  border: solid md-color($accent) 3px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.constraintContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.constraint {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.title {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+hr {
+  margin-left: -5px;
+  margin-right: 5px;
 }

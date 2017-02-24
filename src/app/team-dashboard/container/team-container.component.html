@@ -15,9 +15,9 @@
     <div *ngIf="isStatisticsVisible">
       <team-score *ngIf="!isTeamEmpty()" [team]="team"></team-score>
       <hr>
-      <devices [devices]="getDevices()"></devices>
       <priority-chart *ngIf="!isTeamEmpty()" [team]="team"></priority-chart>
-      <md-divider></md-divider>
+      <hr>
+      <devices [devices]="getDevices()"></devices>
     </div>
 
     <hr>
