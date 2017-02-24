@@ -29,12 +29,13 @@ export class TeamScoreComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.constraints = this.constraintService.fetchConstraints();
+    this.constraints = this.constraintService.fetchConstraints()
+      .filter(constraint => constraint.isEnabled);
   }
 
   calculateOverallScore(): string {
     let score = this.statisticsService.calcTeamQualityScore(this.team, this.constraints);
-    if(isNaN(score))return "None";
+    if (isNaN(score))return "None";
     return score.toFixed(1);
   }
 

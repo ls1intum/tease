@@ -26,11 +26,14 @@ export class PersonStatisticsService {
     }, 0);
     let averageConstraintSatisfactionScore = scoreSum / constraints.length;
 
-    return (averagePrioScore + averageConstraintSatisfactionScore)/2;
+    if (constraints.length == 0)return averagePrioScore;
+    if (isNaN(averagePrioScore))return averageConstraintSatisfactionScore;
+
+    return (averagePrioScore + averageConstraintSatisfactionScore) / 2;
   }
 
   private calcPrioScore(averagePrio: number): number {
-    return Math.min(Math.max(10 - averagePrio,0),10);
+    return Math.min(Math.max(10 - averagePrio, 0), 10);
   }
 
   getAverageTeamPriorityOfPersons(team: Team): number {
@@ -41,7 +44,7 @@ export class PersonStatisticsService {
     for (let prio of priorities) {
       let personsWithPrio = this.getNumberOfPersonsForPriority(prio, team);
       personSum += personsWithPrio;
-      prioSum += (prio+1) * personsWithPrio;
+      prioSum += (prio + 1) * personsWithPrio;
     }
 
     return prioSum / personSum;
