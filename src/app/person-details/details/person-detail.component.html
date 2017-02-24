@@ -3,7 +3,7 @@
     {{person.firstName}} {{person.lastName}}
     <span class="app-toolbar-filler"></span>
     <img id="personPic" src="{{getGravatarIconPath()}}">
-    <button class="popupButton" md-button (click)="openInPopup()" *ngIf="!isDialog">
+    <button class="popupButton" md-button (click)="onOpenInPopupClicked()" *ngIf="!isDialog">
       <md-icon color="accent" >fullscreen</md-icon>
     </button>
   </md-toolbar>

@@ -30,6 +30,10 @@ export class DialogService {
       eventSubject.next(EventTypePersonDetails.NextPersonPressed);
     });
 
+    dialogRef.componentInstance.openAsPopupClicked().subscribe(() => {
+      dialogRef.close();
+    });
+
     return eventSubject.asObservable();
   }
 }

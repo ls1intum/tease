@@ -31,6 +31,7 @@ export class PersonDetailComponent implements OnInit {
   private skillString: string;
   private isNextButtonDisabled = false;
   private nextPersonClickSubject = new Subject<any>();
+  private openAsPopupClickSubject = new Subject<any>();
 
   private isDialog = false;
 
@@ -95,24 +96,29 @@ export class PersonDetailComponent implements OnInit {
     return this.persons.length;
   }
 
-  private onNextPersonClicked() {
-    this.nextPersonClickSubject.next();
-  }
-
   private shouldShowRatingToolbar(): boolean {
     return this.persons.length != 0;
-  }
-
-  private openInPopup(){
-    let url = document.URL+"/"+this.person.tumId;
-    window.open(url, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
   }
 
   getGravatarIconPath(): string {
     return this.iconMapperService.getGravatarIcon(this.person.email);
   }
 
+  private onOpenInPopupClicked() {
+    let url = "/#/persons/"+this.person.tumId;
+    window.open(url, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+
+    this.openAsPopupClickSubject.next();
+  }
+
+  private onNextPersonClicked() {
+    this.nextPersonClickSubject.next();
+  }
+
   nextPersonClicked(): Observable<any> {
     return this.nextPersonClickSubject.asObservable();
+  }
+  openAsPopupClicked(): Observable<any> {
+    return this.openAsPopupClickSubject.asObservable();
   }
 }
