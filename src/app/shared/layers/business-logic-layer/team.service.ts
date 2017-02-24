@@ -14,12 +14,12 @@ let FileSaver = require('file-saver');
 export class TeamService {
   private readonly EXPORT_DATA_TYPE = "text/csv;charset=utf-8";
 
-  constructor(private teamAccessService: TeamAccessService){
+  constructor(private teamAccessService: TeamAccessService) {
 
   }
 
 
-  readSavedTeams(): Promise<Team[]>{
+  readSavedTeams(): Promise<Team[]> {
     return this.teamAccessService.readSavedTeams();
   }
 
@@ -31,25 +31,35 @@ export class TeamService {
     return this.teamAccessService.readTeamsFromRemote(remoteFilePath);
   }
 
-  exportTeams(fileName: string){
+  exportTeams(fileName: string) {
     let csvData = this.teamAccessService.exportSavedTeamsAsCsv();
     let blob = new Blob([csvData], {type: this.EXPORT_DATA_TYPE});
     FileSaver.saveAs(blob, fileName);
   }
 
-  saveTeams(teams: Team[]){
+  saveTeams(teams: Team[]) {
     this.teamAccessService.saveTeams(teams);
   }
 
-  dropData(){
+  dropData() {
     this.teamAccessService.dropData();
   }
 
-  readSavedPersons(): Promise<Person[]>{
-    return new Promise((resolve,reject) => {
+  readSavedPersons(): Promise<Person[]> {
+    return new Promise((resolve, reject) => {
       this.readSavedTeams().then(teams => {
-          resolve(TeamHelper.getPersons(teams));
-        });
+        resolve(TeamHelper.getPersons(teams));
+      });
+    });
+  }
+
+  readPersonWithId(tumId: string): Promise<Person> {
+    return new Promise((resolve, reject) => {
+      this.readSavedPersons().then(persons => {
+        let personsWithId = persons.filter(person => person.tumId === tumId);
+        if (personsWithId.length == 0) resolve(undefined);
+        resolve(personsWithId[0]);
+      });
     });
   }
 }

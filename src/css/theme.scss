@@ -1,11 +1,11 @@
 @import '../../node_modules/@angular/material/core/theming/all-theme';
-@include md-core();
+@include mat-core();
 
 // Define a theme.
-$primary: md-palette($md-blue);
-$accent:  md-palette($md-green, A200, A100, A400);
+$primary: mat-palette($mat-blue);
+$accent:  mat-palette($mat-green, A200, A100, A400);
 
-$theme: md-light-theme($primary, $accent);
+$theme: mat-light-theme($primary, $accent);
 
 // Include all theme styles for the components.
 @include angular-material-theme($theme);

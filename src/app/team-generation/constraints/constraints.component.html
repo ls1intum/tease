@@ -6,14 +6,12 @@
     <div class="constraintConfig">
       <div class="name">{{constraint.getName()}}</div>
       <div class="comparator"> {{constraint.getComparator()}}</div>
-      <md-input class="number"
+      <input mdInput class="number"
                 placeholder="Constraint Value"
                 name="constraintValue"
                 type="constraintValue"
                 [ngModel]="constraint.getValue()"
-                (ngModelChange)="onConstraintValueChanged(constraint,$event)">
-
-      </md-input>
+                (ngModelChange)="onConstraintValueChanged(constraint,$event)"/>
     </div>
 
     <div class="constraintConfig"><md-slide-toggle [checked]="true"></md-slide-toggle></div>

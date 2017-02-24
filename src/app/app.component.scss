@@ -3,19 +3,19 @@
 @import '../../node_modules/@angular/material/toolbar/toolbar';
 
 .app-content {
-  background-color: md-color($primary, 0.6)
+  background-color: mat-color($primary, 0.6)
 }
 
 #toolbar {
-  font-size: $md-toolbar-font-size;
+  font-size: $mat-toolbar-font-size;
   font-weight: 400;
-  font-family: $md-font-family;
+  font-family: $mat-font-family;
   color: white;
-  background-color: md-color($primary);
+  background-color: mat-color($primary);
   padding-left: 10px;
   padding-right: 10px;
 }
 
 * {
-  font-family: $md-font-family;
+  font-family: $mat-font-family;
 }

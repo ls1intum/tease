@@ -6,6 +6,7 @@ import {TeamService} from "../../shared/layers/business-logic-layer/team.service
 import {PersonStatisticsService} from "../../shared/layers/business-logic-layer/person-statistics.service";
 import {Observable, Subject} from "rxjs";
 import {IconMapperService} from "../../shared/ui/icon-mapper.service";
+import {ActivatedRoute} from "@angular/router";
 
 
 /**
@@ -19,7 +20,7 @@ import {IconMapperService} from "../../shared/ui/icon-mapper.service";
 })
 export class PersonDetailComponent implements OnInit {
   person: Person;
-  persons: Person[];
+  persons: Person[] = [];
 
   // enums can only be used in a template with this shitty work around.
   // how stupid is angular 2 here?
@@ -32,12 +33,23 @@ export class PersonDetailComponent implements OnInit {
 
   constructor(public dialogRef: MdDialogRef<PersonDetailComponent>,
               private iconMapperService: IconMapperService,
-              private personStatisticsService: PersonStatisticsService) {
+              private personStatisticsService: PersonStatisticsService,
+              private route: ActivatedRoute,
+              private teamService: TeamService) {
+    debugger;
   }
 
   ngOnInit(): void {
+    debugger;
+
     this.skillString = this.person.supervisorRating.toString();
     this.setNextButtonState();
+
+    let tumId = this.route.params['id'];
+    if(tumId !== undefined){
+      this.teamService.readPersonWithId(tumId)
+        .then(person => this.person = person);
+    }
   }
 
   private setNextButtonState(){
@@ -64,6 +76,10 @@ export class PersonDetailComponent implements OnInit {
   private onNextPersonClicked() {
     this.dialogRef.close();
     this.nextPersonClickSubject.next();
+  }
+
+  private shouldShowRatingToolbar(): boolean {
+    return this.persons.length != 0;
   }
 
   getGravatarIconPath(): string {

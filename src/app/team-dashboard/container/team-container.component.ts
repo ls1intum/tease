@@ -7,7 +7,6 @@ import {IconMapperService} from "../../shared/ui/icon-mapper.service";
 import {TeamHelper} from "../../shared/helpers/team.helper";
 import {PersonService} from "../../shared/layers/business-logic-layer/person.service";
 import {Observable} from "rxjs";
-import {ISlimScrollOptions} from "ng2-slimscroll/src/directives/slimscroll.directive";
 import {Colors} from "../../shared/constants/color.constants";
 
 /**
@@ -31,8 +30,6 @@ export class TeamContainerComponent implements AfterViewInit,OnInit {
   public LocalDeviceType = DeviceType;
   @Output() personClose = new EventEmitter();
 
-  opts: ISlimScrollOptions;
-
   constructor(private dialogService: DialogService,
               private personService: PersonService,
               private viewContainerRef: ViewContainerRef,
@@ -40,10 +37,7 @@ export class TeamContainerComponent implements AfterViewInit,OnInit {
   }
 
   ngOnInit() {
-    // TODO fetch color for scrollbar from material theme dynamically
-    this.opts = {
-      position: 'right',
-      barBackground: Colors.ScrollBarButtonColor}
+
   }
 
   ngAfterViewInit(): void {

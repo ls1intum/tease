@@ -13,7 +13,6 @@ import {ToolbarService} from "../shared/ui/toolbar.service";
 import {PersonDetailModule} from "../person-details/person-detail.module";
 import {ChartsModule} from 'ng2-charts/ng2-charts';
 import {PriorityChartComponent} from "./priority-chart/priority-chart.component";
-import {SlimScrollModule} from "ng2-slimscroll";
 import {ConstraintService} from "../shared/layers/business-logic-layer/constraint.service";
 import {TeamScoreComponent} from "./team-score/team-score.component";
 import {PersonStatisticsService} from "../shared/layers/business-logic-layer/person-statistics.service";
@@ -23,7 +22,7 @@ import {PersonStatisticsService} from "../shared/layers/business-logic-layer/per
  */
 @NgModule({
   imports: [CommonModule, MaterialModule, DragulaModule, PersonDetailModule,
-    PersonListModule, ChartsModule, SlimScrollModule],
+    PersonListModule, ChartsModule],
   declarations: [TeamDashboardComponent, TeamContainerComponent, PriorityChartComponent, TeamScoreComponent],
   exports: [TeamDashboardComponent],
   providers: [TeamService, ToolbarService, PersonStatisticsService, DragulaService, DialogService, ConstraintService],
