@@ -13,12 +13,17 @@ export class TeamParser {
 
     let persons = teamCsvData.map((personProps: Array<any>) => {
       let person = PersonParser.parsePerson(personProps);
+      if(person.tumId === undefined
+        || person.tumId.length == 0){
+        console.log("No tumId for person found. Cannot import.");
+        return undefined;
+      }
 
       this.parsePriorities(teams, person, personProps);
       this.addTeam(teams, personProps[CsvColumNames.Team.TeamName], person);
 
       return person;
-    });
+    }).filter(person => person !== undefined);
 
     this.addOrphansTeam(teams,persons);
 
