@@ -30,8 +30,7 @@ export class PersonStatisticsService {
   }
 
   private calcPrioScore(averagePrio: number): number {
-    // TODO NOW implement
-    return 0;
+    return Math.min(Math.max(10 - averagePrio,0),10);
   }
 
   getAverageTeamPriorityOfPersons(team: Team): number {
