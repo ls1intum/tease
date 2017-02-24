@@ -1,5 +1,9 @@
 md-card {
   margin: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 md-card-title {
@@ -7,6 +11,12 @@ md-card-title {
 }
 
 .icon {
+  width: 40px;
+  height: 40px;
+}
+
+.personPic {
+  border-radius: 50%;
   width: 40px;
   height: 40px;
 }

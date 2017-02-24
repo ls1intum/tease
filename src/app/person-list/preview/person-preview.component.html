@@ -1,7 +1,7 @@
 <div *ngIf="person">
   <md-card  md-ripple [mdRippleColor]="rippleColor" [style.border-color]="getColor()" class="skillColored">
     <div class="card-content">
-      <img md-card-avatar src="{{getGravatarIconPath()}}">
+      <img class="personPic" src="{{getGravatarIconPath()}}">
 
       <div class="data-container">
         <div class="name-container">
@@ -10,11 +10,6 @@
         </div>
         <img class="icon" id="gender" src="{{getGenderIconPath()}}">
       </div>
-
-      <!--shows an icon for the supervisor rating-->
-      <!--<div class="end-aligned">-->
-        <!--<img *ngIf="isPersonRated()" class="icon" src="{{getSkillIconPath()}}">-->
-      <!--</div>-->
     </div>
   </md-card>
 </div>
