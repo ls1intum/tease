@@ -11,3 +11,11 @@ html,body { height: 100%; }
   -moz-transform: rotate(4deg);
   -webkit-transform: rotate(4deg);
 }
+
+.mat-toolbar-layout {
+  width: 100%;
+}
+
+mat-toolbar-row {
+  width: 100%;
+}

@@ -68,5 +68,15 @@ main {
   margin-left: auto;
 }
 
+.app-toolbar-filler {
+  flex: 1 1 auto;
+}
 
+.mat-toolbar-layout {
+  width: 100%;
+}
 
+.personHeader {
+  display: flex;
+  align-items: center;
+}

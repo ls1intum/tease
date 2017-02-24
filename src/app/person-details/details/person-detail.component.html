@@ -1,10 +1,12 @@
 <main *ngIf="person">
   <md-toolbar id="topBar" color="primary">
-    {{person.firstName}} {{person.lastName}}
-    <span class="app-toolbar-filler"></span>
-    <img id="personPic" src="{{getGravatarIconPath()}}">
-    <button class="popupButton" md-button (click)="onOpenInPopupClicked()" *ngIf="!isDialog">
-      <md-icon color="accent" >fullscreen</md-icon>
+    <div class="personHeader">
+      {{person.firstName}} {{person.lastName}}
+      <span class="app-toolbar-filler"></span>
+      <img id="personPic" src="{{getGravatarIconPath()}}">
+    </div>
+    <button class="popupButton" md-raised-button color="accent" (click)="onOpenInPopupClicked()" *ngIf="!isDialog">
+      <md-icon style="color: white">fullscreen</md-icon>
     </button>
   </md-toolbar>
   <div id="scroll_container" [ngClass]="{'popupStyle': !isDialog }">
