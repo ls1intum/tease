@@ -15,26 +15,33 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
   private static readonly KeyFemalePersonConstraint = "KeyFemalePersonConstraint";
   private static readonly KeyTeamSizeConstraint = "KeyTeamSizeConstraint";
 
+  private static readonly DISABLED_VALUE = "DISABLED_VALUE";
+  private static readonly DISABLED_NUMBER_VALUE = -1;
+
   saveConstraint(constraint: Constraint) {
     if (constraint instanceof IosDeviceConstraint) {
-      localStorage.setItem(KeyValueConstraintAccessService.KeyIosDeviceConstraint,String(constraint.getValue()));
+      localStorage.setItem(KeyValueConstraintAccessService.KeyIosDeviceConstraint,this.getPersistentValue(constraint));
       return;
     }
 
     if (constraint instanceof MacDeviceConstraint) {
-      localStorage.setItem(KeyValueConstraintAccessService.KeyMacDeviceConstraint,String(constraint.getValue()));
+      localStorage.setItem(KeyValueConstraintAccessService.KeyMacDeviceConstraint,this.getPersistentValue(constraint));
       return;
     }
 
     if (constraint instanceof FemalePersonConstraint) {
-      localStorage.setItem(KeyValueConstraintAccessService.KeyFemalePersonConstraint,String(constraint.getValue()));
+      localStorage.setItem(KeyValueConstraintAccessService.KeyFemalePersonConstraint,this.getPersistentValue(constraint));
       return;
     }
 
     if (constraint instanceof TeamSizeConstraint) {
-      localStorage.setItem(KeyValueConstraintAccessService.KeyTeamSizeConstraint,String(constraint.getValue()));
+      localStorage.setItem(KeyValueConstraintAccessService.KeyTeamSizeConstraint,this.getPersistentValue(constraint));
       return;
     }
+  }
+
+  private getPersistentValue(constraint: Constraint) {
+    return constraint.isEnabled ? String(constraint.getValue()) : "DISABLED_VALUE";
   }
 
   fetchConstraints(): Constraint[] {
@@ -46,15 +53,27 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
       this.fetchSavedNumberValue(KeyValueConstraintAccessService.KeyIosDeviceConstraint,2)));
     constraints.push(new FemalePersonConstraint(
       this.fetchSavedNumberValue(KeyValueConstraintAccessService.KeyFemalePersonConstraint,2)));
-    constraints.push(new TeamSizeConstraint(
-      this.fetchSavedNumberValue(KeyValueConstraintAccessService.KeyTeamSizeConstraint,10)));
+    let teamSizeConstraint = new TeamSizeConstraint(
+      this.fetchSavedNumberValue(KeyValueConstraintAccessService.KeyTeamSizeConstraint,10));
+    constraints.push(teamSizeConstraint);
+
+    constraints.forEach(constraint => {
+      if(constraint.getValue() == KeyValueConstraintAccessService.DISABLED_NUMBER_VALUE) {
+        constraint.isEnabled = false;
+        constraint.setValue(1);
+      }
+    });
 
     return constraints;
   }
 
   private fetchSavedNumberValue(key: string, fallbackValue): number {
     let value = localStorage.getItem(key);
-    // debugger;
-    return value === undefined || value === "0" ? fallbackValue : +value;
+
+    if(value === KeyValueConstraintAccessService.DISABLED_VALUE){
+      return KeyValueConstraintAccessService.DISABLED_NUMBER_VALUE;
+    }
+
+    return (value === undefined || value === "0") ? fallbackValue : +value;
   }
 }

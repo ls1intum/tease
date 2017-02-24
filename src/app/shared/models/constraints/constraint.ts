@@ -4,7 +4,20 @@ import {Team} from "../team";
  */
 
 export abstract class Constraint {
+  isEnabled = true;
+
   abstract isSatisfied(team: Team): boolean;
+
+  /*isEnabled():boolean {
+    // return this.getValue() != Constraint.DISABLED_VALUE;
+    return this.isEnabled;
+  }
+  setEnabled(isEnabled: boolean) {
+    // let newValue =
+    //   this.getValue() == Constraint.DISABLED_VALUE ? 1 : this.getValue();
+    // this.setValue(isEnabled ? newValue : Constraint.DISABLED_VALUE);
+    this.isEnabled = isEnabled;
+  }*/
 
   abstract calculateSatisfactionScore(team: Team): number;
 

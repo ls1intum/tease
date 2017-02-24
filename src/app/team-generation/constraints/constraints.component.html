@@ -5,8 +5,8 @@
   <md-card *ngFor="let constraint of constraints">
     <div class="constraintConfig">
       <div class="name">{{constraint.getName()}}</div>
-      <div class="comparator"> {{constraint.getComparator()}}</div>
-      <input mdInput class="number"
+      <div *ngIf="constraint.isEnabled" class="comparator"> {{constraint.getComparator()}}</div>
+      <input *ngIf="constraint.isEnabled" mdInput class="number"
                 placeholder="Constraint Value"
                 name="constraintValue"
                 type="constraintValue"
@@ -14,7 +14,8 @@
                 (ngModelChange)="onConstraintValueChanged(constraint,$event)"/>
     </div>
 
-    <div class="constraintConfig"><md-slide-toggle [checked]="true"></md-slide-toggle></div>
+    <div class="constraintConfig">
+      <md-slide-toggle [(ngModel)]="constraint.isEnabled"></md-slide-toggle></div>
 
   </md-card>
 
