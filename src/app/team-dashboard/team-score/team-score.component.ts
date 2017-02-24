@@ -5,6 +5,8 @@ import {ArrayHelper} from "../../shared/helpers/array.helper";
 import {Team} from "../../shared/models/team";
 import {Observable} from "rxjs";
 import {Person} from "../../shared/models/person";
+import {ConstraintService} from "../../shared/layers/business-logic-layer/constraint.service";
+import {Constraint} from "../../shared/models/constraints/constraint";
 
 /**
  * Created by Malte Bucksch on 16/01/2017.
@@ -20,13 +22,23 @@ export class TeamScoreComponent implements OnInit {
   @Input()
   private team: Team;
 
-  constructor(private personStatisticsService: PersonStatisticsService) {
+  private constraints: Constraint[] = [];
 
+  constructor(private constraintService: ConstraintService) {
   }
 
   ngOnInit(): void {
-
+    this.constraints = this.constraintService.fetchConstraints();
   }
 
+  calculateOverallScore(): number {
+    let scoreSum = this.constraints.reduce((sum, current) => {
+      return sum + current.calculateSatisfactionScore(this.team);
+    }, 0);
+    return scoreSum / this.constraints.length;
+  }
 
+  isSatisfied(constraint: Constraint): boolean {
+    return constraint.isSatisfied(this.team);
+  }
 }

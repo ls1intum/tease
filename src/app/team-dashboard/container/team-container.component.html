@@ -1,28 +1,32 @@
 <div *ngIf="team" id="container" class="roundedUpperCorners roundedLowerCorners">
-    <div class="containerHeader roundedUpperCorners">
-      <div id="titleContainer" class="roundedUpperCorners">
-        <h1><div id="teamName">{{team.name}}</div></h1>
-        <div id="infoButton">
-          <h1>({{team.persons.length}})</h1>
-          <button md-button (click)="showStatistics()">
-            <md-icon color="accent">info</md-icon>
-          </button>
-        </div>
+  <div class="containerHeader roundedUpperCorners">
+    <div id="titleContainer" class="roundedUpperCorners">
+      <h1>
+        <div id="teamName">{{team.name}}</div>
+      </h1>
+      <div id="infoButton">
+        <h1>({{team.persons.length}})</h1>
+        <button md-button (click)="showStatistics()">
+          <md-icon color="accent">info</md-icon>
+        </button>
       </div>
+    </div>
 
-      <div *ngIf="isStatisticsVisible">
-        <hr>
-        <devices [devices]="getDevices()"></devices>
-        <priority-chart *ngIf="team.persons.length > 0" [team]="team"></priority-chart>
-        <md-divider></md-divider>
-      </div>
-
+    <div *ngIf="isStatisticsVisible">
+      <team-score *ngIf="!isTeamEmpty()" [team]="team"></team-score>
       <hr>
+      <devices [devices]="getDevices()"></devices>
+      <priority-chart *ngIf="!isTeamEmpty()" [team]="team"></priority-chart>
+      <md-divider></md-divider>
     </div>
 
-    <div [dragula]='"first-bag"' class='drag-container roundedLowerCorners' slimScroll [options]="opts" [dragulaModel]="team.persons">
-      <div class='sub-element' *ngFor="let person of team.persons" (click)="showPersonDetails(person)">
-        <person-preview [person]="person"></person-preview>
-      </div>
+    <hr>
+  </div>
+
+  <div [dragula]='"first-bag"' class='drag-container roundedLowerCorners' slimScroll [options]="opts"
+       [dragulaModel]="team.persons">
+    <div class='sub-element' *ngFor="let person of team.persons" (click)="showPersonDetails(person)">
+      <person-preview [person]="person"></person-preview>
     </div>
+  </div>
 </div>

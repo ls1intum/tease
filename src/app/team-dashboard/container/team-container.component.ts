@@ -81,4 +81,8 @@ export class TeamContainerComponent implements AfterViewInit,OnInit {
   showStatistics() {
     this.isStatisticsVisible = !this.isStatisticsVisible;
   }
+
+  isTeamEmpty(): boolean {
+    return this.team.persons.length == 0;
+  }
 }
