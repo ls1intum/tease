@@ -16,6 +16,7 @@ import {PriorityChartComponent} from "./priority-chart/priority-chart.component"
 import {SlimScrollModule} from "ng2-slimscroll";
 import {ConstraintService} from "../shared/layers/business-logic-layer/constraint.service";
 import {TeamScoreComponent} from "./team-score/team-score.component";
+import {PersonStatisticsService} from "../shared/layers/business-logic-layer/person-statistics.service";
 
 /**
  * Created by Malte Bucksch on 25/11/2016.
@@ -25,7 +26,7 @@ import {TeamScoreComponent} from "./team-score/team-score.component";
     PersonListModule, ChartsModule, SlimScrollModule],
   declarations: [TeamDashboardComponent, TeamContainerComponent, PriorityChartComponent, TeamScoreComponent],
   exports: [TeamDashboardComponent],
-  providers: [TeamService, ToolbarService, DragulaService, DialogService, ConstraintService],
+  providers: [TeamService, ToolbarService, PersonStatisticsService, DragulaService, DialogService, ConstraintService],
   entryComponents: [PersonDetailComponent]
 })
 export class TeamDashboardModule {

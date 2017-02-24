@@ -24,7 +24,8 @@ export class TeamScoreComponent implements OnInit {
 
   private constraints: Constraint[] = [];
 
-  constructor(private constraintService: ConstraintService) {
+  constructor(private constraintService: ConstraintService,
+              private statisticsService: PersonStatisticsService) {
   }
 
   ngOnInit(): void {
@@ -32,10 +33,7 @@ export class TeamScoreComponent implements OnInit {
   }
 
   calculateOverallScore(): number {
-    let scoreSum = this.constraints.reduce((sum, current) => {
-      return sum + current.calculateSatisfactionScore(this.team);
-    }, 0);
-    return scoreSum / this.constraints.length;
+    return this.statisticsService.calcTeamQualityScore(this.team, this.constraints);
   }
 
   isSatisfied(constraint: Constraint): boolean {

@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {Person} from "../../models/person";
 import {Team} from "../../models/team";
 import {ArrayHelper} from "../../helpers/array.helper";
+import {Constraint} from "../../models/constraints/constraint";
 /**
  * Created by Malte Bucksch on 13/01/2017.
  */
@@ -14,6 +15,23 @@ export class PersonStatisticsService {
 
   getNumberOfPersonsForPriority(priorityNumber: number, team: Team): number {
     return this.getPersonsForTeamPriority(team, priorityNumber).length;
+  }
+
+  calcTeamQualityScore(team: Team, constraints: Constraint[]): number {
+    let averagePrio = this.getAverageTeamPriorityOfPersons(team);
+    let averagePrioScore = this.calcPrioScore(averagePrio);
+
+    let scoreSum = constraints.reduce((sum, current) => {
+      return sum + current.calculateSatisfactionScore(team);
+    }, 0);
+    let averageConstraintSatisfactionScore = scoreSum / constraints.length;
+
+    return (averagePrioScore + averageConstraintSatisfactionScore)/2;
+  }
+
+  private calcPrioScore(averagePrio: number): number {
+    // TODO NOW implement
+    return 0;
   }
 
   getAverageTeamPriorityOfPersons(team: Team): number {
