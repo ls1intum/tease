@@ -32,6 +32,8 @@ export class PersonDetailComponent implements OnInit {
   private isNextButtonDisabled = false;
   private nextPersonClickSubject = new Subject<any>();
 
+  private isDialog = false;
+
   constructor(private iconMapperService: IconMapperService,
               private personStatisticsService: PersonStatisticsService,
               private route: ActivatedRoute,
@@ -58,6 +60,8 @@ export class PersonDetailComponent implements OnInit {
 
       this.teamService.readPersonWithId(params['id'])
         .then(person => {
+          this.isDialog = true;
+
           this.person = person;
           this.init();
           this.toolbarService.setToolbarVisible(false);
@@ -97,6 +101,11 @@ export class PersonDetailComponent implements OnInit {
 
   private shouldShowRatingToolbar(): boolean {
     return this.persons.length != 0;
+  }
+
+  private openInPopup(){
+    let url = document.URL+"/"+this.person.tumId;
+    window.open(url, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
   }
 
   getGravatarIconPath(): string {

@@ -3,8 +3,11 @@
     {{person.firstName}} {{person.lastName}}
     <span class="app-toolbar-filler"></span>
     <img id="personPic" src="{{getGravatarIconPath()}}">
+    <button class="popupButton" md-button (click)="openInPopup()" *ngIf="!isDialog">
+      <md-icon color="accent" >fullscreen</md-icon>
+    </button>
   </md-toolbar>
-  <div id="scroll_container">
+  <div id="scroll_container" [ngClass]="{'popupStyle': !isDialog }">
     <div class="gridLayout">
       <div class="row">
         <h3> Major </h3>
@@ -72,7 +75,7 @@
     </div>
   </div>
 
-  <md-toolbar color="primary">
+  <md-toolbar color="primary" *ngIf="!isDialog">
     <md-radio-group [(value)]="skillString" (change)="onChangeRating($event.value)">
       <md-radio-button value="{{PersonSkillLevel.VeryHigh}}">Expert</md-radio-button>
       <md-radio-button value="{{PersonSkillLevel.High}}">Advanced</md-radio-button>

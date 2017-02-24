@@ -9,6 +9,10 @@ main {
   background-color: white;
 }
 
+.popupStyle {
+  max-height: 65vh;
+}
+
 .row {
   display: flex;
   flex-direction: column;
@@ -58,6 +62,10 @@ main {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.popupButton {
+  margin-left: auto;
 }
 
 
