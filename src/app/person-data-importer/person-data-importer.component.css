@@ -1,5 +1,5 @@
 main {
-  height:100%;
+  height:calc(100% - 20px);
   width: 100%;
 }
 
@@ -8,12 +8,12 @@ main {
 }
 
 .state_centered {
-  padding: 60px;
+  padding: 5px;
   width: 50%;
   margin: 0 auto;
   text-align:center;
 }
 
 .section {
-  padding-bottom: 60px;
+  padding-bottom: 20px;
 }
