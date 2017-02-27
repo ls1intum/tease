@@ -37,9 +37,6 @@ export class PersonSerializer {
 
   private static serializePriorities(person: Person, personProps: {}) {
     for (let teamPrio of person.teamPriorities) {
-      if (teamPrio == undefined)
-        debugger;
-
       let columnName = StringHelper.format(CsvColumNames.Team.Priority,
         person.getTeamPriority(teamPrio));
 

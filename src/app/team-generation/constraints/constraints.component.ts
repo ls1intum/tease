@@ -37,7 +37,6 @@ export class ConstraintsComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
-    debugger;
     this.constraints.forEach(constraint => this.constraintService.saveConstraint(constraint));
     this.skipSubscription.unsubscribe();
   }

@@ -2,6 +2,7 @@
 .state_centered {
   padding: 50px;
   width: 70%;
+  min-width: 300px;
   margin: 0 auto;
   text-align:center;
 }
@@ -22,11 +23,11 @@ md-card {
 }
 
 .name {
-  min-width: 120px;
+  padding: 5px;
 }
 
 .comparator {
-  width: 50px;
+  padding: 5px;
 }
 
 .number {
@@ -34,4 +35,8 @@ md-card {
 
 #generateButton {
   margin-top: 50px;
+}
+
+input {
+  max-width: 30px;
 }
