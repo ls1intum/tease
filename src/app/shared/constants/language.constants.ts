@@ -25,7 +25,7 @@ export abstract class LangPersonPreview {
 }
 // team constraints
 export abstract class LangConstraints {
-  static readonly ToolbarButtonName = "Skip";
+  static readonly ToolbarButtonName = "Go to Dashboard";
 
 }
 // team dashboard
