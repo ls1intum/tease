@@ -10,7 +10,7 @@
     "build:prod": "webpack --config config/webpack.prod.js  --progress --profile --bail"
   },
   "contributors": [
-    "Malte Bucksch <malte.bucksch@gmail.com>"
+    "Malte Bucksch <malte.bucksch@quickbirdstudios.com>"
   ],
   "devDependencies": {
     "@types/core-js": "^0.9.32",
