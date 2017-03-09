@@ -1,6 +1,6 @@
 main {
   height:calc(100% - 20px);
-  width: 100%;
+  width: calc(100% - 20px);
 }
 
 .state_hidden {
