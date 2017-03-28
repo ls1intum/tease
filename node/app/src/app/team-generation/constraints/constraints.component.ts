@@ -43,10 +43,12 @@ export class ConstraintsComponent implements OnInit,OnDestroy {
 
   onGenerateClicked() {
     this.teamService.readSavedTeams().then(teams => {
-      this.teamGenerationService.generate(teams);
-      this.teamService.saveTeams(teams);
+      this.teamGenerationService.generate(teams).then(generatedTeams => {
 
-      this.gotoDashboard();
+        this.teamService.saveTeams(generatedTeams);
+
+        this.gotoDashboard();
+      });
     });
   }
 
@@ -58,6 +60,6 @@ export class ConstraintsComponent implements OnInit,OnDestroy {
 
   gotoDashboard() {
     let link = ["/dashboard"];
-    this.router.navigate(link);
+    return this.router.navigate(link);
   }
 }

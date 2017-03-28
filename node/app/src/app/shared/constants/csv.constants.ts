@@ -27,4 +27,5 @@ export class CsvValueNames {
 export const CsvTeamPrioritiesCount = 11;
 
 
-export const ExamplePersonPropertyCsvRemotePath ="http://ba-buksch-bruegge.in.tum.de/assets/persons_example.csv";
+// export const ExamplePersonPropertyCsvRemotePath ="http://ba-buksch-bruegge.in.tum.de/assets/persons_example.csv";
+export const ExamplePersonPropertyCsvRemotePath ="//assets/persons_example.csv";
