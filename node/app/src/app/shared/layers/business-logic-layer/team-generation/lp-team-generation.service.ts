@@ -175,7 +175,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
   generate(teams: Team[]): Promise<Team[]> {
 
-    // let model = [];
+    let model = [];
 
     // let x = ReformatLP(model);
 
@@ -200,17 +200,16 @@ export class LPTeamGenerationService implements TeamGenerationService {
     teams.forEach(team => team.clear());
     let realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
 
-    // Setup system of inequalities
-    let simplex = new Constrained.System();
-
     // Ensure 'binary' variables
     for (let i = 1; i <= persons.length; i++) {
       for (let j = 1; j <= realTeams.length; j++) {
         let v = 'x' + i + 'y' + j;
-        simplex.addConstraint(v + ' >= 0');
-        simplex.addConstraint(v + ' <= 1');
-        console.log(v + ' >= 0');
-        console.log(v + ' <= 1');
+        // simplex.addConstraint(v + ' >= 0');
+        // simplex.addConstraint(v + ' <= 1');
+        model.push(v + ' >= 0');
+        model.push(v + ' <= 1');
+        // console.log(v + ' >= 0');
+        // console.log(v + ' <= 1');
       }
     }
 
@@ -224,8 +223,9 @@ export class LPTeamGenerationService implements TeamGenerationService {
         c += 'x' + i + 'y' + j;
       }
       c += ' = 1';
-      console.log('One team per person:', c);
-      simplex.addConstraint(c);
+      // console.log('One team per person:', c);
+      // simplex.addConstraint(c);
+      model.push(c);
     }
 
     // Device constraints
@@ -247,7 +247,8 @@ export class LPTeamGenerationService implements TeamGenerationService {
       }
 
       cs.forEach(c => {
-        simplex.addConstraint(c);
+        // simplex.addConstraint(c);
+        model.push(c);
       });
 
     });
@@ -256,7 +257,8 @@ export class LPTeamGenerationService implements TeamGenerationService {
     {
       let cs = generateExtraConstraints(realTeams, persons);
       cs.forEach(c => {
-        simplex.addConstraint(c);
+        // simplex.addConstraint(c);
+        model.push(c);
       });
     }
 
@@ -295,25 +297,24 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
     return new Promise(function (resolve, reject) {
 
-      simplex.maximize(objective);
-      simplex.resolve();
+      // simplex.maximize(objective);
+      // simplex.resolve();
+      // simplex.log();
 
-      simplex.log();
-
-      let score = simplex.getObjectiveValue();
-      console.log('Objective value:', score);
+      // let score = simplex.getObjectiveValue();
+      // console.log('Objective value:', score);
 
       // Assign the teams according to results
-      for (let i = 1; i <= persons.length; i++) {
-        let person = persons[i - 1];
-        for (let j = 1; j <= realTeams.length; j++) {
-          let varName = 'x' + i + 'y' + j;
-          if (simplex.getValue(varName) == 1) {
-            realTeams[j - 1].add(person);
-            break;
-          }
-        }
-      }
+      // for (let i = 1; i <= persons.length; i++) {
+      //   let person = persons[i - 1];
+      //   for (let j = 1; j <= realTeams.length; j++) {
+      //     let varName = 'x' + i + 'y' + j;
+      //     if (simplex.getValue(varName) == 1) {
+      //       realTeams[j - 1].add(person);
+      //       break;
+      //     }
+      //   }
+      // }
 
       // let result = maximize(objective, constraints);
       // console.log(result);
