@@ -14,9 +14,10 @@ import {Person, Gender} from "../../../models/person";
 
 import {ReformatLP, Solve} from "javascript-lp-solver";
 import {ToolbarService} from "../../../ui/toolbar.service";
+import {SkillLevel} from "../../../models/skill";
 
 function generateExtraConstraints(realTeams, persons) {
-  let minPeoplePerTeam = 6;
+  let minPeoplePerTeam = 7;
   let constraints = [];
 
   for (let j = 1; j <= realTeams.length; j++) {
@@ -35,6 +36,41 @@ function generateExtraConstraints(realTeams, persons) {
     }
   }
   return constraints;
+}
+
+function scaleObjective(objective, factor) {
+  let parts = objective.split(' ');
+  // Simply multiply each number by 'factor'
+  for (let i = 0; i < parts.length; i++) {
+    if (+parts[i] == parts[i]) { // If proper number
+      parts[i] = parts[i] * factor;
+    }
+  }
+  return parts.join(' ');
+}
+
+function groupLikeTerms(objective) {
+  // Assuming proper form: [d xiyj (+ d xiyj)*]
+  let parts = objective.split(' ');
+
+  let q: { [id: string]: number } = {};
+  for (let i = 0; i < parts.length; i++) {
+    if (+parts[i] == parts[i]) { // proper number
+      // sum it up with other quotients for the corresponding variable
+      let varName = parts[i + 1];
+      q[varName] = (q[varName] || 0) + +parts[i];
+    }
+  }
+  // Re-assemble the objective string
+  let obj = '';
+  for (let varName in q) {
+    let quot = q[varName];
+    if (obj) {
+      obj += ' + ';
+    }
+    obj += quot + ' ' + varName;
+  }
+  return obj;
 }
 
 @Injectable()
@@ -65,10 +101,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
             if (c) {
               c += ' + ';
             }
-            if (macCount > 1) {
-              c += macCount + ' * ';
-            }
-            c += 'x' + i + 'y' + j;
+            c += macCount + ' x' + i + 'y' + j;
           }
         }
       }
@@ -102,10 +135,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
             if (c) {
               c += ' + ';
             }
-            if (iosDevicesCount > 1) {
-              c += iosDevicesCount + ' * ';
-            }
-            c += 'x' + i + 'y' + j;
+            c += iosDevicesCount + ' x' + i + 'y' + j;
           }
         }
       }
@@ -166,6 +196,11 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
   generate(teams: Team[]): Promise<Team[]> {
 
+    let DEBUG = {// TODO: get rid of
+      constraints: [],
+      objective: ''
+    };
+
     let model = [];
 
     console.log('Generating teams using linear approach...');
@@ -175,9 +210,13 @@ export class LPTeamGenerationService implements TeamGenerationService {
     });
 
     let persons = TeamHelper.getPersons(teams);
+    console.log('PERSONS:', persons);
+    console.log('Supervisor Ratings:', persons.map(x => x.supervisorRating));
 
     teams.forEach(team => team.clear());
     let realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
+
+    console.log('Team names:', realTeams.map(x => x.name));
 
     // Ensure 'binary' variables
     for (let i = 1; i <= persons.length; i++) {
@@ -186,6 +225,9 @@ export class LPTeamGenerationService implements TeamGenerationService {
         model.push(v + ' >= 0');
         model.push(v + ' <= 1');
         model.push('int ' + v); // ensures it's an integer
+
+        DEBUG.constraints.push(v + ' >= 0');
+        DEBUG.constraints.push(v + ' <= 1');
       }
     }
 
@@ -200,6 +242,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
       }
       c += ' = 1';
       model.push(c);
+      DEBUG.constraints.push(c);
     }
 
     // Device constraints
@@ -221,9 +264,10 @@ export class LPTeamGenerationService implements TeamGenerationService {
       }
 
       cs.forEach(c => {
-        // simplex.addConstraint(c);
         model.push(c);
       });
+
+      DEBUG.constraints = DEBUG.constraints.concat(cs);
 
     });
 
@@ -233,6 +277,8 @@ export class LPTeamGenerationService implements TeamGenerationService {
       cs.forEach(c => {
         model.push(c);
       });
+
+      DEBUG.constraints = DEBUG.constraints.concat(cs);
     }
 
     let objective = ''; // objective function
@@ -242,18 +288,51 @@ export class LPTeamGenerationService implements TeamGenerationService {
       teamIndex[realTeams[j].name] = j + 1;
     }
 
+    let prioritiesObjective = '';
     for (let i = 1; i <= persons.length; i++) {
       let person = persons[i - 1];
       let priorities = person.teamPriorities;
       for (let k = 0, v = priorities.length; k < priorities.length; k++, v--) {
-        if (objective) {
-          objective += ' + ';
+        if (prioritiesObjective) {
+          prioritiesObjective += ' + ';
         }
         let j = teamIndex[priorities[k].name];
-        objective += v + ' x' + i + 'y' + j;
+        prioritiesObjective += v + ' x' + i + 'y' + j;
       }
     }
 
+    let desiredSkillWeights = {};
+    desiredSkillWeights[SkillLevel.VeryHigh] = 0.05;
+    desiredSkillWeights[SkillLevel.High] = 0.15;
+    desiredSkillWeights[SkillLevel.Medium] = 0.5;
+    desiredSkillWeights[SkillLevel.Low] = 0.3;
+    desiredSkillWeights[SkillLevel.None] = 0;
+
+    let skillSetObjective = '';
+    for (let j = 1; j <= realTeams.length; j++) {
+      // let c = '';
+
+      for (let i = 1; i <= persons.length; i++) {
+        let person = persons[i - 1];
+        if (person.hasSupervisorRating()) {
+          if (skillSetObjective) {
+            skillSetObjective += ' + ';
+          }
+          skillSetObjective += desiredSkillWeights[person.supervisorRating] + ' x' + i + 'y' + j;
+        }
+      }
+    }
+
+    let scalarizedMultipleObjectives = true;
+    console.log('skillSetObjective:', skillSetObjective);
+    if (scalarizedMultipleObjectives) {
+      objective = groupLikeTerms(scaleObjective(prioritiesObjective, 1) + ' + ' + scaleObjective(skillSetObjective, 100));
+      // objective = scaleObjective(skillSetObjective, 10000000);
+    } else {
+      objective = prioritiesObjective;
+    }
+
+    console.log('OBJECTIVE:', objective);
     model.push('max: ' + objective);
 
     // Reformat to JSON model
@@ -267,27 +346,50 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
     let totalScore = 0;
 
+    DEBUG.objective = objective;
+
+    let geval = eval;
+
     // Assign the teams according to results
     for (let i = 1; i <= persons.length; i++) {
       let person = persons[i - 1];
       for (let j = 1; j <= realTeams.length; j++) {
         let varName = 'x' + i + 'y' + j;
+
+        // TODO: remove
+        // let val = xxx[varName] || 0;
+        let val = results[varName] || 0;
+        // console.log('??? ' + 'var ' + varName + ' = ' + val);
+        geval('var ' + varName + ' = ' + val);
+
         if (results[varName] == 1) {
+          // if (xxx[varName] == 1) {
           realTeams[j - 1].add(person);
           let priority = person.teamPriorities
             .map(x => x.name)
             .indexOf(realTeams[j - 1].name);
           let score = realTeams.length - priority;
-          console.log('score:', varName, realTeams[j - 1].name, priority, score);
+          // console.log('score:', varName, realTeams[j - 1].name, priority, score);
           totalScore += score;
-          break;
+          // break;
         }
       }
     }
 
+    // for (let j = 0; j < qs.length; j++) {
+    //   console.log('------->', j, geval(qs[j]));
+    // }
+    // for (let j = 0; j < DEBUG.constraints.length; j++) {
+    //   console.log('------->', j, geval(DEBUG.constraints[j]) ? true : DEBUG.constraints[j]);
+    // }
+    // for (let j = 0; j < DEBUG.constraints.length; j++) {
+    //   console.log(DEBUG.constraints[j]);
+    // }
+
     this.toolbarService.setTotalScore(results.feasible ? totalScore : -1);
 
     return Promise.resolve(realTeams);
+    // return new Promise(function (){});
 
   }
 }

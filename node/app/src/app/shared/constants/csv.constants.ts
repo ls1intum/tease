@@ -16,8 +16,9 @@ export class CsvColumNames {
 }
 
 export class CsvValueNames {
-  static readonly SkillLevelValue = {VeryHigh:"Expert",High: "High",Medium: "Med",
-    Low: "Low", None: "No"};
+  // static readonly SkillLevelValue = {VeryHigh:"Expert",High: "High",Medium: "Med",
+  static readonly SkillLevelValue = {VeryHigh:"Expert",High: "Advanced",Medium: "Normal",
+    Low: "Novice", None: "No"};
   static readonly GenderValue = {Male:"male",Female: "female"};
   static readonly LanguageLevelValue = {Native:"Native",C: "C1/C2",B: "B1/B2", A: "A1/A2"};
   static readonly DeviceAvailableBooleanValue = {Available: "Yes", Unavailable: "No"};
@@ -25,7 +26,4 @@ export class CsvValueNames {
 }
 
 export const CsvTeamPrioritiesCount = 11;
-
-
-// export const ExamplePersonPropertyCsvRemotePath ="http://ba-buksch-bruegge.in.tum.de/assets/persons_example.csv";
 export const ExamplePersonPropertyCsvRemotePath ="/assets/persons_example.csv";
