@@ -12,6 +12,7 @@ export class AppComponent {
   private buttonName: string = "Skip";
   private isButtonVisible: boolean = true;
   private isToolbarVisible: boolean = true;
+  private totalScore: number = 0;
 
   constructor(private toolbarService: ToolbarService,
   private router: Router){
@@ -23,6 +24,9 @@ export class AppComponent {
     });
     toolbarService.toolbarVisibilityChanged.subscribe(isVisible => {
       this.isToolbarVisible = isVisible;
+    });
+    toolbarService.totalScoreChanged.subscribe(newValue => {
+      this.totalScore = newValue;
     });
   }
 

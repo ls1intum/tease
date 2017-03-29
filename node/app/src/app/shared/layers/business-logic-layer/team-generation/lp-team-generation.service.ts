@@ -13,9 +13,10 @@ import {DeviceType} from "../../../models/device";
 import {Person, Gender} from "../../../models/person";
 
 import {ReformatLP, Solve} from "javascript-lp-solver";
+import {ToolbarService} from "../../../ui/toolbar.service";
 
 function generateExtraConstraints(realTeams, persons) {
-  let minPeoplePerTeam = 7;
+  let minPeoplePerTeam = 6;
   let constraints = [];
 
   for (let j = 1; j <= realTeams.length; j++) {
@@ -40,8 +41,9 @@ function generateExtraConstraints(realTeams, persons) {
 export class LPTeamGenerationService implements TeamGenerationService {
   constraints: Constraint[];
 
-  constructor(private constraintService: ConstraintService) {
+  constructor(private constraintService: ConstraintService, private toolbarService: ToolbarService) {
     this.constraints = this.constraintService.fetchConstraints();
+    this.toolbarService = toolbarService;
   }
 
   private generateMacDeviceConstraints(constraint: MacDeviceConstraint, realTeams: Team[], persons: Person[]): string[] {
@@ -254,31 +256,38 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
     model.push('max: ' + objective);
 
-    return new Promise(function (resolve, reject) {
+    // Reformat to JSON model
+    let formattedModel = ReformatLP(model);
 
-      // Reformat to JSON model
-      let formattedModel = ReformatLP(model);
+    // Solve the model
+    let results = Solve(formattedModel);
 
-      // Solve the model
-      let results = Solve(formattedModel);
+    console.log('Model:', model);
+    console.log('Results:', results);
 
-      console.log('Model:', model);
-      console.log('Results:', results);
+    let totalScore = 0;
 
-      // Assign the teams according to results
-      for (let i = 1; i <= persons.length; i++) {
-        let person = persons[i - 1];
-        for (let j = 1; j <= realTeams.length; j++) {
-          let varName = 'x' + i + 'y' + j;
-          if (results[varName] == 1) {
-            realTeams[j - 1].add(person);
-            break;
-          }
+    // Assign the teams according to results
+    for (let i = 1; i <= persons.length; i++) {
+      let person = persons[i - 1];
+      for (let j = 1; j <= realTeams.length; j++) {
+        let varName = 'x' + i + 'y' + j;
+        if (results[varName] == 1) {
+          realTeams[j - 1].add(person);
+          let priority = person.teamPriorities
+            .map(x => x.name)
+            .indexOf(realTeams[j - 1].name);
+          let score = realTeams.length - priority;
+          console.log('score:', varName, realTeams[j - 1].name, priority, score);
+          totalScore += score;
+          break;
         }
       }
+    }
 
-      resolve(realTeams);
-    });
+    this.toolbarService.setTotalScore(results.feasible ? totalScore : -1);
+
+    return Promise.resolve(realTeams);
 
   }
 }

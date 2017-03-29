@@ -11,11 +11,13 @@ export class ToolbarService {
   private buttonVisibilitySource = new Subject<boolean>();
   private buttonClickSource = new Subject<void>();
   private toolbarVisibilitySource = new Subject<boolean>();
+  private totalScoreSource = new Subject<number>();
 
   buttonNameChanged = this.buttonNameSource.asObservable();
   buttonClicked = this.buttonClickSource.asObservable();
   buttonVisibilityChanged = this.buttonVisibilitySource.asObservable();
   toolbarVisibilityChanged = this.toolbarVisibilitySource.asObservable();
+  totalScoreChanged = this.totalScoreSource.asObservable();
 
   constructor() {
 
@@ -41,5 +43,9 @@ export class ToolbarService {
 
   setToolbarVisible(isVisible: boolean){
     this.toolbarVisibilitySource.next(isVisible);
+  }
+
+  setTotalScore(value: number) {
+    this.totalScoreSource.next(value);
   }
 }
