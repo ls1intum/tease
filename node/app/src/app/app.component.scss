@@ -1,6 +1,6 @@
 @import '../css/theme';
 @import '../../node_modules/@angular/material/core/style/_variables';
-@import '../../node_modules/@angular/material/toolbar/toolbar';
+@import '../../node_modules/@angular/material/toolbar/toolbar.scss';
 
 .app-content {
   background-color: mat-color($primary, 0.6)

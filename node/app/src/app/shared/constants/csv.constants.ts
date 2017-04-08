@@ -25,5 +25,7 @@ export class CsvValueNames {
   static readonly MajorOtherValue = "Other";
 }
 
+// TODO: allow for variable priorities count!!!
 export const CsvTeamPrioritiesCount = 11;
+// export const CsvTeamPrioritiesCount = 12;
 export const ExamplePersonPropertyCsvRemotePath ="/assets/persons_example.csv";

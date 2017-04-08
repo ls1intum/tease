@@ -17,7 +17,7 @@ import {ToolbarService} from "../../../ui/toolbar.service";
 import {SkillLevel} from "../../../models/skill";
 
 function generateExtraConstraints(realTeams, persons) {
-  let minPeoplePerTeam = 7;
+  let minPeoplePerTeam = 6;
   let constraints = [];
 
   for (let j = 1; j <= realTeams.length; j++) {
@@ -163,8 +163,12 @@ export class LPTeamGenerationService implements TeamGenerationService {
       }
 
       if (c) {
-        c += ' <= ' + maxPeoplePerTeam;
-        constraints.push(c);
+        // c += ' <= ' + maxPeoplePerTeam;
+        constraints.push(c + ' <= ' + maxPeoplePerTeam);
+        // TODO: integrate with UI properly
+        // constraints.push(c + ' >= ' + (maxPeoplePerTeam - 1));
+        constraints.push(c + ' >= ' + (7));
+
       }
     }
     return constraints;
@@ -272,14 +276,14 @@ export class LPTeamGenerationService implements TeamGenerationService {
     });
 
     // Extra constraints
-    {
-      let cs = generateExtraConstraints(realTeams, persons);
-      cs.forEach(c => {
-        model.push(c);
-      });
-
-      DEBUG.constraints = DEBUG.constraints.concat(cs);
-    }
+    // {
+    //   let cs = generateExtraConstraints(realTeams, persons);
+    //   cs.forEach(c => {
+    //     model.push(c);
+    //   });
+    //
+    //   DEBUG.constraints = DEBUG.constraints.concat(cs);
+    // }
 
     let objective = ''; // objective function
 
@@ -323,7 +327,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
       }
     }
 
-    let scalarizedMultipleObjectives = true;
+    let scalarizedMultipleObjectives = false;
     console.log('skillSetObjective:', skillSetObjective);
     if (scalarizedMultipleObjectives) {
       objective = groupLikeTerms(scaleObjective(prioritiesObjective, 1) + ' + ' + scaleObjective(skillSetObjective, 100));
@@ -369,9 +373,10 @@ export class LPTeamGenerationService implements TeamGenerationService {
             .map(x => x.name)
             .indexOf(realTeams[j - 1].name);
           let score = realTeams.length - priority;
+
           // console.log('score:', varName, realTeams[j - 1].name, priority, score);
+
           totalScore += score;
-          // break;
         }
       }
     }
