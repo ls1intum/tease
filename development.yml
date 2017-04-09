@@ -2,6 +2,3 @@ node:
   build: ./node
   ports:
     - "81:80"
-  volumes:
-      - ./node/app:/usr/src/app
-  command: npm run watch
