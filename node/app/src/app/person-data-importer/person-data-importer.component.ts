@@ -54,7 +54,7 @@ export class PersonDataImporterComponent implements OnInit,OnDestroy {
     });
   }
 
-  onUploadClicked() {
+  onUploadClicked(evt) {
     let event = new MouseEvent('click', {
       "view": window,
       "bubbles": true,
@@ -64,7 +64,7 @@ export class PersonDataImporterComponent implements OnInit,OnDestroy {
       this.fileInput.nativeElement, 'dispatchEvent', [event]);
   }
 
-  onUseExampleClicked() {
+  onUseExampleClicked(evt) {
     this.teamService.readRemoteTeamData
     (ExamplePersonPropertyCsvRemotePath).then(teams => {
       this.teamService.saveTeams(teams);
