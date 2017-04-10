@@ -37,6 +37,7 @@ export class TeamDashboardComponent implements OnInit, OnDestroy {
               private toolbarService: ToolbarService) {
     this.toolbarService.resetToDefaultValues();
     this.toolbarService.changeButtonName(LangDashbaord.ToolbarButtonName);
+    this.toolbarService.setScoreVisible(true);
 
     dragulaService.dropModel.subscribe((value) => {
       let [bagName, el, target, source] = value;

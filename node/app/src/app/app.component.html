@@ -7,8 +7,8 @@
 
     <span class="app-toolbar-filler"></span>
 
-    <p *ngIf="totalScore > 0">Score: {{totalScore}}</p>
-    <p *ngIf="totalScore == 0">No feasible solution</p>
+    <p *ngIf="isScoreVisible && totalScore > 0">Score: {{totalScore}}</p>
+    <p *ngIf="isScoreVisible && totalScore == 0">No feasible solution</p>
 
     <span class="app-toolbar-filler"></span>
 
