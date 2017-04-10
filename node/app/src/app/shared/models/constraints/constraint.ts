@@ -4,31 +4,60 @@ import {Team} from "../team";
  */
 
 export abstract class Constraint {
-  isEnabled = true;
+
+  public isEnabled = true;
+
+  protected minValue: number;
+  protected maxValue: number;
+
+  protected constructor(config: any) {
+    if (typeof config === 'object') {
+      this.minValue = config.minValue;
+      this.maxValue = config.maxValue;
+      this.isEnabled = config.isEnabled;
+    }
+  }
 
   abstract isSatisfied(team: Team): boolean;
 
-  /*isEnabled():boolean {
-    // return this.getValue() != Constraint.DISABLED_VALUE;
-    return this.isEnabled;
-  }
-  setEnabled(isEnabled: boolean) {
-    // let newValue =
-    //   this.getValue() == Constraint.DISABLED_VALUE ? 1 : this.getValue();
-    // this.setValue(isEnabled ? newValue : Constraint.DISABLED_VALUE);
-    this.isEnabled = isEnabled;
-  }*/
-
   abstract calculateSatisfactionScore(team: Team): number;
-
-  abstract getValue(): number;
-  abstract setValue(value: number);
 
   abstract getName(): string;
 
-  abstract getComparator(): string;
+  abstract getType(): ConstraintType;
 
-  toString(): string {
-    return this.getName() + " " + this.getComparator() + " " + this.getValue();
+  getMinValue(): number {
+    return this.minValue;
   }
+
+  getMaxValue(): number {
+    return this.maxValue;
+  }
+
+  setMinValue(value: number) {
+    this.minValue = value;
+  }
+
+  setMaxValue(value: number) {
+    this.maxValue = value;
+  }
+
+  getComparator(): string {
+    switch (this.getType()) {
+      case ConstraintType.GT:
+        return '>';
+      case ConstraintType.GTE:
+        return '>=';
+      case ConstraintType.LT:
+        return '<';
+      case ConstraintType.LTE:
+        return '<=';
+      case ConstraintType.Interval:
+        return '<='; // Should be treated in a special way
+    }
+  }
+}
+
+export enum ConstraintType {
+  GT, GTE, LT, LTE, Interval
 }

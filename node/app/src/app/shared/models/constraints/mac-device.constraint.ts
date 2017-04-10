@@ -1,4 +1,4 @@
-import {Constraint} from "./constraint";
+import {Constraint, ConstraintType} from "./constraint";
 import {Team} from "../team";
 import {DeviceType} from "../device";
 import {TeamHelper} from "../../helpers/team.helper";
@@ -7,16 +7,13 @@ import {TeamHelper} from "../../helpers/team.helper";
  */
 
 export class MacDeviceConstraint extends Constraint {
-  minimumCount: number;
 
-  constructor(minimumCount: number) {
-    super();
-
-    this.minimumCount = minimumCount;
+  constructor(config: any) {
+    super(config);
   }
 
   isSatisfied(team: Team): boolean {
-    return this.getDeviceCountOfType(team) >= this.minimumCount;
+    return this.getDeviceCountOfType(team) >= this.minValue;
   }
 
   private getDeviceCountOfType(team: Team): number {
@@ -33,20 +30,12 @@ export class MacDeviceConstraint extends Constraint {
     return this.isSatisfied(team) ? 10 : 0;
   }
 
-  getValue(): number {
-    return this.minimumCount;
-  }
-
   getName(): string {
     return "Mac Devices";
   }
 
-  getComparator(): string {
-    return ">=";
-  }
-
-  setValue(value: number) {
-    this.minimumCount = value;
+  getType(): ConstraintType {
+    return ConstraintType.GTE;
   }
 
 }

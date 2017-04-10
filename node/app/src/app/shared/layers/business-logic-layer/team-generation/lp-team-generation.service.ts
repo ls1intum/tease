@@ -79,11 +79,14 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
   constructor(private constraintService: ConstraintService, private toolbarService: ToolbarService) {
     this.constraints = this.constraintService.fetchConstraints();
+
+    console.log('in LPTeamGenerationService:', this.constraints);
+
     this.toolbarService = toolbarService;
   }
 
   private generateMacDeviceConstraints(constraint: MacDeviceConstraint, realTeams: Team[], persons: Person[]): string[] {
-    let minMacsPerTeam = constraint.minimumCount || 0;
+    let minMacsPerTeam = constraint.getMinValue() || 0;
     let constraints = [];
 
     for (let j = 1; j <= realTeams.length; j++) {
@@ -115,7 +118,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
   }
 
   private generateIosDeviceConstraints(constraint: IosDeviceConstraint, realTeams: Team[], persons: Person[]): string[] {
-    let minIosDevicesPerTeam = constraint.minimumCount || 0;
+    let minIosDevicesPerTeam = constraint.getMinValue() || 0;
     let constraints = [];
 
     for (let j = 1; j <= realTeams.length; j++) {
@@ -149,7 +152,8 @@ export class LPTeamGenerationService implements TeamGenerationService {
   }
 
   private generateTeamSizeConstraints(constraint: TeamSizeConstraint, realTeams: Team[], persons: Person[]): string[] {
-    let maxPeoplePerTeam = constraint.maximumCount || persons.length;
+    let minPeoplePerTeam = constraint.getMinValue() || 0;
+    let maxPeoplePerTeam = constraint.getMaxValue() || persons.length;
     let constraints = [];
 
     for (let j = 1; j <= realTeams.length; j++) {
@@ -163,11 +167,8 @@ export class LPTeamGenerationService implements TeamGenerationService {
       }
 
       if (c) {
-        // c += ' <= ' + maxPeoplePerTeam;
         constraints.push(c + ' <= ' + maxPeoplePerTeam);
-        // TODO: integrate with UI properly
-        // constraints.push(c + ' >= ' + (maxPeoplePerTeam - 1));
-        // constraints.push(c + ' >= ' + (7));
+        constraints.push(c + ' >= ' + minPeoplePerTeam);
 
       }
     }
@@ -175,7 +176,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
   }
 
   private generateFemalePersonConstraints(constraint: FemalePersonConstraint, realTeams: Team[], persons: Person[]): string[] {
-    let minFemalesPerTeam = constraint.minimumCount || 0;
+    let minFemalesPerTeam = constraint.getMinValue() || 0;
     let constraints = [];
 
     for (let j = 1; j <= realTeams.length; j++) {

@@ -1,10 +1,10 @@
-import {Component, OnInit, OnDestroy} from "@angular/core";
+import {Component, OnInit, OnDestroy, Output, EventEmitter} from "@angular/core";
 import {Router} from "@angular/router";
 import {TeamService} from "../../shared/layers/business-logic-layer/team.service";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
 import {LangConstraints} from "../../shared/constants/language.constants";
 import {TeamGenerationService} from "../../shared/layers/business-logic-layer/team-generation/team-generation.service";
-import {Constraint} from "../../shared/models/constraints/constraint";
+import {ConstraintType, Constraint} from "../../shared/models/constraints/constraint";
 import {ConstraintService} from "../../shared/layers/business-logic-layer/constraint.service";
 
 /**
@@ -16,7 +16,10 @@ import {ConstraintService} from "../../shared/layers/business-logic-layer/constr
   styleUrls: ['constraints.component.css'],
   selector: 'constraints'
 })
-export class ConstraintsComponent implements OnInit,OnDestroy {
+export class ConstraintsComponent implements OnInit, OnDestroy {
+  // allows to use enum in template
+  ConstraintType = ConstraintType;
+
   private skipSubscription;
   private constraints: Constraint[];
 
@@ -52,14 +55,24 @@ export class ConstraintsComponent implements OnInit,OnDestroy {
     });
   }
 
-  onConstraintValueChanged(constraint: Constraint, value: string){
-    if(isNaN(+value))return;
+  onConstraintEnabledChanged(constraint: Constraint, enabled) {
+    console.log('changed: enabled = ', enabled, constraint);
+    // constraint.setEnabled(enabled);
+  }
 
-    constraint.setValue(+value);
+  onConstraintMinValueChanged(constraint: Constraint, value: number) {
+    console.log('min value changed: ', value, constraint);
+    constraint.setMinValue(value);
+  }
+
+  onConstraintMaxValueChanged(constraint: Constraint, value: number) {
+    console.log('max value changed: ', value, constraint);
+    constraint.setMaxValue(value);
   }
 
   gotoDashboard() {
     let link = ["/dashboard"];
     return this.router.navigate(link);
   }
+
 }

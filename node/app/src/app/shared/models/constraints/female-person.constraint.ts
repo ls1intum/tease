@@ -1,20 +1,17 @@
-import {Constraint} from "./constraint";
+import {Constraint, ConstraintType} from "./constraint";
 import {Team} from "../team";
 import {Gender} from "../person";
 /**
  * Created by Malte Bucksch on 23/02/2017.
  */
 export class FemalePersonConstraint extends Constraint {
-  minimumCount: number;
 
-  constructor(minimumCount: number) {
-    super();
-
-    this.minimumCount = minimumCount;
+  constructor(config: any) {
+    super(config);
   }
 
   isSatisfied(team: Team): boolean {
-    return this.getFemalesPersonsInTeam(team) >= this.minimumCount;
+    return this.getFemalesPersonsInTeam(team) >= this.minValue;
   }
 
   private getFemalesPersonsInTeam(team: Team) {
@@ -29,20 +26,12 @@ export class FemalePersonConstraint extends Constraint {
     return this.isSatisfied(team) ? 10 : 0;
   }
 
-  getValue(): number {
-    return this.minimumCount;
-  }
-
   getName(): string {
     return "Female Persons";
   }
 
-  getComparator(): string {
-    return ">=";
+  getType(): ConstraintType {
+    return ConstraintType.GTE;
   }
 
-
-  setValue(value: number) {
-    this.minimumCount = value;
-  }
 }
