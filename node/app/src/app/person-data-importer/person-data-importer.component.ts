@@ -44,7 +44,7 @@ export class PersonDataImporterComponent implements OnInit, OnDestroy {
   }
 
   onFileChanged(event) {
-    let files = event.srcElement.files;
+    let files = event.target.files;
     if (files.length != 1)return;
 
     this.teamService.readLocalTeamData(files[0]).then(teams => {
@@ -55,13 +55,8 @@ export class PersonDataImporterComponent implements OnInit, OnDestroy {
   }
 
   onUploadClicked() {
-    let event = new MouseEvent('click', {
-      "view": window,
-      "bubbles": true,
-      "cancelable": false
-    });
-    this.renderer.invokeElementMethod(
-      this.fileInput.nativeElement, 'dispatchEvent', [event]);
+    // http://stackoverflow.com/questions/36639486/angular2-manually-firing-click-event-on-particular-element
+    this.fileInput.nativeElement.click();
   }
 
   onUseExampleClicked() {
