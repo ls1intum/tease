@@ -13,7 +13,7 @@ import {ConstraintService} from "../shared/layers/business-logic-layer/constrain
   imports: [CommonModule, SharedModule, MaterialModule],
   declarations: [ConstraintsComponent],
   exports: [ConstraintsComponent],
-  providers: [TeamService, ToolbarService, ConstraintService,
+  providers: [ConstraintService,
     {provide: TeamGenerationService, useClass: LPTeamGenerationService}]
 })
 export class TeamGenerationModule {

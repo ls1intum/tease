@@ -10,6 +10,7 @@ import {PersonPreviewComponent} from "../../person-list/preview/person-preview.c
 import {ToolbarService} from "../../shared/ui/toolbar.service";
 import {LangDashbaord} from "../../shared/constants/language.constants";
 import {Subscription} from "rxjs";
+import {TeamHelper} from "../../shared/helpers/team.helper";
 /**
  * Created by Malte Bucksch on 25/11/2016.
  */
@@ -60,16 +61,49 @@ export class TeamDashboardComponent implements OnInit, OnDestroy {
     this.teams.forEach(team => team.persons.forEach(person => person.team = team))
   }
 
+  private calculateAllocationScore(teams: Team[]): number {
+
+    let totalScore = 0;
+
+    let persons = TeamHelper.getPersons(teams);
+    let realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
+
+    for (let i = 0; i < persons.length; i++) {
+      let person = persons[i];
+      let teamName = person.team.name;
+
+      // Assuming teams are sorted decreasingly in preference
+      let priority = person.teamPriorities
+        .map(x => x.name)
+        .indexOf(teamName);
+
+      if (priority === -1) {
+        // something's wrong with the assignment: either this person is assigned to an orphan team or unassigned whatsoever
+        totalScore = 0;
+        break;
+      } else {
+        let score = realTeams.length - priority;
+        totalScore += score;
+      }
+    }
+
+    return totalScore;
+  }
+
   ngOnInit(): void {
     this.exportButtonSubscription = this.toolbarService.buttonClicked.subscribe(() => {
       this.exportTeams();
     });
 
-    this.teamService.readSavedTeams().then((teams) => {
+    this.teamService.readSavedTeams().then(teams => {
       this.teams = this.getSortedAlphabetically(teams);
 
-      if (teams == undefined || teams.length == 0)
+      if (teams == undefined || teams.length == 0) {
         this.gotoImport();
+      }
+
+      let totalScore = this.calculateAllocationScore(teams);
+      this.toolbarService.setTotalScore(totalScore);
     });
   }
 

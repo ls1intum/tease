@@ -13,7 +13,6 @@ import {DeviceType} from "../../../models/device";
 import {Person, Gender} from "../../../models/person";
 
 import {ReformatLP, Solve} from "javascript-lp-solver";
-import {ToolbarService} from "../../../ui/toolbar.service";
 import {SkillLevel} from "../../../models/skill";
 
 function scaleObjective(objective, factor) {
@@ -55,8 +54,7 @@ function groupLikeTerms(objective) {
 export class LPTeamGenerationService implements TeamGenerationService {
   constraints: Constraint[];
 
-  constructor(private constraintService: ConstraintService,
-              private toolbarService: ToolbarService) {
+  constructor(private constraintService: ConstraintService) {
   }
 
   private generateMacDeviceConstraints(constraint: MacDeviceConstraint, realTeams: Team[], persons: Person[]): string[] {
@@ -190,7 +188,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
     teams.forEach(team => team.clear());
     let realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
 
-    // Ensure 'binary' variables
+    // Ensure binary variables
     for (let i = 1; i <= persons.length; i++) {
       for (let j = 1; j <= realTeams.length; j++) {
         let v = 'x' + i + 'y' + j;
@@ -296,33 +294,31 @@ export class LPTeamGenerationService implements TeamGenerationService {
     let formattedModel = ReformatLP(model);
 
     // Solve the model
-    let results = Solve(formattedModel);
+    let solution = Solve(formattedModel);
 
-    // Calculate score of the team allocation
-    let totalScore = 0;
+    if (solution.feasible) {
+      // Assign the teams according to results
+      for (let i = 1; i <= persons.length; i++) {
+        let person = persons[i - 1];
+        for (let j = 1; j <= realTeams.length; j++) {
+          let varName = 'x' + i + 'y' + j;
+          let val = solution[varName] || 0;
 
-    // Assign the teams according to results
-    for (let i = 1; i <= persons.length; i++) {
-      let person = persons[i - 1];
-      for (let j = 1; j <= realTeams.length; j++) {
-        let varName = 'x' + i + 'y' + j;
-        let val = results[varName] || 0;
-
-        if (val === 1) {
-          realTeams[j - 1].add(person);
-          let priority = person.teamPriorities
-            .map(x => x.name)
-            .indexOf(realTeams[j - 1].name);
-
-          let score = realTeams.length - priority;
-          totalScore += score;
+          if (val === 1) {
+            realTeams[j - 1].add(person);
+            break;
+          }
         }
+      }
+    } else {
+      // Assign all to the 'orphan' team, otherwise they are Person objects are simply lost
+      let orphanTeam = teams.filter(team => team.name === Team.OrphanTeamName)[0];
+      for (let i = 0; i < persons.length; i++) {
+        orphanTeam.add(persons[i]);
       }
     }
 
-    this.toolbarService.setTotalScore(results.feasible ? totalScore : null);
-
-    return Promise.resolve(realTeams);
+    return Promise.resolve(teams);
 
   }
 }
