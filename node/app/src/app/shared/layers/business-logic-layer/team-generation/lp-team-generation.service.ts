@@ -167,7 +167,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
         constraints.push(c + ' <= ' + maxPeoplePerTeam);
         // TODO: integrate with UI properly
         // constraints.push(c + ' >= ' + (maxPeoplePerTeam - 1));
-        constraints.push(c + ' >= ' + (7));
+        // constraints.push(c + ' >= ' + (7));
 
       }
     }

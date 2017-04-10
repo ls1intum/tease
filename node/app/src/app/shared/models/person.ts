@@ -31,6 +31,9 @@ export class Person {
 
   supervisorRating: SkillLevel;
 
+  // used internally for preserving initial ordering
+  orderId: number;
+
   constructor(id?: number, firstName?: string) {
     this.id = id || 0;
     this.firstName = firstName || "no name";

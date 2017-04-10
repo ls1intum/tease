@@ -14,7 +14,7 @@ export class TeamSerializer {
     });
   }
 
-  static serializeTeamList(teams: Team[]): {}[] {
+  static serializeTeamList(teams: Team[]): any[] {
     let propList = teams.map(team => TeamSerializer.serializeTeam(team));
 
     return [].concat(...propList);

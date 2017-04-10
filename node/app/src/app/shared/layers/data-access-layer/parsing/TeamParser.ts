@@ -4,38 +4,42 @@ import {CsvTeamPrioritiesCount, CsvColumNames} from "../../../constants/csv.cons
 import {Person} from "../../../models/person";
 import {StringHelper} from "../../../helpers/string.helper";
 
-declare type TeamList = {[id: string]: Team};
+declare type TeamList = { [id: string]: Team };
 
 export class TeamParser {
 
   static parseTeams(teamCsvData: Array<any>): Team[] {
     let teams: TeamList = {};
 
-    let persons = teamCsvData.map((personProps: Array<any>) => {
-      let person = PersonParser.parsePerson(personProps);
-      if(person.tumId === undefined
-        || person.tumId.length == 0){
-        console.log("No tumId for person found. Cannot import.");
-        return undefined;
-      }
+    let persons = teamCsvData
+      .map((personProps: Array<any>, index: number) => {
+        let person = PersonParser.parsePerson(personProps);
+        if (person.tumId === undefined
+          || person.tumId.length == 0) {
+          console.log("No tumId for person found. Cannot import.");
+          return undefined;
+        }
 
-      this.parsePriorities(teams, person, personProps);
-      this.addTeam(teams, personProps[CsvColumNames.Team.TeamName], person);
+        person.orderId = index;
 
-      return person;
-    }).filter(person => person !== undefined);
+        this.parsePriorities(teams, person, personProps);
+        this.addTeam(teams, personProps[CsvColumNames.Team.TeamName], person);
 
-    this.addOrphansTeam(teams,persons);
+        return person;
+
+      }).filter(person => person !== undefined);
+
+    this.addOrphansTeam(teams, persons);
 
     return Object.values(teams);
   }
 
-  private static addOrphansTeam(teams: TeamList, persons: Person[]){
-    if(teams[Team.OrphanTeamName] == undefined)teams[Team.OrphanTeamName] = new Team(Team.OrphanTeamName);
+  private static addOrphansTeam(teams: TeamList, persons: Person[]) {
+    if (teams[Team.OrphanTeamName] == undefined) teams[Team.OrphanTeamName] = new Team(Team.OrphanTeamName);
     let orphanTeam = teams[Team.OrphanTeamName];
 
-    for(let person of persons){
-      if(person.team != undefined)continue;
+    for (let person of persons) {
+      if (person.team != undefined)continue;
 
       orphanTeam.add(person);
     }
@@ -45,7 +49,7 @@ export class TeamParser {
     for (let prio = 1; prio <= CsvTeamPrioritiesCount; prio++) {
       let columnName = StringHelper.format(CsvColumNames.Team.Priority, prio);
 
-      if(!personProps[columnName])continue;
+      if (!personProps[columnName])continue;
 
       let team = this.addTeam(teams, personProps[columnName]);
       person.teamPriorities.push(team);

@@ -11,6 +11,10 @@ export class PersonSerializer {
   static serializePerson(person: Person): {} {
     let personProps = {};
 
+    // keep this orderId in order to export rows in correct order (in the same order it was imported)
+    personProps[CsvColumNames.Person.OrderID] = person.orderId;
+
+    // main person data
     personProps[CsvColumNames.Person.Id] = person.id;
     personProps[CsvColumNames.Person.Major] = person.major;
     personProps[CsvColumNames.Person.FirstName] = person.firstName;

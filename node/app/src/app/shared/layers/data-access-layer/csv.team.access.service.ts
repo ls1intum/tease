@@ -1,4 +1,3 @@
-
 import {TeamAccessService} from "./team.access.service";
 import {Person} from "../../models/person";
 import {Team} from "../../models/team";
@@ -11,9 +10,9 @@ export class PersistentTeamAccessService extends TeamAccessService {
 
   readSavedTeams(): Promise<Team[]> {
     let teamData = localStorage.getItem(PersistentTeamAccessService.TeamStorageKey);
-    if(teamData == undefined)return Promise.resolve([]);
+    if (teamData == undefined)return Promise.resolve([]);
 
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
       Papa.parse(teamData, {
         complete: results => {
           resolve(TeamParser.parseTeams(results.data));
@@ -28,7 +27,7 @@ export class PersistentTeamAccessService extends TeamAccessService {
   }
 
   readTeamsFromSource(csvFile: File): Promise<Team[]> {
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
       Papa.parse(csvFile, {
         complete: results => {
           resolve(TeamParser.parseTeams(results.data));
@@ -39,7 +38,7 @@ export class PersistentTeamAccessService extends TeamAccessService {
   }
 
   readTeamsFromRemote(remoteFilePath: string): Promise<Team[]> {
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
       Papa.parse(remoteFilePath, {
         download: true,
         complete: results => {
@@ -52,13 +51,17 @@ export class PersistentTeamAccessService extends TeamAccessService {
 
   saveTeams(teams: Team[]) {
     let teamListProperties = TeamSerializer.serializeTeamList(teams);
+
+    // sort the rows numerically by 'orderId'
+    teamListProperties = teamListProperties.sort((a,b) => a.orderId - b.orderId);
+
     let result = Papa.unparse(teamListProperties);
 
     localStorage.setItem(PersistentTeamAccessService.TeamStorageKey,
       result);
   }
 
-  dropData(){
+  dropData() {
     localStorage.removeItem(PersistentTeamAccessService.TeamStorageKey);
   }
 
