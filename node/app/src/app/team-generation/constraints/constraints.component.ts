@@ -59,19 +59,11 @@ export class ConstraintsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onConstraintEnabledChanged(constraint: Constraint, enabled) {
-    console.log('changed: enabled = ', enabled, constraint);
-    // TODO: finish or remove
-    // constraint.setEnabled(enabled);
-  }
-
   onConstraintMinValueChanged(constraint: Constraint, value: number) {
-    console.log('min value changed: ', value, constraint);
     constraint.setMinValue(value);
   }
 
   onConstraintMaxValueChanged(constraint: Constraint, value: number) {
-    console.log('max value changed: ', value, constraint);
     constraint.setMaxValue(value);
   }
 

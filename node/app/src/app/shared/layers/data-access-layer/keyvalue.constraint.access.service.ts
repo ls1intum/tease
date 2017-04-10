@@ -24,8 +24,6 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
 
   saveConstraint(constraint: Constraint) {
 
-    console.log('in saveConstraint:', constraint, this.serializeConstraint(constraint));
-
     if (constraint instanceof IosDeviceConstraint) {
       localStorage.setItem(KeyValueConstraintAccessService.KeyIosDeviceConstraint, this.serializeConstraint(constraint));
       return;

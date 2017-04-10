@@ -16,28 +16,6 @@ import {ReformatLP, Solve} from "javascript-lp-solver";
 import {ToolbarService} from "../../../ui/toolbar.service";
 import {SkillLevel} from "../../../models/skill";
 
-function generateExtraConstraints(realTeams, persons) {
-  let minPeoplePerTeam = 6;
-  let constraints = [];
-
-  for (let j = 1; j <= realTeams.length; j++) {
-    let c = '';
-
-    for (let i = 1; i <= persons.length; i++) {
-      if (c) {
-        c += ' + ';
-      }
-      c += 'x' + i + 'y' + j;
-    }
-
-    if (c) {
-      c += ' >= ' + minPeoplePerTeam;
-      constraints.push(c);
-    }
-  }
-  return constraints;
-}
-
 function scaleObjective(objective, factor) {
   let parts = objective.split(' ');
   // Simply multiply each number by 'factor'
@@ -77,7 +55,8 @@ function groupLikeTerms(objective) {
 export class LPTeamGenerationService implements TeamGenerationService {
   constraints: Constraint[];
 
-  constructor(private constraintService: ConstraintService, private toolbarService: ToolbarService) {
+  constructor(private constraintService: ConstraintService,
+              private toolbarService: ToolbarService) {
   }
 
   private generateMacDeviceConstraints(constraint: MacDeviceConstraint, realTeams: Team[], persons: Person[]): string[] {
@@ -198,11 +177,6 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
     this.constraints = this.constraintService.fetchConstraints();
 
-    let DEBUG = {// TODO: get rid of
-      constraints: [],
-      objective: ''
-    };
-
     let model = [];
 
     console.log('Generating teams using linear approach...');
@@ -212,13 +186,9 @@ export class LPTeamGenerationService implements TeamGenerationService {
     });
 
     let persons = TeamHelper.getPersons(teams);
-    console.log('PERSONS:', persons);
-    console.log('Supervisor Ratings:', persons.map(x => x.supervisorRating));
 
     teams.forEach(team => team.clear());
     let realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
-
-    console.log('Team names:', realTeams.map(x => x.name));
 
     // Ensure 'binary' variables
     for (let i = 1; i <= persons.length; i++) {
@@ -227,9 +197,6 @@ export class LPTeamGenerationService implements TeamGenerationService {
         model.push(v + ' >= 0');
         model.push(v + ' <= 1');
         model.push('int ' + v); // ensures it's an integer
-
-        DEBUG.constraints.push(v + ' >= 0');
-        DEBUG.constraints.push(v + ' <= 1');
       }
     }
 
@@ -244,7 +211,6 @@ export class LPTeamGenerationService implements TeamGenerationService {
       }
       c += ' = 1';
       model.push(c);
-      DEBUG.constraints.push(c);
     }
 
     // Device constraints
@@ -269,21 +235,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
         model.push(c);
       });
 
-      DEBUG.constraints = DEBUG.constraints.concat(cs);
-
     });
-
-    // Extra constraints
-    // {
-    //   let cs = generateExtraConstraints(realTeams, persons);
-    //   cs.forEach(c => {
-    //     model.push(c);
-    //   });
-    //
-    //   DEBUG.constraints = DEBUG.constraints.concat(cs);
-    // }
-
-    let objective = ''; // objective function
 
     let teamIndex = {}; // j lookup
     for (let j = 0; j < realTeams.length; j++) {
@@ -303,6 +255,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
       }
     }
 
+    // TODO: this skillset objective does not work. Redesign / re-think it
     let desiredSkillWeights = {};
     desiredSkillWeights[SkillLevel.VeryHigh] = 0.05;
     desiredSkillWeights[SkillLevel.High] = 0.15;
@@ -325,16 +278,18 @@ export class LPTeamGenerationService implements TeamGenerationService {
       }
     }
 
-    let scalarizedMultipleObjectives = false;
-    console.log('skillSetObjective:', skillSetObjective);
-    if (scalarizedMultipleObjectives) {
-      objective = groupLikeTerms(scaleObjective(prioritiesObjective, 1) + ' + ' + scaleObjective(skillSetObjective, 100));
-      // objective = scaleObjective(skillSetObjective, 10000000);
-    } else {
-      objective = prioritiesObjective;
-    }
+    // TODO: provide UI for specifying weights
+    // For now, specify weights manually
+    // Note: set weight to zero to ignore it
+    let prioritiesObjectiveWeight = 1.0;
+    let skillSetObjectiveWeight = 0.0;
 
-    console.log('OBJECTIVE:', objective);
+    // objective function
+    let objective = groupLikeTerms([
+      scaleObjective(prioritiesObjective, prioritiesObjectiveWeight),
+      scaleObjective(skillSetObjective, skillSetObjectiveWeight)
+    ].join(' + '));
+
     model.push('max: ' + objective);
 
     // Reformat to JSON model
@@ -343,56 +298,31 @@ export class LPTeamGenerationService implements TeamGenerationService {
     // Solve the model
     let results = Solve(formattedModel);
 
-    console.log('Model:', model);
-    console.log('Results:', results);
-
+    // Calculate score of the team allocation
     let totalScore = 0;
-
-    DEBUG.objective = objective;
-
-    let geval = eval;
 
     // Assign the teams according to results
     for (let i = 1; i <= persons.length; i++) {
       let person = persons[i - 1];
       for (let j = 1; j <= realTeams.length; j++) {
         let varName = 'x' + i + 'y' + j;
-
-        // TODO: remove
-        // let val = xxx[varName] || 0;
         let val = results[varName] || 0;
-        // console.log('??? ' + 'var ' + varName + ' = ' + val);
-        geval('var ' + varName + ' = ' + val);
 
-        if (results[varName] == 1) {
-          // if (xxx[varName] == 1) {
+        if (val === 1) {
           realTeams[j - 1].add(person);
           let priority = person.teamPriorities
             .map(x => x.name)
             .indexOf(realTeams[j - 1].name);
+
           let score = realTeams.length - priority;
-
-          // console.log('score:', varName, realTeams[j - 1].name, priority, score);
-
           totalScore += score;
         }
       }
     }
 
-    // for (let j = 0; j < qs.length; j++) {
-    //   console.log('------->', j, geval(qs[j]));
-    // }
-    // for (let j = 0; j < DEBUG.constraints.length; j++) {
-    //   console.log('------->', j, geval(DEBUG.constraints[j]) ? true : DEBUG.constraints[j]);
-    // }
-    // for (let j = 0; j < DEBUG.constraints.length; j++) {
-    //   console.log(DEBUG.constraints[j]);
-    // }
-
-    this.toolbarService.setTotalScore(results.feasible ? totalScore : -1);
+    this.toolbarService.setTotalScore(results.feasible ? totalScore : null);
 
     return Promise.resolve(realTeams);
-    // return new Promise(function (){});
 
   }
 }
