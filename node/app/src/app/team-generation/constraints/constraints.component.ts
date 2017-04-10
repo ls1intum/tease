@@ -45,18 +45,23 @@ export class ConstraintsComponent implements OnInit, OnDestroy {
   }
 
   onGenerateClicked() {
+
+    // Save constraints before running the algorithm
+    this.constraints.forEach(constraint => this.constraintService.saveConstraint(constraint));
+
+    // Prepare and launch the algorithm
     this.teamService.readSavedTeams().then(teams => {
       this.teamGenerationService.generate(teams).then(generatedTeams => {
-
-        this.teamService.saveTeams(generatedTeams);
-
-        this.gotoDashboard();
+        this.teamService.saveTeams(generatedTeams).then(saved => {
+          this.gotoDashboard();
+        });
       });
     });
   }
 
   onConstraintEnabledChanged(constraint: Constraint, enabled) {
     console.log('changed: enabled = ', enabled, constraint);
+    // TODO: finish or remove
     // constraint.setEnabled(enabled);
   }
 

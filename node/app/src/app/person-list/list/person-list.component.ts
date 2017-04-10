@@ -34,17 +34,17 @@ export class PersonListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.nextSubscription = this.toolbarService.buttonClicked.subscribe(() => {
-      this.gotoTeamGeneration();
-    });
-
-    this.teamService.readSavedTeams().then(
-      teams => {
+    this.teamService.readSavedTeams().then(teams => {
         this.teams = teams;
         this.persons = TeamHelper.getPersons(teams);
 
-        if (this.persons == undefined || this.persons.length == 0)
+        if (this.persons == undefined || this.persons.length == 0) {
           this.gotoImport();
+        } else {
+          this.nextSubscription = this.toolbarService.buttonClicked.subscribe(() => {
+            this.gotoTeamGeneration();
+          });
+        }
       }
     )
   }
@@ -53,9 +53,9 @@ export class PersonListComponent implements OnInit, OnDestroy {
     this.nextSubscription.unsubscribe();
   }
 
-  gotoTeamGeneration() {
+  gotoTeamGeneration(): Promise<boolean> {
     let link = ["/constraints"];
-    this.router.navigate(link);
+    return this.router.navigate(link);
   }
 
   gotoDetail(person: Person) {
@@ -78,8 +78,8 @@ export class PersonListComponent implements OnInit, OnDestroy {
     this.gotoDetail(nextPerson);
   }
 
-  gotoImport() {
+  gotoImport(): Promise<boolean> {
     let link = ["/import"];
-    this.router.navigate(link);
+    return this.router.navigate(link);
   }
 }

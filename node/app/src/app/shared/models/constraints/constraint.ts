@@ -26,6 +26,8 @@ export abstract class Constraint {
 
   abstract getType(): ConstraintType;
 
+  abstract toString(): string;
+
   getMinValue(): number {
     return this.minValue;
   }

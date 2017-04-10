@@ -34,4 +34,8 @@ export class FemalePersonConstraint extends Constraint {
     return ConstraintType.GTE;
   }
 
+  toString(): string {
+    return this.getName() + " " + this.getComparator() + " " + this.getMinValue();
+  }
+
 }

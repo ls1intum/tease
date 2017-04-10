@@ -78,11 +78,6 @@ export class LPTeamGenerationService implements TeamGenerationService {
   constraints: Constraint[];
 
   constructor(private constraintService: ConstraintService, private toolbarService: ToolbarService) {
-    this.constraints = this.constraintService.fetchConstraints();
-
-    console.log('in LPTeamGenerationService:', this.constraints);
-
-    this.toolbarService = toolbarService;
   }
 
   private generateMacDeviceConstraints(constraint: MacDeviceConstraint, realTeams: Team[], persons: Person[]): string[] {
@@ -200,6 +195,8 @@ export class LPTeamGenerationService implements TeamGenerationService {
   }
 
   generate(teams: Team[]): Promise<Team[]> {
+
+    this.constraints = this.constraintService.fetchConstraints();
 
     let DEBUG = {// TODO: get rid of
       constraints: [],

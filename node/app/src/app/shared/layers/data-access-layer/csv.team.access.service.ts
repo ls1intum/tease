@@ -49,16 +49,17 @@ export class PersistentTeamAccessService extends TeamAccessService {
     });
   }
 
-  saveTeams(teams: Team[]) {
+  saveTeams(teams: Team[]): Promise<boolean> {
     let teamListProperties = TeamSerializer.serializeTeamList(teams);
 
     // sort the rows numerically by 'orderId'
-    teamListProperties = teamListProperties.sort((a,b) => a.orderId - b.orderId);
+    teamListProperties = teamListProperties.sort((a, b) => a.orderId - b.orderId);
 
     let result = Papa.unparse(teamListProperties);
 
-    localStorage.setItem(PersistentTeamAccessService.TeamStorageKey,
-      result);
+    localStorage.setItem(PersistentTeamAccessService.TeamStorageKey, result);
+
+    return Promise.resolve(true);
   }
 
   dropData() {

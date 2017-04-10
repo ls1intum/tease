@@ -37,8 +37,8 @@ export class TeamService {
     FileSaver.saveAs(blob, fileName);
   }
 
-  saveTeams(teams: Team[]) {
-    this.teamAccessService.saveTeams(teams);
+  saveTeams(teams: Team[]): Promise<boolean> {
+    return this.teamAccessService.saveTeams(teams);
   }
 
   dropData() {

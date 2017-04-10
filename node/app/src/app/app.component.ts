@@ -4,9 +4,9 @@ import {Router} from "@angular/router";
 
 
 @Component({
-  selector   : 'app',
+  selector: 'app',
   templateUrl: './app.component.html',
-  styleUrls: ["./app.component.css","./app.component.scss"]
+  styleUrls: ["./app.component.css", "./app.component.scss"]
 })
 export class AppComponent {
   private buttonName: string = "Skip";
@@ -15,7 +15,7 @@ export class AppComponent {
   private totalScore: number = 0;
 
   constructor(private toolbarService: ToolbarService,
-  private router: Router){
+              private router: Router) {
     toolbarService.buttonNameChanged.subscribe(newName => {
       this.buttonName = newName;
     });
@@ -30,12 +30,12 @@ export class AppComponent {
     });
   }
 
-  onButtonClicked(){
+  onButtonClicked() {
     this.toolbarService.onButtonClicked();
   }
 
-  gotoHome() {
+  gotoHome(): Promise<boolean> {
     let link = ["/"];
-    this.router.navigate(link);
+    return this.router.navigate(link);
   }
 }

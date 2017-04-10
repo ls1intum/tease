@@ -11,7 +11,7 @@ export class TeamSizeConstraint extends Constraint {
   }
 
   isSatisfied(team: Team): boolean {
-    return team.persons.length <= this.minValue;
+    return (this.minValue || 0) <= team.persons.length && team.persons.length <= (this.maxValue || Number.MAX_VALUE);
   }
 
   calculateSatisfactionScore(team: Team): number {
@@ -26,5 +26,9 @@ export class TeamSizeConstraint extends Constraint {
 
   getType(): ConstraintType {
     return ConstraintType.Interval;
+  }
+
+  toString(): string {
+    return this.getMinValue() + this.getComparator() + this.getName() + " " + this.getComparator() + " " + this.getMaxValue();
   }
 }

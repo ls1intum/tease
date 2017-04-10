@@ -19,7 +19,7 @@ import {ExamplePersonPropertyCsvRemotePath} from "../shared/constants/csv.consta
     "./person-data-importer.component.scss"],
   selector: 'person-data-importer',
 })
-export class PersonDataImporterComponent implements OnInit,OnDestroy {
+export class PersonDataImporterComponent implements OnInit, OnDestroy {
   private skipSubscription: Subscription;
   @ViewChild('fileInput') fileInput: ElementRef;
 
@@ -49,7 +49,7 @@ export class PersonDataImporterComponent implements OnInit,OnDestroy {
 
     this.teamService.readLocalTeamData(files[0]).then(teams => {
       this.teamService.saveTeams(teams);
-
+    }).then(saved => {
       this.gotoPersonList();
     });
   }
@@ -65,17 +65,16 @@ export class PersonDataImporterComponent implements OnInit,OnDestroy {
   }
 
   onUseExampleClicked() {
-    this.teamService.readRemoteTeamData
-    (ExamplePersonPropertyCsvRemotePath).then(teams => {
-      this.teamService.saveTeams(teams);
-
-      this.gotoPersonList();
+    this.teamService.readRemoteTeamData(ExamplePersonPropertyCsvRemotePath).then(teams => {
+      this.teamService.saveTeams(teams).then(saved => {
+        return this.gotoPersonList();
+      });
     });
   }
 
   gotoPersonList() {
     let link = ["/persons"];
-    this.router.navigate(link);
+    return this.router.navigate(link);
   }
 
   checkIfDataAvailable() {

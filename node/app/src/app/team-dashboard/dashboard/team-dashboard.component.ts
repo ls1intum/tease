@@ -21,7 +21,7 @@ import {Subscription} from "rxjs";
     '../styles/dragula.min.css'],
   selector: 'team-dashboard',
 })
-export class TeamDashboardComponent implements OnInit,OnDestroy {
+export class TeamDashboardComponent implements OnInit, OnDestroy {
   private readonly EXPORT_FILE_NAME = "team_data.csv";
 
   private teams: Team[];
@@ -87,12 +87,12 @@ export class TeamDashboardComponent implements OnInit,OnDestroy {
     return sortedTeams;
   }
 
-  gotoImport() {
+  gotoImport(): Promise<boolean> {
     let link = ["/import"];
-    this.router.navigate(link);
+    return this.router.navigate(link);
   }
 
-  onPersonDialogClosed(){
+  onPersonDialogClosed() {
     this.saveAll();
   }
 
