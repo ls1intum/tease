@@ -11,7 +11,7 @@ export abstract class Constraint {
   protected maxValue: number;
 
   protected constructor(config: any) {
-    if (typeof config === 'object') {
+    if (config && typeof config === 'object') {
       this.minValue = config.minValue;
       this.maxValue = config.maxValue;
       this.isEnabled = config.isEnabled;
