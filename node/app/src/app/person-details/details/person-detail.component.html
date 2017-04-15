@@ -79,10 +79,10 @@
 
   <md-toolbar color="primary" *ngIf="!isDialog">
     <md-radio-group [(value)]="skillString" (change)="onChangeRating($event.value)">
-      <md-radio-button value="{{PersonSkillLevel.VeryHigh}}">Expert</md-radio-button>
-      <md-radio-button value="{{PersonSkillLevel.High}}">Advanced</md-radio-button>
-      <md-radio-button value="{{PersonSkillLevel.Medium}}">Normal</md-radio-button>
       <md-radio-button value="{{PersonSkillLevel.Low}}">Novice</md-radio-button>
+      <md-radio-button value="{{PersonSkillLevel.Medium}}">Normal</md-radio-button>
+      <md-radio-button value="{{PersonSkillLevel.High}}">Advanced</md-radio-button>
+      <md-radio-button value="{{PersonSkillLevel.VeryHigh}}">Expert</md-radio-button>
     </md-radio-group>
     <md-toolbar-row>
       <span class="app-toolbar-filler"></span>
