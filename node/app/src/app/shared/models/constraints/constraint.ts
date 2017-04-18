@@ -37,7 +37,7 @@ export abstract class Constraint {
     // left-hand side
     if (this.getType() === ConstraintType.Interval) {
       if (isLeftSideDefined) {
-        str += this.getMinValue() + this.getComparator() + ' ';
+        str += this.getMinValue() + ' ' + this.getComparator() + ' ';
       }
     }
 
@@ -83,13 +83,13 @@ export abstract class Constraint {
       case ConstraintType.GT:
         return '>';
       case ConstraintType.GTE:
-        return '>=';
+        return '≥';
       case ConstraintType.LT:
         return '<';
       case ConstraintType.LTE:
-        return '<=';
+        return '≤';
       case ConstraintType.Interval:
-        return '<='; // Should be treated in a special way
+        return '≤'; // Should be treated in a special way
     }
   }
 }

@@ -39,4 +39,6 @@ md-card {
 
 input {
   max-width: 30px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
