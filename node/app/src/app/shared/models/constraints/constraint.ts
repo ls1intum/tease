@@ -9,12 +9,14 @@ export abstract class Constraint {
 
   protected minValue: number;
   protected maxValue: number;
+  protected team: Team; // if defined, then the constraint only applies to that team
 
   protected constructor(config: any) {
     if (config && typeof config === 'object') {
       this.minValue = config.minValue;
       this.maxValue = config.maxValue;
       this.isEnabled = config.isEnabled;
+      this.team = config.team;
     }
   }
 
@@ -26,7 +28,35 @@ export abstract class Constraint {
 
   abstract getType(): ConstraintType;
 
-  abstract toString(): string;
+  toString(): string {
+    let str = '';
+
+    let isLeftSideDefined = typeof this.getMinValue() !== 'undefined';
+    let isRightSideDefined = typeof this.getMaxValue() !== 'undefined';
+
+    // left-hand side
+    if (this.getType() === ConstraintType.Interval) {
+      if (isLeftSideDefined) {
+        str += this.getMinValue() + this.getComparator() + ' ';
+      }
+    }
+
+    // middle
+    str += this.getName();
+
+    // right-hand side
+    if ([ConstraintType.GT, ConstraintType.GTE].indexOf(this.getType()) !== -1) {
+      if (isLeftSideDefined) {
+        str += ' ' + this.getComparator() + ' ' + this.getMinValue();
+      }
+    } else {
+      if (isRightSideDefined) {
+        str += ' ' + this.getComparator() + ' ' + this.getMaxValue();
+      }
+    }
+
+    return str;
+  }
 
   getMinValue(): number {
     return this.minValue;
@@ -34,6 +64,10 @@ export abstract class Constraint {
 
   getMaxValue(): number {
     return this.maxValue;
+  }
+
+  getTeam(): Team {
+    return this.team;
   }
 
   setMinValue(value: number) {

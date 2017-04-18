@@ -28,7 +28,4 @@ export class TeamSizeConstraint extends Constraint {
     return ConstraintType.Interval;
   }
 
-  toString(): string {
-    return this.getMinValue() + this.getComparator() + this.getName() + " " + this.getComparator() + " " + this.getMaxValue();
-  }
 }

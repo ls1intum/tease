@@ -59,12 +59,18 @@ export class ConstraintsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onConstraintMinValueChanged(constraint: Constraint, value: number) {
-    constraint.setMinValue(value);
+  onConstraintMinValueChanged(constraint: Constraint, value) {
+    if (!isNaN(+value)) {
+      console.log('min value changed:', constraint.getName(), +value, typeof +value);
+      constraint.setMinValue(+value);
+    }
   }
 
-  onConstraintMaxValueChanged(constraint: Constraint, value: number) {
-    constraint.setMaxValue(value);
+  onConstraintMaxValueChanged(constraint: Constraint, value) {
+    if (!isNaN(+value)) {
+      console.log('max value changed:', constraint.getName(), +value, typeof +value);
+      constraint.setMaxValue(+value);
+    }
   }
 
   gotoDashboard() {
