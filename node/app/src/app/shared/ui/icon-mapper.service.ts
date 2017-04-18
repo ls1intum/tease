@@ -47,9 +47,9 @@ export class IconMapperService {
   getGenderIconPath(gender: Gender): string {
     switch (gender){
       case Gender.Male:
-        return IconMapperService.BASE_PATH_IMAGES+"male.png";
+        return IconMapperService.BASE_PATH_IMAGES+"mars.svg";
       case Gender.Female:
-        return IconMapperService.BASE_PATH_IMAGES+"female.png";
+        return IconMapperService.BASE_PATH_IMAGES+"venus.svg";
     }
   }
 

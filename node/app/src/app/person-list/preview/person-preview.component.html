@@ -1,15 +1,51 @@
 <div *ngIf="person">
-  <md-card  md-ripple [mdRippleColor]="rippleColor" [style.border-color]="getColor()" class="skillColored">
-    <div class="card-content">
-      <img class="personPic" src="{{getGravatarIconPath()}}">
+  <md-card  md-ripple [mdRippleColor]="rippleColor" [style.border-color]="getColor()" class="personCard">
 
-      <div class="data-container">
-        <div class="name-container">
-            {{person.firstName}}
-            {{person.lastName}}
+    <!-- profile pic and everything right to it -->
+    <div class="flex-row" style="margin-bottom: 8px;">
+      <img class="profile-pic" src="{{getGravatarIconPath()}}">
+
+      <div class="person-information">
+        <!-- gender icon and name -->
+        <div class="name-container" style="margin-bottom: 6px;">
+          <img class="gender-icon" src="{{getGenderIconPath()}}">
+          {{person.firstName}} {{person.lastName}}
         </div>
-        <img class="icon" id="gender" src="{{getGenderIconPath()}}">
+
+        <!-- devices and language level -->
+        <div class="flex-row flex-center">
+          <img class="device-icon flex-spacing-x-2px" *ngFor="let device of person.devices" src="{{getDeviceIconPath(device)}}">
+
+          <span class="language-level">
+            <img class="flag-icon" src="/assets/images/german.svg">
+            {{person.germanLanguageLevel}}
+          </span>
+        </div>
       </div>
     </div>
+
+    <!-- preview of team priorities -->
+    <div class="flex-row flex-center">
+
+      <!-- all teams cut of on the right -->
+      <span class="priorities-preview">{{team}}
+          <span *ngFor="let team of person.teamPriorities; let i = index"
+                class="team-badge flex-spacing-x-2px"
+                [class.team-badge-highlight-good]="team === person.team && person.teamPriorities.indexOf(team) < 3">
+            <span class="team-badge-index">{{i + 1}}</span>
+            {{team.name}}
+          </span>
+      </span>
+
+      <!-- current team highlighted if not top 3 -->
+      <span *ngIf="person.teamPriorities.indexOf(person.team) >= 3">
+        <span class="team-badge team-badge-highlight-bad">
+          <span class="team-badge-index">{{person.teamPriorities.indexOf(person.team) + 1}}</span>
+          {{person.team.name}}
+        </span>
+      </span>
+
+    </div>
+
   </md-card>
 </div>
