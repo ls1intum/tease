@@ -46,4 +46,19 @@ export class PersonPreviewComponent {
   isPersonRated():boolean {
     return this.person.supervisorRating != undefined && this.person.supervisorRating != SkillLevel.None;
   }
+
+  getLabelForSkillLevel(skillLevel: SkillLevel) {
+    switch(skillLevel) {
+      case SkillLevel.Low:
+        return "Novice"
+      case SkillLevel.Medium:
+        return "Normal";
+      case SkillLevel.High:
+        return "Advanced";
+      case SkillLevel.VeryHigh:
+        return "Expert";
+    }
+
+    return "";
+  }
 }

@@ -7,8 +7,8 @@
 
 .profile-pic {
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
 }
 
 .person-information {
@@ -25,8 +25,8 @@
 }
 
 .gender-icon {
-   width: 10px;
-   height: 10px;
+   width: 18px;
+   height: 18px;
 }
 
 .flag-icon {
@@ -39,10 +39,22 @@
   height: 20px;
 }
 
-.language-level {
-  background-color: #F0F0F0;
+.skill-badge {
+  color: white;
+}
+
+.badge {
   border-radius: 3px;
   padding: 2px 5px;
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+.language-level {
+  background-color: #F0F0F0;
+}
+
+.flex-right {
   margin-left: auto;
 }
 
@@ -72,13 +84,8 @@
   white-space: nowrap;
 }
 
-.team-badge-highlight-good {
-  background-color: #6faf6b;
-  color: white;
-}
-
-.team-badge-highlight-bad {
-  background-color: #b56565;
+.team-badge-highlight {
+  background-color: #909090;
   color: white;
 }
 
@@ -90,5 +97,6 @@
   height: 100%;
   border-radius: 10px;
   text-align: center;
+  vertical-align: middle;
   font-weight: bold;
 }

@@ -6,17 +6,22 @@
       <img class="profile-pic" src="{{getGravatarIconPath()}}">
 
       <div class="person-information">
-        <!-- gender icon and name -->
-        <div class="name-container" style="margin-bottom: 6px;">
-          <img class="gender-icon" src="{{getGenderIconPath()}}">
-          {{person.firstName}} {{person.lastName}}
+        <!-- gender icon with name and optional skill level badge -->
+        <div class="flex-row flex-center" style="margin-bottom: 4px;">
+          <span class="name-container flex-row flex-center">
+            <img class="gender-icon flex-spacing-x-2px" src="{{getGenderIconPath()}}">
+            <span class="flex-spacing-x-2px">{{person.firstName}} {{person.lastName}}</span>
+          </span>
+          <span *ngIf="isPersonRated()" class="badge flex-right skill-badge" [style.background-color]="getColor()">
+            {{getLabelForSkillLevel(person.supervisorRating)}}
+          </span>
         </div>
 
         <!-- devices and language level -->
         <div class="flex-row flex-center">
           <img class="device-icon flex-spacing-x-2px" *ngFor="let device of person.devices" src="{{getDeviceIconPath(device)}}">
 
-          <span class="language-level">
+          <span class="badge language-level flex-right">
             <img class="flag-icon" src="/assets/images/german.svg">
             {{person.germanLanguageLevel}}
           </span>
@@ -31,7 +36,7 @@
       <span class="priorities-preview">{{team}}
           <span *ngFor="let team of person.teamPriorities; let i = index"
                 class="team-badge flex-spacing-x-2px"
-                [class.team-badge-highlight-good]="team === person.team && person.teamPriorities.indexOf(team) < 3">
+                [class.team-badge-highlight]="team === person.team && person.teamPriorities.indexOf(team) < 3">
             <span class="team-badge-index">{{i + 1}}</span>
             {{team.name}}
           </span>
@@ -39,7 +44,7 @@
 
       <!-- current team highlighted if not top 3 -->
       <span *ngIf="person.teamPriorities.indexOf(person.team) >= 3">
-        <span class="team-badge team-badge-highlight-bad">
+        <span class="team-badge team-badge-highlight">
           <span class="team-badge-index">{{person.teamPriorities.indexOf(person.team) + 1}}</span>
           {{person.team.name}}
         </span>

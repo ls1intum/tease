@@ -20,6 +20,11 @@ mat-toolbar-row {
   width: 100%;
 }
 
+.text-center-vertical {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 /* CSS3 flex box classes */
 .flex-row {
   display: flex;
