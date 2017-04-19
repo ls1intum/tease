@@ -7,6 +7,7 @@ import {Project} from "./project";
 export class Team {
   name: string;
   static readonly OrphanTeamName = "NO_TEAM";
+  static readonly SpecialTeamNameForGlobalConstraints = "<GlobalConstraints>";
 
   id: number;
   persons: Person[] = [];

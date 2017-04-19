@@ -6,6 +6,7 @@ import {TeamSizeConstraint} from "../../models/constraints/team-size.constraint"
 import {IosDeviceConstraint} from "../../models/constraints/ios-device.constraint";
 import {MacDeviceConstraint} from "../../models/constraints/mac-device.constraint";
 import {TeamAccessService} from "./team.access.service";
+import {Team} from "../../models/team";
 
 /**
  * Created by Malte Bucksch on 23/02/2017.
@@ -56,7 +57,8 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
         console.error('Unexpected constraint:', constraint);
       } else {
 
-        let keyPrefix = this.getTeamBasedConstraintKeyPrefix(constraint.getTeamName()) || '';
+        let teamName = constraint.getTeamName() || Team.SpecialTeamNameForGlobalConstraints;
+        let keyPrefix = this.getTeamBasedConstraintKeyPrefix(teamName) || '';
 
         let storageKey = keyPrefix + constraintClassDefinition.storageKey;
         localStorage.setItem(storageKey, this.serializeConstraint(constraint));
@@ -73,9 +75,14 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
       // global constraints
       KeyValueConstraintAccessService.ConstraintDefinitionArray.forEach(constraintClassDefinition => {
         let classDefinition = constraintClassDefinition.classDefinition;
-        let storageKey = constraintClassDefinition.storageKey;
+        let teamName = Team.SpecialTeamNameForGlobalConstraints;
+        let keyPrefix = this.getTeamBasedConstraintKeyPrefix(teamName);
+        let storageKey = keyPrefix + constraintClassDefinition.storageKey;
 
         let storedConfig = this.unserializeConstraint(localStorage.getItem(storageKey)) || {};
+
+        // ensure this constraint is not confused with others
+        storedConfig.teamName = teamName;
 
         let constraint = new classDefinition(storedConfig);
 
@@ -88,7 +95,8 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
 
         teams.forEach(team => {
 
-          let keyPrefix = this.getTeamBasedConstraintKeyPrefix(team.name);
+          let teamName = team.name;
+          let keyPrefix = this.getTeamBasedConstraintKeyPrefix(teamName);
 
           KeyValueConstraintAccessService.ConstraintDefinitionArray.forEach(constraintClassDefinition => {
             let classDefinition = constraintClassDefinition.classDefinition;
@@ -97,7 +105,7 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
             let storedConfig = this.unserializeConstraint(localStorage.getItem(storageKey)) || {};
 
             // ensure this constraint belongs to the given team
-            storedConfig.teamName = team.name;
+            storedConfig.teamName = teamName;
 
             let constraint = new classDefinition(storedConfig);
 
