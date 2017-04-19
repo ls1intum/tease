@@ -1,57 +1,102 @@
-md-card {
+.personCard {
   margin: 6px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 6px;
+  color: dimgray;
+  font-size: small;
 }
 
-md-card-title {
-  margin: 0;
-}
-
-.icon {
-  width: 40px;
-  height: 40px;
-}
-
-.personPic {
+.profile-pic {
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
 }
 
-.end-aligned {
-  margin-left: auto;
-}
-
-.skillColored {
-  border: dotted;
-  border-width: 5px;
-}
-
-.card-content {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 10px;
-}
-
-.data-container {
+.person-information {
+  padding-left: 10px;
+  padding-top: 3px;
   width: 100%;
-  align-items: center;
-  display: flex;
-  flex-direction: row;
 }
 
 .name-container {
-  width: 130px;
-  margin: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: bolder;
 }
 
-#gender {
+.gender-icon {
+   width: 18px;
+   height: 18px;
+}
+
+.flag-icon {
+  width: 15px;
+  margin-right: 5px;
+}
+
+.device-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.skill-badge {
+  color: white;
+}
+
+.badge {
+  border-radius: 3px;
+  padding: 2px 5px;
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+.language-level {
+  background-color: #F0F0F0;
+}
+
+.flex-right {
   margin-left: auto;
+}
+
+.priorities-preview {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  overflow: hidden;
+}
+
+/* this makes the badges "fade out" */
+.priorities-preview:after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  right: 0;
+  width: 20%;
+  background: linear-gradient(to right, transparent, white);
+}
+
+.team-badge {
+  background-color: #EAEAEA;
+  border-radius: 10px;
+  padding-left: 18px;
+  padding-right: 6px;
+  position: relative;
+  white-space: nowrap;
+}
+
+.team-badge-highlight {
+  background-color: #909090;
+  color: white;
+}
+
+.team-badge-index {
+  background-color: rgba(0, 0, 0, .1);
+  position: absolute;
+  left: 0;
+  width: 15px;
+  height: 100%;
+  border-radius: 10px;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
 }

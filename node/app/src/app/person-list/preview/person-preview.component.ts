@@ -3,6 +3,7 @@ import {Person} from "../../shared/models/person";
 import {IconMapperService} from "../../shared/ui/icon-mapper.service";
 import {SkillLevel} from "../../shared/models/skill";
 import {Colors} from "../../shared/constants/color.constants";
+import {Device} from "../../shared/models/device";
 
 /**
  * Created by Malte Bucksch on 28/11/2016.
@@ -34,11 +35,30 @@ export class PersonPreviewComponent {
     return this.iconMapperService.getGenderIconPath(this.person.gender);
   }
 
+  getDeviceIconPath(device: Device): string {
+    return this.iconMapperService.getDeviceTypeIconPath(device.deviceType);
+  }
+
   getGravatarIconPath(): string {
     return this.iconMapperService.getGravatarIcon(this.person.email);
   }
 
   isPersonRated():boolean {
     return this.person.supervisorRating != undefined && this.person.supervisorRating != SkillLevel.None;
+  }
+
+  getLabelForSkillLevel(skillLevel: SkillLevel) {
+    switch(skillLevel) {
+      case SkillLevel.Low:
+        return "Novice"
+      case SkillLevel.Medium:
+        return "Normal";
+      case SkillLevel.High:
+        return "Advanced";
+      case SkillLevel.VeryHigh:
+        return "Expert";
+    }
+
+    return "";
   }
 }

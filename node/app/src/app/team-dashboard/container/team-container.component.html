@@ -2,10 +2,9 @@
   <div class="containerHeader roundedUpperCorners">
     <div id="titleContainer" class="roundedUpperCorners">
       <h1>
-        <div id="teamName">{{team.name}}</div>
+        <div id="teamName">{{team.name}} ({{team.persons.length}})</div>
       </h1>
       <div id="infoButton">
-        <h1>({{team.persons.length}})</h1>
         <button md-button (click)="showStatistics()">
           <md-icon color="accent">info</md-icon>
         </button>

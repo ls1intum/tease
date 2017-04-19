@@ -19,3 +19,41 @@ html,body { height: 100%; }
 mat-toolbar-row {
   width: 100%;
 }
+
+.text-center-vertical {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+/* CSS3 flex box classes */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-row-reverse {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center {
+  align-content: center;
+}
+
+.flex-spacing-x-2px {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.flex-spacing-x-2px:first-child {
+  margin-left: 0;
+}
+
+.flex-spacing-x-2px:last-child {
+  margin-right: 0;
+}
