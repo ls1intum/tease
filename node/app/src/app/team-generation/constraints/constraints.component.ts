@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, Output, EventEmitter} from "@angular/core";
+import {Component, OnInit, OnDestroy} from "@angular/core";
 import {Router} from "@angular/router";
 import {TeamService} from "../../shared/layers/business-logic-layer/team.service";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
@@ -6,6 +6,7 @@ import {LangConstraints} from "../../shared/constants/language.constants";
 import {TeamGenerationService} from "../../shared/layers/business-logic-layer/team-generation/team-generation.service";
 import {ConstraintType, Constraint} from "../../shared/models/constraints/constraint";
 import {ConstraintService} from "../../shared/layers/business-logic-layer/constraint.service";
+import {Team} from "../../shared/models/team";
 
 /**
  * Created by Malte Bucksch on 27/11/2016.
@@ -22,6 +23,7 @@ export class ConstraintsComponent implements OnInit, OnDestroy {
 
   private skipSubscription;
   private constraints: Constraint[];
+  private teams: Team[];
 
   constructor(private router: Router,
               private teamGenerationService: TeamGenerationService,
@@ -30,7 +32,17 @@ export class ConstraintsComponent implements OnInit, OnDestroy {
               private constraintService: ConstraintService) {
     this.toolbarService.resetToDefaultValues();
     this.toolbarService.changeButtonName(LangConstraints.ToolbarButtonName);
-    this.constraints = this.constraintService.fetchConstraints();
+    this.constraintService.fetchConstraints().then(constraints => {
+      this.constraints = constraints;
+    });
+    this.teamService.readSavedTeams().then(teams => {
+      this.teams = teams.filter(team => {
+        // filter out the 'orphan' team
+        return team.name !== Team.OrphanTeamName;
+      });
+      // Add an anonymous team to the 'top' (index = 0) for global constraints
+      this.teams.unshift(new Team(''));
+    })
   }
 
   ngOnInit(): void {
@@ -40,14 +52,14 @@ export class ConstraintsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.constraints.forEach(constraint => this.constraintService.saveConstraint(constraint));
+    this.constraintService.saveConstraints(this.constraints);
     this.skipSubscription.unsubscribe();
   }
 
   onGenerateClicked() {
 
     // Save constraints before running the algorithm
-    this.constraints.forEach(constraint => this.constraintService.saveConstraint(constraint));
+    this.constraintService.saveConstraints(this.constraints);
 
     // Prepare and launch the algorithm
     this.teamService.readSavedTeams().then(teams => {

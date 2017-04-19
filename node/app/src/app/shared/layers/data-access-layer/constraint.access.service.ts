@@ -7,6 +7,7 @@ import {Team} from "../../models/team";
 import {Constraint} from "../../models/constraints/constraint";
 @Injectable()
 export abstract class ConstraintAccessService {
-  abstract saveConstraint(constraint: Constraint);
-  abstract fetchConstraints(): Constraint[];
+  abstract saveConstraints(constraints: Constraint[]);
+
+  abstract fetchConstraints(): Promise<Constraint[]>;
 }

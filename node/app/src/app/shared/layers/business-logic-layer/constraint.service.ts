@@ -7,14 +7,14 @@ import {Constraint} from "../../models/constraints/constraint";
 
 @Injectable()
 export class ConstraintService {
-  constructor(private constraintAccessService: ConstraintAccessService){
-
+  constructor(private constraintAccessService: ConstraintAccessService) {
   }
 
-  saveConstraint(constraint: Constraint) {
-    this.constraintAccessService.saveConstraint(constraint);
+  saveConstraints(constraints: Constraint[]) {
+    this.constraintAccessService.saveConstraints(constraints);
   }
-  fetchConstraints(): Constraint[]{
+
+  fetchConstraints(): Promise<Constraint[]> {
     return this.constraintAccessService.fetchConstraints();
   }
 }

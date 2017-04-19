@@ -29,8 +29,9 @@ export class TeamScoreComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.constraints = this.constraintService.fetchConstraints()
-      .filter(constraint => constraint.isEnabled);
+    this.constraintService.fetchConstraints().then(constraints => {
+      this.constraints = constraints.filter(constraint => constraint.isEnabled);
+    });
   }
 
   calculateOverallScore(): string {

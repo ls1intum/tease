@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {TeamService} from "./layers/business-logic-layer/team.service";
 import {TeamAccessService} from "./layers/data-access-layer/team.access.service";
-import {TeamGenerationService} from "./layers/business-logic-layer/team-generation/team-generation.service";
-import {BalancedTeamGenerationService} from "./layers/business-logic-layer/team-generation/balanced-team-generation.service";
 import {PersistentTeamAccessService} from "./layers/data-access-layer/csv.team.access.service";
 import {DialogService} from "./ui/dialog.service";
 import {MaterialModule} from "@angular/material";
@@ -27,7 +25,6 @@ import {KeyValueConstraintAccessService} from "./layers/data-access-layer/keyval
   providers: [ PersonStatisticsService,
     {provide: TeamAccessService, useClass: PersistentTeamAccessService},
     {provide: PersonService, useClass: SimplePersonService},
-    {provide: TeamGenerationService, useClass: BalancedTeamGenerationService},
     {provide: ConstraintAccessService, useClass: KeyValueConstraintAccessService}
   ]
 })

@@ -52,7 +52,6 @@ function groupLikeTerms(objective) {
 
 @Injectable()
 export class LPTeamGenerationService implements TeamGenerationService {
-  constraints: Constraint[];
 
   constructor(private constraintService: ConstraintService) {
   }
@@ -173,152 +172,157 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
   generate(teams: Team[]): Promise<Team[]> {
 
-    this.constraints = this.constraintService.fetchConstraints();
+    return new Promise((resolve, reject) => {
 
-    let model = [];
+      this.constraintService.fetchConstraints().then(constraints => {
 
-    console.log('Generating teams using linear approach...');
+        let model = [];
 
-    let activeConstraints = this.constraints.filter(constraint => {
-      return constraint.isEnabled;
-    });
+        console.log('Generating teams using linear approach...');
 
-    let persons = TeamHelper.getPersons(teams);
+        let activeConstraints = constraints.filter(constraint => {
+          return constraint.isEnabled;
+        });
 
-    teams.forEach(team => team.clear());
-    let realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
+        let persons = TeamHelper.getPersons(teams);
 
-    // Ensure binary variables
-    for (let i = 1; i <= persons.length; i++) {
-      for (let j = 1; j <= realTeams.length; j++) {
-        let v = 'x' + i + 'y' + j;
-        model.push(v + ' >= 0');
-        model.push(v + ' <= 1');
-        model.push('int ' + v); // ensures it's an integer
-      }
-    }
+        teams.forEach(team => team.clear());
+        let realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
 
-    // Ensure one team per person
-    for (let i = 1; i <= persons.length; i++) {
-      let c = '';
-      for (let j = 1; j <= realTeams.length; j++) {
-        if (c) {
-          c += ' + ';
-        }
-        c += 'x' + i + 'y' + j;
-      }
-      c += ' = 1';
-      model.push(c);
-    }
-
-    // Device constraints
-    activeConstraints.forEach(constraint => {
-
-      let cs = [];
-
-      if (constraint instanceof MacDeviceConstraint) {
-        cs = this.generateMacDeviceConstraints(constraint, realTeams, persons);
-      }
-      if (constraint instanceof IosDeviceConstraint) {
-        cs = this.generateIosDeviceConstraints(constraint, realTeams, persons);
-      }
-      if (constraint instanceof TeamSizeConstraint) {
-        cs = this.generateTeamSizeConstraints(constraint, realTeams, persons);
-      }
-      if (constraint instanceof FemalePersonConstraint) {
-        cs = this.generateFemalePersonConstraints(constraint, realTeams, persons);
-      }
-
-      cs.forEach(c => {
-        model.push(c);
-      });
-
-    });
-
-    let teamIndex = {}; // j lookup
-    for (let j = 0; j < realTeams.length; j++) {
-      teamIndex[realTeams[j].name] = j + 1;
-    }
-
-    let prioritiesObjective = '';
-    for (let i = 1; i <= persons.length; i++) {
-      let person = persons[i - 1];
-      let priorities = person.teamPriorities;
-      for (let k = 0, v = priorities.length; k < priorities.length; k++, v--) {
-        if (prioritiesObjective) {
-          prioritiesObjective += ' + ';
-        }
-        let j = teamIndex[priorities[k].name];
-        prioritiesObjective += v + ' x' + i + 'y' + j;
-      }
-    }
-
-    // TODO: this skillset objective does not work. Redesign / re-think it
-    let desiredSkillWeights = {};
-    desiredSkillWeights[SkillLevel.VeryHigh] = 0.05;
-    desiredSkillWeights[SkillLevel.High] = 0.15;
-    desiredSkillWeights[SkillLevel.Medium] = 0.5;
-    desiredSkillWeights[SkillLevel.Low] = 0.3;
-    desiredSkillWeights[SkillLevel.None] = 0;
-
-    let skillSetObjective = '';
-    for (let j = 1; j <= realTeams.length; j++) {
-      // let c = '';
-
-      for (let i = 1; i <= persons.length; i++) {
-        let person = persons[i - 1];
-        if (person.hasSupervisorRating()) {
-          if (skillSetObjective) {
-            skillSetObjective += ' + ';
+        // Ensure binary variables
+        for (let i = 1; i <= persons.length; i++) {
+          for (let j = 1; j <= realTeams.length; j++) {
+            let v = 'x' + i + 'y' + j;
+            model.push(v + ' >= 0');
+            model.push(v + ' <= 1');
+            model.push('int ' + v); // ensures it's an integer
           }
-          skillSetObjective += desiredSkillWeights[person.supervisorRating] + ' x' + i + 'y' + j;
         }
-      }
-    }
 
-    // TODO: provide UI for specifying weights
-    // For now, specify weights manually
-    // Note: set weight to zero to ignore it
-    let prioritiesObjectiveWeight = 1.0;
-    let skillSetObjectiveWeight = 0.0;
+        // Ensure one team per person
+        for (let i = 1; i <= persons.length; i++) {
+          let c = '';
+          for (let j = 1; j <= realTeams.length; j++) {
+            if (c) {
+              c += ' + ';
+            }
+            c += 'x' + i + 'y' + j;
+          }
+          c += ' = 1';
+          model.push(c);
+        }
 
-    // objective function
-    let objective = groupLikeTerms([
-      scaleObjective(prioritiesObjective, prioritiesObjectiveWeight),
-      scaleObjective(skillSetObjective, skillSetObjectiveWeight)
-    ].join(' + '));
+        // Device constraints
+        activeConstraints.forEach(constraint => {
 
-    model.push('max: ' + objective);
+          let cs = [];
 
-    // Reformat to JSON model
-    let formattedModel = ReformatLP(model);
+          if (constraint instanceof MacDeviceConstraint) {
+            cs = this.generateMacDeviceConstraints(constraint, realTeams, persons);
+          }
+          if (constraint instanceof IosDeviceConstraint) {
+            cs = this.generateIosDeviceConstraints(constraint, realTeams, persons);
+          }
+          if (constraint instanceof TeamSizeConstraint) {
+            cs = this.generateTeamSizeConstraints(constraint, realTeams, persons);
+          }
+          if (constraint instanceof FemalePersonConstraint) {
+            cs = this.generateFemalePersonConstraints(constraint, realTeams, persons);
+          }
 
-    // Solve the model
-    let solution = Solve(formattedModel);
+          cs.forEach(c => {
+            model.push(c);
+          });
 
-    if (solution.feasible) {
-      // Assign the teams according to results
-      for (let i = 1; i <= persons.length; i++) {
-        let person = persons[i - 1];
+        });
+
+        let teamIndex = {}; // j lookup
+        for (let j = 0; j < realTeams.length; j++) {
+          teamIndex[realTeams[j].name] = j + 1;
+        }
+
+        let prioritiesObjective = '';
+        for (let i = 1; i <= persons.length; i++) {
+          let person = persons[i - 1];
+          let priorities = person.teamPriorities;
+          for (let k = 0, v = priorities.length; k < priorities.length; k++, v--) {
+            if (prioritiesObjective) {
+              prioritiesObjective += ' + ';
+            }
+            let j = teamIndex[priorities[k].name];
+            prioritiesObjective += v + ' x' + i + 'y' + j;
+          }
+        }
+
+        // TODO: this skillset objective does not work. Redesign / re-think it
+        let desiredSkillWeights = {};
+        desiredSkillWeights[SkillLevel.VeryHigh] = 0.05;
+        desiredSkillWeights[SkillLevel.High] = 0.15;
+        desiredSkillWeights[SkillLevel.Medium] = 0.5;
+        desiredSkillWeights[SkillLevel.Low] = 0.3;
+        desiredSkillWeights[SkillLevel.None] = 0;
+
+        let skillSetObjective = '';
         for (let j = 1; j <= realTeams.length; j++) {
-          let varName = 'x' + i + 'y' + j;
-          let val = solution[varName] || 0;
+          // let c = '';
 
-          if (val === 1) {
-            realTeams[j - 1].add(person);
-            break;
+          for (let i = 1; i <= persons.length; i++) {
+            let person = persons[i - 1];
+            if (person.hasSupervisorRating()) {
+              if (skillSetObjective) {
+                skillSetObjective += ' + ';
+              }
+              skillSetObjective += desiredSkillWeights[person.supervisorRating] + ' x' + i + 'y' + j;
+            }
           }
         }
-      }
-    } else {
-      // Assign all to the 'orphan' team, otherwise they are Person objects are simply lost
-      let orphanTeam = teams.filter(team => team.name === Team.OrphanTeamName)[0];
-      for (let i = 0; i < persons.length; i++) {
-        orphanTeam.add(persons[i]);
-      }
-    }
 
-    return Promise.resolve(teams);
+        // TODO: provide UI for specifying weights
+        // For now, specify weights manually
+        // Note: set weight to zero to ignore it
+        let prioritiesObjectiveWeight = 1.0;
+        let skillSetObjectiveWeight = 0.0;
+
+        // objective function
+        let objective = groupLikeTerms([
+          scaleObjective(prioritiesObjective, prioritiesObjectiveWeight),
+          scaleObjective(skillSetObjective, skillSetObjectiveWeight)
+        ].join(' + '));
+
+        model.push('max: ' + objective);
+
+        // Reformat to JSON model
+        let formattedModel = ReformatLP(model);
+
+        // Solve the model
+        let solution = Solve(formattedModel);
+
+        if (solution.feasible) {
+          // Assign the teams according to results
+          for (let i = 1; i <= persons.length; i++) {
+            let person = persons[i - 1];
+            for (let j = 1; j <= realTeams.length; j++) {
+              let varName = 'x' + i + 'y' + j;
+              let val = solution[varName] || 0;
+
+              if (val === 1) {
+                realTeams[j - 1].add(person);
+                break;
+              }
+            }
+          }
+        } else {
+          // Assign all to the 'orphan' team, otherwise they are Person objects are simply lost
+          let orphanTeam = teams.filter(team => team.name === Team.OrphanTeamName)[0];
+          for (let i = 0; i < persons.length; i++) {
+            orphanTeam.add(persons[i]);
+          }
+        }
+
+        resolve(teams);
+
+      })
+    });
 
   }
 }

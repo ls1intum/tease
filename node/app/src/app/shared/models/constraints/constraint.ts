@@ -5,18 +5,18 @@ import {Team} from "../team";
 
 export abstract class Constraint {
 
-  public isEnabled = true;
+  public isEnabled;
 
   protected minValue: number;
   protected maxValue: number;
-  protected team: Team; // if defined, then the constraint only applies to that team
+  protected teamName: string; // if defined, then the constraint only applies to that team
 
   protected constructor(config: any) {
     if (config && typeof config === 'object') {
       this.minValue = config.minValue;
       this.maxValue = config.maxValue;
       this.isEnabled = config.isEnabled;
-      this.team = config.team;
+      this.teamName = config.teamName;
     }
   }
 
@@ -66,8 +66,8 @@ export abstract class Constraint {
     return this.maxValue;
   }
 
-  getTeam(): Team {
-    return this.team;
+  getTeamName(): string {
+    return this.teamName;
   }
 
   setMinValue(value: number) {
