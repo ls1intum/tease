@@ -11,6 +11,10 @@ import {DeviceType} from "../../../models/device";
 import {Person, Gender} from "../../../models/person";
 import {ReformatLP, Solve} from "javascript-lp-solver";
 import {SkillLevel} from "../../../models/skill";
+import {SkillExpertConstraint} from "../../../models/constraints/skill-expert.constraint";
+import {SkillAdvancedConstraint} from "../../../models/constraints/skill-advanced.constraint";
+import {SkillNormalConstraint} from "../../../models/constraints/skill-normal.constraint";
+import {SkillNoviceConstraint} from "../../../models/constraints/skill-novice.constraint";
 
 function scaleObjective(objective, factor) {
   let parts = objective.split(' ');
@@ -162,6 +166,30 @@ export class LPTeamGenerationService implements TeamGenerationService {
     return constraints;
   }
 
+  private generateSkillLevelConstraints(constraint: TeamSizeConstraint, teamIndex: number, persons: Person[], skillLevel: SkillLevel): string[] {
+    let minPeoplePerTeam = constraint.getMinValue() || 0;
+    let maxPeoplePerTeam = constraint.getMaxValue() || persons.length;
+    let constraints = [];
+
+    let c = '';
+
+    for (let i = 1; i <= persons.length; i++) {
+      if (persons[i - 1].supervisorRating === skillLevel) {
+        if (c) {
+          c += ' + ';
+        }
+        c += 'x' + i + 'y' + (teamIndex + 1);
+      }
+    }
+
+    if (c) {
+      constraints.push(c + ' <= ' + maxPeoplePerTeam);
+      constraints.push(c + ' >= ' + minPeoplePerTeam);
+    }
+
+    return constraints;
+  }
+
   generate(teams: Team[]): Promise<Team[]> {
 
     return new Promise((resolve, reject) => {
@@ -226,7 +254,6 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
       let skillSetObjective = '';
       for (let j = 1; j <= realTeams.length; j++) {
-        // let c = '';
 
         for (let i = 1; i <= persons.length; i++) {
           let person = persons[i - 1];
@@ -274,6 +301,19 @@ export class LPTeamGenerationService implements TeamGenerationService {
             }
             if (constraint instanceof FemalePersonConstraint) {
               cs = this.generateFemalePersonConstraints(constraint, teamIndex, persons);
+            }
+
+            if (constraint instanceof SkillExpertConstraint) {
+              cs = this.generateSkillLevelConstraints(constraint, teamIndex, persons, SkillLevel.VeryHigh);
+            }
+            if (constraint instanceof SkillAdvancedConstraint) {
+              cs = this.generateSkillLevelConstraints(constraint, teamIndex, persons, SkillLevel.High);
+            }
+            if (constraint instanceof SkillNormalConstraint) {
+              cs = this.generateSkillLevelConstraints(constraint, teamIndex, persons, SkillLevel.Medium);
+            }
+            if (constraint instanceof SkillNoviceConstraint) {
+              cs = this.generateSkillLevelConstraints(constraint, teamIndex, persons, SkillLevel.Low);
             }
 
             model = model.concat(cs);

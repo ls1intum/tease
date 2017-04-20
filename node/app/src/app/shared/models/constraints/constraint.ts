@@ -20,9 +20,7 @@ export abstract class Constraint {
     }
   }
 
-  isSatisfied(team: Team): boolean {
-    return (this.minValue || 0) <= team.persons.length && team.persons.length <= (this.maxValue || Number.MAX_VALUE);
-  }
+  abstract isSatisfied(team: Team): boolean;
 
   calculateSatisfactionScore(team: Team): number {
     return this.isSatisfied(team) ? 10 : 0;
@@ -35,8 +33,8 @@ export abstract class Constraint {
   toString(): string {
     let str = '';
 
-    let isLeftSideDefined = typeof this.getMinValue() !== 'undefined';
-    let isRightSideDefined = typeof this.getMaxValue() !== 'undefined';
+    let isLeftSideDefined = typeof this.getMinValue() === 'number';
+    let isRightSideDefined = typeof this.getMaxValue() === 'number';
 
     // left-hand side
     if (this.getType() === ConstraintType.Interval) {

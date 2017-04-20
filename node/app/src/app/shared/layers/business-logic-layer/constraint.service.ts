@@ -58,24 +58,8 @@ export class ConstraintService {
 
       constraintsOfTheSameType.sort(this.sortConstraintsByPriority);
 
-      // clone the original object
-      let templateObject = constraintsOfTheSameType[0];
-      let mergedConstraint = Object.assign(Object.create(templateObject), templateObject);
-
-      // merge constraints into the new object
-      for (let constraint of constraintsOfTheSameType) {
-
-        if (typeof mergedConstraint.getMinValue() !== 'number' && typeof constraint.getMinValue() === 'number') {
-          mergedConstraint.setMinValue(constraint.getMinValue());
-        }
-
-        if (typeof mergedConstraint.getMaxValue() !== 'number' && typeof constraint.getMaxValue() === 'number') {
-          mergedConstraint.setMaxValue(constraint.getMaxValue());
-        }
-
-      }
-
-      mergedConstraints.push(mergedConstraint);
+      // using only the constraint with the highest priority
+      mergedConstraints.push(constraintsOfTheSameType[0]);
 
     }
 

@@ -72,13 +72,17 @@ export class ConstraintsComponent implements OnInit, OnDestroy {
   }
 
   onConstraintMinValueChanged(constraint: Constraint, value) {
-    if (!isNaN(+value)) {
+    if (value === '') {
+      constraint.setMinValue(value);
+    } else if (!isNaN(+value)) {
       constraint.setMinValue(+value);
     }
   }
 
   onConstraintMaxValueChanged(constraint: Constraint, value) {
-    if (!isNaN(+value)) {
+    if (value === '') {
+      constraint.setMaxValue(value);
+    } else if (!isNaN(+value)) {
       constraint.setMaxValue(+value);
     }
   }
