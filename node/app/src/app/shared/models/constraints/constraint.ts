@@ -20,9 +20,13 @@ export abstract class Constraint {
     }
   }
 
-  abstract isSatisfied(team: Team): boolean;
+  isSatisfied(team: Team): boolean {
+    return (this.minValue || 0) <= team.persons.length && team.persons.length <= (this.maxValue || Number.MAX_VALUE);
+  }
 
-  abstract calculateSatisfactionScore(team: Team): number;
+  calculateSatisfactionScore(team: Team): number {
+    return this.isSatisfied(team) ? 10 : 0;
+  }
 
   abstract getName(): string;
 

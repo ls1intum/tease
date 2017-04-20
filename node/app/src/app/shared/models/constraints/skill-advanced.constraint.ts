@@ -1,16 +1,13 @@
 import {Constraint, ConstraintType} from "./constraint";
-/**
- * Created by Malte Bucksch on 23/02/2017.
- */
 
-export class TeamSizeConstraint extends Constraint {
+export class SkillAdvancedConstraint extends Constraint {
 
   constructor(config: any) {
     super(config);
   }
 
   getName(): string {
-    return "Team Size";
+    return "#Advanced";
   }
 
   getType(): ConstraintType {

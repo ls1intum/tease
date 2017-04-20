@@ -10,22 +10,6 @@ export class FemalePersonConstraint extends Constraint {
     super(config);
   }
 
-  isSatisfied(team: Team): boolean {
-    return this.getFemalesPersonsInTeam(team) >= this.minValue;
-  }
-
-  private getFemalesPersonsInTeam(team: Team) {
-    return team.persons.filter(person => person.gender == Gender.Female).length;
-  }
-
-  calculateSatisfactionScore(team: Team): number {
-    let femaleCount = this.getFemalesPersonsInTeam(team);
-
-    // TODO NOW make more sophisticated
-
-    return this.isSatisfied(team) ? 10 : 0;
-  }
-
   getName(): string {
     return "Female Persons";
   }

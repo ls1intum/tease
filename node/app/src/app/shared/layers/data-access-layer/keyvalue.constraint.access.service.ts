@@ -5,6 +5,10 @@ import {FemalePersonConstraint} from "../../models/constraints/female-person.con
 import {TeamSizeConstraint} from "../../models/constraints/team-size.constraint";
 import {IosDeviceConstraint} from "../../models/constraints/ios-device.constraint";
 import {MacDeviceConstraint} from "../../models/constraints/mac-device.constraint";
+import {SkillExpertConstraint} from "../../models/constraints/skill-expert.constraint";
+import {SkillAdvancedConstraint} from "../../models/constraints/skill-advanced.constraint";
+import {SkillNormalConstraint} from "../../models/constraints/skill-normal.constraint";
+import {SkillNoviceConstraint} from "../../models/constraints/skill-novice.constraint";
 import {TeamAccessService} from "./team.access.service";
 import {Team} from "../../models/team";
 
@@ -22,12 +26,20 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
   private static readonly KeyIosDeviceConstraint = "KeyIosDeviceConstraint";
   private static readonly KeyFemalePersonConstraint = "KeyFemalePersonConstraint";
   private static readonly KeyTeamSizeConstraint = "KeyTeamSizeConstraint";
+  private static readonly KeySkillExpertConstraint = "KeySkillExpertConstraint";
+  private static readonly KeySkillAdvancedConstraint = "KeySkillAdvancedConstraint";
+  private static readonly KeySkillNormalConstraint = "KeySkillNormalConstraint";
+  private static readonly KeySkillNoviceConstraint = "KeySkillNoviceConstraint";
 
   private static readonly ConstraintDefinitionArray = [
     {classDefinition: MacDeviceConstraint, storageKey: KeyValueConstraintAccessService.KeyMacDeviceConstraint},
     {classDefinition: IosDeviceConstraint, storageKey: KeyValueConstraintAccessService.KeyIosDeviceConstraint},
     {classDefinition: FemalePersonConstraint, storageKey: KeyValueConstraintAccessService.KeyFemalePersonConstraint},
     {classDefinition: TeamSizeConstraint, storageKey: KeyValueConstraintAccessService.KeyTeamSizeConstraint},
+    {classDefinition: SkillExpertConstraint, storageKey: KeyValueConstraintAccessService.KeySkillExpertConstraint},
+    {classDefinition: SkillAdvancedConstraint, storageKey: KeyValueConstraintAccessService.KeySkillAdvancedConstraint},
+    {classDefinition: SkillNormalConstraint, storageKey: KeyValueConstraintAccessService.KeySkillNormalConstraint},
+    {classDefinition: SkillNoviceConstraint, storageKey: KeyValueConstraintAccessService.KeySkillNoviceConstraint},
   ];
 
   private serializeConstraint(constraint: Constraint): string {

@@ -2,16 +2,13 @@ import {TeamGenerationService} from "./team-generation.service";
 import {Team} from "../../../models/team";
 import {Injectable} from "@angular/core";
 import {TeamHelper} from "../../../helpers/team.helper";
-
 import {ConstraintService} from "../constraint.service";
-import {Constraint} from "../../../models/constraints/constraint";
 import {MacDeviceConstraint} from "../../../models/constraints/mac-device.constraint";
 import {FemalePersonConstraint} from "../../../models/constraints/female-person.constraint";
 import {IosDeviceConstraint} from "../../../models/constraints/ios-device.constraint";
 import {TeamSizeConstraint} from "../../../models/constraints/team-size.constraint";
 import {DeviceType} from "../../../models/device";
 import {Person, Gender} from "../../../models/person";
-
 import {ReformatLP, Solve} from "javascript-lp-solver";
 import {SkillLevel} from "../../../models/skill";
 
