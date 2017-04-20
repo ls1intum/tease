@@ -56,117 +56,112 @@ export class LPTeamGenerationService implements TeamGenerationService {
   constructor(private constraintService: ConstraintService) {
   }
 
-  private generateMacDeviceConstraints(constraint: MacDeviceConstraint, realTeams: Team[], persons: Person[]): string[] {
+  private generateMacDeviceConstraints(constraint: MacDeviceConstraint, teamIndex: number, persons: Person[]): string[] {
     let minMacsPerTeam = constraint.getMinValue() || 0;
     let constraints = [];
 
-    for (let j = 1; j <= realTeams.length; j++) {
-      let c = '';
+    let c = '';
 
-      for (let i = 1; i <= persons.length; i++) {
-        let person = persons[i - 1];
-        if (person.devices && person.devices.length > 0) {
-          // If has a mac, add him to constraint
-          let macCount = person.devices.filter(device => {
-            return device.deviceType === DeviceType.Mac;
-          }).length;
+    for (let i = 1; i <= persons.length; i++) {
+      let person = persons[i - 1];
+      if (person.devices && person.devices.length > 0) {
+        // If has a mac, add him to constraint
+        let macCount = person.devices.filter(device => {
+          return device.deviceType === DeviceType.Mac;
+        }).length;
 
-          if (macCount > 0) {
-            if (c) {
-              c += ' + ';
-            }
-            c += macCount + ' x' + i + 'y' + j;
+        if (macCount > 0) {
+          if (c) {
+            c += ' + ';
           }
+          c += macCount + ' x' + i + 'y' + (teamIndex + 1);
         }
       }
-
-      if (c) {
-        c += ' >= ' + minMacsPerTeam;
-        constraints.push(c);
-      }
     }
+
+    if (c) {
+      c += ' >= ' + minMacsPerTeam;
+      constraints.push(c);
+    }
+
     return constraints;
   }
 
-  private generateIosDeviceConstraints(constraint: IosDeviceConstraint, realTeams: Team[], persons: Person[]): string[] {
+  private generateIosDeviceConstraints(constraint: IosDeviceConstraint, teamIndex: number, persons: Person[]): string[] {
     let minIosDevicesPerTeam = constraint.getMinValue() || 0;
     let constraints = [];
 
-    for (let j = 1; j <= realTeams.length; j++) {
-      let c = '';
+    let c = '';
 
-      for (let i = 1; i <= persons.length; i++) {
-        let person = persons[i - 1];
-        if (person.devices && person.devices.length > 0) {
-          // If has a mac, add him to constraint
-          let iosDevicesCount = person.devices.filter(device => {
-            return [
-              DeviceType.Ipad, DeviceType.Ipod, DeviceType.Iphone
-            ].includes(device.deviceType);
-          }).length;
+    for (let i = 1; i <= persons.length; i++) {
+      let person = persons[i - 1];
+      if (person.devices && person.devices.length > 0) {
+        // If has a mac, add him to constraint
+        let iosDevicesCount = person.devices.filter(device => {
+          return [
+            DeviceType.Ipad, DeviceType.Ipod, DeviceType.Iphone
+          ].includes(device.deviceType);
+        }).length;
 
-          if (iosDevicesCount > 0) {
-            if (c) {
-              c += ' + ';
-            }
-            c += iosDevicesCount + ' x' + i + 'y' + j;
+        if (iosDevicesCount > 0) {
+          if (c) {
+            c += ' + ';
           }
+          c += iosDevicesCount + ' x' + i + 'y' + (teamIndex + 1);
         }
       }
-
-      if (c) {
-        c += ' >= ' + minIosDevicesPerTeam;
-        constraints.push(c);
-      }
     }
+
+    if (c) {
+      c += ' >= ' + minIosDevicesPerTeam;
+      constraints.push(c);
+    }
+
     return constraints;
   }
 
-  private generateTeamSizeConstraints(constraint: TeamSizeConstraint, realTeams: Team[], persons: Person[]): string[] {
+  private generateTeamSizeConstraints(constraint: TeamSizeConstraint, teamIndex: number, persons: Person[]): string[] {
     let minPeoplePerTeam = constraint.getMinValue() || 0;
     let maxPeoplePerTeam = constraint.getMaxValue() || persons.length;
     let constraints = [];
 
-    for (let j = 1; j <= realTeams.length; j++) {
-      let c = '';
+    let c = '';
 
-      for (let i = 1; i <= persons.length; i++) {
-        if (c) {
-          c += ' + ';
-        }
-        c += 'x' + i + 'y' + j;
-      }
-
+    for (let i = 1; i <= persons.length; i++) {
       if (c) {
-        constraints.push(c + ' <= ' + maxPeoplePerTeam);
-        constraints.push(c + ' >= ' + minPeoplePerTeam);
-
+        c += ' + ';
       }
+      c += 'x' + i + 'y' + (teamIndex + 1);
     }
+
+    if (c) {
+      constraints.push(c + ' <= ' + maxPeoplePerTeam);
+      constraints.push(c + ' >= ' + minPeoplePerTeam);
+    }
+
     return constraints;
   }
 
-  private generateFemalePersonConstraints(constraint: FemalePersonConstraint, realTeams: Team[], persons: Person[]): string[] {
+  private generateFemalePersonConstraints(constraint: FemalePersonConstraint, teamIndex: number, persons: Person[]): string[] {
     let minFemalesPerTeam = constraint.getMinValue() || 0;
     let constraints = [];
 
-    for (let j = 1; j <= realTeams.length; j++) {
-      let c = '';
+    let c = '';
 
-      for (let i = 1; i <= persons.length; i++) {
-        if (persons[i - 1].gender === Gender.Female) {
-          if (c) {
-            c += ' + ';
-          }
-          c += 'x' + i + 'y' + j;
+    for (let i = 1; i <= persons.length; i++) {
+      if (persons[i - 1].gender === Gender.Female) {
+        if (c) {
+          c += ' + ';
         }
-      }
-
-      if (c) {
-        c += ' >= ' + minFemalesPerTeam;
-        constraints.push(c);
+        c += 'x' + i + 'y' + (teamIndex + 1);
       }
     }
+
+    if (c) {
+      c += ' >= ' + minFemalesPerTeam;
+      constraints.push(c);
+    }
+
     return constraints;
   }
 
@@ -174,122 +169,127 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
     return new Promise((resolve, reject) => {
 
-      this.constraintService.fetchConstraints().then(constraints => {
+      console.log('Generating teams using linear approach...');
 
-        let model = [];
+      let model = [];
 
-        console.log('Generating teams using linear approach...');
+      let persons = TeamHelper.getPersons(teams);
 
-        let activeConstraints = constraints.filter(constraint => {
-          return constraint.isEnabled;
-        });
+      teams.forEach(team => team.clear());
+      let realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
 
-        let persons = TeamHelper.getPersons(teams);
-
-        teams.forEach(team => team.clear());
-        let realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
-
-        // Ensure binary variables
-        for (let i = 1; i <= persons.length; i++) {
-          for (let j = 1; j <= realTeams.length; j++) {
-            let v = 'x' + i + 'y' + j;
-            model.push(v + ' >= 0');
-            model.push(v + ' <= 1');
-            model.push('int ' + v); // ensures it's an integer
-          }
+      // Ensure binary variables
+      for (let i = 1; i <= persons.length; i++) {
+        for (let j = 1; j <= realTeams.length; j++) {
+          let v = 'x' + i + 'y' + j;
+          model.push(v + ' >= 0');
+          model.push(v + ' <= 1');
+          model.push('int ' + v); // ensures it's an integer
         }
+      }
 
-        // Ensure one team per person
+      // Ensure one team per person
+      for (let i = 1; i <= persons.length; i++) {
+        let c = '';
+        for (let j = 1; j <= realTeams.length; j++) {
+          if (c) {
+            c += ' + ';
+          }
+          c += 'x' + i + 'y' + j;
+        }
+        c += ' = 1';
+        model.push(c);
+      }
+
+      let teamIndex = {}; // j lookup
+      for (let j = 0; j < realTeams.length; j++) {
+        teamIndex[realTeams[j].name] = j + 1;
+      }
+
+      let prioritiesObjective = '';
+      for (let i = 1; i <= persons.length; i++) {
+        let person = persons[i - 1];
+        let priorities = person.teamPriorities;
+        for (let k = 0, v = priorities.length; k < priorities.length; k++, v--) {
+          if (prioritiesObjective) {
+            prioritiesObjective += ' + ';
+          }
+          let j = teamIndex[priorities[k].name];
+          prioritiesObjective += v + ' x' + i + 'y' + j;
+        }
+      }
+
+      // TODO: this skillset objective does not work. Redesign / re-think it
+      let desiredSkillWeights = {};
+      desiredSkillWeights[SkillLevel.VeryHigh] = 0.05;
+      desiredSkillWeights[SkillLevel.High] = 0.15;
+      desiredSkillWeights[SkillLevel.Medium] = 0.5;
+      desiredSkillWeights[SkillLevel.Low] = 0.3;
+      desiredSkillWeights[SkillLevel.None] = 0;
+
+      let skillSetObjective = '';
+      for (let j = 1; j <= realTeams.length; j++) {
+        // let c = '';
+
         for (let i = 1; i <= persons.length; i++) {
-          let c = '';
-          for (let j = 1; j <= realTeams.length; j++) {
-            if (c) {
-              c += ' + ';
+          let person = persons[i - 1];
+          if (person.hasSupervisorRating()) {
+            if (skillSetObjective) {
+              skillSetObjective += ' + ';
             }
-            c += 'x' + i + 'y' + j;
+            skillSetObjective += desiredSkillWeights[person.supervisorRating] + ' x' + i + 'y' + j;
           }
-          c += ' = 1';
-          model.push(c);
         }
+      }
 
-        // Device constraints
-        activeConstraints.forEach(constraint => {
+      // TODO: provide UI for specifying weights
+      // For now, specify weights manually
+      // Note: set weight to zero to ignore it
+      let prioritiesObjectiveWeight = 1.0;
+      let skillSetObjectiveWeight = 0.0;
 
-          let cs = [];
+      // objective function
+      let objective = groupLikeTerms([
+        scaleObjective(prioritiesObjective, prioritiesObjectiveWeight),
+        scaleObjective(skillSetObjective, skillSetObjectiveWeight)
+      ].join(' + '));
 
-          if (constraint instanceof MacDeviceConstraint) {
-            cs = this.generateMacDeviceConstraints(constraint, realTeams, persons);
-          }
-          if (constraint instanceof IosDeviceConstraint) {
-            cs = this.generateIosDeviceConstraints(constraint, realTeams, persons);
-          }
-          if (constraint instanceof TeamSizeConstraint) {
-            cs = this.generateTeamSizeConstraints(constraint, realTeams, persons);
-          }
-          if (constraint instanceof FemalePersonConstraint) {
-            cs = this.generateFemalePersonConstraints(constraint, realTeams, persons);
-          }
+      model.push('max: ' + objective);
 
-          cs.forEach(c => {
-            model.push(c);
+      // generate user-specified constraints
+      let promises = [];
+      realTeams.forEach((team, teamIndex) => {
+        let promise = this.constraintService.getApplicableConstraints(team).then(constraints => {
+
+          // Device constraints
+          constraints.forEach(constraint => {
+
+            let cs = [];
+
+            if (constraint instanceof MacDeviceConstraint) {
+              cs = this.generateMacDeviceConstraints(constraint, teamIndex, persons);
+            }
+            if (constraint instanceof IosDeviceConstraint) {
+              cs = this.generateIosDeviceConstraints(constraint, teamIndex, persons);
+            }
+            if (constraint instanceof TeamSizeConstraint) {
+              cs = this.generateTeamSizeConstraints(constraint, teamIndex, persons);
+            }
+            if (constraint instanceof FemalePersonConstraint) {
+              cs = this.generateFemalePersonConstraints(constraint, teamIndex, persons);
+            }
+
+            model = model.concat(cs);
+
           });
 
         });
 
-        let teamIndex = {}; // j lookup
-        for (let j = 0; j < realTeams.length; j++) {
-          teamIndex[realTeams[j].name] = j + 1;
-        }
+        promises.push(promise);
 
-        let prioritiesObjective = '';
-        for (let i = 1; i <= persons.length; i++) {
-          let person = persons[i - 1];
-          let priorities = person.teamPriorities;
-          for (let k = 0, v = priorities.length; k < priorities.length; k++, v--) {
-            if (prioritiesObjective) {
-              prioritiesObjective += ' + ';
-            }
-            let j = teamIndex[priorities[k].name];
-            prioritiesObjective += v + ' x' + i + 'y' + j;
-          }
-        }
+      });
 
-        // TODO: this skillset objective does not work. Redesign / re-think it
-        let desiredSkillWeights = {};
-        desiredSkillWeights[SkillLevel.VeryHigh] = 0.05;
-        desiredSkillWeights[SkillLevel.High] = 0.15;
-        desiredSkillWeights[SkillLevel.Medium] = 0.5;
-        desiredSkillWeights[SkillLevel.Low] = 0.3;
-        desiredSkillWeights[SkillLevel.None] = 0;
-
-        let skillSetObjective = '';
-        for (let j = 1; j <= realTeams.length; j++) {
-          // let c = '';
-
-          for (let i = 1; i <= persons.length; i++) {
-            let person = persons[i - 1];
-            if (person.hasSupervisorRating()) {
-              if (skillSetObjective) {
-                skillSetObjective += ' + ';
-              }
-              skillSetObjective += desiredSkillWeights[person.supervisorRating] + ' x' + i + 'y' + j;
-            }
-          }
-        }
-
-        // TODO: provide UI for specifying weights
-        // For now, specify weights manually
-        // Note: set weight to zero to ignore it
-        let prioritiesObjectiveWeight = 1.0;
-        let skillSetObjectiveWeight = 0.0;
-
-        // objective function
-        let objective = groupLikeTerms([
-          scaleObjective(prioritiesObjective, prioritiesObjectiveWeight),
-          scaleObjective(skillSetObjective, skillSetObjectiveWeight)
-        ].join(' + '));
-
-        model.push('max: ' + objective);
+      Promise.all(promises).then(() => {
 
         // Reformat to JSON model
         let formattedModel = ReformatLP(model);
@@ -321,8 +321,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
         resolve(teams);
 
-      })
+      });
     });
-
   }
 }

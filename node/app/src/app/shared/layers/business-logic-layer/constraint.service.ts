@@ -11,6 +11,20 @@ export class ConstraintService {
   constructor(private constraintAccessService: ConstraintAccessService) {
   }
 
+  private sortConstraintsByPriority(constraint1, constraint2): number {
+    // team-based constraints should come first
+    // then global ones
+    let isTeamBased1 = constraint1.getTeamName() !== Team.SpecialTeamNameForGlobalConstraints;
+    let isTeamBased2 = constraint2.getTeamName() !== Team.SpecialTeamNameForGlobalConstraints;
+    if (isTeamBased1 || isTeamBased2) {
+      if (isTeamBased1 && isTeamBased2) {
+        return 0; // both team-based - no preference
+      }
+      return isTeamBased1 ? -1 : +1; // prefer the team-based over global
+    }
+    return 0; // both global - no preference
+  }
+
   saveConstraints(constraints: Constraint[]) {
     this.constraintAccessService.saveConstraints(constraints);
   }
@@ -19,13 +33,57 @@ export class ConstraintService {
     return this.constraintAccessService.fetchConstraints();
   }
 
+  mergeConstraintsOfTheSameType(constraints: Constraint[]): Constraint[] {
+
+    let mergedConstraints = [];
+
+    let constraintsGroupedByClass = {};
+
+    for (let i = 0; i < constraints.length; i++) {
+
+      let className = constraints[i].constructor.name;
+      if (!(className in constraintsGroupedByClass)) {
+        constraintsGroupedByClass[className] = [];
+      }
+      constraintsGroupedByClass[className].push(constraints[i]);
+
+    }
+
+    for (let className in constraintsGroupedByClass) {
+
+      let constraintsOfTheSameType = constraintsGroupedByClass[className];
+
+      constraintsOfTheSameType.sort(this.sortConstraintsByPriority);
+
+      // clone the original object
+      let templateObject = constraintsOfTheSameType[0];
+      let mergedConstraint = Object.assign(Object.create(templateObject), templateObject);
+
+      // merge constraints into the new object
+      for (let constraint of constraintsOfTheSameType) {
+
+        if (typeof mergedConstraint.getMinValue() !== 'number' && typeof constraint.getMinValue() === 'number') {
+          mergedConstraint.setMinValue(constraint.getMinValue());
+        }
+
+        if (typeof mergedConstraint.getMaxValue() !== 'number' && typeof constraint.getMaxValue() === 'number') {
+          mergedConstraint.setMaxValue(constraint.getMaxValue());
+        }
+
+      }
+
+      mergedConstraints.push(mergedConstraint);
+
+    }
+
+    return mergedConstraints;
+  }
+
   // Returns an array of constraints applicable to the current team only
   // Note: these constraints differ from those stored in memory, and hence should not be saved!
   getApplicableConstraints(team?: Team): Promise<Constraint[]> {
     return new Promise((resolve, reject) => {
       this.fetchConstraints().then(constraints => {
-
-        console.log('Choosing applicable constraints from:', constraints);
 
         let applicableConstraints = [];
 
@@ -35,13 +93,15 @@ export class ConstraintService {
             return;
           }
 
-          if (!team && !constraint.getTeamName() // global constraint
+          if (constraint.getTeamName() === Team.SpecialTeamNameForGlobalConstraints // global constraint
             || team && constraint.getTeamName() === team.name) { // team-based constraint
             applicableConstraints.push(constraint);
           }
         });
 
-        resolve(applicableConstraints);
+        let mergedConstraints = this.mergeConstraintsOfTheSameType(applicableConstraints);
+
+        resolve(mergedConstraints);
       });
     });
   }
