@@ -33,6 +33,9 @@ export class ConstraintService {
     return this.constraintAccessService.fetchConstraints();
   }
 
+  // merges all constraints of the same type into just one 'representative' constraint
+  // e.g. global '8 <= team size <= 9' and team-based 'team size >= 5' will be merged into '5 <= team size <= 9'
+  // note: this also allows constraints to be enabled and not fully specified (e.g. empty, or partial)
   mergeConstraintsOfTheSameType(constraints: Constraint[]): Constraint[] {
 
     let mergedConstraints = [];
