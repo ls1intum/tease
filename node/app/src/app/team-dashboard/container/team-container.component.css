@@ -5,18 +5,9 @@
   margin-right: 10px;
   display:flex;
   flex-direction: column;
-  background-color: #E0E0E0;
+  background-color: transparent;
 }
 
-.roundedUpperCorners {
-  border-top-right-radius: 7px;
-  border-top-left-radius: 7px;
-}
-
-.roundedLowerCorners {
-  border-bottom-right-radius: 7px;
-  border-bottom-left-radius: 7px;
-}
 .containerHeader {
   height:auto;
 }
@@ -27,8 +18,7 @@
   min-height: 30px;
   overflow-y: auto;
   overflow-x: hidden;
-  background-color: #E0E0E0;
-
+  background-color: transparent;
 }
 
 #titleContainer {
@@ -36,10 +26,11 @@
   display: flex;
   align-items: center;
   padding:10px;
-  background: white;
+  background: rgba(255, 255, 255, .3);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: clip;
+  border-radius: 5px;
 }
 
 #teamName {
@@ -50,7 +41,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   font-weight: lighter;
-  color: grey;
+  color: white;
 }
 
 .divider {
