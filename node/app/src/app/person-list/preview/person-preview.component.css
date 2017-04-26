@@ -68,18 +68,6 @@
   overflow: hidden;
 }
 
-/* this makes the badges "fade out" */
-/*
-.priorities-preview:after {
-  content: "";
-  position: absolute;
-  height: 100%;
-  right: 0;
-  width: 20%;
-  background: linear-gradient(to right, transparent, white);
-}
-*/
-
 .team-badge {
   background-color: #EAEAEA;
   border-radius: 3px;

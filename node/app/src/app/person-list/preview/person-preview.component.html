@@ -29,10 +29,9 @@
       </div>
     </div>
 
-    <!-- preview of team priorities -->
+    <!-- team priorities -->
     <div class="flex-column flex-center">
-
-      <!-- all teams cut of on the right -->
+      <!-- teams 1 - 6 -->
       <span class="priorities-preview" style="margin-bottom: 4px;">{{team}}
           <span *ngFor="let team of person.teamPriorities.slice(0, 6); let i = index"
                 class="team-badge flex-spacing-x-2px"
@@ -41,7 +40,7 @@
           </span>
       </span>
 
-      <!-- all teams cut of on the right -->
+      <!-- teams 6 - 12 -->
       <span class="priorities-preview">{{team}}
           <span *ngFor="let team of person.teamPriorities.slice(6, 12); let i = index"
                 class="team-badge flex-spacing-x-2px"
@@ -49,15 +48,6 @@
             {{team.name}}
           </span>
       </span>
-
-      <!-- current team highlighted if not top 3 -->
-      <!--span *ngIf="person.teamPriorities.indexOf(person.team) >= 3">
-        <span class="team-badge team-badge-highlight">
-          <span class="team-badge-index">{{person.teamPriorities.indexOf(person.team) + 1}}</span>
-          {{person.team.name}}
-        </span>
-      </span-->
-
     </div>
 
   </md-card>
