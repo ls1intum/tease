@@ -7,9 +7,9 @@ export abstract class Colors {
   static getColor(skillLevel: SkillLevel): string {
     switch(skillLevel){
       case SkillLevel.VeryHigh:
-        return "#4EAE4F";
+        return "#4a9ddd";
       case SkillLevel.High:
-        return "#CAD63F";
+        return "#4EAE4F";
       case SkillLevel.Medium:
         return "#F39519";
       case SkillLevel.Low:
