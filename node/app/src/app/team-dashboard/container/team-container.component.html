@@ -1,8 +1,13 @@
-<div *ngIf="team" id="container" class="roundedUpperCorners roundedLowerCorners">
-  <div class="containerHeader roundedUpperCorners">
-    <div id="titleContainer" class="roundedUpperCorners">
+<div *ngIf="team" id="container">
+  <div class="containerHeader">
+    <div style="padding-left: 20px; margin-bottom: 10px" id="titleContainer" >
       <h1>
-        <div id="teamName">{{team.name}} ({{team.persons.length}})</div>
+        <div id="teamName">
+          {{team.name}}
+          <span style="margin-left: 10px; color: rgba(255, 255, 255, 0.5)">
+            {{team.persons.length}}
+          </span>
+        </div>
       </h1>
       <div id="infoButton">
         <button md-button (click)="showStatistics()">
@@ -13,16 +18,12 @@
 
     <div *ngIf="isStatisticsVisible">
       <team-score *ngIf="!isTeamEmpty()" [team]="team"></team-score>
-      <hr>
       <priority-chart *ngIf="!isTeamEmpty()" [team]="team"></priority-chart>
-      <hr>
       <devices [devices]="getDevices()"></devices>
     </div>
-
-    <hr>
   </div>
 
-  <div [dragula]='"first-bag"' class='drag-container roundedLowerCorners'
+  <div [dragula]='"first-bag"' class='drag-container'
        [dragulaModel]="team.persons">
     <div class='sub-element' *ngFor="let person of team.persons" (click)="showPersonDetails(person)">
       <person-preview [person]="person"></person-preview>
