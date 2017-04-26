@@ -4,15 +4,18 @@ main {
   box-sizing: border-box;
 }
 
-.person-preview {
+.card-container {
+  justify-content: center;
   width: 70%;
   min-width: 400px;
-  text-align: start;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
+  margin-left: auto;
+  margin-right: auto;
 
-.box {
-  /*position:absolute; top:0; left:0; right:0; bottom:0*/
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
 }
