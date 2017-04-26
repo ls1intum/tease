@@ -1,13 +1,5 @@
 <div id="container">
-
-  <div class="priorityBoxContainer" *ngFor="let skill of skills">
-    <div class="priorityBox">
-      <div class="column">{{getSkillName(skill)}}</div>
-      <div class="verticalDivider"></div>
-      <div class="column">
-        <img class="icon" mdTooltip="{{getSkillLevelName(skill)}}" src="{{getSkillIconPath(skill)}}">
-      </div>
-    </div>
+  <div class="priorityBoxContainer" mdTooltip="{{getSkillLevelName(skill)}}" *ngFor="let skill of skills" [style.background-color]="getColor(skill.skillLevel)">
+      {{getSkillName(skill)}}
   </div>
-
 </div>

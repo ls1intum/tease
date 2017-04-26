@@ -3,6 +3,7 @@ import {DeviceType, Device} from "../../shared/models/device";
 import {IconMapperService} from "../../shared/ui/icon-mapper.service";
 import {Team} from "../../shared/models/team";
 import {Skill, SkillLevel} from "../../shared/models/skill";
+import {Colors} from "../../shared/constants/color.constants";
 /**
  * Created by Malte Bucksch on 17/12/2016.
  */
@@ -15,6 +16,7 @@ import {Skill, SkillLevel} from "../../shared/models/skill";
 export class SkillsComponent {
   @Input()
   private skills: Skill[];
+  private getColor = Colors.getColor;
 
   constructor(private iconMapperService: IconMapperService){
 
