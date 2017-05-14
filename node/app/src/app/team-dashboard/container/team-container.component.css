@@ -44,21 +44,8 @@
   color: #435761;
 }
 
-.divider {
-  width: 100%;
-}
-
 #infoButton {
   margin-left: auto;
   display: flex;
   flex-direction: row;
 }
-
-.sub-element {
-  /*margin-right: 9px;*/
-}
-
-hr {
-  margin: 0;
-}
-

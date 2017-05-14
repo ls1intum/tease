@@ -1,5 +1,6 @@
 #dashboard {
   overflow-x: auto;
+  overflow-y: hidden;
   width: auto;
   height: 100%;
   display:flex;
@@ -8,9 +9,6 @@
 
 team-container {
   width:auto;
-  /*feeling dirty*/
-  /*work around for the fact that css margins push parent borders and therefore a scrollbar is shown*/
-  height: calc(100% - 20px);
   padding-top: 10px;
-  padding-bottom: 10px;
+  height: calc(100% - 10px);
 }
