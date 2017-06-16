@@ -39,6 +39,7 @@
 .device-icon {
   width: 20px;
   height: 20px;
+  opacity: .8;
 }
 
 .skill-badge {
@@ -52,7 +53,7 @@
   margin-top: auto;
 }
 
-.language-level {
+.language-level-badge {
   background-color: #EAEAEA;
 }
 

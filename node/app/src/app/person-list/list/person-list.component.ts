@@ -9,6 +9,7 @@ import {LangPersonList} from "../../shared/constants/language.constants";
 import {TeamHelper} from "../../shared/helpers/team.helper";
 import {Subscription} from "rxjs";
 import {PersonService} from "../../shared/layers/business-logic-layer/person.service";
+import {CustomPersonDetailDialogService} from "../../shared/services/custom-person-detail-dialog.service";
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -28,7 +29,8 @@ export class PersonListComponent implements OnInit, OnDestroy {
               private personService: PersonService,
               private viewContainerRef: ViewContainerRef,
               private dialogService: DialogService,
-              private toolbarService: ToolbarService) {
+              private toolbarService: ToolbarService,
+              /*private customPersonDetailDialogService: CustomPersonDetailDialogService*/) {
     this.toolbarService.resetToDefaultValues();
     this.toolbarService.changeButtonName(LangPersonList.ToolbarButtonName);
   }
@@ -66,6 +68,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
         if (event === EventTypePersonDetails.NextPersonPressed)
           this.showNextUnratedPerson();
       });
+    //this.customPersonDetailDialogService.displayedPersonEventEmitter.emit(person);
   }
 
   showNextUnratedPerson() {

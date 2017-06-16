@@ -11,6 +11,7 @@ import {ToolbarService} from "../../shared/ui/toolbar.service";
 import {LangDashbaord} from "../../shared/constants/language.constants";
 import {Subscription} from "rxjs";
 import {TeamHelper} from "../../shared/helpers/team.helper";
+import {CustomPersonDetailDialogService} from "../../shared/services/custom-person-detail-dialog.service";
 /**
  * Created by Malte Bucksch on 25/11/2016.
  */
@@ -21,6 +22,7 @@ import {TeamHelper} from "../../shared/helpers/team.helper";
   styleUrls: ['team-dashboard.component.css',
     '../styles/dragula.min.css'],
   selector: 'team-dashboard',
+  providers: [CustomPersonDetailDialogService]
 })
 export class TeamDashboardComponent implements OnInit, OnDestroy {
   private readonly EXPORT_FILE_NAME = "team_data.csv";

@@ -19,7 +19,7 @@
       <div class="flex-row flex-center">
         <img class="device-icon flex-spacing-x-2px" *ngFor="let device of person.devices" src="{{getDeviceIconPath(device)}}">
 
-        <span class="badge language-level flex-right">
+        <span class="badge language-level-badge flex-right">
           <img class="flag-icon" src="/assets/images/german.svg">
           {{person.germanLanguageLevel}}
         </span>
@@ -28,7 +28,7 @@
   </div>
 
   <!-- team priorities -->
-  <div class="flex-column flex-center">
+  <div class="flex-column">
     <!-- teams 1 - 6 -->
     <span class="priorities-preview" style="margin-bottom: 4px;">{{team}}
         <span *ngFor="let team of person.teamPriorities.slice(0, 6); let i = index"

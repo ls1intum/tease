@@ -1,13 +1,15 @@
 import {Component, OnInit, OnDestroy, ViewChild} from "@angular/core";
 import {Person} from "../../shared/models/person";
 import {MaterialModule, MdDialogRef, MdRadioGroup} from '@angular/material';
-import {SkillLevel} from "../../shared/models/skill";
+import {Skill, SkillLevel} from "../../shared/models/skill";
 import {TeamService} from "../../shared/layers/business-logic-layer/team.service";
 import {PersonStatisticsService} from "../../shared/layers/business-logic-layer/person-statistics.service";
 import {Observable, Subject} from "rxjs";
 import {IconMapperService} from "../../shared/ui/icon-mapper.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
+import {Colors} from "../../shared/constants/color.constants";
+import {Device} from "../../shared/models/device";
 
 
 /**
@@ -120,5 +122,34 @@ export class PersonDetailComponent implements OnInit {
   }
   openAsPopupClicked(): Observable<any> {
     return this.openAsPopupClickSubject.asObservable();
+  }
+
+  // qusc
+  getGenderIconPath(): string {
+    return this.iconMapperService.getGenderIconPath(this.person.gender);
+  }
+
+  isPersonRated():boolean {
+    return this.person.supervisorRating != undefined && this.person.supervisorRating != SkillLevel.None;
+  }
+
+  getSupervisorRatingColor(): string {
+    return Colors.getColor(this.person.supervisorRating);
+  }
+
+  getLabelForSkillLevel = Skill.getLabelForSkillLevel;
+
+  getDeviceIconPath(device: Device): string {
+    return this.iconMapperService.getDeviceTypeIconPath(device.deviceType);
+  }
+
+  private getSkillColor = Colors.getColor;
+
+  filterSkills(skills: Skill[], skillLevel: number) {
+    return skills.filter(function(skill) { return skill.skillLevel == skillLevel });
+  }
+
+  range(count: number): number[] {
+    return Array.apply(null, Array(count)).map(function (_, i) {return i;});
   }
 }

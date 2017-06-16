@@ -42,7 +42,11 @@ mat-toolbar-row {
 }
 
 .flex-center {
-  align-content: center;
+  align-items: center;
+}
+
+.flex-grow {
+  flex-grow: 1;
 }
 
 .flex-spacing-x-2px {
@@ -56,4 +60,24 @@ mat-toolbar-row {
 
 .flex-spacing-x-2px:last-child {
   margin-right: 0;
+}
+
+.flex-basis-zero {
+  flex-basis: 0;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.width-50 {
+  width: 50%;
 }

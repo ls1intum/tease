@@ -15,7 +15,7 @@ export abstract class Colors {
       case SkillLevel.Low:
         return "#E7453A";
       case SkillLevel.None:
-        return "#909090";
+        return "#EAEAEA";
     }
   }
 

@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {Person} from "../../shared/models/person";
 import {IconMapperService} from "../../shared/ui/icon-mapper.service";
-import {SkillLevel} from "../../shared/models/skill";
+import {Skill, SkillLevel} from "../../shared/models/skill";
 import {Colors} from "../../shared/constants/color.constants";
 import {Device} from "../../shared/models/device";
 
@@ -23,15 +23,15 @@ export class PersonPreviewComponent {
 
   }
 
-  getColor(): string{
+  getColor(): string {
     return Colors.getColor(this.person.supervisorRating);
   }
 
-  getSkillIconPath(): string{
+  getSkillIconPath(): string {
     return this.iconMapperService.getSkillIconPath(this.person.supervisorRating);
   }
 
-  getGenderIconPath(): string{
+  getGenderIconPath(): string {
     return this.iconMapperService.getGenderIconPath(this.person.gender);
   }
 
@@ -47,18 +47,5 @@ export class PersonPreviewComponent {
     return this.person.supervisorRating != undefined && this.person.supervisorRating != SkillLevel.None;
   }
 
-  getLabelForSkillLevel(skillLevel: SkillLevel) {
-    switch(skillLevel) {
-      case SkillLevel.Low:
-        return "Novice"
-      case SkillLevel.Medium:
-        return "Normal";
-      case SkillLevel.High:
-        return "Advanced";
-      case SkillLevel.VeryHigh:
-        return "Expert";
-    }
-
-    return "";
-  }
+  getLabelForSkillLevel = Skill.getLabelForSkillLevel;
 }

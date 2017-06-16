@@ -22,6 +22,21 @@ export class Skill {
   toString(): string {
     return CsvValueNames.SkillLevelValue[SkillLevel[this.skillLevel]];
   }
+
+  public static getLabelForSkillLevel(skillLevel: SkillLevel) {
+    switch(skillLevel) {
+      case SkillLevel.Low:
+        return "Novice";
+      case SkillLevel.Medium:
+        return "Normal";
+      case SkillLevel.High:
+        return "Advanced";
+      case SkillLevel.VeryHigh:
+        return "Expert";
+    }
+
+    return "";
+  }
 }
 
 export enum SkillLevel {
