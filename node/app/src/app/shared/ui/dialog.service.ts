@@ -5,7 +5,7 @@ import {Observable, Subject} from 'rxjs/Rx';
 import { MdDialogRef, MdDialog, MdDialogConfig } from '@angular/material';
 import { Injectable, ViewContainerRef } from '@angular/core';
 import {Person} from "../models/person";
-import {PersonDetailComponent} from "../../person-details/details/person-detail.component";
+import {PersonDetailComponent} from "../../team-dashboard/person-details/person-detail.component";
 
 @Injectable()
 export class DialogService {

@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ViewChild} from "@angular/core";
+import {Component, OnInit, Input} from "@angular/core";
 import {Person} from "../../shared/models/person";
 import {MaterialModule, MdDialogRef, MdRadioGroup} from '@angular/material';
 import {Skill, SkillLevel} from "../../shared/models/skill";
@@ -10,7 +10,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
 import {Colors} from "../../shared/constants/color.constants";
 import {Device} from "../../shared/models/device";
-
+import {Team} from "../../shared/models/team";
 
 /**
  * Created by wanur on 05/11/2016.
@@ -22,7 +22,7 @@ import {Device} from "../../shared/models/device";
   styleUrls: ["person-detail.component.css"]
 })
 export class PersonDetailComponent implements OnInit {
-  person: Person;
+  @Input() person: Person;
   persons: Person[] = [];
 
   // enums can only be used in a template with this shitty work around.
@@ -51,6 +51,10 @@ export class PersonDetailComponent implements OnInit {
     }
 
     this.fetchPersonFromUrlId();
+  }
+
+  test() {
+    console.log("test 54231");
   }
 
   private fetchPersonFromUrlId() {
@@ -151,5 +155,9 @@ export class PersonDetailComponent implements OnInit {
 
   range(count: number): number[] {
     return Array.apply(null, Array(count)).map(function (_, i) {return i;});
+  }
+
+  isInTeam(person: Person): boolean {
+    return person.team.name != Team.OrphanTeamName;
   }
 }

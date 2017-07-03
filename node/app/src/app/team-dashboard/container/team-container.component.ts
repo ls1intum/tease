@@ -8,6 +8,7 @@ import {TeamHelper} from "../../shared/helpers/team.helper";
 import {PersonService} from "../../shared/layers/business-logic-layer/person.service";
 import {Observable} from "rxjs";
 import {Colors} from "../../shared/constants/color.constants";
+import {CustomPersonDetailDialogService} from "../../shared/ui/custom-person-detail-dialog.service";
 
 /**
  * Created by Malte Bucksch on 06/12/2016.
@@ -22,8 +23,6 @@ import {Colors} from "../../shared/constants/color.constants";
 export class TeamContainerComponent implements AfterViewInit,OnInit {
   @Input()
   private team: Team;
-  @Input()
-  private teams: Team[];
 
   private persons: Person[];
   private isStatisticsVisible = false;
@@ -33,7 +32,8 @@ export class TeamContainerComponent implements AfterViewInit,OnInit {
   constructor(private dialogService: DialogService,
               private personService: PersonService,
               private viewContainerRef: ViewContainerRef,
-              private iconMapperService: IconMapperService) {
+              private iconMapperService: IconMapperService,
+              private customPersonDetailDialogService: CustomPersonDetailDialogService) {
   }
 
   ngOnInit() {
@@ -41,10 +41,10 @@ export class TeamContainerComponent implements AfterViewInit,OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.persons = TeamHelper.getPersons(this.teams);
   }
 
   showPersonDetails(person: Person) {
+    /*
     this.dialogService.showPersonDetails(person, this.persons, this.viewContainerRef)
       .subscribe(event => {
         this.personClose.emit();
@@ -52,6 +52,11 @@ export class TeamContainerComponent implements AfterViewInit,OnInit {
         if (event === EventTypePersonDetails.NextPersonPressed)
           this.showNextUnratedPerson();
       });
+      */
+
+    console.log("showPersonDetails()!");
+
+    this.customPersonDetailDialogService.displayedPersonEventEmitter.emit(person);
   }
 
   showNextUnratedPerson() {

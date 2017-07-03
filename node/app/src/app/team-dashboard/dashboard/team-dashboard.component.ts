@@ -3,7 +3,6 @@ import {TeamService} from "../../shared/layers/business-logic-layer/team.service
 import {Team} from "../../shared/models/team";
 import {Router} from "@angular/router";
 import {MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
-import {PersonDetailComponent} from "../../person-details/details/person-detail.component";
 import {Person} from "../../shared/models/person";
 import {DragulaService} from "ng2-dragula/components/dragula.provider";
 import {PersonPreviewComponent} from "../../person-list/preview/person-preview.component";
@@ -11,7 +10,7 @@ import {ToolbarService} from "../../shared/ui/toolbar.service";
 import {LangDashbaord} from "../../shared/constants/language.constants";
 import {Subscription} from "rxjs";
 import {TeamHelper} from "../../shared/helpers/team.helper";
-import {CustomPersonDetailDialogService} from "../../shared/services/custom-person-detail-dialog.service";
+import {PersonDetailComponent} from "../person-details/person-detail.component";
 /**
  * Created by Malte Bucksch on 25/11/2016.
  */
@@ -22,7 +21,6 @@ import {CustomPersonDetailDialogService} from "../../shared/services/custom-pers
   styleUrls: ['team-dashboard.component.css',
     '../styles/dragula.min.css'],
   selector: 'team-dashboard',
-  providers: [CustomPersonDetailDialogService]
 })
 export class TeamDashboardComponent implements OnInit, OnDestroy {
   private readonly EXPORT_FILE_NAME = "team_data.csv";

@@ -1,0 +1,222 @@
+
+<div class="flex-justify-center flex-row main-row">
+  <div class="flex-column flex-justify-center">
+    <md-card class="detail-card flex-column" *ngIf="person" (click)="$event.stopPropagation()">
+      <div class="flex-row">
+        <img id="profile-picture" src="{{getGravatarIconPath()}}">
+        <div class="flex-column" id="name-flex-column">
+
+          <div class="flex-row" id="name-flex-row">
+            <img id="gender-icon" src="{{getGenderIconPath()}}">
+            <div id="person-name">{{person.firstName}} {{person.lastName}}</div>
+            <div *ngIf="isPersonRated()" class="badge flex-right skill-badge skill-badge-main" [style.background-color]="getSupervisorRatingColor()">
+              {{getLabelForSkillLevel(person.supervisorRating)}}
+            </div>
+          </div>
+
+          <div class="flex-row">
+            <div class="flex-column person-value-container">
+              <div class="heading">Major</div>
+              <div class="person-value">{{ person.major }}</div>
+            </div>
+            <div class="flex-column flex-grow person-value-container">
+              <div class="heading">Term</div>
+              <div class="person-value">{{ person.currentTerm }}</div>
+            </div>
+            <div class="flex-column">
+              <div class="heading">Languages</div>
+              <div class="flex-row">
+                <div class="badge language-level-badge flex-row flex-center">
+                  <img class="flag-icon" src="/assets/images/german.svg">
+                  <div class="person-language-name">{{person.germanLanguageLevel}}</div>
+                </div>
+                <div class="badge language-level-badge flex-row flex-center">
+                  <img class="flag-icon" src="/assets/images/english.svg">
+                  <div class="person-language-name">{{person.englishLanguageLevel}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-row">
+            <div class="flex-column person-value-container">
+              <div class="heading">Devices</div>
+              <div class="flex-row">
+                <div *ngIf="person.devices.length == 0" class="person-value">—</div>
+                <img class="device-icon flex-spacing-x-2px" *ngFor="let device of person.devices" src="{{getDeviceIconPath(device)}}">
+              </div>
+            </div>
+            <div class="flex-column person-value-container flex-grow">
+              <div class="heading">Mail</div>
+              <div class="person-value">{{ person.email }}</div>
+            </div>
+            <div class="flex-column">
+              <div class="heading">TUM ID</div>
+              <div class="person-value">{{ person.tumId }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="flex-row">
+
+        <div class="flex-column person-value-container width-50">
+          <div class="heading">Project Priorities</div>
+          <!-- team priorities -->
+
+          <div class="flex-row flex-wrap team-priorities-row">
+            <div *ngFor="let team of person.teamPriorities; let i = index"
+                 class="badge team-badge person-value position-relative"
+                 [class.team-badge-highlight]="team === person.team">
+              <div class="team-badge-index">{{ i + 1 }}</div>
+              <div class="overflow-hidden">{{ team.name }}</div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="flex-column flex-grow person-value-container width-50">
+          <div class="heading">Skills</div>
+
+          <div class="flex-column skill-row-with-label-container">
+            <div *ngFor="let skillLevel of range(4)" class="flex-row">
+              <div *ngIf="filterSkills(person.skills, skillLevel).length > 0" class="flex-row flex-wrap skill-row-container">
+                <div class="badge skill-badge"
+                     *ngFor="let skill of filterSkills(person.skills, skillLevel)"[style.background-color]="getSkillColor(skill.skillLevel)">
+                  {{ skill.skillName }}
+                </div>
+              </div>
+              <div *ngIf="filterSkills(person.skills, skillLevel).length > 0" class="skill-hint flex-grow" [style.color]="getSkillColor(skillLevel)">{{ getLabelForSkillLevel(skillLevel) }}</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="flex-column person-value-container">
+        <div class="heading">iOS Experience</div>
+        <div class="flex-row flex-center">
+          <div class="quotation-mark quotation-mark-start">“</div><div class="quote-text">{{ person.iosDevExp }}</div>
+          <div class="quotation-mark quotation-mark-end">”</div><div class="quote-author">  —  {{person.firstName}}</div>
+        </div>
+
+        <div *ngIf="person.iosDevExpDescription" class="flex-row flex-center">
+          <div class="quotation-mark quotation-mark-start">“</div><div class="quote-text">{{ person.iosDevExpDescription }}</div>
+          <div class="quotation-mark quotation-mark-end">”</div><div class="quote-author">  —  {{person.firstName}}</div>
+        </div>
+
+        <div class="flex-row flex-center">
+          <div class="quotation-mark quotation-mark-start">“</div><div class="quote-text">Tutor comment could be inserted here :)</div>
+          <div class="quotation-mark quotation-mark-end">”</div><div class="quote-author">  —  Dennis, Tutor</div>
+        </div>
+      </div>
+
+
+      <!--
+      <md-toolbar id="topBar" color="primary">
+        <div class="personHeader">
+          {{person.firstName}} {{person.lastName}}
+          <span class="app-toolbar-filler"></span>
+          <img id="personPic" src="{{getGravatarIconPath()}}">
+        </div>
+        <button class="popupButton" mdTooltip="Show in separate window" md-raised-button color="accent" (click)="onOpenInPopupClicked()" *ngIf="!isDialog">
+          <md-icon style="color: white">fullscreen</md-icon>
+        </button>
+      </md-toolbar>
+      <div id="scroll_container" [ngClass]="{'popupStyle': !isDialog }">
+        <div class="gridLayout">
+          <div class="row">
+            <h3> Major </h3>
+            <p>{{person.major}}</p>
+          </div>
+          <div class="row">
+            <h3> Term </h3>
+            <p>{{person.currentTerm}}</p>
+          </div>
+          <div class="row">
+            <h3> E-Mail </h3>
+            <p>{{person.email}}</p>
+          </div>
+          <div class="row">
+            <h3> Tum-Id </h3>
+            <p>{{person.tumId}}</p>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="gridLayout">
+          <div class="row">
+            <h3> German Language Level </h3>
+            <p>{{person.germanLanguageLevel}}</p>
+          </div>
+
+          <div class="row">
+            <h3> English Language Level </h3>
+            <p>{{person.englishLanguageLevel}}</p>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <h3> iOS-Experience </h3>
+          <p>{{person.iosDevExp}}</p>
+        </div>
+
+        <div class="row">
+          <h3> iOS-Experience description </h3>
+          <p>{{person.iosDevExpDescription}}</p>
+        </div>
+
+        <hr>
+        <div class="row">
+          <h3>Project Priorities</h3>
+          <priorities [teamPriorities]="person.teamPriorities" [markedPriorities]="[person.team]"></priorities>
+        </div>
+        <div class="row">
+          <h3>Skills</h3>
+          <skills [skills]="person.skills"></skills>
+        </div>
+        <div class="row">
+          <h3> Devices </h3>
+          <devices [devices]="person.devices" [alignCenter]="false"></devices>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <h3> Comments </h3>
+          <p>{{person.generalComments}}</p>
+        </div>
+      </div>
+
+      <md-toolbar color="primary" *ngIf="!isDialog">
+        <md-radio-group [(value)]="skillString" (change)="onChangeRating($event.value)">
+          <md-radio-button value="{{PersonSkillLevel.Low}}">Novice</md-radio-button>
+          <md-radio-button value="{{PersonSkillLevel.Medium}}">Normal</md-radio-button>
+          <md-radio-button value="{{PersonSkillLevel.High}}">Advanced</md-radio-button>
+          <md-radio-button value="{{PersonSkillLevel.VeryHigh}}">Expert</md-radio-button>
+        </md-radio-group>
+        <md-toolbar-row>
+          <span class="app-toolbar-filler"></span>
+
+          <div id="unratedPersons">{{getRatedPersonCount()}}/{{getPersonCount()}}</div>
+          <button md-raised-button [disabled]="isNextButtonDisabled" (click)="onNextPersonClicked()" color="accent">Next
+            unassessed person
+          </button>
+        </md-toolbar-row>
+      </md-toolbar>
+      -->
+    </md-card>
+  </div>
+  <div class="flex-column flex-justify-center">
+    <team-container *ngIf="isInTeam(person)" [team]="person.team"></team-container>
+  </div>
+</div>
+
+

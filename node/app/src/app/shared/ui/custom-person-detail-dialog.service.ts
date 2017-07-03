@@ -5,4 +5,8 @@ import {Person} from "../models/person";
 export class CustomPersonDetailDialogService {
   // Observable
   displayedPersonEventEmitter: EventEmitter<Person> = new EventEmitter();
+
+  constructor(){
+    console.log("CustomPersonDetailDialogService constructor called");
+  }
 }

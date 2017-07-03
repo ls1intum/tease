@@ -17,6 +17,12 @@
     </button>
   </div>
 
+  <div *ngIf="personDetailDialogDisplayedPerson">
+    <div class="dialog-container" (click)="closePersonDetailDialog()">
+      <person-detail [person]="personDetailDialogDisplayedPerson"></person-detail>
+    </div>
+  </div>
+
   <div class="app-content md-primary">
     <router-outlet>
 

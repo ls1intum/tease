@@ -1,7 +1,11 @@
-#main {
+.main-row {
+  height: 100%;
+}
+
+.detail-card {
   width: 800px;
   height: 80vh;
-  padding: 0px;
+  padding: 10px;
 }
 
 #profile-picture {

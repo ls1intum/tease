@@ -1,5 +1,5 @@
 <div *ngIf="teams" id="dashboard">
-  <team-container *ngFor="let team of teams" [team]="team" [teams]="teams"
+  <team-container *ngFor="let team of teams" [team]="team"
                   (personClose)="onPersonDialogClosed()" class='drag-container'>
   </team-container>
 </div>

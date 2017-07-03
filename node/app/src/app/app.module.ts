@@ -6,7 +6,6 @@ import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {HttpModule} from "@angular/http";
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
-import {PersonDetailModule} from "./person-details/person-detail.module";
 import {PersonListModule} from "./person-list/person-list.module";
 import {MaterialModule} from "@angular/material";
 import {PersonDataImporterModule} from "./person-data-importer/person-data-importer.module";
@@ -19,8 +18,7 @@ import {TeamGenerationModule} from "./team-generation/team-generation.module";
   imports     : [BrowserModule,
     FormsModule, HttpModule,
     RouterModule.forRoot(rootRouterConfig,  {useHash: false}),
-  PersonDetailModule, PersonDataImporterModule,
-  PersonListModule,TeamDashboardModule,TeamGenerationModule, MaterialModule, DragulaModule],
+  PersonDataImporterModule, PersonListModule, TeamDashboardModule, TeamGenerationModule, MaterialModule, DragulaModule],
   providers   : [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap   : [AppComponent],
 })

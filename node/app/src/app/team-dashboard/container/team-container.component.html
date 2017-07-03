@@ -1,4 +1,4 @@
-<div *ngIf="team" id="container">
+<div *ngIf="team" id="container" (click)="$event.stopPropagation()">
   <div class="containerHeader">
     <div style="padding-left: 20px; margin-bottom: 10px" id="titleContainer">
       <h1>
@@ -19,7 +19,7 @@
     <div *ngIf="isStatisticsVisible">
       <team-score *ngIf="!isTeamEmpty()" [team]="team"></team-score>
       <priority-chart *ngIf="!isTeamEmpty()" [team]="team"></priority-chart>
-      <devices [devices]="getDevices()"></devices>
+      <!--devices [devices]="getDevices()"></devices-->
     </div>
   </div>
 
