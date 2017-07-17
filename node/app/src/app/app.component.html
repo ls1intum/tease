@@ -1,32 +1,44 @@
 <div class="container">
-  <div *ngIf="isToolbarVisible" class="centerContentVertically" color="primary" id="toolbar">
-    <div class="clickable centerContentVertically" (click)="gotoHome()">
-      <img class="icon" src="/assets/images/icon.png">
-      TEASE
+
+  <!-- toolbar -->
+  <div class="toolbar">
+    <div class="toolbar-item-container flex-row flex-center">
+      <img class="icon toolbar-items-spacing" src="/assets/images/icon.png">
+      <div class="app-title toolbar-items-spacing flex-grow">Tease</div>
+      <!--div class="toolbar-items-spacing">
+        <button md-raised-button color="accent"><i class="material-icons md-dark">file_upload</i>Import</button>
+      </div>
+      <div class="toolbar-items-spacing">
+        <button md-raised-button color="accent"><i class="material-icons md-dark">file_download</i>Export</button>
+      </div-->
     </div>
-
-    <span class="app-toolbar-filler"></span>
-
-    <p *ngIf="isScoreVisible && totalScore > 0">Score: {{totalScore}}</p>
-    <p *ngIf="isScoreVisible && totalScore == 0">No feasible solution</p>
-
-    <span class="app-toolbar-filler"></span>
-
-    <button id="mainActionButton" *ngIf="isButtonVisible" md-raised-button color="accent"
-            (click)="onButtonClicked()">{{buttonName}}
-    </button>
   </div>
 
+  <!-- dialog for person details is inserted here -->
   <div *ngIf="personDetailDialogDisplayedPerson">
     <div class="dialog-container" (click)="closePersonDetailDialog()">
       <person-detail [person]="personDetailDialogDisplayedPerson"></person-detail>
     </div>
   </div>
 
-  <div class="app-content md-primary">
-    <router-outlet>
+  <div class="app-content position-fixed-fill">
+    <team-dashboard>
 
-    </router-outlet>
+    </team-dashboard>
+  </div>
+
+  <!-- temporary buttons -->
+  <div class="toolbar-temporary flex-row-reverse">
+    <div class="toolbar-temporary-item">
+      <button md-raised-button color="accent" (click)="loadExampleData()">
+        <i class="material-icons md-dark">file_upload</i>Import
+      </button>
+    </div>
+    <div class="toolbar-temporary-item">
+      <button md-raised-button color="accent" (click)="exportFile()">
+        <i class="material-icons md-dark">file_download</i>Export
+      </button>
+    </div>
   </div>
 </div>
 

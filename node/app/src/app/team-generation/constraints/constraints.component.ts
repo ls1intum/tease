@@ -1,5 +1,4 @@
 import {Component, OnInit, OnDestroy} from "@angular/core";
-import {Router} from "@angular/router";
 import {TeamService} from "../../shared/layers/business-logic-layer/team.service";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
 import {LangConstraints} from "../../shared/constants/language.constants";
@@ -25,8 +24,7 @@ export class ConstraintsComponent implements OnInit, OnDestroy {
   private constraints: Constraint[];
   private teams: Team[];
 
-  constructor(private router: Router,
-              private teamGenerationService: TeamGenerationService,
+  constructor(private teamGenerationService: TeamGenerationService,
               private toolbarService: ToolbarService,
               private teamService: TeamService,
               private constraintService: ConstraintService) {
@@ -47,7 +45,7 @@ export class ConstraintsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.skipSubscription = this.toolbarService.buttonClicked.subscribe(() => {
-      this.gotoDashboard();
+      //this.gotoDashboard();
     });
   }
 
@@ -65,7 +63,7 @@ export class ConstraintsComponent implements OnInit, OnDestroy {
     this.teamService.readSavedTeams().then(teams => {
       this.teamGenerationService.generate(teams).then(generatedTeams => {
         this.teamService.saveTeams(generatedTeams).then(saved => {
-          this.gotoDashboard();
+          //this.gotoDashboard();
         });
       });
     });
@@ -86,10 +84,4 @@ export class ConstraintsComponent implements OnInit, OnDestroy {
       constraint.setMaxValue(+value);
     }
   }
-
-  gotoDashboard() {
-    let link = ["/dashboard"];
-    return this.router.navigate(link);
-  }
-
 }

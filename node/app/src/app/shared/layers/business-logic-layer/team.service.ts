@@ -13,6 +13,7 @@ let FileSaver = require('file-saver');
 @Injectable()
 export class TeamService {
   private readonly EXPORT_DATA_TYPE = "text/csv;charset=utf-8";
+  private readonly EXPORT_FILE_NAME = "team_data.csv";
 
   constructor(private teamAccessService: TeamAccessService) {
 
@@ -31,10 +32,10 @@ export class TeamService {
     return this.teamAccessService.readTeamsFromRemote(remoteFilePath);
   }
 
-  exportTeams(fileName: string) {
+  exportTeams() {
     let csvData = this.teamAccessService.exportSavedTeamsAsCsv();
     let blob = new Blob([csvData], {type: this.EXPORT_DATA_TYPE});
-    FileSaver.saveAs(blob, fileName);
+    FileSaver.saveAs(blob, this.EXPORT_FILE_NAME);
   }
 
   saveTeams(teams: Team[]): Promise<boolean> {

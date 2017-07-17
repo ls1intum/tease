@@ -1,9 +1,76 @@
 @import '../../node_modules/@angular/material/core/theming/all-theme';
+@import '_style-constants.scss';
 @include mat-core();
 
-// Define a theme.
-$primary: mat-palette($mat-blue-grey);
-$accent:  mat-palette($mat-blue-grey, A200, A100, A400);
+// custom palettes
+$app-primary-palette: (
+  50: $primary-color,
+  100: $primary-color,
+  200: $primary-color,
+  300: $primary-color,
+  400: $primary-color,
+  500: $primary-color,
+  600: $primary-color,
+  700: $primary-color,
+  800: $primary-color,
+  900: $primary-color,
+  A100: $primary-color,
+  A200: $primary-color,
+  A400: $primary-color,
+  A700: $primary-color,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: white,
+    500: white,
+    600: $white-87-opacity,
+    700: $white-87-opacity,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: white,
+    A700: $white-87-opacity,
+  )
+);
+
+$app-secondary-palette: (
+  50: $secondary-color,
+  100: $secondary-color,
+  200: $secondary-color,
+  300: $secondary-color,
+  400: $secondary-color,
+  500: $secondary-color,
+  600: $secondary-color,
+  700: $secondary-color,
+  800: $secondary-color,
+  900: $secondary-color,
+  A100: $secondary-color,
+  A200: $secondary-color,
+  A400: $secondary-color,
+  A700: $secondary-color,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: white,
+    500: $grey-4f,
+    600: $white-87-opacity,
+    700: $white-87-opacity,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: white,
+    A700: $white-87-opacity,
+  )
+);
+
+$primary: mat-palette($app-primary-palette);
+$accent:  mat-palette($app-secondary-palette);
 
 $theme: mat-light-theme($primary, $accent);
 

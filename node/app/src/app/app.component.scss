@@ -1,21 +1,67 @@
-@import '../css/theme'; /* should this be here!? https://material.angular.io/guide/theming */
-@import '../../node_modules/@angular/material/core/style/_variables';
-@import '../../node_modules/@angular/material/toolbar/toolbar.scss';
-
-.app-content {
-  background-color: mat-color($primary, 0.6)
-}
-
-#toolbar {
-  font-size: $mat-toolbar-font-size;
-  font-weight: 400;
-  font-family: $mat-font-family;
-  color: white;
-  background-color: mat-color($primary);
-  padding-left: 10px;
-  padding-right: 10px;
-}
+@import '../css/_style-constants.scss';
+@import '../css/_flex-box.scss';
 
 * {
-  font-family: $mat-font-family;
+    font-family: $app-font-family;
+    font-weight: 400;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: $gray-f5;
+}
+
+// toolbar
+.toolbar {
+  width: 100vw;
+  height: $toolbar-height;
+  background-color: $primary-color;
+}
+
+.toolbar-item-container {
+  padding: 10px 20px;
+}
+
+@include horizontal-spacing(toolbar-items-spacing, 5px);
+
+.icon {
+  height: 60px;
+}
+
+.app-title {
+  color: white;
+  font-size: 40px;
+  font-weight: 100;
+}
+
+// dialog container
+.dialog-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: $dialog-background;
+}
+
+// app content
+.app-content {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+// toolbar temporary
+.toolbar-temporary {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+}
+
+.toolbar-temporary-item {
+  margin: 10px 10px 0 0;
 }

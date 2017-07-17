@@ -1,14 +1,15 @@
 import {Component, OnInit, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 import {ToolbarService} from "./shared/ui/toolbar.service";
-import {Router} from "@angular/router";
 import {CustomPersonDetailDialogService} from "./shared/ui/custom-person-detail-dialog.service";
 import {Person} from "./shared/models/person";
+import {TeamService} from "./shared/layers/business-logic-layer/team.service";
+import {ExamplePersonPropertyCsvRemotePath} from "./shared/constants/csv.constants";
 
 
 @Component({
   selector: 'app',
   templateUrl: './app.component.html',
-  styleUrls: ["./app.component.css", "./app.component.scss"],
+  styleUrls: ['./app.component.scss'],
   providers: [CustomPersonDetailDialogService]
 })
 export class AppComponent {
@@ -20,8 +21,8 @@ export class AppComponent {
   private personDetailDialogDisplayedPerson: Person = null;
 
   constructor(private toolbarService: ToolbarService,
-              private router: Router,
-              private customPersonDetailDialogService: CustomPersonDetailDialogService) {
+              private customPersonDetailDialogService: CustomPersonDetailDialogService,
+              private teamService: TeamService) {
     toolbarService.buttonNameChanged.subscribe(newName => {
       this.buttonName = newName;
     });
@@ -39,8 +40,19 @@ export class AppComponent {
     });
 
     customPersonDetailDialogService.displayedPersonEventEmitter.subscribe(displayedPerson => {
-      console.log("app.component.ts: event received! " + displayedPerson);
       this.personDetailDialogDisplayedPerson = displayedPerson
+    });
+  }
+
+  exportFile() {
+    this.teamService.exportTeams();
+  }
+
+  loadExampleData() {
+    this.teamService.readRemoteTeamData(ExamplePersonPropertyCsvRemotePath).then(teams => {
+      this.teamService.saveTeams(teams).then(saved => {
+        //return this.gotoPersonList();
+      });
     });
   }
 
@@ -51,10 +63,5 @@ export class AppComponent {
 
   onButtonClicked() {
     this.toolbarService.onButtonClicked();
-  }
-
-  gotoHome(): Promise<boolean> {
-    let link = ["/"];
-    return this.router.navigate(link);
   }
 }

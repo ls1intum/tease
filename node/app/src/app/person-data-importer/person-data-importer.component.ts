@@ -2,7 +2,6 @@ import {
   Component, OnInit, Output, EventEmitter, ViewChild, Input, ElementRef, Renderer,
   OnDestroy
 } from "@angular/core";
-import {Router} from "@angular/router";
 import {TeamService} from "../shared/layers/business-logic-layer/team.service";
 import {ToolbarService} from "../shared/ui/toolbar.service";
 import {LangImport} from "../shared/constants/language.constants";
@@ -24,7 +23,6 @@ export class PersonDataImporterComponent implements OnInit, OnDestroy {
   @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(private teamService: TeamService,
-              private router: Router,
               private renderer: Renderer,
               private toolbarService: ToolbarService) {
     this.toolbarService.resetToDefaultValues();
@@ -35,7 +33,7 @@ export class PersonDataImporterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.skipSubscription = this.toolbarService.buttonClicked.subscribe(() => {
-      this.gotoPersonList();
+      //this.gotoPersonList();
     });
   }
 
@@ -50,7 +48,7 @@ export class PersonDataImporterComponent implements OnInit, OnDestroy {
     this.teamService.readLocalTeamData(files[0]).then(teams => {
       this.teamService.saveTeams(teams);
     }).then(saved => {
-      this.gotoPersonList();
+      //this.gotoPersonList();
     });
   }
 
@@ -62,14 +60,9 @@ export class PersonDataImporterComponent implements OnInit, OnDestroy {
   onUseExampleClicked() {
     this.teamService.readRemoteTeamData(ExamplePersonPropertyCsvRemotePath).then(teams => {
       this.teamService.saveTeams(teams).then(saved => {
-        return this.gotoPersonList();
+        console.log("example data loaded");
       });
     });
-  }
-
-  gotoPersonList() {
-    let link = ["/persons"];
-    return this.router.navigate(link);
   }
 
   checkIfDataAvailable() {

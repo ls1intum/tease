@@ -6,7 +6,6 @@ import {TeamService} from "../../shared/layers/business-logic-layer/team.service
 import {PersonStatisticsService} from "../../shared/layers/business-logic-layer/person-statistics.service";
 import {Observable, Subject} from "rxjs";
 import {IconMapperService} from "../../shared/ui/icon-mapper.service";
-import {ActivatedRoute, Params} from "@angular/router";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
 import {Colors} from "../../shared/constants/color.constants";
 import {Device} from "../../shared/models/device";
@@ -38,11 +37,7 @@ export class PersonDetailComponent implements OnInit {
   private isDialog = false;
 
   constructor(private iconMapperService: IconMapperService,
-              private personStatisticsService: PersonStatisticsService,
-              private route: ActivatedRoute,
-              private teamService: TeamService,
-              private toolbarService: ToolbarService) {
-  }
+              private personStatisticsService: PersonStatisticsService) {  }
 
   ngOnInit(): void {
     if (this.person !== undefined) {
@@ -53,11 +48,8 @@ export class PersonDetailComponent implements OnInit {
     this.fetchPersonFromUrlId();
   }
 
-  test() {
-    console.log("test 54231");
-  }
-
   private fetchPersonFromUrlId() {
+    /*
     this.route.params.subscribe(params => {
       let id = params['id'];
       if(id === undefined){
@@ -74,6 +66,7 @@ export class PersonDetailComponent implements OnInit {
           this.toolbarService.setToolbarVisible(false);
         })
     });
+    */
   }
 
   private init() {

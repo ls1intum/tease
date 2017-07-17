@@ -1,0 +1,55 @@
+@import '../../../css/_style-constants.scss';
+
+.dashboard {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  width: auto;
+  height: 100%;
+}
+
+// team containers
+.hidden-scrollbar-parent {
+  height: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.hidden-scrollbar-child {
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-right: -$max-scrollbar-width;
+  padding-right: $max-scrollbar-width;
+  background-color: transparent;
+}
+
+.scroll-spacer {
+  height: $scroll-inset;
+  background-color: transparent;
+}
+
+// person drawer
+.person-drawer-container {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin-right: -$max-scrollbar-width;
+  padding-right: $max-scrollbar-width;
+  height: 100vh;
+}
+
+.person-drawer {
+  background-color: white;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  margin-left: 40px;
+  margin-right: 40px;
+  height: 600px;
+  margin-top: calc(100vh - 60px);
+}
+
+.drawer-label {
+  color: #838383;
+  padding: 10px 30px;
+  font-size: 30px;
+  font-weight: 300;
+}

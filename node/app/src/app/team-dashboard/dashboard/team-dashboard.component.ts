@@ -1,11 +1,8 @@
 import {Component, OnInit, ViewContainerRef, OnDestroy} from "@angular/core";
 import {TeamService} from "../../shared/layers/business-logic-layer/team.service";
 import {Team} from "../../shared/models/team";
-import {Router} from "@angular/router";
 import {MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
-import {Person} from "../../shared/models/person";
 import {DragulaService} from "ng2-dragula/components/dragula.provider";
-import {PersonPreviewComponent} from "../../person-list/preview/person-preview.component";
 import {ToolbarService} from "../../shared/ui/toolbar.service";
 import {LangDashbaord} from "../../shared/constants/language.constants";
 import {Subscription} from "rxjs";
@@ -18,19 +15,19 @@ import {PersonDetailComponent} from "../person-details/person-detail.component";
 
 @Component({
   templateUrl: 'team-dashboard.component.html',
-  styleUrls: ['team-dashboard.component.css',
-    '../styles/dragula.min.css'],
+  styleUrls: [
+    './team-dashboard.component.scss',
+    '../styles/dragula.min.css'
+  ],
   selector: 'team-dashboard',
 })
 export class TeamDashboardComponent implements OnInit, OnDestroy {
-  private readonly EXPORT_FILE_NAME = "team_data.csv";
 
   private teams: Team[];
   private dialogRef: MdDialogRef<PersonDetailComponent>;
   private exportButtonSubscription: Subscription;
 
   constructor(private dragulaService: DragulaService,
-              private router: Router,
               public dialog: MdDialog,
               public viewContainerRef: ViewContainerRef,
               private teamService: TeamService,
@@ -92,15 +89,13 @@ export class TeamDashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.exportButtonSubscription = this.toolbarService.buttonClicked.subscribe(() => {
-      this.exportTeams();
-    });
+
 
     this.teamService.readSavedTeams().then(teams => {
       this.teams = this.getSortedAlphabetically(teams);
 
       if (teams == undefined || teams.length == 0) {
-        this.gotoImport();
+        //this.gotoImport();
       }
 
       let totalScore = this.calculateAllocationScore(teams);
@@ -122,17 +117,8 @@ export class TeamDashboardComponent implements OnInit, OnDestroy {
     return sortedTeams;
   }
 
-  gotoImport(): Promise<boolean> {
-    let link = ["/import"];
-    return this.router.navigate(link);
-  }
-
   onPersonDialogClosed() {
     this.saveAll();
-  }
-
-  exportTeams() {
-    this.teamService.exportTeams(this.EXPORT_FILE_NAME);
   }
 
   ngOnDestroy(): void {

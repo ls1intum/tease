@@ -1,4 +1,4 @@
-<md-card *ngIf="person" md-ripple [mdRippleColor]="rippleColor" [style.border-color]="getColor()" class="personCard" style="max-width: 276px; min-width: 276px">
+<div *ngIf="person" class="person-card" style="max-width: 276px; min-width: 276px">
   <!-- profile pic and everything right to it -->
   <div class="flex-row" style="margin-bottom: 8px;">
     <img class="profile-pic" src="{{getGravatarIconPath()}}">
@@ -48,4 +48,4 @@
     </span>
   </div>
 
-</md-card>
+</div>

@@ -1,51 +1,43 @@
-#container {
-  height:100%;
+/*@import '../../../css/_style-constants.scss';*/
+
+.team-card {
   width: 300px;
   margin-left: 10px;
   margin-right: 10px;
-  display:flex;
-  flex-direction: column;
-  background-color: transparent;
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.5); /* $shadow-color */
+  color: #686868;
+  padding: 5px;
 }
 
-.containerHeader {
-  height:auto;
+.title-elements-spacing {
+  margin: 10px;
+}
+
+.team-person-count {
+  background-color: #e1e1e1;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  border-radius: 50%;
+}
+
+.team-name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: lighter;
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  font-size: 40px;
+  font-weight: 300;
 }
 
 .drag-container {
   height:100%;
   width: 100%;
   min-height: 30px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background-color: transparent;
 }
 
-#titleContainer {
-  height:45px;
-  display: flex;
-  align-items: center;
-  padding:10px;
-  background: rgba(255, 255, 255, .3);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: clip;
-  border-radius: 5px;
-}
 
-#teamName {
-  padding: 0;
-  margin: 0;
-  max-width: 230px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  font-weight: lighter;
-  color: #435761;
-}
-
-#infoButton {
-  margin-left: auto;
-  display: flex;
-  flex-direction: row;
-}

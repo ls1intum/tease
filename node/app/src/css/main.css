@@ -1,87 +1,27 @@
-
 body {
   margin: 0;
 }
 
-html,body { height: 100%; }
-.full-height { height: 100%;}
-
 .gu-mirror {
+  /*
   transform: rotate(4deg);
   -moz-transform: rotate(4deg);
-  -webkit-transform: rotate(4deg);
+  -webkit-transform: rotate(4deg);*/
+  /*box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);*/
 }
 
-.mat-toolbar-layout {
-  width: 100%;
+.pointer-events-auto {
+  pointer-events: auto;
 }
 
-mat-toolbar-row {
-  width: 100%;
+.pointer-events-none {
+  pointer-events: none;
 }
 
-.text-center-vertical {
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-/* CSS3 flex box classes */
-.flex-row {
-  display: flex;
-  flex-direction: row;
-}
-
-.flex-row-reverse {
-  display: flex;
-  flex-direction: row-reverse;
-}
-
-.flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-.flex-center {
-  align-items: center;
-}
-
-.flex-grow {
-  flex-grow: 1;
-}
-
-.flex-spacing-x-2px {
-  margin-left: 2px;
-  margin-right: 2px;
-}
-
-.flex-spacing-x-2px:first-child {
-  margin-left: 0;
-}
-
-.flex-spacing-x-2px:last-child {
-  margin-right: 0;
-}
-
-.flex-basis-zero {
-  flex-basis: 0;
-}
-
-.flex-wrap {
-  flex-wrap: wrap;
-}
-
-.position-relative {
-  position: relative;
-}
-
-.overflow-hidden {
-  overflow: hidden;
-}
-
-.width-50 {
-  width: 50%;
-}
-
-.flex-justify-center {
-  justify-content: center;
+.position-fixed-fill {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
 }

@@ -1,6 +1,4 @@
 import {NgModule} from '@angular/core'
-import {RouterModule} from "@angular/router";
-import {rootRouterConfig} from "./app.routes";
 import {AppComponent} from "./app.component";
 import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
@@ -17,7 +15,6 @@ import {TeamGenerationModule} from "./team-generation/team-generation.module";
   declarations: [AppComponent],
   imports     : [BrowserModule,
     FormsModule, HttpModule,
-    RouterModule.forRoot(rootRouterConfig,  {useHash: false}),
   PersonDataImporterModule, PersonListModule, TeamDashboardModule, TeamGenerationModule, MaterialModule, DragulaModule],
   providers   : [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap   : [AppComponent],

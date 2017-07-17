@@ -1,14 +1,25 @@
 
-
-$primary-color: #e91e63;
+// main colors
+$primary-color: #0076bc; /*#e91e63;*/
 $secondary-color: #ffc107;
-$light-gray: #e1e1e1;
 $gray: #e1e1e1;
-$dark-grey: #484848;
+$gray-f5: #f5f5f5;
+$grey-48: #484848;
+$grey-4f: #4f4f4f;
+$shadow-color: rgba(0,0,0,0.12);
 
+$dialog-background: rgba(0, 0, 0, 0.2);
+
+// skill level colors
 $level-expert-color: #60c460;
 $level-advanced-color: #5eb7e0;
 $level-intermediate-color: #f7b551;
 $level-novice-color: #f47f67;
 
+// font
+$app-font-family: 'Roboto', sans-serif;
 
+// size constants
+$toolbar-height: 140px;
+$scroll-inset: 100px;
+$max-scrollbar-width: 100px;

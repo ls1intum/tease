@@ -1,30 +1,26 @@
-<div *ngIf="team" id="container" (click)="$event.stopPropagation()">
-  <div class="containerHeader">
-    <div style="padding-left: 20px; margin-bottom: 10px" id="titleContainer">
-      <h1>
-        <div id="teamName">
-          {{team.name}}
-          <span style="margin-left: 10px; color: #607d8a; font-weight: bold">
-            {{team.persons.length}}
-          </span>
-        </div>
-      </h1>
-      <div id="infoButton">
-        <button md-button (click)="showStatistics()">
-          <md-icon color="accent">info</md-icon>
-        </button>
-      </div>
-    </div>
+<div *ngIf="team" class="team-card flex-column" (click)="$event.stopPropagation()">
 
-    <div *ngIf="isStatisticsVisible">
-      <team-score *ngIf="!isTeamEmpty()" [team]="team"></team-score>
-      <priority-chart *ngIf="!isTeamEmpty()" [team]="team"></priority-chart>
-      <!--devices [devices]="getDevices()"></devices-->
+  <!-- team title -->
+  <div class="flex-row flex-justify-content-space-between flex-center">
+    <div class="team-person-count title-elements-spacing flex-row flex-center flex-justify-center">
+      <div>{{team.persons.length}}</div>
+    </div>
+    <div class="team-name title-elements-spacing">{{team.name}}</div>
+    <div class="title-elements-spacing">
+      <button md-icon-button (click)="showStatistics()"><i class="material-icons">more_vert</i></button>
     </div>
   </div>
 
-  <div [dragula]='"first-bag"' class='drag-container' [dragulaModel]="team.persons">
-    <person-preview *ngFor="let person of team.persons" [person]="person"
+  <!-- statistics -->
+  <div *ngIf="isStatisticsVisible">
+    <team-score *ngIf="!isTeamEmpty()" [team]="team"></team-score>
+    <priority-chart *ngIf="!isTeamEmpty()" [team]="team"></priority-chart>
+    <!--devices [devices]="getDevices()"></devices-->
+  </div>
+
+  <!-- person preview cards -->
+  <div [dragula]='"first-bag"' class='drag-container' [dragulaModel]="team.persons" style="position: relative">
+    <person-preview *ngFor="let person of team.persons; let i = index" [style.z-index]="i" style="position: relative" [person]="person"
                     (click)="showPersonDetails(person)"></person-preview>
   </div>
 </div>
