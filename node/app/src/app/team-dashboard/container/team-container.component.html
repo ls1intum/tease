@@ -19,8 +19,8 @@
   </div>
 
   <!-- person preview cards -->
-  <div [dragula]='"first-bag"' class='drag-container' [dragulaModel]="team.persons" style="position: relative">
-    <person-preview *ngFor="let person of team.persons; let i = index" [style.z-index]="i" style="position: relative" [person]="person"
+  <div [dragula]='"first-bag"' class='drag-container' [dragulaModel]="team.persons">
+    <person-preview *ngFor="let person of team.persons" [person]="person"
                     (click)="showPersonDetails(person)"></person-preview>
   </div>
 </div>
