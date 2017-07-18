@@ -12,7 +12,6 @@
   height: 100%;
   flex-shrink: 0;
   overflow: hidden;
-  background-color: transparent;
 }
 
 .hidden-scrollbar-child {
@@ -21,12 +20,10 @@
   overflow-x: hidden;
   margin-right: -$max-scrollbar-width;
   padding-right: $max-scrollbar-width;
-  background-color: transparent;
 }
 
 .scroll-spacer {
   height: $scroll-inset;
-  background-color: transparent;
 }
 
 // person drawer

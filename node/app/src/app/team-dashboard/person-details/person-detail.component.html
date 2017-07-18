@@ -110,19 +110,17 @@
           <div class="quotation-mark quotation-mark-start">“</div><div class="quote-text">{{ person.iosDevExpDescription }}</div>
           <div class="quotation-mark quotation-mark-end">”</div><div class="quote-author">  —  {{person.firstName}}</div>
         </div>
-
-        <div class="flex-row flex-center">
-          <div class="quotation-mark quotation-mark-start">“</div><div class="quote-text">Tutor comment could be inserted here :)</div>
-          <div class="quotation-mark quotation-mark-end">”</div><div class="quote-author">  —  Dennis, Tutor</div>
-        </div>
       </div>
     </md-card>
   </div>
 
   <!-- team container -->
-  <div class="flex-column">
-    <team-container *ngIf="isInTeam(person)" [team]="person.team"></team-container>
+  <div class="hidden-scrollbar-parent">
+    <div class="hidden-scrollbar-child flex-column">
+        <team-container *ngIf="isInTeam(person)" [team]="person.team"></team-container>
+    </div>
   </div>
+
 </div>
 
 
