@@ -1,8 +1,0 @@
-{
-  "globalDependencies": {
-    "papaparse": "registry:dt/papaparse#4.1.0+20160317120654"
-  },
-  "dependencies": {
-    "debug": "registry:npm/debug#2.0.0+20160723033700"
-  }
-}

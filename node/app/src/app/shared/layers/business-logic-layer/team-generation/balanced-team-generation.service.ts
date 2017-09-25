@@ -1,9 +1,9 @@
-import {TeamGenerationService} from "./team-generation.service";
-import {Team} from "../../../models/team";
-import {Person} from "../../../models/person";
-import {Injectable} from "@angular/core";
-import {TeamHelper} from "../../../helpers/team.helper";
-import {SkillLevel} from "../../../models/skill";
+import {TeamGenerationService} from './team-generation.service';
+import {Team} from '../../../models/team';
+import {Person} from '../../../models/person';
+import {Injectable} from '@angular/core';
+import {TeamHelper} from '../../../helpers/team.helper';
+import {SkillLevel} from '../../../models/skill';
 /**
  * Created by Malte Bucksch on 25/11/2016.
  */
@@ -11,16 +11,16 @@ import {SkillLevel} from "../../../models/skill";
 @Injectable()
 export class BalancedTeamGenerationService implements TeamGenerationService {
   generate(teams: Team[]): Promise<Team[]> {
-    let persons = TeamHelper.getPersons(teams);
+    const persons = TeamHelper.getPersons(teams);
 
     teams.forEach(team => team.clear());
-    let realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
+    const realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
 
-    let skillTypes = this.getSkillLevelKeys();
+    const skillTypes = this.getSkillLevelKeys();
 
-    for(let key of skillTypes){
-      let similarPersons = persons.filter(p => p.supervisorRating.valueOf() === key);
-      this.distributePersonsEqually(similarPersons,realTeams);
+    for (const key of skillTypes){
+      const similarPersons = persons.filter(p => p.supervisorRating.valueOf() === key);
+      this.distributePersonsEqually(similarPersons, realTeams);
     }
 
     return Promise.resolve(teams);
@@ -32,13 +32,13 @@ export class BalancedTeamGenerationService implements TeamGenerationService {
     persons.forEach(person => {
       teams[teamIndex].add(person);
 
-      teamIndex=(teamIndex+1)%teams.length;
+      teamIndex = (teamIndex + 1) % teams.length;
     });
   }
 
   private getSkillLevelKeys(): number[] {
     return Object.keys(SkillLevel)
       .map(k => SkillLevel[k])
-      .filter(v => typeof v === "number") as number[];
+      .filter(v => typeof v === 'number') as number[];
   }
 }

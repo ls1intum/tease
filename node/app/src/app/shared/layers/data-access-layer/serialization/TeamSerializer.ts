@@ -1,12 +1,12 @@
 
-import {Team} from "../../../models/team";
-import {PersonSerializer} from "./PersonSerializer";
-import {CsvColumNames} from "../../../constants/csv.constants";
+import {Team} from '../../../models/team';
+import {PersonSerializer} from './PersonSerializer';
+import {CsvColumNames} from '../../../constants/csv.constants';
 
 export class TeamSerializer {
   static serializeTeam(team: Team): {}[] {
     return team.persons.map(person => {
-      let personProperties = PersonSerializer.serializePerson(person);
+      const personProperties = PersonSerializer.serializePerson(person);
 
       personProperties[CsvColumNames.Team.TeamName] = team.name;
 
@@ -15,7 +15,7 @@ export class TeamSerializer {
   }
 
   static serializeTeamList(teams: Team[]): any[] {
-    let propList = teams.map(team => TeamSerializer.serializeTeam(team));
+    const propList = teams.map(team => TeamSerializer.serializeTeam(team));
 
     return [].concat(...propList);
   }

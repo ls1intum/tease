@@ -1,24 +1,26 @@
-import {NgModule} from '@angular/core'
-import {AppComponent} from "./app.component";
-import {FormsModule} from "@angular/forms";
-import {BrowserModule} from "@angular/platform-browser";
-import {HttpModule} from "@angular/http";
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
-import {PersonListModule} from "./person-list/person-list.module";
-import {MaterialModule} from "@angular/material";
-import {PersonDataImporterModule} from "./person-data-importer/person-data-importer.module";
-import {TeamDashboardModule} from "./team-dashboard/team-dashboard.module";
-import {DragulaModule} from "ng2-dragula/ng2-dragula";
-import {TeamGenerationModule} from "./team-generation/team-generation.module";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import {CustomPersonDetailDialogService} from './shared/ui/custom-person-detail-dialog.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MdButtonModule, MdIconModule} from '@angular/material';
+import {SharedModule} from './shared/shared.module';
+import {TeamService} from './shared/layers/business-logic-layer/team.service';
+import {ConstraintService} from './shared/layers/business-logic-layer/constraint.service';
+import {DashboardModule} from './dashboard/dashboard.module';
+import {IconMapperService} from './shared/ui/icon-mapper.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports     : [BrowserModule,
-    FormsModule, HttpModule,
-  PersonDataImporterModule, PersonListModule, TeamDashboardModule, TeamGenerationModule, MaterialModule, DragulaModule],
-  providers   : [{provide: LocationStrategy, useClass: HashLocationStrategy}],
-  bootstrap   : [AppComponent],
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule, BrowserAnimationsModule, MdButtonModule, MdIconModule, NgbModule.forRoot(), /* external modules */
+    SharedModule, DashboardModule /* own modules */
+  ],
+  providers: [TeamService, ConstraintService, CustomPersonDetailDialogService, IconMapperService],
+  bootstrap: [AppComponent]
 })
-export class AppModule {
-
-}
+export class AppModule { }

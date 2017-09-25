@@ -1,16 +1,22 @@
-import {TeamAccessService} from "./team.access.service";
-import {Person} from "../../models/person";
-import {Team} from "../../models/team";
-import {TeamSerializer} from "./serialization/TeamSerializer";
-import Papa = require("papaparse");
-import {TeamParser} from "./parsing/TeamParser";
+import {TeamAccessService} from './team.access.service';
+import {Person} from '../../models/person';
+import {Team} from '../../models/team';
+import {TeamSerializer} from './serialization/TeamSerializer';
+import * as Papa from 'papaparse';
+import {TeamParser} from './parsing/TeamParser';
 
 export class PersistentTeamAccessService extends TeamAccessService {
-  private static readonly TeamStorageKey = "Teams";
+  private static readonly TeamStorageKey = 'Teams';
+
+  constructor() {
+    super();
+  }
 
   readSavedTeams(): Promise<Team[]> {
-    let teamData = localStorage.getItem(PersistentTeamAccessService.TeamStorageKey);
-    if (teamData == undefined)return Promise.resolve([]);
+    const teamData = localStorage.getItem(PersistentTeamAccessService.TeamStorageKey);
+    if (teamData === undefined) {
+      return Promise.resolve([]);
+    }
 
     return new Promise((resolve, reject) => {
       Papa.parse(teamData, {
@@ -55,7 +61,7 @@ export class PersistentTeamAccessService extends TeamAccessService {
     // sort the rows numerically by 'orderId'
     teamListProperties = teamListProperties.sort((a, b) => a.orderId - b.orderId);
 
-    let result = Papa.unparse(teamListProperties);
+    const result = Papa.unparse(teamListProperties);
 
     localStorage.setItem(PersistentTeamAccessService.TeamStorageKey, result);
 

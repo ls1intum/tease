@@ -1,24 +1,22 @@
-import {Injectable} from "@angular/core";
-import {Person} from "../../models/person";
-import {Team} from "../../models/team";
-import {TeamGenerationService} from "./team-generation/team-generation.service";
-import {TeamAccessService} from "../data-access-layer/team.access.service";
-import {TeamHelper} from "../../helpers/team.helper";
+import {Injectable} from '@angular/core';
+import {Person} from '../../models/person';
+import {Team} from '../../models/team';
+import {TeamAccessService} from '../data-access-layer/team.access.service';
+import {TeamHelper} from '../../helpers/team.helper';
+import * as FileSaver from 'file-saver';
+
 /**
  * Created by wanur on 05/11/2016.
  */
 
-let FileSaver = require('file-saver');
-
 @Injectable()
 export class TeamService {
-  private readonly EXPORT_DATA_TYPE = "text/csv;charset=utf-8";
-  private readonly EXPORT_FILE_NAME = "team_data.csv";
+  private readonly EXPORT_DATA_TYPE = 'text/csv;charset=utf-8';
+  private readonly EXPORT_FILE_NAME = 'team_data.csv';
 
   constructor(private teamAccessService: TeamAccessService) {
 
   }
-
 
   readSavedTeams(): Promise<Team[]> {
     return this.teamAccessService.readSavedTeams();
@@ -33,8 +31,8 @@ export class TeamService {
   }
 
   exportTeams() {
-    let csvData = this.teamAccessService.exportSavedTeamsAsCsv();
-    let blob = new Blob([csvData], {type: this.EXPORT_DATA_TYPE});
+    const csvData = this.teamAccessService.exportSavedTeamsAsCsv();
+    const blob = new Blob([csvData], {type: this.EXPORT_DATA_TYPE});
     FileSaver.saveAs(blob, this.EXPORT_FILE_NAME);
   }
 
@@ -57,8 +55,8 @@ export class TeamService {
   readPersonWithId(tumId: string): Promise<Person> {
     return new Promise((resolve, reject) => {
       this.readSavedPersons().then(persons => {
-        let personsWithId = persons.filter(person => person.tumId === tumId);
-        if (personsWithId.length == 0) resolve(undefined);
+        const personsWithId = persons.filter(person => person.tumId === tumId);
+        if (personsWithId.length === 0) resolve(undefined);
         resolve(personsWithId[0]);
       });
     });

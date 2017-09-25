@@ -1,7 +1,7 @@
-import {Constraint, ConstraintType} from "./constraint";
-import {TeamHelper} from "../../helpers/team.helper";
-import {DeviceType} from "../device";
-import {Team} from "../team";
+import {Constraint, ConstraintType} from './constraint';
+import {TeamHelper} from '../../helpers/team.helper';
+import {DeviceType} from '../device';
+import {Team} from '../team';
 /**
  * Created by Malte Bucksch on 23/02/2017.
  */
@@ -27,7 +27,7 @@ export class IosDeviceConstraint extends Constraint {
   }
 
   getName(): string {
-    return "iOS Devices";
+    return 'iOS Devices';
   }
 
   getType(): ConstraintType {

@@ -1,0 +1,30 @@
+<!-- team containers -->
+<div class="dashboard flex-row">
+  <div *ngFor="let team of teams" class="hidden-scrollbar-parent">
+    <div class="hidden-scrollbar-child flex-column">
+      <div class="scroll-spacer flex-no-shrink"></div>
+      <app-team class="flex-no-shrink" [team]="team" (personClose)="onPersonDialogClosed()"></app-team>
+      <div class="scroll-spacer flex-no-shrink"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- person drawer -->
+<div class="person-drawer flex-column">
+  <div class="drawer-label">Drawer</div>
+
+  <div class="btn-group btn-group-sm" ngbRadioGroup name="radioBasic" [(ngModel)]="model">
+    <label ngbButtonLabel class="btn-secondary">
+      <input ngbButton type="radio" [value]="1"> One
+    </label>
+    <label ngbButtonLabel class="btn-secondary">
+      <input ngbButton type="radio" [value]="2"> Two
+    </label>
+    <label ngbButtonLabel class="btn-secondary">
+      <input ngbButton type="radio" [value]="3"> Three
+    </label>
+  </div>
+
+  {{ model }}
+</div>

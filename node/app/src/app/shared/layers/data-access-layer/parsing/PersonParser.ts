@@ -1,15 +1,15 @@
-import {Person, Gender} from "../../../models/person";
-import {CsvColumNames, CsvValueNames} from "../../../constants/csv.constants";
-import {Device, DeviceType} from "../../../models/device";
-import {StringHelper} from "../../../helpers/string.helper";
-import {SkillLevel} from "../../../models/skill";
+import {Person, Gender} from '../../../models/person';
+import {CsvColumNames, CsvValueNames} from '../../../constants/csv.constants';
+import {Device, DeviceType} from '../../../models/device';
+import {StringHelper} from '../../../helpers/string.helper';
+import {SkillLevel} from '../../../models/skill';
 /**
  * Created by Malte Bucksch on 01/12/2016.
  */
 
 export abstract class PersonParser {
   static parsePerson(personProps: Array<any>): Person {
-    let person = new Person();
+    const person = new Person();
 
     // TODO check if this conversion works
     person.id = personProps[CsvColumNames.Person.Id];
@@ -30,8 +30,8 @@ export abstract class PersonParser {
     person.englishLanguageLevel = personProps[CsvColumNames.Person.EnglishLanguageLevel];
     person.germanLanguageLevel = personProps[CsvColumNames.Person.GermanLanguageLevel];
 
-    this.parsePersonDevices(person,personProps);
-    this.parsePersonSkills(person,personProps);
+    this.parsePersonDevices(person, personProps);
+    this.parsePersonSkills(person, personProps);
 
     // TODO parse other props
 
@@ -39,65 +39,65 @@ export abstract class PersonParser {
   }
 
   private static parsePersonSkills(person: Person, personProps: Array<any>){
-    let conceptProps = this.parseArray(CsvColumNames.PersonSkills.Concept,personProps);
-    for(let skillKey in conceptProps){
-      let skillLevel=this.parseSkillLevel(conceptProps[skillKey]);
-      person.addSkill(skillKey,CsvColumNames.PersonSkills.Concept,skillLevel);
+    const conceptProps = this.parseArray(CsvColumNames.PersonSkills.Concept, personProps);
+    for (const skillKey in conceptProps){
+      const skillLevel = this.parseSkillLevel(conceptProps[skillKey]);
+      person.addSkill(skillKey, CsvColumNames.PersonSkills.Concept, skillLevel);
     }
 
-    let techProps = this.parseArray(CsvColumNames.PersonSkills.Technology,personProps);
-    for(let skillKey in techProps){
-      let skillLevel=this.parseSkillLevel(techProps[skillKey]);
-      person.addSkill(skillKey,CsvColumNames.PersonSkills.Technology,skillLevel);
+    const techProps = this.parseArray(CsvColumNames.PersonSkills.Technology, personProps);
+    for (const skillKey in techProps){
+      const skillLevel = this.parseSkillLevel(techProps[skillKey]);
+      person.addSkill(skillKey, CsvColumNames.PersonSkills.Technology, skillLevel);
     }
   }
 
   static parseSkillLevel(skillLevelString: string): SkillLevel {
-    if(skillLevelString === CsvValueNames.SkillLevelValue.VeryHigh)
+    if (skillLevelString === CsvValueNames.SkillLevelValue.VeryHigh)
       return SkillLevel.VeryHigh;
-    if(skillLevelString === CsvValueNames.SkillLevelValue.High)
+    if (skillLevelString === CsvValueNames.SkillLevelValue.High)
       return SkillLevel.High;
-    if(skillLevelString === CsvValueNames.SkillLevelValue.Medium)
+    if (skillLevelString === CsvValueNames.SkillLevelValue.Medium)
       return SkillLevel.Medium;
-    if(skillLevelString === CsvValueNames.SkillLevelValue.Low)
+    if (skillLevelString === CsvValueNames.SkillLevelValue.Low)
       return SkillLevel.Low;
-    if(skillLevelString === CsvValueNames.SkillLevelValue.None)
+    if (skillLevelString === CsvValueNames.SkillLevelValue.None)
       return SkillLevel.None;
 
     return SkillLevel.None;
   }
 
   static parseGender(genderString: string): Gender {
-    if(genderString === CsvValueNames.GenderValue.Male)
+    if (genderString === CsvValueNames.GenderValue.Male)
       return Gender.Male;
-    if(genderString === CsvValueNames.GenderValue.Female)
+    if (genderString === CsvValueNames.GenderValue.Female)
       return Gender.Female;
 
     return Gender.Male;
   }
 
   private static parsePersonDevices(person: Person, personProps: Array<any>) {
-    let available = CsvValueNames.DeviceAvailableBooleanValue.Available;
+    const available = CsvValueNames.DeviceAvailableBooleanValue.Available;
 
-    if(personProps[CsvColumNames.PersonDevices.Ipad] === available)
+    if (personProps[CsvColumNames.PersonDevices.Ipad] === available)
       person.addDevice(new Device(DeviceType.Ipad));
-    if(personProps[CsvColumNames.PersonDevices.Mac] === available)
+    if (personProps[CsvColumNames.PersonDevices.Mac] === available)
       person.addDevice(new Device(DeviceType.Mac));
-    if(personProps[CsvColumNames.PersonDevices.Ipod] === available)
+    if (personProps[CsvColumNames.PersonDevices.Ipod] === available)
       person.addDevice(new Device(DeviceType.Ipod));
-    if(personProps[CsvColumNames.PersonDevices.Watch] === available)
+    if (personProps[CsvColumNames.PersonDevices.Watch] === available)
       person.addDevice(new Device(DeviceType.Watch));
-    if(personProps[CsvColumNames.PersonDevices.Iphone] === available)
+    if (personProps[CsvColumNames.PersonDevices.Iphone] === available)
       person.addDevice(new Device(DeviceType.Iphone));
   }
 
   private static parseArray(columnArrayName: string, personProps: Array<any>): {[element: string]: string} {
-    let array: {[element: string]: string} = {};
+    const array: {[element: string]: string} = {};
 
-    for(let key in personProps){
-      if(key.includes(columnArrayName)){
-        let arrayElement = StringHelper.getStringBetween(key,CsvColumNames.ArrayBraces.Open,CsvColumNames.ArrayBraces.Close);
-        array[arrayElement]=personProps[key];
+    for (const key in personProps) {
+      if (key.includes(columnArrayName)) {
+        const arrayElement = StringHelper.getStringBetween(key, CsvColumNames.ArrayBraces.Open, CsvColumNames.ArrayBraces.Close);
+        array[arrayElement] = personProps[key];
       }
     }
     return array;

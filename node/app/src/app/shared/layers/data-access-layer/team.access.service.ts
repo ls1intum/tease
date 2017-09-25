@@ -1,6 +1,7 @@
-import {Injectable} from "@angular/core";
-import {Person} from "../../models/person";
-import {Team} from "../../models/team";
+import {Injectable} from '@angular/core';
+import {Person} from '../../models/person';
+import {Team} from '../../models/team';
+
 @Injectable()
 export abstract class TeamAccessService {
   abstract saveTeams(teams: Team[]): Promise<boolean>;

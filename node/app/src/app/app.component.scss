@@ -1,9 +1,10 @@
-@import '../css/_style-constants.scss';
-@import '../css/_flex-box.scss';
+@import '../scss/style-constants.scss';
+@import '../scss/flex-box.scss';
+@import '../scss/dragula.scss';
 
 * {
-    font-family: $app-font-family;
-    font-weight: 400;
+  font-family: $app-font-family;
+  font-weight: 400;
 }
 
 .container {
@@ -14,13 +15,13 @@
 }
 
 // toolbar
-.toolbar {
+.title-bar {
   width: 100vw;
   height: $toolbar-height;
   background-color: $primary-color;
 }
 
-.toolbar-item-container {
+.title-bar-item-container {
   padding: 10px 20px;
 }
 
@@ -55,13 +56,13 @@
 }
 
 // toolbar temporary
-.toolbar-temporary {
+.buttons-overlay {
   position: fixed;
   left: 0;
   top: 0;
   right: 0;
 }
 
-.toolbar-temporary-item {
+.buttons-overlay-item {
   margin: 10px 10px 0 0;
 }

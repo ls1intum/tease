@@ -1,7 +1,7 @@
-import {Constraint, ConstraintType} from "./constraint";
-import {Team} from "../team";
-import {TeamHelper} from "../../helpers/team.helper";
-import {SkillLevel} from "../skill";
+import {Constraint, ConstraintType} from './constraint';
+import {Team} from '../team';
+import {TeamHelper} from '../../helpers/team.helper';
+import {SkillLevel} from '../skill';
 
 export class SkillNormalConstraint extends Constraint {
 
@@ -10,12 +10,12 @@ export class SkillNormalConstraint extends Constraint {
   }
 
   isSatisfied(team: Team): boolean {
-    let count = TeamHelper.getPersonsOfSkillLevelInTeam(team, SkillLevel.Medium);
+    const count = TeamHelper.getPersonsOfSkillLevelInTeam(team, SkillLevel.Medium);
     return (this.getMinValue() || 0) <= count && count <= (this.getMaxValue() || Number.MAX_VALUE);
   }
 
   getName(): string {
-    return "#Normal";
+    return '#Normal';
   }
 
   getType(): ConstraintType {

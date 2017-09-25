@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
-import {ConstraintAccessService} from "../data-access-layer/constraint.access.service";
-import {Constraint} from "../../models/constraints/constraint";
-import {Team} from "../../models/team";
+import {Injectable} from '@angular/core';
+import {ConstraintAccessService} from '../data-access-layer/constraint.access.service';
+import {Constraint} from '../../models/constraints/constraint';
+import {Team} from '../../models/team';
 /**
  * Created by Malte Bucksch on 23/02/2017.
  */
@@ -14,8 +14,8 @@ export class ConstraintService {
   private sortConstraintsByPriority(constraint1, constraint2): number {
     // team-based constraints should come first
     // then global ones
-    let isTeamBased1 = constraint1.getTeamName() !== Team.SpecialTeamNameForGlobalConstraints;
-    let isTeamBased2 = constraint2.getTeamName() !== Team.SpecialTeamNameForGlobalConstraints;
+    const isTeamBased1 = constraint1.getTeamName() !== Team.SpecialTeamNameForGlobalConstraints;
+    const isTeamBased2 = constraint2.getTeamName() !== Team.SpecialTeamNameForGlobalConstraints;
     if (isTeamBased1 || isTeamBased2) {
       if (isTeamBased1 && isTeamBased2) {
         return 0; // both team-based - no preference
@@ -38,13 +38,13 @@ export class ConstraintService {
   // note: this also allows constraints to be enabled and not fully specified (e.g. empty, or partial)
   mergeConstraintsOfTheSameType(constraints: Constraint[]): Constraint[] {
 
-    let mergedConstraints = [];
+    const mergedConstraints = [];
 
-    let constraintsGroupedByClass = {};
+    const constraintsGroupedByClass = {};
 
     for (let i = 0; i < constraints.length; i++) {
 
-      let className = constraints[i].constructor.name;
+      const className = constraints[i].constructor.name;
       if (!(className in constraintsGroupedByClass)) {
         constraintsGroupedByClass[className] = [];
       }
@@ -52,9 +52,9 @@ export class ConstraintService {
 
     }
 
-    for (let className in constraintsGroupedByClass) {
+    for (const className in constraintsGroupedByClass) {
 
-      let constraintsOfTheSameType = constraintsGroupedByClass[className];
+      const constraintsOfTheSameType = constraintsGroupedByClass[className];
 
       constraintsOfTheSameType.sort(this.sortConstraintsByPriority);
 
@@ -72,7 +72,7 @@ export class ConstraintService {
     return new Promise((resolve, reject) => {
       this.fetchConstraints().then(constraints => {
 
-        let applicableConstraints = [];
+        const applicableConstraints = [];
 
         constraints.forEach(constraint => {
 
@@ -86,7 +86,7 @@ export class ConstraintService {
           }
         });
 
-        let mergedConstraints = this.mergeConstraintsOfTheSameType(applicableConstraints);
+        const mergedConstraints = this.mergeConstraintsOfTheSameType(applicableConstraints);
 
         resolve(mergedConstraints);
       });
