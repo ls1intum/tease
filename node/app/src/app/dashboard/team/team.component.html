@@ -19,8 +19,19 @@
   </div-->
 
   <!-- person preview cards -->
-  <div [dragula]='"first-bag"' class='drag-container' [dragulaModel]="team.persons">
-    <app-person-preview *ngFor="let person of team.persons" [person]="person"
-                    (click)="showPersonDetails(person)"></app-person-preview>
+  <div class="position-relative">
+    <div *ngIf="team.persons.length === 0"
+         class="pointer-events-none empty-team-hint-container flex-row">
+      <div class="empty-team-hint flex-grow flex-row flex-center flex-justify-center">
+        <div>
+          Drag persons here
+        </div>
+      </div>
+    </div>
+    <div [dragula]='"first-bag"' class='drag-container' [dragulaModel]="team.persons">
+      <app-person-preview *ngFor="let person of team.persons" [person]="person"
+                          (click)="showPersonDetails(person)"></app-person-preview>
+    </div>
   </div>
+
 </div>
