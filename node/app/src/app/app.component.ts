@@ -1,8 +1,9 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Person} from './shared/models/person';
 import {CustomPersonDetailDialogService} from './shared/ui/custom-person-detail-dialog.service';
 import {TeamService} from './shared/layers/business-logic-layer/team.service';
 import {ExamplePersonPropertyCsvRemotePath} from './shared/constants/csv.constants';
+import {DashboardComponent} from "./dashboard/dashboard/dashboard.component";
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,9 @@ import {ExamplePersonPropertyCsvRemotePath} from './shared/constants/csv.constan
 })
 export class AppComponent {
   personDetailDialogDisplayedPerson: Person = null;
+
+  @ViewChild(DashboardComponent)
+  private dashboardComponent: DashboardComponent;
 
   constructor(private customPersonDetailDialogService: CustomPersonDetailDialogService,
               private teamService: TeamService) {
@@ -29,11 +33,7 @@ export class AppComponent {
     this.teamService.exportTeams();
   }
 
-  loadExampleData() {
-    this.teamService.readRemoteTeamData(ExamplePersonPropertyCsvRemotePath).then(teams => {
-      this.teamService.saveTeams(teams).then(saved => {
-        // return this.gotoPersonList();
-      });
-    });
+  protected loadExampleData() {
+    this.dashboardComponent.loadExampleData();
   }
 }

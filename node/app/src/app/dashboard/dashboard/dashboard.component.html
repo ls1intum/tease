@@ -19,6 +19,12 @@
     </div>
     <div class="flex-grow"></div>
 
+    <button md-raised-button color="primary" class="distribute-button">
+      <div class="flex-row flex-center distribute-button-row">
+        <md-icon class="flex-spacing-x-2px">build</md-icon>
+        <div>Distribute With Constraints</div>
+      </div>
+    </button>
     <div class="btn-group btn-group-sm" ngbRadioGroup name="radioBasic" [(ngModel)]="personPoolDisplayMode">
       <label ngbButtonLabel class="btn-secondary">
         <input ngbButton type="radio" [value]="0">
@@ -39,7 +45,8 @@
     </div>
   </div>
 
-  <div *ngIf="orphanTeam" [dragula]='"first-bag"' class='flex-column flex-grow person-pool-preview-row flex-wrap' [dragulaModel]="orphanTeam.persons">
+  <div *ngIf="orphanTeam" [dragula]='"first-bag"' class='flex-column flex-grow person-pool-preview-row flex-wrap'
+       [dragulaModel]="orphanTeam.persons">
     <app-person-preview *ngFor="let person of orphanTeam.persons" [person]="person"
                         (click)="showPersonDetails(person)"></app-person-preview>
   </div>
