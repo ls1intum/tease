@@ -38,19 +38,40 @@
 }
 */
 
-.person-drawer {
+.person-pool {
   position: fixed;
   left: 10px;
   right: 10px;
   bottom: 20px;
   height: calc(50vh - 10px);
   background-color: white;
-  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  //box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition: height 0.5s;
 }
 
-.drawer-label {
+.person-pool-display-mode-closed {
+  height: 50px;
+}
+
+.person-pool-display-mode-onerow {
+  height: 150px;
+}
+
+.person-pool-display-mode-tworows {
+  height: 250px;
+}
+
+.person-pool-display-mode-full {
+  height: calc(100vh - 100px);
+}
+
+.person-pool-title-bar {
+  margin: 10px;
+}
+
+.person-pool-label {
   color: #838383;
-  padding: 10px 30px;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 300;
 }

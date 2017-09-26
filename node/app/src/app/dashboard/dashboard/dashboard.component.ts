@@ -3,6 +3,10 @@ import {Team} from '../../shared/models/team';
 import {TeamService} from '../../shared/layers/business-logic-layer/team.service';
 import {DragulaService} from 'ng2-dragula';
 
+enum PersonPoolDisplayMode {
+  Closed, OneRow, TwoRows, Full
+}
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -10,7 +14,9 @@ import {DragulaService} from 'ng2-dragula';
 })
 export class DashboardComponent implements OnInit {
   protected teams: Team[];
-  protected model = 1;
+  protected personPoolDisplayMode: PersonPoolDisplayMode = PersonPoolDisplayMode.OneRow;
+
+
 
   constructor(private teamService: TeamService,
               private dragulaService: DragulaService) {
@@ -25,5 +31,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.teamService.readSavedTeams().then(teams => this.teams = teams);
+  }
+
+  protected getPersonPoolDisplayModeCSSClass(value: PersonPoolDisplayMode): string {
+    return `person-pool-display-mode-${PersonPoolDisplayMode[value].toLowerCase()}`;
   }
 }
