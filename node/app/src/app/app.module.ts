@@ -13,6 +13,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {PersonDetailOverlayComponent} from './dashboard/person-detail-overlay/person-detail-overlay.component';
 import {OverlayHostDirective} from './overlay-host.directive';
 import {OverlayService} from './overlay.service';
+import {PersonStatisticsService} from './shared/layers/business-logic-layer/person-statistics.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import {OverlayService} from './overlay.service';
     BrowserModule, BrowserAnimationsModule, MdButtonModule, MdIconModule, NgbModule.forRoot(), /* external modules */
     SharedModule, DashboardModule /* own modules */
   ],
-  providers: [TeamService, ConstraintService, OverlayService, IconMapperService],
+  providers: [TeamService, ConstraintService, OverlayService, IconMapperService, PersonStatisticsService],
   bootstrap: [AppComponent],
   entryComponents: [PersonDetailOverlayComponent]
 })

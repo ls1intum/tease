@@ -1,0 +1,39 @@
+main {
+  padding: 5px;
+}
+
+.scoreContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.overallScore {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.constraintContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.constraint {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.title {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+hr {
+  margin-left: -5px;
+  margin-right: 5px;
+}

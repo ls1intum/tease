@@ -12,6 +12,7 @@ import {PersonDetailOverlayComponent} from '../person-detail-overlay/person-deta
 export class TeamComponent implements OnInit {
   @Input()
   protected team: Team;
+  protected statisticsVisible = false;
 
   constructor(private overlayService: OverlayService) { }
 

@@ -7,16 +7,18 @@
     </div>
     <div class="team-name title-elements-spacing">{{team.name}}</div>
     <div class="title-elements-spacing">
-      <button md-icon-button (click)="showStatistics()"><i class="material-icons">more_vert</i></button>
+      <button md-icon-button (click)="statisticsVisible = !statisticsVisible">
+        <i class="material-icons">more_vert</i>
+      </button>
     </div>
   </div>
 
   <!-- statistics -->
-  <!--div *ngIf="isStatisticsVisible">
-    <team-score *ngIf="!isTeamEmpty()" [team]="team"></team-score>
-    <priority-chart *ngIf="!isTeamEmpty()" [team]="team"></priority-chart>
-    <!--devices [devices]="getDevices()"></devices>
-  </div-->
+  <div *ngIf="statisticsVisible">
+    <app-team-score *ngIf="team.persons.length > 0" [team]="team"></app-team-score>
+    <!--priority-chart *ngIf="!isTeamEmpty()" [team]="team"></priority-chart-->
+    <!--devices [devices]="getDevices()"></devices-->
+  </div>
 
   <!-- person preview cards -->
   <div class="position-relative">

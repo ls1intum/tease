@@ -9,12 +9,13 @@ import {DragulaModule} from 'ng2-dragula';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import { PersonDetailOverlayComponent } from './person-detail-overlay/person-detail-overlay.component';
+import { TeamScoreComponent } from './team-score/team-score.component';
 
 @NgModule({
   imports: [
     CommonModule, BrowserAnimationsModule, MdButtonModule, MdIconModule, DragulaModule, FormsModule, NgbModule
   ],
-  declarations: [DashboardComponent, TeamComponent, PersonPreviewComponent, PersonDetailOverlayComponent],
+  declarations: [DashboardComponent, TeamComponent, PersonPreviewComponent, PersonDetailOverlayComponent, TeamScoreComponent],
   exports: [DashboardComponent, PersonDetailOverlayComponent]
 })
 export class DashboardModule { }
