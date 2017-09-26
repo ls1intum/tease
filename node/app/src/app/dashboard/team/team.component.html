@@ -14,9 +14,9 @@
   </div>
 
   <!-- statistics -->
-  <div *ngIf="statisticsVisible">
-    <app-team-score *ngIf="team.persons.length > 0" [team]="team"></app-team-score>
-    <!--priority-chart *ngIf="!isTeamEmpty()" [team]="team"></priority-chart-->
+  <div *ngIf="statisticsVisible && team.persons.length > 0">
+    <app-team-score [team]="team"></app-team-score>
+    <app-team-priorities-chart [team]="team"></app-team-priorities-chart>
     <!--devices [devices]="getDevices()"></devices-->
   </div>
 

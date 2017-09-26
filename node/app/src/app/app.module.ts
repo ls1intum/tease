@@ -14,6 +14,7 @@ import {PersonDetailOverlayComponent} from './dashboard/person-detail-overlay/pe
 import {OverlayHostDirective} from './overlay-host.directive';
 import {OverlayService} from './overlay.service';
 import {PersonStatisticsService} from './shared/layers/business-logic-layer/person-statistics.service';
+import {ChartsModule} from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -21,8 +22,10 @@ import {PersonStatisticsService} from './shared/layers/business-logic-layer/pers
     OverlayHostDirective
   ],
   imports: [
-    BrowserModule, BrowserAnimationsModule, MdButtonModule, MdIconModule, NgbModule.forRoot(), /* external modules */
-    SharedModule, DashboardModule /* own modules */
+    /* external modules */
+    BrowserModule, BrowserAnimationsModule, MdButtonModule, MdIconModule, NgbModule.forRoot(), ChartsModule,
+    /* own modules */
+    SharedModule, DashboardModule
   ],
   providers: [TeamService, ConstraintService, OverlayService, IconMapperService, PersonStatisticsService],
   bootstrap: [AppComponent],
