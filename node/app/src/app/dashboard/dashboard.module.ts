@@ -7,13 +7,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { PersonPreviewComponent } from './person-preview/person-preview.component';
 import {DragulaModule} from 'ng2-dragula';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
+import { PersonDetailOverlayComponent } from './person-detail-overlay/person-detail-overlay.component';
 
 @NgModule({
   imports: [
     CommonModule, BrowserAnimationsModule, MdButtonModule, MdIconModule, DragulaModule, FormsModule, NgbModule
   ],
-  declarations: [DashboardComponent, TeamComponent, PersonPreviewComponent],
-  exports: [DashboardComponent]
+  declarations: [DashboardComponent, TeamComponent, PersonPreviewComponent, PersonDetailOverlayComponent],
+  exports: [DashboardComponent, PersonDetailOverlayComponent]
 })
 export class DashboardModule { }

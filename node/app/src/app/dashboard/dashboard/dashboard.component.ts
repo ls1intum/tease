@@ -3,6 +3,9 @@ import {Team} from '../../shared/models/team';
 import {TeamService} from '../../shared/layers/business-logic-layer/team.service';
 import {DragulaService} from 'ng2-dragula';
 import {ExamplePersonPropertyCsvRemotePath} from '../../shared/constants/csv.constants';
+import {Person} from '../../shared/models/person';
+import {PersonDetailOverlayComponent} from '../person-detail-overlay/person-detail-overlay.component';
+import {OverlayService} from '../../overlay.service';
 
 enum PersonPoolDisplayMode {
   Closed, OneRow, TwoRows, Full
@@ -19,7 +22,8 @@ export class DashboardComponent implements OnInit {
   protected personPoolDisplayMode: PersonPoolDisplayMode = PersonPoolDisplayMode.OneRow;
 
   constructor(private teamService: TeamService,
-              private dragulaService: DragulaService) {
+              private dragulaService: DragulaService,
+              private overlayService: OverlayService) {
 
     /* save model when modified by drag&drop operation */
     dragulaService.dropModel.subscribe(value => {
@@ -51,5 +55,9 @@ export class DashboardComponent implements OnInit {
 
   protected getPersonPoolDisplayModeCSSClass(value: PersonPoolDisplayMode): string {
     return `person-pool-display-mode-${PersonPoolDisplayMode[value].toLowerCase()}`;
+  }
+
+  protected showPersonDetails(person: Person) {
+    this.overlayService.displayComponent(PersonDetailOverlayComponent, { person: person });
   }
 }

@@ -1,9 +1,8 @@
-import {Component, ViewChild, ViewEncapsulation} from '@angular/core';
-import {Person} from './shared/models/person';
-import {CustomPersonDetailDialogService} from './shared/ui/custom-person-detail-dialog.service';
+import {Component, ComponentFactoryResolver, Type, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TeamService} from './shared/layers/business-logic-layer/team.service';
-import {ExamplePersonPropertyCsvRemotePath} from './shared/constants/csv.constants';
-import {DashboardComponent} from "./dashboard/dashboard/dashboard.component";
+import {DashboardComponent} from './dashboard/dashboard/dashboard.component';
+import {OverlayHostDirective} from './overlay-host.directive';
+import {OverlayComponent, OverlayService, OverlayServiceHost} from './overlay.service';
 
 @Component({
   selector: 'app-root',
@@ -11,22 +10,19 @@ import {DashboardComponent} from "./dashboard/dashboard/dashboard.component";
   styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None, // This is needed to get the material icons to work. Angular bug?
 })
-export class AppComponent {
-  personDetailDialogDisplayedPerson: Person = null;
+export class AppComponent implements OverlayServiceHost {
+  protected overlayVisible = false;
 
   @ViewChild(DashboardComponent)
   private dashboardComponent: DashboardComponent;
 
-  constructor(private customPersonDetailDialogService: CustomPersonDetailDialogService,
-              private teamService: TeamService) {
+  @ViewChild(OverlayHostDirective)
+  private overlayHostDirective: OverlayHostDirective;
 
-    customPersonDetailDialogService.displayedPersonEventEmitter.subscribe(displayedPerson => {
-      this.personDetailDialogDisplayedPerson = displayedPerson;
-    });
-  }
-
-  closePersonDetailDialog() {
-    this.customPersonDetailDialogService.displayedPersonEventEmitter.emit(null);
+  constructor(private overlayService: OverlayService,
+              private teamService: TeamService,
+              private componentFactoryResolver: ComponentFactoryResolver) {
+    this.overlayService.host = this;
   }
 
   exportData() {
@@ -35,5 +31,21 @@ export class AppComponent {
 
   protected loadExampleData() {
     this.dashboardComponent.loadExampleData();
+  }
+
+  /* OverlayServiceHost interface */
+  public displayComponent(component: Type<OverlayComponent>, data: any) {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+    const viewContainerRef = this.overlayHostDirective.viewContainerRef;
+    viewContainerRef.clear();
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    (componentRef.instance as OverlayComponent).data = data;
+    this.overlayVisible = true;
+  }
+
+  public closeOverlay() {
+    this.overlayVisible = false;
+    const viewContainerRef = this.overlayHostDirective.viewContainerRef;
+    viewContainerRef.clear();
   }
 }

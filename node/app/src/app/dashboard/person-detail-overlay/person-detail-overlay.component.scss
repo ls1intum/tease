@@ -1,0 +1,218 @@
+@import '../../../scss/style-constants';
+
+.main-row {
+  height: 100%;
+}
+
+/* person detail card */
+.detail-card {
+  width: 800px;
+  height: 80vh;
+  padding: 20px;
+  margin-top: $scroll-inset;
+  margin-bottom: $scroll-inset;
+  background-color: white;
+}
+
+#profile-picture {
+  flex-shrink: 0;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
+
+#name-flex-column {
+  flex-grow: 1;
+  margin-left: 30px;
+  justify-content: flex-start;
+}
+
+#name-flex-row {
+  align-items: center;
+}
+
+#gender-icon {
+  width: 40px;
+  height: 40px;
+}
+
+#person-name {
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /*font-weight: bolder;*/
+  color: gray;
+  font-size: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.badge {
+  border-radius: 4px;
+  padding: 2px 10px;
+  font-size: 16px;
+}
+
+.skill-badge {
+  color: white;
+  font-weight: lighter;
+  font-size: 14px;
+  margin: 2px 3px;
+}
+
+.skill-badge-main {
+  font-size: 20px;
+}
+
+.skill-row-container {
+  margin: calc(-2px + 3px) -3px;
+}
+
+.skill-row-with-label {
+  margin: 3px 0;
+}
+
+.skill-row-with-label-container {
+  margin: -3px 0;
+}
+
+.skill-hint {
+  white-space: nowrap;
+  text-align: justify;
+  align-self: center;
+  font-style: italic;
+  font-size: 14px;
+  padding-left: 10px;
+}
+
+.language-level-badge {
+  background-color: #EAEAEA;
+  margin-right: 10px;
+}
+
+.language-level-badge:last-child {
+  margin-right: 0px;
+}
+
+.flag-icon {
+  width: 30px;
+  height: 20px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.person-language-name {
+  color: #606060;
+  font-size: 16px;
+  font-weight: lighter;
+  padding-left: 5px;
+}
+
+.heading {
+  color: gray;
+  font-weight: bold;
+  font-size: 12px;
+  padding-bottom: 4px;
+  margin-top: 15px;
+}
+
+.person-value {
+  color: #606060;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.person-value-container {
+  margin-right: 20px;
+}
+
+.person-value-container:last-child {
+  margin-right: 0px;
+}
+
+.device-icon {
+  width: 30px;
+  height: 30px;
+  opacity: 0.6;
+}
+
+.quotation-mark {
+  font-size: 30px;
+  font-weight: bold;
+  color: #909090;
+}
+
+.quotation-mark-start {
+  align-self: flex-start;
+}
+
+.quotation-mark-end {
+  align-self: flex-end;
+}
+
+.quote-text {
+  color: #606060;
+  font-size: 18px;
+  font-weight: 300;
+  text-align: justify;
+}
+
+.quote-author {
+  font-weight: 300;
+  color: #909090;
+  font-size: 18px;
+  font-style: italic;
+  white-space: pre;
+}
+
+.team-badge {
+  background-color: #a0b1b9;
+  color: white;
+  font-weight: lighter;
+  white-space: nowrap;
+  cursor: default;
+  text-align: center;
+  margin: 3px;
+  padding: 2px 3px;
+  width: calc((100% - 6*12px) / 6);
+  overflow: visible;
+  font-size: 16px;
+}
+
+.team-badge-index {
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  background-color: #607d8b;
+  border-radius: 4px;
+  font-size: 10px;
+  color: white;
+  padding: 2px 0px;
+  text-align: center;
+  width: 15px;
+}
+
+.team-priorities-row {
+  margin: -3px;
+}
+
+/* team container */
+app-team {
+  margin-top: $scroll-inset;
+  margin-bottom: $scroll-inset;
+}
+
+.hidden-scrollbar-parent {
+  height: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.hidden-scrollbar-child {
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-right: -100px; /* $max-scrollbar-width */
+  padding-right: 100px;
+}

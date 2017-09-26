@@ -9,11 +9,11 @@
   </div>
 
   <!-- dialog for person details (if visible) -->
-  <div *ngIf="personDetailDialogDisplayedPerson">
-    <div class="dialog-container" (click)="closePersonDetailDialog()">
-      <!--person-detail [person]="personDetailDialogDisplayedPerson"></person-detail-->>
+    <div class="overlay-container" (click)="closeOverlay()"
+         [ngClass]="{ 'dialog-container-hidden': !overlayVisible }">
+      <ng-template appOverlayHost></ng-template>
+      <!--person-detail [person]="personDetailDialogDisplayedPerson"></person-detail-->
     </div>
-  </div>
 
   <!-- dashboard -->
   <div class="app-content position-fixed-fill">

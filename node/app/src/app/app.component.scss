@@ -38,7 +38,7 @@
 }
 
 // dialog container
-.dialog-container {
+.overlay-container {
   position: fixed;
   left: 0;
   top: 0;
@@ -46,6 +46,10 @@
   bottom: 0;
   z-index: 1000;
   background-color: $dialog-background;
+}
+
+.dialog-container-hidden {
+  display: none;
 }
 
 // app content

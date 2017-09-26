@@ -3,14 +3,14 @@
   <div *ngFor="let team of teams" class="hidden-scrollbar-parent">
     <div class="hidden-scrollbar-child flex-column">
       <div class="scroll-spacer flex-no-shrink"></div>
-      <app-team class="flex-no-shrink" [team]="team" (personClose)="onPersonDialogClosed()"></app-team>
+      <app-team class="flex-no-shrink" [team]="team"></app-team>
       <div class="scroll-spacer flex-no-shrink"></div>
     </div>
   </div>
 </div>
 
 
-<!-- person drawer -->
+<!-- person pool -->
 <div class="person-pool flex-column" [ngClass]="getPersonPoolDisplayModeCSSClass(personPoolDisplayMode)">
   <div class="flex-row flex-center person-pool-title-bar flex-no-shrink">
     <div class="person-pool-label">Person Pool</div>
