@@ -28,9 +28,9 @@ export class DashboardComponent implements OnInit {
     /* save model when modified by drag&drop operation */
     dragulaService.dropModel.subscribe(value => {
       /* update team memberships (reverse references) */
-      this.teams.forEach(team => team.persons.forEach(person => person.team = team));
-      this.orphanTeam.persons.forEach(person => person.team = this.orphanTeam);
-      this.teamService.saveTeams(this.teams);
+      const teamsWithOrphans = this.teams.concat(this.orphanTeam);
+      teamsWithOrphans.forEach(team => team.persons.forEach(person => person.team = team));
+      this.teamService.saveTeams(teamsWithOrphans);
     });
   }
 
