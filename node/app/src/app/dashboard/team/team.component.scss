@@ -1,4 +1,5 @@
-@import '../../../scss/_style-constants.scss';
+@import '../../../scss/style-constants';
+@import '../dashboard-common';
 
 .team-card {
   width: 300px;
@@ -7,20 +8,12 @@
   background-color: white;
   border: 1px solid #ddd;
   color: #686868;
-  background-color: $gray-f5;
+  background-color: white; // $gray-f5;
   padding: 0px;
 }
 
 .title-elements-spacing {
   margin: 10px;
-}
-
-.team-person-count {
-  background-color: #e1e1e1;
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
-  border-radius: 50%;
 }
 
 .team-name {

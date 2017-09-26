@@ -30,7 +30,7 @@ export class IconMapperService {
   }
 
   getDeviceTypeIconPath(deviceType: DeviceType): string {
-    switch (deviceType){
+    switch (deviceType) {
       case DeviceType.Iphone:
         return IconMapperService.BASE_PATH_IMAGES + 'iphone.png';
       case DeviceType.Ipod:
@@ -45,7 +45,7 @@ export class IconMapperService {
   }
 
   getGenderIconPath(gender: Gender): string {
-    switch (gender){
+    switch (gender) {
       case Gender.Male:
         return IconMapperService.BASE_PATH_IMAGES + 'mars.svg';
       case Gender.Female:

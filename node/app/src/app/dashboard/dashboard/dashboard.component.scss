@@ -1,5 +1,6 @@
-@import '../../../scss/_style-constants.scss';
-@import '../../../scss/bootstrap.min.scss';
+@import '../../../scss/style-constants';
+@import '../../../scss/bootstrap.min';
+@import '../dashboard-common';
 
 .dashboard {
   overflow-x: scroll;
@@ -51,15 +52,15 @@
 }
 
 .person-pool-display-mode-closed {
-  height: 50px;
+  height: 60px;
 }
 
 .person-pool-display-mode-onerow {
-  height: 150px;
+  height: 195px;
 }
 
 .person-pool-display-mode-tworows {
-  height: 250px;
+  height: 310px;
 }
 
 .person-pool-display-mode-full {
@@ -74,4 +75,15 @@
   color: #838383;
   font-size: 25px;
   font-weight: 300;
+  margin-right: 15px;
+}
+
+.person-pool-size-icon {
+  height: 15px;
+}
+
+.person-pool-preview-row {
+  overflow-x: auto;
+  overflow-y: hidden;
+  align-content: flex-start;
 }

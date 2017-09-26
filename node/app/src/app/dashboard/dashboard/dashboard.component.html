@@ -12,27 +12,35 @@
 
 <!-- person drawer -->
 <div class="person-pool flex-column" [ngClass]="getPersonPoolDisplayModeCSSClass(personPoolDisplayMode)">
-  <div class="flex-row flex-center person-pool-title-bar">
-    <div class="person-pool-label flex-grow">Person Pool</div>
+  <div class="flex-row flex-center person-pool-title-bar flex-no-shrink">
+    <div class="person-pool-label">Person Pool</div>
+    <div class="team-person-count flex-row flex-center flex-justify-center">
+      <div *ngIf="orphanTeam">{{orphanTeam.persons.length}}</div>
+    </div>
+    <div class="flex-grow"></div>
 
     <div class="btn-group btn-group-sm" ngbRadioGroup name="radioBasic" [(ngModel)]="personPoolDisplayMode">
       <label ngbButtonLabel class="btn-secondary">
-        <input ngbButton type="radio" [value]="0"> One
+        <input ngbButton type="radio" [value]="0">
+        <img src="/assets/images/person-pool-closed.svg" class="person-pool-size-icon">
       </label>
       <label ngbButtonLabel class="btn-secondary">
-        <input ngbButton type="radio" [value]="1"> Two
+        <input ngbButton type="radio" [value]="1">
+        <img src="/assets/images/person-pool-one-row.svg" class="person-pool-size-icon">
       </label>
       <label ngbButtonLabel class="btn-secondary">
-        <input ngbButton type="radio" [value]="2"> Three
+        <input ngbButton type="radio" [value]="2">
+        <img src="/assets/images/person-pool-two-rows.svg" class="person-pool-size-icon">
       </label>
       <label ngbButtonLabel class="btn-secondary">
-        <input ngbButton type="radio" [value]="3"> Four
+        <input ngbButton type="radio" [value]="3">
+        <img src="/assets/images/person-pool-full.svg" class="person-pool-size-icon">
       </label>
     </div>
   </div>
 
-  <!--div [dragula]='"first-bag"' class='flex-row' [dragulaModel]="team.persons">
-    <app-person-preview *ngFor="let person of team.persons" [person]="person"
+  <div *ngIf="orphanTeam" [dragula]='"first-bag"' class='flex-column flex-grow person-pool-preview-row flex-wrap' [dragulaModel]="orphanTeam.persons">
+    <app-person-preview *ngFor="let person of orphanTeam.persons" [person]="person"
                         (click)="showPersonDetails(person)"></app-person-preview>
-  </div-->
+  </div>
 </div>

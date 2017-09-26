@@ -14,9 +14,8 @@ enum PersonPoolDisplayMode {
 })
 export class DashboardComponent implements OnInit {
   protected teams: Team[];
+  protected orphanTeam: Team;
   protected personPoolDisplayMode: PersonPoolDisplayMode = PersonPoolDisplayMode.OneRow;
-
-
 
   constructor(private teamService: TeamService,
               private dragulaService: DragulaService) {
@@ -30,7 +29,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.teamService.readSavedTeams().then(teams => this.teams = teams);
+    this.teamService.readSavedTeams().then(teams => {
+      this.teams = teams.filter(team => team.name !== Team.OrphanTeamName);
+      this.orphanTeam = teams.find(team => team.name === Team.OrphanTeamName);
+    });
   }
 
   protected getPersonPoolDisplayModeCSSClass(value: PersonPoolDisplayMode): string {
