@@ -3,7 +3,7 @@
   <div class="flex-column">
 
     <!-- person detail card -->
-    <md-card class="detail-card flex-column" *ngIf="data" (click)="$event.stopPropagation()">
+    <md-card *ngIf="data" class="detail-card flex-column flex-no-shrink" (click)="$event.stopPropagation()">
       <div class="flex-row">
         <img id="profile-picture" src="{{ getGravatarIcon(data.person.email) }}">
         <div class="flex-column" id="name-flex-column">
@@ -11,7 +11,8 @@
           <div class="flex-row" id="name-flex-row">
             <img id="gender-icon" src="{{getGenderIconPath()}}">
             <div id="person-name">{{ data.person.firstName }} {{ data.person.lastName }}</div>
-            <div *ngIf="isPersonRated()" class="badge flex-right skill-badge skill-badge-main" [style.background-color]="getSupervisorRatingColor()">
+            <div *ngIf="isPersonRated()" class="badge flex-right skill-badge skill-badge-main"
+                 [style.background-color]="getSupervisorRatingColor()">
               {{ getLabelForSkillLevel(data.person.supervisorRating) }}
             </div>
           </div>
@@ -45,7 +46,8 @@
               <div class="heading">Devices</div>
               <div class="flex-row">
                 <div *ngIf="data.person.devices.length == 0" class="person-value">—</div>
-                <img class="device-icon flex-spacing-x-2px" *ngFor="let device of data.person.devices" src="{{getDeviceIconPath(device)}}">
+                <img class="device-icon flex-spacing-x-2px" *ngFor="let device of data.person.devices"
+                     src="{{getDeviceIconPath(device)}}">
               </div>
             </div>
             <div class="flex-column person-value-container flex-grow">
