@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TeamComponent } from './team/team.component';
-import {MdButtonModule, MdIconModule} from '@angular/material';
+import {MdButtonModule, MdIconModule, MdSlideToggleModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { PersonPreviewComponent } from './person-preview/person-preview.component';
 import {DragulaModule} from 'ng2-dragula';
@@ -17,7 +17,7 @@ import { ConstraintsOverlayComponent } from './constraints-overlay/constraints-o
 
 @NgModule({
   imports: [
-    CommonModule, BrowserAnimationsModule, MdButtonModule, MdIconModule, DragulaModule, FormsModule, NgbModule,
+    CommonModule, BrowserAnimationsModule, MdButtonModule, MdIconModule, MdSlideToggleModule, DragulaModule, FormsModule, NgbModule,
     ChartsModule
   ],
   declarations: [
