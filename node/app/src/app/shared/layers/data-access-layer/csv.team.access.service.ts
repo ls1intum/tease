@@ -14,7 +14,8 @@ export class PersistentTeamAccessService extends TeamAccessService {
 
   readSavedTeams(): Promise<Team[]> {
     const teamData = localStorage.getItem(PersistentTeamAccessService.TeamStorageKey);
-    if (teamData === undefined) {
+
+    if (teamData === undefined || teamData === null) {
       return Promise.resolve([]);
     }
 
