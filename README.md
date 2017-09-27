@@ -29,7 +29,7 @@ Run your container from the image:
 
 ```
 # Run container
-docker run -p 80:4200 -d --name tease team-allocator
+docker run -p 80:80 -d --name tease team-allocator
   
 # Stop container
 docker stop tease

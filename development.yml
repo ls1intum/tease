@@ -1,4 +1,4 @@
 node:
   build: ./node
   ports:
-    - "81:4200"
+    - "81:80"
