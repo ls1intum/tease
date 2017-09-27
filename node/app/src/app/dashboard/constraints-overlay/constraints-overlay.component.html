@@ -1,69 +1,53 @@
 <div class="flex-column flex-center full-size">
   <div class="dialog-box flex-column" (click)="$event.stopPropagation()">
-    <div class="dialog-header flex-row flex-center">
+    <div class="dialog-header flex-row flex-center flex-no-shrink">
       <div class="dialog-heading">Distribute With Constraints</div>
     </div>
-    <div class="overwrite-warning flex-row">
-      <div class="warning-heading overwrite-warning-element">Warning!</div>
-      <div class="overwrite-warning-element">Applying constraints overwrites the current team allocation.</div>
+
+    <!-- scrollable content -->
+    <div class="scrollable-content">
+      <div class="flex-column flex-no-shrink">
+        <div class="overwrite-warning flex-row">
+          <div class="warning-heading overwrite-warning-element">Warning!</div>
+          <div class="overwrite-warning-element">Applying constraints overwrites the current team allocation.</div>
+        </div>
+
+        <div *ngFor="let constraint of constraints ">
+          <div class="constraint-container flex-row flex-center">
+
+            <!-- Interval Constraint -->
+            <div *ngIf="constraint.getType() === ConstraintType.Interval" class="flex-row flex-center flex-spacing-10">
+              <input mdInput class="number" placeholder="" name="constraintMinValue" [ngModel]="constraint.getMinValue()"
+                     (ngModelChange)="onConstraintMinValueChanged(constraint, $event)" [disabled]="!constraint.isEnabled"/>
+              <div class="comparator flex-row flex-center"><div>{{constraint.getComparator()}}</div></div>
+              <div class="name">{{constraint.getName()}}</div>
+              <div class="comparator">{{constraint.getComparator()}}</div>
+              <input mdInput class="number" placeholder="" name="constraintMaxValue" [ngModel]="constraint.getMaxValue()"
+                     (ngModelChange)="onConstraintMaxValueChanged(constraint, $event)" [disabled]="!constraint.isEnabled"/>
+            </div>
+
+            <!-- Non Interval Constraint -->
+            <div *ngIf="constraint.getType() !== ConstraintType.Interval" class="flex-row flex-center flex-spacing-10">
+              <div class="name">{{constraint.getName()}}</div>
+              <div class="comparator">{{constraint.getComparator()}}</div>
+              <input *ngIf="[ConstraintType.LT,ConstraintType.LTE].indexOf(constraint.getType()) != -1" mdInput class="number"
+                     placeholder="" name="constraintValue" [ngModel]="constraint.getMaxValue()"
+                     (ngModelChange)="onConstraintMaxValueChanged(constraint, $event)" [disabled]="!constraint.isEnabled"
+              />
+              <input *ngIf="[ConstraintType.GT,ConstraintType.GTE].indexOf(constraint.getType()) != -1" mdInput class="number"
+                     placeholder="" name="constraintValue" [ngModel]="constraint.getMinValue()"
+                     (ngModelChange)="onConstraintMinValueChanged(constraint, $event)" [disabled]="!constraint.isEnabled"
+              />
+            </div>
+
+            <div class="flex-grow"></div>
+            <md-slide-toggle [(ngModel)]="constraint.isEnabled"></md-slide-toggle>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!--div *ngFor="let constraint of constraints ">
-      <md-card>
-        <div *ngIf="constraint.getType() === ConstraintType.Interval" class="constraint-config complex-constraint">
-          <input mdInput class="number"
-                 placeholder=""
-                 name="constraintMinValue"
-                 [ngModel]="constraint.getMinValue()"
-                 (ngModelChange)="onConstraintMinValueChanged(constraint, $event)"
-                 [disabled]="!constraint.isEnabled"
-          />
-          <div class="comparator">{{constraint.getComparator()}}</div>
-          <div class="name">{{constraint.getName()}}</div>
-          <div class="comparator">{{constraint.getComparator()}}</div>
-          <input mdInput class="number"
-                 placeholder=""
-                 name="constraintMaxValue"
-                 [ngModel]="constraint.getMaxValue()"
-                 (ngModelChange)="onConstraintMaxValueChanged(constraint, $event)"
-                 [disabled]="!constraint.isEnabled"
-          />
-
-        </div>
-
-        <div *ngIf="constraint.getType() !== ConstraintType.Interval" class="constraint-config simple-constraint">
-
-          <div class="name">{{constraint.getName()}}</div>
-          <div class="comparator">{{constraint.getComparator()}}</div>
-
-          <input *ngIf="[ConstraintType.LT,ConstraintType.LTE].indexOf(constraint.getType()) != -1" mdInput class="number"
-                 placeholder=""
-                 name="constraintValue"
-                 [ngModel]="constraint.getMaxValue()"
-                 (ngModelChange)="onConstraintMaxValueChanged(constraint, $event)"
-                 [disabled]="!constraint.isEnabled"
-          />
-
-          <input *ngIf="[ConstraintType.GT,ConstraintType.GTE].indexOf(constraint.getType()) != -1" mdInput class="number"
-                 placeholder=""
-                 name="constraintValue"
-                 [ngModel]="constraint.getMinValue()"
-                 (ngModelChange)="onConstraintMinValueChanged(constraint, $event)"
-                 [disabled]="!constraint.isEnabled"
-          />
-
-        </div>
-
-
-        <div class="constraint-config">
-          <md-slide-toggle [(ngModel)]="constraint.isEnabled"></md-slide-toggle>
-        </div>
-
-      </md-card>
-
-    </div-->
-
-    <div class="dialog-footer flex-row-reverse flex-center">
+    <div class="dialog-footer flex-row-reverse flex-center flex-no-shrink">
       <button md-raised-button color="primary" (click)="$event.stopPropagation()">
         Distribute Persons
       </button>

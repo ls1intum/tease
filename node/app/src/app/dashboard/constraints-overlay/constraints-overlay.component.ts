@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OverlayComponent} from '../../overlay.service';
-import {Constraint} from '../../shared/models/constraints/constraint';
+import {Constraint, ConstraintType} from '../../shared/models/constraints/constraint';
 import {ConstraintService} from '../../shared/layers/business-logic-layer/constraint.service';
 
 @Component({
@@ -11,7 +11,9 @@ import {ConstraintService} from '../../shared/layers/business-logic-layer/constr
 export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayComponent {
   public data: {};
 
-  private constraints: Constraint[];
+  protected constraints: Constraint[];
+
+  protected ConstraintType = ConstraintType;
 
   constructor(private constraintService: ConstraintService) { }
 
