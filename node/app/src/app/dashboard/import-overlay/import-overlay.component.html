@@ -7,7 +7,7 @@
     <div class="dialog-header flex-row flex-center">
       <div class="dialog-heading">Import</div>
     </div>
-    <div class="overwrite-warning flex-row">
+    <div *ngIf="data.overwriteWarning" class="overwrite-warning flex-row">
       <div class="warning-heading overwrite-warning-element">Warning!</div>
       <div class="overwrite-warning-element">Importing new data replaces the current dataset.</div>
     </div>

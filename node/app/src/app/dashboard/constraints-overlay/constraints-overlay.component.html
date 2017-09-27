@@ -1,0 +1,19 @@
+<div class="flex-column flex-center full-size">
+  <div class="dialog-box flex-column" (click)="$event.stopPropagation()">
+    <div class="dialog-header flex-row flex-center">
+      <div class="dialog-heading">Distribute With Constraints</div>
+    </div>
+    <div class="overwrite-warning flex-row">
+      <div class="warning-heading overwrite-warning-element">Warning!</div>
+      <div class="overwrite-warning-element">Applying constraints overwrites the current team allocation.</div>
+    </div>
+
+
+
+    <div class="dialog-header flex-row-reverse flex-center">
+      <button md-raised-button color="primary" (click)="$event.stopPropagation()">
+        Distribute Persons
+      </button>
+    </div>
+  </div>
+</div>

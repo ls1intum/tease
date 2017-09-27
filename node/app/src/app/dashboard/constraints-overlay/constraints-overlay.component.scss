@@ -1,0 +1,47 @@
+@import '../../../scss/style-constants';
+@import '../../../scss/utility';
+@import '../../../scss/flex-box';
+
+.dialog-box {
+  background-color: white;
+  border: $standard-border;
+  width: 600px;
+  //height: 300px;
+  margin-top: $scroll-inset;
+}
+
+.dialog-header {
+  height: 30px;
+  background-color: #EEE;
+  padding: 10px;
+}
+
+.dialog-heading {
+  font-size: 25px;
+  font-weight: 300;
+}
+
+.flex-spacing-10 {
+  padding: -10px;
+}
+
+.flex-spacing-10 > * {
+  margin: 10px;
+}
+
+.overwrite-warning {
+  margin: 10px;
+  border-radius: 5px;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  padding-left: 5px;
+}
+
+.overwrite-warning-element {
+  margin: 8px;
+  color: #856404;
+}
+
+.warning-heading {
+  font-weight: bold;
+}

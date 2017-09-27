@@ -6,6 +6,7 @@ import {ExamplePersonPropertyCsvRemotePath} from '../../shared/constants/csv.con
 import {Person} from '../../shared/models/person';
 import {PersonDetailOverlayComponent} from '../person-detail-overlay/person-detail-overlay.component';
 import {OverlayService} from '../../overlay.service';
+import {ConstraintsOverlayComponent} from '../constraints-overlay/constraints-overlay.component';
 
 enum PersonPoolDisplayMode {
   Closed, OneRow, TwoRows, Full
@@ -55,5 +56,9 @@ export class DashboardComponent implements OnInit {
 
   public isDataLoaded(): boolean {
     return this.teams && this.teams.length > 0;
+  }
+
+  protected openConstraintsDialog() {
+    this.overlayService.displayComponent(ConstraintsOverlayComponent, {});
   }
 }

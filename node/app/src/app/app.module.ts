@@ -16,6 +16,7 @@ import {OverlayService} from './overlay.service';
 import {PersonStatisticsService} from './shared/layers/business-logic-layer/person-statistics.service';
 import {ChartsModule} from 'ng2-charts';
 import {ImportOverlayComponent} from './dashboard/import-overlay/import-overlay.component';
+import {ConstraintsOverlayComponent} from "./dashboard/constraints-overlay/constraints-overlay.component";
 
 @NgModule({
   declarations: [
@@ -30,6 +31,6 @@ import {ImportOverlayComponent} from './dashboard/import-overlay/import-overlay.
   ],
   providers: [TeamService, ConstraintService, OverlayService, IconMapperService, PersonStatisticsService],
   bootstrap: [AppComponent],
-  entryComponents: [PersonDetailOverlayComponent, ImportOverlayComponent]
+  entryComponents: [PersonDetailOverlayComponent, ImportOverlayComponent, ConstraintsOverlayComponent]
 })
 export class AppModule { }
