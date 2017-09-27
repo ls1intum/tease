@@ -40,17 +40,9 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  private loadTeams(teams: Team[]) {
+  public loadTeams(teams: Team[]) {
     this.teams = teams.filter(team => team.name !== Team.OrphanTeamName);
     this.orphanTeam = teams.find(team => team.name === Team.OrphanTeamName);
-  }
-
-  public loadExampleData() {
-    this.teamService.readRemoteTeamData(ExamplePersonPropertyCsvRemotePath).then(teams => {
-      this.teamService.saveTeams(teams).then(saved => {
-        this.loadTeams(teams);
-      });
-    });
   }
 
   protected getPersonPoolDisplayModeCSSClass(value: PersonPoolDisplayMode): string {
@@ -59,5 +51,9 @@ export class DashboardComponent implements OnInit {
 
   protected showPersonDetails(person: Person) {
     this.overlayService.displayComponent(PersonDetailOverlayComponent, { person: person });
+  }
+
+  public isDataLoaded(): boolean {
+    return this.teams && this.teams.length > 0;
   }
 }

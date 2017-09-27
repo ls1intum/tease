@@ -12,6 +12,7 @@ import { PersonDetailOverlayComponent } from './person-detail-overlay/person-det
 import { TeamScoreComponent } from './team-score/team-score.component';
 import { TeamPrioritiesChartComponent } from './team-priorities-chart/team-priorities-chart.component';
 import {ChartsModule} from 'ng2-charts';
+import { ImportOverlayComponent } from './import-overlay/import-overlay.component';
 
 @NgModule({
   imports: [
@@ -20,8 +21,9 @@ import {ChartsModule} from 'ng2-charts';
   ],
   declarations: [
     DashboardComponent, TeamComponent, PersonPreviewComponent, PersonDetailOverlayComponent, TeamScoreComponent,
-    TeamPrioritiesChartComponent
+    TeamPrioritiesChartComponent,
+    ImportOverlayComponent
   ],
-  exports: [DashboardComponent, PersonDetailOverlayComponent]
+  exports: [DashboardComponent, PersonDetailOverlayComponent, ImportOverlayComponent]
 })
 export class DashboardModule { }

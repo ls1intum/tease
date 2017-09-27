@@ -15,6 +15,7 @@ import {OverlayHostDirective} from './overlay-host.directive';
 import {OverlayService} from './overlay.service';
 import {PersonStatisticsService} from './shared/layers/business-logic-layer/person-statistics.service';
 import {ChartsModule} from 'ng2-charts';
+import {ImportOverlayComponent} from './dashboard/import-overlay/import-overlay.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,6 @@ import {ChartsModule} from 'ng2-charts';
   ],
   providers: [TeamService, ConstraintService, OverlayService, IconMapperService, PersonStatisticsService],
   bootstrap: [AppComponent],
-  entryComponents: [PersonDetailOverlayComponent]
+  entryComponents: [PersonDetailOverlayComponent, ImportOverlayComponent]
 })
 export class AppModule { }

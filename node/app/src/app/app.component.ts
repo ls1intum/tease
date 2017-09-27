@@ -3,6 +3,7 @@ import {TeamService} from './shared/layers/business-logic-layer/team.service';
 import {DashboardComponent} from './dashboard/dashboard/dashboard.component';
 import {OverlayHostDirective} from './overlay-host.directive';
 import {OverlayComponent, OverlayService, OverlayServiceHost} from './overlay.service';
+import {ImportOverlayComponent} from "./dashboard/import-overlay/import-overlay.component";
 
 @Component({
   selector: 'app-root',
@@ -29,8 +30,14 @@ export class AppComponent implements OverlayServiceHost {
     this.teamService.exportTeams();
   }
 
-  protected loadExampleData() {
-    this.dashboardComponent.loadExampleData();
+  showImportOverlay() {
+    this.overlayService.displayComponent(ImportOverlayComponent, {
+      onTeamsImported: (teams) => {
+        this.dashboardComponent.loadTeams(teams);
+        this.overlayService.closeOverlay();
+      },
+      overwriteWarning: this.dashboardComponent.isDataLoaded()
+    });
   }
 
   /* OverlayServiceHost interface */
