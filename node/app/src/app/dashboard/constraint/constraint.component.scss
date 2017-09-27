@@ -1,0 +1,54 @@
+@import '../../../scss/style-constants';
+@import '../../../scss/utility';
+@import '../../../scss/flex-box';
+
+.constraint-container {
+  background-color: #F5F5F5;
+  border-radius: 10px;
+  margin: 2px 12px;
+  height: 40px;
+  padding: 0 15px;
+  color: #666;
+  border: $standard-border;
+  transition: border-color 0.5s, background-color 0.2s, color 0.1s;
+}
+
+.constraint-container-team-specific {
+  background-color: white;
+}
+
+.constraint-container-active {
+  border-color: rgba(233, 30, 99, 0.5);
+  background-color: #f7e0e8;
+  color: #a90b40;
+}
+
+.constraint-container-team-specific.constraint-container-active {
+  background-color: #fff3f7;
+  color: #d20046;
+}
+
+.flex-spacing-10 {
+  margin: -10px;
+}
+
+.flex-spacing-10 > * {
+  margin: 10px;
+}
+
+md-slide-toggle {
+  height: 14px;
+}
+
+input {
+  width: 30px;
+}
+
+.comparator-container {
+  //background-color: #DDD;
+  border: 1px solid;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}

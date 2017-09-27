@@ -13,8 +13,6 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
 
   protected constraints: Constraint[];
 
-  protected ConstraintType = ConstraintType;
-
   constructor(private constraintService: ConstraintService) { }
 
   ngOnInit() {

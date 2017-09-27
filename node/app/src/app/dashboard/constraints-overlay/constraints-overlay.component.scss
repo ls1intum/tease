@@ -22,14 +22,6 @@
   font-weight: 300;
 }
 
-.flex-spacing-10 {
-  margin: -10px;
-}
-
-.flex-spacing-10 > * {
-  margin: 10px;
-}
-
 .scrollable-content {
   overflow-y: auto;
 }
@@ -55,29 +47,4 @@
   height: 25px;
   background-color: #EEE;
   padding: 10px;
-}
-
-.constraint-container {
-  background-color: #F5F5F5;
-  border-radius: 10px;
-  margin: 2px 12px;
-  height: 40px;
-  padding: 0 15px;
-}
-
-md-slide-toggle {
-  height: 14px;
-}
-
-input {
-  width: 30px;
-}
-
-.comparator-container {
-  background-color: #DDD;
-  font-weight: bold;
-  border-radius: 50%;
-  color: black;
-  width: 25px;
-  height: 25px;
 }
