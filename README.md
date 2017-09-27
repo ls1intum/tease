@@ -29,7 +29,7 @@ Run your container from the image:
 
 ```
 # Run container
-docker run -p 80:80 -d --name tease team-allocator
+docker run -p 80:4200 -d --name tease team-allocator
   
 # Stop container
 docker stop tease
@@ -56,7 +56,7 @@ You can promote a build to the following environments:
 	* constants	* helpers = useful functions	* layers (service layer pattern for structuring the logic of the app)	* business-logic-layer (BLL) = logic that is invoked by UI (does not do any low-level operations like writing data)	* data-access-layer (DAL) = logic for writing and reading data from client (invoked by business-logic-layer)	* network-layer (NL) (not implemented yet) = execute network operations (invoked by business logic layer)	* Additional infos:		* Every major model class should have its own service in eachrespective layer; e.g. TeamService in BLL, TeamAccessService in DAL,TeamNetworkService in NL		* Every class outside of the “layer” folder should alwaysexecute services in the BLL, NEVER from the DAL or NL directly
 
 
-## Notes & Learnings by Malte Bucksch
+## Notes & Learnings by Malte Bucksch (some probably outdated)
 ### Webpack
 WebpackThe deployment is so easy thanks to WebPack and how we configured it. It might happen that you need to adapt something in how files or resources get deployed, too. In that case, you should look at the webpack.config.js file. It is working with so called loaders that help to bundle different file types.https://webpack.github.io/docs/configuration.html* Something I used for bundling the resources like pictures as well into the dist folder: CopyWebpackPlugin (https://github.com/kevlened/copy-webpack-plugin)	* It basically just copies any kind of file from your project into the output folder to your code so you can use it and display it.* WebPack takes care of auto refreshing browser content when code changed	* Annoying thing: After changing the code you need to focus the browser window oncewith the mouse to invoke the rebuild and refresh
 

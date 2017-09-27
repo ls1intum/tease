@@ -1,19 +1,20 @@
 {
   "name": "TEASE",
-  "version": "1.1.0",
-  "description": "A software to create teams",
+  "version": "2.0.0",
+  "description": "A reference implementation of a decision-support system for software engineering team allocation for multi-project courses.",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
   "contributors": [
-    "Eric Gopak <eric.gopak@tum.de>",
     "Malte Bucksch <malte.bucksch@quickbirdstudios.com>",
-    "Quirin Schweigert <quirin.schweigert@tum.de>"
+    "Eric Gopak <eric.gopak@tum.de>",
+    "Quirin Schweigert <quirin.schweigert@tum.de>",
+    "Dora Dzvonyar <dora.dzvonyar@tum.de>"
   ],
   "private": true,
   "dependencies": {
