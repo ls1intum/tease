@@ -16,7 +16,9 @@ import {OverlayService} from './overlay.service';
 import {PersonStatisticsService} from './shared/layers/business-logic-layer/person-statistics.service';
 import {ChartsModule} from 'ng2-charts';
 import {ImportOverlayComponent} from './dashboard/import-overlay/import-overlay.component';
-import {ConstraintsOverlayComponent} from "./dashboard/constraints-overlay/constraints-overlay.component";
+import {ConstraintsOverlayComponent} from './dashboard/constraints-overlay/constraints-overlay.component';
+import {TeamGenerationService} from "./shared/layers/business-logic-layer/team-generation/team-generation.service";
+import {LPTeamGenerationService} from "./shared/layers/business-logic-layer/team-generation/lp-team-generation.service";
 
 @NgModule({
   declarations: [
@@ -29,7 +31,10 @@ import {ConstraintsOverlayComponent} from "./dashboard/constraints-overlay/const
     /* own modules */
     SharedModule, DashboardModule
   ],
-  providers: [TeamService, ConstraintService, OverlayService, IconMapperService, PersonStatisticsService],
+  providers: [
+    TeamService, ConstraintService, OverlayService, IconMapperService, PersonStatisticsService,
+    {provide: TeamGenerationService, useClass: LPTeamGenerationService}
+  ],
   bootstrap: [AppComponent],
   entryComponents: [PersonDetailOverlayComponent, ImportOverlayComponent, ConstraintsOverlayComponent]
 })

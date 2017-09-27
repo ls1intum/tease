@@ -59,6 +59,6 @@ export class DashboardComponent implements OnInit {
   }
 
   protected openConstraintsDialog() {
-    this.overlayService.displayComponent(ConstraintsOverlayComponent, {});
+    this.overlayService.displayComponent(ConstraintsOverlayComponent, { teams: this.teams });
   }
 }

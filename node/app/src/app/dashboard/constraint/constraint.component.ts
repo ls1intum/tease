@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Constraint, ConstraintType} from '../../shared/models/constraints/constraint';
-import {Team} from "../../shared/models/team";
+import {Team} from '../../shared/models/team';
 
 @Component({
   selector: 'app-constraint',
@@ -17,4 +17,19 @@ export class ConstraintComponent implements OnInit {
   ngOnInit() {
   }
 
+  protected onConstraintMinValueChanged(constraint: Constraint, value) {
+    if (value === '') {
+      constraint.setMinValue(value);
+    } else if (!isNaN(+value)) {
+      constraint.setMinValue(+value);
+    }
+  }
+
+  protected onConstraintMaxValueChanged(constraint: Constraint, value) {
+    if (value === '') {
+      constraint.setMaxValue(value);
+    } else if (!isNaN(+value)) {
+      constraint.setMaxValue(+value);
+    }
+  }
 }
