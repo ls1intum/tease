@@ -23,7 +23,7 @@
 }
 
 .flex-spacing-10 {
-  padding: -10px;
+  margin: -10px;
 }
 
 .flex-spacing-10 > * {
@@ -73,8 +73,8 @@ input {
   width: 30px;
 }
 
-.comparator {
-  background-color: #999;
+.comparator-container {
+  background-color: #DDD;
   font-weight: bold;
   border-radius: 50%;
   color: black;
