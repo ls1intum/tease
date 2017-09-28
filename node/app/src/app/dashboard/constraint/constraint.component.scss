@@ -44,6 +44,15 @@ input {
   width: 30px;
 }
 
+.name-container {
+  min-width: 150px;
+}
+
+.non-interval-placeholder {
+  min-width: 76px;
+  flex-shrink: 0;
+}
+
 .comparator-container {
   //background-color: #DDD;
   border: 1px solid;
@@ -51,4 +60,5 @@ input {
   border-radius: 50%;
   width: 20px;
   height: 20px;
+  flex-shrink: 0;
 }
