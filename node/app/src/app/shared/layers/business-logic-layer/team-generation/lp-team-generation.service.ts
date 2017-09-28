@@ -1,26 +1,26 @@
-import {TeamGenerationService} from "./team-generation.service";
-import {Team} from "../../../models/team";
-import {Injectable} from "@angular/core";
-import {TeamHelper} from "../../../helpers/team.helper";
-import {ConstraintService} from "../constraint.service";
-import {MacDeviceConstraint} from "../../../models/constraints/mac-device.constraint";
-import {FemalePersonConstraint} from "../../../models/constraints/female-person.constraint";
-import {IosDeviceConstraint} from "../../../models/constraints/ios-device.constraint";
-import {TeamSizeConstraint} from "../../../models/constraints/team-size.constraint";
-import {DeviceType} from "../../../models/device";
-import {Person, Gender} from "../../../models/person";
-import {ReformatLP, Solve} from "javascript-lp-solver";
-import {SkillLevel} from "../../../models/skill";
-import {SkillExpertConstraint} from "../../../models/constraints/skill-expert.constraint";
-import {SkillAdvancedConstraint} from "../../../models/constraints/skill-advanced.constraint";
-import {SkillNormalConstraint} from "../../../models/constraints/skill-normal.constraint";
-import {SkillNoviceConstraint} from "../../../models/constraints/skill-novice.constraint";
+import {TeamGenerationService} from './team-generation.service';
+import {Team} from '../../../models/team';
+import {Injectable} from '@angular/core';
+import {TeamHelper} from '../../../helpers/team.helper';
+import {ConstraintService} from '../constraint.service';
+import {MacDeviceConstraint} from '../../../models/constraints/mac-device.constraint';
+import {FemalePersonConstraint} from '../../../models/constraints/female-person.constraint';
+import {IosDeviceConstraint} from '../../../models/constraints/ios-device.constraint';
+import {TeamSizeConstraint} from '../../../models/constraints/team-size.constraint';
+import {DeviceType} from '../../../models/device';
+import {Person, Gender} from '../../../models/person';
+import {ReformatLP, Solve} from 'javascript-lp-solver';
+import {SkillLevel} from '../../../models/skill';
+import {SkillExpertConstraint} from '../../../models/constraints/skill-expert.constraint';
+import {SkillAdvancedConstraint} from '../../../models/constraints/skill-advanced.constraint';
+import {SkillNormalConstraint} from '../../../models/constraints/skill-normal.constraint';
+import {SkillNoviceConstraint} from '../../../models/constraints/skill-novice.constraint';
 
 function scaleObjective(objective, factor) {
-  let parts = objective.split(' ');
+  const parts = objective.split(' ');
   // Simply multiply each number by 'factor'
   for (let i = 0; i < parts.length; i++) {
-    if (+parts[i] == parts[i]) { // If proper number
+    if (+parts[i] === parts[i]) { // If proper number
       parts[i] = parts[i] * factor;
     }
   }
@@ -29,20 +29,20 @@ function scaleObjective(objective, factor) {
 
 function groupLikeTerms(objective) {
   // Assuming proper form: [d xiyj (+ d xiyj)*]
-  let parts = objective.split(' ');
+  const parts = objective.split(' ');
 
-  let q: { [id: string]: number } = {};
+  const q: { [id: string]: number } = {};
   for (let i = 0; i < parts.length; i++) {
-    if (+parts[i] == parts[i]) { // proper number
+    if (+parts[i] === parts[i]) { // proper number
       // sum it up with other quotients for the corresponding variable
-      let varName = parts[i + 1];
+      const varName = parts[i + 1];
       q[varName] = (q[varName] || 0) + +parts[i];
     }
   }
   // Re-assemble the objective string
   let obj = '';
-  for (let varName in q) {
-    let quot = q[varName];
+  for (const varName in q) {
+    const quot = q[varName];
     if (obj) {
       obj += ' + ';
     }
@@ -58,16 +58,16 @@ export class LPTeamGenerationService implements TeamGenerationService {
   }
 
   private generateMacDeviceConstraints(constraint: MacDeviceConstraint, teamIndex: number, persons: Person[]): string[] {
-    let minMacsPerTeam = constraint.getMinValue() || 0;
-    let constraints = [];
+    const minMacsPerTeam = constraint.getMinValue() || 0;
+    const constraints = [];
 
     let c = '';
 
     for (let i = 1; i <= persons.length; i++) {
-      let person = persons[i - 1];
+      const person = persons[i - 1];
       if (person.devices && person.devices.length > 0) {
         // If has a mac, add him to constraint
-        let macCount = person.devices.filter(device => {
+        const macCount = person.devices.filter(device => {
           return device.deviceType === DeviceType.Mac;
         }).length;
 
@@ -89,16 +89,16 @@ export class LPTeamGenerationService implements TeamGenerationService {
   }
 
   private generateIosDeviceConstraints(constraint: IosDeviceConstraint, teamIndex: number, persons: Person[]): string[] {
-    let minIosDevicesPerTeam = constraint.getMinValue() || 0;
-    let constraints = [];
+    const minIosDevicesPerTeam = constraint.getMinValue() || 0;
+    const constraints = [];
 
     let c = '';
 
     for (let i = 1; i <= persons.length; i++) {
-      let person = persons[i - 1];
+      const person = persons[i - 1];
       if (person.devices && person.devices.length > 0) {
         // If has a mac, add him to constraint
-        let iosDevicesCount = person.devices.filter(device => {
+        const iosDevicesCount = person.devices.filter(device => {
           return [
             DeviceType.Ipad, DeviceType.Ipod, DeviceType.Iphone
           ].includes(device.deviceType);
@@ -122,9 +122,9 @@ export class LPTeamGenerationService implements TeamGenerationService {
   }
 
   private generateTeamSizeConstraints(constraint: TeamSizeConstraint, teamIndex: number, persons: Person[]): string[] {
-    let minPeoplePerTeam = constraint.getMinValue() || 0;
-    let maxPeoplePerTeam = constraint.getMaxValue() || persons.length;
-    let constraints = [];
+    const minPeoplePerTeam = constraint.getMinValue() || 0;
+    const maxPeoplePerTeam = constraint.getMaxValue() || persons.length;
+    const constraints = [];
 
     let c = '';
 
@@ -144,8 +144,8 @@ export class LPTeamGenerationService implements TeamGenerationService {
   }
 
   private generateFemalePersonConstraints(constraint: FemalePersonConstraint, teamIndex: number, persons: Person[]): string[] {
-    let minFemalesPerTeam = constraint.getMinValue() || 0;
-    let constraints = [];
+    const minFemalesPerTeam = constraint.getMinValue() || 0;
+    const constraints = [];
 
     let c = '';
 
@@ -166,10 +166,13 @@ export class LPTeamGenerationService implements TeamGenerationService {
     return constraints;
   }
 
-  private generateSkillLevelConstraints(constraint: TeamSizeConstraint, teamIndex: number, persons: Person[], skillLevel: SkillLevel): string[] {
-    let minPeoplePerTeam = constraint.getMinValue() || 0;
-    let maxPeoplePerTeam = constraint.getMaxValue() || persons.length;
-    let constraints = [];
+  private generateSkillLevelConstraints(constraint: TeamSizeConstraint,
+                                        teamIndex: number,
+                                        persons: Person[],
+                                        skillLevel: SkillLevel): string[] {
+    const minPeoplePerTeam = constraint.getMinValue() || 0;
+    const maxPeoplePerTeam = constraint.getMaxValue() || persons.length;
+    const constraints = [];
 
     let c = '';
 
@@ -198,15 +201,15 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
       let model = [];
 
-      let persons = TeamHelper.getPersons(teams);
+      const persons = TeamHelper.getPersons(teams);
 
       teams.forEach(team => team.clear());
-      let realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
+      const realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
 
       // Ensure binary variables
       for (let i = 1; i <= persons.length; i++) {
         for (let j = 1; j <= realTeams.length; j++) {
-          let v = 'x' + i + 'y' + j;
+          const v = 'x' + i + 'y' + j;
           model.push(v + ' >= 0');
           model.push(v + ' <= 1');
           model.push('int ' + v); // ensures it's an integer
@@ -226,26 +229,26 @@ export class LPTeamGenerationService implements TeamGenerationService {
         model.push(c);
       }
 
-      let teamIndex = {}; // j lookup
+      const teamIndex = {}; // j lookup
       for (let j = 0; j < realTeams.length; j++) {
         teamIndex[realTeams[j].name] = j + 1;
       }
 
       let prioritiesObjective = '';
       for (let i = 1; i <= persons.length; i++) {
-        let person = persons[i - 1];
-        let priorities = person.teamPriorities;
+        const person = persons[i - 1];
+        const priorities = person.teamPriorities;
         for (let k = 0, v = priorities.length; k < priorities.length; k++, v--) {
           if (prioritiesObjective) {
             prioritiesObjective += ' + ';
           }
-          let j = teamIndex[priorities[k].name];
+          const j = teamIndex[priorities[k].name];
           prioritiesObjective += v + ' x' + i + 'y' + j;
         }
       }
 
       // TODO: this skillset objective does not work. Redesign / re-think it
-      let desiredSkillWeights = {};
+      const desiredSkillWeights = {};
       desiredSkillWeights[SkillLevel.VeryHigh] = 0.05;
       desiredSkillWeights[SkillLevel.High] = 0.15;
       desiredSkillWeights[SkillLevel.Medium] = 0.5;
@@ -256,7 +259,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
       for (let j = 1; j <= realTeams.length; j++) {
 
         for (let i = 1; i <= persons.length; i++) {
-          let person = persons[i - 1];
+          const person = persons[i - 1];
           if (person.hasSupervisorRating()) {
             if (skillSetObjective) {
               skillSetObjective += ' + ';
@@ -269,11 +272,11 @@ export class LPTeamGenerationService implements TeamGenerationService {
       // TODO: provide UI for specifying weights
       // For now, specify weights manually
       // Note: set weight to zero to ignore it
-      let prioritiesObjectiveWeight = 1.0;
-      let skillSetObjectiveWeight = 0.0;
+      const prioritiesObjectiveWeight = 1.0;
+      const skillSetObjectiveWeight = 0.0;
 
       // objective function
-      let objective = groupLikeTerms([
+      const objective = groupLikeTerms([
         scaleObjective(prioritiesObjective, prioritiesObjectiveWeight),
         scaleObjective(skillSetObjective, skillSetObjectiveWeight)
       ].join(' + '));
@@ -281,9 +284,9 @@ export class LPTeamGenerationService implements TeamGenerationService {
       model.push('max: ' + objective);
 
       // generate user-specified constraints
-      let promises = [];
+      const promises = [];
       realTeams.forEach((team, teamIndex) => {
-        let promise = this.constraintService.getApplicableConstraints(team).then(constraints => {
+        const promise = this.constraintService.getApplicableConstraints(team).then(constraints => {
 
           // Device constraints
           constraints.forEach(constraint => {
@@ -329,18 +332,18 @@ export class LPTeamGenerationService implements TeamGenerationService {
       Promise.all(promises).then(() => {
 
         // Reformat to JSON model
-        let formattedModel = ReformatLP(model);
+        const formattedModel = ReformatLP(model);
 
         // Solve the model
-        let solution = Solve(formattedModel);
+        const solution = new Solve(formattedModel);
 
         if (solution.feasible) {
           // Assign the teams according to results
           for (let i = 1; i <= persons.length; i++) {
-            let person = persons[i - 1];
+            const person = persons[i - 1];
             for (let j = 1; j <= realTeams.length; j++) {
-              let varName = 'x' + i + 'y' + j;
-              let val = solution[varName] || 0;
+              const varName = 'x' + i + 'y' + j;
+              const val = solution[varName] || 0;
 
               if (val === 1) {
                 realTeams[j - 1].add(person);
@@ -350,7 +353,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
           }
         } else {
           // Assign all to the 'orphan' team, otherwise they are Person objects are simply lost
-          let orphanTeam = teams.filter(team => team.name === Team.OrphanTeamName)[0];
+          const orphanTeam = teams.filter(team => team.name === Team.OrphanTeamName)[0];
           for (let i = 0; i < persons.length; i++) {
             orphanTeam.add(persons[i]);
           }

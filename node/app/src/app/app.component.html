@@ -1,44 +1,38 @@
 <div class="container">
 
-  <!-- toolbar -->
-  <div class="toolbar">
-    <div class="toolbar-item-container flex-row flex-center">
+  <!-- title bar -->
+  <div class="title-bar">
+    <div class="title-bar-item-container flex-row flex-center">
       <img class="icon toolbar-items-spacing" src="/assets/images/icon.png">
-      <div class="app-title toolbar-items-spacing flex-grow">Tease</div>
-      <!--div class="toolbar-items-spacing">
-        <button md-raised-button color="accent"><i class="material-icons md-dark">file_upload</i>Import</button>
+      <div class="app-title toolbar-items-spacing flex-grow">TEASE</div>
+    </div>
+  </div>
+
+  <!-- dialog for person details (if visible) -->
+    <div class="overlay-container" (click)="closeOverlay()"
+         [ngClass]="{ 'dialog-container-hidden': !overlayVisible }">
+      <div class="dialog-content" [ngClass]="{ 'dialog-content-hidden': !overlayVisible }" >
+        <ng-template appOverlayHost></ng-template>
       </div>
-      <div class="toolbar-items-spacing">
-        <button md-raised-button color="accent"><i class="material-icons md-dark">file_download</i>Export</button>
-      </div-->
     </div>
-  </div>
 
-  <!-- dialog for person details is inserted here -->
-  <div *ngIf="personDetailDialogDisplayedPerson">
-    <div class="dialog-container" (click)="closePersonDetailDialog()">
-      <person-detail [person]="personDetailDialogDisplayedPerson"></person-detail>
-    </div>
-  </div>
-
+  <!-- dashboard -->
   <div class="app-content position-fixed-fill">
-    <team-dashboard>
-
-    </team-dashboard>
+    <app-dashboard ></app-dashboard>
   </div>
 
-  <!-- temporary buttons -->
-  <div class="toolbar-temporary flex-row-reverse">
-    <div class="toolbar-temporary-item">
-      <button md-raised-button color="accent" (click)="loadExampleData()">
-        <i class="material-icons md-dark">file_upload</i>Import
+  <!-- buttons overlay -->
+  <div class="buttons-overlay flex-row-reverse pointer-events-none">
+    <div class="buttons-overlay-item pointer-events-auto">
+      <button md-raised-button color="primary" (click)="showImportOverlay()">
+        <md-icon>file_upload</md-icon>Import
       </button>
     </div>
-    <div class="toolbar-temporary-item">
-      <button md-raised-button color="accent" (click)="exportFile()">
-        <i class="material-icons md-dark">file_download</i>Export
+
+    <div class="buttons-overlay-item pointer-events-auto">
+      <button md-raised-button color="primary" (click)="exportData()">
+        <md-icon>file_download</md-icon>Export
       </button>
     </div>
   </div>
 </div>
-

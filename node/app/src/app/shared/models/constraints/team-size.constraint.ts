@@ -1,5 +1,5 @@
-import {Constraint, ConstraintType} from "./constraint";
-import {Team} from "../team";
+import {Constraint, ConstraintType} from './constraint';
+import {Team} from '../team';
 /**
  * Created by Malte Bucksch on 23/02/2017.
  */
@@ -15,7 +15,7 @@ export class TeamSizeConstraint extends Constraint {
   }
 
   getName(): string {
-    return "Team Size";
+    return 'Team Size';
   }
 
   getType(): ConstraintType {

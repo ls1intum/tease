@@ -1,13 +1,13 @@
-import {Person} from "./person";
-import {Project} from "./project";
+import {Person} from './person';
+import {Project} from './project';
 /**
  * Created by wanur on 05/11/2016.
  */
 
 export class Team {
+  static readonly OrphanTeamName = 'NO_TEAM';
+  static readonly SpecialTeamNameForGlobalConstraints = '<GlobalConstraints>';
   name: string;
-  static readonly OrphanTeamName = "NO_TEAM";
-  static readonly SpecialTeamNameForGlobalConstraints = "<GlobalConstraints>";
 
   id: number;
   persons: Person[] = [];
@@ -18,7 +18,7 @@ export class Team {
   }
 
   remove(person: Person) {
-    let index = this.persons.indexOf(person);
+    const index = this.persons.indexOf(person);
     if (index < 0)return;
 
     this.persons.splice(index, 1);
@@ -30,9 +30,9 @@ export class Team {
     person.team = this;
   }
 
-  clear(){
-    while(this.persons.length != 0){
-      let person: Person = this.persons.pop();
+  clear() {
+    while (this.persons.length !== 0) {
+      const person: Person = this.persons.pop();
       person.team = undefined;
     }
   }

@@ -1,0 +1,125 @@
+
+<div class="flex-justify-center flex-row main-row">
+  <div class="flex-column">
+
+    <!-- person detail card -->
+    <md-card *ngIf="data" class="detail-card flex-column flex-no-shrink" (click)="$event.stopPropagation()">
+      <div class="flex-row">
+        <img id="profile-picture" src="{{ getGravatarIcon(data.person.email) }}">
+        <div class="flex-column" id="name-flex-column">
+
+          <div class="flex-row" id="name-flex-row">
+            <img id="gender-icon" src="{{getGenderIconPath()}}">
+            <div id="person-name">{{ data.person.firstName }} {{ data.person.lastName }}</div>
+            <div *ngIf="isPersonRated()" class="badge flex-right skill-badge skill-badge-main"
+                 [style.background-color]="getSupervisorRatingColor()">
+              {{ getLabelForSkillLevel(data.person.supervisorRating) }}
+            </div>
+          </div>
+
+          <div class="flex-row">
+            <div class="flex-column person-value-container">
+              <div class="heading">Major</div>
+              <div class="person-value">{{ data.person.major }}</div>
+            </div>
+            <div class="flex-column flex-grow person-value-container">
+              <div class="heading">Term</div>
+              <div class="person-value">{{ data.person.currentTerm }}</div>
+            </div>
+            <div class="flex-column">
+              <div class="heading">Languages</div>
+              <div class="flex-row">
+                <div class="badge language-level-badge flex-row flex-center">
+                  <img class="flag-icon" src="/assets/images/german.svg">
+                  <div class="person-language-name">{{ data.person.germanLanguageLevel }}</div>
+                </div>
+                <div class="badge language-level-badge flex-row flex-center">
+                  <img class="flag-icon" src="/assets/images/english.svg">
+                  <div class="person-language-name">{{ data.person.englishLanguageLevel }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-row">
+            <div class="flex-column person-value-container">
+              <div class="heading">Devices</div>
+              <div class="flex-row">
+                <div *ngIf="data.person.devices.length == 0" class="person-value">—</div>
+                <img class="device-icon flex-spacing-x-2px" *ngFor="let device of data.person.devices"
+                     src="{{getDeviceIconPath(device)}}">
+              </div>
+            </div>
+            <div class="flex-column person-value-container flex-grow">
+              <div class="heading">Mail</div>
+              <div class="person-value">{{ data.person.email }}</div>
+            </div>
+            <div class="flex-column">
+              <div class="heading">TUM ID</div>
+              <div class="person-value">{{ data.person.tumId }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="flex-row">
+        <div class="flex-column person-value-container width-50">
+          <div class="heading">Project Priorities</div>
+          <!-- team priorities -->
+          <div class="flex-row flex-wrap team-priorities-row">
+            <div *ngFor="let team of data.person.teamPriorities; let i = index"
+                 class="badge team-badge person-value position-relative"
+                 [class.team-badge-highlight]="team === data.person.team">
+              <div class="team-badge-index">{{ i + 1 }}</div>
+              <div class="overflow-hidden">{{ team.name }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-column flex-grow person-value-container width-50">
+          <div class="heading">Skills</div>
+
+          <div class="flex-column skill-row-with-label-container">
+            <div *ngFor="let skillLevel of range(4)" class="flex-row">
+              <div *ngIf="filterSkills(data.person.skills, skillLevel).length > 0" class="flex-row flex-wrap skill-row-container">
+                <div class="badge skill-badge"
+                     *ngFor="let skill of filterSkills(data.person.skills, skillLevel)"[style.background-color]="getSkillColor(skill.skillLevel)">
+                  {{ skill.skillName }}
+                </div>
+              </div>
+              <div *ngIf="filterSkills(data.person.skills, skillLevel).length > 0" class="skill-hint flex-grow" [style.color]="getSkillColor(skillLevel)">{{ getLabelForSkillLevel(skillLevel) }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-column person-value-container">
+        <div class="heading">iOS Experience</div>
+        <div class="flex-row flex-center">
+          <div class="quotation-mark quotation-mark-start">“</div>
+          <div class="quote-text">{{ data.person.iosDevExp }}</div>
+          <div class="quotation-mark quotation-mark-end">”</div>
+          <div class="quote-author">  —  {{ data.person.firstName }}</div>
+        </div>
+
+        <div *ngIf="data.person.iosDevExpDescription" class="flex-row flex-center">
+          <div class="quotation-mark quotation-mark-start">“</div>
+          <div class="quote-text">{{ data.person.iosDevExpDescription }}</div>
+          <div class="quotation-mark quotation-mark-end">”</div>
+          <div class="quote-author">  —  {{ data.person.firstName }}</div>
+        </div>
+      </div>
+    </md-card>
+  </div>
+
+  <!-- team container -->
+  <div class="hidden-scrollbar-parent team-container">
+    <div class="hidden-scrollbar-child flex-column">
+      <app-team *ngIf="isInTeam(data.person)" [team]="data.person.team"></app-team>
+    </div>
+  </div>
+
+</div>
+
+

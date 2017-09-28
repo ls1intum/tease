@@ -1,67 +1,58 @@
-import {Component, OnInit, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
-import {ToolbarService} from "./shared/ui/toolbar.service";
-import {CustomPersonDetailDialogService} from "./shared/ui/custom-person-detail-dialog.service";
-import {Person} from "./shared/models/person";
-import {TeamService} from "./shared/layers/business-logic-layer/team.service";
-import {ExamplePersonPropertyCsvRemotePath} from "./shared/constants/csv.constants";
-
+import {Component, ComponentFactoryResolver, Type, ViewChild, ViewEncapsulation} from '@angular/core';
+import {TeamService} from './shared/layers/business-logic-layer/team.service';
+import {DashboardComponent} from './dashboard/dashboard/dashboard.component';
+import {OverlayHostDirective} from './overlay-host.directive';
+import {OverlayComponent, OverlayService, OverlayServiceHost} from './overlay.service';
+import {ImportOverlayComponent} from "./dashboard/import-overlay/import-overlay.component";
 
 @Component({
-  selector: 'app',
+  selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [CustomPersonDetailDialogService]
+  encapsulation: ViewEncapsulation.None, // This is needed to get the material icons to work. Angular bug?
 })
-export class AppComponent {
-  private buttonName: string = "Skip";
-  private isButtonVisible: boolean = true;
-  private isToolbarVisible: boolean = true;
-  private isScoreVisible: boolean = false;
-  private totalScore: number = 0;
-  private personDetailDialogDisplayedPerson: Person = null;
+export class AppComponent implements OverlayServiceHost {
+  protected overlayVisible = false;
 
-  constructor(private toolbarService: ToolbarService,
-              private customPersonDetailDialogService: CustomPersonDetailDialogService,
-              private teamService: TeamService) {
-    toolbarService.buttonNameChanged.subscribe(newName => {
-      this.buttonName = newName;
-    });
-    toolbarService.buttonVisibilityChanged.subscribe(isVisible => {
-      this.isButtonVisible = isVisible;
-    });
-    toolbarService.toolbarVisibilityChanged.subscribe(isVisible => {
-      this.isToolbarVisible = isVisible;
-    });
-    toolbarService.scoreVisibilityChanged.subscribe(isVisible => {
-      this.isScoreVisible = isVisible;
-    });
-    toolbarService.totalScoreChanged.subscribe(newValue => {
-      this.totalScore = newValue;
-    });
+  @ViewChild(DashboardComponent)
+  private dashboardComponent: DashboardComponent;
 
-    customPersonDetailDialogService.displayedPersonEventEmitter.subscribe(displayedPerson => {
-      this.personDetailDialogDisplayedPerson = displayedPerson
-    });
+  @ViewChild(OverlayHostDirective)
+  private overlayHostDirective: OverlayHostDirective;
+
+  constructor(private overlayService: OverlayService,
+              private teamService: TeamService,
+              private componentFactoryResolver: ComponentFactoryResolver) {
+    this.overlayService.host = this;
   }
 
-  exportFile() {
+  exportData() {
     this.teamService.exportTeams();
   }
 
-  loadExampleData() {
-    this.teamService.readRemoteTeamData(ExamplePersonPropertyCsvRemotePath).then(teams => {
-      this.teamService.saveTeams(teams).then(saved => {
-        //return this.gotoPersonList();
-      });
+  showImportOverlay() {
+    this.overlayService.displayComponent(ImportOverlayComponent, {
+      onTeamsImported: (teams) => {
+        this.dashboardComponent.loadTeams(teams);
+        this.overlayService.closeOverlay();
+      },
+      overwriteWarning: this.dashboardComponent.isDataLoaded()
     });
   }
 
-  closePersonDetailDialog() {
-    console.log("closePersonDetailDialog()");
-    this.customPersonDetailDialogService.displayedPersonEventEmitter.emit(null);
+  /* OverlayServiceHost interface */
+  public displayComponent(component: Type<OverlayComponent>, data: any) {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+    const viewContainerRef = this.overlayHostDirective.viewContainerRef;
+    viewContainerRef.clear();
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    (componentRef.instance as OverlayComponent).data = data;
+    this.overlayVisible = true;
   }
 
-  onButtonClicked() {
-    this.toolbarService.onButtonClicked();
+  public closeOverlay() {
+    this.overlayVisible = false;
+    const viewContainerRef = this.overlayHostDirective.viewContainerRef;
+    viewContainerRef.clear();
   }
 }

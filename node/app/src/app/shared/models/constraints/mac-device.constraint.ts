@@ -1,7 +1,7 @@
-import {Constraint, ConstraintType} from "./constraint";
-import {Team} from "../team";
-import {DeviceType} from "../device";
-import {TeamHelper} from "../../helpers/team.helper";
+import {Constraint, ConstraintType} from './constraint';
+import {Team} from '../team';
+import {DeviceType} from '../device';
+import {TeamHelper} from '../../helpers/team.helper';
 /**
  * Created by Malte Bucksch on 23/02/2017.
  */
@@ -23,7 +23,7 @@ export class MacDeviceConstraint extends Constraint {
   }
 
   getName(): string {
-    return "Mac Devices";
+    return 'Mac Devices';
   }
 
   getType(): ConstraintType {

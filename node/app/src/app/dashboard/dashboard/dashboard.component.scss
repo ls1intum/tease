@@ -1,0 +1,91 @@
+@import '../../../scss/style-constants';
+@import '../../../scss/bootstrap.min';
+@import '../dashboard-common';
+
+.dashboard {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  width: auto;
+  height: 100%;
+}
+
+// team containers
+.hidden-scrollbar-parent {
+  height: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.hidden-scrollbar-child {
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-right: -$max-scrollbar-width;
+  padding-right: $max-scrollbar-width;
+}
+
+.scroll-spacer {
+  height: $scroll-inset;
+}
+
+.person-pool {
+  position: fixed;
+  left: 10px;
+  right: 10px;
+  bottom: 20px;
+  height: calc(50vh - 10px);
+  background-color: white;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition: height 0.5s;
+}
+
+.person-pool-display-mode-closed {
+  height: 60px;
+}
+
+.person-pool-display-mode-onerow {
+  height: 195px;
+}
+
+.person-pool-display-mode-tworows {
+  height: 315px;
+}
+
+.person-pool-display-mode-full {
+  height: calc(100vh - 100px);
+}
+
+.person-pool-title-bar {
+  margin: 10px;
+}
+
+.person-pool-label {
+  color: #838383;
+  font-size: 25px;
+  font-weight: 300;
+  margin-right: 15px;
+}
+
+.distribute-button {
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+app-team {
+  margin-top: $scroll-inset;
+  margin-bottom: 320px;
+}
+
+.distribute-button-row {
+  height: 31px;
+}
+
+.person-pool-size-icon {
+  height: 15px;
+}
+
+.person-pool-preview-row {
+  overflow-x: auto;
+  overflow-y: hidden;
+  align-content: flex-start;
+}

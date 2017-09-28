@@ -1,5 +1,5 @@
-import {PersonSerializer} from "../layers/data-access-layer/serialization/PersonSerializer";
-import {CsvValueNames} from "../constants/csv.constants";
+import {PersonSerializer} from '../layers/data-access-layer/serialization/PersonSerializer';
+import {CsvValueNames} from '../constants/csv.constants';
 /**
  * Created by Malte Bucksch on 09/12/2016.
  */
@@ -8,6 +8,21 @@ export class Skill {
   private _skillLevel: SkillLevel;
   skillName: string;
   skillType: string;
+
+  public static getLabelForSkillLevel(skillLevel: SkillLevel) {
+    switch (skillLevel) {
+      case SkillLevel.Low:
+        return 'Novice';
+      case SkillLevel.Medium:
+        return 'Normal';
+      case SkillLevel.High:
+        return 'Advanced';
+      case SkillLevel.VeryHigh:
+        return 'Expert';
+    }
+
+    return '';
+  }
 
   constructor(skill: string, skillType: string, skillLevel: SkillLevel) {
     this.skillName = skill;
@@ -21,21 +36,6 @@ export class Skill {
 
   toString(): string {
     return CsvValueNames.SkillLevelValue[SkillLevel[this.skillLevel]];
-  }
-
-  public static getLabelForSkillLevel(skillLevel: SkillLevel) {
-    switch(skillLevel) {
-      case SkillLevel.Low:
-        return "Novice";
-      case SkillLevel.Medium:
-        return "Normal";
-      case SkillLevel.High:
-        return "Advanced";
-      case SkillLevel.VeryHigh:
-        return "Expert";
-    }
-
-    return "";
   }
 }
 

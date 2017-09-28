@@ -1,0 +1,111 @@
+@import '../../../scss/style-constants.scss';
+
+.person-card {
+  margin: 5px;
+  padding: 6px;
+  color: black;
+  font-size: small;
+  background-color: white;
+  border: $standard-border;
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  border-radius: 3px;
+}
+
+.person-card:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  position: relative;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
+}
+
+.person-information {
+  padding-left: 10px;
+  padding-top: 3px;
+  width: 100%;
+}
+
+.name-container {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bolder;
+}
+
+.gender-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.flag-icon {
+  width: 15px;
+  margin-right: 5px;
+}
+
+.device-icon {
+  width: 20px;
+  height: 20px;
+  opacity: .8;
+}
+
+.skill-badge {
+  color: white;
+}
+
+.badge {
+  border-radius: 3px;
+  padding: 2px 5px;
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+.language-level-badge {
+  background-color: #EAEAEA;
+}
+
+.flex-right {
+  margin-left: auto;
+}
+
+.priorities-preview {
+  display: flex;
+  flex-direction: row;
+  /*flex-wrap: wrap;*/
+  position: relative;
+  overflow: hidden;
+}
+
+.team-badge {
+  background-color: #EAEAEA;
+  border-radius: 3px;
+  padding: 0 2px;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: default;
+  min-width: 38.66px;
+  max-width: 38.66px;
+  text-align: center;
+}
+
+.team-badge-highlight {
+  background-color: #909090;
+  color: white;
+}
+
+.team-badge-index {
+  background-color: rgba(0, 0, 0, .1);
+  position: absolute;
+  left: 0;
+  width: 15px;
+  height: 100%;
+  border-radius: 10px;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+}

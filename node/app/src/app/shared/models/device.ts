@@ -12,15 +12,15 @@ export class Device {
   toString(): string {
     switch (this.deviceType){
       case DeviceType.Iphone:
-        return "iPhone";
+        return 'iPhone';
       case DeviceType.Ipad:
-        return "iPad";
+        return 'iPad';
       case DeviceType.Ipod:
-        return "iPod";
+        return 'iPod';
       case DeviceType.Watch:
-        return "Watch";
+        return 'Watch';
       case DeviceType.Mac:
-        return "Mac";
+        return 'Mac';
     }
   }
 }

@@ -1,0 +1,87 @@
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-row-reverse {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center {
+  align-items: center;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+@mixin horizontal-spacing($class-name, $amount) {
+  .#{$class-name} {
+    margin-left: $amount;
+    margin-right: $amount;
+  }
+
+  .#{$class-name}:first-child {
+    margin-left: 0;
+  }
+
+  .#{$class-name}:last-child {
+    margin-right: 0;
+  }
+}
+
+// TODO: remove the following three definitions
+.flex-spacing-x-2px {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.flex-spacing-x-2px:first-child {
+  margin-left: 0;
+}
+
+.flex-spacing-x-2px:last-child {
+  margin-right: 0;
+}
+
+.flex-basis-zero {
+  flex-basis: 0;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.width-50 {
+  width: 50%;
+}
+
+.flex-justify-center {
+  justify-content: center;
+}
+
+.flex-no-shrink {
+  flex-shrink: 0;
+}
+
+.flex-justify-content-space-between {
+  justify-content: space-between;
+}
+
+.align-self-center {
+  align-self: center;
+}

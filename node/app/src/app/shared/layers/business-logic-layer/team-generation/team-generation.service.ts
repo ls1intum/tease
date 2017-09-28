@@ -5,5 +5,5 @@ import {Team} from "../../../models/team";
  */
 
 export abstract class TeamGenerationService {
-  abstract generate(teams: Team[]): Promise<Team[]>
+  abstract generate(teams: Team[]): Promise<Team[]>;
 }

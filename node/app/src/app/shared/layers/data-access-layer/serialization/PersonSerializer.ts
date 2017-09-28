@@ -1,15 +1,15 @@
-import {Person, Gender} from "../../../models/person";
-import {StringHelper} from "../../../helpers/string.helper";
-import {CsvColumNames, CsvValueNames} from "../../../constants/csv.constants";
-import {DeviceType} from "../../../models/device";
-import {SkillLevel} from "../../../models/skill";
+import {Person, Gender} from '../../../models/person';
+import {StringHelper} from '../../../helpers/string.helper';
+import {CsvColumNames, CsvValueNames} from '../../../constants/csv.constants';
+import {DeviceType} from '../../../models/device';
+import {SkillLevel} from '../../../models/skill';
 /**
  * Created by Malte Bucksch on 01/12/2016.
  */
 
 export class PersonSerializer {
   static serializePerson(person: Person): {} {
-    let personProps = {};
+    const personProps = {};
 
     // keep this orderId in order to export rows in correct order (in the same order it was imported)
     personProps[CsvColumNames.Person.OrderID] = person.orderId;
@@ -30,9 +30,9 @@ export class PersonSerializer {
     personProps[CsvColumNames.Person.GermanLanguageLevel] = person.germanLanguageLevel;
     personProps[CsvColumNames.Person.EnglishLanguageLevel] = person.englishLanguageLevel;
 
-    this.serializePersonDevices(person,personProps);
+    this.serializePersonDevices(person, personProps);
     this.serializePriorities(person, personProps);
-    this.serializeSkills(person,personProps);
+    this.serializeSkills(person, personProps);
 
     personProps[CsvColumNames.Person.SupervisorRating] = this.serializeSkillLevel(person.supervisorRating);
 
@@ -40,8 +40,8 @@ export class PersonSerializer {
   }
 
   private static serializePriorities(person: Person, personProps: {}) {
-    for (let teamPrio of person.teamPriorities) {
-      let columnName = StringHelper.format(CsvColumNames.Team.Priority,
+    for (const teamPrio of person.teamPriorities) {
+      const columnName = StringHelper.format(CsvColumNames.Team.Priority,
         person.getTeamPriority(teamPrio));
 
       personProps[columnName] = teamPrio.name;
@@ -49,14 +49,14 @@ export class PersonSerializer {
   }
 
   private static serializeSkills(person: Person, personProps: {}) {
-    for(let skill of person.skills){
-      let columnName = skill.skillType + CsvColumNames.ArrayBraces.Open + skill.skillName + CsvColumNames.ArrayBraces.Close;
+    for (const skill of person.skills){
+      const columnName = skill.skillType + CsvColumNames.ArrayBraces.Open + skill.skillName + CsvColumNames.ArrayBraces.Close;
       personProps[columnName] = this.serializeSkillLevel(skill.skillLevel);
     }
   }
 
   private static serializeGender(gender: Gender){
-    switch(gender){
+    switch (gender) {
       case Gender.Male:
         return CsvValueNames.GenderValue.Male;
       case Gender.Female:

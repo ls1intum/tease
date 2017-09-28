@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {Person} from "../../models/person";
-import {Team} from "../../models/team";
-import {ArrayHelper} from "../../helpers/array.helper";
-import {Constraint} from "../../models/constraints/constraint";
+import {Injectable} from '@angular/core';
+import {Person} from '../../models/person';
+import {Team} from '../../models/team';
+import {ArrayHelper} from '../../helpers/array.helper';
+import {Constraint} from '../../models/constraints/constraint';
 /**
  * Created by Malte Bucksch on 13/01/2017.
  */
@@ -18,15 +18,15 @@ export class PersonStatisticsService {
   }
 
   calcTeamQualityScore(team: Team, constraints: Constraint[]): number {
-    let averagePrio = this.getAverageTeamPriorityOfPersons(team);
-    let averagePrioScore = this.calcPrioScore(averagePrio);
+    const averagePrio = this.getAverageTeamPriorityOfPersons(team);
+    const averagePrioScore = this.calcPrioScore(averagePrio);
 
-    let scoreSum = constraints.reduce((sum, current) => {
+    const scoreSum = constraints.reduce((sum, current) => {
       return sum + current.calculateSatisfactionScore(team);
     }, 0);
-    let averageConstraintSatisfactionScore = scoreSum / constraints.length;
+    const averageConstraintSatisfactionScore = scoreSum / constraints.length;
 
-    if (constraints.length == 0)return averagePrioScore;
+    if (constraints.length === 0)return averagePrioScore;
     if (isNaN(averagePrioScore))return averageConstraintSatisfactionScore;
 
     return (averagePrioScore + averageConstraintSatisfactionScore) / 2;
@@ -37,12 +37,12 @@ export class PersonStatisticsService {
   }
 
   getAverageTeamPriorityOfPersons(team: Team): number {
-    let priorities = ArrayHelper.createNumberRange(this.getPriorityCountMax(team));
+    const priorities = ArrayHelper.createNumberRange(this.getPriorityCountMax(team));
 
     let personSum = 0;
     let prioSum = 0;
-    for (let prio of priorities) {
-      let personsWithPrio = this.getNumberOfPersonsForPriority(prio, team);
+    for (const prio of priorities) {
+      const personsWithPrio = this.getNumberOfPersonsForPriority(prio, team);
       personSum += personsWithPrio;
       prioSum += (prio + 1) * personsWithPrio;
     }
@@ -58,7 +58,7 @@ export class PersonStatisticsService {
   }
 
   getPriorityCountMax(team: Team): number {
-    if (team.persons.length == 0)return 0;
+    if (team.persons.length === 0)return 0;
 
     return Math.max(...team.persons
       .map(person => person.teamPriorities.length));

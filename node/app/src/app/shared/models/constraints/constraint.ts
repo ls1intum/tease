@@ -1,4 +1,4 @@
-import {Team} from "../team";
+import {Team} from '../team';
 /**
  * Created by Malte Bucksch on 23/02/2017.
  */
@@ -33,8 +33,8 @@ export abstract class Constraint {
   toString(): string {
     let str = '';
 
-    let isLeftSideDefined = typeof this.getMinValue() === 'number';
-    let isRightSideDefined = typeof this.getMaxValue() === 'number';
+    const isLeftSideDefined = typeof this.getMinValue() === 'number';
+    const isRightSideDefined = typeof this.getMaxValue() === 'number';
 
     // left-hand side
     if (this.getType() === ConstraintType.Interval) {

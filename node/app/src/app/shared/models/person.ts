@@ -1,7 +1,7 @@
-import {Team} from "./team";
-import {Language} from "./language";
-import {Skill, SkillLevel} from "./skill";
-import {Device, DeviceType} from "./device";
+import {Team} from './team';
+import {Language} from './language';
+import {Skill, SkillLevel} from './skill';
+import {Device, DeviceType} from './device';
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -36,7 +36,7 @@ export class Person {
 
   constructor(id?: number, firstName?: string) {
     this.id = id || 0;
-    this.firstName = firstName || "no name";
+    this.firstName = firstName || 'no name';
   }
 
   getTeamPriority(team: Team): number {

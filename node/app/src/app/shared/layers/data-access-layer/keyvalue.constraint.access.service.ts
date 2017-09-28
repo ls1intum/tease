@@ -1,16 +1,16 @@
-import {Injectable} from "@angular/core";
-import {Constraint} from "../../models/constraints/constraint";
-import {ConstraintAccessService} from "./constraint.access.service";
-import {FemalePersonConstraint} from "../../models/constraints/female-person.constraint";
-import {TeamSizeConstraint} from "../../models/constraints/team-size.constraint";
-import {IosDeviceConstraint} from "../../models/constraints/ios-device.constraint";
-import {MacDeviceConstraint} from "../../models/constraints/mac-device.constraint";
-import {SkillExpertConstraint} from "../../models/constraints/skill-expert.constraint";
-import {SkillAdvancedConstraint} from "../../models/constraints/skill-advanced.constraint";
-import {SkillNormalConstraint} from "../../models/constraints/skill-normal.constraint";
-import {SkillNoviceConstraint} from "../../models/constraints/skill-novice.constraint";
-import {TeamAccessService} from "./team.access.service";
-import {Team} from "../../models/team";
+import {Injectable} from '@angular/core';
+import {Constraint} from '../../models/constraints/constraint';
+import {ConstraintAccessService} from './constraint.access.service';
+import {FemalePersonConstraint} from '../../models/constraints/female-person.constraint';
+import {TeamSizeConstraint} from '../../models/constraints/team-size.constraint';
+import {IosDeviceConstraint} from '../../models/constraints/ios-device.constraint';
+import {MacDeviceConstraint} from '../../models/constraints/mac-device.constraint';
+import {SkillExpertConstraint} from '../../models/constraints/skill-expert.constraint';
+import {SkillAdvancedConstraint} from '../../models/constraints/skill-advanced.constraint';
+import {SkillNormalConstraint} from '../../models/constraints/skill-normal.constraint';
+import {SkillNoviceConstraint} from '../../models/constraints/skill-novice.constraint';
+import {TeamAccessService} from './team.access.service';
+import {Team} from '../../models/team';
 
 /**
  * Created by Malte Bucksch on 23/02/2017.
@@ -22,14 +22,14 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
     super();
   }
 
-  private static readonly KeyMacDeviceConstraint = "KeyMacDeviceConstraint";
-  private static readonly KeyIosDeviceConstraint = "KeyIosDeviceConstraint";
-  private static readonly KeyFemalePersonConstraint = "KeyFemalePersonConstraint";
-  private static readonly KeyTeamSizeConstraint = "KeyTeamSizeConstraint";
-  private static readonly KeySkillExpertConstraint = "KeySkillExpertConstraint";
-  private static readonly KeySkillAdvancedConstraint = "KeySkillAdvancedConstraint";
-  private static readonly KeySkillNormalConstraint = "KeySkillNormalConstraint";
-  private static readonly KeySkillNoviceConstraint = "KeySkillNoviceConstraint";
+  private static readonly KeyMacDeviceConstraint = 'KeyMacDeviceConstraint';
+  private static readonly KeyIosDeviceConstraint = 'KeyIosDeviceConstraint';
+  private static readonly KeyFemalePersonConstraint = 'KeyFemalePersonConstraint';
+  private static readonly KeyTeamSizeConstraint = 'KeyTeamSizeConstraint';
+  private static readonly KeySkillExpertConstraint = 'KeySkillExpertConstraint';
+  private static readonly KeySkillAdvancedConstraint = 'KeySkillAdvancedConstraint';
+  private static readonly KeySkillNormalConstraint = 'KeySkillNormalConstraint';
+  private static readonly KeySkillNoviceConstraint = 'KeySkillNoviceConstraint';
 
   private static readonly ConstraintDefinitionArray = [
     {classDefinition: MacDeviceConstraint, storageKey: KeyValueConstraintAccessService.KeyMacDeviceConstraint},
@@ -59,8 +59,8 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
 
   saveConstraints(constraints: Constraint[]) {
 
-    for (let constraint of constraints) {
-      let constraintClassDefinition = KeyValueConstraintAccessService.ConstraintDefinitionArray
+    for (const constraint of constraints) {
+      const constraintClassDefinition = KeyValueConstraintAccessService.ConstraintDefinitionArray
         .filter(constraintClassDefinition => {
           return constraint instanceof constraintClassDefinition.classDefinition;
         })[0];
@@ -69,10 +69,10 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
         console.error('Unexpected constraint:', constraint);
       } else {
 
-        let teamName = constraint.getTeamName() || Team.SpecialTeamNameForGlobalConstraints;
-        let keyPrefix = this.getTeamBasedConstraintKeyPrefix(teamName) || '';
+        const teamName = constraint.getTeamName() || Team.SpecialTeamNameForGlobalConstraints;
+        const keyPrefix = this.getTeamBasedConstraintKeyPrefix(teamName) || '';
 
-        let storageKey = keyPrefix + constraintClassDefinition.storageKey;
+        const storageKey = keyPrefix + constraintClassDefinition.storageKey;
         localStorage.setItem(storageKey, this.serializeConstraint(constraint));
       }
 
@@ -82,21 +82,21 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
 
   fetchConstraints(): Promise<Constraint[]> {
     return new Promise((resolve, reject) => {
-      let constraints: Constraint[] = [];
+      const constraints: Constraint[] = [];
 
       // global constraints
       KeyValueConstraintAccessService.ConstraintDefinitionArray.forEach(constraintClassDefinition => {
-        let classDefinition = constraintClassDefinition.classDefinition;
-        let teamName = Team.SpecialTeamNameForGlobalConstraints;
-        let keyPrefix = this.getTeamBasedConstraintKeyPrefix(teamName);
-        let storageKey = keyPrefix + constraintClassDefinition.storageKey;
+        const classDefinition = constraintClassDefinition.classDefinition;
+        const teamName = Team.SpecialTeamNameForGlobalConstraints;
+        const keyPrefix = this.getTeamBasedConstraintKeyPrefix(teamName);
+        const storageKey = keyPrefix + constraintClassDefinition.storageKey;
 
-        let storedConfig = this.unserializeConstraint(localStorage.getItem(storageKey)) || {};
+        const storedConfig = this.unserializeConstraint(localStorage.getItem(storageKey)) || {};
 
         // ensure this constraint is not confused with others
         storedConfig.teamName = teamName;
 
-        let constraint = new classDefinition(storedConfig);
+        const constraint = new classDefinition(storedConfig);
 
         constraints.push(constraint);
 
@@ -107,26 +107,23 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
 
         teams.forEach(team => {
 
-          let teamName = team.name;
-          let keyPrefix = this.getTeamBasedConstraintKeyPrefix(teamName);
+          const teamName = team.name;
+          const keyPrefix = this.getTeamBasedConstraintKeyPrefix(teamName);
 
           KeyValueConstraintAccessService.ConstraintDefinitionArray.forEach(constraintClassDefinition => {
-            let classDefinition = constraintClassDefinition.classDefinition;
-            let storageKey = keyPrefix + constraintClassDefinition.storageKey;
+            const classDefinition = constraintClassDefinition.classDefinition;
+            const storageKey = keyPrefix + constraintClassDefinition.storageKey;
 
-            let storedConfig = this.unserializeConstraint(localStorage.getItem(storageKey)) || {};
+            const storedConfig = this.unserializeConstraint(localStorage.getItem(storageKey)) || {};
 
             // ensure this constraint belongs to the given team
             storedConfig.teamName = teamName;
 
-            let constraint = new classDefinition(storedConfig);
+            const constraint = new classDefinition(storedConfig);
 
             constraints.push(constraint);
-
           });
-
         });
-
       });
 
       resolve(constraints);
