@@ -335,7 +335,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
         const formattedModel = ReformatLP(model);
 
         // Solve the model
-        const solution = Solve(formattedModel);
+        const solution = new Solve(formattedModel);
 
         if (solution.feasible) {
           // Assign the teams according to results

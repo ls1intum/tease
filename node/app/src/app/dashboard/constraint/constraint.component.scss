@@ -23,9 +23,18 @@
   color: #a90b40;
 }
 
+.constraint-container-active input {
+  background-color: white;
+  border-color: #a90b40;
+}
+
 .constraint-container-team-specific.constraint-container-active {
   background-color: #fff3f7;
   color: #d20046;
+}
+
+.constraint-container-team-specific.constraint-container-active input {
+  border-color: #d20046;
 }
 
 .flex-spacing-10 {
@@ -42,6 +51,9 @@ md-slide-toggle {
 
 input {
   width: 30px;
+  background-color: #F5F5F5;
+  border: $standard-border;
+  text-align: center;
 }
 
 .name-container {

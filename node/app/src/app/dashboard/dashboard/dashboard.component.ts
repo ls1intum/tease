@@ -36,6 +36,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadSavedTeams();
+  }
+
+  private loadSavedTeams() {
     this.teamService.readSavedTeams().then(teams => {
       this.loadTeams(teams);
     });
@@ -59,6 +63,13 @@ export class DashboardComponent implements OnInit {
   }
 
   protected openConstraintsDialog() {
-    this.overlayService.displayComponent(ConstraintsOverlayComponent, { teams: this.teams });
+    this.overlayService.displayComponent(
+      ConstraintsOverlayComponent,
+      { onTeamsGenerated: () =>  this.loadSavedTeams(), displayWarning: !this.areAllTeamsEmpty()}
+    );
+  }
+
+  protected areAllTeamsEmpty(): boolean {
+    return this.teams.reduce((acc, team) => acc && team.persons.length == 0, true);
   }
 }

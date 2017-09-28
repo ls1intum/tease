@@ -7,7 +7,7 @@
     <!-- scrollable content -->
     <div class="scrollable-content">
       <div class="flex-column flex-no-shrink">
-        <div class="overwrite-warning flex-row">
+        <div *ngIf="data.displayWarning" class="overwrite-warning flex-row">
           <div class="warning-heading overwrite-warning-element">Warning!</div>
           <div class="overwrite-warning-element">Applying constraints overwrites the current team allocation.</div>
         </div>
@@ -17,7 +17,7 @@
           <app-constraint [constraint]="constraint"></app-constraint>
         </div>
 
-        <div *ngFor="let team of data.teams">
+        <div *ngFor="let team of getRealTeams()">
           <div class="constraint-team-name">Constraints for Team <span class="constraint-team-name-bold">{{ team.name }}</span></div>
           <app-constraint *ngFor="let constraint of getConstraintsForTeam(team)" [constraint]="constraint"></app-constraint>
         </div>
