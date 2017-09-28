@@ -14,6 +14,7 @@ import { TeamPrioritiesChartComponent } from './team-priorities-chart/team-prior
 import {ChartsModule} from 'ng2-charts';
 import { ImportOverlayComponent } from './import-overlay/import-overlay.component';
 import { ConstraintsOverlayComponent } from './constraints-overlay/constraints-overlay.component';
+import { ConstraintComponent } from './constraint/constraint.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { ConstraintsOverlayComponent } from './constraints-overlay/constraints-o
     DashboardComponent, TeamComponent, PersonPreviewComponent, PersonDetailOverlayComponent, TeamScoreComponent,
     TeamPrioritiesChartComponent,
     ImportOverlayComponent,
-    ConstraintsOverlayComponent
+    ConstraintsOverlayComponent,
+    ConstraintComponent
   ],
   exports: [DashboardComponent, PersonDetailOverlayComponent, ImportOverlayComponent]
 })

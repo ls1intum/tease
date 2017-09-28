@@ -12,49 +12,20 @@
           <div class="overwrite-warning-element">Applying constraints overwrites the current team allocation.</div>
         </div>
 
-        <div *ngFor="let constraint of constraints ">
-          <div class="constraint-container flex-row flex-center">
+        <div class="constraint-team-name constraint-team-name-bold">Global Constraints</div>
+        <div *ngFor="let constraint of getGlobalConstraints()">
+          <app-constraint [constraint]="constraint"></app-constraint>
+        </div>
 
-            <!-- Interval Constraint -->
-            <div *ngIf="constraint.getType() === ConstraintType.Interval" class="flex-row flex-center flex-spacing-10">
-              <input mdInput class="number" placeholder="" name="constraintMinValue" [ngModel]="constraint.getMinValue()"
-                     (ngModelChange)="onConstraintMinValueChanged(constraint, $event)" [disabled]="!constraint.isEnabled"/>
-              <div class="comparator-container flex-row flex-center flex-justify-center">
-                <div>{{constraint.getComparator()}}</div>
-              </div>
-              <div class="name">{{constraint.getName()}}</div>
-              <div class="comparator-container flex-row flex-center flex-justify-center">
-                <div>{{constraint.getComparator()}}</div>
-              </div>
-              <input mdInput class="number" placeholder="" name="constraintMaxValue" [ngModel]="constraint.getMaxValue()"
-                     (ngModelChange)="onConstraintMaxValueChanged(constraint, $event)" [disabled]="!constraint.isEnabled"/>
-            </div>
-
-            <!-- Non Interval Constraint -->
-            <div *ngIf="constraint.getType() !== ConstraintType.Interval" class="flex-row flex-center flex-spacing-10">
-              <div class="name">{{constraint.getName()}}</div>
-              <div class="comparator-container flex-row flex-center flex-justify-center">
-                <div>{{constraint.getComparator()}}</div>
-              </div>
-              <input *ngIf="[ConstraintType.LT,ConstraintType.LTE].indexOf(constraint.getType()) != -1" mdInput class="number"
-                     placeholder="" name="constraintValue" [ngModel]="constraint.getMaxValue()"
-                     (ngModelChange)="onConstraintMaxValueChanged(constraint, $event)" [disabled]="!constraint.isEnabled"
-              />
-              <input *ngIf="[ConstraintType.GT,ConstraintType.GTE].indexOf(constraint.getType()) != -1" mdInput class="number"
-                     placeholder="" name="constraintValue" [ngModel]="constraint.getMinValue()"
-                     (ngModelChange)="onConstraintMinValueChanged(constraint, $event)" [disabled]="!constraint.isEnabled"
-              />
-            </div>
-
-            <div class="flex-grow"></div>
-            <md-slide-toggle [(ngModel)]="constraint.isEnabled"></md-slide-toggle>
-          </div>
+        <div *ngFor="let team of data.teams">
+          <div class="constraint-team-name">Constraints for Team <span class="constraint-team-name-bold">{{ team.name }}</span></div>
+          <app-constraint *ngFor="let constraint of getConstraintsForTeam(team)" [constraint]="constraint"></app-constraint>
         </div>
       </div>
     </div>
 
     <div class="dialog-footer flex-row-reverse flex-center flex-no-shrink">
-      <button md-raised-button color="primary" (click)="$event.stopPropagation()">
+      <button md-raised-button color="primary" (click)="applyConstraints(); $event.stopPropagation()">
         Distribute Persons
       </button>
     </div>
