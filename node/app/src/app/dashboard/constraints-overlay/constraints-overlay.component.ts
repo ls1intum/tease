@@ -45,9 +45,11 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
     this.constraintService.saveConstraints(this.constraints);
 
     // Prepare and launch the algorithm
-    this.teamGenerationService.generate(this.data.teams).then(generatedTeams => {
-      this.teamService.saveTeams(generatedTeams).then(saved => {
-        this.overlayService.closeOverlay();
+    this.teamService.readSavedTeams().then(teams => {
+      this.teamGenerationService.generate(teams).then(generatedTeams => {
+        this.teamService.saveTeams(generatedTeams).then(saved => {
+          this.overlayService.closeOverlay();
+        });
       });
     });
   }
