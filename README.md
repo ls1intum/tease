@@ -8,10 +8,10 @@ Team Allocation decision support system as used in the iPraktikum.
 
 ```
 npm install
-sudo npm start
+npm run dev
 ```
 
-* The tool is now accessible in your browser under "localhost"
+* The tool is now accessible in your browser under "localhost:4200" (the console output shows you the correct port)
 * To terminate the process, press Ctrl+C in terminal
 * Tested with versions:
 	* node: 6.9.1, 6.10.0
