@@ -15,7 +15,7 @@ export class ImportOverlayComponent implements OnInit, OverlayComponent {
   constructor(private teamService: TeamService) { }
   ngOnInit() {}
 
-  protected openFileInput() {
+  openFileInput() {
     this.fileInput.nativeElement.click();
   }
 

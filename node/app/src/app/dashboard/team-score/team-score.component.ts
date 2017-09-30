@@ -13,7 +13,7 @@ export class TeamScoreComponent implements OnInit {
   @Input()
   private team: Team;
 
-  private constraints: Constraint[] = [];
+  constraints: Constraint[] = [];
 
   constructor(private constraintService: ConstraintService,
               private statisticsService: PersonStatisticsService) {

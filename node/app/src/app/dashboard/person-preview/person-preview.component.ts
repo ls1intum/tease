@@ -11,7 +11,7 @@ import {Skill, SkillLevel} from '../../shared/models/skill';
 })
 export class PersonPreviewComponent implements OnInit {
   @Input()
-  protected person: Person;
+  person: Person;
 
   /* functions used in template */
   protected getGravatarIcon = this.iconMapperService.getGravatarIcon;

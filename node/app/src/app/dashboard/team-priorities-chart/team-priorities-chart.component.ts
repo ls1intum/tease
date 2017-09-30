@@ -45,7 +45,7 @@ export class TeamPrioritiesChartComponent implements OnInit, DoCheck {
     this.averagePriority = this.personStatisticsService.getAverageTeamPriorityOfPersons(this.team);
   }
 
-  private isAnyPriorityGiven(): boolean {
+  isAnyPriorityGiven(): boolean {
     return !isNaN(this.averagePriority);
   }
 

@@ -12,7 +12,7 @@ import {ImportOverlayComponent} from "./dashboard/import-overlay/import-overlay.
   encapsulation: ViewEncapsulation.None, // This is needed to get the material icons to work. Angular bug?
 })
 export class AppComponent implements OverlayServiceHost {
-  protected overlayVisible = false;
+  overlayVisible = false;
 
   @ViewChild(DashboardComponent)
   private dashboardComponent: DashboardComponent;

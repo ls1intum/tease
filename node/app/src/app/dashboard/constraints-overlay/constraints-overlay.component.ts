@@ -30,7 +30,7 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
     this.constraintService.saveConstraints(this.constraints);
   }
 
-  protected getGlobalConstraints(): Array<Constraint> {
+  getGlobalConstraints(): Array<Constraint> {
     if (!this.constraints) return [];
     return this.constraints.filter(constraint => constraint.getTeamName() === Team.SpecialTeamNameForGlobalConstraints);
   }

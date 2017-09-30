@@ -18,9 +18,9 @@ enum PersonPoolDisplayMode {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  protected teams: Team[];
-  protected orphanTeam: Team;
-  protected personPoolDisplayMode: PersonPoolDisplayMode = PersonPoolDisplayMode.OneRow;
+  teams: Team[];
+  orphanTeam: Team;
+  personPoolDisplayMode: PersonPoolDisplayMode = PersonPoolDisplayMode.OneRow;
 
   constructor(private teamService: TeamService,
               private dragulaService: DragulaService,
@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit {
     this.orphanTeam = teams.find(team => team.name === Team.OrphanTeamName);
   }
 
-  protected getPersonPoolDisplayModeCSSClass(value: PersonPoolDisplayMode): string {
+  getPersonPoolDisplayModeCSSClass(value: PersonPoolDisplayMode): string {
     return `person-pool-display-mode-${PersonPoolDisplayMode[value].toLowerCase()}`;
   }
 
@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit {
     return this.teams && this.teams.length > 0;
   }
 
-  protected openConstraintsDialog() {
+  openConstraintsDialog() {
     this.overlayService.displayComponent(ConstraintsOverlayComponent, { teams: this.teams });
   }
 }

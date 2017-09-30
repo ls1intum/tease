@@ -8,9 +8,9 @@ import {Team} from '../../shared/models/team';
   styleUrls: ['./constraint.component.scss']
 })
 export class ConstraintComponent implements OnInit {
-  @Input() protected constraint: Constraint;
-  protected ConstraintType = ConstraintType;
-  protected SpecialTeamNameForGlobalConstraints = Team.SpecialTeamNameForGlobalConstraints;
+  @Input() constraint: Constraint;
+  ConstraintType = ConstraintType;
+  SpecialTeamNameForGlobalConstraints = Team.SpecialTeamNameForGlobalConstraints;
 
   constructor() { }
 
