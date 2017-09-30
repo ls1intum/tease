@@ -22,7 +22,9 @@ export class PersistentTeamAccessService extends TeamAccessService {
     return new Promise((resolve, reject) => {
       Papa.parse(teamData, {
         complete: results => {
-          resolve(TeamParser.parseTeams(results.data));
+          const teams = TeamParser.parseTeams(results.data);
+          this.sortTeams(teams);
+          resolve(teams);
         },
         header: true
       });
@@ -37,11 +39,23 @@ export class PersistentTeamAccessService extends TeamAccessService {
     return new Promise((resolve, reject) => {
       Papa.parse(csvFile, {
         complete: results => {
-          resolve(TeamParser.parseTeams(results.data));
+          const teams = TeamParser.parseTeams(results.data);
+          this.sortTeams(teams);
+          resolve(teams);
         },
         header: true
       });
     });
+  }
+
+  private sortTeams(teams: Team[]) {
+    teams.sort((teamA, teamB) => {
+      if (teamA.name.toLowerCase() < teamB.name.toLowerCase())
+        return -1;
+      if (teamA.name.toLowerCase() > teamB.name.toLowerCase())
+        return 1;
+      return 0;
+    })
   }
 
   readTeamsFromRemote(remoteFilePath: string): Promise<Team[]> {
@@ -49,7 +63,9 @@ export class PersistentTeamAccessService extends TeamAccessService {
       Papa.parse(remoteFilePath, {
         download: true,
         complete: results => {
-          resolve(TeamParser.parseTeams(results.data));
+          const teams = TeamParser.parseTeams(results.data);
+          this.sortTeams(teams);
+          resolve(teams);
         },
         header: true
       });

@@ -4,7 +4,7 @@
   "description": "A reference implementation of a decision-support system for software engineering team allocation for multi-project courses.",
   "scripts": {
     "ng": "ng",
-    "dev": "ng serve --aot --port 8080",
+    "dev": "ng serve --aot",
     "start": "ng serve --prod --host 0.0.0.0 --port 80 --disable-host-check",
     "build": "ng build",
     "test": "ng test",

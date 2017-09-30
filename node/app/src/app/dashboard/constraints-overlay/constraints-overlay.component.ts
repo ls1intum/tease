@@ -12,8 +12,9 @@ import {TeamService} from "../../shared/layers/business-logic-layer/team.service
   styleUrls: ['./constraints-overlay.component.scss']
 })
 export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayComponent {
-  public data: { teams: any };
+  public data: { onTeamsGenerated: (() => void), displayWarning: boolean };
   protected constraints: Constraint[];
+  protected teams: Team[];
 
   constructor(private constraintService: ConstraintService,
               private teamGenerationService: TeamGenerationService,
@@ -23,6 +24,10 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
   ngOnInit() {
     this.constraintService.fetchConstraints().then(constraints => {
       this.constraints = constraints;
+    });
+
+    this.teamService.readSavedTeams().then(teams => {
+      this.teams = teams;
     });
   }
 
@@ -40,14 +45,17 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
     return this.constraints.filter(constraint => constraint.getTeamName() === team.name);
   }
 
+  getRealTeams(): Team[] {
+    return !this.teams ? [] : this.teams.filter(team => team.name !== Team.OrphanTeamName);
+  }
+
   applyConstraints() {
-    // Save constraints before running the algorithm
     this.constraintService.saveConstraints(this.constraints);
 
-    // Prepare and launch the algorithm
-    this.teamGenerationService.generate(this.data.teams).then(generatedTeams => {
+    this.teamGenerationService.generate(this.teams).then(generatedTeams => {
       this.teamService.saveTeams(generatedTeams).then(saved => {
         this.overlayService.closeOverlay();
+        this.data.onTeamsGenerated();
       });
     });
   }
