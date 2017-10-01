@@ -15,12 +15,13 @@ import {SkillExpertConstraint} from '../../../models/constraints/skill-expert.co
 import {SkillAdvancedConstraint} from '../../../models/constraints/skill-advanced.constraint';
 import {SkillNormalConstraint} from '../../../models/constraints/skill-normal.constraint';
 import {SkillNoviceConstraint} from '../../../models/constraints/skill-novice.constraint';
+import {forEach} from "@angular/router/src/utils/collection";
 
 function scaleObjective(objective, factor) {
   const parts = objective.split(' ');
   // Simply multiply each number by 'factor'
   for (let i = 0; i < parts.length; i++) {
-    if (+parts[i] === parts[i]) { // If proper number
+    if (+parts[i] == parts[i]) { // If proper number
       parts[i] = parts[i] * factor;
     }
   }
@@ -29,11 +30,11 @@ function scaleObjective(objective, factor) {
 
 function groupLikeTerms(objective) {
   // Assuming proper form: [d xiyj (+ d xiyj)*]
-  const parts = objective.split(' ');
+  let parts = objective.split(' ');
 
-  const q: { [id: string]: number } = {};
+  let q: { [id: string]: number } = {};
   for (let i = 0; i < parts.length; i++) {
-    if (+parts[i] === parts[i]) { // proper number
+    if (+parts[i] == parts[i]) { // proper number
       // sum it up with other quotients for the corresponding variable
       const varName = parts[i + 1];
       q[varName] = (q[varName] || 0) + +parts[i];
@@ -202,9 +203,24 @@ export class LPTeamGenerationService implements TeamGenerationService {
       let model = [];
 
       const persons = TeamHelper.getPersons(teams);
+      const realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
+
+      // // Make sure already assigned team members stay in that team
+      // for(let team of realTeams) {
+      //   let assignedPersons = team.persons;
+      //   if(assignedPersons.length > 0) {
+      //     let assignedPersonsIndices = [];
+      //     let assignedTeamIndex = realTeams.indexOf(team);
+      //     for(let i = 0; i < assignedPersons.length; i++) {
+      //       let personIndex = persons.indexOf(assignedPersons[i]);
+      //       console.log("Person " + personIndex + " will stay assigned to team " + assignedTeamIndex + ".");
+      //       let c = 'x' + (personIndex + 1) + 'y' + (assignedTeamIndex + 1) + ' = 1';
+      //       model.push(c);
+      //     }
+      //   }
+      // }
 
       teams.forEach(team => team.clear());
-      const realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
 
       // Ensure binary variables
       for (let i = 1; i <= persons.length; i++) {
@@ -215,6 +231,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
           model.push('int ' + v); // ensures it's an integer
         }
       }
+
 
       // Ensure one team per person
       for (let i = 1; i <= persons.length; i++) {
