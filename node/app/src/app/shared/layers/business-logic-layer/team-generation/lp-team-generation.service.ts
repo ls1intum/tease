@@ -205,20 +205,20 @@ export class LPTeamGenerationService implements TeamGenerationService {
       const persons = TeamHelper.getPersons(teams);
       const realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
 
-      // // Make sure already assigned team members stay in that team
-      // for(let team of realTeams) {
-      //   let assignedPersons = team.persons;
-      //   if(assignedPersons.length > 0) {
-      //     let assignedPersonsIndices = [];
-      //     let assignedTeamIndex = realTeams.indexOf(team);
-      //     for(let i = 0; i < assignedPersons.length; i++) {
-      //       let personIndex = persons.indexOf(assignedPersons[i]);
-      //       console.log("Person " + personIndex + " will stay assigned to team " + assignedTeamIndex + ".");
-      //       let c = 'x' + (personIndex + 1) + 'y' + (assignedTeamIndex + 1) + ' = 1';
-      //       model.push(c);
-      //     }
-      //   }
-      // }
+      // Make sure already assigned team members stay in that team
+      for(let team of realTeams) {
+        let assignedPersons = team.persons;
+        if(assignedPersons.length > 0) {
+          let assignedPersonsIndices = [];
+          let assignedTeamIndex = realTeams.indexOf(team);
+          for(let person of assignedPersons) {
+            let personIndex = persons.indexOf(person);
+            let c = 'x' + (personIndex + 1) + 'y' + (assignedTeamIndex + 1) + ' = 1';
+            model.push(c);
+            console.log(person.firstName + " " + person.lastName + " will stay assigned to team " + team.name + ". Constraint: " + c);
+          }
+        }
+      }
 
       teams.forEach(team => team.clear());
 
