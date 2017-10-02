@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit {
   orphanTeam: Team;
   personPoolDisplayMode: PersonPoolDisplayMode = PersonPoolDisplayMode.OneRow;
 
+  PersonPoolDisplayMode = PersonPoolDisplayMode;
+
   constructor(private teamService: TeamService,
               private dragulaService: DragulaService,
               private overlayService: OverlayService) {

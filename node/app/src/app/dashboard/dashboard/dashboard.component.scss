@@ -89,3 +89,10 @@ app-team {
   overflow-y: hidden;
   align-content: flex-start;
 }
+
+.empty-orphan-team-hint-box {
+  border: 2px dashed #999;
+  margin: 5px;
+  border-radius: 5px;
+  color: #686868;
+}
