@@ -220,8 +220,6 @@ export class LPTeamGenerationService implements TeamGenerationService {
         }
       }
 
-      teams.forEach(team => team.clear());
-
       // Ensure binary variables
       for (let i = 1; i <= persons.length; i++) {
         for (let j = 1; j <= realTeams.length; j++) {
@@ -231,7 +229,6 @@ export class LPTeamGenerationService implements TeamGenerationService {
           model.push('int ' + v); // ensures it's an integer
         }
       }
-
 
       // Ensure one team per person
       for (let i = 1; i <= persons.length; i++) {
@@ -355,6 +352,9 @@ export class LPTeamGenerationService implements TeamGenerationService {
         const solution = new Solve(formattedModel);
 
         if (solution.feasible) {
+          console.log("Found a solution! Showing the assignment.");
+          // clear all teams
+          teams.forEach(team => team.clear());
           // Assign the teams according to results
           for (let i = 1; i <= persons.length; i++) {
             const person = persons[i - 1];
@@ -362,18 +362,16 @@ export class LPTeamGenerationService implements TeamGenerationService {
               const varName = 'x' + i + 'y' + j;
               const val = solution[varName] || 0;
 
-              if (val === 1) {
+              if (val == 1) {
                 realTeams[j - 1].add(person);
                 break;
               }
             }
           }
         } else {
-          // Assign all to the 'orphan' team, otherwise they are Person objects are simply lost
-          const orphanTeam = teams.filter(team => team.name === Team.OrphanTeamName)[0];
-          for (let i = 0; i < persons.length; i++) {
-            orphanTeam.add(persons[i]);
-          }
+          console.log("No solution was found with the given constraints. Reverted assignment to last state.");
+
+          // TODO Quirin: show a popup explaining that there was no solution
         }
 
         resolve(teams);
