@@ -15,6 +15,7 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
   public data: { onTeamsGenerated: (() => void), displayWarning: boolean };
   protected constraints: Constraint[];
   protected teams: Team[];
+  protected teamsWithVisibleConstraints: Team[] = [];
 
   constructor(private constraintService: ConstraintService,
               private teamGenerationService: TeamGenerationService,
@@ -35,7 +36,7 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
     this.constraintService.saveConstraints(this.constraints);
   }
 
-  getGlobalConstraints(): Array<Constraint> {
+  public getGlobalConstraints(): Array<Constraint> {
     if (!this.constraints) return [];
     return this.constraints.filter(constraint => constraint.getTeamName() === Team.SpecialTeamNameForGlobalConstraints);
   }
@@ -45,11 +46,11 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
     return this.constraints.filter(constraint => constraint.getTeamName() === team.name);
   }
 
-  getRealTeams(): Team[] {
+  public getRealTeams(): Team[] {
     return !this.teams ? [] : this.teams.filter(team => team.name !== Team.OrphanTeamName);
   }
 
-  applyConstraints() {
+  public applyConstraints() {
     this.constraintService.saveConstraints(this.constraints);
 
     this.teamGenerationService.generate(this.teams).then(generatedTeams => {
@@ -58,5 +59,22 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
         this.data.onTeamsGenerated();
       });
     });
+  }
+
+  public toggleTeamConstraintVisibility(team: Team) {
+    const indexOfTeam = this.teamsWithVisibleConstraints.indexOf(team);
+    if (indexOfTeam !== -1) {
+      this.teamsWithVisibleConstraints.splice(indexOfTeam, 1);
+    } else {
+      this.teamsWithVisibleConstraints.push(team);
+    }
+  }
+
+  public areConstraintsForTeamVisible(team: Team): boolean {
+    return this.teamsWithVisibleConstraints.includes(team);
+  }
+
+  public hasActiveConstraints(team) {
+    return this.getConstraintsForTeam(team).reduce((acc, constraint, index, array) => acc || constraint.isEnabled, false);
   }
 }

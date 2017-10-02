@@ -17,9 +17,19 @@
           <app-constraint [constraint]="constraint"></app-constraint>
         </div>
 
-        <div *ngFor="let team of getRealTeams()">
-          <div class="constraint-team-name">Constraints for Team <span class="constraint-team-name-bold">{{ team.name }}</span></div>
-          <app-constraint *ngFor="let constraint of getConstraintsForTeam(team)" [constraint]="constraint"></app-constraint>
+        <div *ngFor="let team of getRealTeams()" class="flex-column">
+          <div class="constraint-team-name constraint-team-name-toggleable flex-row flex-center flex-no-shrink"
+               (click)="toggleTeamConstraintVisibility(team)">
+            <div class="flex-spacing-5">Constraints for Team</div>
+            <div class="constraint-team-name-bold">{{ team.name }}</div>
+            <md-icon *ngIf="!areConstraintsForTeamVisible(team)">arrow_drop_down</md-icon>
+            <md-icon *ngIf="areConstraintsForTeamVisible(team)">arrow_drop_up</md-icon>
+            <div *ngIf="hasActiveConstraints(team)" class="active-constraints-badge flex-row flex-center flex-justify-center flex-spacing-5">
+              <div>active</div>
+            </div>
+          </div>
+          <app-constraint *ngFor="let constraint of (areConstraintsForTeamVisible(team) ? getConstraintsForTeam(team) : [])"
+                          [constraint]="constraint"></app-constraint>
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import {Team} from '../team';
 
 export abstract class Constraint {
 
-  public isEnabled;
+  public isEnabled: boolean;
 
   protected minValue: number;
   protected maxValue: number;

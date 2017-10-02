@@ -44,16 +44,50 @@
 }
 
 .constraint-team-name {
-  margin: 15px 30px 5px 30px;
+  margin: 5px 12px 3px 12px;
+  padding: 2px 18px;
   color: #666;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.flex-spacing-5 {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.flex-spacing-5:first-child {
+  margin-left: 0;
+}
+
+.flex-spacing-5:last-child {
+  margin-right: 0;
 }
 
 .constraint-team-name-bold {
   font-weight: 900;
 }
 
+.constraint-team-name-toggleable {
+  transition: background-color 0.3s;
+}
+
+.constraint-team-name-toggleable:hover {
+  background-color: #F5F5F5;
+}
+
 .dialog-footer {
   height: 25px;
   background-color: #EEE;
   padding: 10px;
+}
+
+.active-constraints-badge {
+  height: 16px;
+  border-radius: 8px;
+  background-color: #d20046;
+  color: white;
+  font-weight: 800;
+  font-size: 14px;
+  padding: 0 5px;
 }
