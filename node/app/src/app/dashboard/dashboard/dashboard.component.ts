@@ -18,7 +18,7 @@ enum PersonPoolDisplayMode {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  teams: Team[];
+  teams: Team[]; /* teams without orphan team */
   orphanTeam: Team;
   personPoolDisplayMode: PersonPoolDisplayMode = PersonPoolDisplayMode.OneRow;
 
@@ -30,10 +30,7 @@ export class DashboardComponent implements OnInit {
 
     /* save model when modified by drag&drop operation */
     dragulaService.dropModel.subscribe(value => {
-      /* update team memberships (reverse references) */
-      const teamsWithOrphans = this.teams.concat(this.orphanTeam);
-      teamsWithOrphans.forEach(team => team.persons.forEach(person => person.team = team));
-      this.teamService.saveTeams(teamsWithOrphans);
+      this.saveTeams();
     });
   }
 
@@ -45,6 +42,25 @@ export class DashboardComponent implements OnInit {
     this.teamService.readSavedTeams().then(teams => {
       this.loadTeams(teams);
     });
+  }
+
+  resetTeamAllocation() {
+    this.teams.forEach(team => {
+      const persons = Array.from(team.persons);
+      team.clear();
+      persons.forEach(person => person.team = this.orphanTeam);
+      this.orphanTeam.persons.push(...persons);
+      console.log(persons.length);
+    });
+
+    this.saveTeams();
+  }
+
+  private saveTeams() {
+    /* update team memberships (reverse references) */
+    const teamsWithOrphans = this.teams.concat(this.orphanTeam);
+    teamsWithOrphans.forEach(team => team.persons.forEach(person => person.team = team));
+    this.teamService.saveTeams(teamsWithOrphans);
   }
 
   public loadTeams(teams: Team[]) {

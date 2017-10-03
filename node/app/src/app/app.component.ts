@@ -4,6 +4,7 @@ import {DashboardComponent} from './dashboard/dashboard/dashboard.component';
 import {OverlayHostDirective} from './overlay-host.directive';
 import {OverlayComponent, OverlayService, OverlayServiceHost} from './overlay.service';
 import {ImportOverlayComponent} from "./dashboard/import-overlay/import-overlay.component";
+import {ConfirmationOverlayComponent} from "./dashboard/confirmation-overlay/confirmation-overlay.component";
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent implements OverlayServiceHost {
   overlayVisible = false;
 
   @ViewChild(DashboardComponent)
-  private dashboardComponent: DashboardComponent;
+  dashboardComponent: DashboardComponent;
 
   @ViewChild(OverlayHostDirective)
   private overlayHostDirective: OverlayHostDirective;
@@ -28,6 +29,18 @@ export class AppComponent implements OverlayServiceHost {
 
   exportData() {
     this.teamService.exportTeams();
+  }
+
+  showResetTeamAllocationConfirmation() {
+    this.overlayService.displayComponent(ConfirmationOverlayComponent, {
+      action: 'Reset',
+      actionDescription: 'Resetting the team allocation will remove all persons from their teams.',
+      onConfirmed: () => {
+        this.dashboardComponent.resetTeamAllocation();
+        this.overlayService.closeOverlay();
+      },
+      onCancelled: () => this.overlayService.closeOverlay()
+    });
   }
 
   showImportOverlay() {

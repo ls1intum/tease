@@ -2,16 +2,13 @@
 @import '../../../scss/utility';
 @import '../../../scss/flex-box';
 
-.hidden {
-  display: none;
-}
-
 .dialog-box {
   background-color: white;
   border: $standard-border;
-  width: 600px;
+  width: 400px;
   //height: 300px;
   margin-top: $scroll-inset;
+  margin-bottom: $scroll-inset;
 }
 
 .dialog-header {
@@ -23,29 +20,6 @@
 .dialog-heading {
   font-size: 25px;
   font-weight: 300;
-}
-
-.seperator {
-  background-color: #AAA;
-  width: 1px;
-  margin: 10px 0;
-}
-
-.alternative-box {
-  margin: 20px;
-  color: #333;
-}
-
-.alternative-heading{
-  font-weight: bold;
-}
-
-.flex-spacing-10 {
-  padding: -10px;
-}
-
-.flex-spacing-10 > * {
-  margin: 10px;
 }
 
 .warning {
@@ -63,4 +37,10 @@
 
 .warning-heading {
   font-weight: bold;
+}
+
+.dialog-footer {
+  height: 25px;
+  background-color: #EEE;
+  padding: 10px;
 }

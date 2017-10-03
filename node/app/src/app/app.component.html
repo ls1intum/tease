@@ -24,14 +24,29 @@
   <!-- buttons overlay -->
   <div class="buttons-overlay flex-row-reverse pointer-events-none">
     <div class="buttons-overlay-item pointer-events-auto">
-      <button md-raised-button color="primary" (click)="showImportOverlay()">
-        <md-icon>file_upload</md-icon>Import
+      <button md-raised-button color="primary" (click)="exportData()">
+        <div class="flex-row flex-center">
+          <md-icon>file_download</md-icon>
+          <div>Export</div>
+        </div>
       </button>
     </div>
 
     <div class="buttons-overlay-item pointer-events-auto">
-      <button md-raised-button color="primary" (click)="exportData()">
-        <md-icon>file_download</md-icon>Export
+      <button md-raised-button color="primary" (click)="showResetTeamAllocationConfirmation()">
+        <div class="flex-row flex-center">
+          <md-icon>replay</md-icon>
+          <div>Reset</div>
+        </div>
+      </button>
+    </div>
+
+    <div class="buttons-overlay-item pointer-events-auto">
+      <button md-raised-button color="primary" (click)="showImportOverlay()">
+        <div class="flex-row flex-center">
+          <md-icon>file_upload</md-icon>
+          <div>Import</div>
+        </div>
       </button>
     </div>
   </div>
