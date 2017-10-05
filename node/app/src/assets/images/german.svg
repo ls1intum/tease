@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -7,15 +9,36 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="1000"
-   height="600"
-   viewBox="0 0 5 3"
-   id="svg2"
+   width="25"
+   height="15"
+   viewBox="0 0 25 15"
+   id="svg7535"
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="german.svg">
+  <defs
+     id="defs7537" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="32"
+     inkscape:cx="14.942884"
+     inkscape:cy="6.4418258"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1137"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
   <metadata
-     id="metadata13">
+     id="metadata7540">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -26,52 +49,35 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <defs
-     id="defs11" />
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="1920"
-     inkscape:window-height="1137"
-     id="namedview9"
-     showgrid="false"
-     inkscape:zoom="0.7"
-     inkscape:cx="725.81677"
-     inkscape:cy="189.85992"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg2" />
-  <desc
-     id="desc4">Flag of Germany</desc>
-  <rect
-     id="black_stripe"
-     width="5"
-     height="3"
-     y="0"
-     x="0"
-     fill="#000"
-     style="fill:#646464;fill-opacity:1" />
-  <rect
-     id="red_stripe"
-     width="5"
-     height="2"
-     y="1"
-     x="0"
-     fill="#D00"
-     style="fill:#c26f6f;fill-opacity:1" />
-  <rect
-     id="gold_stripe"
-     width="5"
-     height="1"
-     y="2"
-     x="0"
-     fill="#FFCE00"
-     style="fill:#d2c385;fill-opacity:1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1037.3622)">
+    <g
+       id="g8093"
+       transform="matrix(1.1455317,0,0,1.1455317,-566.80675,376.11943)">
+      <rect
+         id="rect7515"
+         width="21.830772"
+         height="13.098464"
+         y="577.24152"
+         x="494.79889"
+         style="fill:#484848;fill-opacity:1" />
+      <rect
+         id="rect7517"
+         width="21.830772"
+         height="8.7323093"
+         y="581.60773"
+         x="494.79889"
+         style="fill:#e91e63;fill-opacity:1" />
+      <rect
+         id="rect7519"
+         width="21.830772"
+         height="4.3661547"
+         y="585.97382"
+         x="494.79889"
+         style="fill:#ffc107;fill-opacity:1" />
+    </g>
+  </g>
 </svg>

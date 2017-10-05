@@ -53,10 +53,10 @@ export class IconMapperService {
     }
   }
 
-  getGravatarIcon(email: string): string {
+  getGravatarIcon(email: string, size: number = 200): string {
     if (email === undefined)return IconMapperService.GRAVATAR_URL;
 
     const emailHash = Md5.hashStr(email);
-    return IconMapperService.GRAVATAR_URL + emailHash;
+    return IconMapperService.GRAVATAR_URL + emailHash + '?s=' + size.toString();
   }
 }

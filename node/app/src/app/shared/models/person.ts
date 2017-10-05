@@ -2,6 +2,7 @@ import {Team} from './team';
 import {Language} from './language';
 import {Skill, SkillLevel} from './skill';
 import {Device, DeviceType} from './device';
+import {CsvValueNames} from "../constants/csv.constants";
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -56,8 +57,26 @@ export class Person {
   }
 
   hasSupervisorRating(): boolean {
-    return this.supervisorRating !== undefined && this.supervisorRating != SkillLevel.None;
+    return this.supervisorRating !== undefined && this.supervisorRating !== SkillLevel.None;
   }
+
+  getiOSSkillLevel(): SkillLevel {
+    const iOSSkillLevel = Person.IOSDevExperienceAnswerToSkillLevelMap.get(this.iosDevExp);
+    return iOSSkillLevel ? iOSSkillLevel : SkillLevel.None;
+  }
+
+  static readonly IOSDevExperienceAnswerToSkillLevelMap = new Map([
+    [CsvValueNames.iOSDevExperienceLow, SkillLevel.Low],
+    [CsvValueNames.iOSDevExperienceMedium, SkillLevel.Medium],
+    [CsvValueNames.iOSDevExperienceHigh, SkillLevel.High],
+    [CsvValueNames.iOSDevExperienceVeryHigh, SkillLevel.VeryHigh],
+  ]);
+
+  /*
+    {
+    CsvValueNames.iOSDevExperienceLow : SkillLevel.Medium,
+    "sample2": 2
+  };*/
 }
 
 export enum Gender {
