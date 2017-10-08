@@ -22,32 +22,33 @@
 }
 
 @mixin horizontal-spacing($class-name, $amount) {
-  .#{$class-name} {
+  .#{$class-name} > * {
     margin-left: $amount;
     margin-right: $amount;
   }
 
-  .#{$class-name}:first-child {
+  .#{$class-name} > *:first-child {
     margin-left: 0;
   }
 
-  .#{$class-name}:last-child {
+  .#{$class-name} > *:last-child {
     margin-right: 0;
   }
 }
 
-// TODO: remove the following three definitions
-.flex-spacing-x-2px {
-  margin-left: 2px;
-  margin-right: 2px;
-}
+@mixin vertical-spacing($class-name, $amount) {
+  .#{$class-name} > * {
+    margin-top: $amount;
+    margin-bottom: $amount;
+  }
 
-.flex-spacing-x-2px:first-child {
-  margin-left: 0;
-}
+  .#{$class-name} > *:first-child {
+    margin-top: 0;
+  }
 
-.flex-spacing-x-2px:last-child {
-  margin-right: 0;
+  .#{$class-name} > *:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .flex-basis-zero {
@@ -84,4 +85,10 @@
 
 .align-self-center {
   align-self: center;
+}
+
+.flex-neutral-grow {
+  flex-grow: 1;
+  flex-basis: 0;
+  overflow: hidden;
 }

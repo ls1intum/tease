@@ -11,15 +11,15 @@ export abstract class Colors {
   static getColor(skillLevel: SkillLevel): string {
     switch (skillLevel) {
       case SkillLevel.VeryHigh:
-        return '#4a9ddd';
+        return '#5eb7e0';
       case SkillLevel.High:
-        return '#4EAE4F';
+        return '#60c460';
       case SkillLevel.Medium:
-        return '#F39519';
+        return '#f7b551';
       case SkillLevel.Low:
-        return '#E7453A';
+        return '#f47f67';
       case SkillLevel.None:
-        return '#EAEAEA';
+        return '#a4a4a4';
     }
   }
 }

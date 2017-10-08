@@ -33,14 +33,17 @@ export class PersonPreviewComponent implements OnInit {
     return this.person.supervisorRating !== undefined && this.person.supervisorRating !== SkillLevel.None;
   }
 
-  getOOPSkillLevel(): SkillLevel {
-    const oopSkill = this.person.skills.find(skill => skill.skillName === CsvValueNames.OOPSkillName);
-    return oopSkill ? oopSkill.skillLevel : SkillLevel.None;
-  }
-
   getFirstLetterOfSkillLevelName(skillLevel: SkillLevel): String {
     return this.getLabelForSkillLevel(skillLevel).charAt(0);
   }
 
+  getSupervisorRatingString(): String {
+    const rating = this.person.supervisorRating;
 
+    if (rating === SkillLevel.None) {
+      return 'Not rated';
+    }
+
+    return this.SkillLevel[rating];
+  }
 }

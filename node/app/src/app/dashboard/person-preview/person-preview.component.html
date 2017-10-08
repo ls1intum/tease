@@ -1,64 +1,53 @@
 <div *ngIf="person" class="person-card flex-column flex-no-shrink">
-  <!-- profile pic and everything right to it -->
-  <div class="flex-row margin-bottom-3px">
-    <img class="profile-pic" src="{{ getGravatarIcon(this.person.email, 180) }}">
+  <div class="flex-column border-box">
+    <!-- profile pic and everything right to it -->
+    <div class="flex-row">
+      <img class="profile-pic" src="{{ getGravatarIcon(this.person.email, 180) }}">
 
-    <!-- column with personal information right to the profile picture -->
-    <div class="person-information">
-      <!-- gender icon with name and optional skill level badge -->
-      <div class="flex-row flex-center margin-bottom-3px">
+      <!-- column with personal information right to the profile picture -->
+      <div class="person-information spacing-3-y">
+        <!-- gender icon with name and optional skill level badge -->
+        <div class="flex-row flex-center margin-bottom-3px">
           <img class="gender-icon" src="{{ getGenderIconPath(this.person.gender) }}">
           <div class="name">{{person.firstName}} {{person.lastName}}</div>
-      </div>
+        </div>
 
-      <!-- language, oop and ios level -->
-      <div class="flex-row flex-center flex-spacing-3">
-        <div class="badge flex-row flex-center">
-          <img class="badge-icon" src="/assets/images/german.png">
-          <div class="badge-text">{{person.germanLanguageLevel}}</div>
-        </div>
-        <div class="badge flex-row flex-center">
-          <div class="badge-icon flex-row flex-center flex-justify-center"
-               [style.background-color]="getColor(getOOPSkillLevel())">
-            <div>{{ getFirstLetterOfSkillLevelName(getOOPSkillLevel()) }}</div>
+        <!-- language, oop and ios level -->
+        <div class="flex-row flex-center spacing-3-x">
+          <div class="badge flex-row flex-center">
+            <img class="badge-icon" src="/assets/images/german.png">
+            <div class="badge-text">{{person.germanLanguageLevel}}</div>
           </div>
-          <div class="badge-text">OOP</div>
-        </div>
-        <div class="badge flex-row flex-center">
-          <div class="badge-icon flex-row flex-center flex-justify-center"
-               [style.background-color]="getColor(person.getiOSSkillLevel())">
-            <div>{{ getFirstLetterOfSkillLevelName(person.getiOSSkillLevel()) }}</div>
+          <div class="badge flex-row flex-center">
+            <div class="badge-icon flex-row flex-center flex-justify-center"
+                 [style.background-color]="getColor(person.getiOSSkillLevel())">
+              <div>{{ getFirstLetterOfSkillLevelName(person.getiOSSkillLevel()) }}</div>
+            </div>
+            <div class="badge-text">iOS</div>
           </div>
-          <div class="badge-text">iOS</div>
+        </div>
+
+        <div class="flex-row flex-center spacing-3-x">
+          <img class="device-icon" *ngFor="let device of person.devices"
+               src="{{ getDeviceTypeIconPath(device.deviceType) }}">
         </div>
       </div>
+    </div>
 
-      <div class="flex-row flex-center">
-        <img class="device-icon flex-spacing-x-2px" *ngFor="let device of person.devices"
-             src="{{ getDeviceTypeIconPath(device.deviceType) }}">
+    <!-- team priorities -->
+    <div class="flex-column padding-3">
+      <div class=" flex-row flex-wrap team-badge-container">
+        <div *ngFor="let team of person.teamPriorities; let i = index"
+             class="badge flex-row flex-center flex-justify-center team-badge"
+             [class.badge-highlight]="team === person.team">
+          <div>{{team.name}}</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- team priorities -->
-  <div class="flex-column">
-    <!-- teams 1 - 6 -->
-    <span class="priorities-preview" style="margin-bottom: 4px;">
-        <span *ngFor="let team of person.teamPriorities.slice(0, 6); let i = index"
-              class="team-badge flex-spacing-x-2px"
-              [class.team-badge-highlight]="team === person.team"> <!-- && person.teamPriorities.indexOf(team) < 3 -->
-          {{team.name}}
-        </span>
-    </span>
-
-    <!-- teams 6 - 12 -->
-    <span class="priorities-preview">
-        <span *ngFor="let team of person.teamPriorities.slice(6, 12); let i = index"
-              class="team-badge flex-spacing-x-2px"
-              [class.team-badge-highlight]="team === person.team"> <!-- && person.teamPriorities.indexOf(team) < 3 -->
-          {{team.name}}
-        </span>
-    </span>
+  <!-- instructor rating -->
+  <div class="supervisor-rating flex-row flex-center" [style.background-color]="getColor(this.person.supervisorRating)">
+    <div>{{ getSupervisorRatingString() }}</div>
   </div>
-
 </div>
