@@ -9,7 +9,7 @@ export abstract class StringHelper {
     return rawString.replace(StringHelper.NumberPlaceHolder, String(numberReplacement));
   }
 
-  static getStringBetween(rawString:string,firstSeparator: string,secondSeparator: string): string {
+  static getStringBetween(rawString: string, firstSeparator: string, secondSeparator: string): string {
     return rawString.split(firstSeparator).pop().split(secondSeparator).shift();
   }
 }

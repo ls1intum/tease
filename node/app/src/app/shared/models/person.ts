@@ -1,8 +1,8 @@
 import {Team} from './team';
 import {Language} from './language';
 import {Skill, SkillLevel} from './skill';
-import {Device, DeviceType} from './device';
-import {CsvValueNames} from "../constants/csv.constants";
+import {Device} from './device';
+import {CsvValueNames} from '../constants/csv.constants';
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -12,20 +12,28 @@ export class Person {
   firstName: string;
   lastName: string;
   email: string;
-  iosDevExp: string;
-  iosDevExpDescription: string;
-  gitExpDescription: string;
-  generalComments: string;
-  skills: Skill[] = [];
-  languages: Language[] = [];
-  devices: Device[] = [];
-  gender: Gender = Gender.Male;
+  tumId: string;
+  gender: Gender;
+  major: string;
+  semester: number;
+
   germanLanguageLevel: string;
   englishLanguageLevel: string;
 
-  currentTerm: number;
-  major: string;
-  tumId: string;
+  iosDev: string;
+  appStoreLink: string;
+  iOSDevExplained: string;
+
+  introAssessment: String;
+  devices: Device[] = [];
+
+  skills: Skill[] = [];
+
+  gitExpDescription: string;
+  generalComments: string;
+
+  languages: Language[] = [];
+
 
   team: Team;
   teamPriorities: Team[] = [];
@@ -48,12 +56,8 @@ export class Person {
     this.devices.push(device);
   }
 
-  addSkill(skillName: string, skillType: string, skillLevel: SkillLevel) {
-    this.skills.push(new Skill(skillName, skillType, skillLevel));
-  }
-
-  ownsDevice(deviceType: DeviceType): boolean {
-    return this.devices.filter(d => d.deviceType === deviceType).length > 0;
+  ownsDevice(device: Device): boolean {
+    return this.devices.includes(device);
   }
 
   hasSupervisorRating(): boolean {
@@ -61,7 +65,7 @@ export class Person {
   }
 
   getiOSSkillLevel(): SkillLevel {
-    const iOSSkillLevel = Person.IOSDevExperienceAnswerToSkillLevelMap.get(this.iosDevExp);
+    const iOSSkillLevel = Person.IOSDevExperienceAnswerToSkillLevelMap.get(this.iosDev);
     return iOSSkillLevel ? iOSSkillLevel : SkillLevel.None;
   }
 

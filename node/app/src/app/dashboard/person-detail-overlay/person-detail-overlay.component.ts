@@ -36,7 +36,7 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
   }
 
   getDeviceIconPath(device: Device): string {
-    return this.iconMapperService.getDeviceTypeIconPath(device.deviceType);
+    return this.iconMapperService.getDeviceTypeIconPath(device);
   }
 
   filterSkills(skills: Skill[], skillLevel: number) {

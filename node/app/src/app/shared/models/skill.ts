@@ -5,33 +5,36 @@ import {CsvValueNames} from '../constants/csv.constants';
  */
 
 export class Skill {
-  private _skillLevel: SkillLevel;
   skillName: string;
-  skillType: string;
+  private _skillLevel: SkillLevel;
+  private _interestLevel: SkillLevel;
 
   public static getLabelForSkillLevel(skillLevel: SkillLevel) {
     switch (skillLevel) {
       case SkillLevel.Low:
         return 'Novice';
       case SkillLevel.Medium:
-        return 'Normal';
+        return 'Intermediate';
       case SkillLevel.High:
         return 'Advanced';
       case SkillLevel.VeryHigh:
         return 'Expert';
     }
 
-    return '';
+    return 'Not rated';
   }
 
-  constructor(skill: string, skillType: string, skillLevel: SkillLevel) {
-    this.skillName = skill;
+  constructor(name: string, skillLevel: SkillLevel) {
+    this.skillName = name;
     this._skillLevel = skillLevel;
-    this.skillType = skillType;
   }
 
   get skillLevel(): SkillLevel {
     return this._skillLevel;
+  }
+
+  get interestLevel(): SkillLevel {
+    return this._interestLevel;
   }
 
   toString(): string {

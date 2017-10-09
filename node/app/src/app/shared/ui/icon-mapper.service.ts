@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {SkillLevel} from '../models/skill';
 import {Gender} from '../models/person';
-import {DeviceType} from '../models/device';
+import {Device} from '../models/device';
 import {Md5} from 'ts-md5/dist/md5';
 /**
  * Created by Malte Bucksch on 10/12/2016.
@@ -15,7 +15,7 @@ export class IconMapperService {
   constructor() { }
 
   getSkillIconPath(skillLevel: SkillLevel): string {
-    switch (skillLevel){
+    switch (skillLevel) {
       case SkillLevel.VeryHigh:
         return IconMapperService.BASE_PATH_IMAGES + 'skill_very_high.png';
       case SkillLevel.High:
@@ -29,17 +29,17 @@ export class IconMapperService {
     }
   }
 
-  getDeviceTypeIconPath(deviceType: DeviceType): string {
-    switch (deviceType) {
-      case DeviceType.Iphone:
+  getDeviceTypeIconPath(device: Device): string {
+    switch (device) {
+      case Device.Iphone:
         return IconMapperService.BASE_PATH_IMAGES + 'iphone.png';
-      case DeviceType.Ipod:
+      case Device.Ipod:
         return IconMapperService.BASE_PATH_IMAGES + 'ipod.png';
-      case DeviceType.Ipad:
+      case Device.Ipad:
         return IconMapperService.BASE_PATH_IMAGES + 'ipad.png';
-      case DeviceType.Watch:
+      case Device.Watch:
         return IconMapperService.BASE_PATH_IMAGES + 'iwatch.png';
-      case DeviceType.Mac:
+      case Device.Mac:
         return IconMapperService.BASE_PATH_IMAGES + 'mac.png';
     }
   }

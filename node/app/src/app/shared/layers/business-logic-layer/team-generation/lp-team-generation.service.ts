@@ -7,7 +7,7 @@ import {MacDeviceConstraint} from '../../../models/constraints/mac-device.constr
 import {FemalePersonConstraint} from '../../../models/constraints/female-person.constraint';
 import {IosDeviceConstraint} from '../../../models/constraints/ios-device.constraint';
 import {TeamSizeConstraint} from '../../../models/constraints/team-size.constraint';
-import {DeviceType} from '../../../models/device';
+import {Device} from '../../../models/device';
 import {Person, Gender} from '../../../models/person';
 import {ReformatLP, Solve} from 'javascript-lp-solver';
 import {SkillLevel} from '../../../models/skill';
@@ -15,7 +15,6 @@ import {SkillExpertConstraint} from '../../../models/constraints/skill-expert.co
 import {SkillAdvancedConstraint} from '../../../models/constraints/skill-advanced.constraint';
 import {SkillNormalConstraint} from '../../../models/constraints/skill-normal.constraint';
 import {SkillNoviceConstraint} from '../../../models/constraints/skill-novice.constraint';
-import {forEach} from "@angular/router/src/utils/collection";
 
 function scaleObjective(objective, factor) {
   const parts = objective.split(' ');
@@ -69,7 +68,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
       if (person.devices && person.devices.length > 0) {
         // If has a mac, add him to constraint
         const macCount = person.devices.filter(device => {
-          return device.deviceType === DeviceType.Mac;
+          return device === Device.Mac;
         }).length;
 
         if (macCount > 0) {
@@ -101,8 +100,8 @@ export class LPTeamGenerationService implements TeamGenerationService {
         // If has a mac, add him to constraint
         const iosDevicesCount = person.devices.filter(device => {
           return [
-            DeviceType.Ipad, DeviceType.Ipod, DeviceType.Iphone
-          ].includes(device.deviceType);
+            Device.Ipad, Device.Ipod, Device.Iphone
+          ].includes(device);
         }).length;
 
         if (iosDevicesCount > 0) {

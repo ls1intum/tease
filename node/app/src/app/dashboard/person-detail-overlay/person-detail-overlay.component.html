@@ -24,7 +24,7 @@
             </div>
             <div class="flex-column flex-grow person-value-container">
               <div class="heading">Term</div>
-              <div class="person-value">{{ data.person.currentTerm }}</div>
+              <div class="person-value">{{ data.person.semester }}</div>
             </div>
             <div class="flex-column">
               <div class="heading">Languages</div>
@@ -98,14 +98,14 @@
         <div class="heading">iOS Experience</div>
         <div class="flex-row flex-center">
           <div class="quotation-mark quotation-mark-start">“</div>
-          <div class="quote-text">{{ data.person.iosDevExp }}</div>
+          <div class="quote-text">{{ data.person.iosDev }}</div>
           <div class="quotation-mark quotation-mark-end">”</div>
           <div class="quote-author">  —  {{ data.person.firstName }}</div>
         </div>
 
-        <div *ngIf="data.person.iosDevExpDescription" class="flex-row flex-center">
+        <div *ngIf="data.person.iOSDevExplained" class="flex-row flex-center">
           <div class="quotation-mark quotation-mark-start">“</div>
-          <div class="quote-text">{{ data.person.iosDevExpDescription }}</div>
+          <div class="quote-text">{{ data.person.iOSDevExplained }}</div>
           <div class="quotation-mark quotation-mark-end">”</div>
           <div class="quote-author">  —  {{ data.person.firstName }}</div>
         </div>

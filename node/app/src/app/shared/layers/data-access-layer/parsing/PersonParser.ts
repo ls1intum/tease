@@ -1,27 +1,26 @@
 import {Person, Gender} from '../../../models/person';
 import {CsvColumNames, CsvValueNames} from '../../../constants/csv.constants';
-import {Device, DeviceType} from '../../../models/device';
+import {Device} from '../../../models/device';
 import {StringHelper} from '../../../helpers/string.helper';
-import {SkillLevel} from '../../../models/skill';
+import {Skill, SkillLevel} from '../../../models/skill';
 /**
  * Created by Malte Bucksch on 01/12/2016.
  */
 
 export abstract class PersonParser {
-  static parsePerson(personProps: Array<any>): Person {
+  static parsePerson(personProps: any): Person {
+    console.log(personProps);
+
     const person = new Person();
 
-    // TODO check if this conversion works
     person.id = personProps[CsvColumNames.Person.Id];
     person.firstName = personProps[CsvColumNames.Person.FirstName];
     person.lastName = personProps[CsvColumNames.Person.LastName];
     person.major = personProps[CsvColumNames.Person.Major];
-    if (person.major === CsvValueNames.MajorOtherValue)
-      person.major = personProps[CsvColumNames.Person.MajorOther];
-    person.currentTerm = personProps[CsvColumNames.Person.Term];
+    person.semester = personProps[CsvColumNames.Person.Term];
     person.tumId = personProps[CsvColumNames.Person.TumId];
-    person.iosDevExp = personProps[CsvColumNames.Person.IosDevExperience];
-    person.iosDevExpDescription = personProps[CsvColumNames.Person.IosDevExperienceDescription];
+    person.iosDev = personProps[CsvColumNames.Person.IosDevExperience];
+    person.iOSDevExplained = personProps[CsvColumNames.Person.IosDevExperienceDescription];
     person.gitExpDescription = personProps[CsvColumNames.Person.GitExperience];
     person.email = personProps[CsvColumNames.Person.Email];
     person.supervisorRating = this.parseSkillLevel(personProps[CsvColumNames.Person.SupervisorRating]);
@@ -33,22 +32,22 @@ export abstract class PersonParser {
     this.parsePersonDevices(person, personProps);
     this.parsePersonSkills(person, personProps);
 
-    // TODO parse other props
-
     return person;
   }
 
-  private static parsePersonSkills(person: Person, personProps: Array<any>){
+  private static parsePersonSkills(person: Person, personProps: Array<any>) {
     const conceptProps = this.parseArray(CsvColumNames.PersonSkills.Concept, personProps);
-    for (const skillKey in conceptProps){
-      const skillLevel = this.parseSkillLevel(conceptProps[skillKey]);
-      person.addSkill(skillKey, CsvColumNames.PersonSkills.Concept, skillLevel);
+    for (const skillKey in conceptProps) {
+      if (conceptProps.hasOwnProperty(skillKey)) {
+        const skillLevel = this.parseSkillLevel(conceptProps[skillKey]);
+        person.skills.push(new Skill(skillKey, skillLevel));
+      }
     }
 
     const techProps = this.parseArray(CsvColumNames.PersonSkills.Technology, personProps);
-    for (const skillKey in techProps){
+    for (const skillKey in techProps) {
       const skillLevel = this.parseSkillLevel(techProps[skillKey]);
-      person.addSkill(skillKey, CsvColumNames.PersonSkills.Technology, skillLevel);
+      person.skills.push(new Skill(skillKey, skillLevel));
     }
   }
 
@@ -80,26 +79,27 @@ export abstract class PersonParser {
     const available = CsvValueNames.DeviceAvailableBooleanValue.Available;
 
     if (personProps[CsvColumNames.PersonDevices.Ipad] === available)
-      person.addDevice(new Device(DeviceType.Ipad));
+      person.addDevice(Device.Ipad);
     if (personProps[CsvColumNames.PersonDevices.Mac] === available)
-      person.addDevice(new Device(DeviceType.Mac));
+      person.addDevice(Device.Mac);
     if (personProps[CsvColumNames.PersonDevices.Ipod] === available)
-      person.addDevice(new Device(DeviceType.Ipod));
+      person.addDevice(Device.Ipod);
     if (personProps[CsvColumNames.PersonDevices.Watch] === available)
-      person.addDevice(new Device(DeviceType.Watch));
+      person.addDevice(Device.Watch);
     if (personProps[CsvColumNames.PersonDevices.Iphone] === available)
-      person.addDevice(new Device(DeviceType.Iphone));
+      person.addDevice(Device.Iphone);
   }
 
   private static parseArray(columnArrayName: string, personProps: Array<any>): {[element: string]: string} {
     const array: {[element: string]: string} = {};
 
     for (const key in personProps) {
-      if (key.includes(columnArrayName)) {
+      if (key.startsWith(columnArrayName)) {
         const arrayElement = StringHelper.getStringBetween(key, CsvColumNames.ArrayBraces.Open, CsvColumNames.ArrayBraces.Close);
         array[arrayElement] = personProps[key];
       }
     }
+
     return array;
   }
 }

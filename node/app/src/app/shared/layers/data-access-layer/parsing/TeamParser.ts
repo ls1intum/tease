@@ -4,7 +4,7 @@ import {CsvColumNames} from '../../../constants/csv.constants';
 import {Person} from '../../../models/person';
 import {StringHelper} from '../../../helpers/string.helper';
 
-declare interface TeamList { [id: string]: Team }
+declare interface TeamList { [id: string]: Team; }
 
 export class TeamParser {
 

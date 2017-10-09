@@ -1,7 +1,7 @@
 import {Person, Gender} from '../../../models/person';
 import {StringHelper} from '../../../helpers/string.helper';
 import {CsvColumNames, CsvValueNames} from '../../../constants/csv.constants';
-import {DeviceType} from '../../../models/device';
+import {Device} from '../../../models/device';
 import {SkillLevel} from '../../../models/skill';
 /**
  * Created by Malte Bucksch on 01/12/2016.
@@ -19,10 +19,10 @@ export class PersonSerializer {
     personProps[CsvColumNames.Person.Major] = person.major;
     personProps[CsvColumNames.Person.FirstName] = person.firstName;
     personProps[CsvColumNames.Person.LastName] = person.lastName;
-    personProps[CsvColumNames.Person.Term] = person.currentTerm;
+    personProps[CsvColumNames.Person.Term] = person.semester;
     personProps[CsvColumNames.Person.TumId] = person.tumId;
-    personProps[CsvColumNames.Person.IosDevExperience] = person.iosDevExp;
-    personProps[CsvColumNames.Person.IosDevExperienceDescription] = person.iosDevExpDescription;
+    personProps[CsvColumNames.Person.IosDevExperience] = person.iosDev;
+    personProps[CsvColumNames.Person.IosDevExperienceDescription] = person.iOSDevExplained;
     personProps[CsvColumNames.Person.GitExperience] = person.gitExpDescription;
     personProps[CsvColumNames.Person.Email] = person.email;
     personProps[CsvColumNames.Person.Gender] = this.serializeGender(person.gender);
@@ -50,12 +50,12 @@ export class PersonSerializer {
 
   private static serializeSkills(person: Person, personProps: {}) {
     for (const skill of person.skills){
-      const columnName = skill.skillType + CsvColumNames.ArrayBraces.Open + skill.skillName + CsvColumNames.ArrayBraces.Close;
+      const columnName = skill.skillName;
       personProps[columnName] = this.serializeSkillLevel(skill.skillLevel);
     }
   }
 
-  private static serializeGender(gender: Gender){
+  private static serializeGender(gender: Gender) {
     switch (gender) {
       case Gender.Male:
         return CsvValueNames.GenderValue.Male;
@@ -64,8 +64,8 @@ export class PersonSerializer {
     }
   }
 
-  static serializeSkillLevel(skillLevel: SkillLevel){
-    switch (skillLevel){
+  static serializeSkillLevel(skillLevel: SkillLevel) {
+    switch (skillLevel) {
       case SkillLevel.VeryHigh:
         return CsvValueNames.SkillLevelValue.VeryHigh;
       case SkillLevel.High:
@@ -80,15 +80,15 @@ export class PersonSerializer {
   }
 
   private static serializePersonDevices(person: Person, personProps: {}) {
-    personProps[CsvColumNames.PersonDevices.Ipad] = person.ownsDevice(DeviceType.Ipad) ?
+    personProps[CsvColumNames.PersonDevices.Ipad] = person.ownsDevice(Device.Ipad) ?
       CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
-    personProps[CsvColumNames.PersonDevices.Iphone] = person.ownsDevice(DeviceType.Iphone) ?
+    personProps[CsvColumNames.PersonDevices.Iphone] = person.ownsDevice(Device.Iphone) ?
       CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
-    personProps[CsvColumNames.PersonDevices.Ipod] = person.ownsDevice(DeviceType.Ipod) ?
+    personProps[CsvColumNames.PersonDevices.Ipod] = person.ownsDevice(Device.Ipod) ?
       CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
-    personProps[CsvColumNames.PersonDevices.Watch] = person.ownsDevice(DeviceType.Watch) ?
+    personProps[CsvColumNames.PersonDevices.Watch] = person.ownsDevice(Device.Watch) ?
       CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
-    personProps[CsvColumNames.PersonDevices.Mac] = person.ownsDevice(DeviceType.Mac) ?
+    personProps[CsvColumNames.PersonDevices.Mac] = person.ownsDevice(Device.Mac) ?
       CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
   }
 }

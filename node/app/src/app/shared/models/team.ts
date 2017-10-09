@@ -1,5 +1,6 @@
 import {Person} from './person';
 import {Project} from './project';
+import {Device} from "./device";
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -35,5 +36,11 @@ export class Team {
       const person: Person = this.persons.pop();
       person.team = undefined;
     }
+  }
+
+  getDeviceCountOfType(device: Device): number {
+    return this.persons
+      .reduce((acc, person) => acc.concat(person.devices.filter(curDevice => curDevice === device)), [])
+      .length;
   }
 }

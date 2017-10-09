@@ -1,6 +1,5 @@
 import {Constraint, ConstraintType} from './constraint';
-import {TeamHelper} from '../../helpers/team.helper';
-import {DeviceType} from '../device';
+import {Device} from '../device';
 import {Team} from '../team';
 /**
  * Created by Malte Bucksch on 23/02/2017.
@@ -17,13 +16,7 @@ export class IosDeviceConstraint extends Constraint {
   }
 
   private getDeviceCount(team: Team): number {
-    return this.calculateDeviceCountOfType(team, DeviceType.Iphone) + this.calculateDeviceCountOfType(team, DeviceType.Ipad);
-  }
-
-  private calculateDeviceCountOfType(team: Team, deviceType: DeviceType) {
-    return team.persons
-      .map(person => TeamHelper.getDevicesOfType(person.devices, deviceType).length)
-      .reduce((sum, count) => sum + count);
+    return team.getDeviceCountOfType(Device.Iphone) + team.getDeviceCountOfType(Device.Ipad);
   }
 
   getName(): string {

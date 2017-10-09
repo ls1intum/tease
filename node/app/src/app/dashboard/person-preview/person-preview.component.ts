@@ -38,12 +38,6 @@ export class PersonPreviewComponent implements OnInit {
   }
 
   getSupervisorRatingString(): String {
-    const rating = this.person.supervisorRating;
-
-    if (rating === SkillLevel.None) {
-      return 'Not rated';
-    }
-
-    return this.SkillLevel[rating];
+    return Skill.getLabelForSkillLevel(this.person.supervisorRating);
   }
 }
