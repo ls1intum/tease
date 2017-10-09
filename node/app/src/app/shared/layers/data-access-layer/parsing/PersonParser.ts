@@ -1,5 +1,5 @@
 import {Person, Gender} from '../../../models/person';
-import {CsvColumNames, CsvValueNames} from '../../../constants/csv.constants';
+import {CsvColumNames, CSVConstants, CsvValueNames} from '../../../constants/csv.constants';
 import {Device} from '../../../models/device';
 import {StringHelper} from '../../../helpers/string.helper';
 import {Skill, SkillLevel} from '../../../models/skill';
@@ -17,7 +17,7 @@ export abstract class PersonParser {
     person.firstName = personProps[CsvColumNames.Person.FirstName];
     person.lastName = personProps[CsvColumNames.Person.LastName];
     person.major = personProps[CsvColumNames.Person.Major];
-    person.semester = personProps[CsvColumNames.Person.Term];
+    person.semester = personProps[CsvColumNames.Person.Semester];
     person.tumId = personProps[CsvColumNames.Person.TumId];
     person.iosDev = personProps[CsvColumNames.Person.IosDevExperience];
     person.iOSDevExplained = personProps[CsvColumNames.Person.IosDevExperienceDescription];
@@ -36,6 +36,13 @@ export abstract class PersonParser {
   }
 
   private static parsePersonSkills(person: Person, personProps: Array<any>) {
+    for (const key in CSVConstants.Skills.SkillAbbreviations) {
+      if (CSVConstants.Skills.SkillAbbreviations.hasOwnProperty(key)) {
+
+      }
+    }
+
+    /*
     const conceptProps = this.parseArray(CsvColumNames.PersonSkills.Concept, personProps);
     for (const skillKey in conceptProps) {
       if (conceptProps.hasOwnProperty(skillKey)) {
@@ -48,7 +55,7 @@ export abstract class PersonParser {
     for (const skillKey in techProps) {
       const skillLevel = this.parseSkillLevel(techProps[skillKey]);
       person.skills.push(new Skill(skillKey, skillLevel));
-    }
+    }*/
   }
 
   static parseSkillLevel(skillLevelString: string): SkillLevel {

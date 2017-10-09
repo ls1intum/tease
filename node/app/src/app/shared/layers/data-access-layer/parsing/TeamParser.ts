@@ -60,12 +60,14 @@ export class TeamParser {
   }
 
   private static addTeam(teams: TeamList, name: string, person?: Person): Team {
-    if (name === undefined)return undefined;
+    if (name === undefined)
+      return undefined;
 
     if (teams[name] === undefined)
       teams[name] = new Team(name);
 
-    if (person === undefined)return teams[name];
+    if (person === undefined)
+      return teams[name];
     teams[name].add(person);
 
     return teams[name];

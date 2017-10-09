@@ -3,6 +3,63 @@
  */
 import {SkillLevel} from '../models/skill';
 
+export class CSVConstants {
+  static readonly Person = {
+    FirstName: 'firstname',
+    LastName: 'lastname',
+    Email: 'email',
+    TumId: 'attribute_2',
+    Gender: 'gender',
+    Major: 'major',
+    MajorOther: 'major[other]',
+    Semester: 'semester',
+    GermanLanguageLevel: 'language[a1]',
+    EnglishLanguageLevel: 'language[a2]',
+    IosDevExperience: 'iOSDevExp',
+    IosDevAppStoreLink: 'appStoreLink',
+    IosDevExperienceExplained: 'iOSDevExplained',
+    IntroAssessment: 'introAssessment',
+
+    /* (devices) */
+    /* (skills) */
+
+    OtherSkills: 'otherSkills',
+
+    /* (priorities) */
+
+    CommentsStudent: 'Comments',
+    SupervisorRating: 'supervisorRating',
+    CommentsTutor: 'CommentsTutor',
+  };
+
+  static readonly Skills = {
+    JustifyPrefix: 'justify',
+    ExpInterPrefix: 'expinter',
+    ExperiencePostfix: '[expinter][1]',
+    JustificationPostfix: '[expinter][2]',
+    SkillAbbreviations: {
+      WebFrontend: 'WEBFE',
+      ServerSideDev: 'SSDEV',
+      EmbeddedDev: 'EMBED',
+      VRAR: 'VRAR',
+      MachineLearningSkills: 'MLALG',
+      UIUX: 'UIUX'
+    },
+    SkillLevelAnswers: ['no skills', 'beginner skills', 'average skills', 'advanced skills', 'expert skills'],
+    InterestLevelAnswers: ['not interested at all', 'hardly interested', 'average interest', 'high interest', 'extremely interested'],
+  };
+
+  static readonly iOSDevExperienceLow = 'I have no experience in Apple platform development other than the intro course.';
+  static readonly iOSDevExperienceMedium = 'I was involved in the development of a native Apple application, but I had another role than developer (e.g. tester).';
+  static readonly iOSDevExperienceHigh = 'I have been an active developer for a native Apple application.';
+  static readonly iOSDevExperienceVeryHigh = 'I have submitted my own native Apple application(s) to the AppStore.';
+
+}
+
+
+
+// old stuff following
+
 // colums
 export class CsvColumNames {
   static readonly Person = {
@@ -10,7 +67,7 @@ export class CsvColumNames {
     FirstName: 'firstname',
     LastName: 'lastname',
     Major: 'major',
-    Term: 'semester',
+    Semester: 'semester',
     TumId: 'attribute_2',
     IosDevExperience: 'iOSDevExp',
     IosDevExperienceDescription: 'iOSDevExplained',
@@ -30,7 +87,7 @@ export class CsvColumNames {
   };
 
   static readonly PersonSkills = {
-    Technology: 'Technology', Concept: 'Concepts'
+    Technology: 'Technology', Concept: 'Concepts', // TODO: remove
   };
 
   static readonly Team = { TeamName: 'teamName', Priority: 'Priorities[{d}]' };

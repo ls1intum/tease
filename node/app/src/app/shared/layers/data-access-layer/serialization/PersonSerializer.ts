@@ -1,6 +1,6 @@
 import {Person, Gender} from '../../../models/person';
 import {StringHelper} from '../../../helpers/string.helper';
-import {CsvColumNames, CsvValueNames} from '../../../constants/csv.constants';
+import {CsvColumNames, CSVConstants, CsvValueNames} from '../../../constants/csv.constants';
 import {Device} from '../../../models/device';
 import {SkillLevel} from '../../../models/skill';
 /**
@@ -11,30 +11,39 @@ export class PersonSerializer {
   static serializePerson(person: Person): {} {
     const personProps = {};
 
-    // keep this orderId in order to export rows in correct order (in the same order it was imported)
-    personProps[CsvColumNames.Person.OrderID] = person.orderId;
+    /* specified entries */
+    personProps[CSVConstants.Person.FirstName] = person.firstName;
+    personProps[CSVConstants.Person.LastName] = person.lastName;
+    personProps[CSVConstants.Person.Email] = person.email;
+    personProps[CSVConstants.Person.TumId] = person.tumId;
+    personProps[CSVConstants.Person.Gender] = this.serializeGender(person.gender);
+    personProps[CSVConstants.Person.Major] = person.major;
+    personProps[CSVConstants.Person.Semester] = person.semester;
+    personProps[CSVConstants.Person.GermanLanguageLevel] = person.germanLanguageLevel;
+    personProps[CSVConstants.Person.EnglishLanguageLevel] = person.englishLanguageLevel;
+    personProps[CSVConstants.Person.IosDevExperience] = person.iosDev;
+    personProps[CSVConstants.Person.IosDevAppStoreLink] = person.appStoreLink;
+    personProps[CSVConstants.Person.IosDevExperienceExplained] = person.iOSDevExplained;
+    personProps[CSVConstants.Person.IntroAssessment] = person.introAssessment;
 
-    // main person data
-    personProps[CsvColumNames.Person.Id] = person.id;
-    personProps[CsvColumNames.Person.Major] = person.major;
-    personProps[CsvColumNames.Person.FirstName] = person.firstName;
-    personProps[CsvColumNames.Person.LastName] = person.lastName;
-    personProps[CsvColumNames.Person.Term] = person.semester;
-    personProps[CsvColumNames.Person.TumId] = person.tumId;
-    personProps[CsvColumNames.Person.IosDevExperience] = person.iosDev;
-    personProps[CsvColumNames.Person.IosDevExperienceDescription] = person.iOSDevExplained;
-    personProps[CsvColumNames.Person.GitExperience] = person.gitExpDescription;
-    personProps[CsvColumNames.Person.Email] = person.email;
-    personProps[CsvColumNames.Person.Gender] = this.serializeGender(person.gender);
+    /* (devices) */
+    /* (skills) */
+
+    // other skills
+
+    /* (priorities) */
+
+
     personProps[CsvColumNames.Person.Comments] = person.generalComments;
-    personProps[CsvColumNames.Person.GermanLanguageLevel] = person.germanLanguageLevel;
-    personProps[CsvColumNames.Person.EnglishLanguageLevel] = person.englishLanguageLevel;
+
 
     this.serializePersonDevices(person, personProps);
     this.serializePriorities(person, personProps);
     this.serializeSkills(person, personProps);
 
+    /* application specific entries */
     personProps[CsvColumNames.Person.SupervisorRating] = this.serializeSkillLevel(person.supervisorRating);
+    personProps[CsvColumNames.Person.OrderID] = person.orderId; // to export rows in correct order (in the same order it was imported)
 
     return personProps;
   }
