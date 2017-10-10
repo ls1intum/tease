@@ -28,7 +28,7 @@
         </div>
 
         <div class="flex-row flex-center spacing-3-x">
-          <img class="device-icon" *ngFor="let device of person.devices"
+          <img mdTooltip="{{ Device[device] }}" class="device-icon" *ngFor="let device of person.devices"
                src="{{ getDeviceTypeIconPath(device) }}">
         </div>
       </div>
