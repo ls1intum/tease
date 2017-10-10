@@ -8,15 +8,15 @@
 </div>
 
 <!-- person pool -->
-<div *ngIf="orphanTeam" class="person-pool flex-column" [ngClass]="getPersonPoolDisplayModeCSSClass(personPoolDisplayMode)">
+<div *ngIf="orphanTeam" class="person-pool flex-column overflow-hidden" [ngClass]="getPersonPoolDisplayModeCSSClass(personPoolDisplayMode)">
   <div class="flex-row flex-center person-pool-title-bar flex-no-shrink">
-    <div class="person-pool-label">Person Pool</div>
-    <div class="team-person-count flex-row flex-center flex-justify-center">
+    <div class="person-pool-label flex-no-shrink">Person Pool</div>
+    <div class="team-person-count flex-row flex-center flex-justify-center flex-no-shrink">
       <div *ngIf="orphanTeam">{{orphanTeam.persons.length}}</div>
     </div>
     <div class="flex-grow"></div>
 
-    <button md-raised-button color="primary" class="distribute-button" (click)="openConstraintsDialog()">
+    <button md-raised-button color="primary" class="distribute-button flex-no-shrink" (click)="openConstraintsDialog()">
       <div class="flex-row flex-center distribute-button-row">
         <md-icon class="flex-spacing-x-2px">build</md-icon>
         <div>Distribute With Constraints</div>
