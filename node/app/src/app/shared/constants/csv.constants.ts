@@ -36,15 +36,15 @@ export class CSVConstants {
     JustifyPrefix: 'justify',
     ExpInterPrefix: 'expinter',
     ExperiencePostfix: '[expinter][1]',
-    JustificationPostfix: '[expinter][2]',
-    SkillAbbreviations: {
-      WebFrontend: 'WEBFE',
-      ServerSideDev: 'SSDEV',
-      EmbeddedDev: 'EMBED',
-      VRAR: 'VRAR',
-      MachineLearningSkills: 'MLALG',
-      UIUX: 'UIUX'
-    },
+    InterestPostfix: '[expinter][2]',
+    SkillNameAbbreviationPairs: [
+      ['Web Frontend Development', 'WEBFE'],
+      ['Server-side Development', 'SSDEV'],
+      ['Embedded Development', 'EMBED'],
+      ['Virtual & Augmented Reality', 'VRAR'],
+      ['Machine Learning & Algorithms', 'MLALG'],
+      ['UI / UX', 'UIUX']
+    ],
     SkillLevelAnswers: ['no skills', 'beginner skills', 'average skills', 'advanced skills', 'expert skills'],
     InterestLevelAnswers: ['not interested at all', 'hardly interested', 'average interest', 'high interest', 'extremely interested'],
   };

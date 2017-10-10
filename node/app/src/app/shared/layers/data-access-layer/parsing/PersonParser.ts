@@ -38,26 +38,24 @@ export abstract class PersonParser {
   }
 
   private static parsePersonSkills(person: Person, personProps: Array<any>) {
-    for (const key in CSVConstants.Skills.SkillAbbreviations) {
-      if (CSVConstants.Skills.SkillAbbreviations.hasOwnProperty(key)) {
-        // TODO
-      }
-    }
+    for (const [skillName, skillAbbreviation] of CSVConstants.Skills.SkillNameAbbreviationPairs) {
+        const skillLevelString = personProps[CSVConstants.Skills.ExpInterPrefix + skillAbbreviation + CSVConstants.Skills.ExperiencePostfix];
+        const interestLevelString = personProps[CSVConstants.Skills.ExpInterPrefix + skillAbbreviation + CSVConstants.Skills.InterestPostfix];
+        const justificationString = personProps[CSVConstants.Skills.JustifyPrefix + skillAbbreviation];
 
-    /*
-    const conceptProps = this.parseArray(CsvColumNames.PersonSkills.Concept, personProps);
-    for (const skillKey in conceptProps) {
-      if (conceptProps.hasOwnProperty(skillKey)) {
-        const skillLevel = this.parseSkillLevel(conceptProps[skillKey]);
-        person.skills.push(new Skill(skillKey, skillLevel));
-      }
-    }
+        if (!(skillLevelString && interestLevelString))
+          continue;
 
-    const techProps = this.parseArray(CsvColumNames.PersonSkills.Technology, personProps);
-    for (const skillKey in techProps) {
-      const skillLevel = this.parseSkillLevel(techProps[skillKey]);
-      person.skills.push(new Skill(skillKey, skillLevel));
-    }*/
+        let skillLevel: SkillLevel = CSVConstants.Skills.SkillLevelAnswers.indexOf(skillLevelString);
+        if (!SkillLevel[skillLevel])
+          skillLevel = SkillLevel.None;
+
+        let interestLevel: SkillLevel = CSVConstants.Skills.InterestLevelAnswers.indexOf(interestLevelString);
+        if (!SkillLevel[interestLevel])
+          interestLevel = SkillLevel.None;
+
+        person.skills.push(new Skill(skillName, skillLevel, interestLevel, justificationString ? justificationString : ""));
+    }
   }
 
   static parseSkillLevel(skillLevelString: string): SkillLevel {
