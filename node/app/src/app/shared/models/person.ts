@@ -2,13 +2,12 @@ import {Team} from './team';
 import {Language} from './language';
 import {Skill, SkillLevel} from './skill';
 import {Device} from './device';
-import {CsvValueNames} from '../constants/csv.constants';
+import {CSVConstants} from '../constants/csv.constants';
 /**
  * Created by wanur on 05/11/2016.
  */
 
 export class Person {
-  id: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -26,25 +25,18 @@ export class Person {
 
   introAssessment: String;
   devices: Device[] = [];
-
   skills: Skill[] = [];
-
-  gitExpDescription: string;
-  generalComments: string;
-
-  languages: Language[] = [];
-
-
-  team: Team;
+  otherSkills: String;
   teamPriorities: Team[] = [];
 
+  studentComments: string;
   supervisorRating: SkillLevel;
 
-  // used internally for preserving initial ordering
-  orderId: number;
+  tutorComments: String;
+
+  team: Team;
 
   constructor(id?: number, firstName?: string) {
-    this.id = id || 0;
     this.firstName = firstName || 'no name';
   }
 
@@ -66,14 +58,14 @@ export class Person {
 
   getiOSSkillLevel(): SkillLevel {
     const iOSSkillLevel = Person.IOSDevExperienceAnswerToSkillLevelMap.get(this.iosDev);
-    return iOSSkillLevel ? iOSSkillLevel : SkillLevel.None;
+    return iOSSkillLevel !== undefined ? iOSSkillLevel : SkillLevel.None;
   }
 
   static readonly IOSDevExperienceAnswerToSkillLevelMap = new Map([
-    [CsvValueNames.iOSDevExperienceLow, SkillLevel.Low],
-    [CsvValueNames.iOSDevExperienceMedium, SkillLevel.Medium],
-    [CsvValueNames.iOSDevExperienceHigh, SkillLevel.High],
-    [CsvValueNames.iOSDevExperienceVeryHigh, SkillLevel.VeryHigh],
+    [CSVConstants.iOSDevExperienceLow, SkillLevel.Low],
+    [CSVConstants.iOSDevExperienceMedium, SkillLevel.Medium],
+    [CSVConstants.iOSDevExperienceHigh, SkillLevel.High],
+    [CSVConstants.iOSDevExperienceVeryHigh, SkillLevel.VeryHigh],
   ]);
 
   /*

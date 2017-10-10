@@ -1,6 +1,6 @@
 import {Team} from '../../../models/team';
 import {PersonParser} from './PersonParser';
-import {CsvColumNames} from '../../../constants/csv.constants';
+import {CSVConstants} from '../../../constants/csv.constants';
 import {Person} from '../../../models/person';
 import {StringHelper} from '../../../helpers/string.helper';
 
@@ -19,10 +19,8 @@ export class TeamParser {
           return undefined;
         }
 
-        person.orderId = index;
-
         this.parsePriorities(teams, person, personProps);
-        this.addTeam(teams, personProps[CsvColumNames.Team.TeamName], person);
+        this.addTeam(teams, personProps[CSVConstants.Team.TeamName], person);
 
         return person;
 
@@ -47,7 +45,7 @@ export class TeamParser {
   private static parsePriorities(teams: TeamList, person: Person, personProps: Array<any>) {
 
     for (let prio = 1; ; prio++) {
-      const columnName = StringHelper.format(CsvColumNames.Team.Priority, prio);
+      const columnName = StringHelper.format(CSVConstants.Team.Priority, prio);
 
       // No such priority.
       if (!personProps[columnName]) {
@@ -60,12 +58,14 @@ export class TeamParser {
   }
 
   private static addTeam(teams: TeamList, name: string, person?: Person): Team {
-    if (name === undefined)return undefined;
+    if (name === undefined)
+      return undefined;
 
     if (teams[name] === undefined)
       teams[name] = new Team(name);
 
-    if (person === undefined)return teams[name];
+    if (person === undefined)
+      return teams[name];
     teams[name].add(person);
 
     return teams[name];
