@@ -1,5 +1,5 @@
 import {Person, Gender} from '../../../models/person';
-import {CsvColumNames, CSVConstants, CsvValueNames} from '../../../constants/csv.constants';
+import {CSVConstants} from '../../../constants/csv.constants';
 import {Device} from '../../../models/device';
 import {StringHelper} from '../../../helpers/string.helper';
 import {Skill, SkillLevel} from '../../../models/skill';
@@ -9,8 +9,6 @@ import {Skill, SkillLevel} from '../../../models/skill';
 
 export abstract class PersonParser {
   static parsePerson(personProps: any): Person {
-    console.log(personProps);
-
     const person = new Person();
 
     person.firstName = personProps[CSVConstants.Person.FirstName];
@@ -59,31 +57,31 @@ export abstract class PersonParser {
   }
 
   static parseSkillLevel(skillLevelString: string): SkillLevel {
-    if (skillLevelString === CsvValueNames.SkillLevelValue.VeryHigh)
+    if (skillLevelString === CSVConstants.SkillLevelValue.VeryHigh)
       return SkillLevel.VeryHigh;
-    if (skillLevelString === CsvValueNames.SkillLevelValue.High)
+    if (skillLevelString === CSVConstants.SkillLevelValue.High)
       return SkillLevel.High;
-    if (skillLevelString === CsvValueNames.SkillLevelValue.Medium)
+    if (skillLevelString === CSVConstants.SkillLevelValue.Medium)
       return SkillLevel.Medium;
-    if (skillLevelString === CsvValueNames.SkillLevelValue.Low)
+    if (skillLevelString === CSVConstants.SkillLevelValue.Low)
       return SkillLevel.Low;
-    if (skillLevelString === CsvValueNames.SkillLevelValue.None)
+    if (skillLevelString === CSVConstants.SkillLevelValue.None)
       return SkillLevel.None;
 
     return SkillLevel.None;
   }
 
   static parseGender(genderString: string): Gender {
-    if (genderString === CsvValueNames.GenderValue.Male)
+    if (genderString === CSVConstants.GenderValue.Male)
       return Gender.Male;
-    if (genderString === CsvValueNames.GenderValue.Female)
+    if (genderString === CSVConstants.GenderValue.Female)
       return Gender.Female;
 
     return Gender.Male;
   }
 
   private static parsePersonDevices(person: Person, personProps: Array<any>) {
-    const available = CsvValueNames.DeviceAvailableBooleanValue.Available;
+    const available = CSVConstants.DeviceAvailableBooleanValue.Available;
 
     if (personProps[CSVConstants.Devices.Ipad] === available)
       person.addDevice(Device.Ipad);
@@ -102,7 +100,8 @@ export abstract class PersonParser {
 
     for (const key in personProps) {
       if (key.startsWith(columnArrayName)) {
-        const arrayElement = StringHelper.getStringBetween(key, CsvColumNames.ArrayBraces.Open, CsvColumNames.ArrayBraces.Close);
+        const arrayElement =
+          StringHelper.getStringBetween(key, CSVConstants.ArrayBraces.Open, CSVConstants.ArrayBraces.Close);
         array[arrayElement] = personProps[key];
       }
     }

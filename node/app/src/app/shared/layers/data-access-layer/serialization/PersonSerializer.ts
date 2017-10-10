@@ -1,6 +1,6 @@
 import {Person, Gender} from '../../../models/person';
 import {StringHelper} from '../../../helpers/string.helper';
-import {CsvColumNames, CSVConstants, CsvValueNames} from '../../../constants/csv.constants';
+import {CSVConstants} from '../../../constants/csv.constants';
 import {Device} from '../../../models/device';
 import {SkillLevel} from '../../../models/skill';
 /**
@@ -38,8 +38,7 @@ export class PersonSerializer {
 
   private static serializePriorities(person: Person, personProps: {}) {
     for (const teamPrio of person.teamPriorities) {
-      const columnName = StringHelper.format(CsvColumNames.Team.Priority,
-        person.getTeamPriority(teamPrio));
+      const columnName = StringHelper.format(CSVConstants.Team.Priority, person.getTeamPriority(teamPrio));
 
       personProps[columnName] = teamPrio.name;
     }
@@ -61,37 +60,37 @@ export class PersonSerializer {
   private static serializeGender(gender: Gender) {
     switch (gender) {
       case Gender.Male:
-        return CsvValueNames.GenderValue.Male;
+        return CSVConstants.GenderValue.Male;
       case Gender.Female:
-        return CsvValueNames.GenderValue.Female;
+        return CSVConstants.GenderValue.Female;
     }
   }
 
   static serializeSkillLevel(skillLevel: SkillLevel) {
     switch (skillLevel) {
       case SkillLevel.VeryHigh:
-        return CsvValueNames.SkillLevelValue.VeryHigh;
+        return CSVConstants.SkillLevelValue.VeryHigh;
       case SkillLevel.High:
-        return CsvValueNames.SkillLevelValue.High;
+        return CSVConstants.SkillLevelValue.High;
       case SkillLevel.Medium:
-        return CsvValueNames.SkillLevelValue.Medium;
+        return CSVConstants.SkillLevelValue.Medium;
       case SkillLevel.Low:
-        return CsvValueNames.SkillLevelValue.Low;
+        return CSVConstants.SkillLevelValue.Low;
       case SkillLevel.None:
-        return CsvValueNames.SkillLevelValue.None;
+        return CSVConstants.SkillLevelValue.None;
     }
   }
 
   private static serializePersonDevices(person: Person, personProps: {}) {
     personProps[CSVConstants.Devices.Ipad] = person.ownsDevice(Device.Ipad) ?
-      CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
+      CSVConstants.DeviceAvailableBooleanValue.Available : CSVConstants.DeviceAvailableBooleanValue.Unavailable;
     personProps[CSVConstants.Devices.Iphone] = person.ownsDevice(Device.Iphone) ?
-      CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
+      CSVConstants.DeviceAvailableBooleanValue.Available : CSVConstants.DeviceAvailableBooleanValue.Unavailable;
     personProps[CSVConstants.Devices.Ipod] = person.ownsDevice(Device.Ipod) ?
-      CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
+      CSVConstants.DeviceAvailableBooleanValue.Available : CSVConstants.DeviceAvailableBooleanValue.Unavailable;
     personProps[CSVConstants.Devices.Watch] = person.ownsDevice(Device.Watch) ?
-      CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
+      CSVConstants.DeviceAvailableBooleanValue.Available : CSVConstants.DeviceAvailableBooleanValue.Unavailable;
     personProps[CSVConstants.Devices.Mac] = person.ownsDevice(Device.Mac) ?
-      CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
+      CSVConstants.DeviceAvailableBooleanValue.Available : CSVConstants.DeviceAvailableBooleanValue.Unavailable;
   }
 }

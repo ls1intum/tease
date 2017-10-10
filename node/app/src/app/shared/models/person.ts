@@ -2,7 +2,7 @@ import {Team} from './team';
 import {Language} from './language';
 import {Skill, SkillLevel} from './skill';
 import {Device} from './device';
-import {CSVConstants, CsvValueNames} from '../constants/csv.constants';
+import {CSVConstants} from '../constants/csv.constants';
 /**
  * Created by wanur on 05/11/2016.
  */

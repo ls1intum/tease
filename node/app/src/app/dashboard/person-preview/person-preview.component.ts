@@ -3,7 +3,6 @@ import {Person} from '../../shared/models/person';
 import {IconMapperService} from '../../shared/ui/icon-mapper.service';
 import {Colors} from '../../shared/constants/color.constants';
 import {Skill, SkillLevel} from '../../shared/models/skill';
-import {CsvValueNames} from '../../shared/constants/csv.constants';
 import {Device} from "../../shared/models/device";
 
 @Component({
