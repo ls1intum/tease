@@ -4,7 +4,7 @@ import {PersonSerializer} from './PersonSerializer';
 import {CsvColumNames} from '../../../constants/csv.constants';
 
 export class TeamSerializer {
-  static serializeTeam(team: Team): {}[] {
+  static serializeTeam(team: Team): any[] {
     return team.persons.map(person => {
       const personProperties = PersonSerializer.serializePerson(person);
 

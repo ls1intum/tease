@@ -13,24 +13,26 @@ export abstract class PersonParser {
 
     const person = new Person();
 
-    person.id = personProps[CsvColumNames.Person.Id];
-    person.firstName = personProps[CsvColumNames.Person.FirstName];
-    person.lastName = personProps[CsvColumNames.Person.LastName];
-    person.major = personProps[CsvColumNames.Person.Major];
-    person.semester = personProps[CsvColumNames.Person.Semester];
-    person.tumId = personProps[CsvColumNames.Person.TumId];
-    person.iosDev = personProps[CsvColumNames.Person.IosDevExperience];
-    person.iOSDevExplained = personProps[CsvColumNames.Person.IosDevExperienceDescription];
-    person.gitExpDescription = personProps[CsvColumNames.Person.GitExperience];
-    person.email = personProps[CsvColumNames.Person.Email];
-    person.supervisorRating = this.parseSkillLevel(personProps[CsvColumNames.Person.SupervisorRating]);
-    person.gender = this.parseGender(personProps[CsvColumNames.Person.Gender]);
-    person.generalComments = personProps[CsvColumNames.Person.Comments];
-    person.englishLanguageLevel = personProps[CsvColumNames.Person.EnglishLanguageLevel];
-    person.germanLanguageLevel = personProps[CsvColumNames.Person.GermanLanguageLevel];
-
+    person.firstName = personProps[CSVConstants.Person.FirstName];
+    person.lastName = personProps[CSVConstants.Person.LastName];
+    person.email = personProps[CSVConstants.Person.Email];
+    person.tumId = personProps[CSVConstants.Person.TumId];
+    person.gender = this.parseGender(personProps[CSVConstants.Person.Gender]);
+    person.major = personProps[CSVConstants.Person.Major];
+    person.semester = personProps[CSVConstants.Person.Semester];
+    person.germanLanguageLevel = personProps[CSVConstants.Person.GermanLanguageLevel];
+    person.englishLanguageLevel = personProps[CSVConstants.Person.EnglishLanguageLevel];
+    person.iosDev = personProps[CSVConstants.Person.IosDevExperience];
+    person.appStoreLink = personProps[CSVConstants.Person.IosDevAppStoreLink];
+    person.iOSDevExplained = personProps[CSVConstants.Person.IosDevExperienceExplained];
+    person.introAssessment = personProps[CSVConstants.Person.IntroAssessment];
     this.parsePersonDevices(person, personProps);
     this.parsePersonSkills(person, personProps);
+    person.otherSkills = personProps[CSVConstants.Person.OtherSkills];
+    /* team priorities are parsed by team parser */
+    person.studentComments = personProps[CSVConstants.Person.StudentComments];
+    person.supervisorRating = this.parseSkillLevel(personProps[CSVConstants.Person.SupervisorRating]);
+    person.tutorComments = personProps[CSVConstants.Person.TutorComments];
 
     return person;
   }
@@ -38,7 +40,7 @@ export abstract class PersonParser {
   private static parsePersonSkills(person: Person, personProps: Array<any>) {
     for (const key in CSVConstants.Skills.SkillAbbreviations) {
       if (CSVConstants.Skills.SkillAbbreviations.hasOwnProperty(key)) {
-
+        // TODO
       }
     }
 
@@ -85,15 +87,15 @@ export abstract class PersonParser {
   private static parsePersonDevices(person: Person, personProps: Array<any>) {
     const available = CsvValueNames.DeviceAvailableBooleanValue.Available;
 
-    if (personProps[CsvColumNames.PersonDevices.Ipad] === available)
+    if (personProps[CSVConstants.Devices.Ipad] === available)
       person.addDevice(Device.Ipad);
-    if (personProps[CsvColumNames.PersonDevices.Mac] === available)
+    if (personProps[CSVConstants.Devices.Mac] === available)
       person.addDevice(Device.Mac);
-    if (personProps[CsvColumNames.PersonDevices.Ipod] === available)
+    if (personProps[CSVConstants.Devices.Ipod] === available)
       person.addDevice(Device.Ipod);
-    if (personProps[CsvColumNames.PersonDevices.Watch] === available)
+    if (personProps[CSVConstants.Devices.Watch] === available)
       person.addDevice(Device.Watch);
-    if (personProps[CsvColumNames.PersonDevices.Iphone] === available)
+    if (personProps[CSVConstants.Devices.Iphone] === available)
       person.addDevice(Device.Iphone);
   }
 

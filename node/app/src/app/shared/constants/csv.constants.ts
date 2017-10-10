@@ -9,16 +9,16 @@ export class CSVConstants {
     LastName: 'lastname',
     Email: 'email',
     TumId: 'attribute_2',
-    Gender: 'gender',
+    Gender: 'attribute_3',
     Major: 'major',
     MajorOther: 'major[other]',
     Semester: 'semester',
     GermanLanguageLevel: 'language[a1]',
     EnglishLanguageLevel: 'language[a2]',
-    IosDevExperience: 'iOSDevExp',
+    IosDevExperience: 'iOSDev',
     IosDevAppStoreLink: 'appStoreLink',
     IosDevExperienceExplained: 'iOSDevExplained',
-    IntroAssessment: 'introAssessment',
+    IntroAssessment: 'introAssessment[INTRO]',
 
     /* (devices) */
     /* (skills) */
@@ -27,9 +27,9 @@ export class CSVConstants {
 
     /* (priorities) */
 
-    CommentsStudent: 'Comments',
+    StudentComments: 'Comments',
     SupervisorRating: 'supervisorRating',
-    CommentsTutor: 'CommentsTutor',
+    TutorComments: 'CommentsTutor',
   };
 
   static readonly Skills = {
@@ -47,6 +47,11 @@ export class CSVConstants {
     },
     SkillLevelAnswers: ['no skills', 'beginner skills', 'average skills', 'advanced skills', 'expert skills'],
     InterestLevelAnswers: ['not interested at all', 'hardly interested', 'average interest', 'high interest', 'extremely interested'],
+  };
+
+  static readonly Devices = {
+    Iphone: 'devices[iPhone]', Ipad: 'devices[iPad]', Ipod: 'devices[iPod]',
+    Mac: 'devices[Mac]', Watch: 'devices[Watch]'
   };
 
   static readonly iOSDevExperienceLow = 'I have no experience in Apple platform development other than the intro course.';

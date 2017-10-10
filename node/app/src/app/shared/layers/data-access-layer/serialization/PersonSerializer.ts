@@ -25,25 +25,13 @@ export class PersonSerializer {
     personProps[CSVConstants.Person.IosDevAppStoreLink] = person.appStoreLink;
     personProps[CSVConstants.Person.IosDevExperienceExplained] = person.iOSDevExplained;
     personProps[CSVConstants.Person.IntroAssessment] = person.introAssessment;
-
-    /* (devices) */
-    /* (skills) */
-
-    // other skills
-
-    /* (priorities) */
-
-
-    personProps[CsvColumNames.Person.Comments] = person.generalComments;
-
-
     this.serializePersonDevices(person, personProps);
-    this.serializePriorities(person, personProps);
     this.serializeSkills(person, personProps);
-
-    /* application specific entries */
-    personProps[CsvColumNames.Person.SupervisorRating] = this.serializeSkillLevel(person.supervisorRating);
-    personProps[CsvColumNames.Person.OrderID] = person.orderId; // to export rows in correct order (in the same order it was imported)
+    personProps[CSVConstants.Person.OtherSkills] = person.otherSkills;
+    this.serializePriorities(person, personProps);
+    personProps[CSVConstants.Person.StudentComments] = person.studentComments;
+    personProps[CSVConstants.Person.SupervisorRating] = this.serializeSkillLevel(person.supervisorRating);
+    personProps[CSVConstants.Person.TutorComments] = person.tutorComments;
 
     return personProps;
   }
@@ -60,7 +48,8 @@ export class PersonSerializer {
   private static serializeSkills(person: Person, personProps: {}) {
     for (const skill of person.skills){
       const columnName = skill.skillName;
-      personProps[columnName] = this.serializeSkillLevel(skill.skillLevel);
+      // TODO
+      //personProps[columnName] = this.serializeSkillLevel(skill.skillLevel);
     }
   }
 
@@ -89,15 +78,15 @@ export class PersonSerializer {
   }
 
   private static serializePersonDevices(person: Person, personProps: {}) {
-    personProps[CsvColumNames.PersonDevices.Ipad] = person.ownsDevice(Device.Ipad) ?
+    personProps[CSVConstants.Devices.Ipad] = person.ownsDevice(Device.Ipad) ?
       CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
-    personProps[CsvColumNames.PersonDevices.Iphone] = person.ownsDevice(Device.Iphone) ?
+    personProps[CSVConstants.Devices.Iphone] = person.ownsDevice(Device.Iphone) ?
       CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
-    personProps[CsvColumNames.PersonDevices.Ipod] = person.ownsDevice(Device.Ipod) ?
+    personProps[CSVConstants.Devices.Ipod] = person.ownsDevice(Device.Ipod) ?
       CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
-    personProps[CsvColumNames.PersonDevices.Watch] = person.ownsDevice(Device.Watch) ?
+    personProps[CSVConstants.Devices.Watch] = person.ownsDevice(Device.Watch) ?
       CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
-    personProps[CsvColumNames.PersonDevices.Mac] = person.ownsDevice(Device.Mac) ?
+    personProps[CSVConstants.Devices.Mac] = person.ownsDevice(Device.Mac) ?
       CsvValueNames.DeviceAvailableBooleanValue.Available : CsvValueNames.DeviceAvailableBooleanValue.Unavailable;
   }
 }

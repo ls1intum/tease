@@ -19,8 +19,6 @@ export class TeamParser {
           return undefined;
         }
 
-        person.orderId = index;
-
         this.parsePriorities(teams, person, personProps);
         this.addTeam(teams, personProps[CsvColumNames.Team.TeamName], person);
 
