@@ -44,13 +44,20 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  resetTeamAllocation() {
+  public resetTeamAllocation() {
     this.teams.forEach(team => {
       const persons = Array.from(team.persons);
       team.clear();
       persons.forEach(person => person.team = this.orphanTeam);
       this.orphanTeam.persons.push(...persons);
-      console.log(persons.length);
+    });
+
+    this.saveTeams();
+  }
+
+  public sortTeams() {
+    this.teams.concat(this.orphanTeam).forEach(team => {
+      team.persons.sort((personA, personB) =>  personB.supervisorRating - personA.supervisorRating);
     });
 
     this.saveTeams();

@@ -43,6 +43,18 @@ export class AppComponent implements OverlayServiceHost {
     });
   }
 
+  showSortConfirmation() {
+    this.overlayService.displayComponent(ConfirmationOverlayComponent, {
+      action: 'Sort',
+      actionDescription: 'Sorting all teams will destroy the current order of persons.',
+      onConfirmed: () => {
+        this.dashboardComponent.sortTeams();
+        this.overlayService.closeOverlay();
+      },
+      onCancelled: () => this.overlayService.closeOverlay()
+    });
+  }
+
   showImportOverlay() {
     this.overlayService.displayComponent(ImportOverlayComponent, {
       onTeamsImported: (teams) => {
