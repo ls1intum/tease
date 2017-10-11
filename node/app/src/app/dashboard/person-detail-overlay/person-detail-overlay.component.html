@@ -1,6 +1,7 @@
 
 <div class="flex-justify-center flex-row main-row">
-  <div class="flex-column">
+  <div class="hidden-scrollbar-parent">
+    <div class="flex-column hidden-scrollbar-child">
 
     <!-- person detail card -->
     <md-card *ngIf="data" class="detail-card flex-column flex-no-shrink overflow-hidden" (click)="$event.stopPropagation()">
@@ -177,6 +178,7 @@
         </div>
       </div>
     </md-card>
+  </div>
   </div>
 
   <!-- team container -->

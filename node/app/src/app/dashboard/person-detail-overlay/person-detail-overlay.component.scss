@@ -5,6 +5,12 @@
   height: 100%;
 }
 
+.person-card-column {
+  overflow-y: scroll;
+  margin-right: -100px;
+  padding-right: 100px;
+}
+
 /* person detail card */
 .detail-card {
   width: 800px;
