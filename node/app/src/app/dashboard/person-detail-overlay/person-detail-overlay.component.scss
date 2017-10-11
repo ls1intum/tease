@@ -85,7 +85,7 @@
 }
 
 .padding-x-main {
-  padding: 0 20px;
+  padding: 0 25px;
 }
 
 .skill-badge {
@@ -154,7 +154,7 @@
 }
 
 .quotation-mark {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
   color: #909090;
   position: relative;
@@ -174,7 +174,6 @@
   font-size: 18px;
   font-weight: 300;
   text-align: center;
-  height: 30px;
   position: relative;
   top: -5px;
 }
@@ -219,13 +218,14 @@
 }
 
 .generic-skills-container-box {
+  @extend .flex-justify-center;
   margin: -5px;
   margin-top: 5px;
 }
 
 .skill-container-generic {
   margin: 5px;
-  width: calc((100% - 100px) / 3);
+  width: calc((100% - 8px * 6) / 3);
 }
 
 .skill-container > * {
@@ -236,6 +236,7 @@
   color: #656565;
   font-size: 20px;
   font-weight: 300;
+  text-align: center;
 }
 
 .skill-level-label {
