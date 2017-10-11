@@ -19,6 +19,13 @@ export class CSVConstants {
     IosDevAppStoreLink: 'appStoreLink',
     IosDevExperienceExplained: 'iOSDevExplained',
     IntroAssessment: 'introAssessment[INTRO]',
+    IntroAssessmentAnswers: [
+      'extremely challenging',
+      'very challenging',
+      'medium challenging',
+      'hardly challenging',
+      'not challenging at all'
+    ],
 
     /* (devices) */
     /* (skills) */

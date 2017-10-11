@@ -3,14 +3,14 @@
   <div class="flex-column">
 
     <!-- person detail card -->
-    <md-card *ngIf="data" class="detail-card flex-column flex-no-shrink" (click)="$event.stopPropagation()">
+    <md-card *ngIf="data" class="detail-card flex-column flex-no-shrink overflow-hidden" (click)="$event.stopPropagation()">
 
       <!-- profile picture and everything right to it -->
-      <div class="flex-row">
+      <div class="flex-row overflow-hidden">
         <img class="profile-picture" src="{{ getGravatarIcon(data.person.email, 400) }}">
 
         <!-- column right to the profile picture -->
-        <div class="flex-column name-flex-column">
+        <div class="flex-column name-flex-column overflow-hidden">
           <div class="flex-row" id="name-flex-row">
             <img id="gender-icon" src="{{getGenderIconPath()}}">
             <div id="person-name">{{ data.person.firstName }} {{ data.person.lastName }}</div>
@@ -93,9 +93,10 @@
             <div>{{ data.person.iosDev }}</div>
           </div>
           <div class="skill-divider"></div>
-          <div class="quote-text">
+          <div *ngIf="data.person.iOSDevExplained.length > 0" class="quote-text">
             <span class="quotation-mark">“</span>{{ data.person.iOSDevExplained }}<span class="quotation-mark">”</span>
           </div>
+          <div class="quote-text" *ngIf="data.person.iOSDevExplained.length !== 0">—</div>
         </div>
 
         <div class="flex-row flex-wrap generic-skills-container-box">
@@ -113,30 +114,37 @@
             <div *ngIf="skill.justification.length > 0" class="quote-text">
               <span class="quotation-mark">“</span>{{ skill.justification }}<span class="quotation-mark">”</span>
             </div>
-            <div *ngIf="skill.justification.length == 0">—</div>
+            <div class="quote-text" *ngIf="skill.justification.length == 0">—</div>
 
           </div>
-
         </div>
 
+        <!-- other skills -->
+        <div class="heading">Other Skills</div>
+        <div *ngIf="data.person.otherSkills.length > 0" class="quote-text align-self-start">
+          <span class="quotation-mark">“</span>{{ data.person.otherSkills }}<span class="quotation-mark">”</span>
+        </div>
+        <div class="quote-text align-self-start" *ngIf="data.person.otherSkills.length === 0">—</div>
 
-
-
-        <div class="heading">iOS Experience</div>
-        <div class="flex-row flex-center">
-          <div class="quotation-mark quotation-mark-start">“</div>
-          <div class="quote-text">{{ data.person.iosDev }}</div>
-          <div class="quotation-mark quotation-mark-end">”</div>
-          <div class="quote-author">  —  {{ data.person.firstName }}</div>
+        <!-- other skills -->
+        <div class="heading">How challenging was the intro course?</div>
+        <div class="skill-level-label" [ngClass]="'skill-level-label-' + data.person.getIntroAssessmentLevel()">
+          <div>{{ data.person.introAssessment }}</div>
         </div>
 
-        <div *ngIf="data.person.iOSDevExplained" class="flex-row flex-center">
-          <div class="quotation-mark quotation-mark-start">“</div>
-          <div class="quote-text">{{ data.person.iOSDevExplained }}</div>
-          <div class="quotation-mark quotation-mark-end">”</div>
-          <div class="quote-author">  —  {{ data.person.firstName }}</div>
+        <!-- sudent comments -->
+        <div class="heading">Student Comments</div>
+        <div *ngIf="data.person.studentComments.length > 0" class="quote-text align-self-start">
+          <span class="quotation-mark">“</span>{{ data.person.studentComments }}<span class="quotation-mark">”</span>
         </div>
+        <div class="quote-text align-self-start" *ngIf="data.person.studentComments.length === 0">—</div>
 
+        <!-- tutor comments -->
+        <div class="heading">Tutor Comments</div>
+        <div *ngIf="data.person.tutorComments.length > 0" class="quote-text align-self-start">
+          <span class="quotation-mark">“</span>{{ data.person.tutorComments }}<span class="quotation-mark">”</span>
+        </div>
+        <div class="quote-text align-self-start" *ngIf="data.person.tutorComments.length === 0">—</div>
 
       </div>
     </md-card>

@@ -23,7 +23,7 @@ export class Person {
   appStoreLink: string;
   iOSDevExplained: string;
 
-  introAssessment: String;
+  introAssessment: string;
   devices: Device[] = [];
   skills: Skill[] = [];
   otherSkills: String;
@@ -61,18 +61,17 @@ export class Person {
     return iOSSkillLevel !== undefined ? iOSSkillLevel : SkillLevel.None;
   }
 
+  getIntroAssessmentLevel(): SkillLevel {
+    const index = CSVConstants.Person.IntroAssessmentAnswers.indexOf(this.introAssessment);
+    return index >= 0 ? index : 0;
+  }
+
   static readonly IOSDevExperienceAnswerToSkillLevelMap = new Map([
     [CSVConstants.iOSDevExperienceLow, SkillLevel.Low],
     [CSVConstants.iOSDevExperienceMedium, SkillLevel.Medium],
     [CSVConstants.iOSDevExperienceHigh, SkillLevel.High],
     [CSVConstants.iOSDevExperienceVeryHigh, SkillLevel.VeryHigh],
   ]);
-
-  /*
-    {
-    CsvValueNames.iOSDevExperienceLow : SkillLevel.Medium,
-    "sample2": 2
-  };*/
 }
 
 export enum Gender {
