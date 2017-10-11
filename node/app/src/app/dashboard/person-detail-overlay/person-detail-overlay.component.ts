@@ -22,6 +22,7 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
 
   Device = Device;
   CSVConstants = CSVConstants;
+  SkillLevel = SkillLevel;
 
   constructor(private iconMapperService: IconMapperService) { }
 

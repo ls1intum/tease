@@ -135,6 +135,10 @@
   margin-top: 15px;
 }
 
+.heading.top {
+  margin-top: 0;
+}
+
 .person-value {
   color: #606060;
   font-size: 18px;
@@ -215,6 +219,7 @@
 .skill-container {
   border-radius: 11px;
   background-color: #efefef;
+  color: #656565;
   padding: 3px;
 }
 
@@ -236,7 +241,7 @@
 .skill-name {
   color: #656565;
   font-size: 20px;
-  font-weight: 300;
+  font-weight: 400;
   text-align: center;
 }
 
@@ -283,10 +288,62 @@
   background-color: #a2a2a2;
 }
 
+.supervisor-rating-container {
+  @extend .flex-column;
+  background-color: #dcdcdc;
+  padding: 10px;
+}
 
+.btn-group {
+  height: 30px;
+}
 
+.btn-secondary {
+  @extend .flex-grow, .flex-row, .flex-center, .flex-justify-center;
+  color: gray;
+  border: 1px solid gray;
+  text-align: center;
+  transition: background-color 0.5s;
+}
 
+.btn-secondary:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
 
+.btn-secondary:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.btn-secondary:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.btn-none.active, .btn-none:hover {
+  @extend .skill-level-label-0;
+}
+
+.btn-low.active, .btn-low:hover {
+  @extend .skill-level-label-1;
+}
+
+.btn-medium.active, .btn-medium:hover {
+  @extend .skill-level-label-2;
+}
+
+.btn-high.active, .btn-high:hover {
+  @extend .skill-level-label-3;
+}
+
+.btn-very-high.active, .btn-very-high:hover {
+  @extend .skill-level-label-4;
+}
+
+input {
+  display: none;
+}
 
 /* team container */
 app-team {

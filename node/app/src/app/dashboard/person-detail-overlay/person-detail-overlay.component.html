@@ -96,7 +96,11 @@
           <div *ngIf="data.person.iOSDevExplained.length > 0" class="quote-text">
             <span class="quotation-mark">“</span>{{ data.person.iOSDevExplained }}<span class="quotation-mark">”</span>
           </div>
-          <div class="quote-text" *ngIf="data.person.iOSDevExplained.length !== 0">—</div>
+          <div class="quote-text" *ngIf="data.person.iOSDevExplained.length === 0">—</div>
+          <div *ngIf="data.person.appStoreLink && data.person.appStoreLink.length > 0">
+            <span>AppStore Link: </span>
+            <a href="{{data.person.appStoreLink}}">{{data.person.appStoreLink}}</a>
+          </div>
         </div>
 
         <div class="flex-row flex-wrap generic-skills-container-box">
@@ -145,7 +149,32 @@
           <span class="quotation-mark">“</span>{{ data.person.tutorComments }}<span class="quotation-mark">”</span>
         </div>
         <div class="quote-text align-self-start" *ngIf="data.person.tutorComments.length === 0">—</div>
+      </div>
 
+      <div class="supervisor-rating-container flex-column">
+        <div class="heading top">Tutor Comments</div>
+        <div class="btn-group btn-group-sm flex-row" ngbRadioGroup name="radioBasic" [(ngModel)]="data.person.supervisorRating">
+          <label ngbButtonLabel class="btn-secondary btn-none">
+            <input ngbButton type="radio" [value]="SkillLevel.None">
+            {{ getLabelForSkillLevel(SkillLevel.None) }}
+          </label>
+          <label ngbButtonLabel class="btn-secondary btn-low">
+            <input ngbButton type="radio" [value]="SkillLevel.Low">
+            {{ getLabelForSkillLevel(SkillLevel.Low) }}
+          </label>
+          <label ngbButtonLabel class="btn-secondary btn-medium">
+            <input ngbButton type="radio" [value]="SkillLevel.Medium">
+            {{ getLabelForSkillLevel(SkillLevel.Medium) }}
+          </label>
+          <label ngbButtonLabel class="btn-secondary btn-high">
+            <input ngbButton type="radio" [value]="SkillLevel.High">
+            {{ getLabelForSkillLevel(SkillLevel.High) }}
+          </label>
+          <label ngbButtonLabel class="btn-secondary btn-very-high">
+            <input ngbButton type="radio" [value]="SkillLevel.VeryHigh">
+            {{ getLabelForSkillLevel(SkillLevel.VeryHigh) }}
+          </label>
+        </div>
       </div>
     </md-card>
   </div>
