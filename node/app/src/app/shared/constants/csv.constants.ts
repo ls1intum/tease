@@ -40,10 +40,10 @@ export class CSVConstants {
     SkillNameAbbreviationPairs: [
       ['Web Frontend Development', 'WEBFE'],
       ['Server-side Development', 'SSDEV'],
+      ['UI / UX', 'UIUX'],
       ['Embedded Development', 'EMBED'],
       ['Virtual & Augmented Reality', 'VRAR'],
-      ['Machine Learning & Algorithms', 'MLALG'],
-      ['UI / UX', 'UIUX']
+      ['Machine Learning & Algorithms', 'MLALG']
     ],
     SkillLevelAnswers: ['no skills', 'beginner skills', 'average skills', 'advanced skills', 'expert skills'],
     InterestLevelAnswers: ['not interested at all', 'hardly interested', 'average interest', 'high interest', 'extremely interested'],

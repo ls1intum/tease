@@ -6,6 +6,7 @@ import {Device} from '../../shared/models/device';
 import {Team} from '../../shared/models/team';
 import {IconMapperService} from '../../shared/ui/icon-mapper.service';
 import {OverlayComponent} from '../../overlay.service';
+import {CSVConstants} from "../../shared/constants/csv.constants";
 
 @Component({
   selector: 'app-person-detail-overlay',
@@ -18,6 +19,9 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
   protected getLabelForSkillLevel = Skill.getLabelForSkillLevel;
   protected getSkillColor = Colors.getColor;
   protected getGravatarIcon = this.iconMapperService.getGravatarIcon;
+
+  Device = Device;
+  CSVConstants = CSVConstants;
 
   constructor(private iconMapperService: IconMapperService) { }
 
