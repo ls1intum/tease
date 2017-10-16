@@ -55,7 +55,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   /*font-weight: bolder;*/
-  color: gray;
+  color: #333;
   font-size: 30px;
   margin-left: 20px;
   margin-right: 20px;
@@ -128,13 +128,13 @@
 }
 
 .person-language-name {
-  color: #606060;
+  color: black;
   font-size: 16px;
   padding-left: 5px;
 }
 
 .heading {
-  color: gray;
+  color: #333;
   font-weight: bold;
   font-size: 12px;
   padding-bottom: 4px;
@@ -146,7 +146,7 @@
 }
 
 .person-value {
-  color: #606060;
+  color: black;
   font-size: 18px;
   font-weight: 300;
 }
@@ -165,9 +165,9 @@
 }
 
 .quotation-mark {
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
-  color: #909090;
+  color: #555;
   position: relative;
   top: 5px;
 }
@@ -181,8 +181,8 @@
 }
 
 .quote-text {
-  color: #606060;
-  font-size: 18px;
+  color: black;
+  font-size: 14px;
   font-weight: 300;
   text-align: center;
   position: relative;
@@ -224,20 +224,20 @@
 
 .skill-container {
   border-radius: 11px;
-  background-color: #efefef;
-  color: #656565;
+  background-color: #fafafa;
+  color: black;
   padding: 3px;
+  border: $standard-border;
 }
 
 .generic-skills-container-box {
-  @extend .flex-justify-center;
   margin: -5px;
   margin-top: 5px;
 }
 
 .skill-container-generic {
   margin: 5px;
-  width: calc((100% - 8px * 6) / 3);
+  width: calc((100% - 9px * 6) / 3);
 }
 
 .skill-container > * {
@@ -245,8 +245,8 @@
 }
 
 .skill-name {
-  color: #656565;
-  font-size: 20px;
+  color: black;
+  font-size: 16px;
   font-weight: 400;
   text-align: center;
 }
@@ -288,12 +288,6 @@
   color: #2388b7;
 }
 
-.skill-divider {
-  height: 1px;
-  width: 33%;
-  background-color: #a2a2a2;
-}
-
 .supervisor-rating-container {
   @extend .flex-column;
   background-color: #dcdcdc;
@@ -301,12 +295,12 @@
 }
 
 .btn-group {
-  height: 30px;
+  height: 50px;
 }
 
 .btn-secondary {
   @extend .flex-grow, .flex-row, .flex-center, .flex-justify-center;
-  color: gray;
+  color: black;
   border: 1px solid gray;
   text-align: center;
   transition: background-color 0.5s;

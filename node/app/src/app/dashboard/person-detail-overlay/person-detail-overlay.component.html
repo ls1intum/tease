@@ -89,25 +89,22 @@
 
         <div class="skill-container flex-column flex-center">
           <div class="skill-name">iOS Development</div>
-          <div class="skill-divider"></div>
           <div class="skill-level-label" [ngClass]="'skill-level-label-' + data.person.getiOSSkillLevel()">
             <div>{{ data.person.iosDev }}</div>
           </div>
-          <div class="skill-divider"></div>
           <div *ngIf="data.person.iOSDevExplained.length > 0" class="quote-text">
             <span class="quotation-mark">“</span>{{ data.person.iOSDevExplained }}<span class="quotation-mark">”</span>
           </div>
           <div class="quote-text" *ngIf="data.person.iOSDevExplained.length === 0">—</div>
           <div *ngIf="data.person.appStoreLink && data.person.appStoreLink.length > 0">
             <span>AppStore Link: </span>
-            <a href="{{data.person.appStoreLink}}">{{data.person.appStoreLink}}</a>
+            <a target="_blank" href="{{data.person.appStoreLink}}">{{data.person.appStoreLink}}</a>
           </div>
         </div>
 
         <div class="flex-row flex-wrap generic-skills-container-box">
-          <div *ngFor="let skill of data.person.skills" class="skill-container skill-container-generic flex-column flex-center flex-justify-center">
+          <div *ngFor="let skill of data.person.skills" class="skill-container skill-container-generic flex-column flex-center">
             <div class="skill-name">{{ skill.name }}</div>
-            <div class="skill-divider"></div>
             <div class="skill-level-label" [ngClass]="'skill-level-label-' + skill.skillLevel">
               <div>{{ CSVConstants.Skills.SkillLevelAnswers[skill.skillLevel] }}</div>
             </div>
@@ -115,7 +112,6 @@
               <div>{{ CSVConstants.Skills.InterestLevelAnswers[skill.interestLevel] }}</div>
             </div>
 
-            <div class="skill-divider"></div>
             <div *ngIf="skill.justification.length > 0" class="quote-text">
               <span class="quotation-mark">“</span>{{ skill.justification }}<span class="quotation-mark">”</span>
             </div>
@@ -131,13 +127,13 @@
         </div>
         <div class="quote-text align-self-start" *ngIf="data.person.otherSkills.length === 0">—</div>
 
-        <!-- other skills -->
+        <!-- intro course assessment -->
         <div class="heading">How challenging was the intro course?</div>
         <div class="flex-row spacing-x-3">
-          <div class="skill-level-label flex-grow" [ngClass]="'skill-level-label-' + data.person.getIntroAssessmentLevel()">
+          <div class="skill-level-label flex-grow flex-basis-zero" [ngClass]="'skill-level-label-' + data.person.getIntroAssessmentLevel()">
             <div>Student: “{{ data.person.introAssessment }}”</div>
           </div>
-          <div class="skill-level-label flex-grow" [ngClass]="'skill-level-label-' + data.person.getIntroAssessmentTutorLevel()">
+          <div class="skill-level-label flex-grow flex-basis-zero" [ngClass]="'skill-level-label-' + data.person.getIntroAssessmentTutorLevel()">
             <div>Tutor: “{{ data.person.introAssessmentTutor }}”</div>
           </div>
         </div>
@@ -159,7 +155,6 @@
       </div>
 
       <div class="supervisor-rating-container flex-column">
-        <div class="heading top">Supervisor Rating</div>
         <div class="btn-group btn-group-sm flex-row" ngbRadioGroup name="radioBasic" [(ngModel)]="data.person.supervisorRating">
           <label ngbButtonLabel class="btn-secondary btn-none">
             <input ngbButton type="radio" [value]="SkillLevel.None">
