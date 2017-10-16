@@ -12,10 +12,14 @@ import {TeamService} from "../../shared/layers/business-logic-layer/team.service
   styleUrls: ['./constraints-overlay.component.scss']
 })
 export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayComponent {
+  private static readonly noFeasibleSolutionHintTimeout = 2000;
+
   public data: { onTeamsGenerated: (() => void), displayWarning: boolean };
   protected constraints: Constraint[];
   protected teams: Team[];
   protected teamsWithVisibleConstraints: Team[] = [];
+  protected noFeasibleSolutionHintShown = false;
+  protected noFeasibleSolutionHintTimeoutHandle = null;
 
   constructor(private constraintService: ConstraintService,
               private teamGenerationService: TeamGenerationService,
@@ -38,7 +42,9 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
 
   public getGlobalConstraints(): Array<Constraint> {
     if (!this.constraints) return [];
-    return this.constraints.filter(constraint => constraint.getTeamName() === Team.SpecialTeamNameForGlobalConstraints);
+    return this.constraints.filter(constraint => {
+      return constraint.getTeamName() === Team.SpecialTeamNameForGlobalConstraints;
+    });
   }
 
   protected getConstraintsForTeam(team: Team): Array<Constraint> {
@@ -54,6 +60,17 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
     this.constraintService.saveConstraints(this.constraints);
 
     this.teamGenerationService.generate(this.teams).then(generatedTeams => {
+      if (generatedTeams == null) {
+        clearTimeout(this.noFeasibleSolutionHintTimeoutHandle);
+        this.noFeasibleSolutionHintShown = true;
+        console.log("heloooo");
+
+        this.noFeasibleSolutionHintTimeoutHandle =
+          setTimeout(() => this.noFeasibleSolutionHintShown = false,
+            ConstraintsOverlayComponent.noFeasibleSolutionHintTimeout);
+        return;
+      }
+
       this.teamService.saveTeams(generatedTeams).then(saved => {
         this.overlayService.closeOverlay();
         this.data.onTeamsGenerated();

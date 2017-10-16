@@ -191,6 +191,13 @@ export class LPTeamGenerationService implements TeamGenerationService {
     return constraints;
   }
 
+  /**
+   * Distributes persons to teams according to set constraints.
+   *
+   * @param {Team[]} teams that the persons are distributed to, can be prepopulated
+   * @returns {Promise<Team[]>} that is resolved with the updated teams if a feasible solution was found or with null
+   * else.
+   */
   generate(teams: Team[]): Promise<Team[]> {
 
     return new Promise((resolve, reject) => {
@@ -365,13 +372,15 @@ export class LPTeamGenerationService implements TeamGenerationService {
               }
             }
           }
+
+          resolve(teams);
         } else {
           console.log("No solution was found with the given constraints. Reverted assignment to last state.");
 
-          // TODO Quirin: show a popup explaining that there was no solution
+          resolve(null);
         }
 
-        resolve(teams);
+
 
       });
     });

@@ -43,6 +43,28 @@
   font-weight: bold;
 }
 
+.error {
+  border-radius: 5px;
+  background-color: #ffe1db;
+  border: 1px solid rgb(230, 180, 170);
+  padding-left: 5px;
+  transition: opacity 0.5s;
+  margin-right: 10px;
+}
+
+.error-element {
+  margin: 8px;
+  color: #9b240b;
+}
+
+.error-heading {
+  font-weight: bold;
+}
+
+.error-hidden {
+  opacity: 0;
+}
+
 .constraint-team-name {
   margin: 5px 12px 3px 12px;
   padding: 2px 18px;

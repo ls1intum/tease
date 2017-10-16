@@ -38,6 +38,10 @@
       <button md-raised-button color="primary" (click)="applyConstraints(); $event.stopPropagation()">
         Distribute Persons
       </button>
+      <div class="error flex-grow flex-row" [class.error-hidden]="!noFeasibleSolutionHintShown">
+        <div class="error-heading error-element">Error!</div>
+        <div class="error-element">No feasible solution was found.</div>
+      </div>
     </div>
   </div>
 </div>
