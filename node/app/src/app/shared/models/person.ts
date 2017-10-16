@@ -71,12 +71,12 @@ export class Person {
 
   getIntroAssessmentLevel(): SkillLevel {
     const index = CSVConstants.Person.IntroAssessmentAnswers.indexOf(this.introAssessment);
-    return index >= 0 ? index : 0;
+    return index >= 0 ? index : null;
   }
 
   getIntroAssessmentTutorLevel(): SkillLevel {
     const index = CSVConstants.Person.IntroAssessmentTutorAnswers.indexOf(this.introAssessmentTutor);
-    return index >= 0 ? index : 0;
+    return index >= 0 ? index : null;
   }
 }
 

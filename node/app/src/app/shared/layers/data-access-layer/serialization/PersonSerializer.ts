@@ -67,7 +67,7 @@ export class PersonSerializer {
     }
   }
 
-  static serializeSkillLevel(skillLevel: SkillLevel) {
+  static serializeSkillLevel(skillLevel: SkillLevel): string {
     switch (skillLevel) {
       case SkillLevel.VeryHigh:
         return CSVConstants.SkillLevelValue.VeryHigh;
@@ -80,6 +80,8 @@ export class PersonSerializer {
       case SkillLevel.None:
         return CSVConstants.SkillLevelValue.None;
     }
+
+    return null;
   }
 
   private static serializePersonDevices(person: Person, personProps: {}) {

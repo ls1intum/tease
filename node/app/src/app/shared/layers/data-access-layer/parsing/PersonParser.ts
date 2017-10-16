@@ -47,11 +47,11 @@ export abstract class PersonParser {
 
         let skillLevel: SkillLevel = CSVConstants.Skills.SkillLevelAnswers.indexOf(skillLevelString);
         if (!SkillLevel[skillLevel])
-          skillLevel = SkillLevel.None;
+          skillLevel = null;
 
         let interestLevel: SkillLevel = CSVConstants.Skills.InterestLevelAnswers.indexOf(interestLevelString);
         if (!SkillLevel[interestLevel])
-          interestLevel = SkillLevel.None;
+          interestLevel = null;
 
         person.skills.push(new Skill(skillName, skillLevel, interestLevel, justificationString ? justificationString : ""));
     }
@@ -69,7 +69,7 @@ export abstract class PersonParser {
     if (skillLevelString === CSVConstants.SkillLevelValue.None)
       return SkillLevel.None;
 
-    return SkillLevel.None;
+    return null;
   }
 
   static parseGender(genderString: string): Gender {
