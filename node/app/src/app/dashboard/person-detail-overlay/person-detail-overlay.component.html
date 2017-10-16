@@ -76,7 +76,7 @@
             <div *ngFor="let team of data.person.teamPriorities; let i = index"
                  class="flex-row flex-center team-badge flex-no-shrink"
                  [class.badge-highlight]="team === data.person.team">
-              <div class="team-badge-index flex-row flex-center flex-justify-center"><div>{{ i }}</div></div>
+              <div class="team-badge-index flex-row flex-center flex-justify-center"><div>{{ i + 1 }}</div></div>
               <div class="flex-row flex-center flex-justify-center flex-grow">
                 <div class="team-badge-name">{{team.name}}</div>
               </div>
