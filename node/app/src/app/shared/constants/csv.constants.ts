@@ -57,8 +57,7 @@ export class CSVConstants {
   };
 
   static readonly Devices = {
-    Iphone: 'devices[iPhone]', Ipad: 'devices[iPad]', Ipod: 'devices[iPod]',
-    Mac: 'devices[Mac]', Watch: 'devices[Watch]'
+    Iphone: 'devices[iPhone]', Ipad: 'devices[iPad]', Mac: 'devices[Mac]', Watch: 'devices[Watch]'
   };
 
   static readonly iOSDevExperienceLow = 'I have no experience in Apple platform development other than the intro course.';
@@ -74,8 +73,6 @@ export class CSVConstants {
   };
 
   static readonly GenderValue = {Male: 'male', Female: 'female'};
-
-  // static readonly LanguageLevelValue = { Native: 'Native', C: 'C1/C2', B: 'B1/B2', A: 'A1/A2' };
 
   static readonly DeviceAvailableBooleanValue = {Available: 'Yes', Unavailable: 'No'};
 }

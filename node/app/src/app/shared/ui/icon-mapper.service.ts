@@ -33,8 +33,6 @@ export class IconMapperService {
     switch (device) {
       case Device.Iphone:
         return IconMapperService.BASE_PATH_IMAGES + 'iphone.png';
-      case Device.Ipod:
-        return IconMapperService.BASE_PATH_IMAGES + 'ipod.png';
       case Device.Ipad:
         return IconMapperService.BASE_PATH_IMAGES + 'ipad.png';
       case Device.Watch:

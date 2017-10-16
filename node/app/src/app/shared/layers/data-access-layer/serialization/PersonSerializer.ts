@@ -82,15 +82,12 @@ export class PersonSerializer {
   }
 
   private static serializePersonDevices(person: Person, personProps: {}) {
-    personProps[CSVConstants.Devices.Ipad] = person.ownsDevice(Device.Ipad) ?
-      CSVConstants.DeviceAvailableBooleanValue.Available : CSVConstants.DeviceAvailableBooleanValue.Unavailable;
-    personProps[CSVConstants.Devices.Iphone] = person.ownsDevice(Device.Iphone) ?
-      CSVConstants.DeviceAvailableBooleanValue.Available : CSVConstants.DeviceAvailableBooleanValue.Unavailable;
-    personProps[CSVConstants.Devices.Ipod] = person.ownsDevice(Device.Ipod) ?
-      CSVConstants.DeviceAvailableBooleanValue.Available : CSVConstants.DeviceAvailableBooleanValue.Unavailable;
-    personProps[CSVConstants.Devices.Watch] = person.ownsDevice(Device.Watch) ?
-      CSVConstants.DeviceAvailableBooleanValue.Available : CSVConstants.DeviceAvailableBooleanValue.Unavailable;
-    personProps[CSVConstants.Devices.Mac] = person.ownsDevice(Device.Mac) ?
-      CSVConstants.DeviceAvailableBooleanValue.Available : CSVConstants.DeviceAvailableBooleanValue.Unavailable;
+    const unavailableString = CSVConstants.DeviceAvailableBooleanValue.Unavailable;
+    const availableString = CSVConstants.DeviceAvailableBooleanValue.Available;
+
+    personProps[CSVConstants.Devices.Ipad] = person.ownsDevice(Device.Ipad) ? availableString : unavailableString;
+    personProps[CSVConstants.Devices.Iphone] = person.ownsDevice(Device.Iphone) ? availableString : unavailableString;
+    personProps[CSVConstants.Devices.Watch] = person.ownsDevice(Device.Watch) ? availableString : unavailableString;
+    personProps[CSVConstants.Devices.Mac] = person.ownsDevice(Device.Mac) ? availableString : unavailableString;
   }
 }

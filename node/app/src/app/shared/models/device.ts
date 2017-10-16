@@ -3,5 +3,5 @@
  */
 
 export enum Device {
-  Iphone, Ipad, Ipod, Mac, Watch
+  Iphone, Ipad, Mac, Watch
 }

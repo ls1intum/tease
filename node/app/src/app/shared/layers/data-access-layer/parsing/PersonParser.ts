@@ -87,8 +87,6 @@ export abstract class PersonParser {
       person.addDevice(Device.Ipad);
     if (personProps[CSVConstants.Devices.Mac] === available)
       person.addDevice(Device.Mac);
-    if (personProps[CSVConstants.Devices.Ipod] === available)
-      person.addDevice(Device.Ipod);
     if (personProps[CSVConstants.Devices.Watch] === available)
       person.addDevice(Device.Watch);
     if (personProps[CSVConstants.Devices.Iphone] === available)

@@ -99,9 +99,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
       if (person.devices && person.devices.length > 0) {
         // If has a mac, add him to constraint
         const iosDevicesCount = person.devices.filter(device => {
-          return [
-            Device.Ipad, Device.Ipod, Device.Iphone
-          ].includes(device);
+          return [Device.Ipad, Device.Iphone].includes(device);
         }).length;
 
         if (iosDevicesCount > 0) {
