@@ -133,9 +133,15 @@
 
         <!-- other skills -->
         <div class="heading">How challenging was the intro course?</div>
-        <div class="skill-level-label" [ngClass]="'skill-level-label-' + data.person.getIntroAssessmentLevel()">
-          <div>{{ data.person.introAssessment }}</div>
+        <div class="flex-row spacing-x-3">
+          <div class="skill-level-label flex-grow" [ngClass]="'skill-level-label-' + data.person.getIntroAssessmentLevel()">
+            <div>Student: “{{ data.person.introAssessment }}”</div>
+          </div>
+          <div class="skill-level-label flex-grow" [ngClass]="'skill-level-label-' + data.person.getIntroAssessmentTutorLevel()">
+            <div>Tutor: “{{ data.person.introAssessmentTutor }}”</div>
+          </div>
         </div>
+
 
         <!-- sudent comments -->
         <div class="heading">Student Comments</div>

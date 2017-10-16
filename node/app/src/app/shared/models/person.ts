@@ -8,6 +8,13 @@ import {CSVConstants} from '../constants/csv.constants';
  */
 
 export class Person {
+  static readonly IOSDevExperienceAnswerToSkillLevelMap = new Map([
+    [CSVConstants.iOSDevExperienceLow, SkillLevel.Low],
+    [CSVConstants.iOSDevExperienceMedium, SkillLevel.Medium],
+    [CSVConstants.iOSDevExperienceHigh, SkillLevel.High],
+    [CSVConstants.iOSDevExperienceVeryHigh, SkillLevel.VeryHigh],
+  ]);
+
   firstName: string;
   lastName: string;
   email: string;
@@ -24,6 +31,7 @@ export class Person {
   iOSDevExplained: string;
 
   introAssessment: string;
+  introAssessmentTutor: string;
   devices: Device[] = [];
   skills: Skill[] = [];
   otherSkills: String;
@@ -66,12 +74,10 @@ export class Person {
     return index >= 0 ? index : 0;
   }
 
-  static readonly IOSDevExperienceAnswerToSkillLevelMap = new Map([
-    [CSVConstants.iOSDevExperienceLow, SkillLevel.Low],
-    [CSVConstants.iOSDevExperienceMedium, SkillLevel.Medium],
-    [CSVConstants.iOSDevExperienceHigh, SkillLevel.High],
-    [CSVConstants.iOSDevExperienceVeryHigh, SkillLevel.VeryHigh],
-  ]);
+  getIntroAssessmentTutorLevel(): SkillLevel {
+    const index = CSVConstants.Person.IntroAssessmentTutorAnswers.indexOf(this.introAssessmentTutor);
+    return index >= 0 ? index : 0;
+  }
 }
 
 export enum Gender {

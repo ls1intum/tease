@@ -25,6 +25,7 @@ export class PersonSerializer {
     personProps[CSVConstants.Person.IosDevAppStoreLink] = person.appStoreLink;
     personProps[CSVConstants.Person.IosDevExperienceExplained] = person.iOSDevExplained;
     personProps[CSVConstants.Person.IntroAssessment] = person.introAssessment;
+    personProps[CSVConstants.Person.IntroAssessmentTutor] = person.introAssessmentTutor;
     this.serializePersonDevices(person, personProps);
     this.serializeSkills(person, personProps);
     personProps[CSVConstants.Person.OtherSkills] = person.otherSkills;

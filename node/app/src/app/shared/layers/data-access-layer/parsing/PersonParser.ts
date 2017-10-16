@@ -24,6 +24,7 @@ export abstract class PersonParser {
     person.appStoreLink = personProps[CSVConstants.Person.IosDevAppStoreLink];
     person.iOSDevExplained = personProps[CSVConstants.Person.IosDevExperienceExplained];
     person.introAssessment = personProps[CSVConstants.Person.IntroAssessment];
+    person.introAssessmentTutor = personProps[CSVConstants.Person.IntroAssessmentTutor];
     this.parsePersonDevices(person, personProps);
     this.parsePersonSkills(person, personProps);
     person.otherSkills = personProps[CSVConstants.Person.OtherSkills];
