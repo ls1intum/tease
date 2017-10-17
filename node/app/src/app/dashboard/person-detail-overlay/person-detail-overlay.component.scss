@@ -15,10 +15,14 @@
 .detail-card {
   width: 800px;
   margin-top: $scroll-inset;
-  margin-bottom: $scroll-inset;
+  margin-bottom: 10px;
   background-color: white;
   border-radius: 5px;
   overflow: hidden;
+}
+
+.bottom-button-row {
+  margin-bottom: $scroll-inset;
 }
 
 @include horizontal-spacing(spacing-x-3, 3px);

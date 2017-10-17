@@ -14,7 +14,12 @@ import {CSVConstants} from "../../shared/constants/csv.constants";
   styleUrls: ['./person-detail-overlay.component.scss']
 })
 export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
-  public data: {person: Person, onClose: () => void};
+  public data: {
+    person: Person,
+    onClose: () => void,
+    onNextPersonClicked: () => void,
+    onPreviousPersonClicked: () => void
+  };
 
   protected getLabelForSkillLevel = Skill.getLabelForSkillLevel;
   protected getSkillColor = Colors.getColor;

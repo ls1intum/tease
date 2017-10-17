@@ -32,7 +32,7 @@
     </div>
     <div [dragula]='"first-bag"' class='drag-container' [dragulaModel]="team.persons">
       <app-person-preview *ngFor="let person of team.persons" [person]="person"
-                          (click)="showPersonDetails(person); $event.stopPropagation()"></app-person-preview>
+                          (click)="dashboard.showPersonDetails(person); $event.stopPropagation()"></app-person-preview>
     </div>
   </div>
 

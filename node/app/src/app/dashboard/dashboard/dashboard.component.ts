@@ -80,8 +80,16 @@ export class DashboardComponent implements OnInit {
   }
 
   protected showPersonDetails(person: Person) {
-    this.overlayService.displayComponent(PersonDetailOverlayComponent,
-      { person: person, onClose: () => this.saveTeams() });
+    if (!person) {
+      this.overlayService.closeOverlay();
+      return;
+    }
+
+    this.overlayService.displayComponent(PersonDetailOverlayComponent, {
+      person: person,
+      onClose: () => this.saveTeams(),
+      onNextPersonClicked: () => this.showPersonDetails(this.orphanTeam.persons[this.orphanTeam.persons.indexOf(person) + 1]),
+      onPreviousPersonClicked: () => this.showPersonDetails(this.orphanTeam.persons[this.orphanTeam.persons.indexOf(person) - 1])});
   }
 
   public isDataLoaded(): boolean {
@@ -96,6 +104,6 @@ export class DashboardComponent implements OnInit {
   }
 
   protected areAllTeamsEmpty(): boolean {
-    return this.teams.reduce((acc, team) => acc && team.persons.length == 0, true);
+    return this.teams.reduce((acc, team) => acc && team.persons.length === 0, true);
   }
 }

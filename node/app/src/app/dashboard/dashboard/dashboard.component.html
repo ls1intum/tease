@@ -2,7 +2,7 @@
 <div class="dashboard flex-row">
   <div *ngFor="let team of teams" class="hidden-scrollbar-parent">
     <div class="hidden-scrollbar-child flex-column">
-      <app-team class="flex-no-shrink" [team]="team"></app-team>
+      <app-team class="flex-no-shrink" [team]="team" [dashboard]="this"></app-team>
     </div>
   </div>
 </div>
