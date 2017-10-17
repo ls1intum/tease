@@ -18,7 +18,7 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
   protected constraints: Constraint[];
   protected teams: Team[];
   protected teamsWithVisibleConstraints: Team[] = [];
-  protected noFeasibleSolutionHintShown = false;
+  noFeasibleSolutionHintShown = false;
   protected noFeasibleSolutionHintTimeoutHandle = null;
 
   constructor(private constraintService: ConstraintService,
