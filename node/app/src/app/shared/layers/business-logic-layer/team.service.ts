@@ -37,6 +37,7 @@ export class TeamService {
   }
 
   saveTeams(teams: Team[]): Promise<boolean> {
+    console.log("saveTeams()");
     return this.teamAccessService.saveTeams(teams);
   }
 

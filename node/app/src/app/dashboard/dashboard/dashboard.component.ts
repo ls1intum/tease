@@ -80,7 +80,8 @@ export class DashboardComponent implements OnInit {
   }
 
   protected showPersonDetails(person: Person) {
-    this.overlayService.displayComponent(PersonDetailOverlayComponent, { person: person });
+    this.overlayService.displayComponent(PersonDetailOverlayComponent,
+      { person: person, onClose: () => this.saveTeams() });
   }
 
   public isDataLoaded(): boolean {

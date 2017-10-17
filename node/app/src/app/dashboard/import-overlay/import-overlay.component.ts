@@ -25,7 +25,9 @@ export class ImportOverlayComponent implements OnInit, OverlayComponent {
 
     this.teamService.readLocalTeamData(files[0]).then(teams => {
       this.teamService.saveTeams(teams);
-      this.data.onTeamsImported(teams);
+      this.teamService.readSavedTeams().then(teams => {
+        this.data.onTeamsImported(teams);
+      })
     });
   }
 

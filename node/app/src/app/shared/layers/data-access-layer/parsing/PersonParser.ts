@@ -69,7 +69,7 @@ export abstract class PersonParser {
     if (skillLevelString === CSVConstants.SkillLevelValue.None)
       return SkillLevel.None;
 
-    return null;
+    return SkillLevel.None;
   }
 
   static parseGender(genderString: string): Gender {

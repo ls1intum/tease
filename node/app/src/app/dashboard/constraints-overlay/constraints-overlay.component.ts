@@ -63,7 +63,6 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
       if (generatedTeams == null) {
         clearTimeout(this.noFeasibleSolutionHintTimeoutHandle);
         this.noFeasibleSolutionHintShown = true;
-        console.log("heloooo");
 
         this.noFeasibleSolutionHintTimeoutHandle =
           setTimeout(() => this.noFeasibleSolutionHintShown = false,
