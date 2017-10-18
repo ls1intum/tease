@@ -16,6 +16,7 @@ import { ImportOverlayComponent } from './import-overlay/import-overlay.componen
 import { ConstraintsOverlayComponent } from './constraints-overlay/constraints-overlay.component';
 import { ConstraintComponent } from './constraint/constraint.component';
 import {ConfirmationOverlayComponent} from './confirmation-overlay/confirmation-overlay.component';
+import {DashboardService} from "./dashboard.service";
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import {ConfirmationOverlayComponent} from './confirmation-overlay/confirmation-
     TeamPrioritiesChartComponent, ImportOverlayComponent, ConstraintsOverlayComponent, ConstraintComponent,
     ConfirmationOverlayComponent
   ],
-  exports: [DashboardComponent, PersonDetailOverlayComponent, ImportOverlayComponent]
+  exports: [DashboardComponent, PersonDetailOverlayComponent, ImportOverlayComponent],
+  providers: [DashboardService],
 })
 export class DashboardModule { }

@@ -12,18 +12,29 @@ export interface OverlayServiceHost {
 @Injectable()
 export class OverlayService {
   public host: OverlayServiceHost;
+  private displayedComponentData: any = null;
 
   constructor() { }
 
   public displayComponent(component: Type<OverlayComponent>, data: any) {
+    if(this.displayedComponentData && this.displayedComponentData.onClose) {
+      this.displayedComponentData.onClose();
+    }
+
     if (this.host) {
       this.host.displayComponent(component, data);
+      this.displayedComponentData = data;
     }
   }
 
   public closeOverlay() {
+    if(this.displayedComponentData && this.displayedComponentData.onClose) {
+      this.displayedComponentData.onClose();
+    }
+
     if (this.host) {
       this.host.closeOverlay();
+      this.displayedComponentData = null;
     }
   }
 }

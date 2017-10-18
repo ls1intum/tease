@@ -7,6 +7,7 @@ import {Person} from '../../shared/models/person';
 import {PersonDetailOverlayComponent} from '../person-detail-overlay/person-detail-overlay.component';
 import {OverlayService} from '../../overlay.service';
 import {ConstraintsOverlayComponent} from '../constraints-overlay/constraints-overlay.component';
+import {DashboardService} from "../dashboard.service";
 
 enum PersonPoolDisplayMode {
   Closed, OneRow, TwoRows, Full
@@ -26,7 +27,9 @@ export class DashboardComponent implements OnInit {
 
   constructor(private teamService: TeamService,
               private dragulaService: DragulaService,
-              private overlayService: OverlayService) {
+              private overlayService: OverlayService,
+              private dashboardService: DashboardService) {
+    this.dashboardService.dashboard = this;
 
     /* save model when modified by drag&drop operation */
     dragulaService.dropModel.subscribe(value => {
@@ -79,9 +82,10 @@ export class DashboardComponent implements OnInit {
     return `person-pool-display-mode-${PersonPoolDisplayMode[value].toLowerCase()}`;
   }
 
-  protected showPersonDetails(person: Person) {
+  public showPersonDetails(person: Person) {
+    this.overlayService.closeOverlay();
+
     if (!person) {
-      this.overlayService.closeOverlay();
       return;
     }
 

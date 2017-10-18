@@ -8,8 +8,8 @@
     </div>
   </div>
 
-  <!-- dialog for person details (if visible) -->
-    <div class="overlay-container" (click)="closeOverlay()"
+  <!-- overlay (if visible) -->
+    <div class="overlay-container" (click)="overlayService.closeOverlay()"
          [ngClass]="{ 'dialog-container-hidden': !overlayVisible }">
       <div class="dialog-content" [ngClass]="{ 'dialog-content-hidden': !overlayVisible }" >
         <ng-template appOverlayHost></ng-template>

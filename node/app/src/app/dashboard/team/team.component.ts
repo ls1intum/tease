@@ -4,6 +4,7 @@ import {Person} from '../../shared/models/person';
 import {OverlayService} from '../../overlay.service';
 import {PersonDetailOverlayComponent} from '../person-detail-overlay/person-detail-overlay.component';
 import {DashboardComponent} from "../dashboard/dashboard.component";
+import {DashboardService} from "../dashboard.service";
 
 @Component({
   selector: 'app-team',
@@ -13,13 +14,16 @@ import {DashboardComponent} from "../dashboard/dashboard.component";
 export class TeamComponent implements OnInit {
   @Input()
   team: Team;
-  @Input()
-  dashboard: DashboardComponent;
 
   protected statisticsVisible = false;
 
-  constructor(private overlayService: OverlayService) { }
+  constructor(public dashboardService: DashboardService) { }
 
   ngOnInit() {
+  }
+
+  showPersonDetails(person: Person) {
+    if(this.dashboardService.dashboard)
+      this.dashboardService.dashboard.showPersonDetails(person);
   }
 }

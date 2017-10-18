@@ -21,7 +21,7 @@ export class AppComponent implements OverlayServiceHost {
   @ViewChild(OverlayHostDirective)
   private overlayHostDirective: OverlayHostDirective;
 
-  constructor(private overlayService: OverlayService,
+  constructor(public overlayService: OverlayService,
               private teamService: TeamService,
               private componentFactoryResolver: ComponentFactoryResolver) {
     this.overlayService.host = this;

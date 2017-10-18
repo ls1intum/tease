@@ -1,5 +1,5 @@
 
-<div class="flex-justify-center flex-row main-row" (click)="data.onClose()">
+<div class="flex-justify-center flex-row main-row">
   <div class="hidden-scrollbar-parent">
     <div class="flex-column hidden-scrollbar-child">
       <!-- person detail card -->
@@ -154,7 +154,8 @@
       </div>
 
       <div class="supervisor-rating-container flex-column">
-        <div class="btn-group btn-group-sm flex-row" ngbRadioGroup name="radioBasic" [(ngModel)]="data.person.supervisorRating">
+        <div class="btn-group btn-group-sm flex-row" ngbRadioGroup name="radioBasic"
+             [(ngModel)]="data.person.supervisorRating">
           <label ngbButtonLabel class="btn-secondary btn-none">
             <input ngbButton type="radio" [value]="SkillLevel.None">
             {{ getLabelForSkillLevel(SkillLevel.None) }}
@@ -181,7 +182,7 @@
       <div class="flex-row bottom-button-row flex-no-shrink">
         <button *ngIf="!isInTeam(data.person)"
                 md-raised-button color="primary"
-                (click)="data.onClose(); data.onPreviousPersonClicked(); $event.stopPropagation()">
+                (click)="data.onPreviousPersonClicked(); $event.stopPropagation()">
           <div class="flex-row flex-center">
             <md-icon>keyboard_arrow_left</md-icon>
             <div>Previous Person</div>
@@ -190,7 +191,7 @@
         <div class="flex-grow"></div>
         <button *ngIf="!isInTeam(data.person)"
                 md-raised-button color="primary"
-                (click)="data.onClose(); data.onNextPersonClicked(); $event.stopPropagation()">
+                (click)="data.onNextPersonClicked(); $event.stopPropagation()">
           <div class="flex-row flex-center">
             <div>Next Person</div>
             <md-icon>keyboard_arrow_right</md-icon>
