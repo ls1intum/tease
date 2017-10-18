@@ -17,6 +17,8 @@ export abstract class PersonParser {
     person.tumId = personProps[CSVConstants.Person.TumId];
     person.gender = this.parseGender(personProps[CSVConstants.Person.Gender]);
     person.major = personProps[CSVConstants.Person.Major];
+    if (person.major === CSVConstants.MajorOtherValue)
+      person.major = personProps[CSVConstants.Person.MajorOther];
     person.semester = personProps[CSVConstants.Person.Semester];
     person.germanLanguageLevel = personProps[CSVConstants.Person.GermanLanguageLevel];
     person.englishLanguageLevel = personProps[CSVConstants.Person.EnglishLanguageLevel];

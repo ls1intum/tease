@@ -83,6 +83,8 @@ export class CSVConstants {
   static readonly GenderValue = {Male: 'male', Female: 'female'};
 
   static readonly DeviceAvailableBooleanValue = {Available: 'Yes', Unavailable: 'No'};
+
+  static readonly MajorOtherValue = 'Other';
 }
 
 export const ExamplePersonPropertyCsvRemotePath = '/assets/persons_example.csv';
