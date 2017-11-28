@@ -145,6 +145,12 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  togglePersonPoolStatistics() {
+    this.statisticsVisible = !this.statisticsVisible;
+    if (this.statisticsVisible)
+      this.personPoolDisplayMode = PersonPoolDisplayMode.Full;
+  }
+
   getColorOfTeamDistributionBar(priority: number): string {
     const green = [117, 190, 117];
     const red = [209, 111, 111];

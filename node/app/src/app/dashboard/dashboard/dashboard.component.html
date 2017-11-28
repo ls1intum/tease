@@ -17,7 +17,8 @@
     </div>
     <div class="flex-grow"></div>
 
-    <button md-raised-button color="primary" class="distribute-button flex-no-shrink" (click)="statisticsVisible = !statisticsVisible">
+    <button md-raised-button color="primary" class="distribute-button flex-no-shrink"
+            (click)="togglePersonPoolStatistics()">
       <div class="flex-row flex-center distribute-button-row">
         <md-icon class="flex-spacing-x-2px material-icon-trailing-space">timeline</md-icon>
         <div>{{ statisticsVisible ? 'Hide' : 'Show' }} Statistics</div>
@@ -50,7 +51,7 @@
   </div>
 
   <!-- person pool statistics -->
-  <div *ngIf="statisticsVisible" class="flex-column statistics-container">
+  <div *ngIf="statisticsVisible" class="flex-column statistics-container flex-no-shrink">
     <div class="statistics-title-label">Statistics</div>
     <div class="statistics-sublabel">Priority Distribution</div>
 
@@ -92,6 +93,8 @@
         </div>
       </div>
     </div>
+
+    <div class="statistics-sublabel">Overview</div>
   </div>
 
   <!-- person preview cards -->
