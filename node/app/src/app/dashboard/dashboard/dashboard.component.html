@@ -149,25 +149,7 @@
         </div>
       </div>
 
-      <!-- iOS Devices -->
-      <div class="flex-row flex-center">
-        <div class="flex-neutral-grow flex-no-shrink statistics-general-header">
-          Persons with Mac Devices
-        </div>
-        <div class="flex-neutral-grow">
-          {{ getTotalNumberOfDeviceType(Device.Mac) }}
-        </div>
-        <div class="flex-neutral-grow">
-          {{ Math.round(getTotalNumberOfDeviceType(Device.Mac) * 100 /
-          getNumberOfPersons()) / 100 }}
-        </div>
-        <div class="flex-neutral-grow">
-          {{ Math.round(getTotalNumberOfDeviceType(Device.Mac) * 100 /
-          teams.length) / 100 }}
-        </div>
-      </div>
-
-      <!-- iOS Devices -->
+      <!-- Mac Devices -->
       <div class="flex-row flex-center">
         <div class="flex-neutral-grow flex-no-shrink statistics-general-header">
           Persons with Mac Devices
@@ -188,7 +170,7 @@
       <!-- Female Persons -->
       <div class="flex-row flex-center">
         <div class="flex-neutral-grow flex-no-shrink statistics-general-header">
-          Female Persosn
+          Female Persons
         </div>
         <div class="flex-neutral-grow">
           {{ getNumberOfPersonsWithGender(Gender.Female) }}
