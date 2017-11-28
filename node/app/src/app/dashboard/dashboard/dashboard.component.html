@@ -8,7 +8,8 @@
 </div>
 
 <!-- person pool -->
-<div *ngIf="orphanTeam" class="person-pool flex-column overflow-hidden" [ngClass]="getPersonPoolDisplayModeCSSClass(personPoolDisplayMode)">
+<div *ngIf="orphanTeam" class="person-pool flex-column overflow-hidden"
+     [ngClass]="getPersonPoolDisplayModeCSSClass(personPoolDisplayMode)">
   <!-- title and buttons -->
   <div class="flex-row flex-center person-pool-title-bar flex-no-shrink">
     <div class="person-pool-label flex-no-shrink">Person Pool</div>
@@ -30,7 +31,8 @@
         <div>Distribute With Constraints</div>
       </div>
     </button>
-    <div class="btn-group btn-group-sm" ngbRadioGroup name="radioBasic" [(ngModel)]="personPoolDisplayMode">
+    <div class="btn-group btn-group-sm" ngbRadioGroup name="radioBasic" [(ngModel)]="personPoolDisplayMode"
+         (ngModelChange)="onPersonPoolDisplayModeChange()">
       <label ngbButtonLabel class="btn-secondary">
         <input ngbButton type="radio" [value]="PersonPoolDisplayMode.Closed">
         <img src="/assets/images/person-pool-closed.svg" class="person-pool-size-icon">
@@ -54,6 +56,7 @@
   <div *ngIf="statisticsVisible" class="flex-column statistics-container flex-no-shrink">
     <div class="statistics-title-label">Statistics</div>
     <div class="statistics-sublabel">Priority Distribution</div>
+    <div class="statistics-horizontal-divider"></div>
 
     <!-- legend labels top -->
     <div class="flex-row flex-">
@@ -69,17 +72,18 @@
 
     <!-- colored bars -->
     <div *ngFor="let team of teams" class="flex-row">
-        <div class="statistics-team-label">{{ team.name }}</div>
-        <div class="statistics-divider"></div>
-        <div class="flex-row flex-grow">
-          <div *ngFor="let i of teamIndices"
-               class="priority-bar flex-row flex-center"
-               [style.flex-grow]="priorityDistributionStatistics.get(team)[i]"
-               [style.background-color]="getColorOfTeamDistributionBar(i)">
-            <div class="statistics-priority-index-label">{{ i + 1 }}</div>
-            <div class="statistics-bar-person-count">{{ priorityDistributionStatistics.get(team)[i] }}x</div>
-          </div>
+      <div class="statistics-team-label">{{ team.name }}</div>
+      <div class="statistics-divider"></div>
+      <div class="flex-row flex-grow">
+        <div *ngFor="let i of teamIndices"
+             class="priority-bar flex-row flex-center"
+             [style.flex-grow]="priorityDistributionStatistics.get(team)[i]"
+             [style.background-color]="getColorOfTeamDistributionBar(i)"
+             [style.display]="priorityDistributionStatistics.get(team)[i] === 0 ? 'none' : null">
+          <div class="statistics-priority-index-label">{{ i + 1 }}</div>
+          <div class="statistics-bar-person-count">{{ priorityDistributionStatistics.get(team)[i] }}x</div>
         </div>
+      </div>
     </div>
 
     <!-- legend labels bottom -->
@@ -94,7 +98,111 @@
       </div>
     </div>
 
+    <!-- general statistics -->
     <div class="statistics-sublabel">Overview</div>
+    <div class="statistics-horizontal-divider"></div>
+    <div class="flex-column">
+
+      <!-- header -->
+      <div class="flex-row statistics-general-header">
+        <div class="flex-neutral-grow"></div>
+        <div class="flex-neutral-grow statistics-general-header">Total</div>
+        <div class="flex-neutral-grow statistics-general-header">Average</div>
+        <div class="flex-neutral-grow statistics-general-header">Average per Team</div>
+      </div>
+
+      <!-- skill level stats -->
+      <div *ngFor="let skillLevel of [SkillLevel.Low, SkillLevel.Medium, SkillLevel.High, SkillLevel.VeryHigh]"
+           class="flex-row flex-center">
+        <div class="flex-neutral-grow flex-row flex-center flex-no-shrink">
+          <div class="statistics-general-header">Persons with</div>
+          <div class="statistics-skill-level-badge"
+               [style.background-color]="Colors.getColor(skillLevel)">
+            {{ Skill.getLabelForSkillLevel(skillLevel) }}
+          </div>
+          <div class="statistics-general-header">Rating</div>
+        </div>
+        <div class="flex-neutral-grow">{{ getNumberOfPersonsWithSupervisorRating(skillLevel) }}</div>
+        <div class="flex-neutral-grow">
+          {{ Math.round(getNumberOfPersonsWithSupervisorRating(skillLevel) * 100 / getNumberOfPersons()) / 100 }}
+        </div>
+        <div class="flex-neutral-grow">
+          {{ Math.round(getNumberOfPersonsWithSupervisorRating(skillLevel) * 100 / teams.length) / 100 }}
+        </div>
+      </div>
+
+      <!-- iOS Devices -->
+      <div class="flex-row flex-center">
+        <div class="flex-neutral-grow flex-no-shrink statistics-general-header">
+          Persons with iOS Devices
+        </div>
+        <div class="flex-neutral-grow">
+          {{ getTotalNumberOfDeviceType(Device.Ipad) + getTotalNumberOfDeviceType(Device.Iphone) }}
+        </div>
+        <div class="flex-neutral-grow">
+          {{ Math.round( (getTotalNumberOfDeviceType(Device.Ipad) + getTotalNumberOfDeviceType(Device.Iphone)) * 100 /
+          getNumberOfPersons()) / 100 }}
+        </div>
+        <div class="flex-neutral-grow">
+          {{ Math.round( (getTotalNumberOfDeviceType(Device.Ipad) + getTotalNumberOfDeviceType(Device.Iphone)) * 100 /
+          teams.length) / 100 }}
+        </div>
+      </div>
+
+      <!-- iOS Devices -->
+      <div class="flex-row flex-center">
+        <div class="flex-neutral-grow flex-no-shrink statistics-general-header">
+          Persons with Mac Devices
+        </div>
+        <div class="flex-neutral-grow">
+          {{ getTotalNumberOfDeviceType(Device.Mac) }}
+        </div>
+        <div class="flex-neutral-grow">
+          {{ Math.round(getTotalNumberOfDeviceType(Device.Mac) * 100 /
+          getNumberOfPersons()) / 100 }}
+        </div>
+        <div class="flex-neutral-grow">
+          {{ Math.round(getTotalNumberOfDeviceType(Device.Mac) * 100 /
+          teams.length) / 100 }}
+        </div>
+      </div>
+
+      <!-- iOS Devices -->
+      <div class="flex-row flex-center">
+        <div class="flex-neutral-grow flex-no-shrink statistics-general-header">
+          Persons with Mac Devices
+        </div>
+        <div class="flex-neutral-grow">
+          {{ getTotalNumberOfDeviceType(Device.Mac) }}
+        </div>
+        <div class="flex-neutral-grow">
+          {{ Math.round(getTotalNumberOfDeviceType(Device.Mac) * 100 /
+          getNumberOfPersons()) / 100 }}
+        </div>
+        <div class="flex-neutral-grow">
+          {{ Math.round(getTotalNumberOfDeviceType(Device.Mac) * 100 /
+          teams.length) / 100 }}
+        </div>
+      </div>
+
+      <!-- Female Persons -->
+      <div class="flex-row flex-center">
+        <div class="flex-neutral-grow flex-no-shrink statistics-general-header">
+          Female Persosn
+        </div>
+        <div class="flex-neutral-grow">
+          {{ getNumberOfPersonsWithGender(Gender.Female) }}
+        </div>
+        <div class="flex-neutral-grow">
+          {{ Math.round(getNumberOfPersonsWithGender(Gender.Female) * 100 /
+          getNumberOfPersons()) / 100 }}
+        </div>
+        <div class="flex-neutral-grow">
+          {{ Math.round(getNumberOfPersonsWithGender(Gender.Female) * 100 /
+          teams.length) / 100 }}
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- person preview cards -->

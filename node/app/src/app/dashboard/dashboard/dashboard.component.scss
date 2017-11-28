@@ -104,6 +104,8 @@ app-team {
   border-radius: 10px;
   margin: 10px;
   padding: 10px;
+  color: dimgray;
+  white-space: nowrap;
 }
 
 .statistics-title-label {
@@ -149,7 +151,7 @@ app-team {
 }
 
 .statistics-divider {
-  background-color: gray;
+  background-color: #c3c3c3;
   width: 1px;
   align-self: stretch;
   margin: 0 10px;
@@ -168,6 +170,24 @@ app-team {
 .statistics-legend-label {
   font-size: 10px;
   font-weight: 900;
-  color: dimgray;
+  color: gray;
   text-align: end;
+}
+
+.statistics-skill-level-badge {
+  border-radius: 3px;
+  padding: 1px 5px;
+  color: white;
+  margin: 2px 5px;
+}
+
+.statistics-general-header {
+  font-weight: 500;
+}
+
+.statistics-horizontal-divider {
+  height: 1px;
+  background-color: #c3c3c3;
+  align-self: stretch;
+  margin-bottom: 10px;
 }
