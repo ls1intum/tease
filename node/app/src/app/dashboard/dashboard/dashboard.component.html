@@ -9,6 +9,7 @@
 
 <!-- person pool -->
 <div *ngIf="orphanTeam" class="person-pool flex-column overflow-hidden" [ngClass]="getPersonPoolDisplayModeCSSClass(personPoolDisplayMode)">
+  <!-- title and buttons -->
   <div class="flex-row flex-center person-pool-title-bar flex-no-shrink">
     <div class="person-pool-label flex-no-shrink">Person Pool</div>
     <div class="team-person-count flex-row flex-center flex-justify-center flex-no-shrink">
@@ -16,9 +17,15 @@
     </div>
     <div class="flex-grow"></div>
 
+    <button md-raised-button color="primary" class="distribute-button flex-no-shrink" (click)="statisticsVisible = !statisticsVisible">
+      <div class="flex-row flex-center distribute-button-row">
+        <md-icon class="flex-spacing-x-2px material-icon-trailing-space">timeline</md-icon>
+        <div>{{ statisticsVisible ? 'Hide' : 'Show' }} Statistics</div>
+      </div>
+    </button>
     <button md-raised-button color="primary" class="distribute-button flex-no-shrink" (click)="openConstraintsDialog()">
       <div class="flex-row flex-center distribute-button-row">
-        <md-icon class="flex-spacing-x-2px">build</md-icon>
+        <md-icon class="flex-spacing-x-2px material-icon-trailing-space">build</md-icon>
         <div>Distribute With Constraints</div>
       </div>
     </button>
@@ -42,6 +49,27 @@
     </div>
   </div>
 
+  <!-- person pool statistics -->
+  <div *ngIf="statisticsVisible" class="flex-column statistics-container">
+    <div class="statistics-title-label">Statistics</div>
+    <div class="statistics-sublabel">Priority Distribution</div>
+    <div *ngFor="let team of teams" class="flex-row">
+        <div class="statistics-team-label">{{ team.name }}</div>
+        <div class="statistics-divider"></div>
+        <div class="flex-row flex-grow">
+          <div *ngFor="let i of teamIndices"
+               class="priority-bar flex-row flex-center flex-justify-center"
+               [style.flex-grow]="getNumberOfVotesForTeamForPriority(team, i)"
+               [style.background-color]="getColorOfTeamDistributionBar(i)">
+            <div class="statistics-priority-index-label">{{ i + 1 }}</div>
+            <div class="statistics-bar-person-count">{{ getNumberOfVotesForTeamForPriority(team, i) }}x</div>
+          </div>
+
+        </div>
+    </div>
+  </div>
+
+  <!-- person preview cards -->
   <div class="flex-grow flex-row position-relative">
     <div *ngIf="orphanTeam.persons.length == 0"
          class="position-absolute position-absolute-full-size pointer-events-none flex-row overflow-hidden">

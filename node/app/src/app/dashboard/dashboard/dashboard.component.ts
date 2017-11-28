@@ -20,8 +20,10 @@ enum PersonPoolDisplayMode {
 })
 export class DashboardComponent implements OnInit {
   teams: Team[]; /* teams without orphan team */
+  teamIndices: number[];
   orphanTeam: Team;
   personPoolDisplayMode: PersonPoolDisplayMode = PersonPoolDisplayMode.OneRow;
+  statisticsVisible = false;
 
   PersonPoolDisplayMode = PersonPoolDisplayMode;
 
@@ -75,6 +77,7 @@ export class DashboardComponent implements OnInit {
 
   public loadTeams(teams: Team[]) {
     this.teams = teams.filter(team => team.name !== Team.OrphanTeamName);
+    this.teamIndices = this.teams.map((_, i) => i);
     this.orphanTeam = teams.find(team => team.name === Team.OrphanTeamName);
   }
 
@@ -109,5 +112,23 @@ export class DashboardComponent implements OnInit {
 
   protected areAllTeamsEmpty(): boolean {
     return this.teams.reduce((acc, team) => acc && team.persons.length === 0, true);
+  }
+
+  getNumberOfVotesForTeamForPriority(team: Team, priority: number): number {
+    return this.teams.reduce(
+      (totalMatchesAcc, curTeam) => totalMatchesAcc + curTeam.persons.reduce(
+        (matchesPerTeamAcc, curPerson) => matchesPerTeamAcc + (curPerson.teamPriorities[priority] === team ? 1 : 0),
+        0
+      ),
+      0
+    );
+  }
+
+  getColorOfTeamDistributionBar(priority: number): string {
+    const green = [86, 200, 86];
+    const red = [216, 73, 73];
+    const ratio = priority / (this.teams.length - 1);
+    const color = green.map((greenComp, i) => Math.round((1 - ratio) * greenComp + ratio * red[i]));
+    return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
   }
 }

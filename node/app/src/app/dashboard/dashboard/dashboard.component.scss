@@ -1,5 +1,6 @@
 @import '../../../scss/style-constants';
 @import '../../../scss/bootstrap.min';
+@import '../../../scss/utility';
 @import '../dashboard-common';
 
 .dashboard {
@@ -95,4 +96,63 @@ app-team {
   margin: 5px;
   border-radius: 5px;
   color: #686868;
+}
+
+.statistics-container {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.statistics-title-label {
+  color: dimgray;
+  font-size: 20px;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+.statistics-sublabel {
+  color: dimgray;
+  font-size: 15px;
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+
+.priority-bar {
+  margin: 2px;
+  border-radius: 2px;
+  width: 0;
+  overflow: hidden;
+}
+
+.statistics-team-label {
+  color: dimgray;
+  width: 60px;
+  padding: 3px 0;
+  overflow: hidden;
+}
+
+.statistics-priority-index-label {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  color: white;
+  width: 16px;
+  height: 16px;
+  font-size: 14px;
+  font-weight: 900;
+  text-align: center;
+  margin-right: 5px;
+}
+
+.statistics-divider {
+  background-color: gray;
+  width: 1px;
+  align-self: stretch;
+  margin: 0 10px;
+}
+
+.statistics-bar-person-count {
+  color: white;
+  font-size: 14px;
 }

@@ -1,10 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Team} from '../../shared/models/team';
 import {Person} from '../../shared/models/person';
-import {OverlayService} from '../../overlay.service';
-import {PersonDetailOverlayComponent} from '../person-detail-overlay/person-detail-overlay.component';
-import {DashboardComponent} from "../dashboard/dashboard.component";
-import {DashboardService} from "../dashboard.service";
+import {DashboardService} from '../dashboard.service';
 
 @Component({
   selector: 'app-team',
@@ -23,7 +20,7 @@ export class TeamComponent implements OnInit {
   }
 
   showPersonDetails(person: Person) {
-    if(this.dashboardService.dashboard)
+    if (this.dashboardService.dashboard)
       this.dashboardService.dashboard.showPersonDetails(person);
   }
 }
