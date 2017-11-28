@@ -24,6 +24,8 @@ export class DashboardComponent implements OnInit {
   orphanTeam: Team;
   personPoolDisplayMode: PersonPoolDisplayMode = PersonPoolDisplayMode.OneRow;
   statisticsVisible = false;
+  priorityDistributionStatistics: Map<Team, number[]>;
+  priorityDistributionLabels: [number, number][]; // label and space that it should take
 
   PersonPoolDisplayMode = PersonPoolDisplayMode;
 
@@ -79,6 +81,7 @@ export class DashboardComponent implements OnInit {
     this.teams = teams.filter(team => team.name !== Team.OrphanTeamName);
     this.teamIndices = this.teams.map((_, i) => i);
     this.orphanTeam = teams.find(team => team.name === Team.OrphanTeamName);
+    this.calculateTeamDistributionStatistics();
   }
 
   getPersonPoolDisplayModeCSSClass(value: PersonPoolDisplayMode): string {
@@ -114,6 +117,24 @@ export class DashboardComponent implements OnInit {
     return this.teams.reduce((acc, team) => acc && team.persons.length === 0, true);
   }
 
+  private calculateTeamDistributionStatistics() {
+    this.priorityDistributionStatistics = new Map();
+    this.teams.forEach(team =>
+      this.priorityDistributionStatistics.set(
+        team,
+        this.teams.map((_, i) => this.getNumberOfVotesForTeamForPriority(team, i))
+      )
+    );
+
+    this.priorityDistributionLabels = [[0, 0]];
+    const numberOfPersons = this.teams.reduce((acc, team) => acc + team.persons.length, 0);
+    const step = 10;
+    for (let i = step; i < numberOfPersons; i += step)
+      this.priorityDistributionLabels.push([i, step]);
+    const lastStep = numberOfPersons - this.priorityDistributionLabels[this.priorityDistributionLabels.length - 1][0];
+    this.priorityDistributionLabels.push([numberOfPersons, lastStep]);
+  }
+
   getNumberOfVotesForTeamForPriority(team: Team, priority: number): number {
     return this.teams.reduce(
       (totalMatchesAcc, curTeam) => totalMatchesAcc + curTeam.persons.reduce(
@@ -125,8 +146,8 @@ export class DashboardComponent implements OnInit {
   }
 
   getColorOfTeamDistributionBar(priority: number): string {
-    const green = [86, 200, 86];
-    const red = [216, 73, 73];
+    const green = [117, 190, 117];
+    const red = [209, 111, 111];
     const ratio = priority / (this.teams.length - 1);
     const color = green.map((greenComp, i) => Math.round((1 - ratio) * greenComp + ratio * red[i]));
     return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;

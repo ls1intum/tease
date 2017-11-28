@@ -1,4 +1,5 @@
 @import '../../../scss/style-constants';
+@import '../../../scss/flex-box';
 @import '../../../scss/bootstrap.min';
 @import '../../../scss/utility';
 @import '../dashboard-common';
@@ -36,7 +37,7 @@
   bottom: 20px;
   height: calc(50vh - 10px);
   background-color: white;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   transition: height 0.5s;
 }
 
@@ -134,6 +135,7 @@ app-team {
 }
 
 .statistics-priority-index-label {
+  @extend .flex-no-shrink;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 3px;
   color: white;
@@ -142,6 +144,7 @@ app-team {
   font-size: 14px;
   font-weight: 900;
   text-align: center;
+  margin-left: 2px;
   margin-right: 5px;
 }
 
@@ -153,6 +156,18 @@ app-team {
 }
 
 .statistics-bar-person-count {
+  @extend .flex-no-shrink;
   color: white;
   font-size: 14px;
+}
+
+.statistics-legend-placeholder {
+  width: 81px;
+}
+
+.statistics-legend-label {
+  font-size: 10px;
+  font-weight: 900;
+  color: dimgray;
+  text-align: end;
 }

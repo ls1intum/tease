@@ -53,19 +53,44 @@
   <div *ngIf="statisticsVisible" class="flex-column statistics-container">
     <div class="statistics-title-label">Statistics</div>
     <div class="statistics-sublabel">Priority Distribution</div>
+
+    <!-- legend labels top -->
+    <div class="flex-row flex-">
+      <div class="statistics-legend-placeholder"></div>
+      <div class="flex-row flex-grow">
+        <div class="statistics-legend-label"
+             *ngFor="let label of priorityDistributionLabels"
+             [style.flex-grow]="label[1]">
+          {{ label[0] }}
+        </div>
+      </div>
+    </div>
+
+    <!-- colored bars -->
     <div *ngFor="let team of teams" class="flex-row">
         <div class="statistics-team-label">{{ team.name }}</div>
         <div class="statistics-divider"></div>
         <div class="flex-row flex-grow">
           <div *ngFor="let i of teamIndices"
-               class="priority-bar flex-row flex-center flex-justify-center"
-               [style.flex-grow]="getNumberOfVotesForTeamForPriority(team, i)"
+               class="priority-bar flex-row flex-center"
+               [style.flex-grow]="priorityDistributionStatistics.get(team)[i]"
                [style.background-color]="getColorOfTeamDistributionBar(i)">
             <div class="statistics-priority-index-label">{{ i + 1 }}</div>
-            <div class="statistics-bar-person-count">{{ getNumberOfVotesForTeamForPriority(team, i) }}x</div>
+            <div class="statistics-bar-person-count">{{ priorityDistributionStatistics.get(team)[i] }}x</div>
           </div>
-
         </div>
+    </div>
+
+    <!-- legend labels bottom -->
+    <div class="flex-row flex-">
+      <div class="statistics-legend-placeholder"></div>
+      <div class="flex-row flex-grow">
+        <div class="statistics-legend-label"
+             *ngFor="let label of priorityDistributionLabels"
+             [style.flex-grow]="label[1]">
+          {{ label[0] }}
+        </div>
+      </div>
     </div>
   </div>
 
