@@ -5,11 +5,11 @@ import {ConstraintService} from '../../shared/layers/business-logic-layer/constr
 import {PersonStatisticsService} from '../../shared/layers/business-logic-layer/person-statistics.service';
 
 @Component({
-  selector: 'app-team-score',
-  templateUrl: './team-score.component.html',
-  styleUrls: ['./team-score.component.scss']
+  selector: 'app-team-statistics',
+  templateUrl: './team-statistics.component.html',
+  styleUrls: ['./team-statistics.component.scss']
 })
-export class TeamScoreComponent implements OnInit {
+export class TeamStatisticsComponent implements OnInit {
   @Input()
   private team: Team;
 

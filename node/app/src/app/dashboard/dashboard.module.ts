@@ -9,7 +9,7 @@ import {DragulaModule} from 'ng2-dragula';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import { PersonDetailOverlayComponent } from './person-detail-overlay/person-detail-overlay.component';
-import { TeamScoreComponent } from './team-score/team-score.component';
+import { TeamStatisticsComponent } from './team-statistics/team-statistics.component';
 import { TeamPrioritiesChartComponent } from './team-priorities-chart/team-priorities-chart.component';
 import {ChartsModule} from 'ng2-charts';
 import { ImportOverlayComponent } from './import-overlay/import-overlay.component';
@@ -25,7 +25,7 @@ import { PersonPoolStatisticsComponent } from './person-pool-statistics/person-p
     DragulaModule, FormsModule, NgbModule, ChartsModule
   ],
   declarations: [
-    DashboardComponent, TeamComponent, PersonPreviewComponent, PersonDetailOverlayComponent, TeamScoreComponent,
+    DashboardComponent, TeamComponent, PersonPreviewComponent, PersonDetailOverlayComponent, TeamStatisticsComponent,
     TeamPrioritiesChartComponent, ImportOverlayComponent, ConstraintsOverlayComponent, ConstraintComponent,
     ConfirmationOverlayComponent,
     PersonPoolStatisticsComponent

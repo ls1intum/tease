@@ -15,7 +15,7 @@
 
   <!-- statistics -->
   <div *ngIf="statisticsVisible && team.persons.length > 0">
-    <app-team-score [team]="team"></app-team-score>
+    <app-team-statistics [team]="team"></app-team-statistics>
     <app-team-priorities-chart [team]="team"></app-team-priorities-chart>
     <!--devices [devices]="getDevices()"></devices-->
   </div>
