@@ -193,8 +193,14 @@ export class DashboardComponent implements OnInit {
       this.togglePersonPoolStatistics();
   }
 
-  getTotalNumberOfDeviceType(device: Device): number {
-    return this.getNumberOfPersonsWithPredicate((person) => person.devices.includes(device));
+  getTotalNumberOfPersonsWithMacDevice(): number {
+    return this.getNumberOfPersonsWithPredicate((person) => person.devices.includes(Device.Mac));
+  }
+
+  getTotalNumberOfPersonsWithIOSDevice(): number {
+    return this.getNumberOfPersonsWithPredicate((person) =>
+      person.devices.includes(Device.Ipad) || person.devices.includes(Device.Iphone)
+    );
   }
 
   getNumberOfPersonsWithGender(gender: Gender) {

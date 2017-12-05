@@ -73,7 +73,7 @@
     <!-- colored bars -->
     <div *ngFor="let team of teams" class="flex-row">
       <div class="statistics-team-label">{{ team.name }}</div>
-      <div class="statistics-divider"></div>
+      <div class="statistics-vertical-divider"></div>
       <div class="flex-row flex-grow">
         <div *ngFor="let i of teamIndices"
              class="priority-bar flex-row flex-center"
@@ -81,7 +81,8 @@
              [style.background-color]="getColorOfTeamDistributionBar(i)"
              [style.display]="priorityDistributionStatistics.get(team)[i] === 0 ? 'none' : null">
           <div class="statistics-priority-index-label">{{ i + 1 }}</div>
-          <div class="statistics-bar-person-count">{{ priorityDistributionStatistics.get(team)[i] }}x</div>
+          <div class="statistics-bar-person-count">{{ priorityDistributionStatistics.get(team)[i] }} P.</div>
+          <!--div class="priority-bar-text-overflow-cover" [style.background]="'linear-gradient(to right, rgba(0,0,0,0), ' + getColorOfTeamDistributionBar(i) + ')'"></div-->
         </div>
       </div>
     </div>
@@ -101,88 +102,95 @@
     <!-- general statistics -->
     <div class="statistics-sublabel">Overview</div>
     <div class="statistics-horizontal-divider"></div>
-    <div class="flex-column">
-
-      <!-- header -->
-      <div class="flex-row statistics-general-header">
-        <div class="flex-neutral-grow"></div>
-        <div class="flex-neutral-grow statistics-general-header">Total</div>
-        <div class="flex-neutral-grow statistics-general-header">Average</div>
-        <div class="flex-neutral-grow statistics-general-header">Average per Team</div>
-      </div>
-
-      <!-- skill level stats -->
-      <div *ngFor="let skillLevel of [SkillLevel.Low, SkillLevel.Medium, SkillLevel.High, SkillLevel.VeryHigh]"
-           class="flex-row flex-center">
-        <div class="flex-neutral-grow flex-row flex-center flex-no-shrink">
-          <div class="statistics-general-header">Persons with</div>
-          <div class="statistics-skill-level-badge"
-               [style.background-color]="Colors.getColor(skillLevel)">
-            {{ Skill.getLabelForSkillLevel(skillLevel) }}
+    <div class="flex-row">
+      <div class="flex-row flex-grow flex-justify-center">
+        <div class="flex-column statistics-table">
+          <!-- header -->
+          <div class="flex-row statistics-general-header">
+            <div class="flex-neutral-grow"></div>
+            <div class="flex-neutral-grow statistics-general-header">Total</div>
+            <div class="flex-neutral-grow statistics-general-header">Per Person</div>
+            <div class="flex-neutral-grow statistics-general-header">Per Team</div>
           </div>
-          <div class="statistics-general-header">Rating</div>
-        </div>
-        <div class="flex-neutral-grow">{{ getNumberOfPersonsWithSupervisorRating(skillLevel) }}</div>
-        <div class="flex-neutral-grow">
-          {{ Math.round(getNumberOfPersonsWithSupervisorRating(skillLevel) * 100 / getNumberOfPersons()) / 100 }}
-        </div>
-        <div class="flex-neutral-grow">
-          {{ Math.round(getNumberOfPersonsWithSupervisorRating(skillLevel) * 100 / teams.length) / 100 }}
+
+          <!-- skill level stats -->
+          <div *ngFor="let skillLevel of [SkillLevel.Low, SkillLevel.Medium, SkillLevel.High, SkillLevel.VeryHigh]"
+               class="flex-row flex-center">
+            <div class="flex-neutral-grow flex-row flex-center flex-no-shrink">
+              <div class="statistics-skill-level-badge"
+                   [style.background-color]="Colors.getColor(skillLevel)">
+                {{ Skill.getLabelForSkillLevel(skillLevel) }}
+              </div>
+            </div>
+            <div class="flex-neutral-grow">{{ getNumberOfPersonsWithSupervisorRating(skillLevel) }}</div>
+            <div class="flex-neutral-grow">
+              {{ Math.round(getNumberOfPersonsWithSupervisorRating(skillLevel) * 100 / getNumberOfPersons()) / 100 }}
+            </div>
+            <div class="flex-neutral-grow">
+              {{ Math.round(getNumberOfPersonsWithSupervisorRating(skillLevel) * 100 / teams.length) / 100 }}
+            </div>
+          </div>
         </div>
       </div>
+      <div class="statistics-vertical-divider"></div>
+      <div class="flex-row flex-grow flex-justify-center">
+        <div class="flex-column statistics-table">
+        <!-- header -->
+        <div class="flex-row statistics-general-header">
+          <div class="flex-neutral-grow"></div>
+          <div class="flex-neutral-grow statistics-general-header">Total</div>
+          <div class="flex-neutral-grow statistics-general-header">Per Person</div>
+          <div class="flex-neutral-grow statistics-general-header">Per Team</div>
+        </div>
 
-      <!-- iOS Devices -->
-      <div class="flex-row flex-center">
-        <div class="flex-neutral-grow flex-no-shrink statistics-general-header">
-          Persons with iOS Devices
+        <!-- iOS Devices -->
+        <div class="flex-row flex-center">
+          <div class="flex-neutral-grow flex-no-shrink statistics-general-header">
+            iOS Devices
+          </div>
+          <div class="flex-neutral-grow">
+            {{ getTotalNumberOfPersonsWithIOSDevice() }}
+          </div>
+          <div class="flex-neutral-grow">
+            {{ Math.round(getTotalNumberOfPersonsWithIOSDevice() * 100 / getNumberOfPersons()) / 100 }}
+          </div>
+          <div class="flex-neutral-grow">
+            {{ Math.round( getTotalNumberOfPersonsWithIOSDevice() * 100 / teams.length) / 100 }}
+          </div>
         </div>
-        <div class="flex-neutral-grow">
-          {{ getTotalNumberOfDeviceType(Device.Ipad) + getTotalNumberOfDeviceType(Device.Iphone) }}
+
+        <!-- Mac Devices -->
+        <div class="flex-row flex-center">
+          <div class="flex-neutral-grow flex-no-shrink statistics-general-header">
+            Mac Devices
+          </div>
+          <div class="flex-neutral-grow">
+            {{ getTotalNumberOfPersonsWithMacDevice() }}
+          </div>
+          <div class="flex-neutral-grow">
+            {{ Math.round(getTotalNumberOfPersonsWithMacDevice() * 100 / getNumberOfPersons()) / 100 }}
+          </div>
+          <div class="flex-neutral-grow">
+            {{ Math.round(getTotalNumberOfPersonsWithMacDevice() * 100 / teams.length) / 100 }}
+          </div>
         </div>
-        <div class="flex-neutral-grow">
-          {{ Math.round( (getTotalNumberOfDeviceType(Device.Ipad) + getTotalNumberOfDeviceType(Device.Iphone)) * 100 /
-          getNumberOfPersons()) / 100 }}
-        </div>
-        <div class="flex-neutral-grow">
-          {{ Math.round( (getTotalNumberOfDeviceType(Device.Ipad) + getTotalNumberOfDeviceType(Device.Iphone)) * 100 /
-          teams.length) / 100 }}
+
+        <!-- Female Persons -->
+        <div class="flex-row flex-center">
+          <div class="flex-neutral-grow flex-no-shrink statistics-general-header">
+            Female
+          </div>
+          <div class="flex-neutral-grow">
+            {{ getNumberOfPersonsWithGender(Gender.Female) }}
+          </div>
+          <div class="flex-neutral-grow">
+            {{ Math.round(getNumberOfPersonsWithGender(Gender.Female) * 100 / getNumberOfPersons()) / 100 }}
+          </div>
+          <div class="flex-neutral-grow">
+            {{ Math.round(getNumberOfPersonsWithGender(Gender.Female) * 100 / teams.length) / 100 }}
+          </div>
         </div>
       </div>
-
-      <!-- Mac Devices -->
-      <div class="flex-row flex-center">
-        <div class="flex-neutral-grow flex-no-shrink statistics-general-header">
-          Persons with Mac Devices
-        </div>
-        <div class="flex-neutral-grow">
-          {{ getTotalNumberOfDeviceType(Device.Mac) }}
-        </div>
-        <div class="flex-neutral-grow">
-          {{ Math.round(getTotalNumberOfDeviceType(Device.Mac) * 100 /
-          getNumberOfPersons()) / 100 }}
-        </div>
-        <div class="flex-neutral-grow">
-          {{ Math.round(getTotalNumberOfDeviceType(Device.Mac) * 100 /
-          teams.length) / 100 }}
-        </div>
-      </div>
-
-      <!-- Female Persons -->
-      <div class="flex-row flex-center">
-        <div class="flex-neutral-grow flex-no-shrink statistics-general-header">
-          Female Persons
-        </div>
-        <div class="flex-neutral-grow">
-          {{ getNumberOfPersonsWithGender(Gender.Female) }}
-        </div>
-        <div class="flex-neutral-grow">
-          {{ Math.round(getNumberOfPersonsWithGender(Gender.Female) * 100 /
-          getNumberOfPersons()) / 100 }}
-        </div>
-        <div class="flex-neutral-grow">
-          {{ Math.round(getNumberOfPersonsWithGender(Gender.Female) * 100 /
-          teams.length) / 100 }}
-        </div>
       </div>
     </div>
   </div>
