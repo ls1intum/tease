@@ -109,7 +109,7 @@
           <div class="flex-row statistics-general-header">
             <div class="flex-neutral-grow"></div>
             <div class="flex-neutral-grow statistics-general-header">Total</div>
-            <div class="flex-neutral-grow statistics-general-header">Per Person</div>
+            <div class="flex-neutral-grow statistics-general-header">Proportion</div>
             <div class="flex-neutral-grow statistics-general-header">Per Team</div>
           </div>
 
@@ -124,7 +124,7 @@
             </div>
             <div class="flex-neutral-grow">{{ getNumberOfPersonsWithSupervisorRating(skillLevel) }}</div>
             <div class="flex-neutral-grow">
-              {{ Math.round(getNumberOfPersonsWithSupervisorRating(skillLevel) * 100 / getNumberOfPersons()) / 100 }}
+              {{ Math.round(getNumberOfPersonsWithSupervisorRating(skillLevel) * 1000 / getNumberOfPersons()) / 10 }}%
             </div>
             <div class="flex-neutral-grow">
               {{ Math.round(getNumberOfPersonsWithSupervisorRating(skillLevel) * 100 / teams.length) / 100 }}
@@ -139,7 +139,7 @@
         <div class="flex-row statistics-general-header">
           <div class="flex-neutral-grow"></div>
           <div class="flex-neutral-grow statistics-general-header">Total</div>
-          <div class="flex-neutral-grow statistics-general-header">Per Person</div>
+          <div class="flex-neutral-grow statistics-general-header">Proportion</div>
           <div class="flex-neutral-grow statistics-general-header">Per Team</div>
         </div>
 
@@ -152,7 +152,7 @@
             {{ getTotalNumberOfPersonsWithIOSDevice() }}
           </div>
           <div class="flex-neutral-grow">
-            {{ Math.round(getTotalNumberOfPersonsWithIOSDevice() * 100 / getNumberOfPersons()) / 100 }}
+            {{ Math.round(getTotalNumberOfPersonsWithIOSDevice() * 1000 / getNumberOfPersons()) / 10 }}%
           </div>
           <div class="flex-neutral-grow">
             {{ Math.round( getTotalNumberOfPersonsWithIOSDevice() * 100 / teams.length) / 100 }}
@@ -168,7 +168,7 @@
             {{ getTotalNumberOfPersonsWithMacDevice() }}
           </div>
           <div class="flex-neutral-grow">
-            {{ Math.round(getTotalNumberOfPersonsWithMacDevice() * 100 / getNumberOfPersons()) / 100 }}
+            {{ Math.round(getTotalNumberOfPersonsWithMacDevice() * 1000 / getNumberOfPersons()) / 10 }}%
           </div>
           <div class="flex-neutral-grow">
             {{ Math.round(getTotalNumberOfPersonsWithMacDevice() * 100 / teams.length) / 100 }}
@@ -184,7 +184,7 @@
             {{ getNumberOfPersonsWithGender(Gender.Female) }}
           </div>
           <div class="flex-neutral-grow">
-            {{ Math.round(getNumberOfPersonsWithGender(Gender.Female) * 100 / getNumberOfPersons()) / 100 }}
+            {{ Math.round(getNumberOfPersonsWithGender(Gender.Female) * 1000 / getNumberOfPersons()) / 10 }}%
           </div>
           <div class="flex-neutral-grow">
             {{ Math.round(getNumberOfPersonsWithGender(Gender.Female) * 100 / teams.length) / 100 }}
