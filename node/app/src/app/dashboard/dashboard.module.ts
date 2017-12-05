@@ -17,6 +17,7 @@ import { ConstraintsOverlayComponent } from './constraints-overlay/constraints-o
 import { ConstraintComponent } from './constraint/constraint.component';
 import {ConfirmationOverlayComponent} from './confirmation-overlay/confirmation-overlay.component';
 import {DashboardService} from "./dashboard.service";
+import { PersonPoolStatisticsComponent } from './person-pool-statistics/person-pool-statistics.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import {DashboardService} from "./dashboard.service";
   declarations: [
     DashboardComponent, TeamComponent, PersonPreviewComponent, PersonDetailOverlayComponent, TeamScoreComponent,
     TeamPrioritiesChartComponent, ImportOverlayComponent, ConstraintsOverlayComponent, ConstraintComponent,
-    ConfirmationOverlayComponent
+    ConfirmationOverlayComponent,
+    PersonPoolStatisticsComponent
   ],
   exports: [DashboardComponent, PersonDetailOverlayComponent, ImportOverlayComponent],
   providers: [DashboardService],

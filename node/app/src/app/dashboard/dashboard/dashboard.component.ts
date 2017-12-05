@@ -22,21 +22,16 @@ enum PersonPoolDisplayMode {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  teams: Team[];
-  /* teams without orphan team */
-  teamIndices: number[];
+  teams: Team[]; /* teams without orphan team */
   orphanTeam: Team;
   personPoolDisplayMode: PersonPoolDisplayMode = PersonPoolDisplayMode.OneRow;
   statisticsVisible = false;
-  priorityDistributionStatistics: Map<Team, number[]>;
-  priorityDistributionLabels: [number, number][]; // label and space that it should take
 
   PersonPoolDisplayMode = PersonPoolDisplayMode;
   SkillLevel = SkillLevel;
   Math = Math;
   Colors = Colors;
   Skill = Skill;
-  console = console;
   Device = Device;
   Gender = Gender;
 
@@ -90,9 +85,7 @@ export class DashboardComponent implements OnInit {
 
   public loadTeams(teams: Team[]) {
     this.teams = teams.filter(team => team.name !== Team.OrphanTeamName);
-    this.teamIndices = this.teams.map((_, i) => i);
     this.orphanTeam = teams.find(team => team.name === Team.OrphanTeamName);
-    this.calculateTeamDistributionStatistics();
   }
 
   getPersonPoolDisplayModeCSSClass(value: PersonPoolDisplayMode): string {
@@ -129,87 +122,14 @@ export class DashboardComponent implements OnInit {
     return this.teams.reduce((acc, team) => acc && team.persons.length === 0, true);
   }
 
-  private calculateTeamDistributionStatistics() {
-    const teams = this.teams.concat(this.orphanTeam);
-    this.priorityDistributionStatistics = new Map();
-    teams.forEach(team =>
-      this.priorityDistributionStatistics.set(
-        team,
-        this.teams.map((_, i) => this.getNumberOfVotesForTeamForPriority(team, i))
-      )
-    );
-
-    this.priorityDistributionLabels = [[0, 0]];
-    const numberOfPersons = teams.reduce((acc, team) => acc + team.persons.length, 0);
-    const step = 10;
-    for (let i = step; i < numberOfPersons; i += step)
-      this.priorityDistributionLabels.push([i, step]);
-    const lastStep = numberOfPersons - this.priorityDistributionLabels[this.priorityDistributionLabels.length - 1][0];
-    this.priorityDistributionLabels.push([numberOfPersons, lastStep]);
-
-
-    console.log(this.priorityDistributionLabels);
-    console.log(this.priorityDistributionStatistics);
-  }
-
-  getNumberOfVotesForTeamForPriority(team: Team, priority: number): number {
-    return this.getNumberOfPersonsWithPredicate((person) => person.teamPriorities[priority] === team);
-  }
-
   togglePersonPoolStatistics() {
     this.statisticsVisible = !this.statisticsVisible;
     if (this.statisticsVisible)
       this.personPoolDisplayMode = PersonPoolDisplayMode.Full;
   }
 
-  getColorOfTeamDistributionBar(priority: number): string {
-    /*
-    // the following code fades between green and red
-    const green = [117, 190, 117];
-    const red = [209, 111, 111];
-    const ratio = priority / (this.teams.length - 1);
-    const color = green.map((greenComp, i) => Math.round((1 - ratio) * greenComp + ratio * red[i]));
-    return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-    */
-
-    if (priority < 3)
-      return Colors.getColor(SkillLevel.High);
-    else if (priority < 6)
-      return Colors.getColor(SkillLevel.Medium);
-    else
-      return Colors.getColor(SkillLevel.Low);
-  }
-
-  getNumberOfPersonsWithSupervisorRating(skillLevel: SkillLevel): number {
-    return this.getNumberOfPersonsWithPredicate((person) => person.supervisorRating === skillLevel);
-  }
-
-  getNumberOfPersons(): number {
-    return this.teams.concat(this.orphanTeam).reduce((acc, team) => acc + team.persons.length, 0);
-  }
-
   onPersonPoolDisplayModeChange() {
     if (this.personPoolDisplayMode !== PersonPoolDisplayMode.Full && this.statisticsVisible)
       this.togglePersonPoolStatistics();
-  }
-
-  getTotalNumberOfPersonsWithMacDevice(): number {
-    return this.getNumberOfPersonsWithPredicate((person) => person.devices.includes(Device.Mac));
-  }
-
-  getTotalNumberOfPersonsWithIOSDevice(): number {
-    return this.getNumberOfPersonsWithPredicate((person) =>
-      person.devices.includes(Device.Ipad) || person.devices.includes(Device.Iphone)
-    );
-  }
-
-  getNumberOfPersonsWithGender(gender: Gender) {
-    return this.getNumberOfPersonsWithPredicate((person) => person.gender === gender);
-  }
-
-  private getNumberOfPersonsWithPredicate(predicate: (Person) => boolean): number {
-    return this.teams.concat(this.orphanTeam).reduce(
-      (totalMatchesAcc, curTeam) => totalMatchesAcc + curTeam.persons.reduce(
-        (matchesPerTeamAcc, curPerson) => matchesPerTeamAcc + (predicate(curPerson) ? 1 : 0), 0), 0);
   }
 }
