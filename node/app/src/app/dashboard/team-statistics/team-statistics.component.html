@@ -1,22 +1,10 @@
-<main>
-  <div class="scoreContainer">
-    <div class="overallScore"
-         mdTooltip="Based on Constraints and Objectives">
-      <md-icon color="primary">star_rate</md-icon>
-      <div class="title">Team Quality Score:</div>
-      {{calculateOverallScore()}}
-    </div>
+<div class="team-statistics-container flex-column">
+  <div class="team-statistics-heading">Statistics</div>
+  <div class="team-statistics-subheading">Priority Distribution</div>
+  <app-team-priorities-chart [team]="team"></app-team-priorities-chart>
+  <div class="team-statistics-subheading">Constraint Status</div>
+
+  <div class="constraintContainer" *ngFor="let constraint of constraints">
+    {{ constraint.getName() }} constraint
   </div>
-  <div class="scoreFactors">
-    <div class="constraintContainer" *ngFor="let constraint of constraints">
-      <div class="constraint">
-        <div class="title">{{constraint.toString()}}</div>
-        <md-icon mdTooltip="Constraint satisfied" *ngIf="isSatisfied(constraint)" color="primary">check_circle
-        </md-icon>
-        <md-icon mdTooltip="Constraint not satisfied" *ngIf="!isSatisfied(constraint)" style="color:red;">
-          error_outline
-        </md-icon>
-      </div>
-    </div>
-  </div>
-</main>
+</div>

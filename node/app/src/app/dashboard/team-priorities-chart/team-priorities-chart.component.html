@@ -1,16 +1,22 @@
-<main *ngIf="isAnyPriorityGiven()">
-  <div class="averagePrioContainer">
-    <div class="averagePrio" mdTooltip="Average priority that persons assigned to this team">
-      <md-icon color="primary">show_chart</md-icon>
-      <div class="title">Average Priority:</div>
-      {{getAverageTeamPriority()}}
+<div class="flex-row statistics-container position-relative">
+  <div *ngFor="let i of indices" class="flex-column flex-grow flex-basis-zero">
+    <div class="flex-column flex-grow position-relative">
+      <div class="flex-basis-zero" [style.flex-grow]="scale - priorityDistribution[i]"></div>
+      <div class="flex-basis-zero priority-bar" [style.background-color]="getColorOfTeamDistributionBar(i)"
+           [style.flex-grow]="priorityDistribution[i]"></div>
+      <div class="priority-index-label-container flex-row flex-center flex-justify-center" *ngIf="priorityDistribution[i] > 0">
+        <div class="priority-index-label-text">{{ priorityDistribution[i] }}</div>
+      </div>
+    </div>
+
+    <div class="horizontal-divider"></div>
+
+    <div class="legend-label">
+      {{ i + 1 }}
     </div>
   </div>
 
-  <canvas baseChart
-          class="chart"
-          [datasets]="dataSet"
-          [labels]="labels"
-          [chartType]="'bar'">
-  </canvas>
-</main>
+  <div class="floating-average-label">
+    <!--⌀--> ∅ {{ averagePriority }}
+  </div>
+</div>

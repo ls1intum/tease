@@ -1,39 +1,20 @@
-main {
-  padding: 5px;
+.team-statistics-container {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  margin: 6px;
+  padding: 10px;
 }
 
-.scoreContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+.team-statistics-heading {
+  color: dimgray;
+  font-size: 16px;
+  font-weight: 300;
 }
 
-.overallScore {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.constraintContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.constraint {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.title {
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-hr {
-  margin-left: -5px;
-  margin-right: 5px;
+.team-statistics-subheading {
+  color: dimgray;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 3px;
+  margin-top: 8px;
 }

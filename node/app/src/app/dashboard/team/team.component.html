@@ -7,18 +7,15 @@
     </div>
     <div class="team-name title-elements-spacing">{{team.name}}</div>
     <div class="title-elements-spacing">
-      <button md-icon-button [disabled]="team.persons.length === 0" (click)="statisticsVisible = !statisticsVisible">
+      <button md-icon-button [disabled]="team.persons.length === 0" (click)="statisticsVisible = !statisticsVisible"
+              [class.icon-button-highlight]="statisticsVisible">
         <i class="material-icons">timeline</i>
       </button>
     </div>
   </div>
 
   <!-- statistics -->
-  <div *ngIf="statisticsVisible && team.persons.length > 0">
-    <app-team-statistics [team]="team"></app-team-statistics>
-    <app-team-priorities-chart [team]="team"></app-team-priorities-chart>
-    <!--devices [devices]="getDevices()"></devices-->
-  </div>
+  <app-team-statistics [team]="team" *ngIf="statisticsVisible && team.persons.length > 0"></app-team-statistics>
 
   <!-- person preview cards -->
   <div class="position-relative">

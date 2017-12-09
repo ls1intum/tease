@@ -24,14 +24,4 @@ export class TeamStatisticsComponent implements OnInit {
       this.constraints = constraints;
     });
   }
-
-  calculateOverallScore(): string {
-    const score = this.statisticsService.calcTeamQualityScore(this.team, this.constraints);
-    if (isNaN(score))return 'None';
-    return score.toFixed(1);
-  }
-
-  isSatisfied(constraint: Constraint): boolean {
-    return constraint.isSatisfied(this.team);
-  }
 }
