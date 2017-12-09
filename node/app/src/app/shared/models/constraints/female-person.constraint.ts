@@ -15,7 +15,7 @@ export class FemalePersonConstraint extends Constraint {
   }
 
   private getFemalesPersonsInTeam(team: Team) {
-    return team.persons.filter(person => person.gender == Gender.Female).length;
+    return team.persons.filter(person => person.gender === Gender.Female).length;
   }
 
   getName(): string {
@@ -26,4 +26,7 @@ export class FemalePersonConstraint extends Constraint {
     return ConstraintType.GTE;
   }
 
+  getCurrentValue(team: Team): number {
+    return this.getFemalesPersonsInTeam(team);
+  }
 }

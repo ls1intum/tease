@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit {
   orphanTeam: Team;
   personPoolDisplayMode: PersonPoolDisplayMode = PersonPoolDisplayMode.OneRow;
   statisticsVisible = false;
+  private _personCount;
 
   PersonPoolDisplayMode = PersonPoolDisplayMode;
   SkillLevel = SkillLevel;
@@ -86,6 +87,11 @@ export class DashboardComponent implements OnInit {
   public loadTeams(teams: Team[]) {
     this.teams = teams.filter(team => team.name !== Team.OrphanTeamName);
     this.orphanTeam = teams.find(team => team.name === Team.OrphanTeamName);
+    this._personCount = teams.reduce((acc, team) => acc + team.persons.length, 0);
+  }
+
+  public get personCount() {
+    return this._personCount;
   }
 
   getPersonPoolDisplayModeCSSClass(value: PersonPoolDisplayMode): string {

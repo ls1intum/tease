@@ -30,6 +30,8 @@ export abstract class Constraint {
 
   abstract getType(): ConstraintType;
 
+  abstract getCurrentValue(team: Team): number;
+
   toString(): string {
     let str = '';
 
@@ -66,6 +68,14 @@ export abstract class Constraint {
 
   getMaxValue(): number {
     return this.maxValue;
+  }
+
+  getRightSideValue(): number {
+    if (this.getType() === ConstraintType.GT || this.getType() === ConstraintType.GTE) {
+      return this.getMinValue();
+    } else {
+      return this.getMaxValue();
+    }
   }
 
   getTeamName(): string {

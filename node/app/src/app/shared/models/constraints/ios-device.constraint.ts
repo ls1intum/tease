@@ -27,4 +27,7 @@ export class IosDeviceConstraint extends Constraint {
     return ConstraintType.GTE;
   }
 
+  getCurrentValue(team: Team): number {
+    return this.getDeviceCount(team);
+  }
 }

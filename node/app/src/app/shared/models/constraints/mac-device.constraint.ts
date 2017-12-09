@@ -13,7 +13,7 @@ export class MacDeviceConstraint extends Constraint {
   }
 
   isSatisfied(team: Team): boolean {
-    return team.getDeviceCountOfType(Device.Mac) >= this.minValue;
+    return this.getCurrentValue(team) >= this.minValue;
   }
 
   getName(): string {
@@ -24,4 +24,7 @@ export class MacDeviceConstraint extends Constraint {
     return ConstraintType.GTE;
   }
 
+  getCurrentValue(team: Team): number {
+    return team.getDeviceCountOfType(Device.Mac);
+  }
 }

@@ -13,7 +13,7 @@ import {SkillLevel} from "../../shared/models/skill";
 })
 export class TeamPrioritiesChartComponent implements OnInit, DoCheck {
   @Input() team: Team;
-  @Input() scale = 10;
+  @Input() scale;
 
   priorityDistribution: number[];
   indices: number[];
@@ -52,6 +52,9 @@ export class TeamPrioritiesChartComponent implements OnInit, DoCheck {
     ) / this.team.persons.length;
 
     this.averagePriority = Math.round(this.averagePriority * 100) / 100;
+
+    this.scale =
+      Math.ceil(this.dashboardService.dashboard.personCount / this.dashboardService.dashboard.teams.length);
   }
 
   getColorOfTeamDistributionBar(priority: number): string {

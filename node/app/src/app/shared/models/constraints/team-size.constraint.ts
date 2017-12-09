@@ -22,4 +22,7 @@ export class TeamSizeConstraint extends Constraint {
     return ConstraintType.Interval;
   }
 
+  getCurrentValue(team: Team): number {
+    return team.persons.length;
+  }
 }

@@ -10,7 +10,7 @@ export class SkillExpertConstraint extends Constraint {
   }
 
   isSatisfied(team: Team): boolean {
-    const count = TeamHelper.getPersonsOfSkillLevelInTeam(team, SkillLevel.VeryHigh);
+    const count = this.getCurrentValue(team);
     return (this.getMinValue() || 0) <= count && count <= (this.getMaxValue() || Number.MAX_VALUE);
   }
 
@@ -22,4 +22,7 @@ export class SkillExpertConstraint extends Constraint {
     return ConstraintType.Interval;
   }
 
+  getCurrentValue(team: Team): number {
+    return TeamHelper.getPersonsOfSkillLevelInTeam(team, SkillLevel.VeryHigh);
+  }
 }

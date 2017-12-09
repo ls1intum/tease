@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Team} from '../../shared/models/team';
-import {Constraint} from '../../shared/models/constraints/constraint';
+import {Constraint, ConstraintType} from '../../shared/models/constraints/constraint';
 import {ConstraintService} from '../../shared/layers/business-logic-layer/constraint.service';
 import {PersonStatisticsService} from '../../shared/layers/business-logic-layer/person-statistics.service';
 
@@ -14,6 +14,8 @@ export class TeamStatisticsComponent implements OnInit {
   private team: Team;
 
   constraints: Constraint[] = [];
+
+  ConstraintType = ConstraintType;
 
   constructor(private constraintService: ConstraintService,
               private statisticsService: PersonStatisticsService) {

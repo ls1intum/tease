@@ -18,23 +18,23 @@
 }
 
 .constraint-container-active {
-  border-color: rgba(233, 30, 99, 0.5);
-  background-color: #f7e0e8;
-  color: #a90b40;
+  border-color: rgba(0, 0, 0, 0.5);
+  background-color: #ffe595;
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .constraint-container-active input {
   background-color: white;
-  border-color: #a90b40;
+  border-color: rgba(0, 0, 0, 0.5);
 }
 
 .constraint-container-team-specific.constraint-container-active {
   background-color: #fff3f7;
-  color: #d20046;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .constraint-container-team-specific.constraint-container-active input {
-  border-color: #d20046;
+  border-color: rgba(0, 0, 0, 0.5);
 }
 
 .flex-spacing-10 {
