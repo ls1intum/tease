@@ -11,7 +11,7 @@ import {PersonStatisticsService} from '../../shared/layers/business-logic-layer/
 })
 export class TeamStatisticsComponent implements OnInit {
   @Input()
-  private team: Team;
+  team: Team;
 
   constraints: Constraint[] = [];
 
