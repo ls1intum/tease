@@ -33,6 +33,7 @@ export class PersonSerializer {
     personProps[CSVConstants.Person.StudentComments] = person.studentComments;
     personProps[CSVConstants.Person.SupervisorRating] = this.serializeSkillLevel(person.supervisorRating);
     personProps[CSVConstants.Person.TutorComments] = person.tutorComments;
+    personProps[CSVConstants.Person.IsPinned] = String(person.isPinned);
 
     return personProps;
   }

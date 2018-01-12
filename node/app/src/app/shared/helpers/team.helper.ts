@@ -13,4 +13,13 @@ export abstract class TeamHelper {
   static getPersonsOfSkillLevelInTeam(team: Team, skillLevel: SkillLevel) {
     return team.persons.filter(person => person.supervisorRating === skillLevel).length;
   }
+
+  static resetUnpinnedPersons(teams: [Team], orphanTeam: Team) {
+    teams.forEach(team => {
+      const personsToRemove = team.persons.filter(person => !person.isPinned);
+      team.persons = team.persons.filter(person => person.isPinned);
+      personsToRemove.forEach(person => person.team = orphanTeam);
+      orphanTeam.persons.push(...personsToRemove);
+    });
+  }
 }

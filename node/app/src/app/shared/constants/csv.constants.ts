@@ -45,6 +45,7 @@ export class CSVConstants {
     StudentComments: 'Comments',
     SupervisorRating: 'supervisorRating',
     TutorComments: 'CommentsTutor',
+    IsPinned: 'IsPinned',
   };
 
   static readonly Skills = {

@@ -1,5 +1,6 @@
 @import '../../../scss/style-constants.scss';
 @import '../../../scss/flex-box';
+@import '../../../styles';
 
 @include horizontal-spacing(spacing-3-x, 3px);
 @include vertical-spacing(spacing-3-y, 3px);
@@ -129,4 +130,34 @@
 
 .font-weight-300 {
   font-weight: 300;
+}
+
+.pin-button {
+  @extend .position-absolute;
+  background-color: #fafafa;
+  height: 25px;
+  width: 30px;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  border-bottom-left-radius: 5px;
+  border: $standard-border;
+  transition: opacity 0.5s;
+}
+
+.person-card:hover .pin-button {
+  opacity: 0.5;
+}
+
+.pin-button:hover {
+  opacity: 1.0 !important;
+}
+
+.pin-button-active {
+  opacity: 1 !important;
+}
+
+.pin-icon {
+  width: 15px;
+  height: 15px;
 }

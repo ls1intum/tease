@@ -34,15 +34,20 @@ export abstract class PersonParser {
     person.studentComments = personProps[CSVConstants.Person.StudentComments];
     person.supervisorRating = this.parseSkillLevel(personProps[CSVConstants.Person.SupervisorRating]);
     person.tutorComments = personProps[CSVConstants.Person.TutorComments];
+    if (personProps.hasOwnProperty(CSVConstants.Person.IsPinned))
+      person.isPinned = personProps[CSVConstants.Person.IsPinned] === 'true';
 
     return person;
   }
 
   private static parsePersonSkills(person: Person, personProps: Array<any>) {
     for (const [skillName, skillAbbreviation] of CSVConstants.Skills.SkillNameAbbreviationPairs) {
-        const skillLevelString = personProps[CSVConstants.Skills.ExpInterPrefix + skillAbbreviation + CSVConstants.Skills.ExperiencePostfix];
-        const interestLevelString = personProps[CSVConstants.Skills.ExpInterPrefix + skillAbbreviation + CSVConstants.Skills.InterestPostfix];
-        const justificationString = personProps[CSVConstants.Skills.JustifyPrefix + skillAbbreviation];
+        const skillLevelString =
+          personProps[CSVConstants.Skills.ExpInterPrefix + skillAbbreviation + CSVConstants.Skills.ExperiencePostfix];
+        const interestLevelString =
+          personProps[CSVConstants.Skills.ExpInterPrefix + skillAbbreviation + CSVConstants.Skills.InterestPostfix];
+        const justificationString =
+          personProps[CSVConstants.Skills.JustifyPrefix + skillAbbreviation];
 
         if (!(skillLevelString && interestLevelString))
           continue;

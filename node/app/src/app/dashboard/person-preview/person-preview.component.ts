@@ -4,6 +4,7 @@ import {IconMapperService} from '../../shared/ui/icon-mapper.service';
 import {Colors} from '../../shared/constants/color.constants';
 import {Skill, SkillLevel} from '../../shared/models/skill';
 import {Device} from "../../shared/models/device";
+import {DashboardService} from "../dashboard.service";
 
 @Component({
   selector: 'app-person-preview',
@@ -24,7 +25,8 @@ export class PersonPreviewComponent implements OnInit {
   protected getLabelForSkillLevel = Skill.getLabelForSkillLevel;
   protected getDeviceTypeIconPath = this.iconMapperService.getDeviceTypeIconPath;
 
-  constructor(protected iconMapperService: IconMapperService) { }
+  constructor(protected iconMapperService: IconMapperService,
+              protected dashboardService: DashboardService) { }
 
   ngOnInit() {
     console.log(this.person);

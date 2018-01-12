@@ -18,7 +18,7 @@ export class ConstraintComponent implements OnInit {
   }
 
   protected onConstraintMinValueChanged(constraint: Constraint, value) {
-    if (value == '') {
+    if (value === '') {
       constraint.setMinValue(value);
     } else if (!isNaN(+value)) {
       constraint.setMinValue(+value);
@@ -26,7 +26,7 @@ export class ConstraintComponent implements OnInit {
   }
 
   protected onConstraintMaxValueChanged(constraint: Constraint, value) {
-    if (value == '') {
+    if (value === '') {
       constraint.setMaxValue(value);
     } else if (!isNaN(+value)) {
       constraint.setMaxValue(+value);

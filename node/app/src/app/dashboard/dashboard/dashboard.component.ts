@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit {
     this.saveTeams();
   }
 
-  private saveTeams() {
+  public saveTeams() {
     /* update team memberships (reverse references) */
     const teamsWithOrphans = this.teams.concat(this.orphanTeam);
     teamsWithOrphans.forEach(team => team.persons.forEach(person => person.team = team));

@@ -44,6 +44,8 @@ export class Person {
 
   team: Team;
 
+  isPinned: boolean;
+
   constructor(id?: number, firstName?: string) {
     this.firstName = firstName || 'no name';
   }

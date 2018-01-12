@@ -1,4 +1,4 @@
-<div *ngIf="person" class="person-card flex-column flex-no-shrink">
+<div *ngIf="person" class="person-card flex-column flex-no-shrink position-relative">
   <div class="flex-column border-box">
     <!-- profile pic and everything right to it -->
     <div class="flex-row">
@@ -49,5 +49,13 @@
   <!-- instructor rating -->
   <div class="supervisor-rating flex-row flex-center" [style.background-color]="getColor(this.person.supervisorRating)">
     <div class="font-weight-300">{{ getSupervisorRatingString() }}</div>
+  </div>
+
+  <!-- floating pin button -->
+  <div class="pin-button flex-row flex-justify-center flex-center"
+       (click)="person.isPinned = !person.isPinned; dashboardService.dashboard.saveTeams(); $event.stopPropagation();"
+       [class.pin-button-active]="person.isPinned">
+    <img *ngIf="!person.isPinned" class="pin-icon" src="/assets/images/pin-outline.png">
+    <img *ngIf="person.isPinned" class="pin-icon" src="/assets/images/pin-filled.png">
   </div>
 </div>
