@@ -1,8 +1,8 @@
 import {Person} from '../../models/person';
 import {Team} from '../../models/team';
 import * as Papa from 'papaparse';
-import {TeamParser} from './parsing/TeamParser';
-import {PersonSerializer} from './serialization/PersonSerializer';
+import {PersonSerializer} from './PersonSerializer';
+import {PersonParser} from './PersonParser';
 
 export class CSVPersonDataAccessService {
   private static readonly BrowserStorageKey = 'TEASE-person-data';
@@ -17,7 +17,7 @@ export class CSVPersonDataAccessService {
     return new Promise((resolve, reject) => {
       Papa.parse(teamData, {
         complete: results => {
-          const [persons, teams] = TeamParser.parseTeams(results.data);
+          const [persons, teams] = PersonParser.parsePersons(results.data);
           this.sortTeams(teams);
           resolve([persons, teams]);
         },
@@ -34,7 +34,7 @@ export class CSVPersonDataAccessService {
     return new Promise((resolve, reject) => {
       Papa.parse(csvFile, {
         complete: results => {
-          const [persons, teams] = TeamParser.parseTeams(results.data);
+          const [persons, teams] = PersonParser.parsePersons(results.data);
           this.sortTeams(teams);
           resolve([persons, teams]);
         },
@@ -48,7 +48,7 @@ export class CSVPersonDataAccessService {
       Papa.parse(remoteFilePath, {
         download: true,
         complete: results => {
-          const [persons, teams] = TeamParser.parseTeams(results.data);
+          const [persons, teams] = PersonParser.parsePersons(results.data);
           this.sortTeams(teams);
           console.log('CSVPersonDataAccessService:' , persons, teams);
           resolve([persons, teams]);
