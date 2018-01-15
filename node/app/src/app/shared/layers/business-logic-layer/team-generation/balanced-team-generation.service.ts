@@ -10,23 +10,20 @@ import {SkillLevel} from '../../../models/skill';
 
 @Injectable()
 export class BalancedTeamGenerationService implements TeamGenerationService {
-  generate(teams: Team[]): Promise<Team[]> {
-    const persons = TeamHelper.getPersons(teams);
-
+  generate(persons: Person[], teams: Team[]): Promise<Team[]> {
     teams.forEach(team => team.clear());
-    const realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
 
     const skillTypes = this.getSkillLevelKeys();
 
     for (const key of skillTypes){
       const similarPersons = persons.filter(p => p.supervisorRating.valueOf() === key);
-      this.distributePersonsEqually(similarPersons, realTeams);
+      this.distributePersonsEqually(similarPersons, teams);
     }
 
     return Promise.resolve(teams);
   }
 
-  private distributePersonsEqually(persons: Person[], teams: Team[]){
+  private distributePersonsEqually(persons: Person[], teams: Team[]) {
     let teamIndex = 0;
 
     persons.forEach(person => {

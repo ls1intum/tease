@@ -1,65 +1,99 @@
 import {Injectable} from '@angular/core';
 import {Person} from '../../models/person';
 import {Team} from '../../models/team';
-import {TeamAccessService} from '../data-access-layer/team.access.service';
-import {TeamHelper} from '../../helpers/team.helper';
 import * as FileSaver from 'file-saver';
-
-/**
- * Created by wanur on 05/11/2016.
- */
+import {CSVPersonDataAccessService} from '../data-access-layer/csv-person-data-access.service';
 
 @Injectable()
 export class TeamService {
   private readonly EXPORT_DATA_TYPE = 'text/csv;charset=utf-8';
-  private readonly EXPORT_FILE_NAME = 'team_data.csv';
+  private readonly EXPORT_FILE_NAME = 'TEASE-Project.csv';
 
-  constructor(private teamAccessService: TeamAccessService) {
+  teams: Team[];
+  persons: Person[];
 
+  // derived properties
+  personsWithoutTeam: Person[];
+
+  private load(data: [Person[], Team[]]) {
+    [this.persons, this.teams] = data;
+
+    console.log('TeamService::load(', this.persons, this.teams, ')');
+
+    this.updateDerivedProperties();
   }
 
-  readSavedTeams(): Promise<Team[]> {
-    return this.teamAccessService.readSavedTeams();
+  public updateDerivedProperties() {
+    this.personsWithoutTeam = this.persons.filter(person => person.team === null);
   }
 
-  readLocalTeamData(csvFile: File): Promise<Team[]> {
-    return this.teamAccessService.readTeamsFromSource(csvFile);
+  public updateReverseReferences() {
+    this.teams.forEach(team => team.persons.forEach(person => person.team = team));
+    this.personsWithoutTeam.forEach(person => person.team = null);
+    this.updateDerivedProperties();
   }
 
-  readRemoteTeamData(remoteFilePath: string): Promise<Team[]> {
-    return this.teamAccessService.readTeamsFromRemote(remoteFilePath);
+  public sortPersons() {
+    const compareFunction = (personA, personB) => personB.supervisorRating - personA.supervisorRating;
+
+    this.teams.forEach(team => team.persons.sort(compareFunction));
+    this.persons.sort(compareFunction);
+    this.updateDerivedProperties();
   }
 
-  exportTeams() {
-    const csvData = this.teamAccessService.exportSavedTeamsAsCsv();
+  // removes all persons from their team
+  public resetTeamAllocation() {
+    this.teams.forEach(team => team.clear());
+    this.updateDerivedProperties();
+  }
+
+  public readFromBrowserStorage(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      CSVPersonDataAccessService.readDataFromBrowserStorage().then(data => {
+        this.load(data);
+        resolve(true);
+      });
+    });
+  }
+
+  public readFromCSVFile(csvFile: File): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      CSVPersonDataAccessService.readFromFile(csvFile).then(data => {
+        this.load(data);
+        this.saveToLocalBrowserStorage().then(saveSuccess => {
+          this.readFromBrowserStorage().then(readSuccess => {
+            resolve(true);
+          });
+        });
+      });
+    });
+  }
+
+  public readRemoteData(remoteFilePath: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      CSVPersonDataAccessService.readFromRemote(remoteFilePath).then(data => {
+        this.load(data);
+        resolve(true);
+      });
+    });
+  }
+
+  public exportSavedState() {
+    const csvData = CSVPersonDataAccessService.getSavedDataFromBrowserStorage();
     const blob = new Blob([csvData], {type: this.EXPORT_DATA_TYPE});
     FileSaver.saveAs(blob, this.EXPORT_FILE_NAME);
   }
 
-  saveTeams(teams: Team[]): Promise<boolean> {
-    console.log('saveTeams()');
-    return this.teamAccessService.saveTeams(teams);
-  }
-
-  dropData() {
-    this.teamAccessService.dropData();
-  }
-
-  readSavedPersons(): Promise<Person[]> {
+  public saveToLocalBrowserStorage(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      this.readSavedTeams().then(teams => {
-        resolve(TeamHelper.getPersons(teams));
+      this.updateReverseReferences();
+      CSVPersonDataAccessService.saveToBrowserStorage(this.persons).then(success => {
+        resolve(success);
       });
     });
   }
 
-  readPersonWithId(tumId: string): Promise<Person> {
-    return new Promise((resolve, reject) => {
-      this.readSavedPersons().then(persons => {
-        const personsWithId = persons.filter(person => person.tumId === tumId);
-        if (personsWithId.length === 0) resolve(undefined);
-        resolve(personsWithId[0]);
-      });
-    });
+  public clearSavedData() {
+    CSVPersonDataAccessService.clearSavedData();
   }
 }

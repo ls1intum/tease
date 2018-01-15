@@ -1,5 +1,5 @@
 <div class="constraint-container flex-row flex-center"
-     [ngClass]="{'constraint-container-team-specific': constraint.getTeamName() !== SpecialTeamNameForGlobalConstraints,
+     [ngClass]="{'constraint-container-team-specific': constraint.getTeamName() !== null,
                  'constraint-container-active': constraint.isEnabled }">
   <div class="flex-grow"></div>
 

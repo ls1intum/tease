@@ -1,14 +1,14 @@
-import {Person, Gender} from '../../../models/person';
-import {StringHelper} from '../../../helpers/string.helper';
-import {CSVConstants} from '../../../constants/csv.constants';
-import {Device} from '../../../models/device';
-import {SkillLevel} from '../../../models/skill';
+import {Person, Gender} from '../../models/person';
+import {StringHelper} from '../../helpers/string.helper';
+import {CSVConstants} from '../../constants/csv.constants';
+import {Device} from '../../models/device';
+import {SkillLevel} from '../../models/skill';
 /**
  * Created by Malte Bucksch on 01/12/2016.
  */
 
 export class PersonSerializer {
-  static serializePerson(person: Person): {} {
+  static serializePerson(person: Person): any {
     const personProps = {};
 
     /* specified entries */
@@ -35,10 +35,12 @@ export class PersonSerializer {
     personProps[CSVConstants.Person.TutorComments] = person.tutorComments;
     personProps[CSVConstants.Person.IsPinned] = String(person.isPinned);
 
+    personProps[CSVConstants.Team.TeamName] = person.team ? person.team.name : '';
+
     return personProps;
   }
 
-  private static serializePriorities(person: Person, personProps: {}) {
+  private static serializePriorities(person: Person, personProps: any) {
     for (const teamPrio of person.teamPriorities) {
       const columnName = StringHelper.format(CSVConstants.Team.Priority, person.getTeamPriority(teamPrio));
 
@@ -46,7 +48,7 @@ export class PersonSerializer {
     }
   }
 
-  private static serializeSkills(person: Person, personProps: {}) {
+  private static serializeSkills(person: Person, personProps: any) {
     for (const skill of person.skills){
       const skillAbbreviation = CSVConstants.Skills.SkillNameAbbreviationPairs
         .find(pair => pair[0] === skill.name)[1];

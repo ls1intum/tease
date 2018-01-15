@@ -8,7 +8,6 @@ import {SharedModule} from './shared/shared.module';
 import {TeamService} from './shared/layers/business-logic-layer/team.service';
 import {ConstraintService} from './shared/layers/business-logic-layer/constraint.service';
 import {DashboardModule} from './dashboard/dashboard.module';
-import {IconMapperService} from './shared/ui/icon-mapper.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {PersonDetailOverlayComponent} from './dashboard/person-detail-overlay/person-detail-overlay.component';
 import {OverlayHostDirective} from './overlay-host.directive';
@@ -33,7 +32,7 @@ import {ConfirmationOverlayComponent} from './dashboard/confirmation-overlay/con
     SharedModule, DashboardModule
   ],
   providers: [
-    TeamService, ConstraintService, OverlayService, IconMapperService, PersonStatisticsService,
+    TeamService, ConstraintService, OverlayService, PersonStatisticsService,
     {provide: TeamGenerationService, useClass: LPTeamGenerationService}
   ],
   bootstrap: [AppComponent],

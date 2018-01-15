@@ -14,8 +14,8 @@ export class ConstraintService {
   private sortConstraintsByPriority(constraint1, constraint2): number {
     // team-based constraints should come first
     // then global ones
-    const isTeamBased1 = constraint1.getTeamName() !== Team.SpecialTeamNameForGlobalConstraints;
-    const isTeamBased2 = constraint2.getTeamName() !== Team.SpecialTeamNameForGlobalConstraints;
+    const isTeamBased1 = constraint1.getTeamName() !== null;
+    const isTeamBased2 = constraint2.getTeamName() !== null;
     if (isTeamBased1 || isTeamBased2) {
       if (isTeamBased1 && isTeamBased2) {
         return 0; // both team-based - no preference
@@ -80,7 +80,7 @@ export class ConstraintService {
             return;
           }
 
-          if (constraint.getTeamName() === Team.SpecialTeamNameForGlobalConstraints // global constraint
+          if (constraint.getTeamName() === null // global constraint
             || team && constraint.getTeamName() === team.name) { // team-based constraint
             applicableConstraints.push(constraint);
           }

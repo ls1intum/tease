@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Team} from '../../shared/models/team';
 import {Constraint, ConstraintType} from '../../shared/models/constraints/constraint';
 import {ConstraintService} from '../../shared/layers/business-logic-layer/constraint.service';
-import {PersonStatisticsService} from '../../shared/layers/business-logic-layer/person-statistics.service';
 
 @Component({
   selector: 'app-team-statistics',
@@ -17,8 +16,7 @@ export class TeamStatisticsComponent implements OnInit {
 
   ConstraintType = ConstraintType;
 
-  constructor(private constraintService: ConstraintService,
-              private statisticsService: PersonStatisticsService) {
+  constructor(private constraintService: ConstraintService) {
   }
 
   ngOnInit(): void {

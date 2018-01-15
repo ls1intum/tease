@@ -16,7 +16,7 @@
   </div>
 
   <!-- colored bars -->
-  <div *ngFor="let team of teams" class="flex-row">
+  <div *ngFor="let team of teamService.teams" class="flex-row">
     <div class="statistics-team-label">{{ team.name }}</div>
     <div class="statistics-vertical-divider"></div>
     <div class="flex-row flex-grow">
@@ -72,7 +72,7 @@
             {{ Math.round(getNumberOfPersonsWithSupervisorRating(skillLevel) * 1000 / getNumberOfPersons()) / 10 }}%
           </div>
           <div class="flex-neutral-grow">
-            {{ Math.round(getNumberOfPersonsWithSupervisorRating(skillLevel) * 100 / teams.length) / 100 }}
+            {{ Math.round(getNumberOfPersonsWithSupervisorRating(skillLevel) * 100 / teamService.teams.length) / 100 }}
           </div>
         </div>
       </div>
@@ -100,7 +100,7 @@
             {{ Math.round(getTotalNumberOfPersonsWithIOSDevice() * 1000 / getNumberOfPersons()) / 10 }}%
           </div>
           <div class="flex-neutral-grow">
-            {{ Math.round( getTotalNumberOfPersonsWithIOSDevice() * 100 / teams.length) / 100 }}
+            {{ Math.round( getTotalNumberOfPersonsWithIOSDevice() * 100 / teamService.teams.length) / 100 }}
           </div>
         </div>
 
@@ -116,7 +116,7 @@
             {{ Math.round(getTotalNumberOfPersonsWithMacDevice() * 1000 / getNumberOfPersons()) / 10 }}%
           </div>
           <div class="flex-neutral-grow">
-            {{ Math.round(getTotalNumberOfPersonsWithMacDevice() * 100 / teams.length) / 100 }}
+            {{ Math.round(getTotalNumberOfPersonsWithMacDevice() * 100 / teamService.teams.length) / 100 }}
           </div>
         </div>
 
@@ -132,7 +132,7 @@
             {{ Math.round(getNumberOfPersonsWithGender(Gender.Female) * 1000 / getNumberOfPersons()) / 10 }}%
           </div>
           <div class="flex-neutral-grow">
-            {{ Math.round(getNumberOfPersonsWithGender(Gender.Female) * 100 / teams.length) / 100 }}
+            {{ Math.round(getNumberOfPersonsWithGender(Gender.Female) * 100 / teamService.teams.length) / 100 }}
           </div>
         </div>
       </div>

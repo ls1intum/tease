@@ -7,7 +7,6 @@ import {Gender, Person} from '../../shared/models/person';
 import {PersonDetailOverlayComponent} from '../person-detail-overlay/person-detail-overlay.component';
 import {OverlayService} from '../../overlay.service';
 import {ConstraintsOverlayComponent} from '../constraints-overlay/constraints-overlay.component';
-import {DashboardService} from '../dashboard.service';
 import {Skill, SkillLevel} from '../../shared/models/skill';
 import {Colors} from '../../shared/constants/color.constants';
 import {Device} from '../../shared/models/device';
@@ -22,76 +21,30 @@ enum PersonPoolDisplayMode {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  teams: Team[]; /* teams without orphan team */
-  orphanTeam: Team;
   personPoolDisplayMode: PersonPoolDisplayMode = PersonPoolDisplayMode.OneRow;
   statisticsVisible = false;
-  private _personCount;
 
   PersonPoolDisplayMode = PersonPoolDisplayMode;
   SkillLevel = SkillLevel;
-  Math = Math;
-  Colors = Colors;
-  Skill = Skill;
   Device = Device;
-  Gender = Gender;
 
-  constructor(private teamService: TeamService,
+  constructor(public teamService: TeamService,
               private dragulaService: DragulaService,
-              private overlayService: OverlayService,
-              private dashboardService: DashboardService) {
-    this.dashboardService.dashboard = this;
+              private overlayService: OverlayService) {
 
     /* save model when modified by drag&drop operation */
     dragulaService.dropModel.subscribe(value => {
-      this.saveTeams();
+      teamService.saveToLocalBrowserStorage();
     });
   }
 
   ngOnInit() {
-    this.loadSavedTeams();
-  }
-
-  private loadSavedTeams() {
-    this.teamService.readSavedTeams().then(teams => {
-      this.loadTeams(teams);
-    });
+    this.teamService.readFromBrowserStorage();
   }
 
   public resetTeamAllocation() {
-    this.teams.forEach(team => {
-      const persons = Array.from(team.persons);
-      team.clear();
-      persons.forEach(person => person.team = this.orphanTeam);
-      this.orphanTeam.persons.push(...persons);
-    });
-
-    this.saveTeams();
-  }
-
-  public sortTeams() {
-    this.teams.concat(this.orphanTeam).forEach(team => {
-      team.persons.sort((personA, personB) => personB.supervisorRating - personA.supervisorRating);
-    });
-
-    this.saveTeams();
-  }
-
-  public saveTeams() {
-    /* update team memberships (reverse references) */
-    const teamsWithOrphans = this.teams.concat(this.orphanTeam);
-    teamsWithOrphans.forEach(team => team.persons.forEach(person => person.team = team));
-    this.teamService.saveTeams(teamsWithOrphans);
-  }
-
-  public loadTeams(teams: Team[]) {
-    this.teams = teams.filter(team => team.name !== Team.OrphanTeamName);
-    this.orphanTeam = teams.find(team => team.name === Team.OrphanTeamName);
-    this._personCount = teams.reduce((acc, team) => acc + team.persons.length, 0);
-  }
-
-  public get personCount() {
-    return this._personCount;
+    this.teamService.resetTeamAllocation();
+    this.teamService.saveToLocalBrowserStorage();
   }
 
   getPersonPoolDisplayModeCSSClass(value: PersonPoolDisplayMode): string {
@@ -105,27 +58,29 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
+    const indexOfPerson = this.teamService.personsWithoutTeam.indexOf(person);
+
     this.overlayService.displayComponent(PersonDetailOverlayComponent, {
       person: person,
-      onClose: () => this.saveTeams(),
-      onNextPersonClicked: () => this.showPersonDetails(this.orphanTeam.persons[this.orphanTeam.persons.indexOf(person) + 1]),
-      onPreviousPersonClicked: () => this.showPersonDetails(this.orphanTeam.persons[this.orphanTeam.persons.indexOf(person) - 1])
+      onClose: () => this.teamService.saveToLocalBrowserStorage(),
+      onNextPersonClicked: () => this.showPersonDetails(this.teamService.personsWithoutTeam[indexOfPerson + 1]),
+      onPreviousPersonClicked: () => this.showPersonDetails(this.teamService.personsWithoutTeam[indexOfPerson - 1])
     });
   }
 
   public isDataLoaded(): boolean {
-    return this.teams && this.teams.length > 0;
+    return this.teamService.teams && this.teamService.teams.length > 0;
   }
 
   openConstraintsDialog() {
     this.overlayService.displayComponent(
       ConstraintsOverlayComponent,
-      {onTeamsGenerated: () => this.loadSavedTeams(), displayWarning: !this.areAllTeamsEmpty()}
+      {onTeamsGenerated: () => this.teamService.readFromBrowserStorage(), displayWarning: !this.areAllTeamsEmpty()}
     );
   }
 
   protected areAllTeamsEmpty(): boolean {
-    return this.teams.reduce((acc, team) => acc && team.persons.length === 0, true);
+    return this.teamService.teams.reduce((acc, team) => acc && team.persons.length === 0, true);
   }
 
   togglePersonPoolStatistics() {
@@ -137,5 +92,9 @@ export class DashboardComponent implements OnInit {
   onPersonPoolDisplayModeChange() {
     if (this.personPoolDisplayMode !== PersonPoolDisplayMode.Full && this.statisticsVisible)
       this.togglePersonPoolStatistics();
+  }
+
+  onPersonClicked(person: Person) {
+    this.showPersonDetails(person);
   }
 }

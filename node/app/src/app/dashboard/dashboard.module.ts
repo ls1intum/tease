@@ -16,7 +16,6 @@ import { ImportOverlayComponent } from './import-overlay/import-overlay.componen
 import { ConstraintsOverlayComponent } from './constraints-overlay/constraints-overlay.component';
 import { ConstraintComponent } from './constraint/constraint.component';
 import {ConfirmationOverlayComponent} from './confirmation-overlay/confirmation-overlay.component';
-import {DashboardService} from "./dashboard.service";
 import { PersonPoolStatisticsComponent } from './person-pool-statistics/person-pool-statistics.component';
 
 @NgModule({
@@ -31,6 +30,6 @@ import { PersonPoolStatisticsComponent } from './person-pool-statistics/person-p
     PersonPoolStatisticsComponent
   ],
   exports: [DashboardComponent, PersonDetailOverlayComponent, ImportOverlayComponent],
-  providers: [DashboardService],
+  providers: [],
 })
 export class DashboardModule { }

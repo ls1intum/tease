@@ -42,6 +42,7 @@ export class Person {
 
   tutorComments: String;
 
+  // reverse reference
   team: Team;
 
   isPinned: boolean;

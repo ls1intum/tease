@@ -7,14 +7,13 @@ import {Md5} from 'ts-md5/dist/md5';
  * Created by Malte Bucksch on 10/12/2016.
  */
 
-@Injectable()
 export class IconMapperService {
   private static readonly BASE_PATH_IMAGES = '/assets/images/';
   private static readonly GRAVATAR_URL= 'http://www.gravatar.com/avatar/';
 
   constructor() { }
 
-  getSkillIconPath(skillLevel: SkillLevel): string {
+  static getSkillIconPath(skillLevel: SkillLevel): string {
     switch (skillLevel) {
       case SkillLevel.VeryHigh:
         return IconMapperService.BASE_PATH_IMAGES + 'skill_very_high.png';
@@ -29,7 +28,7 @@ export class IconMapperService {
     }
   }
 
-  getDeviceTypeIconPath(device: Device): string {
+  static getDeviceTypeIconPath(device: Device): string {
     switch (device) {
       case Device.Iphone:
         return IconMapperService.BASE_PATH_IMAGES + 'iphone.png';
@@ -42,7 +41,7 @@ export class IconMapperService {
     }
   }
 
-  getGenderIconPath(gender: Gender): string {
+  static getGenderIconPath(gender: Gender): string {
     switch (gender) {
       case Gender.Male:
         return IconMapperService.BASE_PATH_IMAGES + 'mars.svg';
@@ -51,7 +50,7 @@ export class IconMapperService {
     }
   }
 
-  getGravatarIcon(email: string, size: number = 200): string {
+  static getGravatarIcon(email: string, size: number = 200): string {
     if (email === undefined)return IconMapperService.GRAVATAR_URL;
 
     const emailHash = Md5.hashStr(email);

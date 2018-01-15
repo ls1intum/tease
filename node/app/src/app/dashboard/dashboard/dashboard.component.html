@@ -1,6 +1,6 @@
 <!-- team containers -->
 <div class="dashboard flex-row">
-  <div *ngFor="let team of teams" class="hidden-scrollbar-parent">
+  <div *ngFor="let team of teamService.teams" class="hidden-scrollbar-parent">
     <div class="hidden-scrollbar-child flex-column">
       <app-team class="flex-no-shrink" [team]="team"></app-team>
     </div>
@@ -8,13 +8,13 @@
 </div>
 
 <!-- person pool -->
-<div *ngIf="orphanTeam" class="person-pool flex-column overflow-hidden"
+<div *ngIf="teamService.personsWithoutTeam" class="person-pool flex-column overflow-hidden"
      [ngClass]="getPersonPoolDisplayModeCSSClass(personPoolDisplayMode)">
   <!-- title and buttons -->
   <div class="flex-row flex-center person-pool-title-bar flex-no-shrink">
     <div class="person-pool-label flex-no-shrink">Person Pool</div>
     <div class="team-person-count flex-row flex-center flex-justify-center flex-no-shrink">
-      <div *ngIf="orphanTeam">{{orphanTeam.persons.length}}</div>
+      <div>{{ teamService.personsWithoutTeam.length }}</div>
     </div>
     <div class="flex-grow"></div>
 
@@ -53,19 +53,19 @@
   </div>
 
   <!-- person pool statistics -->
-  <app-person-pool-statistics *ngIf="statisticsVisible" [teams]="teams.concat(orphanTeam)"></app-person-pool-statistics>
+  <app-person-pool-statistics *ngIf="statisticsVisible"></app-person-pool-statistics>
 
   <!-- person preview cards -->
   <div class="flex-grow flex-row position-relative">
-    <div *ngIf="orphanTeam.persons.length == 0"
+    <div *ngIf="teamService.personsWithoutTeam.length == 0"
          class="position-absolute position-absolute-full-size pointer-events-none flex-row overflow-hidden">
       <div class="flex-grow empty-orphan-team-hint-box flex-row flex-center flex-justify-center">
         <div>Drag persons here</div>
       </div>
     </div>
     <div [dragula]='"first-bag"' class='flex-column person-pool-preview-row flex-wrap flex-grow'
-         [dragulaModel]="orphanTeam.persons">
-      <app-person-preview *ngFor="let person of orphanTeam.persons" [person]="person"
+         [dragulaModel]="teamService.personsWithoutTeam">
+      <app-person-preview *ngFor="let person of teamService.personsWithoutTeam" [person]="person"
                           (click)="showPersonDetails(person)"></app-person-preview>
     </div>
   </div>

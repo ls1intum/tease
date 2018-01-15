@@ -9,7 +9,7 @@ import {ExamplePersonPropertyCsvRemotePath} from '../../shared/constants/csv.con
   styleUrls: ['./import-overlay.component.scss']
 })
 export class ImportOverlayComponent implements OnInit, OverlayComponent {
-  public data: { onTeamsImported: ((any) => void), overwriteWarning: boolean }; // TODO: any should be Array<Team>
+  public data: { onTeamsImported: (() => void), overwriteWarning: boolean }; // TODO: any should be Array<Team>
   @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(private teamService: TeamService) { }
@@ -23,19 +23,14 @@ export class ImportOverlayComponent implements OnInit, OverlayComponent {
     const files = event.target.files;
     if (files.length !== 1)return;
 
-    this.teamService.readLocalTeamData(files[0]).then(teams => {
-      this.teamService.saveTeams(teams);
-      this.teamService.readSavedTeams().then(teams => {
-        this.data.onTeamsImported(teams);
-      })
+    this.teamService.readFromCSVFile(files[0]).then(teams => {
+      this.data.onTeamsImported();
     });
   }
 
   public loadExampleData() {
-    this.teamService.readRemoteTeamData(ExamplePersonPropertyCsvRemotePath).then(teams => {
-      this.teamService.saveTeams(teams).then(saved => {
-        this.data.onTeamsImported(teams);
-      });
+    this.teamService.readRemoteData(ExamplePersonPropertyCsvRemotePath).then(success => {
+      this.data.onTeamsImported();
     });
   }
 }

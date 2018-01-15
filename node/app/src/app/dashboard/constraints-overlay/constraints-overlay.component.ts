@@ -16,23 +16,18 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
 
   public data: { onTeamsGenerated: (() => void), displayWarning: boolean };
   protected constraints: Constraint[];
-  protected teams: Team[];
   protected teamsWithVisibleConstraints: Team[] = [];
   noFeasibleSolutionHintShown = false;
   protected noFeasibleSolutionHintTimeoutHandle = null;
 
   constructor(private constraintService: ConstraintService,
               private teamGenerationService: TeamGenerationService,
-              private teamService: TeamService,
+              public teamService: TeamService,
               private overlayService: OverlayService) { }
 
   ngOnInit() {
     this.constraintService.fetchConstraints().then(constraints => {
       this.constraints = constraints;
-    });
-
-    this.teamService.readSavedTeams().then(teams => {
-      this.teams = teams;
     });
   }
 
@@ -43,7 +38,7 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
   public getGlobalConstraints(): Array<Constraint> {
     if (!this.constraints) return [];
     return this.constraints.filter(constraint => {
-      return constraint.getTeamName() === Team.SpecialTeamNameForGlobalConstraints;
+      return constraint.getTeamName() === null;
     });
   }
 
@@ -52,14 +47,10 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
     return this.constraints.filter(constraint => constraint.getTeamName() === team.name);
   }
 
-  public getRealTeams(): Team[] {
-    return !this.teams ? [] : this.teams.filter(team => team.name !== Team.OrphanTeamName);
-  }
-
   public applyConstraints() {
     this.constraintService.saveConstraints(this.constraints);
 
-    this.teamGenerationService.generate(this.teams).then(generatedTeams => {
+    this.teamGenerationService.generate(this.teamService.persons, this.teamService.teams).then(generatedTeams => {
       if (generatedTeams == null) {
         clearTimeout(this.noFeasibleSolutionHintTimeoutHandle);
         this.noFeasibleSolutionHintShown = true;
@@ -70,7 +61,7 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
         return;
       }
 
-      this.teamService.saveTeams(generatedTeams).then(saved => {
+      this.teamService.saveToLocalBrowserStorage().then(success => {
         this.overlayService.closeOverlay();
         this.data.onTeamsGenerated();
       });

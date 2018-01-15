@@ -1,10 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Person} from '../../shared/models/person';
-import {IconMapperService} from '../../shared/ui/icon-mapper.service';
 import {Colors} from '../../shared/constants/color.constants';
 import {Skill, SkillLevel} from '../../shared/models/skill';
-import {Device} from "../../shared/models/device";
-import {DashboardService} from "../dashboard.service";
+import {Device} from '../../shared/models/device';
+import {IconMapperService} from '../../shared/ui/icon-mapper.service';
 
 @Component({
   selector: 'app-person-preview',
@@ -19,14 +18,13 @@ export class PersonPreviewComponent implements OnInit {
   Device = Device;
 
   /* functions used in template */
-  protected getGravatarIcon = this.iconMapperService.getGravatarIcon;
-  protected getGenderIconPath = this.iconMapperService.getGenderIconPath;
+  protected getGravatarIcon = IconMapperService.getGravatarIcon;
+  protected getGenderIconPath = IconMapperService.getGenderIconPath;
   protected getColor = Colors.getColor;
   protected getLabelForSkillLevel = Skill.getLabelForSkillLevel;
-  protected getDeviceTypeIconPath = this.iconMapperService.getDeviceTypeIconPath;
+  protected getDeviceTypeIconPath = IconMapperService.getDeviceTypeIconPath;
 
-  constructor(protected iconMapperService: IconMapperService,
-              protected dashboardService: DashboardService) { }
+  constructor() { }
 
   ngOnInit() {
     console.log(this.person);

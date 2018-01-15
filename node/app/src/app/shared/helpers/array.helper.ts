@@ -3,7 +3,7 @@
  */
 
 export abstract class ArrayHelper {
-  static NumberPlaceHolder = "{d}";
+  static NumberPlaceHolder = '{d}';
 
   static createNumberRange(maxValue: number): number[] {
     return Array.from(Array(maxValue).keys());

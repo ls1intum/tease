@@ -17,7 +17,7 @@
           <app-constraint [constraint]="constraint"></app-constraint>
         </div>
 
-        <div *ngFor="let team of getRealTeams()" class="flex-column">
+        <div *ngFor="let team of teamService.teams" class="flex-column">
           <div class="constraint-team-name constraint-team-name-toggleable flex-row flex-center flex-no-shrink"
                (click)="toggleTeamConstraintVisibility(team)">
             <div class="flex-spacing-5">Constraints for Team</div>

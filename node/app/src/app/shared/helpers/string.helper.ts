@@ -3,7 +3,7 @@
  */
 
 export abstract class StringHelper {
-  static NumberPlaceHolder = "{d}";
+  static NumberPlaceHolder = '{d}';
 
   static format(rawString: string, numberReplacement: number): string {
     return rawString.replace(StringHelper.NumberPlaceHolder, String(numberReplacement));

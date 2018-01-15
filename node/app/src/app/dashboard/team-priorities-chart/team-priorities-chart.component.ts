@@ -2,9 +2,9 @@ import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {ArrayHelper} from '../../shared/helpers/array.helper';
 import {Team} from '../../shared/models/team';
 import {PersonStatisticsService} from '../../shared/layers/business-logic-layer/person-statistics.service';
-import {DashboardService} from "../dashboard.service";
-import {Colors} from "../../shared/constants/color.constants";
-import {SkillLevel} from "../../shared/models/skill";
+import {Colors} from '../../shared/constants/color.constants';
+import {SkillLevel} from '../../shared/models/skill';
+import {TeamService} from '../../shared/layers/business-logic-layer/team.service';
 
 @Component({
   selector: 'app-team-priorities-chart',
@@ -22,7 +22,7 @@ export class TeamPrioritiesChartComponent implements OnInit, DoCheck {
   averagePriority: number;
 
   constructor(private personStatisticsService: PersonStatisticsService,
-              private dashboardService: DashboardService) {}
+              private teamService: TeamService) {}
 
   ngOnInit(): void {
     this.updatePriorityDistribution();
@@ -38,7 +38,7 @@ export class TeamPrioritiesChartComponent implements OnInit, DoCheck {
   updatePriorityDistribution() {
     this.priorityDistribution = [];
 
-    for (let i = 0; i < this.dashboardService.dashboard.teams.length; i++) {
+    for (let i = 0; i < this.teamService.teams.length; i++) {
       this.priorityDistribution.push(
         this.team.persons.reduce((acc, person) => acc + (person.teamPriorities[i] === this.team ? 1 : 0), 0)
       );
@@ -54,7 +54,7 @@ export class TeamPrioritiesChartComponent implements OnInit, DoCheck {
     this.averagePriority = Math.round(this.averagePriority * 100) / 100;
 
     this.scale =
-      Math.ceil(this.dashboardService.dashboard.personCount / this.dashboardService.dashboard.teams.length);
+      Math.ceil(this.teamService.persons.length / this.teamService.teams.length);
   }
 
   getColorOfTeamDistributionBar(priority: number): string {

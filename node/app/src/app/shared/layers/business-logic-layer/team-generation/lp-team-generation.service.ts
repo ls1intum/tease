@@ -198,7 +198,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
    * @returns {Promise<Team[]>} that is resolved with the updated teams if a feasible solution was found or with null
    * else.
    */
-  generate(teams: Team[]): Promise<Team[]> {
+  generate(persons: Person[], teams: Team[]): Promise<Team[]> {
 
     return new Promise((resolve, reject) => {
 
@@ -206,15 +206,12 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
       let model = [];
 
-      const persons = TeamHelper.getPersons(teams);
-      const realTeams = teams.filter(team => team.name !== Team.OrphanTeamName);
-
       // Make sure already assigned team members stay in that team
-      for(let team of realTeams) {
+      for (let team of teams) {
         let assignedPersons = team.persons;
         if(assignedPersons.length > 0) {
           let assignedPersonsIndices = [];
-          let assignedTeamIndex = realTeams.indexOf(team);
+          let assignedTeamIndex = teams.indexOf(team);
           for(let person of assignedPersons) {
             let personIndex = persons.indexOf(person);
             let c = 'x' + (personIndex + 1) + 'y' + (assignedTeamIndex + 1) + ' = 1';
@@ -226,7 +223,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
       // Ensure binary variables
       for (let i = 1; i <= persons.length; i++) {
-        for (let j = 1; j <= realTeams.length; j++) {
+        for (let j = 1; j <= teams.length; j++) {
           const v = 'x' + i + 'y' + j;
           model.push(v + ' >= 0');
           model.push(v + ' <= 1');
@@ -237,7 +234,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
       // Ensure one team per person
       for (let i = 1; i <= persons.length; i++) {
         let c = '';
-        for (let j = 1; j <= realTeams.length; j++) {
+        for (let j = 1; j <= teams.length; j++) {
           if (c) {
             c += ' + ';
           }
@@ -248,8 +245,8 @@ export class LPTeamGenerationService implements TeamGenerationService {
       }
 
       const teamIndex = {}; // j lookup
-      for (let j = 0; j < realTeams.length; j++) {
-        teamIndex[realTeams[j].name] = j + 1;
+      for (let j = 0; j < teams.length; j++) {
+        teamIndex[teams[j].name] = j + 1;
       }
 
       let prioritiesObjective = '';
@@ -274,7 +271,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
       desiredSkillWeights[SkillLevel.None] = 0;
 
       let skillSetObjective = '';
-      for (let j = 1; j <= realTeams.length; j++) {
+      for (let j = 1; j <= teams.length; j++) {
 
         for (let i = 1; i <= persons.length; i++) {
           const person = persons[i - 1];
@@ -303,7 +300,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
       // generate user-specified constraints
       const promises = [];
-      realTeams.forEach((team, teamIndex) => {
+      teams.forEach((team, teamIndex) => {
         const promise = this.constraintService.getApplicableConstraints(team).then(constraints => {
 
           // Device constraints
@@ -356,18 +353,18 @@ export class LPTeamGenerationService implements TeamGenerationService {
         const solution = new Solve(formattedModel);
 
         if (solution.feasible) {
-          console.log("Found a solution! Showing the assignment.");
+          console.log('Found a solution! Showing the assignment.');
           // clear all teams
           teams.forEach(team => team.clear());
           // Assign the teams according to results
           for (let i = 1; i <= persons.length; i++) {
             const person = persons[i - 1];
-            for (let j = 1; j <= realTeams.length; j++) {
+            for (let j = 1; j <= teams.length; j++) {
               const varName = 'x' + i + 'y' + j;
               const val = solution[varName] || 0;
 
-              if (val == 1) {
-                realTeams[j - 1].add(person);
+              if (val === 1) {
+                teams[j - 1].add(person);
                 break;
               }
             }
@@ -375,7 +372,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
           resolve(teams);
         } else {
-          console.log("No solution was found with the given constraints. Reverted assignment to last state.");
+          console.log('No solution was found with the given constraints. Reverted assignment to last state.');
 
           resolve(null);
         }

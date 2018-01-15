@@ -1,14 +1,53 @@
-import {Person, Gender} from '../../../models/person';
-import {CSVConstants} from '../../../constants/csv.constants';
-import {Device} from '../../../models/device';
-import {StringHelper} from '../../../helpers/string.helper';
-import {Skill, SkillLevel} from '../../../models/skill';
+import {Person, Gender} from '../../models/person';
+import {CSVConstants} from '../../constants/csv.constants';
+import {Device} from '../../models/device';
+import {StringHelper} from '../../helpers/string.helper';
+import {Skill, SkillLevel} from '../../models/skill';
+import {Team} from "../../models/team";
 /**
  * Created by Malte Bucksch on 01/12/2016.
  */
 
 export abstract class PersonParser {
-  static parsePerson(personProps: any): Person {
+  static parsePersons(teamCsvData: Array<any>): [Person[], Team[]] {
+    const teams: Team[] = [];
+
+    const persons = teamCsvData
+      .map((personProps: Array<any>) => this.parsePerson(teams, personProps))
+      .filter(person => person !== null);
+
+    return [persons, teams];
+  }
+
+  private static parseTeamPriorities(teams: Team[], person: Person, personProps: Array<any>) {
+    for (let priority = 1; ; priority++) {
+      const columnName = StringHelper.format(CSVConstants.Team.Priority, priority);
+
+      if (!personProps[columnName]) {
+        break;
+      }
+
+      const team = this.getOrCreateTeam(teams, personProps[columnName]);
+      person.teamPriorities.push(team);
+    }
+  }
+
+  private static getOrCreateTeam(teams: Team[], teamName: string): Team {
+    if (teamName === null || teamName === '')
+      return null;
+
+    const existingTeam = teams.find(team => team.name === teamName);
+
+    if (existingTeam) {
+      return existingTeam;
+    } else {
+      const newTeam = new Team(teamName);
+      teams.push(newTeam);
+      return newTeam;
+    }
+  }
+
+  static parsePerson(teams: Team[], personProps: any): Person {
     const person = new Person();
 
     person.firstName = personProps[CSVConstants.Person.FirstName];
@@ -30,12 +69,23 @@ export abstract class PersonParser {
     this.parsePersonDevices(person, personProps);
     this.parsePersonSkills(person, personProps);
     person.otherSkills = personProps[CSVConstants.Person.OtherSkills];
-    /* team priorities are parsed by team parser */
     person.studentComments = personProps[CSVConstants.Person.StudentComments];
     person.supervisorRating = this.parseSkillLevel(personProps[CSVConstants.Person.SupervisorRating]);
     person.tutorComments = personProps[CSVConstants.Person.TutorComments];
     if (personProps.hasOwnProperty(CSVConstants.Person.IsPinned))
       person.isPinned = personProps[CSVConstants.Person.IsPinned] === 'true';
+
+    this.parseTeamPriorities(teams, person, personProps);
+
+    if (person.tumId === undefined || person.tumId.length === 0) {
+      console.log('No tumId for person found. Cannot import.');
+      return null;
+    }
+
+    person.team = this.getOrCreateTeam(teams, personProps[CSVConstants.Team.TeamName]);
+
+    if (person.team)
+      person.team.persons.push(person);
 
     return person;
   }

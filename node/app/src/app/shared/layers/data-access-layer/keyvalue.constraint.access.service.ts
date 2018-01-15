@@ -9,8 +9,7 @@ import {SkillExpertConstraint} from '../../models/constraints/skill-expert.const
 import {SkillAdvancedConstraint} from '../../models/constraints/skill-advanced.constraint';
 import {SkillNormalConstraint} from '../../models/constraints/skill-normal.constraint';
 import {SkillNoviceConstraint} from '../../models/constraints/skill-novice.constraint';
-import {TeamAccessService} from './team.access.service';
-import {Team} from '../../models/team';
+import {CSVPersonDataAccessService} from './csv-person-data-access.service';
 
 /**
  * Created by Malte Bucksch on 23/02/2017.
@@ -18,7 +17,7 @@ import {Team} from '../../models/team';
 @Injectable()
 export class KeyValueConstraintAccessService extends ConstraintAccessService {
 
-  constructor(public teamAccessService: TeamAccessService) {
+  constructor() {
     super();
   }
 
@@ -61,16 +60,16 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
 
     for (const constraint of constraints) {
       const constraintClassDefinition = KeyValueConstraintAccessService.ConstraintDefinitionArray
-        .filter(constraintClassDefinition => {
-          return constraint instanceof constraintClassDefinition.classDefinition;
+        .filter(currentConstraintClassDefinition => {
+          return constraint instanceof currentConstraintClassDefinition.classDefinition;
         })[0];
 
       if (!constraintClassDefinition) {
         console.error('Unexpected constraint:', constraint);
       } else {
 
-        const teamName = constraint.getTeamName() || Team.SpecialTeamNameForGlobalConstraints;
-        const keyPrefix = this.getTeamBasedConstraintKeyPrefix(teamName) || '';
+        const teamName = constraint.getTeamName();
+        const keyPrefix = this.getTeamBasedConstraintKeyPrefix(teamName);
 
         const storageKey = keyPrefix + constraintClassDefinition.storageKey;
         localStorage.setItem(storageKey, this.serializeConstraint(constraint));
@@ -87,7 +86,7 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
       // global constraints
       KeyValueConstraintAccessService.ConstraintDefinitionArray.forEach(constraintClassDefinition => {
         const classDefinition = constraintClassDefinition.classDefinition;
-        const teamName = Team.SpecialTeamNameForGlobalConstraints;
+        const teamName = null;
         const keyPrefix = this.getTeamBasedConstraintKeyPrefix(teamName);
         const storageKey = keyPrefix + constraintClassDefinition.storageKey;
 
@@ -103,10 +102,10 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
       });
 
       // team-based constraints
-      this.teamAccessService.readSavedTeams().then(teams => {
+      CSVPersonDataAccessService.readDataFromBrowserStorage().then(data => {
+        const [persons, teams] = data;
 
         teams.forEach(team => {
-
           const teamName = team.name;
           const keyPrefix = this.getTeamBasedConstraintKeyPrefix(teamName);
 
@@ -127,7 +126,6 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
       });
 
       resolve(constraints);
-
     });
 
   }

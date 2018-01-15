@@ -1,4 +1,4 @@
-import {PersonSerializer} from '../layers/data-access-layer/serialization/PersonSerializer';
+import {PersonSerializer} from '../layers/data-access-layer/PersonSerializer';
 import {CSVConstants} from '../constants/csv.constants';
 /**
  * Created by Malte Bucksch on 09/12/2016.

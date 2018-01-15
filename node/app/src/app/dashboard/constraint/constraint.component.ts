@@ -10,7 +10,6 @@ import {Team} from '../../shared/models/team';
 export class ConstraintComponent implements OnInit {
   @Input() constraint: Constraint;
   ConstraintType = ConstraintType;
-  SpecialTeamNameForGlobalConstraints = Team.SpecialTeamNameForGlobalConstraints;
 
   constructor() { }
 

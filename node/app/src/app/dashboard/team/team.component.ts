@@ -1,7 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Team} from '../../shared/models/team';
 import {Person} from '../../shared/models/person';
-import {DashboardService} from '../dashboard.service';
 
 @Component({
   selector: 'app-team',
@@ -9,18 +8,17 @@ import {DashboardService} from '../dashboard.service';
   styleUrls: ['./team.component.scss']
 })
 export class TeamComponent implements OnInit {
-  @Input()
-  team: Team;
+  @Input() team: Team;
+  @Output() onPersonClicked = new EventEmitter<Person>();
 
   protected statisticsVisible = false;
 
-  constructor(public dashboardService: DashboardService) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
   showPersonDetails(person: Person) {
-    if (this.dashboardService.dashboard)
-      this.dashboardService.dashboard.showPersonDetails(person);
+    this.onPersonClicked.emit(person);
   }
 }

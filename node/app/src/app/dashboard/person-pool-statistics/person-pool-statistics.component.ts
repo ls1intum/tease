@@ -4,6 +4,7 @@ import {Skill, SkillLevel} from '../../shared/models/skill';
 import {Colors} from '../../shared/constants/color.constants';
 import {Device} from '../../shared/models/device';
 import {Gender} from '../../shared/models/person';
+import {TeamService} from '../../shared/layers/business-logic-layer/team.service';
 
 @Component({
   selector: 'app-person-pool-statistics',
@@ -11,8 +12,6 @@ import {Gender} from '../../shared/models/person';
   styleUrls: ['./person-pool-statistics.component.scss']
 })
 export class PersonPoolStatisticsComponent implements OnInit {
-  @Input() teams: Team[];
-
   priorityDistributionStatistics: Map<Team, number[]>;
   priorityDistributionLabels: [number, number][]; // label and space that it should take
   teamIndices: number[];
@@ -24,7 +23,7 @@ export class PersonPoolStatisticsComponent implements OnInit {
   Device = Device;
   Gender = Gender;
 
-  constructor() { }
+  constructor(public teamService: TeamService) { }
 
   ngOnInit() {
     this.updateStatistics();
@@ -32,15 +31,15 @@ export class PersonPoolStatisticsComponent implements OnInit {
 
   public updateStatistics() {
     this.calculateTeamDistributionStatistics();
-    this.teamIndices = this.teams.filter(team => team.name !== Team.OrphanTeamName).map((_, i) => i);
+    this.teamIndices = this.teamService.teams.map((_, i) => i);
   }
 
   private calculateTeamDistributionStatistics() {
     this.priorityDistributionStatistics = new Map();
-    this.teams.forEach(team =>
+    this.teamService.teams.forEach(team =>
       this.priorityDistributionStatistics.set(
         team,
-        this.teams.map((_, i) => this.getNumberOfVotesForTeamForPriority(team, i))
+        this.teamService.teams.map((_, i) => this.getNumberOfVotesForTeamForPriority(team, i))
       )
     );
 
@@ -75,7 +74,7 @@ export class PersonPoolStatisticsComponent implements OnInit {
   }
 
   getNumberOfPersons(): number {
-    return this.teams.reduce((acc, team) => acc + team.persons.length, 0);
+    return this.teamService.persons.length;
   }
 
   getTotalNumberOfPersonsWithMacDevice(): number {
@@ -93,8 +92,6 @@ export class PersonPoolStatisticsComponent implements OnInit {
   }
 
   private getNumberOfPersonsWithPredicate(predicate: (Person) => boolean): number {
-    return this.teams.reduce(
-      (totalMatchesAcc, curTeam) => totalMatchesAcc + curTeam.persons.reduce(
-        (matchesPerTeamAcc, curPerson) => matchesPerTeamAcc + (predicate(curPerson) ? 1 : 0), 0), 0);
+    return this.teamService.persons.reduce((acc, curPerson) => acc + (predicate(curPerson) ? 1 : 0), 0);
   }
 }

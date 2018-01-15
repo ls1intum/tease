@@ -3,10 +3,9 @@ import {Person} from '../../shared/models/person';
 import {Skill, SkillLevel} from '../../shared/models/skill';
 import {Colors} from '../../shared/constants/color.constants';
 import {Device} from '../../shared/models/device';
-import {Team} from '../../shared/models/team';
 import {IconMapperService} from '../../shared/ui/icon-mapper.service';
 import {OverlayComponent} from '../../overlay.service';
-import {CSVConstants} from "../../shared/constants/csv.constants";
+import {CSVConstants} from '../../shared/constants/csv.constants';
 
 @Component({
   selector: 'app-person-detail-overlay',
@@ -23,18 +22,18 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
 
   protected getLabelForSkillLevel = Skill.getLabelForSkillLevel;
   protected getSkillColor = Colors.getColor;
-  protected getGravatarIcon = this.iconMapperService.getGravatarIcon;
+  protected getGravatarIcon = IconMapperService.getGravatarIcon;
 
   Device = Device;
   CSVConstants = CSVConstants;
   SkillLevel = SkillLevel;
 
-  constructor(private iconMapperService: IconMapperService) { }
+  constructor() { }
 
   ngOnInit() {}
 
   getGenderIconPath(): string {
-    return this.iconMapperService.getGenderIconPath(this.data.person.gender);
+    return IconMapperService.getGenderIconPath(this.data.person.gender);
   }
 
   isPersonRated(): boolean {
@@ -46,7 +45,7 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
   }
 
   getDeviceIconPath(device: Device): string {
-    return this.iconMapperService.getDeviceTypeIconPath(device);
+    return IconMapperService.getDeviceTypeIconPath(device);
   }
 
   filterSkills(skills: Skill[], skillLevel: number) {
@@ -58,6 +57,6 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
   }
 
   isInTeam(person: Person): boolean {
-    return person.team.name !== Team.OrphanTeamName;
+    return person.team !== null;
   }
 }

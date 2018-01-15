@@ -28,7 +28,9 @@ export class AppComponent implements OverlayServiceHost {
   }
 
   exportData() {
-    this.teamService.exportTeams();
+    this.teamService.saveToLocalBrowserStorage().then(success => {
+      this.teamService.exportSavedState();
+    });
   }
 
   showResetTeamAllocationConfirmation() {
@@ -48,7 +50,8 @@ export class AppComponent implements OverlayServiceHost {
       action: 'Sort',
       actionDescription: 'Sorting all teams will destroy the current order of persons.',
       onConfirmed: () => {
-        this.dashboardComponent.sortTeams();
+        this.teamService.sortPersons();
+        this.teamService.saveToLocalBrowserStorage();
         this.overlayService.closeOverlay();
       },
       onCancelled: () => this.overlayService.closeOverlay()
@@ -57,8 +60,7 @@ export class AppComponent implements OverlayServiceHost {
 
   showImportOverlay() {
     this.overlayService.displayComponent(ImportOverlayComponent, {
-      onTeamsImported: (teams) => {
-        this.dashboardComponent.loadTeams(teams);
+      onTeamsImported: () => {
         this.overlayService.closeOverlay();
       },
       overwriteWarning: this.dashboardComponent.isDataLoaded()
