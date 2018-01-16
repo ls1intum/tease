@@ -36,9 +36,11 @@ export class AppComponent implements OverlayServiceHost {
   showResetTeamAllocationConfirmation() {
     this.overlayService.displayComponent(ConfirmationOverlayComponent, {
       action: 'Reset',
-      actionDescription: 'Resetting the team allocation will remove all persons from their teams.',
+      actionDescription: 'Resetting the team allocation will unpin all persons and remove them from their teams.',
       onConfirmed: () => {
-        this.dashboardComponent.resetTeamAllocation();
+        this.teamService.resetPinnedStatus();
+        this.teamService.resetTeamAllocation();
+        this.teamService.saveToLocalBrowserStorage();
         this.overlayService.closeOverlay();
       },
       onCancelled: () => this.overlayService.closeOverlay()

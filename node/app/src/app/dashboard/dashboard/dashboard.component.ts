@@ -39,11 +39,6 @@ export class DashboardComponent implements OnInit {
     this.teamService.readFromBrowserStorage();
   }
 
-  public resetTeamAllocation() {
-    this.teamService.resetTeamAllocation();
-    this.teamService.saveToLocalBrowserStorage();
-  }
-
   getPersonPoolDisplayModeCSSClass(value: PersonPoolDisplayMode): string {
     return `person-pool-display-mode-${PersonPoolDisplayMode[value].toLowerCase()}`;
   }
@@ -73,7 +68,7 @@ export class DashboardComponent implements OnInit {
   openConstraintsDialog() {
     this.overlayService.displayComponent(
       ConstraintsOverlayComponent,
-      {onTeamsGenerated: () => this.teamService.readFromBrowserStorage(), displayWarning: !this.areAllTeamsEmpty()}
+      { displayWarning: !this.areAllTeamsEmpty() }
     );
   }
 

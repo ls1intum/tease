@@ -44,6 +44,10 @@ export class TeamService {
     this.updateDerivedProperties();
   }
 
+  public resetPinnedStatus() {
+    this.persons.forEach(person => person.isPinned = false);
+  }
+
   public readFromBrowserStorage(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       CSVPersonDataAccessService.readDataFromBrowserStorage().then(data => {
@@ -95,5 +99,14 @@ export class TeamService {
 
   public clearSavedData() {
     CSVPersonDataAccessService.clearSavedData();
+  }
+
+  resetUnpinnedPersons() {
+    this.teams.forEach(team => {
+      const personsToRemove = team.persons.filter(person => !person.isPinned);
+      team.persons = team.persons.filter(person => person.isPinned);
+      personsToRemove.forEach(person => person.team = null);
+      this.personsWithoutTeam.push(...personsToRemove);
+    });
   }
 }

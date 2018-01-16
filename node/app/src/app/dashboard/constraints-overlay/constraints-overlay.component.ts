@@ -14,7 +14,7 @@ import {TeamService} from '../../shared/layers/business-logic-layer/team.service
 export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayComponent {
   private static readonly noFeasibleSolutionHintTimeout = 2000;
 
-  public data: { onTeamsGenerated: (() => void), displayWarning: boolean };
+  public data: { displayWarning: boolean };
   protected constraints: Constraint[];
   protected teamsWithVisibleConstraints: Team[] = [];
   noFeasibleSolutionHintShown = false;
@@ -49,9 +49,10 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
 
   public applyConstraints() {
     this.constraintService.saveConstraints(this.constraints);
+    this.teamService.resetUnpinnedPersons();
 
-    this.teamGenerationService.generate(this.teamService.persons, this.teamService.teams).then(generatedTeams => {
-      if (generatedTeams == null) {
+    this.teamGenerationService.generate(this.teamService.persons, this.teamService.teams).then(feasible => {
+      if (!feasible) {
         clearTimeout(this.noFeasibleSolutionHintTimeoutHandle);
         this.noFeasibleSolutionHintShown = true;
 
@@ -61,10 +62,10 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
         return;
       }
 
-      this.teamService.saveToLocalBrowserStorage().then(success => {
-        this.overlayService.closeOverlay();
-        this.data.onTeamsGenerated();
-      });
+      // this.teamService.updateReverseReferences();
+      this.teamService.updateDerivedProperties();
+      this.overlayService.closeOverlay();
+      this.teamService.saveToLocalBrowserStorage();
     });
   }
 

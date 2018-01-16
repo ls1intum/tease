@@ -10,7 +10,7 @@ import {SkillLevel} from '../../../models/skill';
 
 @Injectable()
 export class BalancedTeamGenerationService implements TeamGenerationService {
-  generate(persons: Person[], teams: Team[]): Promise<Team[]> {
+  generate(persons: Person[], teams: Team[]): Promise<boolean> {
     teams.forEach(team => team.clear());
 
     const skillTypes = this.getSkillLevelKeys();
@@ -20,7 +20,7 @@ export class BalancedTeamGenerationService implements TeamGenerationService {
       this.distributePersonsEqually(similarPersons, teams);
     }
 
-    return Promise.resolve(teams);
+    return Promise.resolve(true);
   }
 
   private distributePersonsEqually(persons: Person[], teams: Team[]) {

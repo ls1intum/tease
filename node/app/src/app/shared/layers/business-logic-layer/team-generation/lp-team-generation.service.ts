@@ -195,10 +195,10 @@ export class LPTeamGenerationService implements TeamGenerationService {
    * Distributes persons to teams according to set constraints.
    *
    * @param {Team[]} teams that the persons are distributed to, can be prepopulated
-   * @returns {Promise<Team[]>} that is resolved with the updated teams if a feasible solution was found or with null
+   * @returns {Promise<boolean>} that indicates if a feasible solution was found
    * else.
    */
-  generate(persons: Person[], teams: Team[]): Promise<Team[]> {
+  generate(persons: Person[], teams: Team[]): Promise<boolean> {
 
     return new Promise((resolve, reject) => {
 
@@ -370,11 +370,11 @@ export class LPTeamGenerationService implements TeamGenerationService {
             }
           }
 
-          resolve(teams);
+          resolve(true);
         } else {
           console.log('No solution was found with the given constraints. Reverted assignment to last state.');
 
-          resolve(null);
+          resolve(false);
         }
 
 
