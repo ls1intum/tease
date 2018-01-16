@@ -137,7 +137,6 @@
           </div>
         </div>
 
-
         <!-- sudent comments -->
         <div class="heading">Student Comments</div>
         <div *ngIf="data.person.studentComments.length > 0" class="quote-text align-self-start">
@@ -204,7 +203,7 @@
   <!-- team container -->
   <div class="hidden-scrollbar-parent team-container">
     <div class="hidden-scrollbar-child flex-column">
-      <app-team *ngIf="isInTeam(data.person)" [team]="data.person.team"></app-team>
+      <app-team *ngIf="isInTeam(data.person)" [team]="data.person.team" (onPersonClicked)="data.onPersonClicked(person)"></app-team>
     </div>
   </div>
 </div>

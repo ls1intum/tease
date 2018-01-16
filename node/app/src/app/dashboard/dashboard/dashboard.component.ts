@@ -64,7 +64,8 @@ export class DashboardComponent implements OnInit {
       person: person,
       onClose: () => this.teamService.saveToLocalBrowserStorage(),
       onNextPersonClicked: () => this.showPersonDetails(this.teamService.personsWithoutTeam[indexOfPerson + 1]),
-      onPreviousPersonClicked: () => this.showPersonDetails(this.teamService.personsWithoutTeam[indexOfPerson - 1])
+      onPreviousPersonClicked: () => this.showPersonDetails(this.teamService.personsWithoutTeam[indexOfPerson - 1]),
+      onPersonClicked: clickedPerson => this.showPersonDetails(clickedPerson)
     });
   }
 
@@ -92,9 +93,5 @@ export class DashboardComponent implements OnInit {
   onPersonPoolDisplayModeChange() {
     if (this.personPoolDisplayMode !== PersonPoolDisplayMode.Full && this.statisticsVisible)
       this.togglePersonPoolStatistics();
-  }
-
-  onPersonClicked(person: Person) {
-    this.showPersonDetails(person);
   }
 }

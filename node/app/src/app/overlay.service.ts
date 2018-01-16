@@ -17,7 +17,7 @@ export class OverlayService {
   constructor() { }
 
   public displayComponent(component: Type<OverlayComponent>, data: any) {
-    if(this.displayedComponentData && this.displayedComponentData.onClose) {
+    if (this.displayedComponentData && this.displayedComponentData.onClose) {
       this.displayedComponentData.onClose();
     }
 
@@ -28,7 +28,7 @@ export class OverlayService {
   }
 
   public closeOverlay() {
-    if(this.displayedComponentData && this.displayedComponentData.onClose) {
+    if (this.displayedComponentData && this.displayedComponentData.onClose) {
       this.displayedComponentData.onClose();
     }
 

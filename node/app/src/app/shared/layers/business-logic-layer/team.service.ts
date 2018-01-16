@@ -85,9 +85,12 @@ export class TeamService {
   }
 
   public saveToLocalBrowserStorage(): Promise<boolean> {
+    console.log('saving...');
+
     return new Promise((resolve, reject) => {
       this.updateReverseReferences();
       CSVPersonDataAccessService.saveToBrowserStorage(this.persons).then(success => {
+        console.log('done');
         resolve(success);
       });
     });

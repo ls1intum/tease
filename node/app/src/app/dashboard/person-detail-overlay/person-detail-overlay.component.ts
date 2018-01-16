@@ -6,6 +6,7 @@ import {Device} from '../../shared/models/device';
 import {IconMapperService} from '../../shared/ui/icon-mapper.service';
 import {OverlayComponent} from '../../overlay.service';
 import {CSVConstants} from '../../shared/constants/csv.constants';
+import {TeamService} from "../../shared/layers/business-logic-layer/team.service";
 
 @Component({
   selector: 'app-person-detail-overlay',
@@ -17,7 +18,8 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
     person: Person,
     onClose: () => void,
     onNextPersonClicked: () => void,
-    onPreviousPersonClicked: () => void
+    onPreviousPersonClicked: () => void,
+    onPersonClicked: (Person) => void;
   };
 
   protected getLabelForSkillLevel = Skill.getLabelForSkillLevel;

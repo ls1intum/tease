@@ -17,8 +17,4 @@ export class TeamComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  showPersonDetails(person: Person) {
-    this.onPersonClicked.emit(person);
-  }
 }
