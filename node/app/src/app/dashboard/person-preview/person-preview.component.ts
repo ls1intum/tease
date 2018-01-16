@@ -4,6 +4,7 @@ import {Colors} from '../../shared/constants/color.constants';
 import {Skill, SkillLevel} from '../../shared/models/skill';
 import {Device} from '../../shared/models/device';
 import {IconMapperService} from '../../shared/ui/icon-mapper.service';
+import {TeamService} from '../../shared/layers/business-logic-layer/team.service';
 
 @Component({
   selector: 'app-person-preview',
@@ -24,11 +25,9 @@ export class PersonPreviewComponent implements OnInit {
   protected getLabelForSkillLevel = Skill.getLabelForSkillLevel;
   protected getDeviceTypeIconPath = IconMapperService.getDeviceTypeIconPath;
 
-  constructor() { }
+  constructor(public teamService: TeamService) { }
 
-  ngOnInit() {
-    console.log(this.person);
-  }
+  ngOnInit() { }
 
   isPersonRated(): boolean {
     return this.person.supervisorRating !== undefined && this.person.supervisorRating !== SkillLevel.None;

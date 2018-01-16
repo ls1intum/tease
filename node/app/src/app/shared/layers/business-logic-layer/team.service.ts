@@ -17,9 +17,6 @@ export class TeamService {
 
   private load(data: [Person[], Team[]]) {
     [this.persons, this.teams] = data;
-
-    console.log('TeamService::load(', this.persons, this.teams, ')');
-
     this.updateDerivedProperties();
   }
 
