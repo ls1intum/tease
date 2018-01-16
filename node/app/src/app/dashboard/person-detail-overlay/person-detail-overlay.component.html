@@ -203,7 +203,9 @@
   <!-- team container -->
   <div class="hidden-scrollbar-parent team-container">
     <div class="hidden-scrollbar-child flex-column">
-      <app-team *ngIf="isInTeam(data.person)" [team]="data.person.team" (onPersonClicked)="data.onPersonClicked(person)"></app-team>
+      <app-team *ngIf="isInTeam(data.person)"
+                [team]="data.person.team"
+                (onPersonClicked)="data.onPersonClicked($event)"></app-team>
     </div>
   </div>
 </div>
