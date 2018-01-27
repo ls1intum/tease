@@ -66,7 +66,7 @@
     <div [dragula]='"first-bag"' class='flex-column person-pool-preview-row flex-wrap flex-grow'
          [dragulaModel]="teamService.personsWithoutTeam">
       <app-person-preview *ngFor="let person of teamService.personsWithoutTeam" [person]="person"
-                          (click)="showPersonDetails(person)"></app-person-preview>
+                          (click)="showPersonDetails(person)" [pinable]="false"></app-person-preview>
     </div>
   </div>
 </div>

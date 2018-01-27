@@ -12,8 +12,8 @@ import {TeamService} from '../../shared/layers/business-logic-layer/team.service
   styleUrls: ['./person-preview.component.scss']
 })
 export class PersonPreviewComponent implements OnInit {
-  @Input()
-  person: Person;
+  @Input() person: Person;
+  @Input() pinable = true;
 
   SkillLevel = SkillLevel;
   Device = Device;
@@ -27,7 +27,10 @@ export class PersonPreviewComponent implements OnInit {
 
   constructor(public teamService: TeamService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    if(!this.pinable)
+      this.person.isPinned = false;
+  }
 
   isPersonRated(): boolean {
     return this.person.supervisorRating !== undefined && this.person.supervisorRating !== SkillLevel.None;

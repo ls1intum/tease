@@ -52,7 +52,7 @@
   </div>
 
   <!-- floating pin button -->
-  <div class="pin-button flex-row flex-justify-center flex-center"
+  <div *ngIf="pinable" class="pin-button flex-row flex-justify-center flex-center"
        (click)="person.isPinned = !person.isPinned; teamService.saveToLocalBrowserStorage(); $event.stopPropagation();"
        [class.pin-button-active]="person.isPinned">
     <img *ngIf="!person.isPinned" class="pin-icon" src="/assets/images/pin-outline.png">
