@@ -19,6 +19,7 @@ import {ConstraintsOverlayComponent} from './dashboard/constraints-overlay/const
 import {TeamGenerationService} from './shared/layers/business-logic-layer/team-generation/team-generation.service';
 import {LPTeamGenerationService} from './shared/layers/business-logic-layer/team-generation/lp-team-generation.service';
 import {ConfirmationOverlayComponent} from './dashboard/confirmation-overlay/confirmation-overlay.component';
+import {PersonHighlightingOverlayComponent} from './dashboard/person-highlighting-overlay/person-highlighting-overlay.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {ConfirmationOverlayComponent} from './dashboard/confirmation-overlay/con
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    PersonDetailOverlayComponent, ImportOverlayComponent, ConstraintsOverlayComponent, ConfirmationOverlayComponent
+    PersonDetailOverlayComponent, ImportOverlayComponent, ConstraintsOverlayComponent, ConfirmationOverlayComponent,
+    PersonHighlightingOverlayComponent
   ]
 })
 export class AppModule { }

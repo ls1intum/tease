@@ -5,6 +5,7 @@ import {OverlayHostDirective} from './overlay-host.directive';
 import {OverlayComponent, OverlayService, OverlayServiceHost} from './overlay.service';
 import {ImportOverlayComponent} from "./dashboard/import-overlay/import-overlay.component";
 import {ConfirmationOverlayComponent} from "./dashboard/confirmation-overlay/confirmation-overlay.component";
+import {PersonHighlightingOverlayComponent} from "./dashboard/person-highlighting-overlay/person-highlighting-overlay.component";
 
 @Component({
   selector: 'app-root',
@@ -67,6 +68,10 @@ export class AppComponent implements OverlayServiceHost {
       },
       overwriteWarning: this.dashboardComponent.isDataLoaded()
     });
+  }
+
+  showPersonHighlightingOverlay() {
+    this.overlayService.displayComponent(PersonHighlightingOverlayComponent, {});
   }
 
   /* OverlayServiceHost interface */

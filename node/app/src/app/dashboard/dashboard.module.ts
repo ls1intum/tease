@@ -8,6 +8,7 @@ import { PersonPreviewComponent } from './person-preview/person-preview.componen
 import {DragulaModule} from 'ng2-dragula';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
 import { PersonDetailOverlayComponent } from './person-detail-overlay/person-detail-overlay.component';
 import { TeamStatisticsComponent } from './team-statistics/team-statistics.component';
 import { TeamPrioritiesChartComponent } from './team-priorities-chart/team-priorities-chart.component';
@@ -17,17 +18,19 @@ import { ConstraintsOverlayComponent } from './constraints-overlay/constraints-o
 import { ConstraintComponent } from './constraint/constraint.component';
 import {ConfirmationOverlayComponent} from './confirmation-overlay/confirmation-overlay.component';
 import { PersonPoolStatisticsComponent } from './person-pool-statistics/person-pool-statistics.component';
+import { PersonHighlightingOverlayComponent } from './person-highlighting-overlay/person-highlighting-overlay.component';
 
 @NgModule({
   imports: [
     CommonModule, BrowserAnimationsModule, MdButtonModule, MdIconModule, MdSlideToggleModule, MdTooltipModule,
-    DragulaModule, FormsModule, NgbModule, ChartsModule
+    DragulaModule, FormsModule, NgbModule, ChartsModule, MatSelectModule
   ],
   declarations: [
     DashboardComponent, TeamComponent, PersonPreviewComponent, PersonDetailOverlayComponent, TeamStatisticsComponent,
     TeamPrioritiesChartComponent, ImportOverlayComponent, ConstraintsOverlayComponent, ConstraintComponent,
     ConfirmationOverlayComponent,
-    PersonPoolStatisticsComponent
+    PersonPoolStatisticsComponent,
+    PersonHighlightingOverlayComponent
   ],
   exports: [DashboardComponent, PersonDetailOverlayComponent, ImportOverlayComponent],
   providers: [],

@@ -58,5 +58,15 @@
         </div>
       </button>
     </div>
+
+    <div class="buttons-overlay-item pointer-events-auto">
+      <div class="highlight-toolbar flex-row flex-center">
+        <div class="highlight-toolbar-heading">Highlighting</div>
+        <div class="highlight-toolbar-none-text">None</div>
+        <button md-icon-button (click)="showPersonHighlightingOverlay()" [class.icon-button-highlight]="false">
+          <i class="material-icons">settings</i>
+        </button>
+      </div>
+    </div>
   </div>
 </div>
