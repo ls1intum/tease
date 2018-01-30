@@ -1,11 +1,16 @@
 import {PersonConstraint} from './person-constraint';
 import {Person} from '../person';
 import {SkillLevel} from '../skill';
-import {DevicePossessionPersonConstraint} from "./device-possession-person-constraint";
 
 export class ExperiencePersonConstraint extends PersonConstraint {
   minimumExperience: SkillLevel = SkillLevel.Low;
   skillName: string;
+
+  static getTyped(constraint: PersonConstraint): ExperiencePersonConstraint {
+    if (constraint instanceof ExperiencePersonConstraint)
+      return constraint;
+    return null;
+  }
 
   isFullfilledFor(person: Person): boolean {
     const skill = person.skills.find(s => s.name === this.skillName);

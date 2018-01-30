@@ -24,6 +24,11 @@ export class PersonHighlightingOverlayComponent implements OnInit, OverlayCompon
   CSVConstants = CSVConstants;
   Gender = Gender;
   Device = Device;
+  InstructorRatingPersonConstraint = InstructorRatingPersonConstraint;
+  InterestPersonConstraint = InterestPersonConstraint;
+  ExperiencePersonConstraint = ExperiencePersonConstraint;
+  DevicePossessionPersonConstraint = DevicePossessionPersonConstraint;
+  GenderPersonConstraint = GenderPersonConstraint;
 
   skillNames = CSVConstants.Skills.SkillNameAbbreviationPairs.map(pair => pair[0]);
   personConstraintsCopy: PersonConstraint[] = PersonConstraintService.personConstraints.map(c => c.copy());
@@ -65,41 +70,6 @@ export class PersonHighlightingOverlayComponent implements OnInit, OverlayCompon
 
   addDeviceConstraint() {
     this.personConstraintsCopy.push(new DevicePossessionPersonConstraint());
-  }
-
-  getIntructorRatingConstraint(personConstraint: PersonConstraint): PersonConstraint {
-    if (personConstraint instanceof  InstructorRatingPersonConstraint)
-      return personConstraint;
-
-    return null;
-  }
-
-  getInterestPersonConstraint(personConstraint: PersonConstraint) {
-    if (personConstraint instanceof InterestPersonConstraint)
-      return personConstraint;
-
-    return null;
-  }
-
-  getExperiencePersonConstraint(personConstraint: PersonConstraint) {
-    if (personConstraint instanceof ExperiencePersonConstraint)
-      return personConstraint;
-
-    return null;
-  }
-
-  getGenderPersonConstraint(personConstraint: PersonConstraint) {
-    if (personConstraint instanceof GenderPersonConstraint)
-      return personConstraint;
-
-    return null;
-  }
-
-  getDevicePossessionPersonConstraint(personConstraint: PersonConstraint) {
-    if (personConstraint instanceof DevicePossessionPersonConstraint)
-      return personConstraint;
-
-    return null;
   }
 
   removeConstraint(constraint: PersonConstraint) {

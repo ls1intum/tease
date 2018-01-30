@@ -7,12 +7,13 @@
     <div *ngIf="personConstraintsCopy.length === 0" class="no-constraints-hint align-self-center">No Constraints Configured</div>
 
     <div class="flex-row flex-center person-constraint" *ngFor="let personConstraint of personConstraintsCopy">
-      <div *ngIf="getIntructorRatingConstraint(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
+      <div *ngIf="InstructorRatingPersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
         <div>Instructor Rating </div>
         <div class="comparator-container flex-row flex-center flex-justify-center">
           <div>≥</div>
         </div>
-        <md-select [(value)]="getIntructorRatingConstraint(personConstraint).minimumRating">
+        
+        <md-select [(value)]="InstructorRatingPersonConstraint.getTyped(personConstraint).minimumRating">
           <md-option [value]="SkillLevel.Low">{{ Skill.getLabelForSkillLevel(SkillLevel.Low) }}</md-option>
           <md-option [value]="SkillLevel.Medium">{{ Skill.getLabelForSkillLevel(SkillLevel.Medium) }}</md-option>
           <md-option [value]="SkillLevel.High">{{ Skill.getLabelForSkillLevel(SkillLevel.High) }}</md-option>
@@ -20,15 +21,15 @@
         </md-select>
       </div>
 
-      <div *ngIf="getExperiencePersonConstraint(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
+      <div *ngIf="ExperiencePersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
         <div>Experience in </div>
-        <md-select [(value)]="getExperiencePersonConstraint(personConstraint).skillName">
+        <md-select [(value)]="ExperiencePersonConstraint.getTyped(personConstraint).skillName">
           <md-option *ngFor="let skillName of skillNames" [value]="skillName">{{ skillName }}</md-option>
         </md-select>
         <div class="comparator-container flex-row flex-center flex-justify-center">
           <div>≥</div>
         </div>
-        <md-select [(value)]="getExperiencePersonConstraint(personConstraint).minimumExperience">
+        <md-select [(value)]="ExperiencePersonConstraint.getTyped(personConstraint).minimumExperience">
           <md-option [value]="SkillLevel.Low">{{ CSVConstants.Skills.SkillLevelAnswers[SkillLevel.Low] }}</md-option>
           <md-option [value]="SkillLevel.Medium">{{ CSVConstants.Skills.SkillLevelAnswers[SkillLevel.Medium] }}</md-option>
           <md-option [value]="SkillLevel.High">{{ CSVConstants.Skills.SkillLevelAnswers[SkillLevel.High] }}</md-option>
@@ -36,15 +37,15 @@
         </md-select>
       </div>
 
-      <div *ngIf="getInterestPersonConstraint(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
+      <div *ngIf="InterestPersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
         <div>Interest in </div>
-        <md-select [(value)]="getInterestPersonConstraint(personConstraint).skillName">
+        <md-select [(value)]="InterestPersonConstraint.getTyped(personConstraint).skillName">
           <md-option *ngFor="let skillName of skillNames" [value]="skillName">{{ skillName }}</md-option>
         </md-select>
         <div class="comparator-container flex-row flex-center flex-justify-center">
           <div>≥</div>
         </div>
-        <md-select [(value)]="getInterestPersonConstraint(personConstraint).minimumInterest">
+        <md-select [(value)]="InterestPersonConstraint.getTyped(personConstraint).minimumInterest">
           <md-option [value]="SkillLevel.Low">{{ CSVConstants.Skills.InterestLevelAnswers[SkillLevel.Low] }}</md-option>
           <md-option [value]="SkillLevel.Medium">{{ CSVConstants.Skills.InterestLevelAnswers[SkillLevel.Medium] }}</md-option>
           <md-option [value]="SkillLevel.High">{{ CSVConstants.Skills.InterestLevelAnswers[SkillLevel.High] }}</md-option>
@@ -52,20 +53,20 @@
         </md-select>
       </div>
 
-      <div *ngIf="getGenderPersonConstraint(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
+      <div *ngIf="GenderPersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
         <div>Gender </div>
         <div class="comparator-container flex-row flex-center flex-justify-center">
           <div>=</div>
         </div>
-        <md-select [(value)]="getGenderPersonConstraint(personConstraint).gender">
+        <md-select [(value)]="GenderPersonConstraint.getTyped(personConstraint).gender">
           <md-option [value]="Gender.Female">Female</md-option>
           <md-option [value]="Gender.Male">Male</md-option>
         </md-select>
       </div>
 
-      <div *ngIf="getDevicePossessionPersonConstraint(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
+      <div *ngIf="DevicePossessionPersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
         <div>In Possession of </div>
-        <md-select [(value)]="getDevicePossessionPersonConstraint(personConstraint).device">
+        <md-select [(value)]="DevicePossessionPersonConstraint.getTyped(personConstraint).device">
           <md-option [value]="Device.Iphone">{{ Device[Device.Iphone] }}</md-option>
           <md-option [value]="Device.Ipad">{{ Device[Device.Ipad] }}</md-option>
           <md-option [value]="Device.Mac">{{ Device[Device.Mac] }}</md-option>

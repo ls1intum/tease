@@ -6,6 +6,12 @@ import {GenderPersonConstraint} from "./gender-person-constraint";
 export class InstructorRatingPersonConstraint extends PersonConstraint {
   minimumRating: SkillLevel = SkillLevel.Low;
 
+  static getTyped(constraint: PersonConstraint): InstructorRatingPersonConstraint {
+    if (constraint instanceof InstructorRatingPersonConstraint)
+    return constraint;
+    return null;
+  }
+
   isFullfilledFor(person: Person): boolean {
     return person.supervisorRating >= this.minimumRating;
   }

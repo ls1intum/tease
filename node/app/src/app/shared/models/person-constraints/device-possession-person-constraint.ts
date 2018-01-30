@@ -6,6 +6,13 @@ import {Device} from "../device";
 export class DevicePossessionPersonConstraint extends PersonConstraint {
   device: Device = Device.Mac;
 
+  static getTyped(constraint: PersonConstraint): DevicePossessionPersonConstraint {
+    if (constraint instanceof DevicePossessionPersonConstraint)
+      return constraint;
+
+    return null;
+  }
+
   isFullfilledFor(person: Person): boolean {
     return person.devices.find(d => d === this.device) !== undefined;
   }
@@ -15,4 +22,5 @@ export class DevicePossessionPersonConstraint extends PersonConstraint {
     newConstraint.device = this.device;
     return newConstraint;
   }
+
 }

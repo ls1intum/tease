@@ -6,6 +6,12 @@ import {ExperiencePersonConstraint} from "./experience-person-constraint";
 export class GenderPersonConstraint extends PersonConstraint {
   gender: Gender = Gender.Female;
 
+  static getTyped(constraint: PersonConstraint): GenderPersonConstraint {
+    if (constraint instanceof GenderPersonConstraint)
+    return constraint;
+    return null;
+  }
+
   isFullfilledFor(person: Person): boolean {
     return person.gender === this.gender;
   }

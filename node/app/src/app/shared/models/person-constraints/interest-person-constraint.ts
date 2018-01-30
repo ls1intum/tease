@@ -7,6 +7,12 @@ export class InterestPersonConstraint extends PersonConstraint {
   minimumInterest: SkillLevel = SkillLevel.Low;
   skillName: string;
 
+  static getTyped(constraint: PersonConstraint): InterestPersonConstraint {
+    if (constraint instanceof InterestPersonConstraint)
+    return constraint;
+    return null;
+  }
+
   isFullfilledFor(person: Person): boolean {
     const skill = person.skills.find(s => s.name === this.skillName);
 
