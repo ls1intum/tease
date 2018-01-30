@@ -17,6 +17,10 @@
   width: 288px;
 }
 
+.person-card-inactive {
+  filter: grayscale(100%);
+}
+
 .border-box {
   border: $standard-border;
   border-top-left-radius: 3px;

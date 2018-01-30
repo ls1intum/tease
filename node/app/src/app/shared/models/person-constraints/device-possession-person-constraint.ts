@@ -7,6 +7,12 @@ export class DevicePossessionPersonConstraint extends PersonConstraint {
   device: Device = Device.Mac;
 
   isFullfilledFor(person: Person): boolean {
-    return person.devices.find(d => d === this.device) !== null;
+    return person.devices.find(d => d === this.device) !== undefined;
+  }
+
+  copy(): PersonConstraint {
+    const newConstraint = new DevicePossessionPersonConstraint();
+    newConstraint.device = this.device;
+    return newConstraint;
   }
 }

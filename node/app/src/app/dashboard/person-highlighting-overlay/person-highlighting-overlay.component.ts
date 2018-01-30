@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {OverlayComponent} from '../../overlay.service';
+import {OverlayComponent, OverlayService} from '../../overlay.service';
 import {PersonConstraintService} from '../../shared/layers/business-logic-layer/person-constraint.service';
 import {InstructorRatingPersonConstraint} from '../../shared/models/person-constraints/instructor-rating-person-constraint';
 import {PersonConstraint} from '../../shared/models/person-constraints/person-constraint';
@@ -10,7 +10,7 @@ import {GenderPersonConstraint} from '../../shared/models/person-constraints/gen
 import {DevicePossessionPersonConstraint} from '../../shared/models/person-constraints/device-possession-person-constraint';
 import {CSVConstants} from '../../shared/constants/csv.constants';
 import {Gender} from '../../shared/models/person';
-import {Device} from "../../shared/models/device";
+import {Device} from '../../shared/models/device';
 
 @Component({
   selector: 'app-person-highlighting-overlay',
@@ -26,43 +26,45 @@ export class PersonHighlightingOverlayComponent implements OnInit, OverlayCompon
   Device = Device;
 
   skillNames = CSVConstants.Skills.SkillNameAbbreviationPairs.map(pair => pair[0]);
+  personConstraintsCopy: PersonConstraint[] = PersonConstraintService.personConstraints.map(c => c.copy());
 
   public data: any;
   console = console;
 
   dropdownVisible = false;
 
-  constructor() { }
+  constructor(private overlayService: OverlayService) { }
 
   ngOnInit() {
   }
 
-  cancel() {
-
-  }
-
   save() {
-
+    PersonConstraintService.personConstraints = this.personConstraintsCopy;
+    this.overlayService.closeOverlay();
   }
 
   addInstructorRatingConstraint() {
-    PersonConstraintService.personConstraints.push(new InstructorRatingPersonConstraint());
+    this.personConstraintsCopy.push(new InstructorRatingPersonConstraint());
   }
 
   addInterestLevelConstraint() {
-    PersonConstraintService.personConstraints.push(new InterestPersonConstraint());
+    const newConstraint = new InterestPersonConstraint();
+    newConstraint.skillName = this.skillNames[0];
+    this.personConstraintsCopy.push(newConstraint);
   }
 
   addExperienceConstraint() {
-    PersonConstraintService.personConstraints.push(new ExperiencePersonConstraint());
+    const newConstraint = new ExperiencePersonConstraint();
+    newConstraint.skillName = this.skillNames[0];
+    this.personConstraintsCopy.push(newConstraint);
   }
 
   addGenderConstraint() {
-    PersonConstraintService.personConstraints.push(new GenderPersonConstraint());
+    this.personConstraintsCopy.push(new GenderPersonConstraint());
   }
 
   addDeviceConstraint() {
-    PersonConstraintService.personConstraints.push(new DevicePossessionPersonConstraint());
+    this.personConstraintsCopy.push(new DevicePossessionPersonConstraint());
   }
 
   getIntructorRatingConstraint(personConstraint: PersonConstraint): PersonConstraint {
@@ -101,6 +103,6 @@ export class PersonHighlightingOverlayComponent implements OnInit, OverlayCompon
   }
 
   removeConstraint(constraint: PersonConstraint) {
-    PersonConstraintService.personConstraints = PersonConstraintService.personConstraints.filter(c => c !== constraint);
+    this.personConstraintsCopy = this.personConstraintsCopy.filter(c => c !== constraint);
   }
 }
