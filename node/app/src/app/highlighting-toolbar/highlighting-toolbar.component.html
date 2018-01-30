@@ -1,0 +1,48 @@
+<div class="highlight-toolbar flex-row flex-center">
+  <div class="highlight-toolbar-heading">Highlighting</div>
+  <div *ngIf="PersonConstraintService.personConstraints.length === 0" class="highlight-toolbar-none-text">None</div>
+  <div *ngFor="let personConstraint of PersonConstraintService.personConstraints" class="constraint-container flex-row flex-center">
+    <div *ngIf="InstructorRatingPersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
+      <div>Instructor Rating </div>
+      <div class="comparator-container flex-row flex-center flex-justify-center">
+        <div>≥</div>
+      </div>
+      <div>{{ InstructorRatingPersonConstraint.getTyped(personConstraint).minimumRating }}</div>
+    </div>
+
+    <div *ngIf="ExperiencePersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
+      <div>Experience in </div>
+      <div>{{ ExperiencePersonConstraint.getTyped(personConstraint).skillName }}</div>
+      <div class="comparator-container flex-row flex-center flex-justify-center">
+        <div>≥</div>
+      </div>
+      <div>{{ ExperiencePersonConstraint.getTyped(personConstraint).minimumExperience }}</div>
+    </div>
+
+    <div *ngIf="InterestPersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
+      <div>Interest in </div>
+      <div>{{ InterestPersonConstraint.getTyped(personConstraint).skillName }}</div>
+      <div class="comparator-container flex-row flex-center flex-justify-center">
+        <div>≥</div>
+      </div>
+      <div>{{ InterestPersonConstraint.getTyped(personConstraint).minimumInterest }}</div>
+    </div>
+
+    <div *ngIf="GenderPersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
+      <div>Gender </div>
+      <div class="comparator-container flex-row flex-center flex-justify-center">
+        <div>=</div>
+      </div>
+      <div>{{ Gender[GenderPersonConstraint.getTyped(personConstraint).gender] }}</div>
+    </div>
+
+    <div *ngIf="DevicePossessionPersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
+      <div>In Possession of </div>
+      <div>{{ Device[DevicePossessionPersonConstraint.getTyped(personConstraint).device] }}</div>
+    </div>
+  </div>
+  <div class="flex-grow"></div>
+  <button md-icon-button (click)="showPersonHighlightingOverlay()" [class.icon-button-highlight]="false">
+    <i class="material-icons">settings</i>
+  </button>
+</div>

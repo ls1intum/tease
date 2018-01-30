@@ -20,11 +20,13 @@ import {TeamGenerationService} from './shared/layers/business-logic-layer/team-g
 import {LPTeamGenerationService} from './shared/layers/business-logic-layer/team-generation/lp-team-generation.service';
 import {ConfirmationOverlayComponent} from './dashboard/confirmation-overlay/confirmation-overlay.component';
 import {PersonHighlightingOverlayComponent} from './dashboard/person-highlighting-overlay/person-highlighting-overlay.component';
+import { HighlightingToolbarComponent } from './highlighting-toolbar/highlighting-toolbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    OverlayHostDirective
+    OverlayHostDirective,
+    HighlightingToolbarComponent
   ],
   imports: [
     /* external modules */
