@@ -7,7 +7,7 @@
       <div class="comparator-container flex-row flex-center flex-justify-center">
         <div>≥</div>
       </div>
-      <div>{{ InstructorRatingPersonConstraint.getTyped(personConstraint).minimumRating }}</div>
+      <div>{{ Skill.getLabelForSkillLevel(InstructorRatingPersonConstraint.getTyped(personConstraint).minimumRating) }}</div>
     </div>
 
     <div *ngIf="ExperiencePersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
@@ -16,7 +16,7 @@
       <div class="comparator-container flex-row flex-center flex-justify-center">
         <div>≥</div>
       </div>
-      <div>{{ ExperiencePersonConstraint.getTyped(personConstraint).minimumExperience }}</div>
+      <div>{{ CSVConstants.Skills.SkillLevelAnswers[ExperiencePersonConstraint.getTyped(personConstraint).minimumExperience] }}</div>
     </div>
 
     <div *ngIf="InterestPersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
@@ -25,7 +25,7 @@
       <div class="comparator-container flex-row flex-center flex-justify-center">
         <div>≥</div>
       </div>
-      <div>{{ InterestPersonConstraint.getTyped(personConstraint).minimumInterest }}</div>
+      <div>{{ CSVConstants.Skills.InterestLevelAnswers[InterestPersonConstraint.getTyped(personConstraint).minimumInterest] }}</div>
     </div>
 
     <div *ngIf="GenderPersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
