@@ -21,6 +21,7 @@ import {LPTeamGenerationService} from './shared/layers/business-logic-layer/team
 import {ConfirmationOverlayComponent} from './dashboard/confirmation-overlay/confirmation-overlay.component';
 import {PersonHighlightingOverlayComponent} from './dashboard/person-highlighting-overlay/person-highlighting-overlay.component';
 import { HighlightingToolbarComponent } from './highlighting-toolbar/highlighting-toolbar.component';
+import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { HighlightingToolbarComponent } from './highlighting-toolbar/highlightin
   ],
   providers: [
     TeamService, ConstraintService, OverlayService, PersonStatisticsService,
+    [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
     {provide: TeamGenerationService, useClass: LPTeamGenerationService}
   ],
   bootstrap: [AppComponent],

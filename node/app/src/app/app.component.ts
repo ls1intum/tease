@@ -3,9 +3,10 @@ import {TeamService} from './shared/layers/business-logic-layer/team.service';
 import {DashboardComponent} from './dashboard/dashboard/dashboard.component';
 import {OverlayHostDirective} from './overlay-host.directive';
 import {OverlayComponent, OverlayService, OverlayServiceHost} from './overlay.service';
-import {ImportOverlayComponent} from "./dashboard/import-overlay/import-overlay.component";
-import {ConfirmationOverlayComponent} from "./dashboard/confirmation-overlay/confirmation-overlay.component";
-import {PersonHighlightingOverlayComponent} from "./dashboard/person-highlighting-overlay/person-highlighting-overlay.component";
+import {ImportOverlayComponent} from './dashboard/import-overlay/import-overlay.component';
+import {ConfirmationOverlayComponent} from './dashboard/confirmation-overlay/confirmation-overlay.component';
+import {PersonHighlightingOverlayComponent} from './dashboard/person-highlighting-overlay/person-highlighting-overlay.component';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -24,8 +25,18 @@ export class AppComponent implements OverlayServiceHost {
 
   constructor(public overlayService: OverlayService,
               private teamService: TeamService,
-              private componentFactoryResolver: ComponentFactoryResolver) {
+              private componentFactoryResolver: ComponentFactoryResolver,
+              private location: Location) {
     this.overlayService.host = this;
+
+    // disable back button
+    if (typeof history.pushState !== 'undefined') {
+      const pushState = () => { history.pushState(null, '', '#back-disabled'); };
+      pushState();
+      this.location.subscribe(event => {
+        pushState();
+      });
+    }
   }
 
   exportData() {
