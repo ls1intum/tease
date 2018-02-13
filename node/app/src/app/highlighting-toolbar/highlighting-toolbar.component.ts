@@ -11,6 +11,7 @@ import {GenderPersonConstraint} from '../shared/models/person-constraints/gender
 import {Gender} from '../shared/models/person';
 import {PersonHighlightingOverlayComponent} from "../dashboard/person-highlighting-overlay/person-highlighting-overlay.component";
 import {OverlayService} from "../overlay.service";
+import {PersonConstraint} from "../shared/models/person-constraints/person-constraint";
 
 @Component({
   selector: 'app-highlighting-toolbar',
@@ -38,5 +39,14 @@ export class HighlightingToolbarComponent implements OnInit {s;
 
   showPersonHighlightingOverlay() {
     this.overlayService.displayComponent(PersonHighlightingOverlayComponent, {});
+  }
+
+  getSkillNameAbbreviation(skillName: string) {
+    const pair = this.CSVConstants.Skills.SkillNameAbbreviationPairs.find(p => p[0] === skillName);
+    return pair ? pair[1] : skillName;
+  }
+
+  removeConstraint(personConstraint: PersonConstraint) {
+    PersonConstraintService.personConstraints = PersonConstraintService.personConstraints.filter(c => c !== personConstraint);
   }
 }
