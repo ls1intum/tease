@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {Person} from '../../shared/models/person';
 import {Skill, SkillLevel} from '../../shared/models/skill';
 import {Colors} from '../../shared/constants/color.constants';
@@ -60,5 +60,39 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
 
   isInTeam(person: Person): boolean {
     return person.team !== null;
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    switch (event.key) {
+      case '0':
+        this.data.person.supervisorRating = SkillLevel.None;
+        break;
+      case '1':
+        this.data.person.supervisorRating = SkillLevel.Low;
+        break;
+      case '2':
+        this.data.person.supervisorRating = SkillLevel.Medium;
+        break;
+      case '3':
+        this.data.person.supervisorRating = SkillLevel.High;
+        break;
+      case '4':
+        this.data.person.supervisorRating = SkillLevel.VeryHigh;
+        break;
+    }
+
+    if (!this.isInTeam(this.data.person)) {
+      switch (event.key) {
+        case 'ArrowLeft':
+          this.data.onPreviousPersonClicked();
+          break;
+        case 'ArrowRight':
+          this.data.onNextPersonClicked();
+          break;
+      }
+    }
+
+    event.preventDefault();
   }
 }
