@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {TeamService} from '../../shared/layers/business-logic-layer/team.service';
 import {DragulaService} from 'ng2-dragula';
 import {Person} from '../../shared/models/person';
@@ -18,6 +18,8 @@ enum PersonPoolDisplayMode {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  @Output() onImportPressed = new EventEmitter();
+
   personPoolDisplayMode: PersonPoolDisplayMode = PersonPoolDisplayMode.OneRow;
   statisticsVisible = false;
 

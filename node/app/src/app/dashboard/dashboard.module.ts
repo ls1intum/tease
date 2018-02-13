@@ -19,6 +19,7 @@ import { ConstraintComponent } from './constraint/constraint.component';
 import {ConfirmationOverlayComponent} from './confirmation-overlay/confirmation-overlay.component';
 import { PersonPoolStatisticsComponent } from './person-pool-statistics/person-pool-statistics.component';
 import { PersonHighlightingOverlayComponent } from './person-highlighting-overlay/person-highlighting-overlay.component';
+import { IntroCardComponent } from './intro-card/intro-card.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { PersonHighlightingOverlayComponent } from './person-highlighting-overla
     TeamPrioritiesChartComponent, ImportOverlayComponent, ConstraintsOverlayComponent, ConstraintComponent,
     ConfirmationOverlayComponent,
     PersonPoolStatisticsComponent,
-    PersonHighlightingOverlayComponent
+    PersonHighlightingOverlayComponent,
+    IntroCardComponent
   ],
   exports: [DashboardComponent, PersonDetailOverlayComponent, ImportOverlayComponent],
   providers: [],

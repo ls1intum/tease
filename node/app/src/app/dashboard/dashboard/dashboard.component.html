@@ -1,5 +1,10 @@
+<!-- card that is shown if no data is loaded -->
+<div *ngIf="!isDataLoaded()" class="flex-row flex-justify-center">
+  <app-intro-card (onImportPressed)="onImportPressed.emit()"></app-intro-card>
+</div>
+
 <!-- team containers -->
-<div class="dashboard flex-row">
+<div *ngIf="isDataLoaded()" class="dashboard flex-row">
   <div *ngFor="let team of teamService.teams" class="hidden-scrollbar-parent">
     <div class="hidden-scrollbar-child flex-column">
       <app-team class="flex-no-shrink" [team]="team" (onPersonClicked)="showPersonDetails($event)"></app-team>
@@ -8,7 +13,7 @@
 </div>
 
 <!-- person pool -->
-<div *ngIf="teamService.personsWithoutTeam" class="person-pool flex-column overflow-hidden"
+<div *ngIf="isDataLoaded()" class="person-pool flex-column overflow-hidden"
      [ngClass]="getPersonPoolDisplayModeCSSClass(personPoolDisplayMode)">
   <!-- title and buttons -->
   <div class="flex-row flex-center person-pool-title-bar flex-no-shrink">
