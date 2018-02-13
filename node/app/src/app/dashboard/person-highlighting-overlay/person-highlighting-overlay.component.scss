@@ -5,7 +5,7 @@
 .dialog-box {
   background-color: white;
   border: $standard-border;
-  width: 500px;
+  width: $regular-overlay-width;
   //height: 300px;
   margin-top: $scroll-inset;
   margin-bottom: $scroll-inset;
