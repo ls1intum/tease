@@ -9,6 +9,7 @@ import {Person} from '../../shared/models/person';
 })
 export class TeamComponent implements OnInit {
   @Input() team: Team;
+  @Input() onTeamStatisticsButtonPressed;
   @Output() onPersonClicked = new EventEmitter<Person>();
 
   protected statisticsVisible = false;
@@ -16,5 +17,6 @@ export class TeamComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.onTeamStatisticsButtonPressed.subscribe(showStatistics => this.statisticsVisible = showStatistics);
   }
 }

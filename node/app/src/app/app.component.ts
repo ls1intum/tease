@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, Type, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, ComponentFactoryResolver, EventEmitter, Type, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TeamService} from './shared/layers/business-logic-layer/team.service';
 import {DashboardComponent} from './dashboard/dashboard/dashboard.component';
 import {OverlayHostDirective} from './overlay-host.directive';
@@ -16,6 +16,8 @@ import {Location} from '@angular/common';
 })
 export class AppComponent implements OverlayServiceHost {
   overlayVisible = false;
+  onTeamStatisticsButtonPressed = new EventEmitter<boolean>();
+  toggleTeamStatisticsButtonState = true;
 
   @ViewChild(DashboardComponent)
   dashboardComponent: DashboardComponent;
