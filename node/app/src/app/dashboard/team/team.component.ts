@@ -17,6 +17,7 @@ export class TeamComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if(this.onTeamStatisticsButtonPressed)
     this.onTeamStatisticsButtonPressed.subscribe(showStatistics => this.statisticsVisible = showStatistics);
   }
 }
