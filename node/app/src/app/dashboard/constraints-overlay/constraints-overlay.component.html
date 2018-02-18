@@ -7,9 +7,9 @@
     <!-- scrollable content -->
     <div class="scrollable-content">
       <div class="flex-column flex-no-shrink">
-        <div *ngIf="data.displayWarning" class="warning flex-row">
+        <div *ngIf="data.displayWarning" class="warning flex-column">
           <div class="warning-heading warning-element">Warning!</div>
-          <div class="warning-element">Applying constraints overwrites the current team allocation.</div>
+          <div class="warning-element">Applying constraints overwrites the current team allocation. Pin persons to keep them in their teams.</div>
         </div>
 
         <div class="constraint-team-name constraint-team-name-bold">Global Constraints</div>

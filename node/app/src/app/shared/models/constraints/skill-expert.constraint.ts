@@ -1,7 +1,7 @@
 import {Constraint, ConstraintType} from './constraint';
 import {Team} from '../team';
 import {TeamHelper} from '../../helpers/team.helper';
-import {SkillLevel} from '../skill';
+import {Skill, SkillLevel} from '../skill';
 
 export class SkillExpertConstraint extends Constraint {
 
@@ -15,7 +15,7 @@ export class SkillExpertConstraint extends Constraint {
   }
 
   getName(): string {
-    return '#Experts';
+    return Skill.getLabelForSkillLevel(SkillLevel.VeryHigh);
   }
 
   getType(): ConstraintType {

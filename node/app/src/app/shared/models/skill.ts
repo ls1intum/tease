@@ -10,7 +10,7 @@ export class Skill {
   private _interestLevel: SkillLevel;
   private _justification: string;
 
-  public static getLabelForSkillLevel(skillLevel: SkillLevel) {
+  public static getLabelForSkillLevel(skillLevel: SkillLevel): string {
     switch (skillLevel) {
       case SkillLevel.Low:
         return 'Novice';

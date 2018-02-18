@@ -1,7 +1,7 @@
 import {Constraint, ConstraintType} from './constraint';
 import {Team} from '../team';
 import {TeamHelper} from '../../helpers/team.helper';
-import {SkillLevel} from '../skill';
+import {Skill, SkillLevel} from '../skill';
 
 export class SkillNormalConstraint extends Constraint {
 
@@ -15,7 +15,7 @@ export class SkillNormalConstraint extends Constraint {
   }
 
   getName(): string {
-    return '#Normal';
+    return Skill.getLabelForSkillLevel(SkillLevel.Medium);
   }
 
   getType(): ConstraintType {
