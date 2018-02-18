@@ -13,8 +13,8 @@ export abstract class Constraint {
 
   protected constructor(config: any) {
     if (config && typeof config === 'object') {
-      this.minValue = config.minValue;
-      this.maxValue = config.maxValue;
+      this.minValue = config.minValue ? config.minValue : NaN;
+      this.maxValue = config.maxValue ? config.maxValue : NaN;
       this.isEnabled = config.isEnabled;
       this.teamName = config.teamName;
     }
@@ -83,10 +83,12 @@ export abstract class Constraint {
   }
 
   setMinValue(value: number) {
+    console.log('setMinValue: ', value);
     this.minValue = value;
   }
 
   setMaxValue(value: number) {
+    console.log('setMaxValue: ', value);
     this.maxValue = value;
   }
 
@@ -103,6 +105,44 @@ export abstract class Constraint {
       case ConstraintType.Interval:
         return '≤'; // Should be treated in a special way
     }
+  }
+
+  getWarnings(): string[] {
+    if (!this.isEnabled)
+      return [];
+
+    const warnings: string[] = [];
+
+    const minNumberPositiveWarning = 'the minimum value must be positive';
+    const minNaNWarning = 'the minimum value must be a number';
+    const maxNumberPositiveWarning = 'the maximum value must be positive';
+    const maxNaNWarning = 'the maximum value must be a number';
+    const intervalWarning = 'the minimum value must be smaller than the maximum value';
+
+    if ([ConstraintType.GT, ConstraintType.GTE, ConstraintType.Interval].indexOf(this.getType()) !== -1) {
+      if (isNaN(this.minValue))
+        warnings.push(minNaNWarning);
+      else if (this.minValue < 0)
+        warnings.push(minNumberPositiveWarning);
+    }
+
+    if ([ConstraintType.LT, ConstraintType.LTE, ConstraintType.Interval].indexOf(this.getType()) !== -1) {
+      if (isNaN(this.maxValue))
+        warnings.push(maxNaNWarning);
+      else if (this.maxValue < 0)
+        warnings.push(maxNumberPositiveWarning);
+    }
+
+    if (this.getType() === ConstraintType.Interval) {
+      if (!isNaN(this.minValue) && !isNaN(this.maxValue) && this.minValue > this.maxValue)
+        warnings.push(intervalWarning);
+    }
+
+    return warnings;
+  }
+
+  hasWarnings(): boolean {
+    return this.getWarnings().length !== 0;
   }
 }
 

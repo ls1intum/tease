@@ -35,7 +35,8 @@
     </div>
 
     <div class="dialog-footer flex-row-reverse flex-center flex-no-shrink">
-      <button md-raised-button color="primary" (click)="applyConstraints(); $event.stopPropagation()">
+      <button md-raised-button color="primary" [disabled]="hasWarnings()"
+              (click)="applyConstraints(); $event.stopPropagation()">
         Distribute Persons
       </button>
       <div class="error flex-grow flex-row" [class.error-hidden]="!noFeasibleSolutionHintShown">

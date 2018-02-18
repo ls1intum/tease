@@ -85,4 +85,8 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
   public hasActiveConstraints(team) {
     return this.getConstraintsForTeam(team).reduce((acc, constraint, index, array) => acc || constraint.isEnabled, false);
   }
+
+  hasWarnings(): boolean {
+    return this.constraints ? this.constraints.reduce((acc, constraint) => acc || constraint.hasWarnings(), false) : false;
+  }
 }

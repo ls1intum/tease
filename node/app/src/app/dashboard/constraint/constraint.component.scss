@@ -30,11 +30,18 @@
 
 .constraint-container-team-specific.constraint-container-active {
   background-color: #fff5d6;
-  //color: rgba(0, 0, 0, 0.5);
 }
 
 .constraint-container-team-specific.constraint-container-active input {
   border-color: rgba(0, 0, 0, 0.5);
+}
+
+.constraint-container-warning {
+  background-color: rgba(255, 78, 78, 0.24) !important;
+}
+
+.constraint-container-warning.constraint-container-team-specific {
+  background-color: rgba(255, 78, 78, 0.09) !important;
 }
 
 .flex-spacing-10 {
@@ -47,6 +54,11 @@
 
 md-slide-toggle {
   height: 14px;
+  transition: filter 0.2s;
+}
+
+.slide-toggle-warning {
+  filter: grayscale(100%);
 }
 
 input {
@@ -73,4 +85,15 @@ input {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
+}
+
+.warning-icon {
+  color: #dc4747;
+  text-shadow: 0 0 10px rgba(255, 78, 78, 0.48);
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.warning-icon-hidden {
+  transform: scale(0);
+  opacity: 0;
 }

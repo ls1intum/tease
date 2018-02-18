@@ -14,21 +14,28 @@ export class ConstraintComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.constraint);
+    console.log(this.constraint.getWarnings());
+
   }
 
-  protected onConstraintMinValueChanged(constraint: Constraint, value) {
-    if (value === '') {
-      constraint.setMinValue(value);
-    } else if (!isNaN(+value)) {
-      constraint.setMinValue(+value);
-    }
+  protected onConstraintMinValueChanged(value) {
+    this.constraint.setMinValue(value === '' ? NaN : +value);
   }
 
-  protected onConstraintMaxValueChanged(constraint: Constraint, value) {
-    if (value === '') {
-      constraint.setMaxValue(value);
-    } else if (!isNaN(+value)) {
-      constraint.setMaxValue(+value);
-    }
+  protected onConstraintMaxValueChanged(value) {
+    this.constraint.setMaxValue(value === '' ? NaN : +value);
+  }
+
+  getMinValue(): string {
+    if (!this.constraint.getMinValue() || isNaN(this.constraint.getMinValue()))
+      return '';
+    return this.constraint.getMinValue().toString();
+  }
+
+  getMaxValue(): string {
+    if (!this.constraint.getMaxValue() || isNaN(this.constraint.getMaxValue()))
+      return '';
+    return this.constraint.getMaxValue().toString();
   }
 }
