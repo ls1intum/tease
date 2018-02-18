@@ -13,11 +13,7 @@ export class ConstraintComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    console.log(this.constraint);
-    console.log(this.constraint.getWarnings());
-
-  }
+  ngOnInit() { }
 
   protected onConstraintMinValueChanged(value) {
     this.constraint.setMinValue(value === '' ? NaN : +value);

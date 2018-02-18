@@ -83,12 +83,10 @@ export abstract class Constraint {
   }
 
   setMinValue(value: number) {
-    console.log('setMinValue: ', value);
     this.minValue = value;
   }
 
   setMaxValue(value: number) {
-    console.log('setMaxValue: ', value);
     this.maxValue = value;
   }
 
