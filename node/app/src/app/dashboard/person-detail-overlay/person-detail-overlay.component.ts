@@ -64,6 +64,9 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
+    if (!this.data)
+      return;
+
     switch (event.key) {
       case '0':
         this.data.person.supervisorRating = SkillLevel.None;
