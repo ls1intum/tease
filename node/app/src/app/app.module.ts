@@ -22,6 +22,7 @@ import {ConfirmationOverlayComponent} from './dashboard/confirmation-overlay/con
 import {PersonHighlightingOverlayComponent} from './dashboard/person-highlighting-overlay/person-highlighting-overlay.component';
 import { HighlightingToolbarComponent } from './highlighting-toolbar/highlighting-toolbar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import {ExportOverlayComponent} from './dashboard/export-overlay/export-overlay.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common'
   bootstrap: [AppComponent],
   entryComponents: [
     PersonDetailOverlayComponent, ImportOverlayComponent, ConstraintsOverlayComponent, ConfirmationOverlayComponent,
-    PersonHighlightingOverlayComponent
+    PersonHighlightingOverlayComponent, ExportOverlayComponent
   ]
 })
 export class AppModule { }

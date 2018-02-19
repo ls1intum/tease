@@ -7,6 +7,7 @@ import {ImportOverlayComponent} from './dashboard/import-overlay/import-overlay.
 import {ConfirmationOverlayComponent} from './dashboard/confirmation-overlay/confirmation-overlay.component';
 import {PersonHighlightingOverlayComponent} from './dashboard/person-highlighting-overlay/person-highlighting-overlay.component';
 import {Location} from '@angular/common';
+import {ExportOverlayComponent} from "./dashboard/export-overlay/export-overlay.component";
 
 @Component({
   selector: 'app-root',
@@ -39,12 +40,6 @@ export class AppComponent implements OverlayServiceHost {
         pushState();
       });
     }
-  }
-
-  exportData() {
-    this.teamService.saveToLocalBrowserStorage().then(success => {
-      this.teamService.exportSavedState();
-    });
   }
 
   showResetTeamAllocationConfirmation() {
@@ -81,6 +76,10 @@ export class AppComponent implements OverlayServiceHost {
       },
       overwriteWarning: this.dashboardComponent.isDataLoaded()
     });
+  }
+
+  showExportOverlay() {
+    this.overlayService.displayComponent(ExportOverlayComponent, {});
   }
 
   showPersonHighlightingOverlay() {

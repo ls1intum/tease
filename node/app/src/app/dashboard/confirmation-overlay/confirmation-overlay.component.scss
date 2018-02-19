@@ -1,25 +1,10 @@
 @import '../../../scss/style-constants';
 @import '../../../scss/utility';
 @import '../../../scss/flex-box';
+@import '../dialog-common';
 
 .dialog-box {
-  background-color: white;
-  border: $standard-border;
   width: 400px;
-  //height: 300px;
-  margin-top: $scroll-inset;
-  margin-bottom: $scroll-inset;
-}
-
-.dialog-header {
-  height: 30px;
-  background-color: #EEE;
-  padding: 10px;
-}
-
-.dialog-heading {
-  font-size: 25px;
-  font-weight: 300;
 }
 
 .warning {

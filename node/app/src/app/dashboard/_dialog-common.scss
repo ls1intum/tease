@@ -1,0 +1,17 @@
+.dialog-box {
+  background-color: white;
+  border: $standard-border;
+  width: $regular-overlay-width;
+  margin-top: $scroll-inset;
+}
+
+.dialog-header {
+  height: 30px;
+  background-color: #EEE;
+  padding: 10px 10px 10px 20px;
+}
+
+.dialog-heading {
+  font-size: 25px;
+  font-weight: 300;
+}

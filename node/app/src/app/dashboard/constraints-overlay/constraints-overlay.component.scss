@@ -1,25 +1,7 @@
 @import '../../../scss/style-constants';
 @import '../../../scss/utility';
 @import '../../../scss/flex-box';
-
-.dialog-box {
-  background-color: white;
-  border: $standard-border;
-  width: $regular-overlay-width;
-  margin-top: $scroll-inset;
-  margin-bottom: $scroll-inset;
-}
-
-.dialog-header {
-  height: 30px;
-  background-color: #EEE;
-  padding: 10px;
-}
-
-.dialog-heading {
-  font-size: 25px;
-  font-weight: 300;
-}
+@import '../dialog-common';
 
 .scrollable-content {
   overflow-y: auto;

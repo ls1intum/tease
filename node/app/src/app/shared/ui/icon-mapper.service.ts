@@ -54,6 +54,6 @@ export class IconMapperService {
     if (email === undefined)return IconMapperService.GRAVATAR_URL;
 
     const emailHash = Md5.hashStr(email);
-    return IconMapperService.GRAVATAR_URL + emailHash + '?s=' + size.toString();
+    return IconMapperService.GRAVATAR_URL + emailHash + '?s=' + size.toString() + '&d=mm';
   }
 }

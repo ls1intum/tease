@@ -20,6 +20,7 @@ import {ConfirmationOverlayComponent} from './confirmation-overlay/confirmation-
 import { PersonPoolStatisticsComponent } from './person-pool-statistics/person-pool-statistics.component';
 import { PersonHighlightingOverlayComponent } from './person-highlighting-overlay/person-highlighting-overlay.component';
 import { IntroCardComponent } from './intro-card/intro-card.component';
+import { ExportOverlayComponent } from './export-overlay/export-overlay.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { IntroCardComponent } from './intro-card/intro-card.component';
     ConfirmationOverlayComponent,
     PersonPoolStatisticsComponent,
     PersonHighlightingOverlayComponent,
-    IntroCardComponent
+    IntroCardComponent,
+    ExportOverlayComponent
   ],
   exports: [DashboardComponent, PersonDetailOverlayComponent, ImportOverlayComponent],
   providers: [],
