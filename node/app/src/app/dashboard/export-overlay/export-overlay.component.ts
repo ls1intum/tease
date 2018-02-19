@@ -27,15 +27,22 @@ export class ExportOverlayComponent implements OnInit, OverlayComponent {
   }
 
   exportScreenshots() {
+    /*
     let p = Promise.resolve(3);
 
     for (let i = 0; i < 2; i++) {
       p.then((value) => {
         const person = this.teamService.persons[i];
+
         console.log('calling export for person ', i, ' :', person.firstName);
         p = this.exportScreenshot(person);
       });
     }
+    */
+
+    this.exportScreenshot(this.teamService.persons[0])
+      .then(() => this.exportScreenshot(this.teamService.persons[1]))
+      .then(() => this.exportScreenshot(this.teamService.persons[2]));
   }
 
   exportScreenshot(person: Person): Promise<number> {
