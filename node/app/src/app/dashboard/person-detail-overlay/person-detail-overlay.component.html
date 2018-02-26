@@ -1,211 +1,72 @@
 <div *ngIf="data" class="flex-justify-center flex-row main-row">
   <div class="hidden-scrollbar-parent">
     <div class="flex-column hidden-scrollbar-child">
-      <!-- person detail card -->
-      <md-card *ngIf="data" class="detail-card flex-column flex-no-shrink overflow-hidden" (click)="$event.stopPropagation()">
+      <div class="flex-column scrollable-content" (click)="$event.stopPropagation()">
 
-      <!-- profile picture and everything right to it -->
-      <div class="flex-row overflow-hidden">
-        <img class="profile-picture" src="{{ getGravatarIcon(data.person.email, 400) }}">
+        <!-- person detail card with instructor rating buttons -->
+        <div class="main-card flex-column overflow-hidden">
+          <!-- person detail card -->
+          <app-person-detail-card [person]="data.person"></app-person-detail-card>
 
-        <!-- column right to the profile picture -->
-        <div class="flex-column name-flex-column overflow-hidden">
-          <div class="flex-row" id="name-flex-row">
-            <img id="gender-icon" src="{{getGenderIconPath()}}">
-            <div id="person-name">{{ data.person.firstName }} {{ data.person.lastName }}</div>
-            <div *ngIf="isPersonRated()" class="supervisor-rating-badge flex-right"
-                 [style.background-color]="getSupervisorRatingColor()">
-              {{ getLabelForSkillLevel(data.person.supervisorRating) }}
+          <!-- skill level rating buttons -->
+          <div class="supervisor-rating-container flex-column">
+            <div class="btn-group btn-group-sm flex-row" ngbRadioGroup name="radioBasic"
+                 [(ngModel)]="data.person.supervisorRating">
+              <label ngbButtonLabel class="btn-secondary btn-none flex-row">
+                <input ngbButton type="radio" [value]="SkillLevel.None">
+                <div class="key-icon-container">0</div>
+                {{ getLabelForSkillLevel(SkillLevel.None) }}
+              </label>
+              <label ngbButtonLabel class="btn-secondary btn-low">
+                <input ngbButton type="radio" [value]="SkillLevel.Low">
+                <div class="key-icon-container">1</div>
+                {{ getLabelForSkillLevel(SkillLevel.Low) }}
+              </label>
+              <label ngbButtonLabel class="btn-secondary btn-medium">
+                <input ngbButton type="radio" [value]="SkillLevel.Medium">
+                <div class="key-icon-container">2</div>
+                {{ getLabelForSkillLevel(SkillLevel.Medium) }}
+              </label>
+              <label ngbButtonLabel class="btn-secondary btn-high">
+                <input ngbButton type="radio" [value]="SkillLevel.High">
+                <div class="key-icon-container">3</div>
+                {{ getLabelForSkillLevel(SkillLevel.High) }}
+              </label>
+              <label ngbButtonLabel class="btn-secondary btn-very-high">
+                <input ngbButton type="radio" [value]="SkillLevel.VeryHigh">
+                <div class="key-icon-container">4</div>
+                {{ getLabelForSkillLevel(SkillLevel.VeryHigh) }}
+              </label>
             </div>
           </div>
+        </div>
 
-          <div class="flex-row">
-            <div class="flex-column person-value-container">
-              <div class="heading">Major</div>
-              <div class="person-value">{{ data.person.major }}</div>
-            </div>
-            <div class="flex-column flex-grow person-value-container">
-              <div class="heading">Term</div>
-              <div class="person-value">{{ data.person.semester }}</div>
-            </div>
-            <div class="flex-column">
-              <div class="heading">Languages</div>
-              <div class="flex-row">
-                <div class="badge language-level-badge flex-row flex-center">
-                  <img class="flag-icon" src="/assets/images/german.png">
-                  <div class="person-language-name">{{ data.person.germanLanguageLevel }}</div>
-                </div>
-                <div class="badge language-level-badge flex-row flex-center">
-                  <img class="flag-icon" src="/assets/images/english.png">
-                  <div class="person-language-name">{{ data.person.englishLanguageLevel }}</div>
-                </div>
+        <!-- next / previous person buttons -->
+        <div class="flex-row flex-no-shrink">
+          <button *ngIf="!isInTeam(data.person)"
+                  md-raised-button color="primary"
+                  (click)="data.onPreviousPersonClicked(); $event.stopPropagation()">
+            <div class="flex-row flex-center">
+              <div class="key-icon-container">
+                <md-icon>keyboard_arrow_left</md-icon>
               </div>
+              <div>Previous Person</div>
             </div>
-          </div>
-
-          <div class="flex-row">
-            <div class="flex-column person-value-container">
-              <div class="heading">Devices</div>
-              <div class="flex-row spacing-x-3">
-                <div *ngIf="data.person.devices.length == 0" class="person-value">—</div>
-                <img *ngFor="let device of data.person.devices" mdTooltip="{{ Device[device] }}" class="device-icon"
-                     src="{{getDeviceIconPath(device)}}">
+          </button>
+          <div class="flex-grow"></div>
+          <button *ngIf="!isInTeam(data.person)"
+                  md-raised-button color="primary"
+                  (click)="data.onNextPersonClicked(); $event.stopPropagation()">
+            <div class="flex-row flex-center">
+              <div class="key-icon-container">
+                <md-icon>keyboard_arrow_right</md-icon>
               </div>
+              <div>Next Person</div>
             </div>
-            <div class="flex-column person-value-container flex-grow overflow-hidden">
-              <div class="heading">Mail</div>
-              <div class="person-value">{{ data.person.email }}</div>
-            </div>
-            <div class="flex-column">
-              <div class="heading">TUM ID</div>
-              <div class="person-value">{{ data.person.tumId }}</div>
-            </div>
-          </div>
+          </button>
         </div>
       </div>
-
-      <!-- everything below the profile picture -->
-      <div class="flex-column padding-x-main">
-
-        <!-- team priorities -->
-        <div class="flex-column">
-          <div class="heading">Project Priorities</div>
-          <div class="flex-row flex-wrap team-badge-container">
-            <div *ngFor="let team of data.person.teamPriorities; let i = index"
-                 class="flex-row flex-center team-badge flex-no-shrink"
-                 [class.badge-highlight]="team === data.person.team">
-              <div class="team-badge-index flex-row flex-center flex-justify-center"><div>{{ i + 1 }}</div></div>
-              <div class="flex-row flex-center flex-justify-center flex-grow">
-                <div class="team-badge-name">{{team.name}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- skills -->
-        <div class="heading">Skills</div>
-
-        <div class="skill-container flex-column flex-center">
-          <div class="skill-name">iOS Development</div>
-          <div class="skill-level-label" [ngClass]="'skill-level-label-' + data.person.getiOSSkillLevel()">
-            <div>{{ data.person.iosDev }}</div>
-          </div>
-          <div *ngIf="data.person.iOSDevExplained.length > 0" class="quote-text">
-            <span class="quotation-mark">“</span>{{ data.person.iOSDevExplained }}<span class="quotation-mark">”</span>
-          </div>
-          <div class="quote-text" *ngIf="data.person.iOSDevExplained.length === 0">—</div>
-          <div *ngIf="data.person.appStoreLink && data.person.appStoreLink.length > 0">
-            <span>AppStore Link: </span>
-            <a target="_blank" href="{{data.person.appStoreLink}}">{{data.person.appStoreLink}}</a>
-          </div>
-        </div>
-
-        <div class="flex-row flex-wrap generic-skills-container-box">
-          <div *ngFor="let skill of data.person.skills" class="skill-container skill-container-generic flex-column flex-center">
-            <div class="skill-name">{{ skill.name }}</div>
-            <div class="skill-level-label" [ngClass]="'skill-level-label-' + skill.skillLevel">
-              <div>{{ CSVConstants.Skills.SkillLevelAnswers[skill.skillLevel] }}</div>
-            </div>
-            <div class="skill-level-label" [ngClass]="'skill-level-label-' + skill.interestLevel">
-              <div>{{ CSVConstants.Skills.InterestLevelAnswers[skill.interestLevel] }}</div>
-            </div>
-
-            <div *ngIf="skill.justification.length > 0" class="quote-text">
-              <span class="quotation-mark">“</span>{{ skill.justification }}<span class="quotation-mark">”</span>
-            </div>
-            <div class="quote-text" *ngIf="skill.justification.length == 0">—</div>
-
-          </div>
-        </div>
-
-        <!-- other skills -->
-        <div class="heading">Other Skills</div>
-        <div *ngIf="data.person.otherSkills.length > 0" class="quote-text align-self-start">
-          <span class="quotation-mark">“</span>{{ data.person.otherSkills }}<span class="quotation-mark">”</span>
-        </div>
-        <div class="quote-text align-self-start" *ngIf="data.person.otherSkills.length === 0">—</div>
-
-        <!-- intro course assessment -->
-        <div class="heading">How challenging was the intro course?</div>
-        <div class="flex-row spacing-x-3">
-          <div class="skill-level-label flex-grow flex-basis-zero" [ngClass]="'skill-level-label-' + data.person.getIntroAssessmentLevel()">
-            <div>Student: “{{ data.person.introAssessment }}”</div>
-          </div>
-          <div class="skill-level-label flex-grow flex-basis-zero" [ngClass]="'skill-level-label-' + data.person.getIntroAssessmentTutorLevel()">
-            <div>Tutor: “{{ data.person.introAssessmentTutor }}”</div>
-          </div>
-        </div>
-
-        <!-- sudent comments -->
-        <div class="heading">Student Comments</div>
-        <div *ngIf="data.person.studentComments.length > 0" class="quote-text align-self-start">
-          <span class="quotation-mark">“</span>{{ data.person.studentComments }}<span class="quotation-mark">”</span>
-        </div>
-        <div class="quote-text align-self-start" *ngIf="data.person.studentComments.length === 0">—</div>
-
-        <!-- tutor comments -->
-        <div class="heading">Tutor Comments</div>
-        <div *ngIf="data.person.tutorComments.length > 0" class="quote-text align-self-start">
-          <span class="quotation-mark">“</span>{{ data.person.tutorComments }}<span class="quotation-mark">”</span>
-        </div>
-        <div class="quote-text align-self-start" *ngIf="data.person.tutorComments.length === 0">—</div>
-      </div>
-
-      <div class="supervisor-rating-container flex-column">
-        <div class="btn-group btn-group-sm flex-row" ngbRadioGroup name="radioBasic"
-             [(ngModel)]="data.person.supervisorRating">
-          <label ngbButtonLabel class="btn-secondary btn-none flex-row">
-            <input ngbButton type="radio" [value]="SkillLevel.None">
-            <div class="key-icon-container">0</div>
-            {{ getLabelForSkillLevel(SkillLevel.None) }}
-          </label>
-          <label ngbButtonLabel class="btn-secondary btn-low">
-            <input ngbButton type="radio" [value]="SkillLevel.Low">
-            <div class="key-icon-container">1</div>
-            {{ getLabelForSkillLevel(SkillLevel.Low) }}
-          </label>
-          <label ngbButtonLabel class="btn-secondary btn-medium">
-            <input ngbButton type="radio" [value]="SkillLevel.Medium">
-            <div class="key-icon-container">2</div>
-            {{ getLabelForSkillLevel(SkillLevel.Medium) }}
-          </label>
-          <label ngbButtonLabel class="btn-secondary btn-high">
-            <input ngbButton type="radio" [value]="SkillLevel.High">
-            <div class="key-icon-container">3</div>
-            {{ getLabelForSkillLevel(SkillLevel.High) }}
-          </label>
-          <label ngbButtonLabel class="btn-secondary btn-very-high">
-            <input ngbButton type="radio" [value]="SkillLevel.VeryHigh">
-            <div class="key-icon-container">4</div>
-            {{ getLabelForSkillLevel(SkillLevel.VeryHigh) }}
-          </label>
-        </div>
-      </div>
-    </md-card>
-      <div class="flex-row bottom-button-row flex-no-shrink">
-        <button *ngIf="!isInTeam(data.person)"
-                md-raised-button color="primary"
-                (click)="data.onPreviousPersonClicked(); $event.stopPropagation()">
-          <div class="flex-row flex-center">
-            <div class="key-icon-container">
-              <md-icon>keyboard_arrow_left</md-icon>
-            </div>
-            <div>Previous Person</div>
-          </div>
-        </button>
-        <div class="flex-grow"></div>
-        <button *ngIf="!isInTeam(data.person)"
-                md-raised-button color="primary"
-                (click)="data.onNextPersonClicked(); $event.stopPropagation()">
-          <div class="flex-row flex-center">
-            <div class="key-icon-container">
-              <md-icon>keyboard_arrow_right</md-icon>
-            </div>
-            <div>Next Person</div>
-          </div>
-        </button>
-      </div>
-  </div>
+    </div>
   </div>
 
   <!-- team container -->

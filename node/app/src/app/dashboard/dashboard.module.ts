@@ -21,6 +21,7 @@ import { PersonPoolStatisticsComponent } from './person-pool-statistics/person-p
 import { PersonHighlightingOverlayComponent } from './person-highlighting-overlay/person-highlighting-overlay.component';
 import { IntroCardComponent } from './intro-card/intro-card.component';
 import { ExportOverlayComponent } from './export-overlay/export-overlay.component';
+import { PersonDetailCardComponent } from './person-detail-card/person-detail-card.component';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { ExportOverlayComponent } from './export-overlay/export-overlay.componen
     PersonPoolStatisticsComponent,
     PersonHighlightingOverlayComponent,
     IntroCardComponent,
-    ExportOverlayComponent
+    ExportOverlayComponent,
+    PersonDetailCardComponent
   ],
   exports: [DashboardComponent, PersonDetailOverlayComponent, ImportOverlayComponent],
   providers: [],

@@ -22,33 +22,12 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
     onPersonClicked: (Person) => void;
   };
 
-  protected getLabelForSkillLevel = Skill.getLabelForSkillLevel;
-  protected getSkillColor = Colors.getColor;
-  protected getGravatarIcon = IconMapperService.getGravatarIcon;
-
-  Device = Device;
-  CSVConstants = CSVConstants;
+  getLabelForSkillLevel = Skill.getLabelForSkillLevel;
   SkillLevel = SkillLevel;
 
   constructor() { }
 
   ngOnInit() {}
-
-  getGenderIconPath(): string {
-    return IconMapperService.getGenderIconPath(this.data.person.gender);
-  }
-
-  isPersonRated(): boolean {
-    return this.data.person.supervisorRating !== undefined && this.data.person.supervisorRating !== SkillLevel.None;
-  }
-
-  getSupervisorRatingColor(): string {
-    return Colors.getColor(this.data.person.supervisorRating);
-  }
-
-  getDeviceIconPath(device: Device): string {
-    return IconMapperService.getDeviceTypeIconPath(device);
-  }
 
   filterSkills(skills: Skill[], skillLevel: number) {
     return skills.filter(function(skill) { return skill.skillLevel === skillLevel; });
