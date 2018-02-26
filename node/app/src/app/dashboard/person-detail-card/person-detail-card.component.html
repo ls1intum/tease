@@ -1,4 +1,4 @@
-<div class="detail-card flex-column flex-no-shrink overflow-hidden">
+<div *ngIf="person" class="detail-card flex-column flex-no-shrink overflow-hidden">
   <!-- profile picture and everything right to it -->
   <div class="flex-row overflow-hidden">
     <img class="profile-picture" src="{{ getGravatarIcon(person.email, 400) }}">

@@ -5,6 +5,7 @@ import * as html2canvas from 'html2canvas';
 import * as FileSaver from 'file-saver';
 import {PersonDetailOverlayComponent} from '../person-detail-overlay/person-detail-overlay.component';
 import {Person} from '../../shared/models/person';
+import {PersonDetailCardComponent} from "../person-detail-card/person-detail-card.component";
 
 @Component({
   selector: 'app-export-overlay',
@@ -14,8 +15,8 @@ import {Person} from '../../shared/models/person';
 export class ExportOverlayComponent implements OnInit, OverlayComponent {
   public data: {};
 
-  @ViewChild(PersonDetailOverlayComponent) personDetailOverlayComponent: PersonDetailOverlayComponent;
-  @ViewChild(PersonDetailOverlayComponent, { read: ElementRef }) personDetailOverlayComponentRef: ElementRef;
+  @ViewChild(PersonDetailCardComponent) personDetailCardComponent: PersonDetailCardComponent;
+  @ViewChild(PersonDetailCardComponent, { read: ElementRef }) personDetailCardComponentRef: ElementRef;
 
   constructor(private teamService: TeamService, private applicationRef: ApplicationRef) { }
   ngOnInit() {}
@@ -27,38 +28,20 @@ export class ExportOverlayComponent implements OnInit, OverlayComponent {
   }
 
   exportScreenshots() {
-    /*
-    let p = Promise.resolve(3);
+    let currentPromise = Promise.resolve();
 
-    for (let i = 0; i < 2; i++) {
-      p.then((value) => {
-        const person = this.teamService.persons[i];
-
-        console.log('calling export for person ', i, ' :', person.firstName);
-        p = this.exportScreenshot(person);
-      });
+    for (let i = 0; i < 3; i++) {
+      currentPromise = currentPromise.then(() => this.exportScreenshot(this.teamService.persons[i]));
     }
-    */
 
-    this.exportScreenshot(this.teamService.persons[0])
-      .then(() => this.exportScreenshot(this.teamService.persons[1]))
-      .then(() => this.exportScreenshot(this.teamService.persons[2]));
+
   }
 
-  exportScreenshot(person: Person): Promise<number> {
+  exportScreenshot(person: Person): Promise<void> {
     console.log('starting export for person ', person.firstName);
 
-    return new Promise<number>((resolve, reject) => {
-      const id = () => {};
-
-      this.personDetailOverlayComponent.data = {
-        person: person,
-        onClose: id,
-        onPreviousPersonClicked: id,
-        onNextPersonClicked: id,
-        onPersonClicked: id,
-      };
-
+    return new Promise<void>((resolve, reject) => {
+      this.personDetailCardComponent.person = person;
       this.applicationRef.tick();
 
       const options = {
@@ -69,11 +52,12 @@ export class ExportOverlayComponent implements OnInit, OverlayComponent {
         logging: false
       };
 
-      html2canvas(this.personDetailOverlayComponentRef.nativeElement, options).then(canvas => {
+      html2canvas(this.personDetailCardComponentRef.nativeElement, options).then(canvas => {
         canvas.toBlob(function(blob) {
           FileSaver.saveAs(blob, 'screenshot.png');
           console.log('export for person ', person.firstName, ' complete');
-          resolve(5);
+          this.personDetailCardComponent.person = person;
+          resolve();
         });
       });
     });
