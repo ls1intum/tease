@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Person} from '../../shared/models/person';
-import {Skill, SkillLevel} from "../../shared/models/skill";
-import {Colors} from "../../shared/constants/color.constants";
-import {CSVConstants} from "../../shared/constants/csv.constants";
-import {IconMapperService} from "../../shared/ui/icon-mapper.service";
-import {Device} from "../../shared/models/device";
+import {Skill, SkillLevel} from '../../shared/models/skill';
+import {Colors} from '../../shared/constants/color.constants';
+import {CSVConstants} from '../../shared/constants/csv.constants';
+import {IconMapperService} from '../../shared/ui/icon-mapper.service';
+import {Device} from '../../shared/models/device';
 
 @Component({
   selector: 'app-person-detail-card',
@@ -41,5 +41,4 @@ export class PersonDetailCardComponent implements OnInit {
   getDeviceIconPath(device: Device): string {
     return IconMapperService.getDeviceTypeIconPath(device);
   }
-
 }
