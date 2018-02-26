@@ -12,7 +12,7 @@
           <div class="supervisor-rating-container flex-column">
             <div class="btn-group btn-group-sm flex-row" ngbRadioGroup name="radioBasic"
                  [(ngModel)]="data.person.supervisorRating">
-              <label ngbButtonLabel class="btn-secondary btn-none flex-row">
+              <label ngbButtonLabel class="btn-secondary btn-none">
                 <input ngbButton type="radio" [value]="SkillLevel.None">
                 <div class="key-icon-container">0</div>
                 {{ getLabelForSkillLevel(SkillLevel.None) }}

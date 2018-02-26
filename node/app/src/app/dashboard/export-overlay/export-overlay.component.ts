@@ -7,7 +7,7 @@ import * as JSZip from 'jszip';
 import {Person} from '../../shared/models/person';
 import {PersonDetailCardComponent} from '../person-detail-card/person-detail-card.component';
 import {TeamComponent} from '../team/team.component';
-import {Team} from "../../shared/models/team";
+import {Team} from '../../shared/models/team';
 
 @Component({
   selector: 'app-export-overlay',
