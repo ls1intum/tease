@@ -12,12 +12,12 @@ export class TeamComponent implements OnInit {
   @Input() onTeamStatisticsButtonPressed;
   @Output() onPersonClicked = new EventEmitter<Person>();
 
-  protected statisticsVisible = false;
+  statisticsVisible = false;
 
   constructor() { }
 
   ngOnInit() {
-    if(this.onTeamStatisticsButtonPressed)
-    this.onTeamStatisticsButtonPressed.subscribe(showStatistics => this.statisticsVisible = showStatistics);
+    if (this.onTeamStatisticsButtonPressed)
+      this.onTeamStatisticsButtonPressed.subscribe(showStatistics => this.statisticsVisible = showStatistics);
   }
 }
