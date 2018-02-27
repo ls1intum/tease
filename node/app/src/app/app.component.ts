@@ -8,6 +8,7 @@ import {ConfirmationOverlayComponent} from './dashboard/confirmation-overlay/con
 import {PersonHighlightingOverlayComponent} from './dashboard/person-highlighting-overlay/person-highlighting-overlay.component';
 import {Location} from '@angular/common';
 import {ExportOverlayComponent} from "./dashboard/export-overlay/export-overlay.component";
+import {ConstraintLoggingService} from "./shared/layers/business-logic-layer/constraint-logging.service";
 
 @Component({
   selector: 'app-root',
@@ -40,6 +41,8 @@ export class AppComponent implements OverlayServiceHost {
         pushState();
       });
     }
+
+    ConstraintLoggingService.load();
   }
 
   showResetTeamAllocationConfirmation() {

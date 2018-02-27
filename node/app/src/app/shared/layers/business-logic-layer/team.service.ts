@@ -2,12 +2,16 @@ import {Injectable} from '@angular/core';
 import {Person} from '../../models/person';
 import {Team} from '../../models/team';
 import * as FileSaver from 'file-saver';
+import * as JSZip from 'jszip';
 import {CSVPersonDataAccessService} from '../data-access-layer/csv-person-data-access.service';
+import {ConstraintLoggingService} from './constraint-logging.service';
 
 @Injectable()
 export class TeamService {
   private readonly EXPORT_DATA_TYPE = 'text/csv;charset=utf-8';
-  private readonly EXPORT_FILE_NAME = 'TEASE-Project.csv';
+  private readonly EXPORT_FILE_NAME = 'TEASE-export.zip';
+  private readonly LOG_EXPORT_FILE_NAME = 'constraint-distribution-log.txt';
+  private readonly CSV_EXPORT_FILE_NAME = 'TEASE-project.csv';
 
   teams: Team[];
   persons: Person[];
@@ -82,7 +86,14 @@ export class TeamService {
   public exportSavedState() {
     const csvData = CSVPersonDataAccessService.getSavedDataFromBrowserStorage();
     const blob = new Blob([csvData], {type: this.EXPORT_DATA_TYPE});
-    FileSaver.saveAs(blob, this.EXPORT_FILE_NAME);
+
+    const zip = new JSZip;
+    zip.file(this.LOG_EXPORT_FILE_NAME, ConstraintLoggingService.getLog());
+    zip.file(this.CSV_EXPORT_FILE_NAME, blob);
+
+    zip.generateAsync({ type: 'blob' }).then((content) => {
+      FileSaver.saveAs(content, this.EXPORT_FILE_NAME);
+    });
   }
 
   public saveToLocalBrowserStorage(): Promise<boolean> {

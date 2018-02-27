@@ -5,6 +5,7 @@ import {ConstraintService} from '../../shared/layers/business-logic-layer/constr
 import {Team} from '../../shared/models/team';
 import {TeamGenerationService} from '../../shared/layers/business-logic-layer/team-generation/team-generation.service';
 import {TeamService} from '../../shared/layers/business-logic-layer/team.service';
+import {ConstraintLoggingService} from "../../shared/layers/business-logic-layer/constraint-logging.service";
 
 @Component({
   selector: 'app-constraints-overlay',
@@ -62,11 +63,24 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
         return;
       }
 
-      // this.teamService.updateReverseReferences();
+      this.logConstraints();
       this.teamService.updateDerivedProperties();
       this.overlayService.closeOverlay();
       this.teamService.saveToLocalBrowserStorage();
     });
+  }
+
+  private logConstraints() {
+    const loggedMessage: string[] = [];
+
+    loggedMessage.push((new Date()).toUTCString() + ' - Persons distributed with Constraints:')
+    loggedMessage.push(
+      ...this.constraints
+        .filter((constraint) => constraint.isEnabled)
+        .map((constraint) => constraint.toString())
+    );
+
+    ConstraintLoggingService.pushMessage(loggedMessage.join('\r\n'));
   }
 
   public toggleTeamConstraintVisibility(team: Team) {

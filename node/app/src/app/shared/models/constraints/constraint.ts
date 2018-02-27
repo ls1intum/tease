@@ -59,6 +59,9 @@ export abstract class Constraint {
       }
     }
 
+    if (this.teamName)
+      str += ' (' + this.teamName + ')';
+
     return str;
   }
 
