@@ -73,7 +73,7 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
   private logConstraints() {
     const loggedMessage: string[] = [];
 
-    loggedMessage.push((new Date()).toUTCString() + ' - Persons distributed with Constraints:')
+    loggedMessage.push((new Date()).toUTCString() + ' - Persons distributed with constraints:')
     loggedMessage.push(
       ...this.constraints
         .filter((constraint) => constraint.isEnabled)
