@@ -64,7 +64,7 @@ export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayCompone
       currentPromise = currentPromise.then(
           () => {
             this.imageExportProgress++;
-            return this.exportTeamScreenshot(team, teamFolder, 'overview.png');
+            return this.exportTeamScreenshot(team, teamFolder, team.name + '-0-overview.png');
           },
           () => Promise.reject(null)
         );
