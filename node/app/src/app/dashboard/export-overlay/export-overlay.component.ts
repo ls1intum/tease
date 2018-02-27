@@ -1,4 +1,7 @@
-import {ApplicationRef, ChangeDetectorRef, Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
+import {
+  ApplicationRef, ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, OnInit,
+  ViewChild
+} from '@angular/core';
 import {OverlayComponent} from '../../overlay.service';
 import {TeamService} from '../../shared/layers/business-logic-layer/team.service';
 import * as html2canvas from 'html2canvas';
@@ -14,8 +17,9 @@ import {Team} from '../../shared/models/team';
   templateUrl: './export-overlay.component.html',
   styleUrls: ['./export-overlay.component.scss']
 })
-export class ExportOverlayComponent implements OnInit, OverlayComponent {
+export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayComponent {
   public data: {};
+  destroyed = false;
 
   @ViewChild(PersonDetailCardComponent) personDetailCardComponent: PersonDetailCardComponent;
   @ViewChild(PersonDetailCardComponent, { read: ElementRef }) personDetailCardComponentRef: ElementRef;
@@ -34,6 +38,11 @@ export class ExportOverlayComponent implements OnInit, OverlayComponent {
   constructor(private teamService: TeamService, private applicationRef: ApplicationRef) { }
   ngOnInit() {}
 
+  ngOnDestroy() {
+    console.log('onDestroy()');
+    this.destroyed = true;
+  }
+
   exportCSV() {
     this.teamService.saveToLocalBrowserStorage().then(success => {
       this.teamService.exportSavedState();
@@ -42,70 +51,80 @@ export class ExportOverlayComponent implements OnInit, OverlayComponent {
 
   exportScreenshots() {
     let currentPromise = Promise.resolve();
-
     const zip = JSZip();
 
-    for (let i = 0; i < 10; i++) {
-      currentPromise = currentPromise.then(() => this.exportPersonScreenshot(this.teamService.persons[i], zip));
-    }
+    this.teamService.teams.forEach((team,) => {
+      const teamFolder = zip.folder(team.name);
 
-    /*
-    this.teamService.persons.forEach((person) => {
-      currentPromise = currentPromise.then(() => this.exportScreenshot(person, zip));
+      currentPromise = currentPromise.then(
+        () => this.exportTeamScreenshot(team, teamFolder, 'overview.png'),
+            () => Promise.reject(null)
+        );
+
+      team.persons.forEach((person, i) =>
+        currentPromise = currentPromise.then(
+          () => this.exportPersonScreenshot(person, teamFolder, team.name + '-' + (i + 1) + '.png'),
+          () => Promise.reject(null)
+        )
+      );
     });
-    */
 
-    this.teamService.teams.forEach((team) => {
-      currentPromise = currentPromise.then(() => this.exportTeamScreenshot(team, zip));
-    });
-
-    currentPromise.then(() => {
-      zip.generateAsync({ type: 'blob' } )
-        .then(function (content) {
+    currentPromise = currentPromise.then(() =>
+      zip.generateAsync({ type: 'blob' } ).then((content) => {
           FileSaver.saveAs(content, 'TEASE-image-export.zip');
-        });
-    });
+      }),
+      () => { console.log('export cancelled'); });
   }
 
-  exportPersonScreenshot(person: Person, zip: JSZip): Promise<void> {
+  exportPersonScreenshot(person: Person, zip: JSZip, filename: string): Promise<void> {
     console.log('exporting person ' + person.tumId + '...');
     return new Promise<void>((resolve, reject) => {
+      if (this.destroyed) {
+        reject();
+        return;
+      }
+
       this.personDetailCardComponent.person = person;
       this.applicationRef.tick();
 
+      if (this.destroyed) {
+        reject();
+        return;
+      }
+
       html2canvas(this.personDetailCardComponentRef.nativeElement, this.html2canvasOptions).then(canvas => {
         canvas.toBlob(function(blob) {
-          zip.file('person-' + person.tumId + '.png', blob);
+          zip.file(filename, blob);
           resolve();
         });
       });
     });
   }
 
-  exportTeamScreenshot(team: Team, zip: JSZip): Promise<void> {
+  exportTeamScreenshot(team: Team, zip: JSZip, filename: string): Promise<void> {
     console.log('exporting team ' + team.name + '...');
     return new Promise<void>((resolve, reject) => {
+      if (this.destroyed) {
+        reject();
+        return;
+      }
+
+      this.teamComponent.screenshotMode = true;
+      this.teamComponent.statisticsVisible = true;
       this.teamComponent.team = team;
       this.applicationRef.tick();
 
+      if (this.destroyed) {
+        reject();
+        return;
+      }
+
       html2canvas(this.teamCompomentRef.nativeElement, this.html2canvasOptions).then(canvas => {
         canvas.toBlob(function(blob) {
-          zip.file('team-' + team.name + '.png', blob);
+          zip.file(filename, blob);
           resolve();
         });
       });
     });
   }
-
-  /*
-  static getTimeString(): string {
-    const date = new Date();
-    return date.getFullYear()
-      + '-' + date.getMonth()
-      + '-' + date.getDay()
-      + '-' + date.getHours()
-      + '-' +  date.getMinutes()
-      + '-' + date.getSeconds();
-  }
-  */
 }

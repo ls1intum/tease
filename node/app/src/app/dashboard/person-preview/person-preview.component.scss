@@ -1,5 +1,6 @@
 @import '../../../scss/style-constants.scss';
 @import '../../../scss/flex-box';
+@import '../../../scss/utility';
 @import '../../../styles';
 
 @include horizontal-spacing(spacing-3-x, 3px);
@@ -38,11 +39,11 @@
 }
 
 .profile-pic {
+  @extend .img-container-aspect-fill-width;
   border-bottom-right-radius: 10px;
   border-top-left-radius: 3px;
   width: 90px;
   height: 65px;
-  object-fit: cover;
 }
 
 .person-information {
@@ -60,6 +61,7 @@
 }
 
 .gender-icon {
+  @extend .img-container-aspect-fill-height;
   width: 17px;
   height: 17px;
   margin-right: 3px;
@@ -72,6 +74,7 @@
 }
 
 .device-icon {
+  @extend .img-container-aspect-fill-height;
   height: 17px;
 }
 
@@ -83,6 +86,7 @@
 }
 
 .badge-icon {
+  @extend .img-container-aspect-fill-height;
   width: 16px;
   height: 16px;
   border-radius: 50%;

@@ -1,12 +1,16 @@
 <div *ngIf="person" class="detail-card flex-column flex-no-shrink overflow-hidden">
   <!-- profile picture and everything right to it -->
   <div class="flex-row overflow-hidden">
-    <img class="profile-picture" src="{{ getGravatarIcon(person.email, 400) }}">
+    <div class="profile-picture">
+      <img src="{{ getGravatarIcon(person.email, 400) }}">
+    </div>
 
     <!-- column right to the profile picture -->
     <div class="flex-column name-flex-column overflow-hidden">
       <div class="flex-row" id="name-flex-row">
-        <img id="gender-icon" src="{{getGenderIconPath()}}">
+        <div class="gender-icon">
+          <img src="{{getGenderIconPath()}}">
+        </div>
         <div id="person-name">{{ person.firstName }} {{ person.lastName }}</div>
         <div *ngIf="isPersonRated()" class="supervisor-rating-badge flex-right"
              [style.background-color]="getSupervisorRatingColor()">
@@ -27,11 +31,15 @@
           <div class="heading">Languages</div>
           <div class="flex-row">
             <div class="badge language-level-badge flex-row flex-center">
-              <img class="flag-icon" src="/assets/images/german.png">
+              <div class="flag-icon">
+                <img src="/assets/images/german.png">
+              </div>
               <div class="person-language-name">{{ person.germanLanguageLevel }}</div>
             </div>
             <div class="badge language-level-badge flex-row flex-center">
-              <img class="flag-icon" src="/assets/images/english.png">
+              <div class="flag-icon">
+                <img src="/assets/images/english.png">
+              </div>
               <div class="person-language-name">{{ person.englishLanguageLevel }}</div>
             </div>
           </div>
@@ -43,8 +51,9 @@
           <div class="heading">Devices</div>
           <div class="flex-row spacing-x-3">
             <div *ngIf="person.devices.length == 0" class="person-value">—</div>
-            <img *ngFor="let device of person.devices" mdTooltip="{{ Device[device] }}" class="device-icon"
-                 src="{{getDeviceIconPath(device)}}">
+            <div *ngFor="let device of person.devices" mdTooltip="{{ Device[device] }}" class="device-icon">
+              <img src="{{getDeviceIconPath(device)}}">
+            </div>
           </div>
         </div>
         <div class="flex-column person-value-container flex-grow overflow-hidden">

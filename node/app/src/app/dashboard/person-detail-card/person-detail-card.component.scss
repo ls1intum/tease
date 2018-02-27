@@ -1,5 +1,6 @@
 @import '../../../scss/style-constants';
 @import '../../../scss/flex-box';
+@import '../../../scss/utility';
 @import '../person-detail-common';
 
 .detail-card {
@@ -12,11 +13,10 @@
 @include horizontal-spacing(spacing-x-3, 3px);
 
 .profile-picture {
-  flex-shrink: 0;
+  @extend .img-container-aspect-fill-width;
   border-bottom-right-radius: 23px;
   width: 278px;
   height: 200px;
-  object-fit: cover;
 }
 
 .name-flex-column {
@@ -27,14 +27,12 @@
   justify-content: flex-start;
 }
 
-
-
 #name-flex-row {
   align-items: center;
 }
 
-#gender-icon {
-  width: 40px;
+.gender-icon {
+  @extend .img-container-aspect-fill-height;
   height: 40px;
 }
 
@@ -65,10 +63,10 @@
 }
 
 .flag-icon {
+  @extend .img-container-aspect-fill-height;
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  object-fit: cover;
 }
 
 .language-level-badge {
@@ -150,6 +148,7 @@
 }
 
 .device-icon {
+ @extend .img-container-aspect-fill-height;
   height: 30px;
   opacity: 0.6;
 }

@@ -12,6 +12,8 @@ export class TeamComponent implements OnInit {
   @Input() onTeamStatisticsButtonPressed;
   @Output() onPersonClicked = new EventEmitter<Person>();
 
+  screenshotMode = false;
+
   statisticsVisible = false;
 
   constructor() { }

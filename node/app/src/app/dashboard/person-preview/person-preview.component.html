@@ -3,20 +3,26 @@
   <div class="flex-column border-box">
     <!-- profile pic and everything right to it -->
     <div class="flex-row">
-      <img class="profile-pic" src="{{ getGravatarIcon(this.person.email, 180) }}">
+      <div class="profile-pic">
+        <img src="{{ getGravatarIcon(this.person.email, 180) }}">
+      </div>
 
       <!-- column with personal information right to the profile picture -->
       <div class="person-information spacing-3-y">
         <!-- gender icon with name and optional skill level badge -->
         <div class="flex-row flex-center margin-bottom-3px">
-          <img class="gender-icon" src="{{ getGenderIconPath(this.person.gender) }}">
+          <div class="gender-icon flex-no-shrink" >
+            <img src="{{ getGenderIconPath(this.person.gender) }}">
+          </div>
           <div class="name">{{person.firstName}} {{person.lastName}}</div>
         </div>
 
         <!-- language, oop and ios level -->
         <div class="flex-row flex-center spacing-3-x">
           <div class="badge flex-row flex-center">
-            <img class="badge-icon" src="/assets/images/german.png">
+            <div class="badge-icon">
+              <img src="/assets/images/german.png">
+            </div>
             <div class="badge-text">{{person.germanLanguageLevel}}</div>
           </div>
           <div class="badge flex-row flex-center">
@@ -29,8 +35,9 @@
         </div>
 
         <div class="flex-row flex-center spacing-3-x">
-          <img mdTooltip="{{ Device[device] }}" class="device-icon" *ngFor="let device of person.devices"
-               src="{{ getDeviceTypeIconPath(device) }}">
+          <div class="device-icon" *ngFor="let device of person.devices" mdTooltip="{{ Device[device] }}" >
+            <img src="{{ getDeviceTypeIconPath(device) }}">
+          </div>
         </div>
       </div>
     </div>
