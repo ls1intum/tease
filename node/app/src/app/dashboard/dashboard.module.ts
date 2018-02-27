@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TeamComponent } from './team/team.component';
-import {MdButtonModule, MdIconModule, MdSlideToggleModule, MdTooltipModule} from '@angular/material';
+import {
+  MdButtonModule, MdIconModule, MdProgressBarModule, MdSlideToggleModule,
+  MdTooltipModule
+} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { PersonPreviewComponent } from './person-preview/person-preview.component';
 import {DragulaModule} from 'ng2-dragula';
@@ -26,7 +29,7 @@ import { PersonDetailCardComponent } from './person-detail-card/person-detail-ca
 @NgModule({
   imports: [
     CommonModule, BrowserAnimationsModule, MdButtonModule, MdIconModule, MdSlideToggleModule, MdTooltipModule,
-    DragulaModule, FormsModule, NgbModule, ChartsModule, MatSelectModule
+    DragulaModule, FormsModule, NgbModule, ChartsModule, MatSelectModule, MdProgressBarModule
   ],
   declarations: [
     DashboardComponent, TeamComponent, PersonPreviewComponent, PersonDetailOverlayComponent, TeamStatisticsComponent,

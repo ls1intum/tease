@@ -20,6 +20,9 @@ import {Team} from '../../shared/models/team';
 export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayComponent {
   public data: {};
   destroyed = false;
+  imageExportRunning = false;
+  imageExportProgress = 0;
+  imageExportMaxProgress = 1;
 
   @ViewChild(PersonDetailCardComponent) personDetailCardComponent: PersonDetailCardComponent;
   @ViewChild(PersonDetailCardComponent, { read: ElementRef }) personDetailCardComponentRef: ElementRef;
@@ -39,7 +42,6 @@ export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayCompone
   ngOnInit() {}
 
   ngOnDestroy() {
-    console.log('onDestroy()');
     this.destroyed = true;
   }
 
@@ -50,30 +52,49 @@ export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayCompone
   }
 
   exportScreenshots() {
+    this.imageExportRunning = true;
+    this.imageExportProgress = 0;
+    this.imageExportMaxProgress = this.teamService.teams.reduce((acc, team) => acc + 1 + team.persons.length, 0) + 1;
     let currentPromise = Promise.resolve();
     const zip = JSZip();
 
-    this.teamService.teams.forEach((team,) => {
+    this.teamService.teams.forEach((team) => {
       const teamFolder = zip.folder(team.name);
 
       currentPromise = currentPromise.then(
-        () => this.exportTeamScreenshot(team, teamFolder, 'overview.png'),
-            () => Promise.reject(null)
+          () => {
+            this.imageExportProgress++;
+            return this.exportTeamScreenshot(team, teamFolder, 'overview.png');
+          },
+          () => Promise.reject(null)
         );
 
       team.persons.forEach((person, i) =>
         currentPromise = currentPromise.then(
-          () => this.exportPersonScreenshot(person, teamFolder, team.name + '-' + (i + 1) + '.png'),
+          () => {
+            this.imageExportProgress++;
+            return this.exportPersonScreenshot(person, teamFolder, team.name + '-' + (i + 1) + '.png');
+          },
           () => Promise.reject(null)
         )
       );
     });
 
-    currentPromise = currentPromise.then(() =>
-      zip.generateAsync({ type: 'blob' } ).then((content) => {
+    currentPromise = currentPromise.then(
+      () =>
+        zip.generateAsync({ type: 'blob' } ).then((content) => {
           FileSaver.saveAs(content, 'TEASE-image-export.zip');
+          this.imageExportProgress++;
+          this.imageExportRunning = false;
       }),
-      () => { console.log('export cancelled'); });
+      () => {
+        console.log('export cancelled');
+        this.imageExportRunning = false;
+      });
+  }
+
+  getImageExportProgressPercentage(): number {
+    return this.imageExportProgress / this.imageExportMaxProgress * 100;
   }
 
   exportPersonScreenshot(person: Person, zip: JSZip, filename: string): Promise<void> {

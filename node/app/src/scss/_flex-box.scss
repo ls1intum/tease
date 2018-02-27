@@ -56,6 +56,16 @@
   }
 }
 
+@mixin flex-spacing($class-name, $amount) {
+  .#{$class-name} > * {
+    margin: -$amount;
+  }
+
+  .#{$class-name} > * {
+    margin: $amount;
+  }
+}
+
 .flex-basis-zero {
   flex-basis: 0;
   overflow: hidden;
