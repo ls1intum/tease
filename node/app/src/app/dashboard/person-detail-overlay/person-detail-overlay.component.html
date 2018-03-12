@@ -1,10 +1,10 @@
 <div *ngIf="data" class="flex-justify-center flex-row main-row">
   <div class="hidden-scrollbar-parent">
     <div class="flex-column hidden-scrollbar-child">
-      <div class="flex-column scrollable-content" (click)="$event.stopPropagation()">
+      <div class="flex-column scrollable-content flex-no-shrink" (click)="$event.stopPropagation()">
 
         <!-- person detail card with instructor rating buttons -->
-        <div class="main-card flex-column overflow-hidden">
+        <div class="main-card flex-column overflow-hidden flex-no-shrink">
           <!-- person detail card -->
           <app-person-detail-card [person]="data.person"></app-person-detail-card>
 
