@@ -34,6 +34,10 @@ export class IconMapperService {
         return IconMapperService.BASE_PATH_IMAGES + 'iphone.png';
       case Device.Ipad:
         return IconMapperService.BASE_PATH_IMAGES + 'ipad.png';
+      case Device.IphoneAR:
+        return IconMapperService.BASE_PATH_IMAGES + 'iphoneAR.png';
+      case Device.IpadAR:
+        return IconMapperService.BASE_PATH_IMAGES + 'ipadAR.png';
       case Device.Watch:
         return IconMapperService.BASE_PATH_IMAGES + 'iwatch.png';
       case Device.Mac:

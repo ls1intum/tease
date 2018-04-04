@@ -95,5 +95,7 @@ export class PersonSerializer {
     personProps[CSVConstants.Devices.Iphone] = person.ownsDevice(Device.Iphone) ? availableString : unavailableString;
     personProps[CSVConstants.Devices.Watch] = person.ownsDevice(Device.Watch) ? availableString : unavailableString;
     personProps[CSVConstants.Devices.Mac] = person.ownsDevice(Device.Mac) ? availableString : unavailableString;
+    personProps[CSVConstants.Devices.IpadAR] = person.ownsDevice(Device.IpadAR) ? availableString : unavailableString;
+    personProps[CSVConstants.Devices.IphoneAR] = person.ownsDevice(Device.IphoneAR) ? availableString : unavailableString;
   }
 }

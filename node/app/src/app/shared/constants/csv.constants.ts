@@ -66,7 +66,7 @@ export class CSVConstants {
   };
 
   static readonly Devices = {
-    Iphone: 'devices[iPhone]', Ipad: 'devices[iPad]', Mac: 'devices[Mac]', Watch: 'devices[Watch]'
+    Iphone: 'devices[iPhone]', Ipad: 'devices[iPad]', Mac: 'devices[Mac]', Watch: 'devices[Watch]', IphoneAR: 'devices[iPhoneAR]', IpadAR: 'devices[iPadAR]'
   };
 
   static readonly iOSDevExperienceLow = 'I have no experience in Apple platform development other than the intro course.';

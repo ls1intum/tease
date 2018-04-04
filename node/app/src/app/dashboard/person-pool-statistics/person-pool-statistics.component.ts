@@ -83,7 +83,7 @@ export class PersonPoolStatisticsComponent implements OnInit {
 
   getTotalNumberOfPersonsWithIOSDevice(): number {
     return this.getNumberOfPersonsWithPredicate((person) =>
-      person.devices.includes(Device.Ipad) || person.devices.includes(Device.Iphone)
+      person.devices.includes(Device.Ipad) || person.devices.includes(Device.Iphone) || person.devices.includes(Device.IpadAR) || person.devices.includes(Device.IphoneAR)
     );
   }
 

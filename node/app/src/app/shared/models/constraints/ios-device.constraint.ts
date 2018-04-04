@@ -16,7 +16,7 @@ export class IosDeviceConstraint extends Constraint {
   }
 
   private getDeviceCount(team: Team): number {
-    return team.getDeviceCountOfType(Device.Iphone) + team.getDeviceCountOfType(Device.Ipad);
+    return team.getDeviceCountOfType(Device.Iphone) + team.getDeviceCountOfType(Device.Ipad) + team.getDeviceCountOfType(Device.IphoneAR) + team.getDeviceCountOfType(Device.IpadAR);
   }
 
   getName(): string {

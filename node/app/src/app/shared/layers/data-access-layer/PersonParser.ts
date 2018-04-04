@@ -149,6 +149,10 @@ export abstract class PersonParser {
       person.addDevice(Device.Watch);
     if (personProps[CSVConstants.Devices.Iphone] === available)
       person.addDevice(Device.Iphone);
+    if (personProps[CSVConstants.Devices.IphoneAR] === available)
+      person.addDevice(Device.IphoneAR);
+    if (personProps[CSVConstants.Devices.IpadAR] === available)
+      person.addDevice(Device.IpadAR);
   }
 
   private static parseArray(columnArrayName: string, personProps: Array<any>): {[element: string]: string} {
