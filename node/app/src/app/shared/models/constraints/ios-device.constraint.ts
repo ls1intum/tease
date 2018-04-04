@@ -20,7 +20,7 @@ export class IosDeviceConstraint extends Constraint {
   }
 
   getName(): string {
-    return 'iOS Devices';
+    return 'Persons w. iDevice';
   }
 
   getType(): ConstraintType {
