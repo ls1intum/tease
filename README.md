@@ -42,7 +42,7 @@ Access on localhost:8080
 
 ## Known issues and next steps
 
-Some are here: https://jira.ase.in.tum.de/projects/ITEAM/issues/ITEAM-44?filter=allopenissues
+Some are here: https://jira.ase.in.tum.de/projects/ITEAM/issues/filter=allopenissues
 
 
 # Deprecated documentation
