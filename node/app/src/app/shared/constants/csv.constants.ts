@@ -54,7 +54,7 @@ export class CSVConstants {
     ExperiencePostfix: '[expinter][1]',
     InterestPostfix: '[expinter][2]',
     SkillNameAbbreviationPairs: [
-      ['Web Frontend Development', 'WEBFE'],
+      ['Frontend Development', 'WEBFE'],
       ['Server-side Development', 'SSDEV'],
       ['UI / UX', 'UIUX'],
       ['Embedded Development', 'EMBED'],
