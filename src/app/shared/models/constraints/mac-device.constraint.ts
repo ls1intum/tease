@@ -12,7 +12,7 @@ export class MacDeviceConstraint extends Constraint {
   }
 
   isSatisfied(team: Team): boolean {
-    return this.getCurrentValue(team) >= this.minValue;
+    return (this.minValue || 0) <= this.getCurrentValue(team) && this.getCurrentValue(team) <= (this.maxValue || Number.MAX_VALUE);
   }
 
   getName(): string {
@@ -20,7 +20,7 @@ export class MacDeviceConstraint extends Constraint {
   }
 
   getType(): ConstraintType {
-    return ConstraintType.GTE;
+    return ConstraintType.Interval;
   }
 
   getCurrentValue(team: Team): number {

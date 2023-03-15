@@ -11,7 +11,7 @@ export class IosDeviceConstraint extends Constraint {
   }
 
   isSatisfied(team: Team): boolean {
-    return this.getDeviceCount(team) >= this.minValue;
+    return (this.minValue || 0) <= this.getCurrentValue(team) && this.getCurrentValue(team) <= (this.maxValue || Number.MAX_VALUE);
   }
 
   private getDeviceCount(team: Team): number {
@@ -28,7 +28,7 @@ export class IosDeviceConstraint extends Constraint {
   }
 
   getType(): ConstraintType {
-    return ConstraintType.GTE;
+    return ConstraintType.Interval;
   }
 
   getCurrentValue(team: Team): number {
