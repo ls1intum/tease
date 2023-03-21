@@ -1,0 +1,37 @@
+<div *ngIf="team" class="team-card flex-column" (click)="$event.stopPropagation()">
+  <!-- team title -->
+  <div class="flex-row flex-justify-content-space-between flex-center">
+    <div class="team-person-count title-elements-spacing flex-row flex-center flex-justify-center">
+      <div>{{ team.persons.length }}</div>
+    </div>
+    <div class="team-name title-elements-spacing">{{ team.name }}</div>
+    <div class="title-elements-spacing">
+      <button
+        md-icon-button
+        [disabled]="team.persons.length === 0"
+        (click)="statisticsVisible = !statisticsVisible"
+        [class.icon-button-highlight]="statisticsVisible"
+        [class.opacity-zero]="screenshotMode">
+        <i class="material-icons">timeline</i>
+      </button>
+    </div>
+  </div>
+
+  <!-- statistics -->
+  <app-team-statistics [team]="team" *ngIf="statisticsVisible && team.persons.length > 0"></app-team-statistics>
+
+  <!-- person preview cards -->
+  <div class="position-relative">
+    <div *ngIf="team.persons.length === 0" class="pointer-events-none empty-team-hint-container flex-row">
+      <div class="empty-team-hint flex-grow flex-row flex-center flex-justify-center">
+        <div>Drag persons here</div>
+      </div>
+    </div>
+    <div [dragula]="'first-bag'" class="drag-container" [dragulaModel]="team.persons">
+      <app-person-preview
+        *ngFor="let person of team.persons"
+        [person]="person"
+        (click)="onPersonClicked.emit(person); $event.stopPropagation()"></app-person-preview>
+    </div>
+  </div>
+</div>
