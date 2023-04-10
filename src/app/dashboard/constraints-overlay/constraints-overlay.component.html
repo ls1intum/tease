@@ -1,11 +1,10 @@
 <div class="flex-column flex-center full-size">
-  <div class="dialog-box flex-column" (click)="$event.stopPropagation()">
+  <div class="dialog-box scrollable-content flex-column" (click)="$event.stopPropagation()">
     <div class="dialog-header flex-row flex-center flex-no-shrink">
       <div class="dialog-heading">Distribute With Constraints</div>
     </div>
 
-    <!-- scrollable content -->
-    <div class="scrollable-content">
+    <div>
       <div class="flex-column flex-no-shrink">
         <div *ngIf="data.displayWarning" class="warning flex-column">
           <div class="warning-heading warning-element">Warning!</div>
