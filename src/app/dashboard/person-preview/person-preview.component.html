@@ -21,19 +21,22 @@
 
         <!-- language, oop and ios level -->
         <div class="flex-row flex-center spacing-3-x">
-          <div class="badge flex-row flex-center">
+          <div class="flex-row flex-center">
             <div class="badge-icon">
               <img src="/assets/images/german.png" />
             </div>
             <div class="badge-text">{{ person.germanLanguageLevel }}</div>
           </div>
-          <div class="badge flex-row flex-center">
+          <div class="flex-row flex-center">
             <div
               class="badge-icon flex-row flex-center flex-justify-center"
               [style.background-color]="getColor(person.getiOSSkillLevel())">
               <div>{{ getFirstLetterOfSkillLevelName(person.getiOSSkillLevel()) }}</div>
             </div>
             <div class="badge-text">iOS</div>
+          </div>
+          <div class="flex-row flex-center">
+            <div class="badge-text">{{ getFlagEmojiFromNationality(person.nationality) }}</div>
           </div>
         </div>
 
