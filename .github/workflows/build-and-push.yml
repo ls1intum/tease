@@ -1,14 +1,13 @@
 name: Build and Push
 
 on:
-  push:
-    branches:
-      - develop
+  pull_request:
+    branches: [develop]
 
 jobs:
   buildx:
     name: Build and Push Docker Images
-    runs-on: node:lts-bullseye-slim
+    runs-on: ubuntu-latest
 
     steps:
       - name: Compute Tag
@@ -30,18 +29,21 @@ jobs:
             }
             return "FALSE";
 
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v3
 
-      -
-        name: Docker Login
+      - name: Docker Login
         id: docker-login
         run: |
           docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
 
-      -
-        name: Login to GitHub Container Registry
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Login to Container Registry
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
@@ -49,27 +51,24 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
 
-      -
-        name: Set up QEMU
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         with:
           platforms: all
 
-      -
-        name: Set up Docker Buildx
+      - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@master
         with:
           version: latest
 
-      -
-        name: Build Image and Push to GitHub Container Registry and DockerHub
+      - name: Build Image and Push to GitHub Container Registry and DockerHub
         uses: docker/build-push-action@v4
         if: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
         with:
           context: .
           tags: |
             ls1tum/tease:${{ steps.compute-tag.outputs.result }}
-            ghcr.io/tease:${{ steps.compute-tag.outputs.result }}
+            ghcr.io/ls1intum/tease:${{ steps.compute-tag.outputs.result }}
           platforms: linux/amd64,linux/arm64/v8
           push: true
