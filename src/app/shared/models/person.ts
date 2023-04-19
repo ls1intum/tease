@@ -20,6 +20,7 @@ export class Person {
   email: string;
   tumId: string;
   gender: Gender;
+  nationality: string;
   major: string;
   semester: number;
 
