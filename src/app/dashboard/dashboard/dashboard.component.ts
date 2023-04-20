@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
     private overlayService: OverlayService
   ) {
     /* save model when modified by drag&drop operation */
-    dragulaService.dropModel('"first-bag"').subscribe(({ el, target, source, sourceModel, targetModel, item }) => {
+    dragulaService.dropModel("persons").subscribe(({ el, target, source, sourceModel, targetModel, item }) => {
       teamService.saveToLocalBrowserStorage();
     });
   }

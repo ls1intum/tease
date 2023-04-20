@@ -83,9 +83,9 @@
       </div>
     </div>
     <div
-      [dragula]="'first-bag'"
+      dragula="persons"
       class="flex-row person-pool-preview-row flex-wrap flex-grow"
-      [dragulaModel]="teamService.personsWithoutTeam">
+      [(dragulaModel)]="teamService.personsWithoutTeam">
       <app-person-preview
         *ngFor="let person of teamService.personsWithoutTeam"
         [person]="person"
