@@ -83,6 +83,7 @@
   border-radius: 8px;
   background-color: #f0f0f0;
   white-space: nowrap;
+  display: flex;
 }
 
 .badge-icon {
@@ -96,7 +97,7 @@
 
 .badge-text {
   font-size: 13px;
-  margin: 0 7px 0 3px;
+  margin: 0 3px 0 3px;
   color: black;
 }
 
@@ -169,4 +170,8 @@
 .pin-icon {
   width: 15px;
   height: 15px;
+}
+
+.flag-emoji {
+  font-size: 16px;
 }
