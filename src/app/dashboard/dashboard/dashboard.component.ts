@@ -39,8 +39,16 @@ export class DashboardComponent implements OnInit {
   ) {
     /* save model when modified by drag & drop operation */
     dragulaService.dropModel("persons").subscribe(({ el, target, source, sourceModel, targetModel, item }) => {
-      let person:Person = item
-      person.team = this.inferTeam(targetModel, person)
+      let person: Person = teamService.getPersonById(item.tumId)
+      let currentTeam = person.team
+      currentTeam.remove(person)
+
+      let inferredNewTeam = this.inferTeam(targetModel, person)
+
+      // just in case the team inferred from student references is also a copy and
+      // not stored in the TeamService -> match by name (worst case this returns the same reference again)
+      let newTeam = teamService.getTeamByName(inferredNewTeam.name)
+      newTeam.add(person)
       teamService.saveToLocalBrowserStorage()
     });
   }
