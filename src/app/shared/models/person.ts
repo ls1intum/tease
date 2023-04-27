@@ -47,6 +47,9 @@ export class Person {
 
   isPinned: boolean;
 
+  // custom defined attributes that the student possesses, see the constraintsconfig.json file
+  booleanAttributes: string[] = []
+
   constructor(id?: number, firstName?: string) {
     this.firstName = firstName || 'no name';
   }

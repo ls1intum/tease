@@ -4,6 +4,9 @@ import { Device } from '../../models/device';
 import { StringHelper } from '../../helpers/string.helper';
 import { Skill, SkillLevel } from '../../models/skill';
 import { Team } from '../../models/team';
+
+import constraintsConfig from '../../../../../constraintsconfig.json'
+
 /**
  * Created by Malte Bucksch on 01/12/2016.
  */
@@ -83,6 +86,16 @@ export abstract class PersonParser {
     person.team = this.getOrCreateTeam(teams, personProps[CSVConstants.Team.TeamName]);
 
     if (person.team) person.team.persons.push(person);
+
+    // TOOD: Ideally, instead of specifying the additional attributes in a config file, which allows for
+    // accidental listing of attributes that don't exist in the data, the parser or some other module
+    // should infer which attributes students have (in general) based on the individual attributes they have
+    // and then make a subset of them available to be used in constraints
+    for (var attribute of constraintsConfig.constraints) {
+      if (personProps[attribute] === 'true') {
+        person.booleanAttributes.push(attribute)
+      }
+    }
 
     return person;
   }

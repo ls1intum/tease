@@ -3,6 +3,9 @@ import { StringHelper } from '../../helpers/string.helper';
 import { CSVConstants } from '../../constants/csv.constants';
 import { Device } from '../../models/device';
 import { SkillLevel } from '../../models/skill';
+
+import constraintsConfig from '../../../../../constraintsconfig.json'
+
 /**
  * Created by Malte Bucksch on 01/12/2016.
  */
@@ -36,6 +39,17 @@ export class PersonSerializer {
     personProps[CSVConstants.Person.IsPinned] = String(person.isPinned);
 
     personProps[CSVConstants.Team.TeamName] = person.team ? person.team.name : '';
+
+    // TOOD: Again this should not be based on a config file since that file can be misconfigured
+    // At this point in the code the model should know which constraints exist and should use this
+    // information to deserialize student data
+    for (var attribute of constraintsConfig.constraints) {
+      if (person.booleanAttributes.indexOf(attribute) > -1) {
+        personProps[attribute] = 'true';
+      } else {
+        personProps[attribute] = 'false';
+      }
+    }
 
     return personProps;
   }

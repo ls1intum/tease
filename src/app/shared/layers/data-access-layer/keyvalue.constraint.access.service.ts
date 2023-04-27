@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Constraint } from '../../models/constraints/constraint';
+import { GenericBooleanConstraint } from '../../models/constraints/generic-boolean.constraint'
 import { ConstraintAccessService } from './constraint.access.service';
 import { FemalePersonConstraint } from '../../models/constraints/female-person.constraint';
 import { TeamSizeConstraint } from '../../models/constraints/team-size.constraint';
@@ -10,6 +11,8 @@ import { SkillAdvancedConstraint } from '../../models/constraints/skill-advanced
 import { SkillNormalConstraint } from '../../models/constraints/skill-normal.constraint';
 import { SkillNoviceConstraint } from '../../models/constraints/skill-novice.constraint';
 import { CSVPersonDataAccessService } from './csv-person-data-access.service';
+
+import constraintsConfig from '../../../../../constraintsconfig.json'
 
 /**
  * Created by Malte Bucksch on 23/02/2017.
@@ -29,7 +32,7 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
   private static readonly KeySkillNormalConstraint = 'KeySkillNormalConstraint';
   private static readonly KeySkillNoviceConstraint = 'KeySkillNoviceConstraint';
 
-  private static readonly ConstraintDefinitionArray = [
+  private static ConstraintDefinitionArray: any = [
     { classDefinition: MacDeviceConstraint, storageKey: KeyValueConstraintAccessService.KeyMacDeviceConstraint },
     { classDefinition: IosDeviceConstraint, storageKey: KeyValueConstraintAccessService.KeyIosDeviceConstraint },
     { classDefinition: FemalePersonConstraint, storageKey: KeyValueConstraintAccessService.KeyFemalePersonConstraint },
@@ -42,6 +45,15 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
     { classDefinition: SkillNormalConstraint, storageKey: KeyValueConstraintAccessService.KeySkillNormalConstraint },
     { classDefinition: SkillNoviceConstraint, storageKey: KeyValueConstraintAccessService.KeySkillNoviceConstraint },
   ];
+
+  static {
+    // loop that dynamically attempts to add new constraints specified in the config to the static array of this class
+    for (var constraint of constraintsConfig.constraints) {
+      KeyValueConstraintAccessService.ConstraintDefinitionArray.push(
+        { classDefinition: GenericBooleanConstraint, storageKey: "Key" + constraint, specialization: constraint}
+      )
+    }
+  }
 
   private serializeConstraint(constraint: Constraint): string {
     return JSON.stringify(constraint);
@@ -62,7 +74,19 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
     for (const constraint of constraints) {
       const constraintClassDefinition = KeyValueConstraintAccessService.ConstraintDefinitionArray.filter(
         currentConstraintClassDefinition => {
-          return constraint instanceof currentConstraintClassDefinition.classDefinition;
+          const sameClass = constraint instanceof currentConstraintClassDefinition.classDefinition
+          if (constraint instanceof GenericBooleanConstraint) {
+            if (currentConstraintClassDefinition["specialization"]) {
+              if (currentConstraintClassDefinition["specialization"] === constraint.getName()) {
+                return true
+              }
+              return false
+            } else {
+              return false;
+            }
+          } else {
+            return sameClass
+          }
         }
       )[0];
 
@@ -96,6 +120,10 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
 
         const constraint = new classDefinition(storedConfig);
 
+        if (constraint instanceof GenericBooleanConstraint) {
+            constraint.setName(constraintClassDefinition["specialization"])
+        }
+
         constraints.push(constraint);
       });
 
@@ -117,6 +145,10 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
             storedConfig.teamName = teamName;
 
             const constraint = new classDefinition(storedConfig);
+
+            if (constraint instanceof GenericBooleanConstraint) {
+              constraint.setName(constraintClassDefinition["specialization"])
+            }
 
             constraints.push(constraint);
           });

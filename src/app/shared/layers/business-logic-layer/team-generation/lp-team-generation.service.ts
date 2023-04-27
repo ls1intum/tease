@@ -7,6 +7,7 @@ import { MacDeviceConstraint } from '../../../models/constraints/mac-device.cons
 import { FemalePersonConstraint } from '../../../models/constraints/female-person.constraint';
 import { IosDeviceConstraint } from '../../../models/constraints/ios-device.constraint';
 import { TeamSizeConstraint } from '../../../models/constraints/team-size.constraint';
+import { GenericBooleanConstraint } from '../../../models/constraints/generic-boolean.constraint'
 import { Device } from '../../../models/device';
 import { Person, Gender } from '../../../models/person';
 import { ReformatLP, Solve } from 'javascript-lp-solver';
@@ -147,6 +148,40 @@ export class LPTeamGenerationService implements TeamGenerationService {
       constraints.push(c + ' <= ' + maxPeoplePerTeam);
       constraints.push(c + ' >= ' + minPeoplePerTeam);
     }
+
+    return constraints;
+  }
+
+  private generateGenericBooleanConstraints(constraint: GenericBooleanConstraint, teamIndex: number, persons: Person[]): string[] {
+    const name = constraint.getName()
+    const minAttributesPerTeam = constraint.getMinValue() || 0;
+    const maxAttributesPerTeam = constraint.getMaxValue() || persons.length;
+    const constraints = [];
+
+    console.log("Min value: " + constraint.getMinValue() + ", max value: " + constraint.getMaxValue())
+
+    let c = '';
+
+    for (let i = 1; i <= persons.length; i++) {
+      const hasAttribute = persons[i - 1].booleanAttributes.indexOf(name) > -1;
+      if (hasAttribute) {
+        console.log("Person " + i + " has attribute " + name)
+        if (c) {
+          c += ' + ';
+        }
+        c += 'x' + i + 'y' + (teamIndex + 1);
+      }
+    }
+
+    // if not a single student was found with the provided booelan attribute, the constraint satisfaction problem should not
+    // suddenly be potentially satisfiable due to no inequalities being added here, to the contrary the problem is unsatisfiable if
+    // the constraint wants at least n > 0 attributes since none were found if c is empty, hence we make sure to still
+    // add the inequalities but with a zero on the left hand side
+    if (!c) {
+      c = '0';
+    }
+    constraints.push(c + ' <= ' + maxAttributesPerTeam);
+    constraints.push(c + ' >= ' + minAttributesPerTeam);
 
     return constraints;
   }
@@ -340,6 +375,9 @@ export class LPTeamGenerationService implements TeamGenerationService {
             }
             if (constraint instanceof FemalePersonConstraint) {
               cs = this.generateFemalePersonConstraints(constraint, teamIndex, persons);
+            }
+            if (constraint instanceof GenericBooleanConstraint) {
+              cs = this.generateGenericBooleanConstraints(constraint, teamIndex, persons)
             }
 
             if (constraint instanceof SkillExpertConstraint) {

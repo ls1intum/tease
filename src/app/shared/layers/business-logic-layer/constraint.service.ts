@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ConstraintAccessService } from '../data-access-layer/constraint.access.service';
 import { Constraint } from '../../models/constraints/constraint';
+import { GenericBooleanConstraint } from '../../models/constraints/generic-boolean.constraint'
 import { Team } from '../../models/team';
 /**
  * Created by Malte Bucksch on 23/02/2017.
