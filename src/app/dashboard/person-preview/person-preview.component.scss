@@ -119,6 +119,8 @@
   /* important to allow items in flex box to be smaller than its content */
   overflow: hidden;
   margin: 2px;
+  /* some mysterious rule is turning the text white ("var(--bs-badge-color)", so we explicitly set it back to black*/
+  color: black;
 }
 
 .team-badge-container {
