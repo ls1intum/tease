@@ -5,26 +5,27 @@ Team allocation decision support system as used in the iPraktikum.
 ## Prerequisites
 
 1. Install [Docker](https://docs.docker.com/get-docker/)
-2. Clone this repository
+2. Either clone this repository or download one of the images found under the packages menu
 
 ## Usage - Starting TEASE
 
+If you downloaded the repository, build the docker image (from inside the repositorie's root directory):
 ```
-cd tease
-docker build -t tease .
-docker run -p 8080:80 --name tease-container tease
+docker build -t <image-name> .
 ```
 
-The container will take a little while to download the node dependencies and then compile the Angular project. After the project is done compiling open
-[localhost:8080](https://localhost:8080) and _zoom out of the webpage_ a bit (67% seems good) to make some UI elements more visible (this workaround will be fixed in a future UI improvement update).
+The container will take a little while to download the node dependencies and then compile the Angular project.
 
-Feel free to replace the port with a different one if you're experiencing issues with getting connection retsets.
+Run the docker image using:
+```
+docker run -ti -p 8080:80 --name tease-container <image-name>
+```
 
-Once the tool is running, you can choose to import the example team data that is shipped with the repository.
+After Angular is done preparing the application open [localhost:8080](https://localhost:8080) and choose to either import the example team data that is shipped with the repository or specify a different file.
 
 ![import](src/assets/images/import.png)
 
-In **Distribute With Constraints** you can set global and team-specific constraints (e.g. minimum or maximum number of experienced developers, female developers, developers with a mac, etc.). Developers can be pinned to a team and assigned manually.
+In **Distribute With Constraints** you can set global and team-specific constraints (e.g. minimum or maximum number of experienced developers, female developers, developers with a mac, etc.). People can be pinned to a team and assigned manually.
 
 ![constraints](src/assets/images/constraints.png)
 
