@@ -27,7 +27,7 @@
         <div>Drag persons here</div>
       </div>
     </div>
-    <div [dragula]="'first-bag'" class="drag-container" [dragulaModel]="team.persons">
+    <div dragula="persons" class="drag-container" [(dragulaModel)]="team.persons">
       <app-person-preview
         *ngFor="let person of team.persons"
         [person]="person"
