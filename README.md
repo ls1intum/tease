@@ -18,7 +18,7 @@ The container will take a little while to download the node dependencies and the
 
 Run the docker image using:
 ```
-docker run -ti -p 8080:80 --name tease-container <image-name>
+docker run -it -p 8080:80 --name tease-container ghcr.io/ls1intum/tease
 ```
 
 After Angular is done preparing the application open [localhost:8080](https://localhost:8080) and choose to either import the example team data that is shipped with the repository or specify a different file.
