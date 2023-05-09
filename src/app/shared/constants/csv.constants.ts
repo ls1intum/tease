@@ -10,6 +10,7 @@ export class CSVConstants {
     Email: 'email',
     TumId: 'attribute_2',
     Gender: 'attribute_3',
+    Nationality: 'nationality',
     Major: 'major',
     MajorOther: 'major[other]',
     Semester: 'semester',

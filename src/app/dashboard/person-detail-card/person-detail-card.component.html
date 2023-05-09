@@ -29,6 +29,11 @@
           <div class="heading">Term</div>
           <div class="person-value">{{ person.semester }}</div>
         </div>
+        <div class="flex-column flex-grow person-value-container">
+          <div class="heading">Nationality</div>
+          <div class="person-value flag-emoji">{{ getFlagEmojiFromNationality(person.nationality) }}</div>
+          <div class="person-value">{{ person.nationality }}</div>
+        </div>
         <div class="flex-column">
           <div class="heading">Languages</div>
           <div class="flex-row">
