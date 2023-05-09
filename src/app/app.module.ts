@@ -26,6 +26,7 @@ import { PersonHighlightingOverlayComponent } from './dashboard/person-highlight
 import { HighlightingToolbarComponent } from './highlighting-toolbar/highlighting-toolbar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { ExportOverlayComponent } from './dashboard/export-overlay/export-overlay.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, OverlayHostDirective, HighlightingToolbarComponent],
@@ -40,6 +41,7 @@ import { ExportOverlayComponent } from './dashboard/export-overlay/export-overla
     AppRoutingModule,
     HammerModule,
     DragulaModule.forRoot(),
+    ReactiveFormsModule,
     /* own modules */
     SharedModule,
     DashboardModule,

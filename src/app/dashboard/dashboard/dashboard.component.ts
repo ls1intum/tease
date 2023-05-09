@@ -8,6 +8,7 @@ import { OverlayService } from '../../overlay.service';
 import { ConstraintsOverlayComponent } from '../constraints-overlay/constraints-overlay.component';
 import { SkillLevel } from '../../shared/models/skill';
 import { Device } from '../../shared/models/device';
+import { FormControl, FormGroup } from '@angular/forms';
 
 enum PersonPoolDisplayMode {
   Closed,
@@ -32,10 +33,14 @@ export class DashboardComponent implements OnInit {
   SkillLevel = SkillLevel;
   Device = Device;
 
+  personPoolDisplayModeFormGroup = new FormGroup({
+    personPoolDisplayModeControl: new FormControl(PersonPoolDisplayMode.OneRow),
+  });
+
   constructor(
     public teamService: TeamService,
     private dragulaService: DragulaService,
-    private overlayService: OverlayService
+    private overlayService: OverlayService,
   ) {
     /* save model when modified by drag & drop operation */
     dragulaService.dropModel("persons").subscribe(({ el, target, source, sourceModel, targetModel, item }) => {
@@ -53,12 +58,18 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  personPoolDisplayModeUpdated() {
+    this.personPoolDisplayMode = this.personPoolDisplayModeFormGroup.value.personPoolDisplayModeControl;
+    this.onPersonPoolDisplayModeChange()
+  }
+
   ngOnInit() {
     this.teamService.readFromBrowserStorage();
   }
 
   getPersonPoolDisplayModeCSSClass(value: PersonPoolDisplayMode): string {
-    return `person-pool-display-mode-${PersonPoolDisplayMode[value].toLowerCase()}`;
+    const modeString = (Object.values(PersonPoolDisplayMode)[value] as string).toLowerCase()
+    return 'person-pool-display-mode-' + modeString
   }
 
   public showPersonDetails(person: Person) {
@@ -93,7 +104,12 @@ export class DashboardComponent implements OnInit {
 
   togglePersonPoolStatistics() {
     this.statisticsVisible = !this.statisticsVisible;
-    if (this.statisticsVisible) this.personPoolDisplayMode = PersonPoolDisplayMode.Full;
+    if (this.statisticsVisible) {
+      this.personPoolDisplayMode = PersonPoolDisplayMode.Full;
+
+      // make sure the value of the radio button form is updated accordingly as well
+      this.personPoolDisplayModeFormGroup.setValue({ personPoolDisplayModeControl: PersonPoolDisplayMode.Full})
+    }
   }
 
   onPersonPoolDisplayModeChange() {
