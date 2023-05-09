@@ -45,29 +45,51 @@
         <div>Distribute With Constraints</div>
       </div>
     </button>
-    <div
-      class="btn-group btn-group-sm"
-      ngbRadioGroup
-      name="radioBasic"
-      [(ngModel)]="personPoolDisplayMode"
-      (ngModelChange)="onPersonPoolDisplayModeChange()">
-      <label ngbButtonLabel class="btn-secondary">
-        <input ngbButton type="radio" [value]="PersonPoolDisplayMode.Closed" />
-        <img src="/assets/images/person-pool-closed.svg" class="person-pool-size-icon" />
-      </label>
-      <label ngbButtonLabel class="btn-secondary">
-        <input ngbButton type="radio" [value]="PersonPoolDisplayMode.OneRow" />
-        <img src="/assets/images/person-pool-one-row.svg" class="person-pool-size-icon" />
-      </label>
-      <label ngbButtonLabel class="btn-secondary">
-        <input ngbButton type="radio" [value]="PersonPoolDisplayMode.TwoRows" />
-        <img src="/assets/images/person-pool-two-rows.svg" class="person-pool-size-icon" />
-      </label>
-      <label ngbButtonLabel class="btn-secondary">
-        <input ngbButton type="radio" [value]="PersonPoolDisplayMode.Full" />
-        <img src="/assets/images/person-pool-full.svg" class="person-pool-size-icon" />
-      </label>
-    </div>
+    <form [formGroup]="personPoolDisplayModeFormGroup" (change)="personPoolDisplayModeUpdated()">
+      <div class="btn-group">
+        <input mdbRadio
+          type="radio"
+          id="option-1"
+          class="btn-check"
+          formControlName="personPoolDisplayModeControl"
+          [value]="PersonPoolDisplayMode.Closed"
+        />
+        <label class="btn btn-secondary" for="option-1">
+          <img src="/assets/images/person-pool-closed.svg" class="person-pool-size-icon" />
+        </label>
+        <input mdbRadio
+          type="radio"
+          id="option-2"
+          class="btn-check"
+          formControlName="personPoolDisplayModeControl"
+          checked="true"
+          [value]="PersonPoolDisplayMode.OneRow"
+        />
+        <label class="btn btn-secondary" for="option-2">
+          <img src="/assets/images/person-pool-one-row.svg" class="person-pool-size-icon" />
+        </label>
+        <input mdbRadio
+          type="radio"
+          id="option-3"
+          class="btn-check"
+          formControlName="personPoolDisplayModeControl"
+          [value]="PersonPoolDisplayMode.TwoRows"
+        />
+        <label class="btn btn-secondary" for="option-3">
+          <img src="/assets/images/person-pool-two-rows.svg" class="person-pool-size-icon" />
+        </label>
+        <input mdbRadio
+          type="radio"
+          id="option-4"
+          class="btn-check"
+          formControlName="personPoolDisplayModeControl"
+          [value]="PersonPoolDisplayMode.Full"
+        />
+        <label class="btn btn-secondary" for="option-4">
+          <img src="/assets/images/person-pool-full.svg" class="person-pool-size-icon" />
+        </label>
+      </div>
+    </form>
   </div>
 
   <!-- person pool statistics -->

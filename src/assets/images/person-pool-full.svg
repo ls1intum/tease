@@ -1,62 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="33.700001"
-   height="21.4"
-   viewBox="0 0 33.700003 21.4"
-   id="svg2"
-   version="1.1"
-   inkscape:version="0.91 r13725">
-  <defs
-     id="defs4" />
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="3.959798"
-     inkscape:cx="67.601967"
-     inkscape:cy="32.456552"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     showgrid="false"
-     units="px"
-     inkscape:window-width="1920"
-     inkscape:window-height="1137"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
-  <metadata
-     id="metadata7">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-1030.9623)">
-    <path
-       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:start;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.25300026;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-       d="m 1.174707,1031.0286 a 1.1266127,1.1266127 0 0 0 -1.12694997,1.1269 l 0,19.0645 a 1.1266127,1.1266127 0 0 0 1.12694997,1.125 l 31.38477,0 a 1.1266127,1.1266127 0 0 0 1.12695,-1.125 l 0,-19.0645 a 1.1266127,1.1266127 0 0 0 -1.12695,-1.1269 l -31.38477,0 z m 1.125,2.2519 29.13281,0 0,16.8125 -29.13281,0 0,-16.8125 z m 1.75977,1.2813 c -0.62248,-2e-4 -1.12715,0.5045 -1.12696,1.127 l 0,12.539 c -1.9e-4,0.6225 0.50448,1.1272 1.12696,1.127 l 25.61523,0 c 0.62171,-9e-4 1.12519,-0.5053 1.125,-1.127 l 0,-12.539 c 1.9e-4,-0.6218 -0.50329,-1.1261 -1.125,-1.127 l -25.61523,0 z"
-       id="rect4195"
-       inkscape:connector-curvature="0" />
-  </g>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 34 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="Layer-1" serif:id="Layer 1" transform="matrix(1,0,0,1,0,-1030.96)">
+        <path id="rect4195" d="M32.56,1031.03L1.174,1031.03C0.556,1031.03 0.048,1031.54 0.048,1032.15L0.048,1051.22C0.049,1051.84 0.557,1052.35 1.175,1052.35L32.559,1052.35C33.177,1052.35 33.686,1051.84 33.686,1051.22L33.686,1032.15C33.686,1031.54 33.178,1031.03 32.56,1031.03ZM2.3,1033.28L31.433,1033.28L31.433,1050.09L2.3,1050.09L2.3,1033.28ZM4.059,1033.98C3.437,1033.98 2.932,1034.49 2.933,1035.11L2.933,1048.23C2.932,1048.85 3.437,1049.36 4.059,1049.36L29.675,1049.36C30.296,1049.35 30.8,1048.85 30.8,1048.23L30.8,1035.11C30.8,1034.49 30.296,1033.98 29.675,1033.98L4.059,1033.98Z" style="fill:white;fill-rule:nonzero;"/>
+    </g>
 </svg>
