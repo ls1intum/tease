@@ -6,6 +6,7 @@ import { Device } from '../../shared/models/device';
 import { IconMapperService } from '../../shared/ui/icon-mapper.service';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import { PersonConstraintService } from '../../shared/layers/business-logic-layer/person-constraint.service';
+import { NationalityHelper } from '../../shared/helpers/nationality.helper';
 
 @Component({
   selector: 'app-person-preview',
@@ -19,6 +20,7 @@ export class PersonPreviewComponent implements OnInit {
   SkillLevel = SkillLevel;
   Device = Device;
   PersonConstraintService = PersonConstraintService;
+  getFlagEmojiFromNationality = NationalityHelper.getFlagEmojiFromNationality
 
   /* functions used in template */
   protected getGravatarIcon = IconMapperService.getGravatarIcon;

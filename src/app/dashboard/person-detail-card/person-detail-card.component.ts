@@ -5,6 +5,7 @@ import { Colors } from '../../shared/constants/color.constants';
 import { CSVConstants } from '../../shared/constants/csv.constants';
 import { IconMapperService } from '../../shared/ui/icon-mapper.service';
 import { Device } from '../../shared/models/device';
+import { NationalityHelper } from '../../shared/helpers/nationality.helper';
 
 @Component({
   selector: 'app-person-detail-card',
@@ -19,6 +20,7 @@ export class PersonDetailCardComponent implements OnInit {
   SkillLevel = SkillLevel;
   CSVConstants = CSVConstants;
   Device = Device;
+  getFlagEmojiFromNationality = NationalityHelper.getFlagEmojiFromNationality
 
   constructor() {}
 
