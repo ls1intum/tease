@@ -1,0 +1,173 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "TEASE & PROMPT",
+    "version": "1.0.0",
+    "description": "Work-in-progress example API to enable the TEASE UI to communicate with a service (PROMPT) that can deliver information on students participating in the iPraktikum at TUM.\n---\nUsing this API you can retrieve information on students and their associated attributes.",
+    "license": {
+      "name": "Creative Commons BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+  },
+  "servers": [{"url": "https://my.api.com/id/{number}"}],
+  "paths": {
+    "/v1/students": {
+      "get": {
+        "tags": ["Students"],
+        "summary": "Return all the iPraktikum students",
+        "description": "Return collected information on all students accepted to this semesters cohort of students participating in the iPraktikum course at TUM",
+        "responses": {
+          "200": {
+            "description": "An array of students in JSON format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Student"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/teams": {
+      "get": {
+        "tags": ["Teams"],
+        "summary": "Return all the iPraktikum teams",
+        "description": "Return collected information on all teams or projects that students will work in during this semesters iteration of the iPraktikum course at TUM",
+        "responses": {
+          "200": {
+            "description": "An array of teams in JSON format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/allocation": {
+      "post": {
+        "tags": ["Results"],
+        "summary": "Post the result of the matching/allocation to PROMPT",
+        "description": "After the students have been assigned to teams, TEASE can report the result back to PROMPT, without having to repeat the remaining information collected on each student that was sent to TEASE to populate the UI"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Student": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "tumId": {
+            "type": "string"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/Gender"
+          },
+          "nationality": {
+            "type": "string"
+          },
+          "major": {
+            "type": "string"
+          },
+          "semester": {
+            "type": "number"
+          },
+
+          "germanLanguageLevel": {
+            "type": "string"
+          },
+          "englishLanguageLevel": {
+            "type": "string"
+          },
+
+          "iosDev": {
+            "type": "string"
+          },
+          "appStoreLink": {
+            "type": "string"
+          },
+          "iOSDevExplained": {
+            "type": "string"
+          },
+
+          "introAssessment": {
+            "type": "string"
+          },
+          "introAssessmentTutor": {
+            "type": "string"
+          },
+          "devices": {
+            "type": "array",
+            "items": {
+              "oneOf": [ {
+                "$ref": "#/components/schemas/Device"
+              }]
+            }
+          },
+          "skills": {
+            "type": "array",
+            "items": {
+              "oneOf": [ {
+                "$ref": "#/components/schemas/Skill"
+              }]
+            }
+          },
+          "otherSkills": {
+            "type": "string"
+          },
+          "teamPriorities": {
+            "type": "array",
+            "items": {
+              "oneOf": [{
+                "$ref": "#/components/schemas/Team"
+              }]
+            }
+          },
+
+          "studentComments": {
+            "type": "string"
+          },
+          "supervisorRating": {
+            "$ref": "#/components/schemas/SkillLevel"
+          },
+
+          "tutorComments": {
+            "type": "string"
+          }
+        }
+      },
+      "Team": {
+        "type": "string"
+      },
+      "Device": {
+        "type": "string",
+        "enum": ["Iphone", "Ipad", "Mac", "Watch", "IphoneAR", "IpadAR"]
+      },
+      "Skill": {
+        "type": "string"
+      },
+      "SkillLevel": {
+        "type": "string",
+        "enum": ["None", "Low", "Medium", "High", "VeryHigh"]
+      },
+      "Gender": {
+        "type": "string",
+        "enum": ["Female", "Male", "X"]
+      }
+    }
+  }
+}
