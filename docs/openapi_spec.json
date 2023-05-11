@@ -12,17 +12,22 @@
   "servers": [{"url": "https://my.api.com/id/{number}"}],
   "paths": {
     "/v1/students": {
-      "get": {
+      "post": {
         "tags": ["Students"],
-        "summary": "Return all the iPraktikum students",
-        "description": "Return collected information on all students accepted to this semesters cohort of students participating in the iPraktikum course at TUM",
+        "summary": "Send iPraktikum students data",
+        "description": "Send collected information on all students accepted to this semesters cohort of students participating in the iPraktikum course at TUM, this data will populate the UI and also be used in the algorithmic allocation",
         "responses": {
           "200": {
             "description": "An array of students in JSON format",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Student"
+                  "type": "array",
+                    "items": {
+                      "oneOf": [{
+                      "$ref": "#/components/schemas/Student"
+                    }]
+                  }
                 }
               }
             }
@@ -31,17 +36,22 @@
       }
     },
     "/v1/teams": {
-      "get": {
+      "post": {
         "tags": ["Teams"],
-        "summary": "Return all the iPraktikum teams",
-        "description": "Return collected information on all teams or projects that students will work in during this semesters iteration of the iPraktikum course at TUM",
+        "summary": "Send the names of the iPraktikum teams",
+        "description": "Send a list of all teams/projects that students can work on during this semesters iteration of the iPraktikum course at TUM",
         "responses": {
           "200": {
-            "description": "An array of teams in JSON format",
+            "description": "An array of team (names) in JSON format",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Team"
+                  "type": "array",
+                    "items": {
+                      "oneOf": [{
+                      "$ref": "#/components/schemas/Team"
+                    }]
+                  }
                 }
               }
             }
@@ -50,10 +60,27 @@
       }
     },
     "/v1/allocation": {
-      "post": {
-        "tags": ["Results"],
-        "summary": "Post the result of the matching/allocation to PROMPT",
-        "description": "After the students have been assigned to teams, TEASE can report the result back to PROMPT, without having to repeat the remaining information collected on each student that was sent to TEASE to populate the UI"
+      "get": {
+        "tags": ["Allocation Result"],
+        "summary": "Retrieve the result of the matching/allocation",
+        "description": "After the allocation is concluded, TEASE can report the results (which team each student was assigned to) without needing to repeat/send back all of the information that was initially sent",
+        "responses": {
+          "200": {
+            "description": "An array of tuples with an identifier for the student and the name of the team that they were allocated to",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                    "items": {
+                      "oneOf": [{
+                      "$ref": "#/components/schemas/StudentInTeam"
+                    }]
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -167,6 +194,18 @@
       "Gender": {
         "type": "string",
         "enum": ["Female", "Male", "X"]
+      },
+
+      "StudentInTeam": {
+        "type": "object",
+        "properties": {
+          "student_id": {
+            "type": "string"
+          },
+          "team": {
+            "$ref": "#/components/schemas/Team"
+          }
+        }
       }
     }
   }
