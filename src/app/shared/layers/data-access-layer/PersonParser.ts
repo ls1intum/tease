@@ -57,7 +57,11 @@ export abstract class PersonParser {
     person.nationality = personProps[CSVConstants.Person.Nationality];
     person.major = personProps[CSVConstants.Person.Major];
     if (person.major === CSVConstants.MajorOtherValue) person.major = personProps[CSVConstants.Person.MajorOther];
-    person.semester = personProps[CSVConstants.Person.Semester];
+    person.semester = parseInt(personProps[CSVConstants.Person.Semester]);
+    if (isNaN(person.semester)) {
+      console.warn("Unexpected value for semester, expected an integer but got: '"
+      + personProps[CSVConstants.Person.Semester] + "'")
+    }
     person.germanLanguageLevel = personProps[CSVConstants.Person.GermanLanguageLevel];
     person.englishLanguageLevel = personProps[CSVConstants.Person.EnglishLanguageLevel];
     person.iosDev = personProps[CSVConstants.Person.IosDevExperience];
@@ -77,7 +81,7 @@ export abstract class PersonParser {
     this.parseTeamPriorities(teams, person, personProps);
 
     if (person.tumId === undefined || person.tumId.length === 0) {
-      console.log('No tumId for person found. Cannot import.');
+      console.warn('No tumId for person found. Cannot import.');
       return null;
     }
 
@@ -99,9 +103,15 @@ export abstract class PersonParser {
       if (!(skillLevelString && interestLevelString)) continue;
 
       let skillLevel: SkillLevel = CSVConstants.Skills.SkillLevelAnswers.indexOf(skillLevelString);
+      if (skillLevel == null) {
+        console.warn("Unexpected skill level '" + skillLevelString + "', defaulted to null! Please see values in csv.constants.ts")
+      }
       if (!SkillLevel[skillLevel]) skillLevel = null;
 
       let interestLevel: SkillLevel = CSVConstants.Skills.InterestLevelAnswers.indexOf(interestLevelString);
+      if (skillLevel == null) {
+        console.warn("Unexpected interest level '" + interestLevelString + "', defaulted to null! Please see values in csv.constants.ts")
+      }
       if (!SkillLevel[interestLevel]) interestLevel = null;
 
       person.skills.push(
@@ -117,6 +127,7 @@ export abstract class PersonParser {
     if (skillLevelString === CSVConstants.SkillLevelValue.Low) return SkillLevel.Low;
     if (skillLevelString === CSVConstants.SkillLevelValue.None) return SkillLevel.None;
 
+    console.warn("Unexpected value for skill level '" + skillLevelString + "', defaulted to none! Please see values in csv.constants.ts.")
     return SkillLevel.None;
   }
 
@@ -124,18 +135,50 @@ export abstract class PersonParser {
     if (genderString === CSVConstants.GenderValue.Male) return Gender.Male;
     if (genderString === CSVConstants.GenderValue.Female) return Gender.Female;
 
-    return Gender.Male;
+    console.warn("Unexpected value for gender '" + genderString + "', defaulted to female! Please see values in csv.constants.ts and person.ts.")
+    return Gender.Female;
   }
 
   private static parsePersonDevices(person: Person, personProps: Array<any>) {
     const available = CSVConstants.DeviceAvailableBooleanValue.Available;
+    const unavailable = CSVConstants.DeviceAvailableBooleanValue.Unavailable;
 
-    if (personProps[CSVConstants.Devices.Ipad] === available) person.addDevice(Device.Ipad);
-    if (personProps[CSVConstants.Devices.Mac] === available) person.addDevice(Device.Mac);
-    if (personProps[CSVConstants.Devices.Watch] === available) person.addDevice(Device.Watch);
-    if (personProps[CSVConstants.Devices.Iphone] === available) person.addDevice(Device.Iphone);
-    if (personProps[CSVConstants.Devices.IphoneAR] === available) person.addDevice(Device.IphoneAR);
-    if (personProps[CSVConstants.Devices.IpadAR] === available) person.addDevice(Device.IpadAR);
+    if (personProps[CSVConstants.Devices.Ipad] === available) {
+      person.addDevice(Device.Ipad);
+    } else if (personProps[CSVConstants.Devices.Ipad] !== unavailable) {
+      console.warn("Unexpected value for device ownership '" + CSVConstants.Devices.Ipad + "', expected 'Yes' or 'No' but got: '"
+      + personProps[CSVConstants.Devices.Ipad] + "'")
+    }
+    if (personProps[CSVConstants.Devices.Mac] === available) {
+      person.addDevice(Device.Mac);
+    } else if (personProps[CSVConstants.Devices.Mac] !== unavailable) {
+      console.warn("Unexpected value for device ownership '" + CSVConstants.Devices.Mac + "', expected 'Yes' or 'No' but got: '"
+      + personProps[CSVConstants.Devices.Mac] + "'")
+    }
+    if (personProps[CSVConstants.Devices.Watch] === available) {
+      person.addDevice(Device.Watch);
+    } else if (personProps[CSVConstants.Devices.Watch] !== unavailable) {
+      console.warn("Unexpected value for device ownership '" + CSVConstants.Devices.Watch + "', expected 'Yes' or 'No' but got: '"
+      + personProps[CSVConstants.Devices.Watch] + "'")
+    }
+    if (personProps[CSVConstants.Devices.Iphone] === available) {
+      person.addDevice(Device.Iphone);
+    } else if (personProps[CSVConstants.Devices.Iphone] !== unavailable) {
+      console.warn("Unexpected value for device ownership '" + CSVConstants.Devices.Iphone + "', expected 'Yes' or 'No' but got: '"
+      + personProps[CSVConstants.Devices.Iphone] + "'")
+    }
+    if (personProps[CSVConstants.Devices.IphoneAR] === available) {
+      person.addDevice(Device.IphoneAR);
+    } else if (personProps[CSVConstants.Devices.IphoneAR] !== unavailable) {
+      console.warn("Unexpected value for device ownership '" + CSVConstants.Devices.IphoneAR + "', expected 'Yes' or 'No' but got: '"
+      + personProps[CSVConstants.Devices.IphoneAR] + "'")
+    }
+    if (personProps[CSVConstants.Devices.IpadAR] === available) {
+      person.addDevice(Device.IpadAR);
+    } else if (personProps[CSVConstants.Devices.IpadAR] !== unavailable) {
+      console.warn("Unexpected value for device ownership '" + CSVConstants.Devices.IpadAR + "', expected 'Yes' or 'No' but got: '"
+      + personProps[CSVConstants.Devices.IpadAR] + "'")
+    }
   }
 
   private static parseArray(columnArrayName: string, personProps: Array<any>): { [element: string]: string } {
