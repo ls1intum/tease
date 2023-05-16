@@ -9,37 +9,62 @@
 
           <!-- skill level rating buttons -->
           <div class="supervisor-rating-container flex-column">
-            <div
-              class="btn-group btn-group-sm flex-row"
-              ngbRadioGroup
-              name="radioBasic"
-              [(ngModel)]="data.person.supervisorRating">
-              <label ngbButtonLabel class="btn-secondary btn-none">
-                <input ngbButton type="radio" [value]="SkillLevel.None" />
-                <div class="key-icon-container">0</div>
-                {{ getLabelForSkillLevel(SkillLevel.None) }}
-              </label>
-              <label ngbButtonLabel class="btn-secondary btn-low">
-                <input ngbButton type="radio" [value]="SkillLevel.Low" />
-                <div class="key-icon-container">1</div>
-                {{ getLabelForSkillLevel(SkillLevel.Low) }}
-              </label>
-              <label ngbButtonLabel class="btn-secondary btn-medium">
-                <input ngbButton type="radio" [value]="SkillLevel.Medium" />
-                <div class="key-icon-container">2</div>
-                {{ getLabelForSkillLevel(SkillLevel.Medium) }}
-              </label>
-              <label ngbButtonLabel class="btn-secondary btn-high">
-                <input ngbButton type="radio" [value]="SkillLevel.High" />
-                <div class="key-icon-container">3</div>
-                {{ getLabelForSkillLevel(SkillLevel.High) }}
-              </label>
-              <label ngbButtonLabel class="btn-secondary btn-very-high">
-                <input ngbButton type="radio" [value]="SkillLevel.VeryHigh" />
-                <div class="key-icon-container">4</div>
-                {{ getLabelForSkillLevel(SkillLevel.VeryHigh) }}
-              </label>
-            </div>
+            <form [formGroup]="personSkillLevelFormGroup" (change)="personSkillLevelUpdated()">
+              <div class="btn-group btn-group-sm flex-row">
+                <input
+                  type="radio"
+                  id="option-1"
+                  class="btn-check"
+                  formControlName="personSkillLevelControl"
+                  [value]="SkillLevel.None"
+                />
+                <label class="btn-secondary btn-none" for="option-1">
+                  <div class="key-icon-container">0</div>
+                  {{ getLabelForSkillLevel(SkillLevel.None) }}
+                </label>
+                <input
+                  type="radio"
+                  id="option-2"
+                  formControlName="personSkillLevelControl"
+                  [value]="SkillLevel.Low"
+                />
+                <label class="btn-secondary btn-low" for="option-2">
+                  <div class="key-icon-container">1</div>
+                  {{ getLabelForSkillLevel(SkillLevel.Low) }}
+                </label>
+                <input
+                  type="radio"
+                  id="option-3"
+                  formControlName="personSkillLevelControl"
+                  [value]="SkillLevel.Medium"
+                />
+                <label class="btn-secondary btn-medium" for="option-3">
+                  <div class="key-icon-container">2</div>
+                  {{ getLabelForSkillLevel(SkillLevel.Medium) }}
+                </label>
+                <input
+                  type="radio"
+                  id="option-4"
+                  formControlName="personSkillLevelControl"
+                  [value]="SkillLevel.High"
+                />
+                <label class="btn-secondary btn-high" for="option-4">
+                  <div class="key-icon-container">3</div>
+                  {{ getLabelForSkillLevel(SkillLevel.High) }}
+                </label>
+                <input
+                  type="radio"
+                  id="option-5"
+                  class="btn-check"
+                  formControlName="personSkillLevelControl"
+                  [value]="SkillLevel.VeryHigh"
+                />
+                <label class="btn-secondary btn-very-high" for="option-5">
+                  <div class="key-icon-container">4</div>
+                  {{ getLabelForSkillLevel(SkillLevel.VeryHigh) }}
+                </label>
+              </div>
+            </form>
           </div>
         </div>
 
