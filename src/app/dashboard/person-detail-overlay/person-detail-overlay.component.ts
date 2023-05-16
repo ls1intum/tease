@@ -1,8 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Person } from '../../shared/models/person';
 import { Skill, SkillLevel } from '../../shared/models/skill';
-
 import { OverlayComponent } from '../../overlay.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-person-detail-overlay',
@@ -21,9 +21,17 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
   getLabelForSkillLevel = Skill.getLabelForSkillLevel;
   SkillLevel = SkillLevel;
 
+  personSkillLevelFormGroup = new FormGroup({
+    personSkillLevelControl: new FormControl(SkillLevel.None),
+  });
+
   constructor() {}
 
   ngOnInit() {}
+
+  personSkillLevelUpdated() {
+    this.data.person.supervisorRating = this.personSkillLevelFormGroup.value.personSkillLevelControl;
+  }
 
   isInTeam(person: Person): boolean {
     return person.team !== null;
