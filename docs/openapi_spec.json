@@ -152,7 +152,7 @@
           "otherSkills": {
             "type": "string"
           },
-          "teamPriorities": {
+          "projectPriorities": {
             "type": "array",
             "items": {
               "oneOf": [{
