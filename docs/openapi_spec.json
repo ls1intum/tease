@@ -173,7 +173,7 @@
           }
         }
       },
-      "Team": {
+      "Project": {
         "type": "string"
       },
       "Device": {
