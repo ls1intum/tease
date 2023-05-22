@@ -178,7 +178,7 @@
       },
       "Device": {
         "type": "string",
-        "enum": ["Iphone", "Ipad", "Mac", "Watch", "IphoneAR", "IpadAR"]
+        "enum": ["iPhone", "iPad", "Mac", "Watch"]
       },
       "Skill": {
         "type": "string"
