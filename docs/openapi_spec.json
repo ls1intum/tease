@@ -4,10 +4,6 @@
     "title": "TEASE & PROMPT",
     "version": "1.0.0",
     "description": "Work-in-progress example API to enable the TEASE UI to communicate with a service (PROMPT) that can deliver information on students participating in the iPraktikum at TUM.\n---\nUsing this API you can retrieve information on students and their associated attributes.",
-    "license": {
-      "name": "Creative Commons BY-SA 4.0",
-      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
-    }
   },
   "servers": [{"url": "https://my.api.com/id/{number}"}],
   "paths": {
