@@ -185,7 +185,7 @@
       },
       "SkillLevel": {
         "type": "string",
-        "enum": ["None", "Low", "Medium", "High", "VeryHigh"]
+        "enum": ["Novice", "Intermediate", "Advanced", "Expert"]
       },
       "Gender": {
         "type": "string",
