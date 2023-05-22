@@ -189,7 +189,7 @@
       },
       "Gender": {
         "type": "string",
-        "enum": ["Female", "Male", "X"]
+        "enum": ["Female", "Male", "Other", "Prefer not to say"]
       },
 
       "StudentInTeam": {
