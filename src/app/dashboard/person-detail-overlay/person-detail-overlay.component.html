@@ -72,11 +72,11 @@
         <div class="flex-row flex-no-shrink">
           <button
             *ngIf="!isInTeam(data.person)"
-            md-raised-button
+            mat-raised-button
             color="primary"
             (click)="data.onPreviousPersonClicked(); $event.stopPropagation()">
             <div class="flex-row flex-center">
-              <div class="key-icon-container">
+              <div class="key-icon-container next-previous-person-buttons">
                 <mat-icon>keyboard_arrow_left</mat-icon>
               </div>
               <div>Previous Person</div>
@@ -85,11 +85,11 @@
           <div class="flex-grow"></div>
           <button
             *ngIf="!isInTeam(data.person)"
-            md-raised-button
+            mat-raised-button
             color="primary"
             (click)="data.onNextPersonClicked(); $event.stopPropagation()">
             <div class="flex-row flex-center">
-              <div class="key-icon-container">
+              <div class="key-icon-container next-previous-person-buttons">
                 <mat-icon>keyboard_arrow_right</mat-icon>
               </div>
               <div>Next Person</div>
