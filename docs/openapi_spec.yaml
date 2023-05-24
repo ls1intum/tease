@@ -63,8 +63,7 @@ components:
           type: string
         image:
           type: string
-          contentEncoding: base64
-          contentMediaType: image/png
+          format: base64
         email:
           type: string
         tumId:
@@ -123,9 +122,9 @@ components:
           type: string
         description:
           type: string
-        # self assessment as reported by the student
+        # self assessment for skill as reported by the student
         skillLevel:
-          $ref: '#/components/schemas/SkillLevel'
+          $ref: '#/components/schemas/SkillProficiencyLevel'
     SkillProficiencyLevel:
       type: string
       enum:
@@ -161,6 +160,8 @@ components:
       properties:
         studentId:
           type: string
+        supervisorAssessment:
+          $ref: '#/components/schemas/SkillProficiencyLevel'
     Allocation:
       type: array
       items:
