@@ -61,6 +61,10 @@ components:
           type: string
         lastName:
           type: string
+        image:
+          type: string
+          contentEncoding: base64
+          contentMediaType: image/png
         email:
           type: string
         tumId:
@@ -78,9 +82,7 @@ components:
         englishLanguageLevel:
           $ref: '#/components/schemas/LanguageProficiency'
         introSelfAssessment:
-         $ref: '#/components/schemas/SelfAssessmentLevel'
-        introTutorAssessment:
-          $ref: '#/components/schemas/SkillLevel'
+          $ref: '#/components/schemas/SkillProficiencyLevel'
         devices:
           type: array
           items:
@@ -95,13 +97,18 @@ components:
             $ref: '#/components/schemas/Project'
         studentComments:
           type: string
-        # The assessment given by the project manager
+        # Aassessment given by a tutor, or the overwritten rating by an instructor, TEASE itself does not differentiate
         supervisorAssessment:
-          $ref: '#/components/schemas/SkillLevel'
+          $ref: '#/components/schemas/SkillProficiencyLevel'
         tutorComments:
           type: string
     Project:
-      type: string
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          type: string
     Device:
       type: string
       enum:
@@ -119,21 +126,22 @@ components:
         # self assessment as reported by the student
         skillLevel:
           $ref: '#/components/schemas/SkillLevel'
-    SkillLevel:
+    SkillProficiencyLevel:
       type: string
       enum:
         - Novice
         - Intermediate
         - Advanced
         - Expert
-    SelfAssessmentLevel:
-      type: string
-      enum:
-        - Not challenging at all
-        - Hardly challenging
-        - Medium challenging
-        - Very challenging
-        - Extremely challenging
+    # to be removed but still rendered with these names in UI under "self assessment" (instead of novice, etc.)
+    # (we now store the self assessment internally using the SkillProficiencyLevel enum)
+    # SelfAssessmentLevel:
+      # enum:
+        # - Not challenging at all
+        # - Hardly challenging
+        # - Medium challenging
+        # - Very challenging
+        # - Extremely challenging
     LanguageProficiency:
       type: string
       enum:
