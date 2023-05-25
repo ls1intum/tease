@@ -1,0 +1,177 @@
+openapi: 3.0.0
+info:
+  title: TEASE & PROMPT
+  version: 1.1.0
+  description: |-
+    Work-in-progress example API to enable the TEASE UI to communicate with a service (PROMPT) that can deliver information on students participating in the iPraktikum at TUM.
+    ---
+    Using this API you can retrieve information on students and their associated attributes.
+servers:
+  - url: https://my.api.com/id/{number}
+paths:
+  /v1/students:
+    get:
+      tags:
+        - Students
+      summary: Get data of all iPraktikum students
+      description: Retrieve collected information on all students accepted to this semesters cohort of students participating in the iPraktikum course at TUM, this data will populate the UI and also be used in the initial algorithmic allocation
+      responses:
+        '200':
+          description: An array of students in JSON format
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+  /v1/projects:
+    get:
+      tags:
+        - Projects
+      summary: Get the names of the iPraktikum projects
+      description: Send a list of all projects/teams that students can work on during this semesters iteration of the iPraktikum course at TUM
+      responses:
+        '200':
+          description: An array of project (names) in JSON format
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+  /v1/allocation:
+    post:
+      tags:
+        - Allocation Result
+      summary: Submit the final result of the matching/allocation
+      description: After the allocation is concluded, TEASE can report the results (which team each student was assigned to) to PROMPT without needing to repeat/send back all of the information that was initially sent
+      responses:
+        '200':
+          description: An array of arrays, each inner array contains the unique identifiers of students that were allocated to the same project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Allocation'
+components:
+  schemas:
+    Student:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        image:
+          type: string
+          format: base64
+        email:
+          type: string
+        tumId:
+          type: string
+        gender:
+          $ref: '#/components/schemas/Gender'
+        nationality:
+          type: string
+        studyProgram:
+          type: string
+        semester:
+          type: integer
+        germanLanguageLevel:
+          $ref: '#/components/schemas/LanguageProficiency'
+        englishLanguageLevel:
+          $ref: '#/components/schemas/LanguageProficiency'
+        introSelfAssessment:
+          $ref: '#/components/schemas/SkillProficiencyLevel'
+        devices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Device'
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/Skill'
+        projectPriorities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+        studentComments:
+          type: string
+        # Aassessment given by a tutor, or the overwritten rating by an instructor, TEASE itself does not differentiate
+        supervisorAssessment:
+          $ref: '#/components/schemas/SkillProficiencyLevel'
+        tutorComments:
+          type: string
+    Project:
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          type: string
+    Device:
+      type: string
+      enum:
+        - IPhone
+        - IPad
+        - Mac
+        - Watch
+    Skill:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        # self assessment for skill as reported by the student
+        skillLevel:
+          $ref: '#/components/schemas/SkillProficiencyLevel'
+    SkillProficiencyLevel:
+      type: string
+      enum:
+        - Novice
+        - Intermediate
+        - Advanced
+        - Expert
+    # to be removed but still rendered with these names in UI under "self assessment" (instead of novice, etc.)
+    # (we now store the self assessment internally using the SkillProficiencyLevel enum)
+    # SelfAssessmentLevel:
+      # enum:
+        # - Not challenging at all
+        # - Hardly challenging
+        # - Medium challenging
+        # - Very challenging
+        # - Extremely challenging
+    LanguageProficiency:
+      type: string
+      enum:
+        - A1/A2
+        - B1/B2
+        - C1/C2
+        - Native
+    Gender:
+      type: string
+      enum:
+        - Female
+        - Male
+        - Other
+        - Prefer not to say
+    StudentReference:
+      type: object
+      properties:
+        studentId:
+          type: string
+        supervisorAssessment:
+          $ref: '#/components/schemas/SkillProficiencyLevel'
+    Allocation:
+      type: array
+      items:
+        $ref: '#/components/schemas/ProjectAllocation'
+    ProjectAllocation:
+      type: object
+      properties:
+        project:
+          $ref: '#/components/schemas/Project'
+        students:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentReference'

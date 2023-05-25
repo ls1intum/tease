@@ -16,7 +16,7 @@
             This exports the current team allocation as CSV file that you can use to backup and share the current
             project. Additionally, a text file containing a history of constraint applications is provided.
           </div>
-          <button md-raised-button color="primary" (click)="exportCSV()">
+          <button mat-raised-button color="primary" (click)="exportCSV()">
             <mat-icon>get_app</mat-icon>Download Archive
           </button>
         </div>
@@ -37,7 +37,7 @@
             [class.progress-bar-disabled]="!imageExportRunning"
             mode="determinate"
             [value]="getImageExportProgressPercentage()"></mat-progress-bar>
-          <button md-raised-button color="primary" [disabled]="imageExportRunning" (click)="exportScreenshots()">
+          <button mat-raised-button color="primary" [disabled]="imageExportRunning" (click)="exportScreenshots()">
             <mat-icon>get_app</mat-icon>Download Archive
           </button>
         </div>

@@ -6,6 +6,11 @@
 @include horizontal-spacing(spacing-3-x, 3px);
 @include vertical-spacing(spacing-3-y, 3px);
 
+// change box sizing back to 'border-box' for the preview cards
+* {
+  box-sizing: border-box;
+}
+
 .person-card {
   margin: 5px;
   color: black;
