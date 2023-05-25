@@ -132,8 +132,8 @@ components:
         id:
           type: string
       example:
-        name: ERT
-        id: wise17ERT
+        name: Quartett
+        id: ios2223quartett
     Device:
       type: string
       enum:
