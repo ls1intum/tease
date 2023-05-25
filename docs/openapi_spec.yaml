@@ -119,8 +119,8 @@ components:
           - { title: iOS, description: Development of applications for the iOS mobile operating system, skillLevel: Novice}
           - { title: CI/CD, description: Continuous integration and delivery/deployment using automated tools, skillLevel: Intermediate}
         projectPriorities:
-          - { name: GHJ, id: sose24GHJ}
-          - { name: TYUR, id: sose24TYUR}
+          - { name: Quartett, id: ios2223quartett}
+          - { name: BSH, id: ios2223bsh}
         studentComments: 'I would prefer to work in an international team (diverse nationalities), thanks!'
         supervisorAssessment: Novice
         tutorComments: 'Motivated, good at accepting constructive criticism'
