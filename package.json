@@ -45,6 +45,7 @@
     "html2canvas": "^1.4.1",
     "javascript-lp-solver": "^0.4.24",
     "jszip": "^3.10.1",
+    "material-icons": "^1.13.6",
     "ng2-charts": "^4.1.1",
     "ng2-dragula": "^3.2.0",
     "papaparse": "^5.4.0",
