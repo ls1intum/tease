@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
   title: TEASE & PROMPT
   version: 1.1.0
@@ -29,7 +29,7 @@ paths:
       tags:
         - Projects
       summary: Get the names of the iPraktikum projects
-      description: Send a list of all projects/teams that students can work on during this semesters iteration of the iPraktikum course at TUM
+      description: "Send a list of all projects/teams that students can work on during this semesters iteration of the iPraktikum course at TUM"
       responses:
         '200':
           description: An array of project (names) in JSON format
@@ -56,6 +56,7 @@ components:
   schemas:
     Student:
       type: object
+      description: A person enrolled in the iPraktikum course at TUM
       properties:
         firstName:
           type: string
@@ -98,13 +99,14 @@ components:
           type: string
         # Aassessment given by a tutor, or the overwritten rating by an instructor, TEASE itself does not differentiate
         supervisorAssessment:
+          description: General assessment given either initially by a tutor or overwritten at a later point by an instructor during the matching process, TEASE does not differentiate between the original tutor assessment and subsequent supervisor assessments but on the side of PROMPT the original tutor assessment should be kept saved in some form
           $ref: '#/components/schemas/SkillProficiencyLevel'
         tutorComments:
           type: string
       example:
         firstName: Aerandir
         lastName: Brandybuck
-        image: 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
+        image: "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"
         email: aerandir.brandybuck@tum.de
         tumId: 046035297
         gender: Prefer not to say
@@ -121,9 +123,9 @@ components:
         projectPriorities:
           - { name: Quartett, id: ios2223quartett}
           - { name: BSH, id: ios2223bsh}
-        studentComments: 'I would prefer to work in an international team (diverse nationalities), thanks!'
+        studentComments: I would prefer to work in an international team (diverse nationalities), thanks!
         supervisorAssessment: Novice
-        tutorComments: 'Motivated, good at accepting constructive criticism'
+        tutorComments: Motivated, good at accepting constructive criticism
     Project:
       type: object
       properties:
@@ -157,13 +159,13 @@ components:
         skillLevel: Advanced
     SkillProficiencyLevel:
       type: string
+      description: Proficiency in some skillset, also used to for assessments of students, in particular their performance in the Swift/iOS intro course, for the self assessment we also this enum internally o store a students answer, but the UI should display strings that make more sense, see the deprecated SelfAssessmentLevel enum below
       enum:
         - Novice
         - Intermediate
         - Advanced
         - Expert
-    # to be removed but still rendered with these names in UI under "self assessment" (instead of novice, etc.)
-    # (we now store the self assessment internally using the SkillProficiencyLevel enum)
+    # deprecated, see SkillProficiencyLevel
     # SelfAssessmentLevel:
       # enum:
         # - Not challenging at all
@@ -187,6 +189,7 @@ components:
         - Prefer not to say
     StudentReference:
       type: object
+      description: Object to only send a subset of the properties of the Student object, used for sending data about the allocation back to PROMPT, contains solely a property to uniquely identify a student as well as the last assessment stored in TEASE (to let PROMPT know about changes made to the assessment)
       properties:
         studentId:
           type: string
@@ -197,10 +200,12 @@ components:
         supervisorAssessment: Expert
     Allocation:
       type: array
+      description: All projects with their respective assigned students
       items:
         $ref: '#/components/schemas/ProjectAllocation'
     ProjectAllocation:
       type: object
+      description: A project with references to the students assigned to this project as part of the matching result
       properties:
         project:
           $ref: '#/components/schemas/Project'
