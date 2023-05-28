@@ -60,9 +60,6 @@ export abstract class PersonParser {
     person.semester = personProps[CSVConstants.Person.Semester];
     person.germanLanguageLevel = personProps[CSVConstants.Person.GermanLanguageLevel];
     person.englishLanguageLevel = personProps[CSVConstants.Person.EnglishLanguageLevel];
-    person.iosDev = personProps[CSVConstants.Person.IosDevExperience];
-    person.appStoreLink = personProps[CSVConstants.Person.IosDevAppStoreLink];
-    person.iOSDevExplained = personProps[CSVConstants.Person.IosDevExperienceExplained];
     person.introAssessment = personProps[CSVConstants.Person.IntroAssessment];
     person.introAssessmentTutor = personProps[CSVConstants.Person.IntroAssessmentTutor];
     this.parsePersonDevices(person, personProps);

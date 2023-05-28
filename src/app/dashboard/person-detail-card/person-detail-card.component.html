@@ -101,15 +101,10 @@
     <div class="skill-container flex-column flex-center">
       <div class="skill-name">iOS Development</div>
       <div class="skill-level-label" [ngClass]="'skill-level-label-' + person.getiOSSkillLevel()">
-        <div>{{ person.iosDev }}</div>
+        <div>placeholder: iOS skill level</div>
       </div>
-      <div *ngIf="person.iOSDevExplained.length > 0" class="quote-text">
-        <span class="quotation-mark">“</span>{{ person.iOSDevExplained }}<span class="quotation-mark">”</span>
-      </div>
-      <div class="quote-text" *ngIf="person.iOSDevExplained.length === 0">—</div>
-      <div *ngIf="person.appStoreLink && person.appStoreLink.length > 0">
-        <span>AppStore Link: </span>
-        <a target="_blank" href="{{ person.appStoreLink }}">{{ person.appStoreLink }}</a>
+      <div class="quote-text">
+        <span class="quotation-mark">“</span>placeholder: iOS dev explanation<span class="quotation-mark">”</span>
       </div>
     </div>
 

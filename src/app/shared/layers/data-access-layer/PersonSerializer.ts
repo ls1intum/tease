@@ -22,9 +22,6 @@ export class PersonSerializer {
     personProps[CSVConstants.Person.Semester] = person.semester;
     personProps[CSVConstants.Person.GermanLanguageLevel] = person.germanLanguageLevel;
     personProps[CSVConstants.Person.EnglishLanguageLevel] = person.englishLanguageLevel;
-    personProps[CSVConstants.Person.IosDevExperience] = person.iosDev;
-    personProps[CSVConstants.Person.IosDevAppStoreLink] = person.appStoreLink;
-    personProps[CSVConstants.Person.IosDevExperienceExplained] = person.iOSDevExplained;
     personProps[CSVConstants.Person.IntroAssessment] = person.introAssessment;
     personProps[CSVConstants.Person.IntroAssessmentTutor] = person.introAssessmentTutor;
     this.serializePersonDevices(person, personProps);

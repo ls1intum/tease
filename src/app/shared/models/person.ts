@@ -27,10 +27,6 @@ export class Person {
   germanLanguageLevel: string;
   englishLanguageLevel: string;
 
-  iosDev: string;
-  appStoreLink: string;
-  iOSDevExplained: string;
-
   introAssessment: string;
   introAssessmentTutor: string;
   devices: Device[] = [];
@@ -69,8 +65,12 @@ export class Person {
   }
 
   getiOSSkillLevel(): SkillLevel {
-    const iOSSkillLevel = Person.IOSDevExperienceAnswerToSkillLevelMap.get(this.iosDev);
-    return iOSSkillLevel !== undefined ? iOSSkillLevel : SkillLevel.None;
+//     const iOSSkillLevel = Person.IOSDevExperienceAnswerToSkillLevelMap.get(this.iosDev);
+//     return iOSSkillLevel !== undefined ? iOSSkillLevel : SkillLevel.None;
+
+    // returning placeholder value while transform model
+    // iOS skill level should be retrieved from the iOS skill in the skills array
+    return SkillLevel.Low;
   }
 
   getIntroAssessmentLevel(): SkillLevel {
