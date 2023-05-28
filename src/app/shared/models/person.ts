@@ -21,7 +21,7 @@ export class Person {
   tumId: string;
   gender: Gender;
   nationality: string;
-  major: string;
+  studyProgram: string;
   semester: number;
 
   germanLanguageLevel: string;
