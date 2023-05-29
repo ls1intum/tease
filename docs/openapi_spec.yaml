@@ -83,6 +83,7 @@ components:
           $ref: '#/components/schemas/LanguageProficiency'
         introSelfAssessment:
           $ref: '#/components/schemas/SkillProficiencyLevel'
+
         devices:
           type: array
           items:
@@ -95,6 +96,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Project'
+
         studentComments:
           type: string
         # Aassessment given by a tutor, or the overwritten rating by an instructor, TEASE itself does not differentiate
