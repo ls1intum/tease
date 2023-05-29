@@ -36,14 +36,14 @@ export class PersonPreviewComponent implements OnInit {
   }
 
   isPersonRated(): boolean {
-    return this.person.supervisorRating !== undefined && this.person.supervisorRating !== SkillLevel.None;
+    return this.person.supervisorAssessment !== undefined && this.person.supervisorAssessment !== SkillLevel.None;
   }
 
   getFirstLetterOfSkillLevelName(skillLevel: SkillLevel): string {
     return this.getLabelForSkillLevel(skillLevel).charAt(0);
   }
 
-  getSupervisorRatingString(): string {
-    return Skill.getLabelForSkillLevel(this.person.supervisorRating);
+  getSupervisorAssessmentString(): string {
+    return Skill.getLabelForSkillLevel(this.person.supervisorAssessment);
   }
 }

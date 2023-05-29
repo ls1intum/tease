@@ -18,21 +18,13 @@ export class CSVConstants {
     IosDevExperience: 'iOSDev',
     IosDevAppStoreLink: 'appStoreLink',
     IosDevExperienceExplained: 'iOSDevExplained',
-    IntroAssessment: 'introAssessment[INTRO]',
-    IntroAssessmentTutor: 'introAssessmentTutor[INTRO]',
-    IntroAssessmentAnswers: [
+    IntroSelfAssessment: 'introSelfAssessment',
+    IntroSelfAssessmentAnswers: [
       'extremely challenging',
       'very challenging',
       'medium challenging',
       'hardly challenging',
       'not challenging at all',
-    ],
-    IntroAssessmentTutorAnswers: [
-      'strongly below average',
-      'below average',
-      'average',
-      'above average',
-      'strongly above average',
     ],
 
     /* (devices) */
@@ -42,9 +34,9 @@ export class CSVConstants {
 
     /* (priorities) */
 
-    StudentComments: 'Comments',
-    SupervisorRating: 'supervisorRating',
-    TutorComments: 'CommentsTutor',
+    StudentComments: 'studentComments',
+    SupervisorAssessment: 'supervisorAssessment',
+    TutorComments: 'tutorComments',
     IsPinned: 'IsPinned',
   };
 

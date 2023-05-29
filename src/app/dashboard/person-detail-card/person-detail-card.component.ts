@@ -27,11 +27,11 @@ export class PersonDetailCardComponent implements OnInit {
   ngOnInit() {}
 
   isPersonRated(): boolean {
-    return this.person.supervisorRating !== undefined && this.person.supervisorRating !== SkillLevel.None;
+    return this.person.supervisorAssessment !== undefined && this.person.supervisorAssessment !== SkillLevel.None;
   }
 
-  getSupervisorRatingColor(): string {
-    return Colors.getColor(this.person.supervisorRating);
+  getSupervisorAssessmentColor(): string {
+    return Colors.getColor(this.person.supervisorAssessment);
   }
 
   getGenderIconPath(): string {

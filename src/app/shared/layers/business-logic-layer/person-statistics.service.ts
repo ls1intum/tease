@@ -10,7 +10,7 @@ import { Constraint } from '../../models/constraints/constraint';
 @Injectable()
 export class PersonStatisticsService {
   getRatedPersonCount(persons: Person[]): number {
-    return persons.filter(p => p.hasSupervisorRating()).length;
+    return persons.filter(p => p.hasSupervisorAssessment()).length;
   }
 
   getNumberOfPersonsForPriority(priorityNumber: number, team: Team): number {

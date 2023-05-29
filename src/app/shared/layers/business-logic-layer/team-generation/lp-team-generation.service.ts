@@ -191,7 +191,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
     let c = '';
 
     for (let i = 1; i <= persons.length; i++) {
-      if (persons[i - 1].supervisorRating === skillLevel) {
+      if (persons[i - 1].supervisorAssessment === skillLevel) {
         if (c) {
           c += ' + ';
         }
@@ -296,11 +296,11 @@ export class LPTeamGenerationService implements TeamGenerationService {
       for (let j = 1; j <= teams.length; j++) {
         for (let i = 1; i <= persons.length; i++) {
           const person = persons[i - 1];
-          if (person.hasSupervisorRating()) {
+          if (person.hasSupervisorAssessment()) {
             if (skillSetObjective) {
               skillSetObjective += ' + ';
             }
-            skillSetObjective += desiredSkillWeights[person.supervisorRating] + ' x' + i + 'y' + j;
+            skillSetObjective += desiredSkillWeights[person.supervisorAssessment] + ' x' + i + 'y' + j;
           }
         }
       }

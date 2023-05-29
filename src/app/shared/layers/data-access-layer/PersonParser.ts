@@ -59,13 +59,11 @@ export abstract class PersonParser {
     person.semester = personProps[CSVConstants.Person.Semester];
     person.germanLanguageLevel = personProps[CSVConstants.Person.GermanLanguageLevel];
     person.englishLanguageLevel = personProps[CSVConstants.Person.EnglishLanguageLevel];
-    person.introAssessment = personProps[CSVConstants.Person.IntroAssessment];
-    person.introAssessmentTutor = personProps[CSVConstants.Person.IntroAssessmentTutor];
+    person.introSelfAssessment = personProps[CSVConstants.Person.IntroSelfAssessment];
     this.parsePersonDevices(person, personProps);
     this.parsePersonSkills(person, personProps);
-    person.otherSkills = personProps[CSVConstants.Person.OtherSkills];
     person.studentComments = personProps[CSVConstants.Person.StudentComments];
-    person.supervisorRating = this.parseSkillLevel(personProps[CSVConstants.Person.SupervisorRating]);
+    person.supervisorAssessment = this.parseSkillLevel(personProps[CSVConstants.Person.SupervisorAssessment]);
     person.tutorComments = personProps[CSVConstants.Person.TutorComments];
     if (personProps.hasOwnProperty(CSVConstants.Person.IsPinned))
       person.isPinned = personProps[CSVConstants.Person.IsPinned] === 'true';

@@ -76,6 +76,7 @@ components:
           type: string
         semester:
           type: integer
+
         germanLanguageLevel:
           $ref: '#/components/schemas/LanguageProficiency'
         englishLanguageLevel:

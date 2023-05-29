@@ -17,6 +17,7 @@ export class Person {
 
   firstName: string;
   lastName: string;
+  image: string;
   email: string;
   tumId: string;
   gender: Gender;
@@ -26,16 +27,14 @@ export class Person {
 
   germanLanguageLevel: string;
   englishLanguageLevel: string;
+  introSelfAssessment: string;
 
-  introAssessment: string;
-  introAssessmentTutor: string;
   devices: Device[] = [];
   skills: Skill[] = [];
-  otherSkills: string;
   teamPriorities: Team[] = [];
 
   studentComments: string;
-  supervisorRating: SkillLevel;
+  supervisorAssessment: SkillLevel;
 
   tutorComments: string;
 
@@ -60,27 +59,32 @@ export class Person {
     return this.devices.includes(device);
   }
 
-  hasSupervisorRating(): boolean {
-    return this.supervisorRating !== undefined && this.supervisorRating !== SkillLevel.None;
+  hasSupervisorAssessment(): boolean {
+    return this.supervisorAssessment !== undefined && this.supervisorAssessment !== SkillLevel.None;
   }
 
   getiOSSkillLevel(): SkillLevel {
 //     const iOSSkillLevel = Person.IOSDevExperienceAnswerToSkillLevelMap.get(this.iosDev);
 //     return iOSSkillLevel !== undefined ? iOSSkillLevel : SkillLevel.None;
 
-    // returning placeholder value while transform model
+    // returning placeholder value while transforming model
     // iOS skill level should be retrieved from the iOS skill in the skills array
     return SkillLevel.Low;
   }
 
-  getIntroAssessmentLevel(): SkillLevel {
-    const index = CSVConstants.Person.IntroAssessmentAnswers.indexOf(this.introAssessment);
+  getIntroSelfAssessmentLevel(): SkillLevel {
+    const index = CSVConstants.Person.IntroSelfAssessmentAnswers.indexOf(this.introSelfAssessment);
     return index >= 0 ? index : null;
   }
 
-  getIntroAssessmentTutorLevel(): SkillLevel {
-    const index = CSVConstants.Person.IntroAssessmentTutorAnswers.indexOf(this.introAssessmentTutor);
-    return index >= 0 ? index : null;
+  getSupervisorAssessmentLevel(): SkillLevel {
+//     const index = CSVConstants.Person.SupervisorRating.indexOf(this.supervisorAssessment);
+//     return index >= 0 ? index : null;
+
+    // returning placeholder value while model transformation is underway
+    // we no longer store the intro course assessment by tutors separately from the supervisor assessment
+    // therefore this no longer needs to use 'IntroAssessmentTutorAnswers'
+    return SkillLevel.Low;
   }
 }
 

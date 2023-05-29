@@ -11,6 +11,6 @@ export abstract class TeamHelper {
   }
 
   static getPersonsOfSkillLevelInTeam(team: Team, skillLevel: SkillLevel) {
-    return team.persons.filter(person => person.supervisorRating === skillLevel).length;
+    return team.persons.filter(person => person.supervisorAssessment === skillLevel).length;
   }
 }

@@ -15,8 +15,8 @@
         <div
           *ngIf="isPersonRated()"
           class="supervisor-rating-badge flex-right"
-          [style.background-color]="getSupervisorRatingColor()">
-          {{ getLabelForSkillLevel(person.supervisorRating) }}
+          [style.background-color]="getSupervisorAssessmentColor()">
+          {{ getLabelForSkillLevel(person.supervisorAssessment) }}
         </div>
       </div>
 
@@ -125,25 +125,18 @@
       </div>
     </div>
 
-    <!-- other skills -->
-    <div class="heading">Other Skills</div>
-    <div *ngIf="person.otherSkills.length > 0" class="quote-text align-self-start">
-      <span class="quotation-mark">“</span>{{ person.otherSkills }}<span class="quotation-mark">”</span>
-    </div>
-    <div class="quote-text align-self-start" *ngIf="person.otherSkills.length === 0">—</div>
-
     <!-- intro course assessment -->
     <div class="heading">How challenging was the intro course?</div>
     <div class="flex-row spacing-x-3">
       <div
         class="skill-level-label flex-grow flex-basis-zero"
-        [ngClass]="'skill-level-label-' + person.getIntroAssessmentLevel()">
-        <div>Student: “{{ person.introAssessment }}”</div>
+        [ngClass]="'skill-level-label-' + person.getIntroSelfAssessmentLevel()">
+        <div>Student: “{{ person.introSelfAssessment }}”</div>
       </div>
       <div
         class="skill-level-label flex-grow flex-basis-zero"
-        [ngClass]="'skill-level-label-' + person.getIntroAssessmentTutorLevel()">
-        <div>Tutor: “{{ person.introAssessmentTutor }}”</div>
+        [ngClass]="'skill-level-label-' + person.getSupervisorAssessmentLevel()">
+        <div>Tutor: “{{ person.supervisorAssessment }}”</div>
       </div>
     </div>
 

@@ -22,14 +22,12 @@ export class PersonSerializer {
     personProps[CSVConstants.Person.Semester] = person.semester;
     personProps[CSVConstants.Person.GermanLanguageLevel] = person.germanLanguageLevel;
     personProps[CSVConstants.Person.EnglishLanguageLevel] = person.englishLanguageLevel;
-    personProps[CSVConstants.Person.IntroAssessment] = person.introAssessment;
-    personProps[CSVConstants.Person.IntroAssessmentTutor] = person.introAssessmentTutor;
+    personProps[CSVConstants.Person.IntroSelfAssessment] = person.introSelfAssessment;
     this.serializePersonDevices(person, personProps);
     this.serializeSkills(person, personProps);
-    personProps[CSVConstants.Person.OtherSkills] = person.otherSkills;
     this.serializePriorities(person, personProps);
     personProps[CSVConstants.Person.StudentComments] = person.studentComments;
-    personProps[CSVConstants.Person.SupervisorRating] = this.serializeSkillLevel(person.supervisorRating);
+    personProps[CSVConstants.Person.SupervisorAssessment] = this.serializeSkillLevel(person.supervisorAssessment);
     personProps[CSVConstants.Person.TutorComments] = person.tutorComments;
     personProps[CSVConstants.Person.IsPinned] = String(person.isPinned);
 

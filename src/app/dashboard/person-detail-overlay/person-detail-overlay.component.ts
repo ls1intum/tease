@@ -30,7 +30,7 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
   ngOnInit() {}
 
   personSkillLevelUpdated() {
-    this.data.person.supervisorRating = this.personSkillLevelFormGroup.value.personSkillLevelControl;
+    this.data.person.supervisorAssessment = this.personSkillLevelFormGroup.value.personSkillLevelControl;
   }
 
   isInTeam(person: Person): boolean {
@@ -43,19 +43,19 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
 
     switch (event.key) {
       case '0':
-        this.data.person.supervisorRating = SkillLevel.None;
+        this.data.person.supervisorAssessment = SkillLevel.None;
         break;
       case '1':
-        this.data.person.supervisorRating = SkillLevel.Low;
+        this.data.person.supervisorAssessment = SkillLevel.Low;
         break;
       case '2':
-        this.data.person.supervisorRating = SkillLevel.Medium;
+        this.data.person.supervisorAssessment = SkillLevel.Medium;
         break;
       case '3':
-        this.data.person.supervisorRating = SkillLevel.High;
+        this.data.person.supervisorAssessment = SkillLevel.High;
         break;
       case '4':
-        this.data.person.supervisorRating = SkillLevel.VeryHigh;
+        this.data.person.supervisorAssessment = SkillLevel.VeryHigh;
         break;
     }
 
