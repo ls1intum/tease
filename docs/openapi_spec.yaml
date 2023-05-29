@@ -121,13 +121,18 @@ components:
     Skill:
       type: object
       properties:
-        title:
+        name:
           type: string
         description:
           type: string
-        # self assessment for skill as reported by the student
+          description: Description of the skill, not specified by each student but provided by course management when choosing which skills to canvas from prospective students
+        # proficiency for a specific skill as reported by the student
         skillLevel:
+          description: Proficiency in the skill as estimated and reported by the student
           $ref: '#/components/schemas/SkillProficiencyLevel'
+        experienceExplanation:
+          type: string
+          description: A description of their prior experience in the skill that serves as an explanation for their self-asesssed proficiency level
     SkillProficiencyLevel:
       type: string
       enum:
