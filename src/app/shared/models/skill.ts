@@ -6,6 +6,7 @@ import { CSVConstants } from '../constants/csv.constants';
 
 export class Skill {
   private _name: string;
+  private _description: string;
   private _skillLevel: SkillLevel;
   private _justification: string;
 
@@ -24,14 +25,19 @@ export class Skill {
     return 'Not rated';
   }
 
-  constructor(name: string, skillLevel: SkillLevel, justification: string) {
+  constructor(name: string, description: string, skillLevel: SkillLevel, justification: string) {
     this._name = name;
+    this._description = description;
     this._skillLevel = skillLevel;
     this._justification = justification;
   }
 
   get name(): string {
     return this._name;
+  }
+
+  get description(): string {
+    return this._description;
   }
 
   get skillLevel(): SkillLevel {
