@@ -4,7 +4,6 @@ import { PersonConstraintService } from '../../shared/layers/business-logic-laye
 import { InstructorRatingPersonConstraint } from '../../shared/models/person-constraints/instructor-rating-person-constraint';
 import { PersonConstraint } from '../../shared/models/person-constraints/person-constraint';
 import { Skill, SkillLevel } from '../../shared/models/skill';
-import { InterestPersonConstraint } from '../../shared/models/person-constraints/interest-person-constraint';
 import { ExperiencePersonConstraint } from '../../shared/models/person-constraints/experience-person-constraint';
 import { GenderPersonConstraint } from '../../shared/models/person-constraints/gender-person-constraint';
 import { DevicePossessionPersonConstraint } from '../../shared/models/person-constraints/device-possession-person-constraint';
@@ -25,7 +24,6 @@ export class PersonHighlightingOverlayComponent implements OnInit, OverlayCompon
   Gender = Gender;
   Device = Device;
   InstructorRatingPersonConstraint = InstructorRatingPersonConstraint;
-  InterestPersonConstraint = InterestPersonConstraint;
   ExperiencePersonConstraint = ExperiencePersonConstraint;
   DevicePossessionPersonConstraint = DevicePossessionPersonConstraint;
   GenderPersonConstraint = GenderPersonConstraint;
@@ -49,12 +47,6 @@ export class PersonHighlightingOverlayComponent implements OnInit, OverlayCompon
 
   addInstructorRatingConstraint() {
     this.personConstraintsCopy.push(new InstructorRatingPersonConstraint());
-  }
-
-  addInterestLevelConstraint() {
-    const newConstraint = new InterestPersonConstraint();
-    newConstraint.skillName = this.skillNames[0];
-    this.personConstraintsCopy.push(newConstraint);
   }
 
   addExperienceConstraint() {

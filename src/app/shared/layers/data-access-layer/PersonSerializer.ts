@@ -50,8 +50,6 @@ export class PersonSerializer {
 
       personProps[CSVConstants.Skills.ExpInterPrefix + skillAbbreviation + CSVConstants.Skills.ExperiencePostfix] =
         CSVConstants.Skills.SkillLevelAnswers[skill.skillLevel];
-      personProps[CSVConstants.Skills.ExpInterPrefix + skillAbbreviation + CSVConstants.Skills.InterestPostfix] =
-        CSVConstants.Skills.InterestLevelAnswers[skill.interestLevel];
       personProps[CSVConstants.Skills.JustifyPrefix + skillAbbreviation] = skill.justification;
     }
   }

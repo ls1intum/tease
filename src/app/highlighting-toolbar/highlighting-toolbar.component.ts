@@ -6,7 +6,6 @@ import { Skill, SkillLevel } from '../shared/models/skill';
 import { CSVConstants } from '../shared/constants/csv.constants';
 import { ExperiencePersonConstraint } from '../shared/models/person-constraints/experience-person-constraint';
 import { Device } from '../shared/models/device';
-import { InterestPersonConstraint } from '../shared/models/person-constraints/interest-person-constraint';
 import { GenderPersonConstraint } from '../shared/models/person-constraints/gender-person-constraint';
 import { Gender } from '../shared/models/person';
 import { PersonHighlightingOverlayComponent } from '../dashboard/person-highlighting-overlay/person-highlighting-overlay.component';
@@ -27,7 +26,6 @@ export class HighlightingToolbarComponent implements OnInit {
   Gender = Gender;
   Device = Device;
   InstructorRatingPersonConstraint = InstructorRatingPersonConstraint;
-  InterestPersonConstraint = InterestPersonConstraint;
   ExperiencePersonConstraint = ExperiencePersonConstraint;
   DevicePossessionPersonConstraint = DevicePossessionPersonConstraint;
   GenderPersonConstraint = GenderPersonConstraint;

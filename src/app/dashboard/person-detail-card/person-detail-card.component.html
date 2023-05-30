@@ -114,9 +114,6 @@
         <div class="skill-level-label" [ngClass]="'skill-level-label-' + skill.skillLevel">
           <div>{{ CSVConstants.Skills.SkillLevelAnswers[skill.skillLevel] }}</div>
         </div>
-        <div class="skill-level-label" [ngClass]="'skill-level-label-' + skill.interestLevel">
-          <div>{{ CSVConstants.Skills.InterestLevelAnswers[skill.interestLevel] }}</div>
-        </div>
 
         <div *ngIf="skill.justification.length > 0" class="quote-text">
           <span class="quotation-mark">“</span>{{ skill.justification }}<span class="quotation-mark">”</span>

@@ -7,7 +7,6 @@ import { CSVConstants } from '../constants/csv.constants';
 export class Skill {
   private _name: string;
   private _skillLevel: SkillLevel;
-  private _interestLevel: SkillLevel;
   private _justification: string;
 
   public static getLabelForSkillLevel(skillLevel: SkillLevel): string {
@@ -25,10 +24,9 @@ export class Skill {
     return 'Not rated';
   }
 
-  constructor(name: string, skillLevel: SkillLevel, interestLevel: SkillLevel, justification: string) {
+  constructor(name: string, skillLevel: SkillLevel, justification: string) {
     this._name = name;
     this._skillLevel = skillLevel;
-    this._interestLevel = interestLevel;
     this._justification = justification;
   }
 
@@ -38,10 +36,6 @@ export class Skill {
 
   get skillLevel(): SkillLevel {
     return this._skillLevel;
-  }
-
-  get interestLevel(): SkillLevel {
-    return this._interestLevel;
   }
 
   get justification(): string {

@@ -29,19 +29,6 @@
       </div>
     </div>
 
-    <div *ngIf="InterestPersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
-      <div>Interest in</div>
-      <div>{{ getSkillNameAbbreviation(InterestPersonConstraint.getTyped(personConstraint).skillName) }}</div>
-      <div class="comparator-container flex-row flex-center flex-justify-center">
-        <div>≥</div>
-      </div>
-      <div>
-        {{
-          CSVConstants.Skills.InterestLevelAnswers[InterestPersonConstraint.getTyped(personConstraint).minimumInterest]
-        }}
-      </div>
-    </div>
-
     <div *ngIf="GenderPersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
       <div>Gender</div>
       <div class="comparator-container flex-row flex-center flex-justify-center">

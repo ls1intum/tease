@@ -56,32 +56,6 @@
           </mat-select>
         </div>
 
-        <div
-          *ngIf="InterestPersonConstraint.getTyped(personConstraint)"
-          class="flex-row flex-center flex-spacing-x-5px">
-          <div>Interest in</div>
-          <mat-select [(value)]="InterestPersonConstraint.getTyped(personConstraint).skillName">
-            <mat-option *ngFor="let skillName of skillNames" [value]="skillName">{{ skillName }}</mat-option>
-          </mat-select>
-          <div class="comparator-container flex-row flex-center flex-justify-center">
-            <div>≥</div>
-          </div>
-          <mat-select [(value)]="InterestPersonConstraint.getTyped(personConstraint).minimumInterest">
-            <mat-option [value]="SkillLevel.Low">{{
-              CSVConstants.Skills.InterestLevelAnswers[SkillLevel.Low]
-            }}</mat-option>
-            <mat-option [value]="SkillLevel.Medium">{{
-              CSVConstants.Skills.InterestLevelAnswers[SkillLevel.Medium]
-            }}</mat-option>
-            <mat-option [value]="SkillLevel.High">{{
-              CSVConstants.Skills.InterestLevelAnswers[SkillLevel.High]
-            }}</mat-option>
-            <mat-option [value]="SkillLevel.VeryHigh">{{
-              CSVConstants.Skills.InterestLevelAnswers[SkillLevel.VeryHigh]
-            }}</mat-option>
-          </mat-select>
-        </div>
-
         <div *ngIf="GenderPersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
           <div>Gender</div>
           <div class="comparator-container flex-row flex-center flex-justify-center">
@@ -142,12 +116,6 @@
           class="add-constraint-dropdown-element"
           (click)="addExperienceConstraint(); dropdownVisible = false; $event.stopPropagation()">
           Experience
-        </div>
-        <div class="add-constraint-dropdown-seperator"></div>
-        <div
-          class="add-constraint-dropdown-element"
-          (click)="addInterestLevelConstraint(); dropdownVisible = false; $event.stopPropagation()">
-          Interest Level
         </div>
         <div class="add-constraint-dropdown-seperator"></div>
         <div
