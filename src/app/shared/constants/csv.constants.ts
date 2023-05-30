@@ -37,14 +37,13 @@ export class CSVConstants {
     StudentComments: 'studentComments',
     SupervisorAssessment: 'supervisorAssessment',
     TutorComments: 'tutorComments',
-    IsPinned: 'IsPinned',
+    IsPinned: 'isPinned',
   };
 
   static readonly Skills = {
-    JustifyPrefix: 'justify',
-    ExpInterPrefix: 'expinter',
-    ExperiencePostfix: '[expinter][1]',
-    InterestPostfix: '[expinter][2]',
+    DescriptionPostfix: '.description',
+    SkillLevelPostfix: '.skillLevel',
+    ExperienceExplanationPostfix: '.experienceExplanation',
     SkillNameAbbreviationPairs: [
       ['Frontend Development', 'WEBFE'],
       ['Server-side Development', 'SSDEV'],
@@ -54,13 +53,6 @@ export class CSVConstants {
       ['Machine Learning & Algorithms', 'MLALG'],
     ],
     SkillLevelAnswers: ['no skills', 'beginner skills', 'average skills', 'advanced skills', 'expert skills'],
-    InterestLevelAnswers: [
-      'not interested at all',
-      'hardly interested',
-      'average interest',
-      'high interest',
-      'extremely interested',
-    ],
   };
 
   static readonly Devices = {

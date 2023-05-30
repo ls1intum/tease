@@ -84,18 +84,20 @@ export abstract class PersonParser {
 
   private static parsePersonSkills(person: Person, personProps: Array<any>) {
     for (const [skillName, skillAbbreviation] of CSVConstants.Skills.SkillNameAbbreviationPairs) {
-      const skillLevelString =
-        personProps[CSVConstants.Skills.ExpInterPrefix + skillAbbreviation + CSVConstants.Skills.ExperiencePostfix];
-      const justificationString = personProps[CSVConstants.Skills.JustifyPrefix + skillAbbreviation];
+      // const skillDescriptionString = personProps[skillAbbreviation + CSVConstants.Skills.DescriptionPostfix]
+
+      const skillLevelString = personProps[skillAbbreviation + CSVConstants.Skills.SkillLevelPostfix];
+
+      const experienceExplanationString = personProps[skillAbbreviation + CSVConstants.Skills.ExperienceExplanationPostfix];
 
       if (!(skillLevelString)) continue;
 
       let skillLevel: SkillLevel = CSVConstants.Skills.SkillLevelAnswers.indexOf(skillLevelString);
-      if (!SkillLevel[skillLevel]) skillLevel = null;
+      if (!SkillLevel[skillLevel]) skillLevel = SkillLevel.None;
 
       // TODO: retrieve the skill description from the appropriate CSV column
       person.skills.push(
-        new Skill(skillName, "placehoder: skill description", skillLevel, justificationString ? justificationString : '')
+        new Skill(skillName, "placehoder: skill description", skillLevel, experienceExplanationString ? experienceExplanationString : '')
       );
     }
   }

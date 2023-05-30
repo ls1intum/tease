@@ -48,9 +48,11 @@ export class PersonSerializer {
     for (const skill of person.skills) {
       const skillAbbreviation = CSVConstants.Skills.SkillNameAbbreviationPairs.find(pair => pair[0] === skill.name)[1];
 
-      personProps[CSVConstants.Skills.ExpInterPrefix + skillAbbreviation + CSVConstants.Skills.ExperiencePostfix] =
-        CSVConstants.Skills.SkillLevelAnswers[skill.skillLevel];
-      personProps[CSVConstants.Skills.JustifyPrefix + skillAbbreviation] = skill.justification;
+      personProps[skillAbbreviation + CSVConstants.Skills.DescriptionPostfix] = skill.description;
+
+      personProps[skillAbbreviation + CSVConstants.Skills.SkillLevelPostfix] = CSVConstants.Skills.SkillLevelAnswers[skill.skillLevel];
+
+      personProps[skillAbbreviation + CSVConstants.Skills.ExperienceExplanationPostfix] = skill.experienceExplanation;
     }
   }
 
