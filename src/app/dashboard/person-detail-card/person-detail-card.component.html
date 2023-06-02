@@ -112,7 +112,7 @@
       <div *ngFor="let skill of person.skills" class="skill-container skill-container-generic flex-column flex-center">
         <div class="skill-name">{{ skill.name }}</div>
         <div class="skill-level-label" [ngClass]="'skill-level-label-' + skill.skillLevel">
-          <div>{{ CSVConstants.Skills.SkillLevelAnswers[skill.skillLevel] }}</div>
+          <div>{{ skill.skillLevel }}</div>
         </div>
 
         <div *ngIf="skill.experienceExplanation.length > 0" class="quote-text">

@@ -41,18 +41,10 @@
             <div>≥</div>
           </div>
           <mat-select [(value)]="ExperiencePersonConstraint.getTyped(personConstraint).minimumExperience">
-            <mat-option [value]="SkillLevel.Low">{{
-              CSVConstants.Skills.SkillLevelAnswers[SkillLevel.Low]
-            }}</mat-option>
-            <mat-option [value]="SkillLevel.Medium">{{
-              CSVConstants.Skills.SkillLevelAnswers[SkillLevel.Medium]
-            }}</mat-option>
-            <mat-option [value]="SkillLevel.High">{{
-              CSVConstants.Skills.SkillLevelAnswers[SkillLevel.High]
-            }}</mat-option>
-            <mat-option [value]="SkillLevel.VeryHigh">{{
-              CSVConstants.Skills.SkillLevelAnswers[SkillLevel.VeryHigh]
-            }}</mat-option>
+            <mat-option [value]="SkillLevel.Low">{{ SkillLevel.Low }}</mat-option>
+            <mat-option [value]="SkillLevel.Medium">{{ SkillLevel.Medium }}</mat-option>
+            <mat-option [value]="SkillLevel.High">{{ SkillLevel.High }}</mat-option>
+            <mat-option [value]="SkillLevel.VeryHigh">{{ SkillLevel.VeryHigh }}</mat-option>
           </mat-select>
         </div>
 

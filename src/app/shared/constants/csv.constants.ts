@@ -52,7 +52,6 @@ export class CSVConstants {
       ['Virtual & Augmented Reality', 'VRAR'],
       ['Machine Learning & Algorithms', 'MLALG'],
     ],
-    SkillLevelAnswers: ['no skills', 'beginner skills', 'average skills', 'advanced skills', 'expert skills'],
   };
 
   static readonly Devices = {

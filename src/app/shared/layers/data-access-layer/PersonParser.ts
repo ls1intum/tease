@@ -92,12 +92,12 @@ export abstract class PersonParser {
 
       if (!(skillLevelString)) continue;
 
-      let skillLevel: SkillLevel = CSVConstants.Skills.SkillLevelAnswers.indexOf(skillLevelString);
+      let skillLevel: SkillLevel = Object.keys(SkillLevel).indexOf(skillLevelString) as SkillLevel;
       if (!SkillLevel[skillLevel]) skillLevel = SkillLevel.None;
 
       // TODO: retrieve the skill description from the appropriate CSV column
       person.skills.push(
-        new Skill(skillName, "placehoder: skill description", skillLevel, experienceExplanationString ? experienceExplanationString : '')
+        new Skill(skillName, "placeholder: skill description", skillLevel, experienceExplanationString ? experienceExplanationString : '')
       );
     }
   }
