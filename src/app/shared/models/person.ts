@@ -78,13 +78,7 @@ export class Person {
   }
 
   getSupervisorAssessmentLevel(): SkillLevel {
-//     const index = CSVConstants.Person.SupervisorRating.indexOf(this.supervisorAssessment);
-//     return index >= 0 ? index : null;
-
-    // returning placeholder value while model transformation is underway
-    // we no longer store the intro course assessment by tutors separately from the supervisor assessment
-    // therefore this no longer needs to use 'IntroAssessmentTutorAnswers'
-    return SkillLevel.Low;
+    return this.supervisorAssessment;
   }
 }
 
