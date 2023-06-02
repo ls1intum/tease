@@ -115,10 +115,10 @@
           <div>{{ skill.skillLevel }}</div>
         </div>
 
-        <div *ngIf="skill.experienceExplanation.length > 0" class="quote-text">
-          <span class="quotation-mark">“</span>{{ skill.experienceExplanation }}<span class="quotation-mark">”</span>
+        <div *ngIf="skill.skillLevelRationale.length > 0" class="quote-text">
+          <span class="quotation-mark">“</span>{{ skill.skillLevelRationale }}<span class="quotation-mark">”</span>
         </div>
-        <div class="quote-text" *ngIf="skill.experienceExplanation.length == 0">—</div>
+        <div class="quote-text" *ngIf="skill.skillLevelRationale.length == 0">—</div>
       </div>
     </div>
 

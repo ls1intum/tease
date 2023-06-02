@@ -130,9 +130,9 @@ components:
         skillLevel:
           description: Proficiency in the skill as estimated and reported by the student
           $ref: '#/components/schemas/SkillProficiencyLevel'
-        experienceExplanation:
+        skillLevelRationale:
           type: string
-          description: A description of their prior experience in the skill that serves as an explanation for their self-asesssed proficiency level
+          description: An explanation of why they assigned themselves the given proficiency level, for example mentioning prior experience, projects etc.
     SkillProficiencyLevel:
       type: string
       enum:

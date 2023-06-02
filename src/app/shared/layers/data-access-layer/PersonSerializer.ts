@@ -52,7 +52,7 @@ export class PersonSerializer {
 
       personProps[skillAbbreviation + CSVConstants.Skills.SkillLevelPostfix] = skill.skillLevel;
 
-      personProps[skillAbbreviation + CSVConstants.Skills.ExperienceExplanationPostfix] = skill.experienceExplanation;
+      personProps[skillAbbreviation + CSVConstants.Skills.SkillLevelRationalePostfix] = skill.skillLevelRationale;
     }
   }
 

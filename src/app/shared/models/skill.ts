@@ -8,7 +8,7 @@ export class Skill {
   private _name: string;
   private _description: string;
   private _skillLevel: SkillLevel;
-  private _experienceExplanation: string;
+  private _skillLevelRationale: string;
 
   public static getLabelForSkillLevel(skillLevel: SkillLevel): string {
     switch (skillLevel) {
@@ -25,11 +25,11 @@ export class Skill {
     return 'Not rated';
   }
 
-  constructor(name: string, description: string, skillLevel: SkillLevel, experienceExplanation: string) {
+  constructor(name: string, description: string, skillLevel: SkillLevel, skillLevelRationale: string) {
     this._name = name;
     this._description = description;
     this._skillLevel = skillLevel;
-    this._experienceExplanation = experienceExplanation;
+    this._skillLevelRationale = skillLevelRationale;
   }
 
   get name(): string {
@@ -44,8 +44,8 @@ export class Skill {
     return this._skillLevel;
   }
 
-  get experienceExplanation(): string {
-    return this._experienceExplanation;
+  get skillLevelRationale(): string {
+    return this._skillLevelRationale;
   }
 
   toString(): string {

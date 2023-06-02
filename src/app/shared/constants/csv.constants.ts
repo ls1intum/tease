@@ -43,7 +43,7 @@ export class CSVConstants {
   static readonly Skills = {
     DescriptionPostfix: '.description',
     SkillLevelPostfix: '.skillLevel',
-    ExperienceExplanationPostfix: '.experienceExplanation',
+    SkillLevelRationalePostfix: '.skillLevelRationale',
     SkillNameAbbreviationPairs: [
       ['Frontend Development', 'WEBFE'],
       ['Server-side Development', 'SSDEV'],

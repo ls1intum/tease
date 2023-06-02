@@ -88,7 +88,7 @@ export abstract class PersonParser {
 
       const skillLevelString = personProps[skillAbbreviation + CSVConstants.Skills.SkillLevelPostfix];
 
-      const experienceExplanationString = personProps[skillAbbreviation + CSVConstants.Skills.ExperienceExplanationPostfix];
+      const skillLevelRationaleString = personProps[skillAbbreviation + CSVConstants.Skills.SkillLevelRationalePostfix];
 
       if (!(skillLevelString)) continue;
 
@@ -97,7 +97,7 @@ export abstract class PersonParser {
 
       // TODO: retrieve the skill description from the appropriate CSV column
       person.skills.push(
-        new Skill(skillName, "placeholder: skill description", skillLevel, experienceExplanationString ? experienceExplanationString : '')
+        new Skill(skillName, "placeholder: skill description", skillLevel, skillLevelRationaleString ? skillLevelRationaleString : '')
       );
     }
   }
