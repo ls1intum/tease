@@ -92,8 +92,7 @@ export abstract class PersonParser {
 
       if (!(skillLevelString)) continue;
 
-      let skillLevel: SkillLevel = Object.keys(SkillLevel).indexOf(skillLevelString) as SkillLevel;
-      if (!SkillLevel[skillLevel]) skillLevel = SkillLevel.None;
+      let skillLevel: SkillLevel = PersonParser.parseSkillLevel(skillLevelString);
 
       // TODO: retrieve the skill description from the appropriate CSV column
       person.skills.push(

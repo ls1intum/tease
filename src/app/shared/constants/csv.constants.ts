@@ -40,11 +40,15 @@ export class CSVConstants {
     IsPinned: 'isPinned',
   };
 
+  // TODO: We want this skill to always exist, but ideally we should store it somewhere else and definitely document it
+  static readonly SkillNameiOS = 'iOS Development';
+
   static readonly Skills = {
     DescriptionPostfix: '.description',
     SkillLevelPostfix: '.skillLevel',
     SkillLevelRationalePostfix: '.skillLevelRationale',
     SkillNameAbbreviationPairs: [
+      [CSVConstants.SkillNameiOS, 'IOSDEV'],
       ['Frontend Development', 'WEBFE'],
       ['Server-side Development', 'SSDEV'],
       ['UI / UX', 'UIUX'],
@@ -63,22 +67,15 @@ export class CSVConstants {
     IpadAR: 'devices[iPadAR]',
   };
 
-  static readonly iOSDevExperienceLow =
-    'I have no experience in Apple platform development other than the intro course.';
-  static readonly iOSDevExperienceMedium =
-    'I was involved in the development of a native Apple application, but I had another role than developer (e.g. tester).';
-  static readonly iOSDevExperienceHigh = 'I have been an active developer for a native Apple application.';
-  static readonly iOSDevExperienceVeryHigh = 'I have submitted my own native Apple application(s) to the AppStore.';
-
   static readonly Team = { TeamName: 'teamName', Priority: 'Priorities[{d}]' };
   static readonly ArrayBraces = { Open: '[', Close: ']' };
 
   static readonly SkillLevelValue = {
-    VeryHigh: 'Expert',
-    High: 'Advanced',
-    Medium: 'Normal',
-    Low: 'Novice',
-    None: 'No',
+    VeryHigh: 'expert skills',
+    High: 'advanced skills',
+    Medium: 'average skills',
+    Low: 'beginner skills',
+    None: 'no skills',
   };
 
   static readonly GenderValue = { Male: 'male', Female: 'female' };

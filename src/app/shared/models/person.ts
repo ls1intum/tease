@@ -8,13 +8,6 @@ import { CSVConstants } from '../constants/csv.constants';
  */
 
 export class Person {
-  static readonly IOSDevExperienceAnswerToSkillLevelMap = new Map([
-    [CSVConstants.iOSDevExperienceLow, SkillLevel.Low],
-    [CSVConstants.iOSDevExperienceMedium, SkillLevel.Medium],
-    [CSVConstants.iOSDevExperienceHigh, SkillLevel.High],
-    [CSVConstants.iOSDevExperienceVeryHigh, SkillLevel.VeryHigh],
-  ]);
-
   firstName: string;
   lastName: string;
   image: string;
@@ -63,13 +56,14 @@ export class Person {
     return this.supervisorAssessment !== undefined && this.supervisorAssessment !== SkillLevel.None;
   }
 
-  getiOSSkillLevel(): SkillLevel {
-//     const iOSSkillLevel = Person.IOSDevExperienceAnswerToSkillLevelMap.get(this.iosDev);
-//     return iOSSkillLevel !== undefined ? iOSSkillLevel : SkillLevel.None;
+  getiOSSkill(): Skill {
+    // TODO: have the iOS skill be hard-coded or forced to always exist due to its signifince or special
+    // role in the iPraktikum, instead of a CSV constant store this somewhere else
+    return this.skills.find(skill => skill.name === CSVConstants.SkillNameiOS)
+  }
 
-    // returning placeholder value while transforming model
-    // iOS skill level should be retrieved from the iOS skill in the skills array
-    return SkillLevel.Low;
+  getiOSSkillLevel(): SkillLevel {
+    return this.getiOSSkill().skillLevel;
   }
 
   getIntroSelfAssessmentLevel(): SkillLevel {
@@ -79,6 +73,10 @@ export class Person {
 
   getSupervisorAssessmentLevel(): SkillLevel {
     return this.supervisorAssessment;
+  }
+
+  getNoniOSSkills(): Array<Skill> {
+    return this.skills.filter(skill => skill.name !== CSVConstants.SkillNameiOS);
   }
 }
 

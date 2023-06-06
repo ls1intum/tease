@@ -101,15 +101,15 @@
     <div class="skill-container flex-column flex-center">
       <div class="skill-name">iOS Development</div>
       <div class="skill-level-label" [ngClass]="'skill-level-label-' + person.getiOSSkillLevel()">
-        <div>placeholder: iOS skill level</div>
+        <div>{{ person.getiOSSkillLevel() }}</div>
       </div>
       <div class="quote-text">
-        <span class="quotation-mark">“</span>placeholder: iOS dev explanation<span class="quotation-mark">”</span>
+        <span class="quotation-mark">“</span>{{ person.getiOSSkill().skillLevelRationale }}<span class="quotation-mark">”</span>
       </div>
     </div>
 
     <div class="flex-row flex-wrap generic-skills-container-box">
-      <div *ngFor="let skill of person.skills" class="skill-container skill-container-generic flex-column flex-center">
+      <div *ngFor="let skill of person.getNoniOSSkills()" class="skill-container skill-container-generic flex-column flex-center">
         <div class="skill-name">{{ skill.name }}</div>
         <div class="skill-level-label" [ngClass]="'skill-level-label-' + skill.skillLevel">
           <div>{{ skill.skillLevel }}</div>
