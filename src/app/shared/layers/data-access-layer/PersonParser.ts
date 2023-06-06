@@ -59,7 +59,7 @@ export abstract class PersonParser {
     person.semester = personProps[CSVConstants.Person.Semester];
     person.germanLanguageLevel = personProps[CSVConstants.Person.GermanLanguageLevel];
     person.englishLanguageLevel = personProps[CSVConstants.Person.EnglishLanguageLevel];
-    person.introSelfAssessment = personProps[CSVConstants.Person.IntroSelfAssessment];
+    person.introSelfAssessment = this.parseSelfAssessment(personProps[CSVConstants.Person.IntroSelfAssessment]);
     this.parsePersonDevices(person, personProps);
     this.parsePersonSkills(person, personProps);
     person.studentComments = personProps[CSVConstants.Person.StudentComments];
@@ -99,6 +99,16 @@ export abstract class PersonParser {
         new Skill(skillName, "placeholder: skill description", skillLevel, skillLevelRationaleString ? skillLevelRationaleString : '')
       );
     }
+  }
+
+  static parseSelfAssessment(selfAssessmentString: string): SkillLevel {
+    if (selfAssessmentString === CSVConstants.Person.IntroSelfAssessmentAnswers.VeryHigh) return SkillLevel.VeryHigh;
+    if (selfAssessmentString === CSVConstants.Person.IntroSelfAssessmentAnswers.High) return SkillLevel.High;
+    if (selfAssessmentString === CSVConstants.Person.IntroSelfAssessmentAnswers.Medium) return SkillLevel.Medium;
+    if (selfAssessmentString === CSVConstants.Person.IntroSelfAssessmentAnswers.Low) return SkillLevel.Low;
+    if (selfAssessmentString === CSVConstants.Person.IntroSelfAssessmentAnswers.None) return SkillLevel.None;
+
+    return SkillLevel.None;
   }
 
   static parseSkillLevel(skillLevelString: string): SkillLevel {

@@ -22,7 +22,7 @@ export class PersonSerializer {
     personProps[CSVConstants.Person.Semester] = person.semester;
     personProps[CSVConstants.Person.GermanLanguageLevel] = person.germanLanguageLevel;
     personProps[CSVConstants.Person.EnglishLanguageLevel] = person.englishLanguageLevel;
-    personProps[CSVConstants.Person.IntroSelfAssessment] = person.introSelfAssessment;
+    personProps[CSVConstants.Person.IntroSelfAssessment] = this.serializeSelfAssessment(person.introSelfAssessment);
     this.serializePersonDevices(person, personProps);
     this.serializeSkills(person, personProps);
     this.serializePriorities(person, personProps);
@@ -80,7 +80,24 @@ export class PersonSerializer {
         return CSVConstants.SkillLevelValue.None;
     }
 
-    return null;
+    return "";
+  }
+
+  static serializeSelfAssessment(skillLevel: SkillLevel): string {
+    switch(skillLevel) {
+      case SkillLevel.VeryHigh:
+        return CSVConstants.Person.IntroSelfAssessmentAnswers.VeryHigh;
+      case SkillLevel.High:
+        return CSVConstants.Person.IntroSelfAssessmentAnswers.VeryHigh;
+      case SkillLevel.Medium:
+        return CSVConstants.Person.IntroSelfAssessmentAnswers.Medium;
+      case SkillLevel.Low:
+        return CSVConstants.Person.IntroSelfAssessmentAnswers.Low;
+      case SkillLevel.None:
+        return CSVConstants.Person.IntroSelfAssessmentAnswers.None;
+    }
+
+    return "";
   }
 
   private static serializePersonDevices(person: Person, personProps: {}) {

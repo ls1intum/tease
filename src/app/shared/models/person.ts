@@ -20,7 +20,7 @@ export class Person {
 
   germanLanguageLevel: string;
   englishLanguageLevel: string;
-  introSelfAssessment: string;
+  introSelfAssessment: SkillLevel;
 
   devices: Device[] = [];
   skills: Skill[] = [];
@@ -67,8 +67,7 @@ export class Person {
   }
 
   getIntroSelfAssessmentLevel(): SkillLevel {
-    const index = CSVConstants.Person.IntroSelfAssessmentAnswers.indexOf(this.introSelfAssessment);
-    return index >= 0 ? index : null;
+    return this.introSelfAssessment;
   }
 
   getSupervisorAssessmentLevel(): SkillLevel {
