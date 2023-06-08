@@ -98,7 +98,7 @@ export class TeamService {
   public readRemoteData(remoteFilePath: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       CSVPersonDataAccessService.readFromRemote(remoteFilePath).then(data => {
-        this.loadJSON(data);
+        this.load(data);
         resolve(true);
       });
     });
@@ -111,7 +111,7 @@ export class TeamService {
   public readFromAPI(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.apiDataAccessService.readFromAPI().then(data => {
-        this.load(data);
+        this.loadJSON(data);
         resolve(true);
       });
     });
