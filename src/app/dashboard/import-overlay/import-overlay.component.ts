@@ -30,14 +30,20 @@ export class ImportOverlayComponent implements OnInit, OverlayComponent {
     });
   }
 
+  private onImported() {
+    this.data.onTeamsImported();
+    ConstraintLoggingService.reset();
+  }
+
   public loadExampleData() {
     this.teamService.readRemoteData(ExamplePersonPropertyCsvRemotePath).then(success => {
-      this.data.onTeamsImported();
-      ConstraintLoggingService.reset();
+      this.onImported();
     });
   }
 
   public loadFromPROMPT() {
-    // TODO: use team service to load data from PROMPT using the API
+    this.teamService.readFromAPI().then(success => {
+      this.onImported();
+    });
   }
 }

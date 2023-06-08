@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, forkJoin } from 'rxjs';
+import { ajax } from 'rxjs/ajax'
 import { catchError, retry } from 'rxjs/operators';
 
 import { Person } from '../../models/person';
 import { Team } from '../../models/team';
 
+import { JSONBlobResponse } from '../business-logic-layer/team.service'
+
 @Injectable()
 export class APIDataAccessService {
-  private static readonly PROMPT_API_BASE_URL = 'http://localhost:3000';
+  // TODO: set to actual URL from which PROMPT makes its endpoints available
+  private static readonly PROMPT_API_BASE_URL = 'http://localhost:3000/v1';
 
   private static readonly STUDENTS_ROUTE = "students";
   private static readonly TEAMS_ROUTE = "teams";
@@ -18,15 +22,16 @@ export class APIDataAccessService {
 
   constructor(private http: HttpClient) { }
 
-  public readFromAPI(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      // TODO: make http get requests to the API and turn them into a JSON blob
-    });
+  public readFromAPI(): Promise<JSONBlobResponse> {
+    return forkJoin({
+      students: ajax.getJSON(APIDataAccessService.PROMPT_API_BASE_URL + APIDataAccessService.STUDENTS_ROUTE),
+      teams: ajax.getJSON(APIDataAccessService.PROMPT_API_BASE_URL + APIDataAccessService.TEAMS_ROUTE)
+    }).toPromise();
   }
 
-  public parseBrowserStorageData(): Promise<any> {
+  public parseBrowserStorageData(): Promise<JSONBlobResponse> {
     return new Promise((resolve, reject) => {
-      // TOOD: parse the locally stored blob (string)
+      // TODO: parse the locally stored blob (string)
     });
   }
 

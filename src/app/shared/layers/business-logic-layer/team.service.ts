@@ -7,6 +7,11 @@ import { CSVPersonDataAccessService } from '../data-access-layer/csv-person-data
 import { ConstraintLoggingService } from './constraint-logging.service';
 import { APIDataAccessService } from '../data-access-layer/api-data-access.service';
 
+export interface JSONBlobResponse {
+  students: any,
+  teams: any
+}
+
 @Injectable()
 export class TeamService {
   private readonly EXPORT_DATA_TYPE = 'text/csv;charset=utf-8';
@@ -104,8 +109,26 @@ export class TeamService {
     });
   }
 
-  private loadJSON(data: any) {
-    // TODO: unpack students and teams from the JSON blob
+  private loadJSON(blob: JSONBlobResponse) {
+    this.persons = this.getStudents(blob);
+    this.teams = this.getTeams(blob);
+    this.updateDerivedProperties();
+  }
+
+  private getStudents(blob: JSONBlobResponse) {
+    let students: Person[];
+    blob.students.forEach(object => {
+      students.push(object as Person);
+    })
+    return students;
+  }
+
+  private getTeams(blob: JSONBlobResponse) {
+    let teams: Team[];
+    blob.teams.forEach(object => {
+      teams.push(object as Team);
+    })
+    return teams;
   }
 
   public readFromAPI(): Promise<boolean> {
