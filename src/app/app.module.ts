@@ -28,6 +28,7 @@ import { HighlightingToolbarComponent } from './highlighting-toolbar/highlightin
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { ExportOverlayComponent } from './dashboard/export-overlay/export-overlay.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { APIDataAccessService } from './shared/layers/data-access-layer/api-data-access.service';
 
 @NgModule({
   declarations: [AppComponent, OverlayHostDirective, HighlightingToolbarComponent],
@@ -50,6 +51,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     DashboardModule,
   ],
   providers: [
+    APIDataAccessService,
     TeamService,
     ConstraintService,
     OverlayService,
