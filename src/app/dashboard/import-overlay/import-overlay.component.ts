@@ -36,4 +36,8 @@ export class ImportOverlayComponent implements OnInit, OverlayComponent {
       ConstraintLoggingService.reset();
     });
   }
+
+  public loadFromPROMPT() {
+    // TODO: use team service to load data from PROMPT using the API
+  }
 }

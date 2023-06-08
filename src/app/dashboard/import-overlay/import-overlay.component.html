@@ -20,16 +20,24 @@
       <div class="flex-grow flex-column flex-basis-zero alternative-box flex-spacing-10">
         <div class="align-self-center alternative-heading">Example Data</div>
         <div>You can use example data to explore and test the app.</div>
-        <button mat-raised-button color="primary" (click)="loadExampleData()">
+        <button style="font-size: smaller;" mat-raised-button color="primary" (click)="loadExampleData()">
           <mat-icon>cloud_download</mat-icon>Load Example Data
         </button>
       </div>
-      <div class="seperator"></div>
+      <div class="separator"></div>
       <div class="flex-grow flex-column flex-basis-zero alternative-box flex-spacing-10">
         <div class="align-self-center alternative-heading">CSV File</div>
         <div>Data can be loaded from a file in the CSV format.</div>
         <button mat-raised-button color="primary" (click)="openFileInput()">
           <mat-icon>insert_drive_file</mat-icon>Choose File
+        </button>
+      </div>
+      <div class="separator"></div>
+      <div class="flex-grow flex-column flex-basis-zero alternative-box flex-spacing-10">
+        <div class="align-self-center alternative-heading">PROMPT</div>
+        <div>Data can also be retrieved from PROMPT using its API.</div>
+        <button mat-raised-button color="primary" (click)="loadFromPROMPT()">
+          <mat-icon>cloud_download</mat-icon>Download
         </button>
       </div>
     </div>
