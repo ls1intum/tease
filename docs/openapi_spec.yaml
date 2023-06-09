@@ -24,21 +24,21 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Student'
-  /v1/projects:
+  /v1/skills:
     get:
       tags:
-        - Projects
-      summary: Get the names of the iPraktikum projects
-      description: Send a list of all projects/teams that students can work on during this semesters iteration of the iPraktikum course at TUM
+        - Skills
+      summary: Get the unique names and descriptions of skills that students were asked about
+      description: Retrieve a list of skills, with their names/titles as well as descriptions, the self assessed proficiency levels in the canvassed skills reported by students is sent alongside the data on students
       responses:
         '200':
-          description: An array of project (names) in JSON format
+          description: An array of skills in JSON format
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Project'
+                  $ref: '#/components/schemas/Skill'
   /v1/allocation:
     post:
       tags:
@@ -91,7 +91,7 @@ components:
         skills:
           type: array
           items:
-            $ref: '#/components/schemas/Skill'
+            $ref: '#/components/schemas/SkillSelfAssessment'
         projectPriorities:
           type: array
           items:
@@ -121,12 +121,19 @@ components:
     Skill:
       type: object
       properties:
-        name:
+        id:
+          type: string
+        title:
           type: string
         description:
           type: string
           description: Description of the skill, not specified by each student but provided by course management when choosing which skills to canvas from prospective students
-        # proficiency for a specific skill as reported by the student
+    SkillSelfAssessment:
+      type: object
+      properties:
+        skillId:
+          type: string
+          description: ID of a specific skill, this object is a self assessment by a specific student in that referenced skill
         skillLevel:
           description: Proficiency in the skill as estimated and reported by the student
           $ref: '#/components/schemas/SkillProficiencyLevel'
