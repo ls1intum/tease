@@ -5,6 +5,12 @@ import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
 import { CSVPersonDataAccessService } from '../data-access-layer/csv-person-data-access.service';
 import { ConstraintLoggingService } from './constraint-logging.service';
+import { APIDataAccessService } from '../data-access-layer/api-data-access.service';
+
+export interface JSONBlobResponse {
+  students: any,
+  teams: any
+}
 
 @Injectable()
 export class TeamService {
@@ -12,6 +18,10 @@ export class TeamService {
   private readonly EXPORT_FILE_NAME = 'TEASE-export.zip';
   private readonly LOG_EXPORT_FILE_NAME = 'constraint-distribution-log.txt';
   private readonly CSV_EXPORT_FILE_NAME = 'TEASE-project.csv';
+
+  constructor(private apiDataAccessService: APIDataAccessService) {
+
+  }
 
   teams: Team[];
   persons: Person[];
@@ -50,6 +60,14 @@ export class TeamService {
     this.updateDerivedProperties();
   }
 
+  private sortTeams() {
+    this.teams.sort((teamA, teamB) => {
+      if (teamA.name.toLowerCase() < teamB.name.toLowerCase()) return -1;
+      if (teamA.name.toLowerCase() > teamB.name.toLowerCase()) return 1;
+      return 0;
+    });
+  }
+
   // removes all persons from their team
   public resetTeamAllocation() {
     this.teams.forEach(team => team.clear());
@@ -86,6 +104,37 @@ export class TeamService {
     return new Promise((resolve, reject) => {
       CSVPersonDataAccessService.readFromRemote(remoteFilePath).then(data => {
         this.load(data);
+        resolve(true);
+      });
+    });
+  }
+
+  private loadJSON(blob: JSONBlobResponse) {
+    this.persons = this.getStudents(blob);
+    this.teams = this.getTeams(blob);
+    this.updateDerivedProperties();
+  }
+
+  private getStudents(blob: JSONBlobResponse) {
+    let students: Person[];
+    blob.students.forEach(object => {
+      students.push(object as Person);
+    })
+    return students;
+  }
+
+  private getTeams(blob: JSONBlobResponse) {
+    let teams: Team[];
+    blob.teams.forEach(object => {
+      teams.push(object as Team);
+    })
+    return teams;
+  }
+
+  public readFromAPI(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.apiDataAccessService.readFromAPI().then(data => {
+        this.loadJSON(data);
         resolve(true);
       });
     });

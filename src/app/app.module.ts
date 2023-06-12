@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, HammerModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,12 +28,15 @@ import { HighlightingToolbarComponent } from './highlighting-toolbar/highlightin
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { ExportOverlayComponent } from './dashboard/export-overlay/export-overlay.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { APIDataAccessService } from './shared/layers/data-access-layer/api-data-access.service';
 
 @NgModule({
   declarations: [AppComponent, OverlayHostDirective, HighlightingToolbarComponent],
   imports: [
     /* external modules */
     BrowserModule,
+    // remember to import the HttpClientModule after the BrowserModule
+    HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
@@ -47,6 +51,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     DashboardModule,
   ],
   providers: [
+    APIDataAccessService,
     TeamService,
     ConstraintService,
     OverlayService,
