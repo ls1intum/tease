@@ -8,7 +8,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { Person } from '../../models/person';
 import { Team } from '../../models/team';
 
-import { JSONBlobResponse } from '../business-logic-layer/team.service'
+import { JSONBlobResponse } from '../business-logic-layer/team.service';
 
 @Injectable()
 export class APIDataAccessService {
@@ -20,12 +20,17 @@ export class APIDataAccessService {
 
   private static readonly BROWSER_STORAGE_KEY = 'TEASE-LOCAL-JSON-BLOB';
 
+  private static STUDENT_EXAMPLE_API_RESPONSE_PATH = 'assets/students_example_api_response.json';
+  private static SKILLS_EXAMPLE_API_RESPONSE_PATH = 'assets/skills_example_api_response.json';
+
   constructor(private http: HttpClient) { }
 
-  public readFromAPI(): Promise<JSONBlobResponse> {
+  public readFromAPI(): Promise<Object> {
     return forkJoin({
-      students: ajax.getJSON(APIDataAccessService.PROMPT_API_BASE_URL + APIDataAccessService.STUDENTS_ROUTE),
-      teams: ajax.getJSON(APIDataAccessService.PROMPT_API_BASE_URL + APIDataAccessService.TEAMS_ROUTE)
+      // students: ajax.getJSON(APIDataAccessService.PROMPT_API_BASE_URL + APIDataAccessService.STUDENTS_ROUTE),
+      // teams: ajax.getJSON(APIDataAccessService.PROMPT_API_BASE_URL + APIDataAccessService.TEAMS_ROUTE)
+      students: ajax.getJSON(APIDataAccessService.STUDENT_EXAMPLE_API_RESPONSE_PATH),
+      skills: ajax.getJSON(APIDataAccessService.SKILLS_EXAMPLE_API_RESPONSE_PATH)
     }).toPromise();
   }
 

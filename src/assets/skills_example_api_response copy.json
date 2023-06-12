@@ -1,0 +1,17 @@
+[
+  {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "title": "iOS Development",
+    "description": "Development of applications for the iOS mobile operating system"
+  },
+  {
+    "id": "3fa86f64-5717-4562-b3fc-2c163f66afa6",
+    "title": "Machine Learning",
+    "description": "Machine learning experience in frameworks such as Tensorflow to train on various data sets"
+  },
+  {
+    "id": "3fa35f54-5717-4562-b3fc-2c963f66afa6",
+    "title": "VR Development",
+    "description": "Development of virtual reality systems"
+  }
+]
