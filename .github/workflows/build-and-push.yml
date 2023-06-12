@@ -2,9 +2,14 @@ name: Build and Push
 
 on:
   pull_request:
-    branches: [develop]
   push:
-    branches: [develop]
+    branches: 
+    - develop
+    - main
+    tags: '[0-9]+.[0-9]+.[0-9]+'
+  release:
+    types:
+    - created
 
 jobs:
   buildx:
