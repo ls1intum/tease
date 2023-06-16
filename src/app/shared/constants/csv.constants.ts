@@ -8,7 +8,7 @@ export class CSVConstants {
     FirstName: 'firstname',
     LastName: 'lastname',
     Email: 'email',
-    TumId: 'tumID',
+    StudentId: 'studentID',
     Gender: 'gender',
     Nationality: 'nationality',
     StudyProgram: 'studyProgram',

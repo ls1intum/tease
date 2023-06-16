@@ -68,8 +68,8 @@
           <div class="person-value">{{ person.email }}</div>
         </div>
         <div class="flex-column">
-          <div class="heading">TUM ID</div>
-          <div class="person-value">{{ person.tumId }}</div>
+          <div class="heading">Student ID</div>
+          <div class="person-value">{{ person.studentId }}</div>
         </div>
       </div>
     </div>
@@ -129,7 +129,7 @@
       <div
         class="skill-level-label flex-grow flex-basis-zero"
         [ngClass]="'skill-level-label-' + person.getIntroSelfAssessmentLevel()">
-        <div>Student: “{{ getLabelForSelfAssessmentLevel(person.introSelfAssessment) }}”</div>
+        <div>Student: “{{ getLabelForSelfAssessmentLevel(person.introSelfAssessment) | titlecase }}”</div>
       </div>
       <div
         class="skill-level-label flex-grow flex-basis-zero"

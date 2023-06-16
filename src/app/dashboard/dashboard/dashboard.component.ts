@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
   ) {
     /* save model when modified by drag & drop operation */
     dragulaService.dropModel("persons").subscribe(({ el, target, source, sourceModel, targetModel, item }) => {
-      let person: Person = teamService.getPersonById(item.tumId)
+      let person: Person = teamService.getPersonById(item.studentId)
       let currentTeam = person.team
       currentTeam.remove(person)
 
@@ -127,7 +127,7 @@ export class DashboardComponent implements OnInit {
   * @returns Inferred actual team (based on members that were already in the team)
   */
   private inferTeam(members: Array<Person>, added: Person): Team {
-    let teams = members.filter(member => member.tumId != added.tumId).map(member => member.team)
+    let teams = members.filter(member => member.studentId != added.studentId).map(member => member.team)
     let unique_teams = [... new Set(teams)]
     if (unique_teams.length > 1) {
       throw new Error("Team members had more than one unique team: " + unique_teams.map(team => team.name))

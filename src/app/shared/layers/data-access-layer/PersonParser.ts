@@ -52,7 +52,7 @@ export abstract class PersonParser {
     person.firstName = personProps[CSVConstants.Person.FirstName];
     person.lastName = personProps[CSVConstants.Person.LastName];
     person.email = personProps[CSVConstants.Person.Email];
-    person.tumId = personProps[CSVConstants.Person.TumId];
+    person.studentId = personProps[CSVConstants.Person.StudentId];
     person.gender = this.parseGender(personProps[CSVConstants.Person.Gender]);
     person.nationality = personProps[CSVConstants.Person.Nationality];
     person.studyProgram = personProps[CSVConstants.Person.StudyProgram];
@@ -70,8 +70,8 @@ export abstract class PersonParser {
 
     this.parseTeamPriorities(teams, person, personProps);
 
-    if (person.tumId === undefined || person.tumId.length === 0) {
-      console.log('No tumId for person found. Cannot import.');
+    if (person.studentId === undefined || person.studentId.length === 0) {
+      console.log('No studentId for person found. Cannot import.');
       return null;
     }
 

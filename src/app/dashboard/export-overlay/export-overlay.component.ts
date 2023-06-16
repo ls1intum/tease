@@ -106,7 +106,7 @@ export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayCompone
   }
 
   exportPersonScreenshot(person: Person, zip: JSZip, filename: string): Promise<void> {
-    console.log('exporting person ' + person.tumId + '...');
+    console.log('exporting person ' + person.studentId + '...');
     return new Promise<void>((resolve, reject) => {
       if (this.destroyed) {
         reject();

@@ -28,8 +28,8 @@ export class TeamService {
     return this.teams.find(team => team.name === teamName) // assumes multiple teams do not exist with the same name
   }
 
-  public getPersonById(tumId: string): Person {
-    return this.persons.find(person => person.tumId == tumId) // assumes multiple people do not exist with same TUM id
+  public getPersonById(studentId: string): Person {
+    return this.persons.find(person => person.studentId == studentId) // assumes multiple people do not exist with same student id
   }
 
   public updateDerivedProperties() {

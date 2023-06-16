@@ -15,7 +15,7 @@ export class PersonSerializer {
     personProps[CSVConstants.Person.FirstName] = person.firstName;
     personProps[CSVConstants.Person.LastName] = person.lastName;
     personProps[CSVConstants.Person.Email] = person.email;
-    personProps[CSVConstants.Person.TumId] = person.tumId;
+    personProps[CSVConstants.Person.StudentId] = person.studentId;
     personProps[CSVConstants.Person.Gender] = this.serializeGender(person.gender);
     personProps[CSVConstants.Person.Nationality] = person.nationality;
     personProps[CSVConstants.Person.StudyProgram] = person.studyProgram;

@@ -12,7 +12,7 @@ export class Person {
   lastName: string;
   image: string;
   email: string;
-  tumId: string;
+  studentId: string;
   gender: Gender;
   nationality: string;
   studyProgram: string;
