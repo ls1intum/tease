@@ -133,8 +133,8 @@ components:
         introSelfAssessment: Intermediate
         devices: [IPhone, Mac]
         skills:
-          - { skillId: 3fa85f64-5717-4562-b3fc-2c963f66afa6, skillLevel: Novice, skillLevelRationale: Only dabbled a tiny bit with Swift}
-          - { skillId: 3fa85f64-6717-5562-c3fc-2c963f66afa6, skillLevel: Intermediate, skillLevelRationale: Wrote a project for a seminar that used this skill}
+          - { id: swift, skillLevel: Novice, skillLevelRationale: Only dabbled a tiny bit with Swift}
+          - { id: uiux, skillLevel: Intermediate, skillLevelRationale: Participated in a project for a seminar that involved a decent amount of UI design}
         projectPriorities:
           - { name: Quartett, id: ios2223quartett}
           - { name: BSH, id: ios2223bsh}
@@ -165,31 +165,30 @@ components:
       type: object
       properties:
         id:
+          description: ID of a specific skill, instead of a random UUID we use descriptive simple names such as 'uiux', 'kubernetes' etc.
           type: string
-          format: uuid
         title:
           type: string
         description:
           type: string
       example:
-        id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-        title: iOS Development
-        description: Development of applications for the iOS mobile operating system
+        id: swift
+        title: iOS Development with Swift
+        description: Development of applications for the iOS mobile operating system using the Swift programming language
 
     SkillSelfAssessment:
       description: A self assessment by a specific student in a referenced skill
       type: object
       properties:
         skillId:
-          description: UUID of a specific skill
-          format: uuid
+          description: ID referencing a specific skill
           type: string
         skillLevel:
           description: Proficiency in the skill as estimated and reported by the student
           $ref: '#/components/schemas/SkillProficiencyLevel'
         skillLevelRationale:
           type: string
-          description: An explanation of why they assigned themselves the given proficiency level, for example mentioning prior experience, projects etc.
+          description: An explanation of why they assigned themselves the provided proficiency level, for example mentioning prior experience, projects etc.
     SkillProficiencyLevel:
       description: Proficiency in some skillset, also used to for assessments of students, in particular their performance in the Swift/iOS intro course, for the self assessment we also this enum internally o store a students answer, but the UI should display strings that make more sense, see the deprecated SelfAssessmentLevel enum below
       type: string
