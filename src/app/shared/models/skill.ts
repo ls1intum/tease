@@ -25,6 +25,21 @@ export class Skill {
     return 'Not rated';
   }
 
+  public static getLabelForSelfAssessmentLevel(skillLevel: SkillLevel): string {
+    switch(skillLevel) {
+      case SkillLevel.Low:
+        return CSVConstants.Person.IntroSelfAssessmentAnswers.Low;
+      case SkillLevel.Medium:
+        return CSVConstants.Person.IntroSelfAssessmentAnswers.Medium;
+      case SkillLevel.High:
+        return CSVConstants.Person.IntroSelfAssessmentAnswers.High;
+      case SkillLevel.VeryHigh:
+        return CSVConstants.Person.IntroSelfAssessmentAnswers.VeryHigh;
+    }
+
+    return CSVConstants.Person.IntroSelfAssessmentAnswers.None;
+  }
+
   constructor(name: string, description: string, skillLevel: SkillLevel, skillLevelRationale: string) {
     this._name = name;
     this._description = description;

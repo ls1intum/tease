@@ -16,6 +16,7 @@ export class PersonDetailCardComponent implements OnInit {
   @Input() person: Person;
 
   getLabelForSkillLevel = Skill.getLabelForSkillLevel;
+  getLabelForSelfAssessmentLevel = Skill.getLabelForSelfAssessmentLevel;
   getGravatarIcon = IconMapperService.getGravatarIcon;
   SkillLevel = SkillLevel;
   CSVConstants = CSVConstants;
