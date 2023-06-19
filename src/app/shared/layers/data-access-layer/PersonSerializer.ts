@@ -51,7 +51,9 @@ export class PersonSerializer {
       // skill description currently not populated yet
       // personProps[skillAbbreviation + CSVConstants.Skills.DescriptionPostfix] = skill.description;
 
-      personProps[skillAbbreviation + CSVConstants.Skills.SkillLevelPostfix] = PersonSerializer.serializeSkillLevel(skill.skillLevel);
+      personProps[skillAbbreviation + CSVConstants.Skills.SkillLevelPostfix] = PersonSerializer.serializeSkillLevel(
+        skill.skillLevel
+      );
 
       personProps[skillAbbreviation + CSVConstants.Skills.SkillLevelRationalePostfix] = skill.skillLevelRationale;
     }
@@ -79,12 +81,10 @@ export class PersonSerializer {
       case SkillLevel.None:
         return CSVConstants.SkillLevelValue.None;
     }
-
-    return "";
   }
 
   static serializeSelfAssessment(skillLevel: SkillLevel): string {
-    switch(skillLevel) {
+    switch (skillLevel) {
       case SkillLevel.VeryHigh:
         return CSVConstants.Person.IntroSelfAssessmentAnswers.VeryHigh;
       case SkillLevel.High:
@@ -96,11 +96,9 @@ export class PersonSerializer {
       case SkillLevel.None:
         return CSVConstants.Person.IntroSelfAssessmentAnswers.None;
     }
-
-    return "";
   }
 
-  private static serializePersonDevices(person: Person, personProps: {}) {
+  private static serializePersonDevices(person: Person, personProps: object) {
     const unavailableString = CSVConstants.DeviceAvailableBooleanValue.Unavailable;
     const availableString = CSVConstants.DeviceAvailableBooleanValue.Available;
 

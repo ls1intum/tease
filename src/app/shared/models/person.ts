@@ -59,7 +59,7 @@ export class Person {
   getiOSSkill(): Skill {
     // TODO: have the iOS skill be hard-coded or forced to always exist due to its signifince or special
     // role in the iPraktikum, instead of a CSV constant store this somewhere else
-    return this.skills.find(skill => skill.name === CSVConstants.SkillNameiOS)
+    return this.skills.find(skill => skill.name === CSVConstants.SkillNameiOS);
   }
 
   getiOSSkillLevel(): SkillLevel {
