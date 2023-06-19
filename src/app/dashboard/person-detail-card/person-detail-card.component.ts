@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Person } from '../../shared/models/person';
+import { Student } from '../../shared/models/person';
 import { Skill, SkillLevel } from '../../shared/models/skill';
 import { Colors } from '../../shared/constants/color.constants';
 import { CSVConstants } from '../../shared/constants/csv.constants';
@@ -13,7 +13,7 @@ import { NationalityHelper } from '../../shared/helpers/nationality.helper';
   styleUrls: ['./person-detail-card.component.scss'],
 })
 export class PersonDetailCardComponent implements OnInit {
-  @Input() person: Person;
+  @Input() person: Student;
 
   getLabelForSkillLevel = Skill.getLabelForSkillLevel;
   getLabelForSelfAssessmentLevel = Skill.getLabelForSelfAssessmentLevel;

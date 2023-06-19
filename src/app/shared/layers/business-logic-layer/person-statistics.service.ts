@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Person } from '../../models/person';
+import { Student } from '../../models/person';
 import { Team } from '../../models/team';
 import { ArrayHelper } from '../../helpers/array.helper';
 import { Constraint } from '../../models/constraints/constraint';
@@ -9,7 +9,7 @@ import { Constraint } from '../../models/constraints/constraint';
 
 @Injectable()
 export class PersonStatisticsService {
-  getRatedPersonCount(persons: Person[]): number {
+  getRatedPersonCount(persons: Student[]): number {
     return persons.filter(p => p.hasSupervisorAssessment()).length;
   }
 
@@ -50,7 +50,7 @@ export class PersonStatisticsService {
     return prioSum / personSum;
   }
 
-  private getPersonsForTeamPriority(team: Team, priorityNumber: number): Person[] {
+  private getPersonsForTeamPriority(team: Team, priorityNumber: number): Student[] {
     return team.persons.filter(person => {
       if (person.teamPriorities.length < priorityNumber) return false;
       return person.teamPriorities[priorityNumber] === team;

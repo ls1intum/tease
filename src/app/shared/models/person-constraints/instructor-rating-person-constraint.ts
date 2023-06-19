@@ -1,5 +1,5 @@
 import { PersonConstraint } from './person-constraint';
-import { Person } from '../person';
+import { Student } from '../person';
 import { SkillLevel } from '../skill';
 import { GenderPersonConstraint } from './gender-person-constraint';
 
@@ -11,7 +11,7 @@ export class InstructorRatingPersonConstraint extends PersonConstraint {
     return null;
   }
 
-  isFullfilledFor(person: Person): boolean {
+  isFullfilledFor(person: Student): boolean {
     return person.supervisorAssessment >= this.minimumRating;
   }
 

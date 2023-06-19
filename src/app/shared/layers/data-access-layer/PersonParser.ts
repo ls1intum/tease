@@ -1,4 +1,4 @@
-import { Person, Gender } from '../../models/person';
+import { Student, Gender } from '../../models/person';
 import { CSVConstants } from '../../constants/csv.constants';
 import { Device } from '../../models/device';
 import { StringHelper } from '../../helpers/string.helper';
@@ -9,7 +9,7 @@ import { Team } from '../../models/team';
  */
 
 export abstract class PersonParser {
-  static parsePersons(teamCsvData: Array<any>): [Person[], Team[]] {
+  static parsePersons(teamCsvData: Array<any>): [Student[], Team[]] {
     const teams: Team[] = [];
 
     const persons = teamCsvData
@@ -19,7 +19,7 @@ export abstract class PersonParser {
     return [persons, teams];
   }
 
-  private static parseTeamPriorities(teams: Team[], person: Person, personProps: Array<any>) {
+  private static parseTeamPriorities(teams: Team[], person: Student, personProps: Array<any>) {
     for (let priority = 1; ; priority++) {
       const columnName = StringHelper.format(CSVConstants.Team.Priority, priority);
 
@@ -46,8 +46,8 @@ export abstract class PersonParser {
     }
   }
 
-  static parsePerson(teams: Team[], personProps: any): Person {
-    const person = new Person();
+  static parsePerson(teams: Team[], personProps: any): Student {
+    const person = new Student();
 
     person.firstName = personProps[CSVConstants.Person.FirstName];
     person.lastName = personProps[CSVConstants.Person.LastName];
@@ -82,7 +82,7 @@ export abstract class PersonParser {
     return person;
   }
 
-  private static parsePersonSkills(person: Person, personProps: Array<any>) {
+  private static parsePersonSkills(person: Student, personProps: Array<any>) {
     for (const [skillName, skillAbbreviation] of CSVConstants.Skills.SkillNameAbbreviationPairs) {
       // const skillDescriptionString = personProps[skillAbbreviation + CSVConstants.Skills.DescriptionPostfix]
 
@@ -128,7 +128,7 @@ export abstract class PersonParser {
     return Gender.Male;
   }
 
-  private static parsePersonDevices(person: Person, personProps: Array<any>) {
+  private static parsePersonDevices(person: Student, personProps: Array<any>) {
     const available = CSVConstants.DeviceAvailableBooleanValue.Available;
 
     if (personProps[CSVConstants.Devices.Ipad] === available) person.addDevice(Device.Ipad);

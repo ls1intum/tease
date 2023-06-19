@@ -1,6 +1,6 @@
-import { Person } from '../person';
+import { Student } from '../person';
 
 export abstract class PersonConstraint {
-  abstract isFullfilledFor(person: Person): boolean;
+  abstract isFullfilledFor(person: Student): boolean;
   abstract copy(): PersonConstraint;
 }

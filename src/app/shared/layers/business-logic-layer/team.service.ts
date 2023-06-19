@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Person } from '../../models/person';
+import { Student } from '../../models/person';
 import { Team } from '../../models/team';
 import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
@@ -14,12 +14,12 @@ export class TeamService {
   private readonly CSV_EXPORT_FILE_NAME = 'TEASE-project.csv';
 
   teams: Team[];
-  persons: Person[];
+  persons: Student[];
 
   // derived properties
-  personsWithoutTeam: Person[];
+  personsWithoutTeam: Student[];
 
-  private load(data: [Person[], Team[]]) {
+  private load(data: [Student[], Team[]]) {
     [this.persons, this.teams] = data;
     this.updateDerivedProperties();
   }
@@ -28,7 +28,7 @@ export class TeamService {
     return this.teams.find(team => team.name === teamName) // assumes multiple teams do not exist with the same name
   }
 
-  public getPersonById(studentId: string): Person {
+  public getPersonById(studentId: string): Student {
     return this.persons.find(person => person.studentId == studentId) // assumes multiple people do not exist with same student id
   }
 

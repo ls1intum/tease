@@ -1,4 +1,4 @@
-import { Person, Gender } from '../../models/person';
+import { Student, Gender } from '../../models/person';
 import { StringHelper } from '../../helpers/string.helper';
 import { CSVConstants } from '../../constants/csv.constants';
 import { Device } from '../../models/device';
@@ -8,7 +8,7 @@ import { SkillLevel } from '../../models/skill';
  */
 
 export class PersonSerializer {
-  static serializePerson(person: Person): any {
+  static serializePerson(person: Student): any {
     const personProps = {};
 
     /* specified entries */
@@ -36,7 +36,7 @@ export class PersonSerializer {
     return personProps;
   }
 
-  private static serializePriorities(person: Person, personProps: any) {
+  private static serializePriorities(person: Student, personProps: any) {
     for (const teamPrio of person.teamPriorities) {
       const columnName = StringHelper.format(CSVConstants.Team.Priority, person.getTeamPriority(teamPrio));
 
@@ -44,7 +44,7 @@ export class PersonSerializer {
     }
   }
 
-  private static serializeSkills(person: Person, personProps: any) {
+  private static serializeSkills(person: Student, personProps: any) {
     for (const skill of person.skills) {
       const skillAbbreviation = CSVConstants.Skills.SkillNameAbbreviationPairs.find(pair => pair[0] === skill.name)[1];
 
@@ -98,7 +98,7 @@ export class PersonSerializer {
     }
   }
 
-  private static serializePersonDevices(person: Person, personProps: object) {
+  private static serializePersonDevices(person: Student, personProps: object) {
     const unavailableString = CSVConstants.DeviceAvailableBooleanValue.Unavailable;
     const availableString = CSVConstants.DeviceAvailableBooleanValue.Available;
 

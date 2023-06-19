@@ -1,6 +1,6 @@
 import { TeamGenerationService } from './team-generation.service';
 import { Team } from '../../../models/team';
-import { Person } from '../../../models/person';
+import { Student } from '../../../models/person';
 import { Injectable } from '@angular/core';
 import { TeamHelper } from '../../../helpers/team.helper';
 import { SkillLevel } from '../../../models/skill';
@@ -10,7 +10,7 @@ import { SkillLevel } from '../../../models/skill';
 
 @Injectable()
 export class BalancedTeamGenerationService implements TeamGenerationService {
-  generate(persons: Person[], teams: Team[]): Promise<boolean> {
+  generate(persons: Student[], teams: Team[]): Promise<boolean> {
     teams.forEach(team => team.clear());
 
     const skillTypes = this.getSkillLevelKeys();
@@ -23,7 +23,7 @@ export class BalancedTeamGenerationService implements TeamGenerationService {
     return Promise.resolve(true);
   }
 
-  private distributePersonsEqually(persons: Person[], teams: Team[]) {
+  private distributePersonsEqually(persons: Student[], teams: Team[]) {
     let teamIndex = 0;
 
     persons.forEach(person => {

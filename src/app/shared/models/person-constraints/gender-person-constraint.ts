@@ -1,5 +1,5 @@
 import { PersonConstraint } from './person-constraint';
-import { Gender, Person } from '../person';
+import { Gender, Student } from '../person';
 import { SkillLevel } from '../skill';
 import { ExperiencePersonConstraint } from './experience-person-constraint';
 
@@ -11,7 +11,7 @@ export class GenderPersonConstraint extends PersonConstraint {
     return null;
   }
 
-  isFullfilledFor(person: Person): boolean {
+  isFullfilledFor(person: Student): boolean {
     return person.gender === this.gender;
   }
 

@@ -7,7 +7,7 @@ import { CSVConstants } from '../constants/csv.constants';
  * Created by wanur on 05/11/2016.
  */
 
-export class Person {
+export class Student {
   firstName: string;
   lastName: string;
   image: string;

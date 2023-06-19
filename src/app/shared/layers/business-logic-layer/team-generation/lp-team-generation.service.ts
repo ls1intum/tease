@@ -8,7 +8,7 @@ import { FemalePersonConstraint } from '../../../models/constraints/female-perso
 import { IosDeviceConstraint } from '../../../models/constraints/ios-device.constraint';
 import { TeamSizeConstraint } from '../../../models/constraints/team-size.constraint';
 import { Device } from '../../../models/device';
-import { Person, Gender } from '../../../models/person';
+import { Student, Gender } from '../../../models/person';
 import { ReformatLP, Solve } from 'javascript-lp-solver';
 import { SkillLevel } from '../../../models/skill';
 import { SkillExpertConstraint } from '../../../models/constraints/skill-expert.constraint';
@@ -60,7 +60,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
   private generateMacDeviceConstraints(
     constraint: MacDeviceConstraint,
     teamIndex: number,
-    persons: Person[]
+    persons: Student[]
   ): string[] {
     const minMacsPerTeam = constraint.getMinValue() || 0;
     const constraints = [];
@@ -95,7 +95,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
   private generateIosDeviceConstraints(
     constraint: IosDeviceConstraint,
     teamIndex: number,
-    persons: Person[]
+    persons: Student[]
   ): string[] {
     const minIosDevicesPerTeam = constraint.getMinValue() || 0;
     const constraints = [];
@@ -129,7 +129,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
     return constraints;
   }
 
-  private generateTeamSizeConstraints(constraint: TeamSizeConstraint, teamIndex: number, persons: Person[]): string[] {
+  private generateTeamSizeConstraints(constraint: TeamSizeConstraint, teamIndex: number, persons: Student[]): string[] {
     const minPeoplePerTeam = constraint.getMinValue() || 0;
     const maxPeoplePerTeam = constraint.getMaxValue() || persons.length;
     const constraints = [];
@@ -154,7 +154,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
   private generateFemalePersonConstraints(
     constraint: FemalePersonConstraint,
     teamIndex: number,
-    persons: Person[]
+    persons: Student[]
   ): string[] {
     const minFemalesPerTeam = constraint.getMinValue() || 0;
     const constraints = [];
@@ -181,7 +181,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
   private generateSkillLevelConstraints(
     constraint: TeamSizeConstraint,
     teamIndex: number,
-    persons: Person[],
+    persons: Student[],
     skillLevel: SkillLevel
   ): string[] {
     const minPeoplePerTeam = constraint.getMinValue() || 0;
@@ -214,7 +214,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
    * @returns {Promise<boolean>} that indicates if a feasible solution was found
    * else.
    */
-  generate(persons: Person[], teams: Team[]): Promise<boolean> {
+  generate(persons: Student[], teams: Team[]): Promise<boolean> {
     return new Promise((resolve, reject) => {
       console.log('Generating teams using linear approach...');
 

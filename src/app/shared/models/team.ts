@@ -1,4 +1,4 @@
-import { Person } from './person';
+import { Student } from './person';
 import { Device } from './device';
 /**
  * Created by wanur on 05/11/2016.
@@ -6,13 +6,13 @@ import { Device } from './device';
 
 export class Team {
   name: string;
-  persons: Person[] = [];
+  persons: Student[] = [];
 
   constructor(name: string) {
     this.name = name;
   }
 
-  remove(person: Person) {
+  remove(person: Student) {
     const index = this.persons.indexOf(person);
     if (index < 0) return;
 
@@ -20,14 +20,14 @@ export class Team {
     person.team = undefined;
   }
 
-  add(person: Person) {
+  add(person: Student) {
     this.persons.push(person);
     person.team = this;
   }
 
   clear() {
     while (this.persons.length !== 0) {
-      const person: Person = this.persons.pop();
+      const person: Student = this.persons.pop();
       person.team = null;
     }
   }

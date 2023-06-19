@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Person } from '../../shared/models/person';
+import { Student } from '../../shared/models/person';
 import { Skill, SkillLevel } from '../../shared/models/skill';
 import { OverlayComponent } from '../../overlay.service';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -11,7 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
   public data: {
-    person: Person;
+    person: Student;
     onClose: () => void;
     onNextPersonClicked: () => void;
     onPreviousPersonClicked: () => void;
@@ -33,7 +33,7 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
     this.data.person.supervisorAssessment = this.personSkillLevelFormGroup.value.personSkillLevelControl;
   }
 
-  isInTeam(person: Person): boolean {
+  isInTeam(person: Student): boolean {
     return person.team !== null;
   }
 

@@ -1,5 +1,5 @@
 import { PersonConstraint } from './person-constraint';
-import { Person } from '../person';
+import { Student } from '../person';
 import { SkillLevel } from '../skill';
 
 export class ExperiencePersonConstraint extends PersonConstraint {
@@ -11,7 +11,7 @@ export class ExperiencePersonConstraint extends PersonConstraint {
     return null;
   }
 
-  isFullfilledFor(person: Person): boolean {
+  isFullfilledFor(person: Student): boolean {
     const skill = person.skills.find(s => s.name === this.skillName);
 
     if (skill === undefined) return false;

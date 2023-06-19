@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import { DragulaService } from 'ng2-dragula';
-import { Person } from '../../shared/models/person';
+import { Student } from '../../shared/models/person';
 import { Team } from '../../shared/models/team';
 import { PersonDetailOverlayComponent } from '../person-detail-overlay/person-detail-overlay.component';
 import { OverlayService } from '../../overlay.service';
@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
   ) {
     /* save model when modified by drag & drop operation */
     dragulaService.dropModel("persons").subscribe(({ el, target, source, sourceModel, targetModel, item }) => {
-      let person: Person = teamService.getPersonById(item.studentId)
+      let person: Student = teamService.getPersonById(item.studentId)
       let currentTeam = person.team
       currentTeam.remove(person)
 
@@ -72,7 +72,7 @@ export class DashboardComponent implements OnInit {
     return 'person-pool-display-mode-' + modeString
   }
 
-  public showPersonDetails(person: Person) {
+  public showPersonDetails(person: Student) {
     this.overlayService.closeOverlay();
 
     if (!person) {
@@ -126,7 +126,7 @@ export class DashboardComponent implements OnInit {
   * @param added The person that was just added to the team and has the wrong team set
   * @returns Inferred actual team (based on members that were already in the team)
   */
-  private inferTeam(members: Array<Person>, added: Person): Team {
+  private inferTeam(members: Array<Student>, added: Student): Team {
     let teams = members.filter(member => member.studentId != added.studentId).map(member => member.team)
     let unique_teams = [... new Set(teams)]
     if (unique_teams.length > 1) {

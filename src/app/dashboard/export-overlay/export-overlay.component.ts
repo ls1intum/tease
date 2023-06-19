@@ -13,7 +13,7 @@ import { TeamService } from '../../shared/layers/business-logic-layer/team.servi
 import html2canvas from 'html2canvas';
 import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
-import { Person } from '../../shared/models/person';
+import { Student } from '../../shared/models/person';
 import { PersonDetailCardComponent } from '../person-detail-card/person-detail-card.component';
 import { TeamComponent } from '../team/team.component';
 import { Team } from '../../shared/models/team';
@@ -105,7 +105,7 @@ export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayCompone
     return (this.imageExportProgress / this.imageExportMaxProgress) * 100;
   }
 
-  exportPersonScreenshot(person: Person, zip: JSZip, filename: string): Promise<void> {
+  exportPersonScreenshot(person: Student, zip: JSZip, filename: string): Promise<void> {
     console.log('exporting person ' + person.studentId + '...');
     return new Promise<void>((resolve, reject) => {
       if (this.destroyed) {

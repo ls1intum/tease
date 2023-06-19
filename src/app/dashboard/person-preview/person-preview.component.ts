@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Person } from '../../shared/models/person';
+import { Student } from '../../shared/models/person';
 import { Colors } from '../../shared/constants/color.constants';
 import { Skill, SkillLevel } from '../../shared/models/skill';
 import { Device } from '../../shared/models/device';
@@ -14,7 +14,7 @@ import { NationalityHelper } from '../../shared/helpers/nationality.helper';
   styleUrls: ['./person-preview.component.scss'],
 })
 export class PersonPreviewComponent implements OnInit {
-  @Input() person: Person;
+  @Input() person: Student;
   @Input() pinable = true;
 
   SkillLevel = SkillLevel;

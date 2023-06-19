@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Team } from '../../shared/models/team';
-import { Person } from '../../shared/models/person';
+import { Student } from '../../shared/models/person';
 
 @Component({
   selector: 'app-team',
@@ -10,7 +10,7 @@ import { Person } from '../../shared/models/person';
 export class TeamComponent implements OnInit {
   @Input() team: Team;
   @Input() onTeamStatisticsButtonPressed;
-  @Output() onPersonClicked = new EventEmitter<Person>();
+  @Output() onPersonClicked = new EventEmitter<Student>();
 
   screenshotMode = false;
 
