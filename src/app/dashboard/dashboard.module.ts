@@ -25,7 +25,7 @@ import { PersonPoolStatisticsComponent } from './person-pool-statistics/person-p
 import { PersonHighlightingOverlayComponent } from './person-highlighting-overlay/person-highlighting-overlay.component';
 import { IntroCardComponent } from './intro-card/intro-card.component';
 import { ExportOverlayComponent } from './export-overlay/export-overlay.component';
-import { PersonDetailCardComponent } from './person-detail-card/person-detail-card.component';
+import { StudentDetailCardComponent } from './student-detail-card/student-detail-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -59,7 +59,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     PersonHighlightingOverlayComponent,
     IntroCardComponent,
     ExportOverlayComponent,
-    PersonDetailCardComponent,
+    StudentDetailCardComponent,
   ],
   exports: [DashboardComponent, PersonDetailOverlayComponent, ImportOverlayComponent],
   providers: [],

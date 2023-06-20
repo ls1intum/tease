@@ -14,7 +14,7 @@ import html2canvas from 'html2canvas';
 import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
 import { Student } from '../../shared/models/person';
-import { PersonDetailCardComponent } from '../person-detail-card/person-detail-card.component';
+import { StudentDetailCardComponent } from '../student-detail-card/student-detail-card.component';
 import { TeamComponent } from '../team/team.component';
 import { Team } from '../../shared/models/team';
 
@@ -30,8 +30,8 @@ export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayCompone
   imageExportProgress = 0;
   imageExportMaxProgress = 1;
 
-  @ViewChild(PersonDetailCardComponent) personDetailCardComponent: PersonDetailCardComponent;
-  @ViewChild(PersonDetailCardComponent, { read: ElementRef }) personDetailCardComponentRef: ElementRef;
+  @ViewChild(StudentDetailCardComponent) personDetailCardComponent: StudentDetailCardComponent;
+  @ViewChild(StudentDetailCardComponent, { read: ElementRef }) personDetailCardComponentRef: ElementRef;
 
   @ViewChild(TeamComponent) teamComponent: TeamComponent;
   @ViewChild(TeamComponent, { read: ElementRef }) teamCompomentRef: ElementRef;

@@ -9,10 +9,10 @@ import { NationalityHelper } from '../../shared/helpers/nationality.helper';
 
 @Component({
   selector: 'app-person-detail-card',
-  templateUrl: './person-detail-card.component.html',
-  styleUrls: ['./person-detail-card.component.scss'],
+  templateUrl: './student-detail-card.component.html',
+  styleUrls: ['./student-detail-card.component.scss'],
 })
-export class PersonDetailCardComponent implements OnInit {
+export class StudentDetailCardComponent implements OnInit {
   @Input() person: Student;
 
   getLabelForSkillLevel = Skill.getLabelForSkillLevel;
