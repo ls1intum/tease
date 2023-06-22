@@ -14,7 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { StudentDetailOverlayComponent } from './student-detail-overlay/student-detail-overlay.component';
-import { TeamStatisticsComponent } from './team-statistics/team-statistics.component';
+import { ProjectStatisticsComponent } from './project-statistics/project-statistics.component';
 import { ProjectPrioritiesChartComponent } from './project-priorities-chart/project-priorities-chart.component';
 import { NgChartsModule } from 'ng2-charts';
 import { ImportOverlayComponent } from './import-overlay/import-overlay.component';
@@ -49,7 +49,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     TeamComponent,
     StudentPreviewComponent,
     StudentDetailOverlayComponent,
-    TeamStatisticsComponent,
+    ProjectStatisticsComponent,
     ProjectPrioritiesChartComponent,
     ImportOverlayComponent,
     ConstraintsOverlayComponent,

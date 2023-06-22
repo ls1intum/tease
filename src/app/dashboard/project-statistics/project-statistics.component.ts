@@ -4,11 +4,11 @@ import { Constraint, ConstraintType } from '../../shared/models/constraints/cons
 import { ConstraintService } from '../../shared/layers/business-logic-layer/constraint.service';
 
 @Component({
-  selector: 'app-team-statistics',
-  templateUrl: './team-statistics.component.html',
-  styleUrls: ['./team-statistics.component.scss'],
+  selector: 'app-project-statistics',
+  templateUrl: './project-statistics.component.html',
+  styleUrls: ['./project-statistics.component.scss'],
 })
-export class TeamStatisticsComponent implements OnInit {
+export class ProjectStatisticsComponent implements OnInit {
   @Input()
   team: Team;
 
