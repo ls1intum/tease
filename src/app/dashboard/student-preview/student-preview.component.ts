@@ -9,11 +9,11 @@ import { PersonConstraintService } from '../../shared/layers/business-logic-laye
 import { NationalityHelper } from '../../shared/helpers/nationality.helper';
 
 @Component({
-  selector: 'app-person-preview',
-  templateUrl: './person-preview.component.html',
-  styleUrls: ['./person-preview.component.scss'],
+  selector: 'app-student-preview',
+  templateUrl: './student-preview.component.html',
+  styleUrls: ['./student-preview.component.scss'],
 })
-export class PersonPreviewComponent implements OnInit {
+export class StudentPreviewComponent implements OnInit {
   @Input() person: Student;
   @Input() pinable = true;
 

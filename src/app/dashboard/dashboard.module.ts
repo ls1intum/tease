@@ -8,7 +8,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PersonPreviewComponent } from './person-preview/person-preview.component';
+import { StudentPreviewComponent } from './student-preview/student-preview.component';
 import { DragulaModule } from 'ng2-dragula';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
@@ -47,7 +47,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     DashboardComponent,
     TeamComponent,
-    PersonPreviewComponent,
+    StudentPreviewComponent,
     PersonDetailOverlayComponent,
     TeamStatisticsComponent,
     TeamPrioritiesChartComponent,

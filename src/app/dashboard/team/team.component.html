@@ -28,10 +28,10 @@
       </div>
     </div>
     <div dragula="persons" class="drag-container" [(dragulaModel)]="team.persons">
-      <app-person-preview
+      <app-student-preview
         *ngFor="let person of team.persons"
         [person]="person"
-        (click)="onPersonClicked.emit(person); $event.stopPropagation()"></app-person-preview>
+        (click)="onPersonClicked.emit(person); $event.stopPropagation()"></app-student-preview>
     </div>
   </div>
 </div>

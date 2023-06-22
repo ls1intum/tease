@@ -108,11 +108,11 @@
       dragula="persons"
       class="flex-row person-pool-preview-row flex-wrap flex-grow"
       [(dragulaModel)]="teamService.personsWithoutTeam">
-      <app-person-preview
+      <app-student-preview
         *ngFor="let person of teamService.personsWithoutTeam"
         [person]="person"
         (click)="showPersonDetails(person)"
-        [pinable]="false"></app-person-preview>
+        [pinable]="false"></app-student-preview>
     </div>
   </div>
 </div>
