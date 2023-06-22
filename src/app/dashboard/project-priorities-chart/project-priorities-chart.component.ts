@@ -7,11 +7,11 @@ import { SkillLevel } from '../../shared/models/skill';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 
 @Component({
-  selector: 'app-team-priorities-chart',
-  templateUrl: './team-priorities-chart.component.html',
-  styleUrls: ['./team-priorities-chart.component.scss'],
+  selector: 'app-project-priorities-chart',
+  templateUrl: './project-priorities-chart.component.html',
+  styleUrls: ['./project-priorities-chart.component.scss'],
 })
-export class TeamPrioritiesChartComponent implements OnInit, DoCheck {
+export class ProjectPrioritiesChartComponent implements OnInit, DoCheck {
   @Input() team: Team;
   @Input() scale;
 
