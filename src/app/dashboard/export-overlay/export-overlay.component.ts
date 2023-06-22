@@ -15,7 +15,7 @@ import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
 import { Student } from '../../shared/models/person';
 import { StudentDetailCardComponent } from '../student-detail-card/student-detail-card.component';
-import { TeamComponent } from '../team/team.component';
+import { ProjectComponent } from '../project/project.component';
 import { Team } from '../../shared/models/team';
 
 @Component({
@@ -33,8 +33,8 @@ export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayCompone
   @ViewChild(StudentDetailCardComponent) personDetailCardComponent: StudentDetailCardComponent;
   @ViewChild(StudentDetailCardComponent, { read: ElementRef }) personDetailCardComponentRef: ElementRef;
 
-  @ViewChild(TeamComponent) teamComponent: TeamComponent;
-  @ViewChild(TeamComponent, { read: ElementRef }) teamCompomentRef: ElementRef;
+  @ViewChild(ProjectComponent) teamComponent: ProjectComponent;
+  @ViewChild(ProjectComponent, { read: ElementRef }) teamCompomentRef: ElementRef;
 
   html2canvasOptions = {
     allowTaint: false,

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { TeamComponent } from './team/team.component';
+import { ProjectComponent } from './project/project.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -46,7 +46,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   declarations: [
     DashboardComponent,
-    TeamComponent,
+    ProjectComponent,
     StudentPreviewComponent,
     StudentDetailOverlayComponent,
     ProjectStatisticsComponent,
