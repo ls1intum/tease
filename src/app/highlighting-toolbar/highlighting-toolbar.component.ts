@@ -8,7 +8,7 @@ import { ExperiencePersonConstraint } from '../shared/models/person-constraints/
 import { Device } from '../shared/models/device';
 import { GenderPersonConstraint } from '../shared/models/person-constraints/gender-person-constraint';
 import { Gender } from '../shared/models/person';
-import { PersonHighlightingOverlayComponent } from '../dashboard/person-highlighting-overlay/person-highlighting-overlay.component';
+import { StudentHighlightingOverlayComponent } from '../dashboard/student-highlighting-overlay/student-highlighting-overlay.component';
 import { OverlayService } from '../overlay.service';
 import { PersonConstraint } from '../shared/models/person-constraints/person-constraint';
 
@@ -35,7 +35,7 @@ export class HighlightingToolbarComponent implements OnInit {
   ngOnInit() {}
 
   showPersonHighlightingOverlay() {
-    this.overlayService.displayComponent(PersonHighlightingOverlayComponent, {});
+    this.overlayService.displayComponent(StudentHighlightingOverlayComponent, {});
   }
 
   getSkillNameAbbreviation(skillName: string) {

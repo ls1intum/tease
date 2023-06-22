@@ -12,11 +12,11 @@ import { Gender } from '../../shared/models/person';
 import { Device } from '../../shared/models/device';
 
 @Component({
-  selector: 'app-person-highlighting-overlay',
-  templateUrl: './person-highlighting-overlay.component.html',
-  styleUrls: ['./person-highlighting-overlay.component.scss'],
+  selector: 'app-student-highlighting-overlay',
+  templateUrl: './student-highlighting-overlay.component.html',
+  styleUrls: ['./student-highlighting-overlay.component.scss'],
 })
-export class PersonHighlightingOverlayComponent implements OnInit, OverlayComponent {
+export class StudentHighlightingOverlayComponent implements OnInit, OverlayComponent {
   PersonConstraintService = PersonConstraintService;
   SkillLevel = SkillLevel;
   Skill = Skill;

@@ -22,7 +22,7 @@ import { ConstraintsOverlayComponent } from './constraints-overlay/constraints-o
 import { ConstraintComponent } from './constraint/constraint.component';
 import { ConfirmationOverlayComponent } from './confirmation-overlay/confirmation-overlay.component';
 import { PersonPoolStatisticsComponent } from './person-pool-statistics/person-pool-statistics.component';
-import { PersonHighlightingOverlayComponent } from './person-highlighting-overlay/person-highlighting-overlay.component';
+import { StudentHighlightingOverlayComponent } from './student-highlighting-overlay/student-highlighting-overlay.component';
 import { IntroCardComponent } from './intro-card/intro-card.component';
 import { ExportOverlayComponent } from './export-overlay/export-overlay.component';
 import { StudentDetailCardComponent } from './student-detail-card/student-detail-card.component';
@@ -56,7 +56,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ConstraintComponent,
     ConfirmationOverlayComponent,
     PersonPoolStatisticsComponent,
-    PersonHighlightingOverlayComponent,
+    StudentHighlightingOverlayComponent,
     IntroCardComponent,
     ExportOverlayComponent,
     StudentDetailCardComponent,
