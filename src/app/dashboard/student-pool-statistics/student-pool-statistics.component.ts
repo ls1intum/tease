@@ -7,11 +7,11 @@ import { Gender } from '../../shared/models/person';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 
 @Component({
-  selector: 'app-person-pool-statistics',
-  templateUrl: './person-pool-statistics.component.html',
-  styleUrls: ['./person-pool-statistics.component.scss'],
+  selector: 'app-student-pool-statistics',
+  templateUrl: './student-pool-statistics.component.html',
+  styleUrls: ['./student-pool-statistics.component.scss'],
 })
-export class PersonPoolStatisticsComponent implements OnInit {
+export class StudentPoolStatisticsComponent implements OnInit {
   priorityDistributionStatistics: Map<Team, number[]>;
   priorityDistributionLabels: [number, number][]; // label and space that it should take
   teamIndices: number[];

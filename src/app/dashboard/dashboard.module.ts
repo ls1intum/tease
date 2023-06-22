@@ -21,7 +21,7 @@ import { ImportOverlayComponent } from './import-overlay/import-overlay.componen
 import { ConstraintsOverlayComponent } from './constraints-overlay/constraints-overlay.component';
 import { ConstraintComponent } from './constraint/constraint.component';
 import { ConfirmationOverlayComponent } from './confirmation-overlay/confirmation-overlay.component';
-import { PersonPoolStatisticsComponent } from './person-pool-statistics/person-pool-statistics.component';
+import { StudentPoolStatisticsComponent } from './student-pool-statistics/student-pool-statistics.component';
 import { StudentHighlightingOverlayComponent } from './student-highlighting-overlay/student-highlighting-overlay.component';
 import { IntroCardComponent } from './intro-card/intro-card.component';
 import { ExportOverlayComponent } from './export-overlay/export-overlay.component';
@@ -55,7 +55,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ConstraintsOverlayComponent,
     ConstraintComponent,
     ConfirmationOverlayComponent,
-    PersonPoolStatisticsComponent,
+    StudentPoolStatisticsComponent,
     StudentHighlightingOverlayComponent,
     IntroCardComponent,
     ExportOverlayComponent,
