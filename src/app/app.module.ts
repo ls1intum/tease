@@ -11,7 +11,7 @@ import { TeamService } from './shared/layers/business-logic-layer/team.service';
 import { ConstraintService } from './shared/layers/business-logic-layer/constraint.service';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { PersonDetailOverlayComponent } from './dashboard/person-detail-overlay/person-detail-overlay.component';
+import { StudentDetailOverlayComponent } from './dashboard/student-detail-overlay/student-detail-overlay.component';
 import { OverlayHostDirective } from './overlay-host.directive';
 import { OverlayService } from './overlay.service';
 import { PersonStatisticsService } from './shared/layers/business-logic-layer/person-statistics.service';
@@ -56,7 +56,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    PersonDetailOverlayComponent,
+    StudentDetailOverlayComponent,
     ImportOverlayComponent,
     ConstraintsOverlayComponent,
     ConfirmationOverlayComponent,

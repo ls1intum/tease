@@ -3,7 +3,7 @@ import { TeamService } from '../../shared/layers/business-logic-layer/team.servi
 import { DragulaService } from 'ng2-dragula';
 import { Student } from '../../shared/models/person';
 import { Team } from '../../shared/models/team';
-import { PersonDetailOverlayComponent } from '../person-detail-overlay/person-detail-overlay.component';
+import { StudentDetailOverlayComponent } from '../student-detail-overlay/student-detail-overlay.component';
 import { OverlayService } from '../../overlay.service';
 import { ConstraintsOverlayComponent } from '../constraints-overlay/constraints-overlay.component';
 import { SkillLevel } from '../../shared/models/skill';
@@ -81,7 +81,7 @@ export class DashboardComponent implements OnInit {
 
     const indexOfPerson = this.teamService.personsWithoutTeam.indexOf(person);
 
-    this.overlayService.displayComponent(PersonDetailOverlayComponent, {
+    this.overlayService.displayComponent(StudentDetailOverlayComponent, {
       person: person,
       onClose: () => this.teamService.saveToLocalBrowserStorage(),
       onNextPersonClicked: () => this.showPersonDetails(this.teamService.personsWithoutTeam[indexOfPerson + 1]),

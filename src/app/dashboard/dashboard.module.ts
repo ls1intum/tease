@@ -13,7 +13,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-import { PersonDetailOverlayComponent } from './person-detail-overlay/person-detail-overlay.component';
+import { StudentDetailOverlayComponent } from './student-detail-overlay/student-detail-overlay.component';
 import { TeamStatisticsComponent } from './team-statistics/team-statistics.component';
 import { TeamPrioritiesChartComponent } from './team-priorities-chart/team-priorities-chart.component';
 import { NgChartsModule } from 'ng2-charts';
@@ -48,7 +48,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     DashboardComponent,
     TeamComponent,
     StudentPreviewComponent,
-    PersonDetailOverlayComponent,
+    StudentDetailOverlayComponent,
     TeamStatisticsComponent,
     TeamPrioritiesChartComponent,
     ImportOverlayComponent,
@@ -61,7 +61,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ExportOverlayComponent,
     StudentDetailCardComponent,
   ],
-  exports: [DashboardComponent, PersonDetailOverlayComponent, ImportOverlayComponent],
+  exports: [DashboardComponent, StudentDetailOverlayComponent, ImportOverlayComponent],
   providers: [],
 })
 export class DashboardModule {}

@@ -5,11 +5,11 @@ import { OverlayComponent } from '../../overlay.service';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-person-detail-overlay',
-  templateUrl: './person-detail-overlay.component.html',
-  styleUrls: ['./person-detail-overlay.component.scss'],
+  selector: 'app-student-detail-overlay',
+  templateUrl: './student-detail-overlay.component.html',
+  styleUrls: ['./student-detail-overlay.component.scss'],
 })
-export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
+export class StudentDetailOverlayComponent implements OnInit, OverlayComponent {
   public data: {
     person: Student;
     onClose: () => void;
