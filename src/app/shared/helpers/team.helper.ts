@@ -5,7 +5,7 @@ import { SkillLevel } from '../models/skill';
  * Created by Malte Bucksch on 16/12/2016.
  */
 
-export abstract class ProjectHelper {
+export abstract class TeamHelper {
   static getPersons(teams: Project[]): Student[] {
     return [].concat(...teams.map(team => team.persons));
   }

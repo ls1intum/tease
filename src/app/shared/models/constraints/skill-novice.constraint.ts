@@ -1,6 +1,6 @@
 import { Constraint, ConstraintType } from './constraint';
 import { Project } from '../project';
-import { ProjectHelper } from '../../helpers/project.helper';
+import { TeamHelper } from '../../helpers/team.helper';
 import { Skill, SkillLevel } from '../skill';
 
 export class SkillNoviceConstraint extends Constraint {
@@ -22,6 +22,6 @@ export class SkillNoviceConstraint extends Constraint {
   }
 
   getCurrentValue(team: Project): number {
-    return ProjectHelper.getPersonsOfSkillLevelInTeam(team, SkillLevel.Low);
+    return TeamHelper.getPersonsOfSkillLevelInTeam(team, SkillLevel.Low);
   }
 }

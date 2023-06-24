@@ -1,7 +1,7 @@
 import { TeamGenerationService } from './team-generation.service';
 import { Project } from '../../../models/project';
 import { Injectable } from '@angular/core';
-import { ProjectHelper } from '../../../helpers/project.helper';
+import { TeamHelper } from '../../../helpers/team.helper';
 import { ConstraintService } from '../constraint.service';
 import { MacDeviceConstraint } from '../../../models/constraints/mac-device.constraint';
 import { FemalePersonConstraint } from '../../../models/constraints/female-person.constraint';
