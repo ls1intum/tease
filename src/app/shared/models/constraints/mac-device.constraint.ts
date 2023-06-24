@@ -1,7 +1,7 @@
 import { Constraint, ConstraintType } from './constraint';
 import { Project } from '../project';
 import { Device } from '../device';
-import { TeamHelper } from '../../helpers/team.helper';
+import { ProjectHelper } from '../../helpers/project.helper';
 /**
  * Created by Malte Bucksch on 23/02/2017.
  */
