@@ -1,4 +1,4 @@
-import { Project } from './project';
+import { Team } from './team';
 import { Language } from './language';
 import { Skill, SkillLevel } from './skill';
 import { Device } from './device';
@@ -24,7 +24,7 @@ export class Student {
 
   devices: Device[] = [];
   skills: Skill[] = [];
-  teamPriorities: Project[] = [];
+  teamPriorities: Team[] = [];
 
   studentComments: string;
   supervisorAssessment: SkillLevel;
@@ -32,7 +32,7 @@ export class Student {
   tutorComments: string;
 
   // reverse reference
-  team: Project;
+  team: Team;
 
   isPinned: boolean;
 
@@ -40,7 +40,7 @@ export class Student {
     this.firstName = firstName || 'no name';
   }
 
-  getTeamPriority(team: Project): number {
+  getTeamPriority(team: Team): number {
     return this.teamPriorities.indexOf(team) + 1;
   }
 

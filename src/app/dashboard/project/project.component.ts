@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Project } from '../../shared/models/project';
+import { Team } from '../../shared/models/team';
 import { Student } from '../../shared/models/student';
 
 @Component({
@@ -8,7 +8,7 @@ import { Student } from '../../shared/models/student';
   styleUrls: ['./project.component.scss'],
 })
 export class ProjectComponent implements OnInit {
-  @Input() team: Project;
+  @Input() team: Team;
   @Input() onTeamStatisticsButtonPressed;
   @Output() onPersonClicked = new EventEmitter<Student>();
 

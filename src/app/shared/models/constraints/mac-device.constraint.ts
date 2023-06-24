@@ -1,5 +1,5 @@
 import { Constraint, ConstraintType } from './constraint';
-import { Project } from '../project';
+import { Team } from '../team';
 import { Device } from '../device';
 import { TeamHelper } from '../../helpers/team.helper';
 /**
@@ -11,7 +11,7 @@ export class MacDeviceConstraint extends Constraint {
     super(config);
   }
 
-  isSatisfied(team: Project): boolean {
+  isSatisfied(team: Team): boolean {
     return (this.minValue || 0) <= this.getCurrentValue(team) && this.getCurrentValue(team) <= (this.maxValue || Number.MAX_VALUE);
   }
 
@@ -23,7 +23,7 @@ export class MacDeviceConstraint extends Constraint {
     return ConstraintType.Interval;
   }
 
-  getCurrentValue(team: Project): number {
+  getCurrentValue(team: Team): number {
     return team.getDeviceCountOfType(Device.Mac);
   }
 }

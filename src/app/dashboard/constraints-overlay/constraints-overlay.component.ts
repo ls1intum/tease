@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OverlayComponent, OverlayService } from '../../overlay.service';
 import { Constraint } from '../../shared/models/constraints/constraint';
 import { ConstraintService } from '../../shared/layers/business-logic-layer/constraint.service';
-import { Project } from '../../shared/models/project';
+import { Team } from '../../shared/models/team';
 import { TeamGenerationService } from '../../shared/layers/business-logic-layer/team-generation/team-generation.service';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import { ConstraintLoggingService } from '../../shared/layers/business-logic-layer/constraint-logging.service';
@@ -17,7 +17,7 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
 
   public data: { displayWarning: boolean };
   protected constraints: Constraint[];
-  protected teamsWithVisibleConstraints: Project[] = [];
+  protected teamsWithVisibleConstraints: Team[] = [];
   noFeasibleSolutionHintShown = false;
   protected noFeasibleSolutionHintTimeoutHandle = null;
 
@@ -45,7 +45,7 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
     });
   }
 
-  protected getConstraintsForTeam(team: Project): Array<Constraint> {
+  protected getConstraintsForTeam(team: Team): Array<Constraint> {
     if (!this.constraints) return [];
     return this.constraints.filter(constraint => constraint.getTeamName() === team.name);
   }
@@ -84,7 +84,7 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
     ConstraintLoggingService.pushMessage(loggedMessage.join('\r\n'));
   }
 
-  public toggleTeamConstraintVisibility(team: Project) {
+  public toggleTeamConstraintVisibility(team: Team) {
     const indexOfTeam = this.teamsWithVisibleConstraints.indexOf(team);
     if (indexOfTeam !== -1) {
       this.teamsWithVisibleConstraints.splice(indexOfTeam, 1);
@@ -93,7 +93,7 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
     }
   }
 
-  public areConstraintsForTeamVisible(team: Project): boolean {
+  public areConstraintsForTeamVisible(team: Team): boolean {
     return this.teamsWithVisibleConstraints.includes(team);
   }
 

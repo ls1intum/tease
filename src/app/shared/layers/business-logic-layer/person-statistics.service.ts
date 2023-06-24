@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Student } from '../../models/student';
-import { Project } from '../../models/project';
+import { Team } from '../../models/team';
 import { ArrayHelper } from '../../helpers/array.helper';
 import { Constraint } from '../../models/constraints/constraint';
 /**
@@ -13,11 +13,11 @@ export class PersonStatisticsService {
     return persons.filter(p => p.hasSupervisorAssessment()).length;
   }
 
-  getNumberOfPersonsForPriority(priorityNumber: number, team: Project): number {
+  getNumberOfPersonsForPriority(priorityNumber: number, team: Team): number {
     return this.getPersonsForTeamPriority(team, priorityNumber).length;
   }
 
-  calcTeamQualityScore(team: Project, constraints: Constraint[]): number {
+  calcTeamQualityScore(team: Team, constraints: Constraint[]): number {
     const averagePrio = this.getAverageTeamPriorityOfPersons(team);
     const averagePrioScore = this.calcPrioScore(averagePrio);
 
@@ -36,7 +36,7 @@ export class PersonStatisticsService {
     return Math.min(Math.max(10 - averagePrio, 0), 10);
   }
 
-  getAverageTeamPriorityOfPersons(team: Project): number {
+  getAverageTeamPriorityOfPersons(team: Team): number {
     const priorities = ArrayHelper.createNumberRange(this.getPriorityCountMax(team));
 
     let personSum = 0;
@@ -50,14 +50,14 @@ export class PersonStatisticsService {
     return prioSum / personSum;
   }
 
-  private getPersonsForTeamPriority(team: Project, priorityNumber: number): Student[] {
+  private getPersonsForTeamPriority(team: Team, priorityNumber: number): Student[] {
     return team.persons.filter(person => {
       if (person.teamPriorities.length < priorityNumber) return false;
       return person.teamPriorities[priorityNumber] === team;
     });
   }
 
-  getPriorityCountMax(team: Project): number {
+  getPriorityCountMax(team: Team): number {
     if (team.persons.length === 0) return 0;
 
     return Math.max(...team.persons.map(person => person.teamPriorities.length));

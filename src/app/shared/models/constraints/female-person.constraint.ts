@@ -1,5 +1,5 @@
 import { Constraint, ConstraintType } from './constraint';
-import { Project } from '../project';
+import { Team } from '../team';
 import { Gender } from '../student';
 /**
  * Created by Malte Bucksch on 23/02/2017.
@@ -9,11 +9,11 @@ export class FemalePersonConstraint extends Constraint {
     super(config);
   }
 
-  isSatisfied(team: Project): boolean {
+  isSatisfied(team: Team): boolean {
     return (this.minValue || 0) <= this.getCurrentValue(team) && this.getCurrentValue(team) <= (this.maxValue || Number.MAX_VALUE);
   }
 
-  private getFemalesPersonsInTeam(team: Project) {
+  private getFemalesPersonsInTeam(team: Team) {
     return team.persons.filter(person => person.gender === Gender.Female).length;
   }
 
@@ -25,7 +25,7 @@ export class FemalePersonConstraint extends Constraint {
     return ConstraintType.Interval;
   }
 
-  getCurrentValue(team: Project): number {
+  getCurrentValue(team: Team): number {
     return this.getFemalesPersonsInTeam(team);
   }
 }

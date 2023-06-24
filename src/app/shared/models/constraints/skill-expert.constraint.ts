@@ -1,5 +1,5 @@
 import { Constraint, ConstraintType } from './constraint';
-import { Project } from '../project';
+import { Team } from '../team';
 import { TeamHelper } from '../../helpers/team.helper';
 import { Skill, SkillLevel } from '../skill';
 
@@ -8,7 +8,7 @@ export class SkillExpertConstraint extends Constraint {
     super(config);
   }
 
-  isSatisfied(team: Project): boolean {
+  isSatisfied(team: Team): boolean {
     const count = this.getCurrentValue(team);
     return (this.getMinValue() || 0) <= count && count <= (this.getMaxValue() || Number.MAX_VALUE);
   }
@@ -21,7 +21,7 @@ export class SkillExpertConstraint extends Constraint {
     return ConstraintType.Interval;
   }
 
-  getCurrentValue(team: Project): number {
+  getCurrentValue(team: Team): number {
     return TeamHelper.getPersonsOfSkillLevelInTeam(team, SkillLevel.VeryHigh);
   }
 }

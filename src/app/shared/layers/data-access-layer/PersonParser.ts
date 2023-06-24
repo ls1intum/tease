@@ -3,14 +3,14 @@ import { CSVConstants } from '../../constants/csv.constants';
 import { Device } from '../../models/device';
 import { StringHelper } from '../../helpers/string.helper';
 import { Skill, SkillLevel } from '../../models/skill';
-import { Project } from '../../models/project';
+import { Team } from '../../models/team';
 /**
  * Created by Malte Bucksch on 01/12/2016.
  */
 
 export abstract class PersonParser {
-  static parsePersons(teamCsvData: Array<any>): [Student[], Project[]] {
-    const teams: Project[] = [];
+  static parsePersons(teamCsvData: Array<any>): [Student[], Team[]] {
+    const teams: Team[] = [];
 
     const persons = teamCsvData
       .map((personProps: Array<any>) => this.parsePerson(teams, personProps))
@@ -19,7 +19,7 @@ export abstract class PersonParser {
     return [persons, teams];
   }
 
-  private static parseTeamPriorities(teams: Project[], person: Student, personProps: Array<any>) {
+  private static parseTeamPriorities(teams: Team[], person: Student, personProps: Array<any>) {
     for (let priority = 1; ; priority++) {
       const columnName = StringHelper.format(CSVConstants.Team.Priority, priority);
 
@@ -32,7 +32,7 @@ export abstract class PersonParser {
     }
   }
 
-  private static getOrCreateTeam(teams: Project[], teamName: string): Project {
+  private static getOrCreateTeam(teams: Team[], teamName: string): Team {
     if (teamName === null || teamName === '') return null;
 
     const existingTeam = teams.find(team => team.name === teamName);
@@ -40,13 +40,13 @@ export abstract class PersonParser {
     if (existingTeam) {
       return existingTeam;
     } else {
-      const newTeam = new Project(teamName);
+      const newTeam = new Team(teamName);
       teams.push(newTeam);
       return newTeam;
     }
   }
 
-  static parsePerson(teams: Project[], personProps: any): Student {
+  static parsePerson(teams: Team[], personProps: any): Student {
     const person = new Student();
 
     person.firstName = personProps[CSVConstants.Person.FirstName];

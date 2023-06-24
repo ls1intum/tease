@@ -16,7 +16,7 @@ import * as JSZip from 'jszip';
 import { Student } from '../../shared/models/student';
 import { StudentDetailCardComponent } from '../student-detail-card/student-detail-card.component';
 import { ProjectComponent } from '../project/project.component';
-import { Project } from '../../shared/models/project';
+import { Team } from '../../shared/models/team';
 
 @Component({
   selector: 'app-export-overlay',
@@ -130,7 +130,7 @@ export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayCompone
     });
   }
 
-  exportTeamScreenshot(team: Project, zip: JSZip, filename: string): Promise<void> {
+  exportTeamScreenshot(team: Team, zip: JSZip, filename: string): Promise<void> {
     console.log('exporting team ' + team.name + '...');
     return new Promise<void>((resolve, reject) => {
       if (this.destroyed) {

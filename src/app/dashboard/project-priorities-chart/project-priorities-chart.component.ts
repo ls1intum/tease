@@ -1,6 +1,6 @@
 import { Component, DoCheck, Input, OnInit } from '@angular/core';
 import { ArrayHelper } from '../../shared/helpers/array.helper';
-import { Project } from '../../shared/models/project';
+import { Team } from '../../shared/models/team';
 import { PersonStatisticsService } from '../../shared/layers/business-logic-layer/person-statistics.service';
 import { Colors } from '../../shared/constants/color.constants';
 import { SkillLevel } from '../../shared/models/skill';
@@ -12,7 +12,7 @@ import { TeamService } from '../../shared/layers/business-logic-layer/team.servi
   styleUrls: ['./project-priorities-chart.component.scss'],
 })
 export class ProjectPrioritiesChartComponent implements OnInit, DoCheck {
-  @Input() team: Project;
+  @Input() team: Team;
   @Input() scale;
 
   priorityDistribution: number[];

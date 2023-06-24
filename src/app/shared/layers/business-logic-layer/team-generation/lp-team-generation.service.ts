@@ -1,5 +1,5 @@
 import { TeamGenerationService } from './team-generation.service';
-import { Project } from '../../../models/project';
+import { Team } from '../../../models/team';
 import { Injectable } from '@angular/core';
 import { TeamHelper } from '../../../helpers/team.helper';
 import { ConstraintService } from '../constraint.service';
@@ -210,11 +210,11 @@ export class LPTeamGenerationService implements TeamGenerationService {
   /**
    * Distributes persons to teams according to set constraints.
    *
-   * @param {Project[]} teams that the persons are distributed to, can be prepopulated
+   * @param {Team[]} teams that the persons are distributed to, can be prepopulated
    * @returns {Promise<boolean>} that indicates if a feasible solution was found
    * else.
    */
-  generate(persons: Student[], teams: Project[]): Promise<boolean> {
+  generate(persons: Student[], teams: Team[]): Promise<boolean> {
     return new Promise((resolve, reject) => {
       console.log('Generating teams using linear approach...');
 

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Project } from '../../shared/models/project';
+import { Team } from '../../shared/models/team';
 import { Constraint, ConstraintType } from '../../shared/models/constraints/constraint';
 import { ConstraintService } from '../../shared/layers/business-logic-layer/constraint.service';
 
@@ -10,7 +10,7 @@ import { ConstraintService } from '../../shared/layers/business-logic-layer/cons
 })
 export class ProjectStatisticsComponent implements OnInit {
   @Input()
-  team: Project;
+  team: Team;
 
   constraints: Constraint[] = [];
 

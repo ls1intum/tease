@@ -1,6 +1,6 @@
 import { Constraint, ConstraintType } from './constraint';
 import { Device } from '../device';
-import { Project } from '../project';
+import { Team } from '../team';
 /**
  * Created by Malte Bucksch on 23/02/2017.
  */
@@ -10,11 +10,11 @@ export class IosDeviceConstraint extends Constraint {
     super(config);
   }
 
-  isSatisfied(team: Project): boolean {
+  isSatisfied(team: Team): boolean {
     return (this.minValue || 0) <= this.getCurrentValue(team) && this.getCurrentValue(team) <= (this.maxValue || Number.MAX_VALUE);
   }
 
-  private getDeviceCount(team: Project): number {
+  private getDeviceCount(team: Team): number {
     return (
       team.getDeviceCountOfType(Device.Iphone) +
       team.getDeviceCountOfType(Device.Ipad) +
@@ -31,7 +31,7 @@ export class IosDeviceConstraint extends Constraint {
     return ConstraintType.Interval;
   }
 
-  getCurrentValue(team: Project): number {
+  getCurrentValue(team: Team): number {
     return this.getDeviceCount(team);
   }
 }

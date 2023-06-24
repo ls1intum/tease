@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Project } from '../../shared/models/project';
+import { Team } from '../../shared/models/team';
 import { Skill, SkillLevel } from '../../shared/models/skill';
 import { Colors } from '../../shared/constants/color.constants';
 import { Device } from '../../shared/models/device';
@@ -12,7 +12,7 @@ import { TeamService } from '../../shared/layers/business-logic-layer/team.servi
   styleUrls: ['./student-pool-statistics.component.scss'],
 })
 export class StudentPoolStatisticsComponent implements OnInit {
-  priorityDistributionStatistics: Map<Project, number[]>;
+  priorityDistributionStatistics: Map<Team, number[]>;
   priorityDistributionLabels: [number, number][]; // label and space that it should take
   teamIndices: number[];
 
@@ -54,7 +54,7 @@ export class StudentPoolStatisticsComponent implements OnInit {
     console.log(this.priorityDistributionStatistics);
   }
 
-  getNumberOfVotesForTeamForPriority(team: Project, priority: number): number {
+  getNumberOfVotesForTeamForPriority(team: Team, priority: number): number {
     return this.getNumberOfPersonsWithPredicate(person => person.teamPriorities[priority] === team);
   }
 

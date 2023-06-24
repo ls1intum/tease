@@ -1,5 +1,5 @@
 import { Student } from '../../models/student';
-import { Project } from '../../models/project';
+import { Team } from '../../models/team';
 import * as Papa from 'papaparse';
 import { PersonSerializer } from './PersonSerializer';
 import { PersonParser } from './PersonParser';
@@ -7,7 +7,7 @@ import { PersonParser } from './PersonParser';
 export class CSVPersonDataAccessService {
   private static readonly BrowserStorageKey = 'TEASE-person-data';
 
-  static readDataFromBrowserStorage(): Promise<[Student[], Project[]]> {
+  static readDataFromBrowserStorage(): Promise<[Student[], Team[]]> {
     const teamData = localStorage.getItem(CSVPersonDataAccessService.BrowserStorageKey);
 
     if (teamData === undefined || teamData === null) {
@@ -30,7 +30,7 @@ export class CSVPersonDataAccessService {
     return localStorage.getItem(CSVPersonDataAccessService.BrowserStorageKey);
   }
 
-  public static readFromFile(csvFile: File): Promise<[Student[], Project[]]> {
+  public static readFromFile(csvFile: File): Promise<[Student[], Team[]]> {
     return new Promise((resolve, reject) => {
       Papa.parse(csvFile, {
         complete: results => {
@@ -43,7 +43,7 @@ export class CSVPersonDataAccessService {
     });
   }
 
-  public static readFromRemote(remoteFilePath: string): Promise<[Student[], Project[]]> {
+  public static readFromRemote(remoteFilePath: string): Promise<[Student[], Team[]]> {
     return new Promise((resolve, reject) => {
       Papa.parse(remoteFilePath, {
         download: true,
@@ -58,7 +58,7 @@ export class CSVPersonDataAccessService {
     });
   }
 
-  private static sortTeams(teams: Project[]) {
+  private static sortTeams(teams: Team[]) {
     teams.sort((teamA, teamB) => {
       if (teamA.name.toLowerCase() < teamB.name.toLowerCase()) return -1;
       if (teamA.name.toLowerCase() > teamB.name.toLowerCase()) return 1;

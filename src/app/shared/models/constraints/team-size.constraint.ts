@@ -1,5 +1,5 @@
 import { Constraint, ConstraintType } from './constraint';
-import { Project } from '../project';
+import { Team } from '../team';
 /**
  * Created by Malte Bucksch on 23/02/2017.
  */
@@ -9,7 +9,7 @@ export class TeamSizeConstraint extends Constraint {
     super(config);
   }
 
-  isSatisfied(team: Project): boolean {
+  isSatisfied(team: Team): boolean {
     return (this.minValue || 0) <= team.persons.length && team.persons.length <= (this.maxValue || Number.MAX_VALUE);
   }
 
@@ -21,7 +21,7 @@ export class TeamSizeConstraint extends Constraint {
     return ConstraintType.Interval;
   }
 
-  getCurrentValue(team: Project): number {
+  getCurrentValue(team: Team): number {
     return team.persons.length;
   }
 }

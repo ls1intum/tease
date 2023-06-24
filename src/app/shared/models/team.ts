@@ -4,7 +4,7 @@ import { Device } from './device';
  * Created by wanur on 05/11/2016.
  */
 
-export class Project {
+export class Team {
   name: string;
   persons: Student[] = [];
 
