@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OverlayComponent, OverlayService } from '../../overlay.service';
-import { PersonConstraintService } from '../../shared/layers/business-logic-layer/person-constraint.service';
+import { StudentConstraintService } from '../../shared/layers/business-logic-layer/student-constraint.service';
 import { InstructorRatingPersonConstraint } from '../../shared/models/person-constraints/instructor-rating-person-constraint';
 import { PersonConstraint } from '../../shared/models/person-constraints/person-constraint';
 import { Skill, SkillLevel } from '../../shared/models/skill';
@@ -17,7 +17,7 @@ import { Device } from '../../shared/models/device';
   styleUrls: ['./student-highlighting-overlay.component.scss'],
 })
 export class StudentHighlightingOverlayComponent implements OnInit, OverlayComponent {
-  PersonConstraintService = PersonConstraintService;
+  PersonConstraintService = StudentConstraintService;
   SkillLevel = SkillLevel;
   Skill = Skill;
   CSVConstants = CSVConstants;
@@ -29,7 +29,7 @@ export class StudentHighlightingOverlayComponent implements OnInit, OverlayCompo
   GenderPersonConstraint = GenderPersonConstraint;
 
   skillNames = CSVConstants.Skills.SkillNameAbbreviationPairs.map(pair => pair[0]);
-  personConstraintsCopy: PersonConstraint[] = PersonConstraintService.personConstraints.map(c => c.copy());
+  personConstraintsCopy: PersonConstraint[] = StudentConstraintService.personConstraints.map(c => c.copy());
 
   public data: any;
   console = console;
@@ -41,7 +41,7 @@ export class StudentHighlightingOverlayComponent implements OnInit, OverlayCompo
   ngOnInit() {}
 
   save() {
-    PersonConstraintService.personConstraints = this.personConstraintsCopy;
+    StudentConstraintService.personConstraints = this.personConstraintsCopy;
     this.overlayService.closeOverlay();
   }
 

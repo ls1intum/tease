@@ -5,7 +5,7 @@ import { Skill, SkillLevel } from '../../shared/models/skill';
 import { Device } from '../../shared/models/device';
 import { IconMapperService } from '../../shared/ui/icon-mapper.service';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
-import { PersonConstraintService } from '../../shared/layers/business-logic-layer/person-constraint.service';
+import { StudentConstraintService } from '../../shared/layers/business-logic-layer/student-constraint.service';
 import { NationalityHelper } from '../../shared/helpers/nationality.helper';
 
 @Component({
@@ -19,7 +19,7 @@ export class StudentPreviewComponent implements OnInit {
 
   SkillLevel = SkillLevel;
   Device = Device;
-  PersonConstraintService = PersonConstraintService;
+  PersonConstraintService = StudentConstraintService;
   getFlagEmojiFromNationality = NationalityHelper.getFlagEmojiFromNationality
 
   /* functions used in template */

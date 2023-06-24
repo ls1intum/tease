@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PersonConstraintService } from '../shared/layers/business-logic-layer/person-constraint.service';
+import { StudentConstraintService } from '../shared/layers/business-logic-layer/student-constraint.service';
 import { InstructorRatingPersonConstraint } from '../shared/models/person-constraints/instructor-rating-person-constraint';
 import { DevicePossessionPersonConstraint } from '../shared/models/person-constraints/device-possession-person-constraint';
 import { Skill, SkillLevel } from '../shared/models/skill';
@@ -19,7 +19,7 @@ import { PersonConstraint } from '../shared/models/person-constraints/person-con
 })
 export class HighlightingToolbarComponent implements OnInit {
   s;
-  PersonConstraintService = PersonConstraintService;
+  PersonConstraintService = StudentConstraintService;
   SkillLevel = SkillLevel;
   Skill = Skill;
   CSVConstants = CSVConstants;
@@ -44,7 +44,7 @@ export class HighlightingToolbarComponent implements OnInit {
   }
 
   removeConstraint(personConstraint: PersonConstraint) {
-    PersonConstraintService.personConstraints = PersonConstraintService.personConstraints.filter(
+    StudentConstraintService.personConstraints = StudentConstraintService.personConstraints.filter(
       c => c !== personConstraint
     );
   }

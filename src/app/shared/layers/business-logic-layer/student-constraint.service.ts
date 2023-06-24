@@ -1,7 +1,7 @@
 import { PersonConstraint } from '../../models/person-constraints/person-constraint';
 import { Student } from '../../models/student';
 
-export class PersonConstraintService {
+export class StudentConstraintService {
   static personConstraints: PersonConstraint[] = [];
 
   static matchesConstraints(person: Student) {
