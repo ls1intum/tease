@@ -3,11 +3,11 @@ import { Team } from '../../shared/models/team';
 import { Student } from '../../shared/models/student';
 
 @Component({
-  selector: 'app-project',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss'],
+  selector: 'app-team',
+  templateUrl: './team.component.html',
+  styleUrls: ['./team.component.scss'],
 })
-export class ProjectComponent implements OnInit {
+export class TeamComponent implements OnInit {
   @Input() team: Team;
   @Input() onTeamStatisticsButtonPressed;
   @Output() onPersonClicked = new EventEmitter<Student>();
