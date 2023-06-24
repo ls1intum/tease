@@ -1,5 +1,5 @@
 import { PersonConstraint } from '../../models/person-constraints/person-constraint';
-import { Student } from '../../models/person';
+import { Student } from '../../models/student';
 
 export class PersonConstraintService {
   static personConstraints: PersonConstraint[] = [];

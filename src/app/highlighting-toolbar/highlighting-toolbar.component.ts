@@ -7,7 +7,7 @@ import { CSVConstants } from '../shared/constants/csv.constants';
 import { ExperiencePersonConstraint } from '../shared/models/person-constraints/experience-person-constraint';
 import { Device } from '../shared/models/device';
 import { GenderPersonConstraint } from '../shared/models/person-constraints/gender-person-constraint';
-import { Gender } from '../shared/models/person';
+import { Gender } from '../shared/models/student';
 import { StudentHighlightingOverlayComponent } from '../dashboard/student-highlighting-overlay/student-highlighting-overlay.component';
 import { OverlayService } from '../overlay.service';
 import { PersonConstraint } from '../shared/models/person-constraints/person-constraint';

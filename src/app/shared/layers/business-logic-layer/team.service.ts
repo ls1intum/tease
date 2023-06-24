@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Student } from '../../models/person';
+import { Student } from '../../models/student';
 import { Team } from '../../models/team';
 import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';

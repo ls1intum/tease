@@ -13,7 +13,7 @@ import { TeamService } from '../../shared/layers/business-logic-layer/team.servi
 import html2canvas from 'html2canvas';
 import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
-import { Student } from '../../shared/models/person';
+import { Student } from '../../shared/models/student';
 import { StudentDetailCardComponent } from '../student-detail-card/student-detail-card.component';
 import { ProjectComponent } from '../project/project.component';
 import { Team } from '../../shared/models/team';

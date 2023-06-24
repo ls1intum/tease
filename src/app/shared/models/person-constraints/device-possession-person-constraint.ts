@@ -1,5 +1,5 @@
 import { PersonConstraint } from './person-constraint';
-import { Gender, Student } from '../person';
+import { Gender, Student } from '../student';
 import { SkillLevel } from '../skill';
 import { Device } from '../device';
 

@@ -1,4 +1,4 @@
-import { Student } from './person';
+import { Student } from './student';
 import { Device } from './device';
 /**
  * Created by wanur on 05/11/2016.

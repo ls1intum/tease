@@ -1,4 +1,4 @@
-import { Student, Gender } from '../../models/person';
+import { Student, Gender } from '../../models/student';
 import { StringHelper } from '../../helpers/string.helper';
 import { CSVConstants } from '../../constants/csv.constants';
 import { Device } from '../../models/device';

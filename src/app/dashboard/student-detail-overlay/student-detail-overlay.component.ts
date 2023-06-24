@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Student } from '../../shared/models/person';
+import { Student } from '../../shared/models/student';
 import { Skill, SkillLevel } from '../../shared/models/skill';
 import { OverlayComponent } from '../../overlay.service';
 import { FormControl, FormGroup } from '@angular/forms';

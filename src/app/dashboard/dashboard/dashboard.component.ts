@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import { DragulaService } from 'ng2-dragula';
-import { Student } from '../../shared/models/person';
+import { Student } from '../../shared/models/student';
 import { Team } from '../../shared/models/team';
 import { StudentDetailOverlayComponent } from '../student-detail-overlay/student-detail-overlay.component';
 import { OverlayService } from '../../overlay.service';

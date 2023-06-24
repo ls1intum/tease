@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SkillLevel } from '../models/skill';
-import { Gender } from '../models/person';
+import { Gender } from '../models/student';
 import { Device } from '../models/device';
 import { Md5 } from 'ts-md5/dist/md5';
 /**

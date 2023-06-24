@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Team } from '../../shared/models/team';
-import { Student } from '../../shared/models/person';
+import { Student } from '../../shared/models/student';
 
 @Component({
   selector: 'app-project',

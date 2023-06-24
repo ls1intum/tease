@@ -1,4 +1,4 @@
-import { Student } from '../../models/person';
+import { Student } from '../../models/student';
 import { Team } from '../../models/team';
 import * as Papa from 'papaparse';
 import { PersonSerializer } from './PersonSerializer';

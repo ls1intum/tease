@@ -1,6 +1,6 @@
 import { TeamGenerationService } from './team-generation.service';
 import { Team } from '../../../models/team';
-import { Student } from '../../../models/person';
+import { Student } from '../../../models/student';
 import { Injectable } from '@angular/core';
 import { TeamHelper } from '../../../helpers/team.helper';
 import { SkillLevel } from '../../../models/skill';

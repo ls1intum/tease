@@ -1,5 +1,5 @@
 import { PersonConstraint } from './person-constraint';
-import { Student } from '../person';
+import { Student } from '../student';
 import { SkillLevel } from '../skill';
 
 export class ExperiencePersonConstraint extends PersonConstraint {

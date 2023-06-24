@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Student } from '../../shared/models/person';
+import { Student } from '../../shared/models/student';
 import { Skill, SkillLevel } from '../../shared/models/skill';
 import { Colors } from '../../shared/constants/color.constants';
 import { CSVConstants } from '../../shared/constants/csv.constants';

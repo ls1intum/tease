@@ -1,5 +1,5 @@
 import { Team } from '../models/team';
-import { Student } from '../models/person';
+import { Student } from '../models/student';
 import { SkillLevel } from '../models/skill';
 /**
  * Created by Malte Bucksch on 16/12/2016.
