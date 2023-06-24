@@ -14,7 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StudentDetailOverlayComponent } from './dashboard/student-detail-overlay/student-detail-overlay.component';
 import { OverlayHostDirective } from './overlay-host.directive';
 import { OverlayService } from './overlay.service';
-import { PersonStatisticsService } from './shared/layers/business-logic-layer/person-statistics.service';
+import { StudentStatisticsService } from './shared/layers/business-logic-layer/student-statistics.service';
 import { NgChartsModule } from 'ng2-charts';
 import { DragulaModule } from 'ng2-dragula';
 import { ImportOverlayComponent } from './dashboard/import-overlay/import-overlay.component';
@@ -50,7 +50,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     TeamService,
     ConstraintService,
     OverlayService,
-    PersonStatisticsService,
+    StudentStatisticsService,
     [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }],
     { provide: TeamGenerationService, useClass: LPTeamGenerationService },
   ],

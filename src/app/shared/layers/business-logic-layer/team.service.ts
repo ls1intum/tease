@@ -3,7 +3,7 @@ import { Student } from '../../models/student';
 import { Team } from '../../models/team';
 import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
-import { CSVPersonDataAccessService } from '../data-access-layer/csv-person-data-access.service';
+import { CSVStudentDataAccessService } from '../data-access-layer/csv-student-data-access.service';
 import { ConstraintLoggingService } from './constraint-logging.service';
 
 @Injectable()
@@ -62,7 +62,7 @@ export class TeamService {
 
   public readFromBrowserStorage(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      CSVPersonDataAccessService.readDataFromBrowserStorage().then(data => {
+      CSVStudentDataAccessService.readDataFromBrowserStorage().then(data => {
         this.load(data);
         resolve(true);
       });
@@ -71,7 +71,7 @@ export class TeamService {
 
   public readFromCSVFile(csvFile: File): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      CSVPersonDataAccessService.readFromFile(csvFile).then(data => {
+      CSVStudentDataAccessService.readFromFile(csvFile).then(data => {
         this.load(data);
         this.saveToLocalBrowserStorage().then(saveSuccess => {
           this.readFromBrowserStorage().then(readSuccess => {
@@ -84,7 +84,7 @@ export class TeamService {
 
   public readRemoteData(remoteFilePath: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      CSVPersonDataAccessService.readFromRemote(remoteFilePath).then(data => {
+      CSVStudentDataAccessService.readFromRemote(remoteFilePath).then(data => {
         this.load(data);
         resolve(true);
       });
@@ -92,7 +92,7 @@ export class TeamService {
   }
 
   public exportSavedState() {
-    const csvData = CSVPersonDataAccessService.getSavedDataFromBrowserStorage();
+    const csvData = CSVStudentDataAccessService.getSavedDataFromBrowserStorage();
     const blob = new Blob([csvData], { type: this.EXPORT_DATA_TYPE });
 
     const zip = new JSZip();
@@ -109,7 +109,7 @@ export class TeamService {
 
     return new Promise((resolve, reject) => {
       this.updateReverseReferences();
-      CSVPersonDataAccessService.saveToBrowserStorage(this.persons).then(success => {
+      CSVStudentDataAccessService.saveToBrowserStorage(this.persons).then(success => {
         console.log('done');
         resolve(success);
       });
@@ -117,7 +117,7 @@ export class TeamService {
   }
 
   public clearSavedData() {
-    CSVPersonDataAccessService.clearSavedData();
+    CSVStudentDataAccessService.clearSavedData();
   }
 
   resetUnpinnedPersons() {

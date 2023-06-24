@@ -46,7 +46,10 @@ export class DashboardComponent implements OnInit {
     dragulaService.dropModel("persons").subscribe(({ el, target, source, sourceModel, targetModel, item }) => {
       let person: Student = teamService.getPersonById(item.studentId)
       let currentTeam = person.team
-      currentTeam.remove(person)
+
+      if (currentTeam) {
+        currentTeam.remove(person);
+      }
 
       let inferredNewTeam = this.inferTeam(targetModel, person)
 

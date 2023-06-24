@@ -3,12 +3,9 @@ import { Student } from '../../models/student';
 import { Team } from '../../models/team';
 import { ArrayHelper } from '../../helpers/array.helper';
 import { Constraint } from '../../models/constraints/constraint';
-/**
- * Created by Malte Bucksch on 13/01/2017.
- */
 
 @Injectable()
-export class PersonStatisticsService {
+export class StudentStatisticsService {
   getRatedPersonCount(persons: Student[]): number {
     return persons.filter(p => p.hasSupervisorAssessment()).length;
   }

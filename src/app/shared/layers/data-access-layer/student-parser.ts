@@ -8,7 +8,7 @@ import { Team } from '../../models/team';
  * Created by Malte Bucksch on 01/12/2016.
  */
 
-export abstract class PersonParser {
+export abstract class StudentParser {
   static parsePersons(teamCsvData: Array<any>): [Student[], Team[]] {
     const teams: Team[] = [];
 
@@ -92,7 +92,7 @@ export abstract class PersonParser {
 
       if (!(skillLevelString)) continue;
 
-      let skillLevel: SkillLevel = PersonParser.parseSkillLevel(skillLevelString);
+      let skillLevel: SkillLevel = StudentParser.parseSkillLevel(skillLevelString);
 
       // TODO: retrieve the skill description from the appropriate CSV column
       person.skills.push(

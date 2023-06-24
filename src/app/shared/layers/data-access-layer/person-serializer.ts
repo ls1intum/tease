@@ -7,7 +7,7 @@ import { SkillLevel } from '../../models/skill';
  * Created by Malte Bucksch on 01/12/2016.
  */
 
-export class PersonSerializer {
+export class StudentSerializer {
   static serializePerson(person: Student): any {
     const personProps = {};
 
@@ -51,7 +51,7 @@ export class PersonSerializer {
       // skill description currently not populated yet
       // personProps[skillAbbreviation + CSVConstants.Skills.DescriptionPostfix] = skill.description;
 
-      personProps[skillAbbreviation + CSVConstants.Skills.SkillLevelPostfix] = PersonSerializer.serializeSkillLevel(
+      personProps[skillAbbreviation + CSVConstants.Skills.SkillLevelPostfix] = StudentSerializer.serializeSkillLevel(
         skill.skillLevel
       );
 

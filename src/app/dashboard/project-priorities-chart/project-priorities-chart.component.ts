@@ -1,7 +1,7 @@
 import { Component, DoCheck, Input, OnInit } from '@angular/core';
 import { ArrayHelper } from '../../shared/helpers/array.helper';
 import { Team } from '../../shared/models/team';
-import { PersonStatisticsService } from '../../shared/layers/business-logic-layer/person-statistics.service';
+import { StudentStatisticsService } from '../../shared/layers/business-logic-layer/student-statistics.service';
 import { Colors } from '../../shared/constants/color.constants';
 import { SkillLevel } from '../../shared/models/skill';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
@@ -21,7 +21,7 @@ export class ProjectPrioritiesChartComponent implements OnInit, DoCheck {
   teamCount: number;
   averagePriority: number;
 
-  constructor(private personStatisticsService: PersonStatisticsService, private teamService: TeamService) {}
+  constructor(private personStatisticsService: StudentStatisticsService, private teamService: TeamService) {}
 
   ngOnInit(): void {
     this.updatePriorityDistribution();

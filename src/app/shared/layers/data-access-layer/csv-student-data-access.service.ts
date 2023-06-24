@@ -1,14 +1,14 @@
 import { Student } from '../../models/student';
 import { Team } from '../../models/team';
 import * as Papa from 'papaparse';
-import { PersonSerializer } from './PersonSerializer';
-import { PersonParser } from './PersonParser';
+import { StudentSerializer } from './person-serializer';
+import { StudentParser } from './student-parser';
 
-export class CSVPersonDataAccessService {
+export class CSVStudentDataAccessService {
   private static readonly BrowserStorageKey = 'TEASE-person-data';
 
   static readDataFromBrowserStorage(): Promise<[Student[], Team[]]> {
-    const teamData = localStorage.getItem(CSVPersonDataAccessService.BrowserStorageKey);
+    const teamData = localStorage.getItem(CSVStudentDataAccessService.BrowserStorageKey);
 
     if (teamData === undefined || teamData === null) {
       return Promise.resolve([[], []]);
@@ -17,7 +17,7 @@ export class CSVPersonDataAccessService {
     return new Promise((resolve, reject) => {
       Papa.parse(teamData, {
         complete: results => {
-          const [persons, teams] = PersonParser.parsePersons(results.data);
+          const [persons, teams] = StudentParser.parsePersons(results.data);
           this.sortTeams(teams);
           resolve([persons, teams]);
         },
@@ -27,14 +27,14 @@ export class CSVPersonDataAccessService {
   }
 
   public static getSavedDataFromBrowserStorage(): string {
-    return localStorage.getItem(CSVPersonDataAccessService.BrowserStorageKey);
+    return localStorage.getItem(CSVStudentDataAccessService.BrowserStorageKey);
   }
 
   public static readFromFile(csvFile: File): Promise<[Student[], Team[]]> {
     return new Promise((resolve, reject) => {
       Papa.parse(csvFile, {
         complete: results => {
-          const [persons, teams] = PersonParser.parsePersons(results.data);
+          const [persons, teams] = StudentParser.parsePersons(results.data);
           this.sortTeams(teams);
           resolve([persons, teams]);
         },
@@ -48,7 +48,7 @@ export class CSVPersonDataAccessService {
       Papa.parse(remoteFilePath, {
         download: true,
         complete: results => {
-          const [persons, teams] = PersonParser.parsePersons(results.data);
+          const [persons, teams] = StudentParser.parsePersons(results.data);
           this.sortTeams(teams);
           console.log('CSVPersonDataAccessService:', persons, teams);
           resolve([persons, teams]);
@@ -67,13 +67,13 @@ export class CSVPersonDataAccessService {
   }
 
   public static saveToBrowserStorage(persons: Student[]): Promise<boolean> {
-    const personPropertyLists = persons.map(person => PersonSerializer.serializePerson(person));
+    const personPropertyLists = persons.map(person => StudentSerializer.serializePerson(person));
     const result = Papa.unparse(personPropertyLists);
-    localStorage.setItem(CSVPersonDataAccessService.BrowserStorageKey, result);
+    localStorage.setItem(CSVStudentDataAccessService.BrowserStorageKey, result);
     return Promise.resolve(true);
   }
 
   public static clearSavedData() {
-    localStorage.removeItem(CSVPersonDataAccessService.BrowserStorageKey);
+    localStorage.removeItem(CSVStudentDataAccessService.BrowserStorageKey);
   }
 }

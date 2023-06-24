@@ -9,7 +9,7 @@ import { SkillExpertConstraint } from '../../models/constraints/skill-expert.con
 import { SkillAdvancedConstraint } from '../../models/constraints/skill-advanced.constraint';
 import { SkillNormalConstraint } from '../../models/constraints/skill-normal.constraint';
 import { SkillNoviceConstraint } from '../../models/constraints/skill-novice.constraint';
-import { CSVPersonDataAccessService } from './csv-person-data-access.service';
+import { CSVStudentDataAccessService } from './csv-student-data-access.service';
 
 /**
  * Created by Malte Bucksch on 23/02/2017.
@@ -100,7 +100,7 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
       });
 
       // team-based constraints
-      CSVPersonDataAccessService.readDataFromBrowserStorage().then(data => {
+      CSVStudentDataAccessService.readDataFromBrowserStorage().then(data => {
         const [persons, teams] = data;
 
         teams.forEach(team => {
