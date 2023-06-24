@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Student } from '../../models/student';
-import { Team } from '../../models/team';
+import { Project } from '../../models/project';
 import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
 import { CSVPersonDataAccessService } from '../data-access-layer/csv-person-data-access.service';
@@ -13,18 +13,18 @@ export class TeamService {
   private readonly LOG_EXPORT_FILE_NAME = 'constraint-distribution-log.txt';
   private readonly CSV_EXPORT_FILE_NAME = 'TEASE-project.csv';
 
-  teams: Team[];
+  teams: Project[];
   persons: Student[];
 
   // derived properties
   personsWithoutTeam: Student[];
 
-  private load(data: [Student[], Team[]]) {
+  private load(data: [Student[], Project[]]) {
     [this.persons, this.teams] = data;
     this.updateDerivedProperties();
   }
 
-  public getTeamByName(teamName: string): Team {
+  public getTeamByName(teamName: string): Project {
     return this.teams.find(team => team.name === teamName) // assumes multiple teams do not exist with the same name
   }
 

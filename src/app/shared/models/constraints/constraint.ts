@@ -1,4 +1,4 @@
-import { Team } from '../team';
+import { Project } from '../project';
 /**
  * Created by Malte Bucksch on 23/02/2017.
  */
@@ -19,9 +19,9 @@ export abstract class Constraint {
     }
   }
 
-  abstract isSatisfied(team: Team): boolean;
+  abstract isSatisfied(team: Project): boolean;
 
-  calculateSatisfactionScore(team: Team): number {
+  calculateSatisfactionScore(team: Project): number {
     return this.isSatisfied(team) ? 10 : 0;
   }
 
@@ -29,7 +29,7 @@ export abstract class Constraint {
 
   abstract getType(): ConstraintType;
 
-  abstract getCurrentValue(team: Team): number;
+  abstract getCurrentValue(team: Project): number;
 
   toString(): string {
     let str = '';

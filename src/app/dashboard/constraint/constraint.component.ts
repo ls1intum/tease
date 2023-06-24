@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Constraint, ConstraintType } from '../../shared/models/constraints/constraint';
-import { Team } from '../../shared/models/team';
+import { Project } from '../../shared/models/project';
 
 @Component({
   selector: 'app-constraint',

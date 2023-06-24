@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import { DragulaService } from 'ng2-dragula';
 import { Student } from '../../shared/models/student';
-import { Team } from '../../shared/models/team';
+import { Project } from '../../shared/models/project';
 import { StudentDetailOverlayComponent } from '../student-detail-overlay/student-detail-overlay.component';
 import { OverlayService } from '../../overlay.service';
 import { ConstraintsOverlayComponent } from '../constraints-overlay/constraints-overlay.component';
@@ -126,7 +126,7 @@ export class DashboardComponent implements OnInit {
   * @param added The person that was just added to the team and has the wrong team set
   * @returns Inferred actual team (based on members that were already in the team)
   */
-  private inferTeam(members: Array<Student>, added: Student): Team {
+  private inferTeam(members: Array<Student>, added: Student): Project {
     let teams = members.filter(member => member.studentId != added.studentId).map(member => member.team)
     let unique_teams = [... new Set(teams)]
     if (unique_teams.length > 1) {
