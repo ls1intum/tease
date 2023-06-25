@@ -3,59 +3,56 @@ import { StringHelper } from '../../helpers/string.helper';
 import { CSVConstants } from '../../constants/csv.constants';
 import { Device } from '../../models/device';
 import { SkillLevel } from '../../models/skill';
-/**
- * Created by Malte Bucksch on 01/12/2016.
- */
 
 export class StudentSerializer {
-  static serializePerson(person: Student): any {
-    const personProps = {};
+  static serializePerson(student: Student): any {
+    const studentProps = {};
 
     /* specified entries */
-    personProps[CSVConstants.Person.FirstName] = person.firstName;
-    personProps[CSVConstants.Person.LastName] = person.lastName;
-    personProps[CSVConstants.Person.Email] = person.email;
-    personProps[CSVConstants.Person.StudentId] = person.studentId;
-    personProps[CSVConstants.Person.Gender] = this.serializeGender(person.gender);
-    personProps[CSVConstants.Person.Nationality] = person.nationality;
-    personProps[CSVConstants.Person.StudyProgram] = person.studyProgram;
-    personProps[CSVConstants.Person.Semester] = person.semester;
-    personProps[CSVConstants.Person.GermanLanguageLevel] = person.germanLanguageLevel;
-    personProps[CSVConstants.Person.EnglishLanguageLevel] = person.englishLanguageLevel;
-    personProps[CSVConstants.Person.IntroSelfAssessment] = this.serializeSelfAssessment(person.introSelfAssessment);
-    this.serializePersonDevices(person, personProps);
-    this.serializeSkills(person, personProps);
-    this.serializePriorities(person, personProps);
-    personProps[CSVConstants.Person.StudentComments] = person.studentComments;
-    personProps[CSVConstants.Person.SupervisorAssessment] = this.serializeSkillLevel(person.supervisorAssessment);
-    personProps[CSVConstants.Person.TutorComments] = person.tutorComments;
-    personProps[CSVConstants.Person.IsPinned] = String(person.isPinned);
+    studentProps[CSVConstants.Person.FirstName] = student.firstName;
+    studentProps[CSVConstants.Person.LastName] = student.lastName;
+    studentProps[CSVConstants.Person.Email] = student.email;
+    studentProps[CSVConstants.Person.StudentId] = student.studentId;
+    studentProps[CSVConstants.Person.Gender] = this.serializeGender(student.gender);
+    studentProps[CSVConstants.Person.Nationality] = student.nationality;
+    studentProps[CSVConstants.Person.StudyProgram] = student.studyProgram;
+    studentProps[CSVConstants.Person.Semester] = student.semester;
+    studentProps[CSVConstants.Person.GermanLanguageLevel] = student.germanLanguageLevel;
+    studentProps[CSVConstants.Person.EnglishLanguageLevel] = student.englishLanguageLevel;
+    studentProps[CSVConstants.Person.IntroSelfAssessment] = this.serializeSelfAssessment(student.introSelfAssessment);
+    this.serializePersonDevices(student, studentProps);
+    this.serializeSkills(student, studentProps);
+    this.serializePriorities(student, studentProps);
+    studentProps[CSVConstants.Person.StudentComments] = student.studentComments;
+    studentProps[CSVConstants.Person.SupervisorAssessment] = this.serializeSkillLevel(student.supervisorAssessment);
+    studentProps[CSVConstants.Person.TutorComments] = student.tutorComments;
+    studentProps[CSVConstants.Person.IsPinned] = String(student.isPinned);
 
-    personProps[CSVConstants.Team.TeamName] = person.team ? person.team.name : '';
+    studentProps[CSVConstants.Team.TeamName] = student.team ? student.team.name : '';
 
-    return personProps;
+    return studentProps;
   }
 
-  private static serializePriorities(person: Student, personProps: any) {
-    for (const teamPrio of person.teamPriorities) {
-      const columnName = StringHelper.format(CSVConstants.Team.Priority, person.getTeamPriority(teamPrio));
+  private static serializePriorities(student: Student, studentProps: any) {
+    for (const teamPrio of student.teamPriorities) {
+      const columnName = StringHelper.format(CSVConstants.Team.Priority, student.getTeamPriority(teamPrio));
 
-      personProps[columnName] = teamPrio.name;
+      studentProps[columnName] = teamPrio.name;
     }
   }
 
-  private static serializeSkills(person: Student, personProps: any) {
-    for (const skill of person.skills) {
+  private static serializeSkills(student: Student, studentProps: any) {
+    for (const skill of student.skills) {
       const skillAbbreviation = CSVConstants.Skills.SkillNameAbbreviationPairs.find(pair => pair[0] === skill.name)[1];
 
       // skill description currently not populated yet
-      // personProps[skillAbbreviation + CSVConstants.Skills.DescriptionPostfix] = skill.description;
+      // studentProps[skillAbbreviation + CSVConstants.Skills.DescriptionPostfix] = skill.description;
 
-      personProps[skillAbbreviation + CSVConstants.Skills.SkillLevelPostfix] = StudentSerializer.serializeSkillLevel(
+      studentProps[skillAbbreviation + CSVConstants.Skills.SkillLevelPostfix] = StudentSerializer.serializeSkillLevel(
         skill.skillLevel
       );
 
-      personProps[skillAbbreviation + CSVConstants.Skills.SkillLevelRationalePostfix] = skill.skillLevelRationale;
+      studentProps[skillAbbreviation + CSVConstants.Skills.SkillLevelRationalePostfix] = skill.skillLevelRationale;
     }
   }
 
@@ -98,16 +95,16 @@ export class StudentSerializer {
     }
   }
 
-  private static serializePersonDevices(person: Student, personProps: object) {
+  private static serializePersonDevices(student: Student, studentProps: object) {
     const unavailableString = CSVConstants.DeviceAvailableBooleanValue.Unavailable;
     const availableString = CSVConstants.DeviceAvailableBooleanValue.Available;
 
-    personProps[CSVConstants.Devices.Ipad] = person.ownsDevice(Device.Ipad) ? availableString : unavailableString;
-    personProps[CSVConstants.Devices.Iphone] = person.ownsDevice(Device.Iphone) ? availableString : unavailableString;
-    personProps[CSVConstants.Devices.Watch] = person.ownsDevice(Device.Watch) ? availableString : unavailableString;
-    personProps[CSVConstants.Devices.Mac] = person.ownsDevice(Device.Mac) ? availableString : unavailableString;
-    personProps[CSVConstants.Devices.IpadAR] = person.ownsDevice(Device.IpadAR) ? availableString : unavailableString;
-    personProps[CSVConstants.Devices.IphoneAR] = person.ownsDevice(Device.IphoneAR)
+    studentProps[CSVConstants.Devices.Ipad] = student.ownsDevice(Device.Ipad) ? availableString : unavailableString;
+    studentProps[CSVConstants.Devices.Iphone] = student.ownsDevice(Device.Iphone) ? availableString : unavailableString;
+    studentProps[CSVConstants.Devices.Watch] = student.ownsDevice(Device.Watch) ? availableString : unavailableString;
+    studentProps[CSVConstants.Devices.Mac] = student.ownsDevice(Device.Mac) ? availableString : unavailableString;
+    studentProps[CSVConstants.Devices.IpadAR] = student.ownsDevice(Device.IpadAR) ? availableString : unavailableString;
+    studentProps[CSVConstants.Devices.IphoneAR] = student.ownsDevice(Device.IphoneAR)
       ? availableString
       : unavailableString;
   }

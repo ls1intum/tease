@@ -4,31 +4,28 @@ import { Device } from '../../models/device';
 import { StringHelper } from '../../helpers/string.helper';
 import { Skill, SkillLevel } from '../../models/skill';
 import { Team } from '../../models/team';
-/**
- * Created by Malte Bucksch on 01/12/2016.
- */
 
 export abstract class StudentParser {
   static parsePersons(teamCsvData: Array<any>): [Student[], Team[]] {
     const teams: Team[] = [];
 
-    const persons = teamCsvData
-      .map((personProps: Array<any>) => this.parsePerson(teams, personProps))
-      .filter(person => person !== null);
+    const students = teamCsvData
+      .map((studentProps: Array<any>) => this.parsePerson(teams, studentProps))
+      .filter(student => student !== null);
 
-    return [persons, teams];
+    return [students, teams];
   }
 
-  private static parseTeamPriorities(teams: Team[], person: Student, personProps: Array<any>) {
+  private static parseTeamPriorities(teams: Team[], student: Student, studentProps: Array<any>) {
     for (let priority = 1; ; priority++) {
       const columnName = StringHelper.format(CSVConstants.Team.Priority, priority);
 
-      if (!personProps[columnName]) {
+      if (!studentProps[columnName]) {
         break;
       }
 
-      const team = this.getOrCreateTeam(teams, personProps[columnName]);
-      person.teamPriorities.push(team);
+      const team = this.getOrCreateTeam(teams, studentProps[columnName]);
+      student.teamPriorities.push(team);
     }
   }
 
@@ -46,56 +43,56 @@ export abstract class StudentParser {
     }
   }
 
-  static parsePerson(teams: Team[], personProps: any): Student {
-    const person = new Student();
+  static parsePerson(teams: Team[], studentProps: any): Student {
+    const student = new Student();
 
-    person.firstName = personProps[CSVConstants.Person.FirstName];
-    person.lastName = personProps[CSVConstants.Person.LastName];
-    person.email = personProps[CSVConstants.Person.Email];
-    person.studentId = personProps[CSVConstants.Person.StudentId];
-    person.gender = this.parseGender(personProps[CSVConstants.Person.Gender]);
-    person.nationality = personProps[CSVConstants.Person.Nationality];
-    person.studyProgram = personProps[CSVConstants.Person.StudyProgram];
-    person.semester = personProps[CSVConstants.Person.Semester];
-    person.germanLanguageLevel = personProps[CSVConstants.Person.GermanLanguageLevel];
-    person.englishLanguageLevel = personProps[CSVConstants.Person.EnglishLanguageLevel];
-    person.introSelfAssessment = this.parseSelfAssessment(personProps[CSVConstants.Person.IntroSelfAssessment]);
-    this.parsePersonDevices(person, personProps);
-    this.parsePersonSkills(person, personProps);
-    person.studentComments = personProps[CSVConstants.Person.StudentComments];
-    person.supervisorAssessment = this.parseSkillLevel(personProps[CSVConstants.Person.SupervisorAssessment]);
-    person.tutorComments = personProps[CSVConstants.Person.TutorComments];
-    if (personProps.hasOwnProperty(CSVConstants.Person.IsPinned))
-      person.isPinned = personProps[CSVConstants.Person.IsPinned] === 'true';
+    student.firstName = studentProps[CSVConstants.Person.FirstName];
+    student.lastName = studentProps[CSVConstants.Person.LastName];
+    student.email = studentProps[CSVConstants.Person.Email];
+    student.studentId = studentProps[CSVConstants.Person.StudentId];
+    student.gender = this.parseGender(studentProps[CSVConstants.Person.Gender]);
+    student.nationality = studentProps[CSVConstants.Person.Nationality];
+    student.studyProgram = studentProps[CSVConstants.Person.StudyProgram];
+    student.semester = studentProps[CSVConstants.Person.Semester];
+    student.germanLanguageLevel = studentProps[CSVConstants.Person.GermanLanguageLevel];
+    student.englishLanguageLevel = studentProps[CSVConstants.Person.EnglishLanguageLevel];
+    student.introSelfAssessment = this.parseSelfAssessment(studentProps[CSVConstants.Person.IntroSelfAssessment]);
+    this.parsePersonDevices(student, studentProps);
+    this.parsePersonSkills(student, studentProps);
+    student.studentComments = studentProps[CSVConstants.Person.StudentComments];
+    student.supervisorAssessment = this.parseSkillLevel(studentProps[CSVConstants.Person.SupervisorAssessment]);
+    student.tutorComments = studentProps[CSVConstants.Person.TutorComments];
+    if (studentProps.hasOwnProperty(CSVConstants.Person.IsPinned))
+      student.isPinned = studentProps[CSVConstants.Person.IsPinned] === 'true';
 
-    this.parseTeamPriorities(teams, person, personProps);
+    this.parseTeamPriorities(teams, student, studentProps);
 
-    if (person.studentId === undefined || person.studentId.length === 0) {
-      console.log('No studentId for person found. Cannot import.');
+    if (student.studentId === undefined || student.studentId.length === 0) {
+      console.log('No studentId for student found. Cannot import.');
       return null;
     }
 
-    person.team = this.getOrCreateTeam(teams, personProps[CSVConstants.Team.TeamName]);
+    student.team = this.getOrCreateTeam(teams, studentProps[CSVConstants.Team.TeamName]);
 
-    if (person.team) person.team.persons.push(person);
+    if (student.team) student.team.persons.push(student);
 
-    return person;
+    return student;
   }
 
-  private static parsePersonSkills(person: Student, personProps: Array<any>) {
+  private static parsePersonSkills(student: Student, studentProps: Array<any>) {
     for (const [skillName, skillAbbreviation] of CSVConstants.Skills.SkillNameAbbreviationPairs) {
-      // const skillDescriptionString = personProps[skillAbbreviation + CSVConstants.Skills.DescriptionPostfix]
+      // const skillDescriptionString = studentProps[skillAbbreviation + CSVConstants.Skills.DescriptionPostfix]
 
-      const skillLevelString = personProps[skillAbbreviation + CSVConstants.Skills.SkillLevelPostfix];
+      const skillLevelString = studentProps[skillAbbreviation + CSVConstants.Skills.SkillLevelPostfix];
 
-      const skillLevelRationaleString = personProps[skillAbbreviation + CSVConstants.Skills.SkillLevelRationalePostfix];
+      const skillLevelRationaleString = studentProps[skillAbbreviation + CSVConstants.Skills.SkillLevelRationalePostfix];
 
       if (!(skillLevelString)) continue;
 
       let skillLevel: SkillLevel = StudentParser.parseSkillLevel(skillLevelString);
 
       // TODO: retrieve the skill description from the appropriate CSV column
-      person.skills.push(
+      student.skills.push(
         new Skill(skillName, "placeholder: skill description", skillLevel, skillLevelRationaleString ? skillLevelRationaleString : '')
       );
     }
@@ -128,28 +125,28 @@ export abstract class StudentParser {
     return Gender.Male;
   }
 
-  private static parsePersonDevices(person: Student, personProps: Array<any>) {
+  private static parsePersonDevices(student: Student, studentProps: Array<any>) {
     const available = CSVConstants.DeviceAvailableBooleanValue.Available;
 
-    if (personProps[CSVConstants.Devices.Ipad] === available) person.addDevice(Device.Ipad);
-    if (personProps[CSVConstants.Devices.Mac] === available) person.addDevice(Device.Mac);
-    if (personProps[CSVConstants.Devices.Watch] === available) person.addDevice(Device.Watch);
-    if (personProps[CSVConstants.Devices.Iphone] === available) person.addDevice(Device.Iphone);
-    if (personProps[CSVConstants.Devices.IphoneAR] === available) person.addDevice(Device.IphoneAR);
-    if (personProps[CSVConstants.Devices.IpadAR] === available) person.addDevice(Device.IpadAR);
+    if (studentProps[CSVConstants.Devices.Ipad] === available) student.addDevice(Device.Ipad);
+    if (studentProps[CSVConstants.Devices.Mac] === available) student.addDevice(Device.Mac);
+    if (studentProps[CSVConstants.Devices.Watch] === available) student.addDevice(Device.Watch);
+    if (studentProps[CSVConstants.Devices.Iphone] === available) student.addDevice(Device.Iphone);
+    if (studentProps[CSVConstants.Devices.IphoneAR] === available) student.addDevice(Device.IphoneAR);
+    if (studentProps[CSVConstants.Devices.IpadAR] === available) student.addDevice(Device.IpadAR);
   }
 
-  private static parseArray(columnArrayName: string, personProps: Array<any>): { [element: string]: string } {
+  private static parseArray(columnArrayName: string, studentProps: Array<any>): { [element: string]: string } {
     const array: { [element: string]: string } = {};
 
-    for (const key in personProps) {
+    for (const key in studentProps) {
       if (key.startsWith(columnArrayName)) {
         const arrayElement = StringHelper.getStringBetween(
           key,
           CSVConstants.ArrayBraces.Open,
           CSVConstants.ArrayBraces.Close
         );
-        array[arrayElement] = personProps[key];
+        array[arrayElement] = studentProps[key];
       }
     }
 
