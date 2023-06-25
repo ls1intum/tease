@@ -51,7 +51,7 @@
           type="radio"
           id="option-1"
           class="btn-check"
-          formControlName="personPoolDisplayModeControl"
+          formControlName="studentPoolDisplayModeControl"
           [value]="StudentPoolDisplayMode.Closed"
         />
         <label class="btn btn-secondary" for="option-1">
@@ -61,7 +61,7 @@
           type="radio"
           id="option-2"
           class="btn-check"
-          formControlName="personPoolDisplayModeControl"
+          formControlName="studentPoolDisplayModeControl"
           checked="true"
           [value]="StudentPoolDisplayMode.OneRow"
         />
@@ -72,7 +72,7 @@
           type="radio"
           id="option-3"
           class="btn-check"
-          formControlName="personPoolDisplayModeControl"
+          formControlName="studentPoolDisplayModeControl"
           [value]="StudentPoolDisplayMode.TwoRows"
         />
         <label class="btn btn-secondary" for="option-3">
@@ -82,7 +82,7 @@
           type="radio"
           id="option-4"
           class="btn-check"
-          formControlName="personPoolDisplayModeControl"
+          formControlName="studentPoolDisplayModeControl"
           [value]="StudentPoolDisplayMode.Full"
         />
         <label class="btn btn-secondary" for="option-4">
@@ -92,16 +92,16 @@
     </form>
   </div>
 
-  <!-- person pool statistics -->
+  <!-- student pool statistics -->
   <app-student-pool-statistics *ngIf="statisticsVisible"></app-student-pool-statistics>
 
-  <!-- person preview cards -->
+  <!-- student preview cards -->
   <div class="flex-grow flex-row position-relative">
     <div
       *ngIf="teamService.personsWithoutTeam.length == 0"
       class="position-absolute position-absolute-full-size pointer-events-none flex-row overflow-hidden">
       <div class="flex-grow empty-orphan-team-hint-box flex-row flex-center flex-justify-center">
-        <div>Drag persons here</div>
+        <div>Drag students here</div>
       </div>
     </div>
     <div
