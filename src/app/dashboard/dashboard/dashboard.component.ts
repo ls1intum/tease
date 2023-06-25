@@ -10,7 +10,7 @@ import { SkillLevel } from '../../shared/models/skill';
 import { Device } from '../../shared/models/device';
 import { FormControl, FormGroup } from '@angular/forms';
 
-enum PersonPoolDisplayMode {
+enum StudentPoolDisplayMode {
   Closed,
   OneRow,
   TwoRows,
@@ -26,15 +26,15 @@ export class DashboardComponent implements OnInit {
   @Output() onImportPressed = new EventEmitter();
   @Input() onTeamStatisticsButtonPressed;
 
-  personPoolDisplayMode: PersonPoolDisplayMode = PersonPoolDisplayMode.OneRow;
+  studentPoolDisplayMode: StudentPoolDisplayMode = StudentPoolDisplayMode.OneRow;
   statisticsVisible = false;
 
-  PersonPoolDisplayMode = PersonPoolDisplayMode;
+  StudentPoolDisplayMode = StudentPoolDisplayMode;
   SkillLevel = SkillLevel;
   Device = Device;
 
-  personPoolDisplayModeFormGroup = new FormGroup({
-    personPoolDisplayModeControl: new FormControl(PersonPoolDisplayMode.OneRow),
+  studentPoolDisplayModeFormGroup = new FormGroup({
+    studentPoolDisplayModeControl: new FormControl(StudentPoolDisplayMode.OneRow),
   });
 
   constructor(
@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit {
   }
 
   personPoolDisplayModeUpdated() {
-    this.personPoolDisplayMode = this.personPoolDisplayModeFormGroup.value.personPoolDisplayModeControl;
+    this.studentPoolDisplayMode = this.studentPoolDisplayModeFormGroup.value.studentPoolDisplayModeControl;
     this.onPersonPoolDisplayModeChange()
   }
 
@@ -70,25 +70,25 @@ export class DashboardComponent implements OnInit {
     this.teamService.readFromBrowserStorage();
   }
 
-  getPersonPoolDisplayModeCSSClass(value: PersonPoolDisplayMode): string {
-    const modeString = (Object.values(PersonPoolDisplayMode)[value] as string).toLowerCase()
+  getPersonPoolDisplayModeCSSClass(value: StudentPoolDisplayMode): string {
+    const modeString = (Object.values(StudentPoolDisplayMode)[value] as string).toLowerCase()
     return 'person-pool-display-mode-' + modeString
   }
 
-  public showPersonDetails(person: Student) {
+  public showPersonDetails(student: Student) {
     this.overlayService.closeOverlay();
 
-    if (!person) {
+    if (!student) {
       return;
     }
 
-    const indexOfPerson = this.teamService.personsWithoutTeam.indexOf(person);
+    const indexOfStudent = this.teamService.personsWithoutTeam.indexOf(student);
 
     this.overlayService.displayComponent(StudentDetailOverlayComponent, {
-      person: person,
+      student: student,
       onClose: () => this.teamService.saveToLocalBrowserStorage(),
-      onNextPersonClicked: () => this.showPersonDetails(this.teamService.personsWithoutTeam[indexOfPerson + 1]),
-      onPreviousPersonClicked: () => this.showPersonDetails(this.teamService.personsWithoutTeam[indexOfPerson - 1]),
+      onNextPersonClicked: () => this.showPersonDetails(this.teamService.personsWithoutTeam[indexOfStudent + 1]),
+      onPreviousPersonClicked: () => this.showPersonDetails(this.teamService.personsWithoutTeam[indexOfStudent - 1]),
       onPersonClicked: clickedPerson => this.showPersonDetails(clickedPerson),
     });
   }
@@ -108,22 +108,22 @@ export class DashboardComponent implements OnInit {
   togglePersonPoolStatistics() {
     this.statisticsVisible = !this.statisticsVisible;
     if (this.statisticsVisible) {
-      this.personPoolDisplayMode = PersonPoolDisplayMode.Full;
+      this.studentPoolDisplayMode = StudentPoolDisplayMode.Full;
 
       // make sure the value of the radio button form is updated accordingly as well
-      this.personPoolDisplayModeFormGroup.setValue({ personPoolDisplayModeControl: PersonPoolDisplayMode.Full})
+      this.studentPoolDisplayModeFormGroup.setValue({ studentPoolDisplayModeControl: StudentPoolDisplayMode.Full})
     }
   }
 
   onPersonPoolDisplayModeChange() {
-    if (this.personPoolDisplayMode !== PersonPoolDisplayMode.Full && this.statisticsVisible)
+    if (this.studentPoolDisplayMode !== StudentPoolDisplayMode.Full && this.statisticsVisible)
       this.togglePersonPoolStatistics();
   }
 
   /**
-  * Infers a team based on an array of members of a team, assumes any given person picked
-  * from the array has the correct team set with the exception of the person passed to the function
-  * This is a workaround for the fact that a person dropped into a new team will still have the team set
+  * Infers a team based on an array of members of a team, assumes any given student picked
+  * from the array has the correct team set with the exception of the student passed to the function
+  * This is a workaround for the fact that a student dropped into a new team will still have the team set
   * that they were dragged out/removed from
   * @param {Array<Student>} members The students currently in the team (including the student that was just added)
   * @param {Student} added The student that was just added to the team and has the wrong team set

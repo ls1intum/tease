@@ -20,7 +20,7 @@
 <div
   *ngIf="isDataLoaded()"
   class="person-pool flex-column overflow-hidden"
-  [ngClass]="getPersonPoolDisplayModeCSSClass(personPoolDisplayMode)">
+  [ngClass]="getPersonPoolDisplayModeCSSClass(studentPoolDisplayMode)">
   <!-- title and buttons -->
   <div class="flex-row flex-center person-pool-title-bar flex-no-shrink">
     <div class="person-pool-label flex-no-shrink">Person Pool</div>
@@ -45,14 +45,14 @@
         <div>Distribute With Constraints</div>
       </div>
     </button>
-    <form [formGroup]="personPoolDisplayModeFormGroup" (change)="personPoolDisplayModeUpdated()">
+    <form [formGroup]="studentPoolDisplayModeFormGroup" (change)="personPoolDisplayModeUpdated()">
       <div class="btn-group">
         <input mdbRadio
           type="radio"
           id="option-1"
           class="btn-check"
           formControlName="personPoolDisplayModeControl"
-          [value]="PersonPoolDisplayMode.Closed"
+          [value]="StudentPoolDisplayMode.Closed"
         />
         <label class="btn btn-secondary" for="option-1">
           <img src="/assets/images/person-pool-closed.svg" class="person-pool-size-icon" />
@@ -63,7 +63,7 @@
           class="btn-check"
           formControlName="personPoolDisplayModeControl"
           checked="true"
-          [value]="PersonPoolDisplayMode.OneRow"
+          [value]="StudentPoolDisplayMode.OneRow"
         />
         <label class="btn btn-secondary" for="option-2">
           <img src="/assets/images/person-pool-one-row.svg" class="person-pool-size-icon" />
@@ -73,7 +73,7 @@
           id="option-3"
           class="btn-check"
           formControlName="personPoolDisplayModeControl"
-          [value]="PersonPoolDisplayMode.TwoRows"
+          [value]="StudentPoolDisplayMode.TwoRows"
         />
         <label class="btn btn-secondary" for="option-3">
           <img src="/assets/images/person-pool-two-rows.svg" class="person-pool-size-icon" />
@@ -83,7 +83,7 @@
           id="option-4"
           class="btn-check"
           formControlName="personPoolDisplayModeControl"
-          [value]="PersonPoolDisplayMode.Full"
+          [value]="StudentPoolDisplayMode.Full"
         />
         <label class="btn btn-secondary" for="option-4">
           <img src="/assets/images/person-pool-full.svg" class="person-pool-size-icon" />
