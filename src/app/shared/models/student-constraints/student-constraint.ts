@@ -1,6 +1,6 @@
 import { Student } from '../student';
 
-export abstract class PersonConstraint {
+export abstract class StudentConstraint {
   abstract isFullfilledFor(person: Student): boolean;
-  abstract copy(): PersonConstraint;
+  abstract copy(): StudentConstraint;
 }

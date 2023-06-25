@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { TeamHelper } from '../../../helpers/team.helper';
 import { ConstraintService } from '../constraint.service';
 import { MacDeviceConstraint } from '../../../models/constraints/mac-device.constraint';
-import { FemalePersonConstraint } from '../../../models/constraints/female-person.constraint';
+import { FemaleStudentConstraint } from '../../../models/constraints/female-student.constraint';
 import { IosDeviceConstraint } from '../../../models/constraints/ios-device.constraint';
 import { TeamSizeConstraint } from '../../../models/constraints/team-size.constraint';
 import { Device } from '../../../models/device';
@@ -152,7 +152,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
   }
 
   private generateFemalePersonConstraints(
-    constraint: FemalePersonConstraint,
+    constraint: FemaleStudentConstraint,
     teamIndex: number,
     persons: Student[]
   ): string[] {
@@ -338,7 +338,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
             if (constraint instanceof TeamSizeConstraint) {
               cs = this.generateTeamSizeConstraints(constraint, teamIndex, persons);
             }
-            if (constraint instanceof FemalePersonConstraint) {
+            if (constraint instanceof FemaleStudentConstraint) {
               cs = this.generateFemalePersonConstraints(constraint, teamIndex, persons);
             }
 

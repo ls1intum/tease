@@ -1,4 +1,4 @@
-import { StudentSerializer } from '../layers/data-access-layer/person-serializer';
+import { StudentSerializer } from '../layers/data-access-layer/student-serializer';
 import { CSVConstants } from '../constants/csv.constants';
 /**
  * Created by Malte Bucksch on 09/12/2016.

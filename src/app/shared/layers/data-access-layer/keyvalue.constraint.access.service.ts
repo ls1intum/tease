@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Constraint } from '../../models/constraints/constraint';
 import { ConstraintAccessService } from './constraint.access.service';
-import { FemalePersonConstraint } from '../../models/constraints/female-person.constraint';
+import { FemaleStudentConstraint } from '../../models/constraints/female-student.constraint';
 import { TeamSizeConstraint } from '../../models/constraints/team-size.constraint';
 import { IosDeviceConstraint } from '../../models/constraints/ios-device.constraint';
 import { MacDeviceConstraint } from '../../models/constraints/mac-device.constraint';
@@ -32,7 +32,7 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
   private static readonly ConstraintDefinitionArray = [
     { classDefinition: MacDeviceConstraint, storageKey: KeyValueConstraintAccessService.KeyMacDeviceConstraint },
     { classDefinition: IosDeviceConstraint, storageKey: KeyValueConstraintAccessService.KeyIosDeviceConstraint },
-    { classDefinition: FemalePersonConstraint, storageKey: KeyValueConstraintAccessService.KeyFemalePersonConstraint },
+    { classDefinition: FemaleStudentConstraint, storageKey: KeyValueConstraintAccessService.KeyFemalePersonConstraint },
     { classDefinition: TeamSizeConstraint, storageKey: KeyValueConstraintAccessService.KeyTeamSizeConstraint },
     { classDefinition: SkillExpertConstraint, storageKey: KeyValueConstraintAccessService.KeySkillExpertConstraint },
     {

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { OverlayComponent, OverlayService } from '../../overlay.service';
 import { StudentConstraintService } from '../../shared/layers/business-logic-layer/student-constraint.service';
-import { InstructorRatingPersonConstraint } from '../../shared/models/person-constraints/instructor-rating-person-constraint';
-import { PersonConstraint } from '../../shared/models/person-constraints/person-constraint';
+import { InstructorRatingStudentConstraint } from '../../shared/models/student-constraints/instructor-rating-student-constraint';
+import { StudentConstraint } from '../../shared/models/student-constraints/student-constraint';
 import { Skill, SkillLevel } from '../../shared/models/skill';
-import { ExperiencePersonConstraint } from '../../shared/models/person-constraints/experience-person-constraint';
-import { GenderPersonConstraint } from '../../shared/models/person-constraints/gender-person-constraint';
-import { DevicePossessionPersonConstraint } from '../../shared/models/person-constraints/device-possession-person-constraint';
+import { ExperienceStudentConstraint } from '../../shared/models/student-constraints/experience-student-constraint';
+import { GenderStudentConstraint } from '../../shared/models/student-constraints/gender-student-constraint';
+import { DevicePossessionStudentConstraint } from '../../shared/models/student-constraints/device-possession-student-constraint';
 import { CSVConstants } from '../../shared/constants/csv.constants';
 import { Gender } from '../../shared/models/student';
 import { Device } from '../../shared/models/device';
@@ -23,13 +23,13 @@ export class StudentHighlightingOverlayComponent implements OnInit, OverlayCompo
   CSVConstants = CSVConstants;
   Gender = Gender;
   Device = Device;
-  InstructorRatingPersonConstraint = InstructorRatingPersonConstraint;
-  ExperiencePersonConstraint = ExperiencePersonConstraint;
-  DevicePossessionPersonConstraint = DevicePossessionPersonConstraint;
-  GenderPersonConstraint = GenderPersonConstraint;
+  InstructorRatingPersonConstraint = InstructorRatingStudentConstraint;
+  ExperiencePersonConstraint = ExperienceStudentConstraint;
+  DevicePossessionPersonConstraint = DevicePossessionStudentConstraint;
+  GenderPersonConstraint = GenderStudentConstraint;
 
   skillNames = CSVConstants.Skills.SkillNameAbbreviationPairs.map(pair => pair[0]);
-  personConstraintsCopy: PersonConstraint[] = StudentConstraintService.personConstraints.map(c => c.copy());
+  personConstraintsCopy: StudentConstraint[] = StudentConstraintService.personConstraints.map(c => c.copy());
 
   public data: any;
   console = console;
@@ -46,24 +46,24 @@ export class StudentHighlightingOverlayComponent implements OnInit, OverlayCompo
   }
 
   addInstructorRatingConstraint() {
-    this.personConstraintsCopy.push(new InstructorRatingPersonConstraint());
+    this.personConstraintsCopy.push(new InstructorRatingStudentConstraint());
   }
 
   addExperienceConstraint() {
-    const newConstraint = new ExperiencePersonConstraint();
+    const newConstraint = new ExperienceStudentConstraint();
     newConstraint.skillName = this.skillNames[0];
     this.personConstraintsCopy.push(newConstraint);
   }
 
   addGenderConstraint() {
-    this.personConstraintsCopy.push(new GenderPersonConstraint());
+    this.personConstraintsCopy.push(new GenderStudentConstraint());
   }
 
   addDeviceConstraint() {
-    this.personConstraintsCopy.push(new DevicePossessionPersonConstraint());
+    this.personConstraintsCopy.push(new DevicePossessionStudentConstraint());
   }
 
-  removeConstraint(constraint: PersonConstraint) {
+  removeConstraint(constraint: StudentConstraint) {
     this.personConstraintsCopy = this.personConstraintsCopy.filter(c => c !== constraint);
   }
 }

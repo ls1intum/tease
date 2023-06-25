@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentConstraintService } from '../shared/layers/business-logic-layer/student-constraint.service';
-import { InstructorRatingPersonConstraint } from '../shared/models/person-constraints/instructor-rating-person-constraint';
-import { DevicePossessionPersonConstraint } from '../shared/models/person-constraints/device-possession-person-constraint';
+import { InstructorRatingStudentConstraint } from '../shared/models/student-constraints/instructor-rating-student-constraint';
+import { DevicePossessionStudentConstraint } from '../shared/models/student-constraints/device-possession-student-constraint';
 import { Skill, SkillLevel } from '../shared/models/skill';
 import { CSVConstants } from '../shared/constants/csv.constants';
-import { ExperiencePersonConstraint } from '../shared/models/person-constraints/experience-person-constraint';
+import { ExperienceStudentConstraint } from '../shared/models/student-constraints/experience-student-constraint';
 import { Device } from '../shared/models/device';
-import { GenderPersonConstraint } from '../shared/models/person-constraints/gender-person-constraint';
+import { GenderStudentConstraint } from '../shared/models/student-constraints/gender-student-constraint';
 import { Gender } from '../shared/models/student';
 import { StudentHighlightingOverlayComponent } from '../dashboard/student-highlighting-overlay/student-highlighting-overlay.component';
 import { OverlayService } from '../overlay.service';
-import { PersonConstraint } from '../shared/models/person-constraints/person-constraint';
+import { StudentConstraint } from '../shared/models/student-constraints/student-constraint';
 
 @Component({
   selector: 'app-highlighting-toolbar',
@@ -25,10 +25,10 @@ export class HighlightingToolbarComponent implements OnInit {
   CSVConstants = CSVConstants;
   Gender = Gender;
   Device = Device;
-  InstructorRatingPersonConstraint = InstructorRatingPersonConstraint;
-  ExperiencePersonConstraint = ExperiencePersonConstraint;
-  DevicePossessionPersonConstraint = DevicePossessionPersonConstraint;
-  GenderPersonConstraint = GenderPersonConstraint;
+  InstructorRatingPersonConstraint = InstructorRatingStudentConstraint;
+  ExperiencePersonConstraint = ExperienceStudentConstraint;
+  DevicePossessionPersonConstraint = DevicePossessionStudentConstraint;
+  GenderPersonConstraint = GenderStudentConstraint;
 
   constructor(private overlayService: OverlayService) {}
 
@@ -43,7 +43,7 @@ export class HighlightingToolbarComponent implements OnInit {
     return pair ? pair[1] : skillName;
   }
 
-  removeConstraint(personConstraint: PersonConstraint) {
+  removeConstraint(personConstraint: StudentConstraint) {
     StudentConstraintService.personConstraints = StudentConstraintService.personConstraints.filter(
       c => c !== personConstraint
     );

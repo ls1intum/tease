@@ -1,7 +1,7 @@
 import { Student } from '../../models/student';
 import { Team } from '../../models/team';
 import * as Papa from 'papaparse';
-import { StudentSerializer } from './person-serializer';
+import { StudentSerializer } from './student-serializer';
 import { StudentParser } from './student-parser';
 
 export class CSVStudentDataAccessService {

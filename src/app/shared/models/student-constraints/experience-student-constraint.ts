@@ -1,13 +1,13 @@
-import { PersonConstraint } from './person-constraint';
+import { StudentConstraint } from './student-constraint';
 import { Student } from '../student';
 import { SkillLevel } from '../skill';
 
-export class ExperiencePersonConstraint extends PersonConstraint {
+export class ExperienceStudentConstraint extends StudentConstraint {
   minimumExperience: SkillLevel = SkillLevel.Low;
   skillName: string;
 
-  static getTyped(constraint: PersonConstraint): ExperiencePersonConstraint {
-    if (constraint instanceof ExperiencePersonConstraint) return constraint;
+  static getTyped(constraint: StudentConstraint): ExperienceStudentConstraint {
+    if (constraint instanceof ExperienceStudentConstraint) return constraint;
     return null;
   }
 
@@ -19,8 +19,8 @@ export class ExperiencePersonConstraint extends PersonConstraint {
     return skill.skillLevel >= this.minimumExperience;
   }
 
-  copy(): PersonConstraint {
-    const newConstraint = new ExperiencePersonConstraint();
+  copy(): StudentConstraint {
+    const newConstraint = new ExperienceStudentConstraint();
     newConstraint.minimumExperience = this.minimumExperience;
     newConstraint.skillName = this.skillName;
     return newConstraint;
