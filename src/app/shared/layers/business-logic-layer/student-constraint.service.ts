@@ -2,9 +2,9 @@ import { StudentConstraint } from '../../models/student-constraints/student-cons
 import { Student } from '../../models/student';
 
 export class StudentConstraintService {
-  static personConstraints: StudentConstraint[] = [];
+  static studentConstraints: StudentConstraint[] = [];
 
-  static matchesConstraints(person: Student) {
-    return this.personConstraints.reduce((acc, constraint) => acc && constraint.isFullfilledFor(person), true);
+  static matchesConstraints(student: Student) {
+    return this.studentConstraints.reduce((acc, constraint) => acc && constraint.isFullfilledFor(student), true);
   }
 }

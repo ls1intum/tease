@@ -57,7 +57,7 @@ paths:
 components:
   schemas:
     Student:
-      description: A person enrolled in the iPraktikum course at TUM
+      description: A student enrolled in the iPraktikum course at TUM
       type: object
       properties:
         firstName:

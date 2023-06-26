@@ -5,28 +5,28 @@ import { Device } from '../../models/device';
 import { SkillLevel } from '../../models/skill';
 
 export class StudentSerializer {
-  static serializePerson(student: Student): any {
+  static serializeStudent(student: Student): any {
     const studentProps = {};
 
     /* specified entries */
-    studentProps[CSVConstants.Person.FirstName] = student.firstName;
-    studentProps[CSVConstants.Person.LastName] = student.lastName;
-    studentProps[CSVConstants.Person.Email] = student.email;
-    studentProps[CSVConstants.Person.StudentId] = student.studentId;
-    studentProps[CSVConstants.Person.Gender] = this.serializeGender(student.gender);
-    studentProps[CSVConstants.Person.Nationality] = student.nationality;
-    studentProps[CSVConstants.Person.StudyProgram] = student.studyProgram;
-    studentProps[CSVConstants.Person.Semester] = student.semester;
-    studentProps[CSVConstants.Person.GermanLanguageLevel] = student.germanLanguageLevel;
-    studentProps[CSVConstants.Person.EnglishLanguageLevel] = student.englishLanguageLevel;
-    studentProps[CSVConstants.Person.IntroSelfAssessment] = this.serializeSelfAssessment(student.introSelfAssessment);
-    this.serializePersonDevices(student, studentProps);
+    studentProps[CSVConstants.Student.FirstName] = student.firstName;
+    studentProps[CSVConstants.Student.LastName] = student.lastName;
+    studentProps[CSVConstants.Student.Email] = student.email;
+    studentProps[CSVConstants.Student.StudentId] = student.studentId;
+    studentProps[CSVConstants.Student.Gender] = this.serializeGender(student.gender);
+    studentProps[CSVConstants.Student.Nationality] = student.nationality;
+    studentProps[CSVConstants.Student.StudyProgram] = student.studyProgram;
+    studentProps[CSVConstants.Student.Semester] = student.semester;
+    studentProps[CSVConstants.Student.GermanLanguageLevel] = student.germanLanguageLevel;
+    studentProps[CSVConstants.Student.EnglishLanguageLevel] = student.englishLanguageLevel;
+    studentProps[CSVConstants.Student.IntroSelfAssessment] = this.serializeSelfAssessment(student.introSelfAssessment);
+    this.serializeStudentDevices(student, studentProps);
     this.serializeSkills(student, studentProps);
     this.serializePriorities(student, studentProps);
-    studentProps[CSVConstants.Person.StudentComments] = student.studentComments;
-    studentProps[CSVConstants.Person.SupervisorAssessment] = this.serializeSkillLevel(student.supervisorAssessment);
-    studentProps[CSVConstants.Person.TutorComments] = student.tutorComments;
-    studentProps[CSVConstants.Person.IsPinned] = String(student.isPinned);
+    studentProps[CSVConstants.Student.StudentComments] = student.studentComments;
+    studentProps[CSVConstants.Student.SupervisorAssessment] = this.serializeSkillLevel(student.supervisorAssessment);
+    studentProps[CSVConstants.Student.TutorComments] = student.tutorComments;
+    studentProps[CSVConstants.Student.IsPinned] = String(student.isPinned);
 
     studentProps[CSVConstants.Team.TeamName] = student.team ? student.team.name : '';
 
@@ -83,19 +83,19 @@ export class StudentSerializer {
   static serializeSelfAssessment(skillLevel: SkillLevel): string {
     switch (skillLevel) {
       case SkillLevel.VeryHigh:
-        return CSVConstants.Person.IntroSelfAssessmentAnswers.VeryHigh;
+        return CSVConstants.Student.IntroSelfAssessmentAnswers.VeryHigh;
       case SkillLevel.High:
-        return CSVConstants.Person.IntroSelfAssessmentAnswers.VeryHigh;
+        return CSVConstants.Student.IntroSelfAssessmentAnswers.VeryHigh;
       case SkillLevel.Medium:
-        return CSVConstants.Person.IntroSelfAssessmentAnswers.Medium;
+        return CSVConstants.Student.IntroSelfAssessmentAnswers.Medium;
       case SkillLevel.Low:
-        return CSVConstants.Person.IntroSelfAssessmentAnswers.Low;
+        return CSVConstants.Student.IntroSelfAssessmentAnswers.Low;
       case SkillLevel.None:
-        return CSVConstants.Person.IntroSelfAssessmentAnswers.None;
+        return CSVConstants.Student.IntroSelfAssessmentAnswers.None;
     }
   }
 
-  private static serializePersonDevices(student: Student, studentProps: object) {
+  private static serializeStudentDevices(student: Student, studentProps: object) {
     const unavailableString = CSVConstants.DeviceAvailableBooleanValue.Unavailable;
     const availableString = CSVConstants.DeviceAvailableBooleanValue.Available;
 

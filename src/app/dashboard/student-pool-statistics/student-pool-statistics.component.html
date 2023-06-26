@@ -28,7 +28,7 @@
         [style.background-color]="getColorOfTeamDistributionBar(i)"
         [style.display]="priorityDistributionStatistics.get(team)[i] === 0 ? 'none' : null">
         <div class="statistics-priority-index-label">{{ i + 1 }}</div>
-        <div class="statistics-bar-person-count">{{ priorityDistributionStatistics.get(team)[i] }} P.</div>
+        <div class="statistics-bar-student-count">{{ priorityDistributionStatistics.get(team)[i] }} P.</div>
         <!--div class="priority-bar-text-overflow-cover" [style.background]="'linear-gradient(to right, rgba(0,0,0,0), ' + getColorOfTeamDistributionBar(i) + ')'"></div-->
       </div>
     </div>
@@ -70,13 +70,13 @@
               {{ Skill.getLabelForSkillLevel(skillLevel) }}
             </div>
           </div>
-          <div class="flex-neutral-grow">{{ getNumberOfPersonsWithSupervisorRating(skillLevel) }}</div>
+          <div class="flex-neutral-grow">{{ getNumberOfStudentsWithSupervisorRating(skillLevel) }}</div>
           <div class="flex-neutral-grow">
-            {{ Math.round((getNumberOfPersonsWithSupervisorRating(skillLevel) * 1000) / getNumberOfPersons()) / 10 }}%
+            {{ Math.round((getNumberOfStudentsWithSupervisorRating(skillLevel) * 1000) / getNumberOfStudents()) / 10 }}%
           </div>
           <div class="flex-neutral-grow">
             {{
-              Math.round((getNumberOfPersonsWithSupervisorRating(skillLevel) * 100) / teamService.teams.length) / 100
+              Math.round((getNumberOfStudentsWithSupervisorRating(skillLevel) * 100) / teamService.teams.length) / 100
             }}
           </div>
         </div>
@@ -95,43 +95,43 @@
 
         <!-- iOS Devices -->
         <div class="flex-row flex-center">
-          <div class="flex-neutral-grow flex-no-shrink statistics-general-header">Persons iDevice</div>
+          <div class="flex-neutral-grow flex-no-shrink statistics-general-header">Students iDevice</div>
           <div class="flex-neutral-grow">
-            {{ getTotalNumberOfPersonsWithIOSDevice() }}
+            {{ getTotalNumberOfStudentsWithIOSDevice() }}
           </div>
           <div class="flex-neutral-grow">
-            {{ Math.round((getTotalNumberOfPersonsWithIOSDevice() * 1000) / getNumberOfPersons()) / 10 }}%
+            {{ Math.round((getTotalNumberOfStudentsWithIOSDevice() * 1000) / getNumberOfStudents()) / 10 }}%
           </div>
           <div class="flex-neutral-grow">
-            {{ Math.round((getTotalNumberOfPersonsWithIOSDevice() * 100) / teamService.teams.length) / 100 }}
+            {{ Math.round((getTotalNumberOfStudentsWithIOSDevice() * 100) / teamService.teams.length) / 100 }}
           </div>
         </div>
 
         <!-- Mac Devices -->
         <div class="flex-row flex-center">
-          <div class="flex-neutral-grow flex-no-shrink statistics-general-header">Persons Mac</div>
+          <div class="flex-neutral-grow flex-no-shrink statistics-general-header">Students Mac</div>
           <div class="flex-neutral-grow">
-            {{ getTotalNumberOfPersonsWithMacDevice() }}
+            {{ getTotalNumberOfStudentsWithMacDevice() }}
           </div>
           <div class="flex-neutral-grow">
-            {{ Math.round((getTotalNumberOfPersonsWithMacDevice() * 1000) / getNumberOfPersons()) / 10 }}%
+            {{ Math.round((getTotalNumberOfStudentsWithMacDevice() * 1000) / getNumberOfStudents()) / 10 }}%
           </div>
           <div class="flex-neutral-grow">
-            {{ Math.round((getTotalNumberOfPersonsWithMacDevice() * 100) / teamService.teams.length) / 100 }}
+            {{ Math.round((getTotalNumberOfStudentsWithMacDevice() * 100) / teamService.teams.length) / 100 }}
           </div>
         </div>
 
-        <!-- Female Persons -->
+        <!-- Female Students -->
         <div class="flex-row flex-center">
           <div class="flex-neutral-grow flex-no-shrink statistics-general-header">Female</div>
           <div class="flex-neutral-grow">
-            {{ getNumberOfPersonsWithGender(Gender.Female) }}
+            {{ getNumberOfStudentsWithGender(Gender.Female) }}
           </div>
           <div class="flex-neutral-grow">
-            {{ Math.round((getNumberOfPersonsWithGender(Gender.Female) * 1000) / getNumberOfPersons()) / 10 }}%
+            {{ Math.round((getNumberOfStudentsWithGender(Gender.Female) * 1000) / getNumberOfStudents()) / 10 }}%
           </div>
           <div class="flex-neutral-grow">
-            {{ Math.round((getNumberOfPersonsWithGender(Gender.Female) * 100) / teamService.teams.length) / 100 }}
+            {{ Math.round((getNumberOfStudentsWithGender(Gender.Female) * 100) / teamService.teams.length) / 100 }}
           </div>
         </div>
       </div>

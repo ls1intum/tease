@@ -43,8 +43,8 @@ export class DashboardComponent implements OnInit {
     private overlayService: OverlayService,
   ) {
     /* save model when modified by drag & drop operation */
-    dragulaService.dropModel("persons").subscribe(({ el, target, source, sourceModel, targetModel, item }) => {
-      let student: Student = teamService.getPersonById(item.studentId);
+    dragulaService.dropModel("students").subscribe(({ el, target, source, sourceModel, targetModel, item }) => {
+      let student: Student = teamService.getStudentById(item.studentId);
       let currentTeam = student.team;
 
       if (currentTeam) {
@@ -61,35 +61,35 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  personPoolDisplayModeUpdated() {
+  studentPoolDisplayModeUpdated() {
     this.studentPoolDisplayMode = this.studentPoolDisplayModeFormGroup.value.studentPoolDisplayModeControl;
-    this.onPersonPoolDisplayModeChange()
+    this.onStudentPoolDisplayModeChange()
   }
 
   ngOnInit() {
     this.teamService.readFromBrowserStorage();
   }
 
-  getPersonPoolDisplayModeCSSClass(value: StudentPoolDisplayMode): string {
+  getStudentPoolDisplayModeCSSClass(value: StudentPoolDisplayMode): string {
     const modeString = (Object.values(StudentPoolDisplayMode)[value] as string).toLowerCase()
-    return 'person-pool-display-mode-' + modeString
+    return 'student-pool-display-mode-' + modeString
   }
 
-  public showPersonDetails(student: Student) {
+  public showStudentDetails(student: Student) {
     this.overlayService.closeOverlay();
 
     if (!student) {
       return;
     }
 
-    const indexOfStudent = this.teamService.personsWithoutTeam.indexOf(student);
+    const indexOfStudent = this.teamService.studentsWithoutTeam.indexOf(student);
 
     this.overlayService.displayComponent(StudentDetailOverlayComponent, {
       student: student,
       onClose: () => this.teamService.saveToLocalBrowserStorage(),
-      onNextPersonClicked: () => this.showPersonDetails(this.teamService.personsWithoutTeam[indexOfStudent + 1]),
-      onPreviousPersonClicked: () => this.showPersonDetails(this.teamService.personsWithoutTeam[indexOfStudent - 1]),
-      onPersonClicked: clickedPerson => this.showPersonDetails(clickedPerson),
+      onNextStudentClicked: () => this.showStudentDetails(this.teamService.studentsWithoutTeam[indexOfStudent + 1]),
+      onPreviousStudentClicked: () => this.showStudentDetails(this.teamService.studentsWithoutTeam[indexOfStudent - 1]),
+      onStudentClicked: clickedStudent => this.showStudentDetails(clickedStudent),
     });
   }
 
@@ -102,10 +102,10 @@ export class DashboardComponent implements OnInit {
   }
 
   protected areAllTeamsEmpty(): boolean {
-    return this.teamService.teams.reduce((acc, team) => acc && team.persons.length === 0, true);
+    return this.teamService.teams.reduce((acc, team) => acc && team.students.length === 0, true);
   }
 
-  togglePersonPoolStatistics() {
+  toggleStudentPoolStatistics() {
     this.statisticsVisible = !this.statisticsVisible;
     if (this.statisticsVisible) {
       this.studentPoolDisplayMode = StudentPoolDisplayMode.Full;
@@ -115,9 +115,9 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  onPersonPoolDisplayModeChange() {
+  onStudentPoolDisplayModeChange() {
     if (this.studentPoolDisplayMode !== StudentPoolDisplayMode.Full && this.statisticsVisible)
-      this.togglePersonPoolStatistics();
+      this.toggleStudentPoolStatistics();
   }
 
   /**

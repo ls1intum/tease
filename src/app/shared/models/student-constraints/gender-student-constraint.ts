@@ -11,8 +11,8 @@ export class GenderStudentConstraint extends StudentConstraint {
     return null;
   }
 
-  isFullfilledFor(person: Student): boolean {
-    return person.gender === this.gender;
+  isFullfilledFor(student: Student): boolean {
+    return student.gender === this.gender;
   }
 
   copy(): StudentConstraint {

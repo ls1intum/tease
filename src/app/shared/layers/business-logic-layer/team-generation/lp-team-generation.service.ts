@@ -60,18 +60,18 @@ export class LPTeamGenerationService implements TeamGenerationService {
   private generateMacDeviceConstraints(
     constraint: MacDeviceConstraint,
     teamIndex: number,
-    persons: Student[]
+    students: Student[]
   ): string[] {
     const minMacsPerTeam = constraint.getMinValue() || 0;
     const constraints = [];
 
     let c = '';
 
-    for (let i = 1; i <= persons.length; i++) {
-      const person = persons[i - 1];
-      if (person.devices && person.devices.length > 0) {
+    for (let i = 1; i <= students.length; i++) {
+      const student = students[i - 1];
+      if (student.devices && student.devices.length > 0) {
         // If has a mac, add him to constraint
-        const macCount = person.devices.filter(device => {
+        const macCount = student.devices.filter(device => {
           return device === Device.Mac;
         }).length;
 
@@ -95,18 +95,18 @@ export class LPTeamGenerationService implements TeamGenerationService {
   private generateIosDeviceConstraints(
     constraint: IosDeviceConstraint,
     teamIndex: number,
-    persons: Student[]
+    students: Student[]
   ): string[] {
     const minIosDevicesPerTeam = constraint.getMinValue() || 0;
     const constraints = [];
 
     let c = '';
 
-    for (let i = 1; i <= persons.length; i++) {
-      const person = persons[i - 1];
-      if (person.devices && person.devices.length > 0) {
+    for (let i = 1; i <= students.length; i++) {
+      const student = students[i - 1];
+      if (student.devices && student.devices.length > 0) {
         // If has at least one iOS Device, add him to constraint
-        const iosDevicesCount = person.devices.filter(device => {
+        const iosDevicesCount = student.devices.filter(device => {
           return [Device.Ipad, Device.Iphone, Device.IphoneAR, Device.IpadAR].includes(device);
         }).length;
 
@@ -129,14 +129,14 @@ export class LPTeamGenerationService implements TeamGenerationService {
     return constraints;
   }
 
-  private generateTeamSizeConstraints(constraint: TeamSizeConstraint, teamIndex: number, persons: Student[]): string[] {
+  private generateTeamSizeConstraints(constraint: TeamSizeConstraint, teamIndex: number, students: Student[]): string[] {
     const minPeoplePerTeam = constraint.getMinValue() || 0;
-    const maxPeoplePerTeam = constraint.getMaxValue() || persons.length;
+    const maxPeoplePerTeam = constraint.getMaxValue() || students.length;
     const constraints = [];
 
     let c = '';
 
-    for (let i = 1; i <= persons.length; i++) {
+    for (let i = 1; i <= students.length; i++) {
       if (c) {
         c += ' + ';
       }
@@ -151,18 +151,18 @@ export class LPTeamGenerationService implements TeamGenerationService {
     return constraints;
   }
 
-  private generateFemalePersonConstraints(
+  private generateFemaleStudentConstraints(
     constraint: FemaleStudentConstraint,
     teamIndex: number,
-    persons: Student[]
+    students: Student[]
   ): string[] {
     const minFemalesPerTeam = constraint.getMinValue() || 0;
     const constraints = [];
 
     let c = '';
 
-    for (let i = 1; i <= persons.length; i++) {
-      if (persons[i - 1].gender === Gender.Female) {
+    for (let i = 1; i <= students.length; i++) {
+      if (students[i - 1].gender === Gender.Female) {
         if (c) {
           c += ' + ';
         }
@@ -181,17 +181,17 @@ export class LPTeamGenerationService implements TeamGenerationService {
   private generateSkillLevelConstraints(
     constraint: TeamSizeConstraint,
     teamIndex: number,
-    persons: Student[],
+    students: Student[],
     skillLevel: SkillLevel
   ): string[] {
     const minPeoplePerTeam = constraint.getMinValue() || 0;
-    const maxPeoplePerTeam = constraint.getMaxValue() || persons.length;
+    const maxPeoplePerTeam = constraint.getMaxValue() || students.length;
     const constraints = [];
 
     let c = '';
 
-    for (let i = 1; i <= persons.length; i++) {
-      if (persons[i - 1].supervisorAssessment === skillLevel) {
+    for (let i = 1; i <= students.length; i++) {
+      if (students[i - 1].supervisorAssessment === skillLevel) {
         if (c) {
           c += ' + ';
         }
@@ -208,13 +208,13 @@ export class LPTeamGenerationService implements TeamGenerationService {
   }
 
   /**
-   * Distributes persons to teams according to set constraints.
+   * Distributes students to teams according to set constraints.
    *
-   * @param {Team[]} teams that the persons are distributed to, can be prepopulated
+   * @param {Team[]} teams that the students are distributed to, can be prepopulated
    * @returns {Promise<boolean>} that indicates if a feasible solution was found
    * else.
    */
-  generate(persons: Student[], teams: Team[]): Promise<boolean> {
+  generate(students: Student[], teams: Team[]): Promise<boolean> {
     return new Promise((resolve, reject) => {
       console.log('Generating teams using linear approach...');
 
@@ -222,18 +222,18 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
       // Make sure already assigned team members stay in that team
       for (const team of teams) {
-        const assignedPersons = team.persons;
-        if (assignedPersons.length > 0) {
-          const assignedPersonsIndices = [];
+        const assignedStudents = team.students;
+        if (assignedStudents.length > 0) {
+          const assignedStudentsIndices = [];
           const assignedTeamIndex = teams.indexOf(team);
-          for (const person of assignedPersons) {
-            const personIndex = persons.indexOf(person);
-            const c = 'x' + (personIndex + 1) + 'y' + (assignedTeamIndex + 1) + ' = 1';
+          for (const student of assignedStudents) {
+            const studentIndex = students.indexOf(student);
+            const c = 'x' + (studentIndex + 1) + 'y' + (assignedTeamIndex + 1) + ' = 1';
             model.push(c);
             console.log(
-              person.firstName +
+              student.firstName +
                 ' ' +
-                person.lastName +
+                student.lastName +
                 ' will stay assigned to team ' +
                 team.name +
                 '. Constraint: ' +
@@ -244,7 +244,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
       }
 
       // Ensure binary variables
-      for (let i = 1; i <= persons.length; i++) {
+      for (let i = 1; i <= students.length; i++) {
         for (let j = 1; j <= teams.length; j++) {
           const v = 'x' + i + 'y' + j;
           model.push(v + ' >= 0');
@@ -253,8 +253,8 @@ export class LPTeamGenerationService implements TeamGenerationService {
         }
       }
 
-      // Ensure one team per person
-      for (let i = 1; i <= persons.length; i++) {
+      // Ensure one team per student
+      for (let i = 1; i <= students.length; i++) {
         let c = '';
         for (let j = 1; j <= teams.length; j++) {
           if (c) {
@@ -272,9 +272,9 @@ export class LPTeamGenerationService implements TeamGenerationService {
       }
 
       let prioritiesObjective = '';
-      for (let i = 1; i <= persons.length; i++) {
-        const person = persons[i - 1];
-        const priorities = person.teamPriorities;
+      for (let i = 1; i <= students.length; i++) {
+        const student = students[i - 1];
+        const priorities = student.teamPriorities;
         for (let k = 0, v = priorities.length; k < priorities.length; k++, v--) {
           if (prioritiesObjective) {
             prioritiesObjective += ' + ';
@@ -294,13 +294,13 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
       let skillSetObjective = '';
       for (let j = 1; j <= teams.length; j++) {
-        for (let i = 1; i <= persons.length; i++) {
-          const person = persons[i - 1];
-          if (person.hasSupervisorAssessment()) {
+        for (let i = 1; i <= students.length; i++) {
+          const student = students[i - 1];
+          if (student.hasSupervisorAssessment()) {
             if (skillSetObjective) {
               skillSetObjective += ' + ';
             }
-            skillSetObjective += desiredSkillWeights[person.supervisorAssessment] + ' x' + i + 'y' + j;
+            skillSetObjective += desiredSkillWeights[student.supervisorAssessment] + ' x' + i + 'y' + j;
           }
         }
       }
@@ -330,29 +330,29 @@ export class LPTeamGenerationService implements TeamGenerationService {
             let cs = [];
 
             if (constraint instanceof MacDeviceConstraint) {
-              cs = this.generateMacDeviceConstraints(constraint, teamIndex, persons);
+              cs = this.generateMacDeviceConstraints(constraint, teamIndex, students);
             }
             if (constraint instanceof IosDeviceConstraint) {
-              cs = this.generateIosDeviceConstraints(constraint, teamIndex, persons);
+              cs = this.generateIosDeviceConstraints(constraint, teamIndex, students);
             }
             if (constraint instanceof TeamSizeConstraint) {
-              cs = this.generateTeamSizeConstraints(constraint, teamIndex, persons);
+              cs = this.generateTeamSizeConstraints(constraint, teamIndex, students);
             }
             if (constraint instanceof FemaleStudentConstraint) {
-              cs = this.generateFemalePersonConstraints(constraint, teamIndex, persons);
+              cs = this.generateFemaleStudentConstraints(constraint, teamIndex, students);
             }
 
             if (constraint instanceof SkillExpertConstraint) {
-              cs = this.generateSkillLevelConstraints(constraint, teamIndex, persons, SkillLevel.VeryHigh);
+              cs = this.generateSkillLevelConstraints(constraint, teamIndex, students, SkillLevel.VeryHigh);
             }
             if (constraint instanceof SkillAdvancedConstraint) {
-              cs = this.generateSkillLevelConstraints(constraint, teamIndex, persons, SkillLevel.High);
+              cs = this.generateSkillLevelConstraints(constraint, teamIndex, students, SkillLevel.High);
             }
             if (constraint instanceof SkillNormalConstraint) {
-              cs = this.generateSkillLevelConstraints(constraint, teamIndex, persons, SkillLevel.Medium);
+              cs = this.generateSkillLevelConstraints(constraint, teamIndex, students, SkillLevel.Medium);
             }
             if (constraint instanceof SkillNoviceConstraint) {
-              cs = this.generateSkillLevelConstraints(constraint, teamIndex, persons, SkillLevel.Low);
+              cs = this.generateSkillLevelConstraints(constraint, teamIndex, students, SkillLevel.Low);
             }
 
             model = model.concat(cs);
@@ -374,14 +374,14 @@ export class LPTeamGenerationService implements TeamGenerationService {
           // clear all teams
           teams.forEach(team => team.clear());
           // Assign the teams according to results
-          for (let i = 1; i <= persons.length; i++) {
-            const person = persons[i - 1];
+          for (let i = 1; i <= students.length; i++) {
+            const student = students[i - 1];
             for (let j = 1; j <= teams.length; j++) {
               const varName = 'x' + i + 'y' + j;
               const val = solution[varName] || 0;
 
               if (val === 1) {
-                teams[j - 1].add(person);
+                teams[j - 1].add(student);
                 break;
               }
             }

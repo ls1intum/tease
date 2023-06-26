@@ -10,7 +10,7 @@ import { Student } from '../../shared/models/student';
 export class TeamComponent implements OnInit {
   @Input() team: Team;
   @Input() onTeamStatisticsButtonPressed;
-  @Output() onPersonClicked = new EventEmitter<Student>();
+  @Output() onStudentClicked = new EventEmitter<Student>();
 
   screenshotMode = false;
 

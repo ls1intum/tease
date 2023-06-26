@@ -11,30 +11,30 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class StudentDetailOverlayComponent implements OnInit, OverlayComponent {
   public data: {
-    person: Student;
+    student: Student;
     onClose: () => void;
-    onNextPersonClicked: () => void;
-    onPreviousPersonClicked: () => void;
-    onPersonClicked: (Person) => void;
+    onNextStudentClicked: () => void;
+    onPreviousStudentClicked: () => void;
+    onStudentClicked: (Student) => void;
   };
 
   getLabelForSkillLevel = Skill.getLabelForSkillLevel;
   SkillLevel = SkillLevel;
 
-  personSkillLevelFormGroup = new FormGroup({
-    personSkillLevelControl: new FormControl(SkillLevel.None),
+  studentSkillLevelFormGroup = new FormGroup({
+    studentSkillLevelControl: new FormControl(SkillLevel.None),
   });
 
   constructor() {}
 
   ngOnInit() {}
 
-  personSkillLevelUpdated() {
-    this.data.person.supervisorAssessment = this.personSkillLevelFormGroup.value.personSkillLevelControl;
+  studentSkillLevelUpdated() {
+    this.data.student.supervisorAssessment = this.studentSkillLevelFormGroup.value.studentSkillLevelControl;
   }
 
-  isInTeam(person: Student): boolean {
-    return person.team !== null;
+  isInTeam(student: Student): boolean {
+    return student.team !== null;
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -43,29 +43,29 @@ export class StudentDetailOverlayComponent implements OnInit, OverlayComponent {
 
     switch (event.key) {
       case '0':
-        this.data.person.supervisorAssessment = SkillLevel.None;
+        this.data.student.supervisorAssessment = SkillLevel.None;
         break;
       case '1':
-        this.data.person.supervisorAssessment = SkillLevel.Low;
+        this.data.student.supervisorAssessment = SkillLevel.Low;
         break;
       case '2':
-        this.data.person.supervisorAssessment = SkillLevel.Medium;
+        this.data.student.supervisorAssessment = SkillLevel.Medium;
         break;
       case '3':
-        this.data.person.supervisorAssessment = SkillLevel.High;
+        this.data.student.supervisorAssessment = SkillLevel.High;
         break;
       case '4':
-        this.data.person.supervisorAssessment = SkillLevel.VeryHigh;
+        this.data.student.supervisorAssessment = SkillLevel.VeryHigh;
         break;
     }
 
-    if (!this.isInTeam(this.data.person)) {
+    if (!this.isInTeam(this.data.student)) {
       switch (event.key) {
         case 'ArrowLeft':
-          this.data.onPreviousPersonClicked();
+          this.data.onPreviousStudentClicked();
           break;
         case 'ArrowRight':
-          this.data.onNextPersonClicked();
+          this.data.onNextStudentClicked();
           break;
       }
     }

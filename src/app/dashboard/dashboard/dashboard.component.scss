@@ -30,7 +30,7 @@
   height: $scroll-inset;
 }
 
-.person-pool {
+.student-pool {
   position: fixed;
   left: 10px;
   right: 10px;
@@ -41,27 +41,27 @@
   transition: height 0.5s;
 }
 
-.person-pool-display-mode-closed {
+.student-pool-display-mode-closed {
   height: 60px;
 }
 
-.person-pool-display-mode-onerow {
+.student-pool-display-mode-onerow {
   height: 220px;
 }
 
-.person-pool-display-mode-tworows {
+.student-pool-display-mode-tworows {
   height: 360px;
 }
 
-.person-pool-display-mode-full {
+.student-pool-display-mode-full {
   height: calc(100vh - 100px);
 }
 
-.person-pool-title-bar {
+.student-pool-title-bar {
   margin: 10px;
 }
 
-.person-pool-label {
+.student-pool-label {
   color: #838383;
   font-size: 25px;
   font-weight: 300;
@@ -82,11 +82,11 @@ app-team {
   height: 31px;
 }
 
-.person-pool-size-icon {
+.student-pool-size-icon {
   height: 15px;
 }
 
-.person-pool-preview-row {
+.student-pool-preview-row {
   overflow-x: auto;
   overflow-y: hidden;
   align-content: flex-start;

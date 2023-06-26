@@ -52,7 +52,7 @@ export class AppComponent implements OverlayServiceHost {
   showResetTeamAllocationConfirmation() {
     this.overlayService.displayComponent(ConfirmationOverlayComponent, {
       action: 'Reset',
-      actionDescription: 'Resetting the team allocation will unpin all persons and remove them from their teams.',
+      actionDescription: 'Resetting the team allocation will unpin all students and remove them from their teams.',
       onConfirmed: () => {
         this.teamService.resetPinnedStatus();
         this.teamService.resetTeamAllocation();
@@ -66,9 +66,9 @@ export class AppComponent implements OverlayServiceHost {
   showSortConfirmation() {
     this.overlayService.displayComponent(ConfirmationOverlayComponent, {
       action: 'Sort',
-      actionDescription: 'Sorting all teams will destroy the current order of persons.',
+      actionDescription: 'Sorting all teams will destroy the current order of students.',
       onConfirmed: () => {
-        this.teamService.sortPersons();
+        this.teamService.sortStudents();
         this.teamService.saveToLocalBrowserStorage();
         this.overlayService.closeOverlay();
       },
@@ -89,7 +89,7 @@ export class AppComponent implements OverlayServiceHost {
     this.overlayService.displayComponent(ExportOverlayComponent, {});
   }
 
-  showPersonHighlightingOverlay() {
+  showStudentHighlightingOverlay() {
     this.overlayService.displayComponent(StudentHighlightingOverlayComponent, {});
   }
 

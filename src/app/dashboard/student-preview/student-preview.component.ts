@@ -14,12 +14,12 @@ import { NationalityHelper } from '../../shared/helpers/nationality.helper';
   styleUrls: ['./student-preview.component.scss'],
 })
 export class StudentPreviewComponent implements OnInit {
-  @Input() person: Student;
+  @Input() student: Student;
   @Input() pinable = true;
 
   SkillLevel = SkillLevel;
   Device = Device;
-  PersonConstraintService = StudentConstraintService;
+  StudentConstraintService = StudentConstraintService;
   getFlagEmojiFromNationality = NationalityHelper.getFlagEmojiFromNationality
 
   /* functions used in template */
@@ -32,11 +32,11 @@ export class StudentPreviewComponent implements OnInit {
   constructor(public teamService: TeamService) {}
 
   ngOnInit() {
-    if (!this.pinable) this.person.isPinned = false;
+    if (!this.pinable) this.student.isPinned = false;
   }
 
-  isPersonRated(): boolean {
-    return this.person.supervisorAssessment !== undefined && this.person.supervisorAssessment !== SkillLevel.None;
+  isStudentRated(): boolean {
+    return this.student.supervisorAssessment !== undefined && this.student.supervisorAssessment !== SkillLevel.None;
   }
 
   getFirstLetterOfSkillLevelName(skillLevel: SkillLevel): string {
@@ -44,6 +44,6 @@ export class StudentPreviewComponent implements OnInit {
   }
 
   getSupervisorAssessmentString(): string {
-    return Skill.getLabelForSkillLevel(this.person.supervisorAssessment);
+    return Skill.getLabelForSkillLevel(this.student.supervisorAssessment);
   }
 }

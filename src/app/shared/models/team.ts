@@ -6,35 +6,35 @@ import { Device } from './device';
 
 export class Team {
   name: string;
-  persons: Student[] = [];
+  students: Student[] = [];
 
   constructor(name: string) {
     this.name = name;
   }
 
-  remove(person: Student) {
-    const index = this.persons.indexOf(person);
+  remove(student: Student) {
+    const index = this.students.indexOf(student);
     if (index < 0) return;
 
-    this.persons.splice(index, 1);
-    person.team = undefined;
+    this.students.splice(index, 1);
+    student.team = undefined;
   }
 
-  add(person: Student) {
-    this.persons.push(person);
-    person.team = this;
+  add(student: Student) {
+    this.students.push(student);
+    student.team = this;
   }
 
   clear() {
-    while (this.persons.length !== 0) {
-      const person: Student = this.persons.pop();
-      person.team = null;
+    while (this.students.length !== 0) {
+      const student: Student = this.students.pop();
+      student.team = null;
     }
   }
 
   getDeviceCountOfType(device: Device): number {
-    return this.persons.reduce(
-      (acc, person) => acc.concat(person.devices.filter(curDevice => curDevice === device)),
+    return this.students.reduce(
+      (acc, student) => acc.concat(student.devices.filter(curDevice => curDevice === device)),
       []
     ).length;
   }

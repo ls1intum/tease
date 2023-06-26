@@ -17,19 +17,19 @@ export class ProjectPrioritiesChartComponent implements OnInit, DoCheck {
 
   priorityDistribution: number[];
   indices: number[];
-  lastPersonLength: number;
+  lastStudentLength: number;
   teamCount: number;
   averagePriority: number;
 
-  constructor(private personStatisticsService: StudentStatisticsService, private teamService: TeamService) {}
+  constructor(private studentStatisticsService: StudentStatisticsService, private teamService: TeamService) {}
 
   ngOnInit(): void {
     this.updatePriorityDistribution();
   }
 
   ngDoCheck(): void {
-    if (this.lastPersonLength !== this.team.persons.length) {
-      this.lastPersonLength = this.team.persons.length;
+    if (this.lastStudentLength !== this.team.students.length) {
+      this.lastStudentLength = this.team.students.length;
       this.updatePriorityDistribution();
     }
   }
@@ -39,7 +39,7 @@ export class ProjectPrioritiesChartComponent implements OnInit, DoCheck {
 
     for (let i = 0; i < this.teamService.teams.length; i++) {
       this.priorityDistribution.push(
-        this.team.persons.reduce((acc, person) => acc + (person.teamPriorities[i] === this.team ? 1 : 0), 0)
+        this.team.students.reduce((acc, student) => acc + (student.teamPriorities[i] === this.team ? 1 : 0), 0)
       );
     }
 
@@ -49,11 +49,11 @@ export class ProjectPrioritiesChartComponent implements OnInit, DoCheck {
       this.priorityDistribution.reduce(
         (acc, countForPriority, priorityIndex) => acc + countForPriority * (priorityIndex + 1),
         0
-      ) / this.team.persons.length;
+      ) / this.team.students.length;
 
     this.averagePriority = Math.round(this.averagePriority * 100) / 100;
 
-    this.scale = Math.ceil(this.teamService.persons.length / this.teamService.teams.length);
+    this.scale = Math.ceil(this.teamService.students.length / this.teamService.teams.length);
   }
 
   getColorOfTeamDistributionBar(priority: number): string {

@@ -22,7 +22,7 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
 
   private static readonly KeyMacDeviceConstraint = 'KeyMacDeviceConstraint';
   private static readonly KeyIosDeviceConstraint = 'KeyIosDeviceConstraint';
-  private static readonly KeyFemalePersonConstraint = 'KeyFemalePersonConstraint';
+  private static readonly KeyFemaleStudentConstraint = 'KeyFemaleStudentConstraint';
   private static readonly KeyTeamSizeConstraint = 'KeyTeamSizeConstraint';
   private static readonly KeySkillExpertConstraint = 'KeySkillExpertConstraint';
   private static readonly KeySkillAdvancedConstraint = 'KeySkillAdvancedConstraint';
@@ -32,7 +32,7 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
   private static readonly ConstraintDefinitionArray = [
     { classDefinition: MacDeviceConstraint, storageKey: KeyValueConstraintAccessService.KeyMacDeviceConstraint },
     { classDefinition: IosDeviceConstraint, storageKey: KeyValueConstraintAccessService.KeyIosDeviceConstraint },
-    { classDefinition: FemaleStudentConstraint, storageKey: KeyValueConstraintAccessService.KeyFemalePersonConstraint },
+    { classDefinition: FemaleStudentConstraint, storageKey: KeyValueConstraintAccessService.KeyFemaleStudentConstraint },
     { classDefinition: TeamSizeConstraint, storageKey: KeyValueConstraintAccessService.KeyTeamSizeConstraint },
     { classDefinition: SkillExpertConstraint, storageKey: KeyValueConstraintAccessService.KeySkillExpertConstraint },
     {
@@ -101,7 +101,7 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
 
       // team-based constraints
       CSVStudentDataAccessService.readDataFromBrowserStorage().then(data => {
-        const [persons, teams] = data;
+        const [students, teams] = data;
 
         teams.forEach(team => {
           const teamName = team.name;

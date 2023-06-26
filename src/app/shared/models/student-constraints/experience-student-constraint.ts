@@ -11,8 +11,8 @@ export class ExperienceStudentConstraint extends StudentConstraint {
     return null;
   }
 
-  isFullfilledFor(person: Student): boolean {
-    const skill = person.skills.find(s => s.name === this.skillName);
+  isFullfilledFor(student: Student): boolean {
+    const skill = student.skills.find(s => s.name === this.skillName);
 
     if (skill === undefined) return false;
 

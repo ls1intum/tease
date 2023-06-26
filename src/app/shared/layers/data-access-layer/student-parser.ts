@@ -6,11 +6,11 @@ import { Skill, SkillLevel } from '../../models/skill';
 import { Team } from '../../models/team';
 
 export abstract class StudentParser {
-  static parsePersons(teamCsvData: Array<any>): [Student[], Team[]] {
+  static parseStudents(teamCsvData: Array<any>): [Student[], Team[]] {
     const teams: Team[] = [];
 
     const students = teamCsvData
-      .map((studentProps: Array<any>) => this.parsePerson(teams, studentProps))
+      .map((studentProps: Array<any>) => this.parseStudent(teams, studentProps))
       .filter(student => student !== null);
 
     return [students, teams];
@@ -43,27 +43,27 @@ export abstract class StudentParser {
     }
   }
 
-  static parsePerson(teams: Team[], studentProps: any): Student {
+  static parseStudent(teams: Team[], studentProps: any): Student {
     const student = new Student();
 
-    student.firstName = studentProps[CSVConstants.Person.FirstName];
-    student.lastName = studentProps[CSVConstants.Person.LastName];
-    student.email = studentProps[CSVConstants.Person.Email];
-    student.studentId = studentProps[CSVConstants.Person.StudentId];
-    student.gender = this.parseGender(studentProps[CSVConstants.Person.Gender]);
-    student.nationality = studentProps[CSVConstants.Person.Nationality];
-    student.studyProgram = studentProps[CSVConstants.Person.StudyProgram];
-    student.semester = studentProps[CSVConstants.Person.Semester];
-    student.germanLanguageLevel = studentProps[CSVConstants.Person.GermanLanguageLevel];
-    student.englishLanguageLevel = studentProps[CSVConstants.Person.EnglishLanguageLevel];
-    student.introSelfAssessment = this.parseSelfAssessment(studentProps[CSVConstants.Person.IntroSelfAssessment]);
-    this.parsePersonDevices(student, studentProps);
-    this.parsePersonSkills(student, studentProps);
-    student.studentComments = studentProps[CSVConstants.Person.StudentComments];
-    student.supervisorAssessment = this.parseSkillLevel(studentProps[CSVConstants.Person.SupervisorAssessment]);
-    student.tutorComments = studentProps[CSVConstants.Person.TutorComments];
-    if (studentProps.hasOwnProperty(CSVConstants.Person.IsPinned))
-      student.isPinned = studentProps[CSVConstants.Person.IsPinned] === 'true';
+    student.firstName = studentProps[CSVConstants.Student.FirstName];
+    student.lastName = studentProps[CSVConstants.Student.LastName];
+    student.email = studentProps[CSVConstants.Student.Email];
+    student.studentId = studentProps[CSVConstants.Student.StudentId];
+    student.gender = this.parseGender(studentProps[CSVConstants.Student.Gender]);
+    student.nationality = studentProps[CSVConstants.Student.Nationality];
+    student.studyProgram = studentProps[CSVConstants.Student.StudyProgram];
+    student.semester = studentProps[CSVConstants.Student.Semester];
+    student.germanLanguageLevel = studentProps[CSVConstants.Student.GermanLanguageLevel];
+    student.englishLanguageLevel = studentProps[CSVConstants.Student.EnglishLanguageLevel];
+    student.introSelfAssessment = this.parseSelfAssessment(studentProps[CSVConstants.Student.IntroSelfAssessment]);
+    this.parseStudentDevices(student, studentProps);
+    this.parseStudentSkills(student, studentProps);
+    student.studentComments = studentProps[CSVConstants.Student.StudentComments];
+    student.supervisorAssessment = this.parseSkillLevel(studentProps[CSVConstants.Student.SupervisorAssessment]);
+    student.tutorComments = studentProps[CSVConstants.Student.TutorComments];
+    if (studentProps.hasOwnProperty(CSVConstants.Student.IsPinned))
+      student.isPinned = studentProps[CSVConstants.Student.IsPinned] === 'true';
 
     this.parseTeamPriorities(teams, student, studentProps);
 
@@ -74,12 +74,12 @@ export abstract class StudentParser {
 
     student.team = this.getOrCreateTeam(teams, studentProps[CSVConstants.Team.TeamName]);
 
-    if (student.team) student.team.persons.push(student);
+    if (student.team) student.team.students.push(student);
 
     return student;
   }
 
-  private static parsePersonSkills(student: Student, studentProps: Array<any>) {
+  private static parseStudentSkills(student: Student, studentProps: Array<any>) {
     for (const [skillName, skillAbbreviation] of CSVConstants.Skills.SkillNameAbbreviationPairs) {
       // const skillDescriptionString = studentProps[skillAbbreviation + CSVConstants.Skills.DescriptionPostfix]
 
@@ -99,11 +99,11 @@ export abstract class StudentParser {
   }
 
   static parseSelfAssessment(selfAssessmentString: string): SkillLevel {
-    if (selfAssessmentString === CSVConstants.Person.IntroSelfAssessmentAnswers.VeryHigh) return SkillLevel.VeryHigh;
-    if (selfAssessmentString === CSVConstants.Person.IntroSelfAssessmentAnswers.High) return SkillLevel.High;
-    if (selfAssessmentString === CSVConstants.Person.IntroSelfAssessmentAnswers.Medium) return SkillLevel.Medium;
-    if (selfAssessmentString === CSVConstants.Person.IntroSelfAssessmentAnswers.Low) return SkillLevel.Low;
-    if (selfAssessmentString === CSVConstants.Person.IntroSelfAssessmentAnswers.None) return SkillLevel.None;
+    if (selfAssessmentString === CSVConstants.Student.IntroSelfAssessmentAnswers.VeryHigh) return SkillLevel.VeryHigh;
+    if (selfAssessmentString === CSVConstants.Student.IntroSelfAssessmentAnswers.High) return SkillLevel.High;
+    if (selfAssessmentString === CSVConstants.Student.IntroSelfAssessmentAnswers.Medium) return SkillLevel.Medium;
+    if (selfAssessmentString === CSVConstants.Student.IntroSelfAssessmentAnswers.Low) return SkillLevel.Low;
+    if (selfAssessmentString === CSVConstants.Student.IntroSelfAssessmentAnswers.None) return SkillLevel.None;
 
     return SkillLevel.None;
   }
@@ -125,7 +125,7 @@ export abstract class StudentParser {
     return Gender.Male;
   }
 
-  private static parsePersonDevices(student: Student, studentProps: Array<any>) {
+  private static parseStudentDevices(student: Student, studentProps: Array<any>) {
     const available = CSVConstants.DeviceAvailableBooleanValue.Available;
 
     if (studentProps[CSVConstants.Devices.Ipad] === available) student.addDevice(Device.Ipad);

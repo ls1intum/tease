@@ -22,6 +22,6 @@ export class SkillAdvancedConstraint extends Constraint {
   }
 
   getCurrentValue(team: Team): number {
-    return TeamHelper.getPersonsOfSkillLevelInTeam(team, SkillLevel.High);
+    return TeamHelper.getStudentsOfSkillLevelInTeam(team, SkillLevel.High);
   }
 }

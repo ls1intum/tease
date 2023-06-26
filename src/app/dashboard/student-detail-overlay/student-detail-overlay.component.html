@@ -2,20 +2,20 @@
   <div class="hidden-scrollbar-parent">
     <div class="flex-column hidden-scrollbar-child">
       <div class="flex-column scrollable-content flex-no-shrink" (click)="$event.stopPropagation()">
-        <!-- person detail card with instructor rating buttons -->
+        <!-- student detail card with instructor rating buttons -->
         <div class="main-card flex-column overflow-hidden flex-no-shrink">
-          <!-- person detail card -->
-          <app-person-detail-card [person]="data.person"></app-person-detail-card>
+          <!-- student detail card -->
+          <app-student-detail-card [student]="data.student"></app-student-detail-card>
 
           <!-- skill level rating buttons -->
           <div class="supervisor-rating-container flex-column">
-            <form [formGroup]="personSkillLevelFormGroup" (change)="personSkillLevelUpdated()">
+            <form [formGroup]="studentSkillLevelFormGroup" (change)="studentSkillLevelUpdated()">
               <div class="btn-group btn-group-sm flex-row">
                 <input
                   type="radio"
                   id="option-1"
                   class="btn-check"
-                  formControlName="personSkillLevelControl"
+                  formControlName="studentSkillLevelControl"
                   [value]="SkillLevel.None"
                 />
                 <label class="btn-secondary btn-none" for="option-1">
@@ -25,7 +25,7 @@
                 <input
                   type="radio"
                   id="option-2"
-                  formControlName="personSkillLevelControl"
+                  formControlName="studentSkillLevelControl"
                   [value]="SkillLevel.Low"
                 />
                 <label class="btn-secondary btn-low" for="option-2">
@@ -35,7 +35,7 @@
                 <input
                   type="radio"
                   id="option-3"
-                  formControlName="personSkillLevelControl"
+                  formControlName="studentSkillLevelControl"
                   [value]="SkillLevel.Medium"
                 />
                 <label class="btn-secondary btn-medium" for="option-3">
@@ -45,7 +45,7 @@
                 <input
                   type="radio"
                   id="option-4"
-                  formControlName="personSkillLevelControl"
+                  formControlName="studentSkillLevelControl"
                   [value]="SkillLevel.High"
                 />
                 <label class="btn-secondary btn-high" for="option-4">
@@ -56,7 +56,7 @@
                   type="radio"
                   id="option-5"
                   class="btn-check"
-                  formControlName="personSkillLevelControl"
+                  formControlName="studentSkillLevelControl"
                   [value]="SkillLevel.VeryHigh"
                 />
                 <label class="btn-secondary btn-very-high" for="option-5">
@@ -68,31 +68,31 @@
           </div>
         </div>
 
-        <!-- next / previous person buttons -->
+        <!-- next / previous student buttons -->
         <div class="flex-row flex-no-shrink">
           <button
-            *ngIf="!isInTeam(data.person)"
+            *ngIf="!isInTeam(data.student)"
             mat-raised-button
             color="primary"
-            (click)="data.onPreviousPersonClicked(); $event.stopPropagation()">
+            (click)="data.onPreviousStudentClicked(); $event.stopPropagation()">
             <div class="flex-row flex-center">
-              <div class="key-icon-container next-previous-person-buttons">
+              <div class="key-icon-container next-previous-student-buttons">
                 <mat-icon>keyboard_arrow_left</mat-icon>
               </div>
-              <div>Previous Person</div>
+              <div>Previous Student</div>
             </div>
           </button>
           <div class="flex-grow"></div>
           <button
-            *ngIf="!isInTeam(data.person)"
+            *ngIf="!isInTeam(data.student)"
             mat-raised-button
             color="primary"
-            (click)="data.onNextPersonClicked(); $event.stopPropagation()">
+            (click)="data.onNextStudentClicked(); $event.stopPropagation()">
             <div class="flex-row flex-center">
-              <div class="key-icon-container next-previous-person-buttons">
+              <div class="key-icon-container next-previous-student-buttons">
                 <mat-icon>keyboard_arrow_right</mat-icon>
               </div>
-              <div>Next Person</div>
+              <div>Next Student</div>
             </div>
           </button>
         </div>
@@ -104,9 +104,9 @@
   <div class="hidden-scrollbar-parent team-container">
     <div class="hidden-scrollbar-child flex-column">
       <app-team
-        *ngIf="isInTeam(data.person)"
-        [team]="data.person.team"
-        (onPersonClicked)="data.onPersonClicked($event)"></app-team>
+        *ngIf="isInTeam(data.student)"
+        [team]="data.student.team"
+        (onStudentClicked)="data.onStudentClicked($event)"></app-team>
     </div>
   </div>
 </div>

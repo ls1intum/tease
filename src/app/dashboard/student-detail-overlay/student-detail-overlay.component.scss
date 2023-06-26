@@ -1,12 +1,12 @@
 @import '../../../scss/style-constants';
 @import '../../../scss/flex-box';
-@import '../person-detail-common';
+@import '../student-detail-common';
 
 .main-row {
   height: 100%;
 }
 
-.person-card-column {
+.student-card-column {
   overflow-y: scroll;
   margin-right: -100px;
   padding-right: 100px;
@@ -113,6 +113,6 @@ app-team {
   margin-right: 5px;
 }
 
-.next-previous-person-buttons {
+.next-previous-student-buttons {
   border: none;
 }

@@ -19,22 +19,22 @@ import { StudentConstraint } from '../shared/models/student-constraints/student-
 })
 export class HighlightingToolbarComponent implements OnInit {
   s;
-  PersonConstraintService = StudentConstraintService;
+  StudentConstraintService = StudentConstraintService;
   SkillLevel = SkillLevel;
   Skill = Skill;
   CSVConstants = CSVConstants;
   Gender = Gender;
   Device = Device;
-  InstructorRatingPersonConstraint = InstructorRatingStudentConstraint;
-  ExperiencePersonConstraint = ExperienceStudentConstraint;
-  DevicePossessionPersonConstraint = DevicePossessionStudentConstraint;
-  GenderPersonConstraint = GenderStudentConstraint;
+  InstructorRatingStudentConstraint = InstructorRatingStudentConstraint;
+  ExperienceStudentConstraint = ExperienceStudentConstraint;
+  DevicePossessionStudentConstraint = DevicePossessionStudentConstraint;
+  GenderStudentConstraint = GenderStudentConstraint;
 
   constructor(private overlayService: OverlayService) {}
 
   ngOnInit() {}
 
-  showPersonHighlightingOverlay() {
+  showStudentHighlightingOverlay() {
     this.overlayService.displayComponent(StudentHighlightingOverlayComponent, {});
   }
 
@@ -43,9 +43,9 @@ export class HighlightingToolbarComponent implements OnInit {
     return pair ? pair[1] : skillName;
   }
 
-  removeConstraint(personConstraint: StudentConstraint) {
-    StudentConstraintService.personConstraints = StudentConstraintService.personConstraints.filter(
-      c => c !== personConstraint
+  removeConstraint(studentConstraint: StudentConstraint) {
+    StudentConstraintService.studentConstraints = StudentConstraintService.studentConstraints.filter(
+      c => c !== studentConstraint
     );
   }
 }

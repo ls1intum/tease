@@ -1,7 +1,7 @@
 @import '../../../scss/style-constants';
 @import '../../../scss/flex-box';
 @import '../../../scss/utility';
-@import '../person-detail-common';
+@import '../student-detail-common';
 
 .detail-card {
   width: 800px;
@@ -36,7 +36,7 @@
   height: 40px;
 }
 
-#person-name {
+#student-name {
   flex-grow: 1;
   flex-shrink: 1;
   white-space: nowrap;
@@ -115,7 +115,7 @@
   padding-left: 10px;
 }
 
-.person-language-name {
+.student-language-name {
   color: black;
   font-size: 16px;
   padding-left: 5px;
@@ -133,17 +133,17 @@
   margin-top: 0;
 }
 
-.person-value {
+.student-value {
   color: black;
   font-size: 18px;
   font-weight: 300;
 }
 
-.person-value-container {
+.student-value-container {
   margin-right: 20px;
 }
 
-.person-value-container:last-child {
+.student-value-container:last-child {
   margin-right: 0;
 }
 

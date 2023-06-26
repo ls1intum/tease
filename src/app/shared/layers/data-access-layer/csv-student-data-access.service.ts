@@ -5,7 +5,7 @@ import { StudentSerializer } from './student-serializer';
 import { StudentParser } from './student-parser';
 
 export class CSVStudentDataAccessService {
-  private static readonly BrowserStorageKey = 'TEASE-person-data';
+  private static readonly BrowserStorageKey = 'TEASE-student-data';
 
   static readDataFromBrowserStorage(): Promise<[Student[], Team[]]> {
     const teamData = localStorage.getItem(CSVStudentDataAccessService.BrowserStorageKey);
@@ -17,9 +17,9 @@ export class CSVStudentDataAccessService {
     return new Promise((resolve, reject) => {
       Papa.parse(teamData, {
         complete: results => {
-          const [persons, teams] = StudentParser.parsePersons(results.data);
+          const [students, teams] = StudentParser.parseStudents(results.data);
           this.sortTeams(teams);
-          resolve([persons, teams]);
+          resolve([students, teams]);
         },
         header: true,
       });
@@ -34,9 +34,9 @@ export class CSVStudentDataAccessService {
     return new Promise((resolve, reject) => {
       Papa.parse(csvFile, {
         complete: results => {
-          const [persons, teams] = StudentParser.parsePersons(results.data);
+          const [students, teams] = StudentParser.parseStudents(results.data);
           this.sortTeams(teams);
-          resolve([persons, teams]);
+          resolve([students, teams]);
         },
         header: true,
       });
@@ -48,10 +48,10 @@ export class CSVStudentDataAccessService {
       Papa.parse(remoteFilePath, {
         download: true,
         complete: results => {
-          const [persons, teams] = StudentParser.parsePersons(results.data);
+          const [students, teams] = StudentParser.parseStudents(results.data);
           this.sortTeams(teams);
-          console.log('CSVPersonDataAccessService:', persons, teams);
-          resolve([persons, teams]);
+          console.log('CSVStudentDataAccessService:', students, teams);
+          resolve([students, teams]);
         },
         header: true,
       });
@@ -66,9 +66,9 @@ export class CSVStudentDataAccessService {
     });
   }
 
-  public static saveToBrowserStorage(persons: Student[]): Promise<boolean> {
-    const personPropertyLists = persons.map(person => StudentSerializer.serializePerson(person));
-    const result = Papa.unparse(personPropertyLists);
+  public static saveToBrowserStorage(students: Student[]): Promise<boolean> {
+    const studentPropertyLists = students.map(student => StudentSerializer.serializeStudent(student));
+    const result = Papa.unparse(studentPropertyLists);
     localStorage.setItem(CSVStudentDataAccessService.BrowserStorageKey, result);
     return Promise.resolve(true);
   }

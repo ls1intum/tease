@@ -6,16 +6,16 @@ import { Constraint } from '../../models/constraints/constraint';
 
 @Injectable()
 export class StudentStatisticsService {
-  getRatedPersonCount(persons: Student[]): number {
-    return persons.filter(p => p.hasSupervisorAssessment()).length;
+  getRatedStudentCount(students: Student[]): number {
+    return students.filter(p => p.hasSupervisorAssessment()).length;
   }
 
-  getNumberOfPersonsForPriority(priorityNumber: number, team: Team): number {
-    return this.getPersonsForTeamPriority(team, priorityNumber).length;
+  getNumberOfStudentsForPriority(priorityNumber: number, team: Team): number {
+    return this.getStudentsForTeamPriority(team, priorityNumber).length;
   }
 
   calcTeamQualityScore(team: Team, constraints: Constraint[]): number {
-    const averagePrio = this.getAverageTeamPriorityOfPersons(team);
+    const averagePrio = this.getAverageTeamPriorityOfStudents(team);
     const averagePrioScore = this.calcPrioScore(averagePrio);
 
     const scoreSum = constraints.reduce((sum, current) => {
@@ -33,30 +33,30 @@ export class StudentStatisticsService {
     return Math.min(Math.max(10 - averagePrio, 0), 10);
   }
 
-  getAverageTeamPriorityOfPersons(team: Team): number {
+  getAverageTeamPriorityOfStudents(team: Team): number {
     const priorities = ArrayHelper.createNumberRange(this.getPriorityCountMax(team));
 
-    let personSum = 0;
+    let studentSum = 0;
     let prioSum = 0;
     for (const prio of priorities) {
-      const personsWithPrio = this.getNumberOfPersonsForPriority(prio, team);
-      personSum += personsWithPrio;
-      prioSum += (prio + 1) * personsWithPrio;
+      const studentsWithPrio = this.getNumberOfStudentsForPriority(prio, team);
+      studentSum += studentsWithPrio;
+      prioSum += (prio + 1) * studentsWithPrio;
     }
 
-    return prioSum / personSum;
+    return prioSum / studentSum;
   }
 
-  private getPersonsForTeamPriority(team: Team, priorityNumber: number): Student[] {
-    return team.persons.filter(person => {
-      if (person.teamPriorities.length < priorityNumber) return false;
-      return person.teamPriorities[priorityNumber] === team;
+  private getStudentsForTeamPriority(team: Team, priorityNumber: number): Student[] {
+    return team.students.filter(student => {
+      if (student.teamPriorities.length < priorityNumber) return false;
+      return student.teamPriorities[priorityNumber] === team;
     });
   }
 
   getPriorityCountMax(team: Team): number {
-    if (team.persons.length === 0) return 0;
+    if (team.students.length === 0) return 0;
 
-    return Math.max(...team.persons.map(person => person.teamPriorities.length));
+    return Math.max(...team.students.map(student => student.teamPriorities.length));
   }
 }

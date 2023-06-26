@@ -44,18 +44,18 @@ export class StudentPoolStatisticsComponent implements OnInit {
     );
 
     this.priorityDistributionLabels = [[0, 0]];
-    const numberOfPersons = this.getNumberOfPersons();
+    const numberOfStudents = this.getNumberOfStudents();
     const step = 10;
-    for (let i = step; i < numberOfPersons; i += step) this.priorityDistributionLabels.push([i, step]);
-    const lastStep = numberOfPersons - this.priorityDistributionLabels[this.priorityDistributionLabels.length - 1][0];
-    this.priorityDistributionLabels.push([numberOfPersons, lastStep]);
+    for (let i = step; i < numberOfStudents; i += step) this.priorityDistributionLabels.push([i, step]);
+    const lastStep = numberOfStudents - this.priorityDistributionLabels[this.priorityDistributionLabels.length - 1][0];
+    this.priorityDistributionLabels.push([numberOfStudents, lastStep]);
 
     console.log(this.priorityDistributionLabels);
     console.log(this.priorityDistributionStatistics);
   }
 
   getNumberOfVotesForTeamForPriority(team: Team, priority: number): number {
-    return this.getNumberOfPersonsWithPredicate(person => person.teamPriorities[priority] === team);
+    return this.getNumberOfStudentsWithPredicate(student => student.teamPriorities[priority] === team);
   }
 
   getColorOfTeamDistributionBar(priority: number): string {
@@ -64,33 +64,33 @@ export class StudentPoolStatisticsComponent implements OnInit {
     else return Colors.getColor(SkillLevel.Low);
   }
 
-  getNumberOfPersonsWithSupervisorRating(skillLevel: SkillLevel): number {
-    return this.getNumberOfPersonsWithPredicate(person => person.supervisorRating === skillLevel);
+  getNumberOfStudentsWithSupervisorRating(skillLevel: SkillLevel): number {
+    return this.getNumberOfStudentsWithPredicate(student => student.supervisorRating === skillLevel);
   }
 
-  getNumberOfPersons(): number {
-    return this.teamService.persons.length;
+  getNumberOfStudents(): number {
+    return this.teamService.students.length;
   }
 
-  getTotalNumberOfPersonsWithMacDevice(): number {
-    return this.getNumberOfPersonsWithPredicate(person => person.devices.includes(Device.Mac));
+  getTotalNumberOfStudentsWithMacDevice(): number {
+    return this.getNumberOfStudentsWithPredicate(student => student.devices.includes(Device.Mac));
   }
 
-  getTotalNumberOfPersonsWithIOSDevice(): number {
-    return this.getNumberOfPersonsWithPredicate(
-      person =>
-        person.devices.includes(Device.Ipad) ||
-        person.devices.includes(Device.Iphone) ||
-        person.devices.includes(Device.IpadAR) ||
-        person.devices.includes(Device.IphoneAR)
+  getTotalNumberOfStudentsWithIOSDevice(): number {
+    return this.getNumberOfStudentsWithPredicate(
+      student =>
+        student.devices.includes(Device.Ipad) ||
+        student.devices.includes(Device.Iphone) ||
+        student.devices.includes(Device.IpadAR) ||
+        student.devices.includes(Device.IphoneAR)
     );
   }
 
-  getNumberOfPersonsWithGender(gender: Gender) {
-    return this.getNumberOfPersonsWithPredicate(person => person.gender === gender);
+  getNumberOfStudentsWithGender(gender: Gender) {
+    return this.getNumberOfStudentsWithPredicate(student => student.gender === gender);
   }
 
-  private getNumberOfPersonsWithPredicate(predicate: (Person) => boolean): number {
-    return this.teamService.persons.reduce((acc, curPerson) => acc + (predicate(curPerson) ? 1 : 0), 0);
+  private getNumberOfStudentsWithPredicate(predicate: (Student) => boolean): number {
+    return this.teamService.students.reduce((acc, curStudent) => acc + (predicate(curStudent) ? 1 : 0), 0);
   }
 }

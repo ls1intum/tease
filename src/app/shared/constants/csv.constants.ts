@@ -4,7 +4,7 @@
 import { SkillLevel } from '../models/skill';
 
 export class CSVConstants {
-  static readonly Person = {
+  static readonly Student = {
     FirstName: 'firstname',
     LastName: 'lastname',
     Email: 'email',
@@ -85,4 +85,4 @@ export class CSVConstants {
   static readonly MajorOtherValue = 'Other';
 }
 
-export const ExamplePersonPropertyCsvRemotePath = '/assets/persons_example.csv';
+export const ExampleStudentPropertyCsvRemotePath = '/assets/students_example.csv';

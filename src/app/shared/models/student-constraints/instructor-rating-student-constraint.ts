@@ -11,8 +11,8 @@ export class InstructorRatingStudentConstraint extends StudentConstraint {
     return null;
   }
 
-  isFullfilledFor(person: Student): boolean {
-    return person.supervisorAssessment >= this.minimumRating;
+  isFullfilledFor(student: Student): boolean {
+    return student.supervisorAssessment >= this.minimumRating;
   }
 
   copy(): StudentConstraint {

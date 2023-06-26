@@ -8,12 +8,12 @@ import { Device } from '../../shared/models/device';
 import { NationalityHelper } from '../../shared/helpers/nationality.helper';
 
 @Component({
-  selector: 'app-person-detail-card',
+  selector: 'app-student-detail-card',
   templateUrl: './student-detail-card.component.html',
   styleUrls: ['./student-detail-card.component.scss'],
 })
 export class StudentDetailCardComponent implements OnInit {
-  @Input() person: Student;
+  @Input() student: Student;
 
   getLabelForSkillLevel = Skill.getLabelForSkillLevel;
   getLabelForSelfAssessmentLevel = Skill.getLabelForSelfAssessmentLevel;
@@ -27,16 +27,16 @@ export class StudentDetailCardComponent implements OnInit {
 
   ngOnInit() {}
 
-  isPersonRated(): boolean {
-    return this.person.supervisorAssessment !== undefined && this.person.supervisorAssessment !== SkillLevel.None;
+  isStudentRated(): boolean {
+    return this.student.supervisorAssessment !== undefined && this.student.supervisorAssessment !== SkillLevel.None;
   }
 
   getSupervisorAssessmentColor(): string {
-    return Colors.getColor(this.person.supervisorAssessment);
+    return Colors.getColor(this.student.supervisorAssessment);
   }
 
   getGenderIconPath(): string {
-    return IconMapperService.getGenderIconPath(this.person.gender);
+    return IconMapperService.getGenderIconPath(this.student.gender);
   }
 
   getDeviceIconPath(device: Device): string {

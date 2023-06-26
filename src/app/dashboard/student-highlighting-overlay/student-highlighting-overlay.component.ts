@@ -17,19 +17,19 @@ import { Device } from '../../shared/models/device';
   styleUrls: ['./student-highlighting-overlay.component.scss'],
 })
 export class StudentHighlightingOverlayComponent implements OnInit, OverlayComponent {
-  PersonConstraintService = StudentConstraintService;
+  StudentConstraintService = StudentConstraintService;
   SkillLevel = SkillLevel;
   Skill = Skill;
   CSVConstants = CSVConstants;
   Gender = Gender;
   Device = Device;
-  InstructorRatingPersonConstraint = InstructorRatingStudentConstraint;
-  ExperiencePersonConstraint = ExperienceStudentConstraint;
-  DevicePossessionPersonConstraint = DevicePossessionStudentConstraint;
-  GenderPersonConstraint = GenderStudentConstraint;
+  InstructorRatingStudentConstraint = InstructorRatingStudentConstraint;
+  ExperienceStudentConstraint = ExperienceStudentConstraint;
+  DevicePossessionStudentConstraint = DevicePossessionStudentConstraint;
+  GenderStudentConstraint = GenderStudentConstraint;
 
   skillNames = CSVConstants.Skills.SkillNameAbbreviationPairs.map(pair => pair[0]);
-  personConstraintsCopy: StudentConstraint[] = StudentConstraintService.personConstraints.map(c => c.copy());
+  studentConstraintsCopy: StudentConstraint[] = StudentConstraintService.studentConstraints.map(c => c.copy());
 
   public data: any;
   console = console;
@@ -41,29 +41,29 @@ export class StudentHighlightingOverlayComponent implements OnInit, OverlayCompo
   ngOnInit() {}
 
   save() {
-    StudentConstraintService.personConstraints = this.personConstraintsCopy;
+    StudentConstraintService.studentConstraints = this.studentConstraintsCopy;
     this.overlayService.closeOverlay();
   }
 
   addInstructorRatingConstraint() {
-    this.personConstraintsCopy.push(new InstructorRatingStudentConstraint());
+    this.studentConstraintsCopy.push(new InstructorRatingStudentConstraint());
   }
 
   addExperienceConstraint() {
     const newConstraint = new ExperienceStudentConstraint();
     newConstraint.skillName = this.skillNames[0];
-    this.personConstraintsCopy.push(newConstraint);
+    this.studentConstraintsCopy.push(newConstraint);
   }
 
   addGenderConstraint() {
-    this.personConstraintsCopy.push(new GenderStudentConstraint());
+    this.studentConstraintsCopy.push(new GenderStudentConstraint());
   }
 
   addDeviceConstraint() {
-    this.personConstraintsCopy.push(new DevicePossessionStudentConstraint());
+    this.studentConstraintsCopy.push(new DevicePossessionStudentConstraint());
   }
 
   removeConstraint(constraint: StudentConstraint) {
-    this.personConstraintsCopy = this.personConstraintsCopy.filter(c => c !== constraint);
+    this.studentConstraintsCopy = this.studentConstraintsCopy.filter(c => c !== constraint);
   }
 }

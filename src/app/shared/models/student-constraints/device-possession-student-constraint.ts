@@ -12,8 +12,8 @@ export class DevicePossessionStudentConstraint extends StudentConstraint {
     return null;
   }
 
-  isFullfilledFor(person: Student): boolean {
-    return person.devices.find(d => d === this.device) !== undefined;
+  isFullfilledFor(student: Student): boolean {
+    return student.devices.find(d => d === this.device) !== undefined;
   }
 
   copy(): StudentConstraint {

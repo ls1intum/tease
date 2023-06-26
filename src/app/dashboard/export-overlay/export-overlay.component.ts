@@ -30,8 +30,8 @@ export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayCompone
   imageExportProgress = 0;
   imageExportMaxProgress = 1;
 
-  @ViewChild(StudentDetailCardComponent) personDetailCardComponent: StudentDetailCardComponent;
-  @ViewChild(StudentDetailCardComponent, { read: ElementRef }) personDetailCardComponentRef: ElementRef;
+  @ViewChild(StudentDetailCardComponent) studentDetailCardComponent: StudentDetailCardComponent;
+  @ViewChild(StudentDetailCardComponent, { read: ElementRef }) studentDetailCardComponentRef: ElementRef;
 
   @ViewChild(TeamComponent) teamComponent: TeamComponent;
   @ViewChild(TeamComponent, { read: ElementRef }) teamCompomentRef: ElementRef;
@@ -60,7 +60,7 @@ export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayCompone
   exportScreenshots() {
     this.imageExportRunning = true;
     this.imageExportProgress = 0;
-    this.imageExportMaxProgress = this.teamService.teams.reduce((acc, team) => acc + 1 + team.persons.length, 0) + 1;
+    this.imageExportMaxProgress = this.teamService.teams.reduce((acc, team) => acc + 1 + team.students.length, 0) + 1;
     let currentPromise = Promise.resolve();
     const zip = JSZip();
 
@@ -75,12 +75,12 @@ export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayCompone
         () => Promise.reject(null)
       );
 
-      team.persons.forEach(
-        (person, i) =>
+      team.students.forEach(
+        (student, i) =>
           (currentPromise = currentPromise.then(
             () => {
               this.imageExportProgress++;
-              return this.exportPersonScreenshot(person, teamFolder, team.name + '-' + (i + 1) + '.png');
+              return this.exportStudentScreenshot(student, teamFolder, team.name + '-' + (i + 1) + '.png');
             },
             () => Promise.reject(null)
           ))
@@ -105,15 +105,15 @@ export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayCompone
     return (this.imageExportProgress / this.imageExportMaxProgress) * 100;
   }
 
-  exportPersonScreenshot(person: Student, zip: JSZip, filename: string): Promise<void> {
-    console.log('exporting person ' + person.studentId + '...');
+  exportStudentScreenshot(student: Student, zip: JSZip, filename: string): Promise<void> {
+    console.log('exporting student ' + student.studentId + '...');
     return new Promise<void>((resolve, reject) => {
       if (this.destroyed) {
         reject();
         return;
       }
 
-      this.personDetailCardComponent.person = person;
+      this.studentDetailCardComponent.student = student;
       this.applicationRef.tick();
 
       if (this.destroyed) {
@@ -121,7 +121,7 @@ export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayCompone
         return;
       }
 
-      html2canvas(this.personDetailCardComponentRef.nativeElement, this.html2canvasOptions).then(canvas => {
+      html2canvas(this.studentDetailCardComponentRef.nativeElement, this.html2canvasOptions).then(canvas => {
         canvas.toBlob(function (blob) {
           zip.file(filename, blob);
           resolve();

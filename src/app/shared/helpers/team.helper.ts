@@ -6,11 +6,11 @@ import { SkillLevel } from '../models/skill';
  */
 
 export abstract class TeamHelper {
-  static getPersons(teams: Team[]): Student[] {
-    return [].concat(...teams.map(team => team.persons));
+  static getStudents(teams: Team[]): Student[] {
+    return [].concat(...teams.map(team => team.students));
   }
 
-  static getPersonsOfSkillLevelInTeam(team: Team, skillLevel: SkillLevel) {
-    return team.persons.filter(person => person.supervisorAssessment === skillLevel).length;
+  static getStudentsOfSkillLevelInTeam(team: Team, skillLevel: SkillLevel) {
+    return team.students.filter(student => student.supervisorAssessment === skillLevel).length;
   }
 }

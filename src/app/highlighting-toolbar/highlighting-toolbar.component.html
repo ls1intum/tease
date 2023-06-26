@@ -1,48 +1,48 @@
-<div (click)="showPersonHighlightingOverlay()" class="highlight-toolbar flex-row flex-center">
+<div (click)="showStudentHighlightingOverlay()" class="highlight-toolbar flex-row flex-center">
   <div class="highlight-toolbar-heading">Highlighting</div>
-  <div *ngIf="PersonConstraintService.personConstraints.length === 0" class="highlight-toolbar-none-text">None</div>
+  <div *ngIf="StudentConstraintService.studentConstraints.length === 0" class="highlight-toolbar-none-text">None</div>
   <div
-    *ngFor="let personConstraint of PersonConstraintService.personConstraints"
+    *ngFor="let studentConstraint of StudentConstraintService.studentConstraints"
     class="constraint-container flex-row flex-center">
     <div
-      *ngIf="InstructorRatingPersonConstraint.getTyped(personConstraint)"
+      *ngIf="InstructorRatingStudentConstraint.getTyped(studentConstraint)"
       class="flex-row flex-center flex-spacing-x-5px">
       <div>Instructor Rating</div>
       <div class="comparator-container flex-row flex-center flex-justify-center">
         <div>≥</div>
       </div>
       <div>
-        {{ Skill.getLabelForSkillLevel(InstructorRatingPersonConstraint.getTyped(personConstraint).minimumRating) }}
+        {{ Skill.getLabelForSkillLevel(InstructorRatingStudentConstraint.getTyped(studentConstraint).minimumRating) }}
       </div>
     </div>
 
-    <div *ngIf="ExperiencePersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
+    <div *ngIf="ExperienceStudentConstraint.getTyped(studentConstraint)" class="flex-row flex-center flex-spacing-x-5px">
       <div>Experience in</div>
-      <div>{{ getSkillNameAbbreviation(ExperiencePersonConstraint.getTyped(personConstraint).skillName) }}</div>
+      <div>{{ getSkillNameAbbreviation(ExperienceStudentConstraint.getTyped(studentConstraint).skillName) }}</div>
       <div class="comparator-container flex-row flex-center flex-justify-center">
         <div>≥</div>
       </div>
-      <div>{{ ExperiencePersonConstraint.getTyped(personConstraint).minimumExperience }}</div>
+      <div>{{ ExperienceStudentConstraint.getTyped(studentConstraint).minimumExperience }}</div>
     </div>
 
-    <div *ngIf="GenderPersonConstraint.getTyped(personConstraint)" class="flex-row flex-center flex-spacing-x-5px">
+    <div *ngIf="GenderStudentConstraint.getTyped(studentConstraint)" class="flex-row flex-center flex-spacing-x-5px">
       <div>Gender</div>
       <div class="comparator-container flex-row flex-center flex-justify-center">
         <div>=</div>
       </div>
-      <div>{{ Gender[GenderPersonConstraint.getTyped(personConstraint).gender] }}</div>
+      <div>{{ Gender[GenderStudentConstraint.getTyped(studentConstraint).gender] }}</div>
     </div>
 
     <div
-      *ngIf="DevicePossessionPersonConstraint.getTyped(personConstraint)"
+      *ngIf="DevicePossessionStudentConstraint.getTyped(studentConstraint)"
       class="flex-row flex-center flex-spacing-x-5px">
       <div>In Possession of</div>
-      <div>{{ Device[DevicePossessionPersonConstraint.getTyped(personConstraint).device] }}</div>
+      <div>{{ Device[DevicePossessionStudentConstraint.getTyped(studentConstraint).device] }}</div>
     </div>
 
     <div
       class="remove-button flex-row flex-justify-center flex-center"
-      (click)="removeConstraint(personConstraint); $event.stopPropagation()">
+      (click)="removeConstraint(studentConstraint); $event.stopPropagation()">
       <i class="material-icons">clear</i>
     </div>
   </div>

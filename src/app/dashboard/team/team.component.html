@@ -1,14 +1,14 @@
 <div *ngIf="team" class="team-card flex-column" (click)="$event.stopPropagation()">
   <!-- team title -->
   <div class="flex-row flex-justify-content-space-between flex-center">
-    <div class="team-person-count title-elements-spacing flex-row flex-center flex-justify-center">
-      <div>{{ team.persons.length }}</div>
+    <div class="team-student-count title-elements-spacing flex-row flex-center flex-justify-center">
+      <div>{{ team.students.length }}</div>
     </div>
     <div class="team-name title-elements-spacing">{{ team.name }}</div>
     <div class="title-elements-spacing">
       <button
         md-icon-button
-        [disabled]="team.persons.length === 0"
+        [disabled]="team.students.length === 0"
         (click)="statisticsVisible = !statisticsVisible"
         [class.icon-button-highlight]="statisticsVisible"
         [class.opacity-zero]="screenshotMode">
@@ -18,20 +18,20 @@
   </div>
 
   <!-- statistics -->
-  <app-team-statistics [team]="team" *ngIf="statisticsVisible && team.persons.length > 0"></app-team-statistics>
+  <app-team-statistics [team]="team" *ngIf="statisticsVisible && team.students.length > 0"></app-team-statistics>
 
-  <!-- person preview cards -->
+  <!-- student preview cards -->
   <div class="position-relative">
-    <div *ngIf="team.persons.length === 0" class="pointer-events-none empty-team-hint-container flex-row">
+    <div *ngIf="team.students.length === 0" class="pointer-events-none empty-team-hint-container flex-row">
       <div class="empty-team-hint flex-grow flex-row flex-center flex-justify-center">
-        <div>Drag persons here</div>
+        <div>Drag students here</div>
       </div>
     </div>
-    <div dragula="persons" class="drag-container" [(dragulaModel)]="team.persons">
+    <div dragula="students" class="drag-container" [(dragulaModel)]="team.students">
       <app-student-preview
-        *ngFor="let person of team.persons"
-        [person]="person"
-        (click)="onPersonClicked.emit(person); $event.stopPropagation()"></app-student-preview>
+        *ngFor="let student of team.students"
+        [student]="student"
+        (click)="onStudentClicked.emit(student); $event.stopPropagation()"></app-student-preview>
     </div>
   </div>
 </div>

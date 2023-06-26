@@ -16,7 +16,7 @@ export class MacDeviceConstraint extends Constraint {
   }
 
   getName(): string {
-    return 'Persons w. Mac';
+    return 'Students w. Mac';
   }
 
   getType(): ConstraintType {

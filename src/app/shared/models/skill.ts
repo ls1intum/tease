@@ -28,16 +28,16 @@ export class Skill {
   public static getLabelForSelfAssessmentLevel(skillLevel: SkillLevel): string {
     switch(skillLevel) {
       case SkillLevel.Low:
-        return CSVConstants.Person.IntroSelfAssessmentAnswers.Low;
+        return CSVConstants.Student.IntroSelfAssessmentAnswers.Low;
       case SkillLevel.Medium:
-        return CSVConstants.Person.IntroSelfAssessmentAnswers.Medium;
+        return CSVConstants.Student.IntroSelfAssessmentAnswers.Medium;
       case SkillLevel.High:
-        return CSVConstants.Person.IntroSelfAssessmentAnswers.High;
+        return CSVConstants.Student.IntroSelfAssessmentAnswers.High;
       case SkillLevel.VeryHigh:
-        return CSVConstants.Person.IntroSelfAssessmentAnswers.VeryHigh;
+        return CSVConstants.Student.IntroSelfAssessmentAnswers.VeryHigh;
     }
 
-    return CSVConstants.Person.IntroSelfAssessmentAnswers.None;
+    return CSVConstants.Student.IntroSelfAssessmentAnswers.None;
   }
 
   constructor(name: string, description: string, skillLevel: SkillLevel, skillLevelRationale: string) {

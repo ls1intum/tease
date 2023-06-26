@@ -13,12 +13,12 @@ export class FemaleStudentConstraint extends Constraint {
     return (this.minValue || 0) <= this.getCurrentValue(team) && this.getCurrentValue(team) <= (this.maxValue || Number.MAX_VALUE);
   }
 
-  private getFemalesPersonsInTeam(team: Team) {
-    return team.persons.filter(person => person.gender === Gender.Female).length;
+  private getFemalesStudentsInTeam(team: Team) {
+    return team.students.filter(student => student.gender === Gender.Female).length;
   }
 
   getName(): string {
-    return 'Female Persons';
+    return 'Female Students';
   }
 
   getType(): ConstraintType {
@@ -26,6 +26,6 @@ export class FemaleStudentConstraint extends Constraint {
   }
 
   getCurrentValue(team: Team): number {
-    return this.getFemalesPersonsInTeam(team);
+    return this.getFemalesStudentsInTeam(team);
   }
 }

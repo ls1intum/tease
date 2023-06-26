@@ -14,13 +14,13 @@ export class TeamService {
   private readonly CSV_EXPORT_FILE_NAME = 'TEASE-project.csv';
 
   teams: Team[];
-  persons: Student[];
+  students: Student[];
 
   // derived properties
-  personsWithoutTeam: Student[];
+  studentsWithoutTeam: Student[];
 
   private load(data: [Student[], Team[]]) {
-    [this.persons, this.teams] = data;
+    [this.students, this.teams] = data;
     this.updateDerivedProperties();
   }
 
@@ -28,36 +28,36 @@ export class TeamService {
     return this.teams.find(team => team.name === teamName) // assumes multiple teams do not exist with the same name
   }
 
-  public getPersonById(studentId: string): Student {
-    return this.persons.find(person => person.studentId == studentId) // assumes multiple people do not exist with same student id
+  public getStudentById(studentId: string): Student {
+    return this.students.find(student => student.studentId == studentId) // assumes multiple people do not exist with same student id
   }
 
   public updateDerivedProperties() {
-    this.personsWithoutTeam = this.persons.filter(person => person.team === null);
+    this.studentsWithoutTeam = this.students.filter(student => student.team === null);
   }
 
   public updateReverseReferences() {
-    this.teams.forEach(team => team.persons.forEach(person => (person.team = team)));
-    this.personsWithoutTeam.forEach(person => (person.team = null));
+    this.teams.forEach(team => team.students.forEach(student => (student.team = team)));
+    this.studentsWithoutTeam.forEach(student => (student.team = null));
     this.updateDerivedProperties();
   }
 
-  public sortPersons() {
-    const compareFunction = (personA, personB) => personB.supervisorRating - personA.supervisorRating;
+  public sortStudents() {
+    const compareFunction = (studentA, studentB) => studentB.supervisorRating - studentA.supervisorRating;
 
-    this.teams.forEach(team => team.persons.sort(compareFunction));
-    this.persons.sort(compareFunction);
+    this.teams.forEach(team => team.students.sort(compareFunction));
+    this.students.sort(compareFunction);
     this.updateDerivedProperties();
   }
 
-  // removes all persons from their team
+  // removes all students from their team
   public resetTeamAllocation() {
     this.teams.forEach(team => team.clear());
     this.updateDerivedProperties();
   }
 
   public resetPinnedStatus() {
-    this.persons.forEach(person => (person.isPinned = false));
+    this.students.forEach(student => (student.isPinned = false));
   }
 
   public readFromBrowserStorage(): Promise<boolean> {
@@ -109,7 +109,7 @@ export class TeamService {
 
     return new Promise((resolve, reject) => {
       this.updateReverseReferences();
-      CSVStudentDataAccessService.saveToBrowserStorage(this.persons).then(success => {
+      CSVStudentDataAccessService.saveToBrowserStorage(this.students).then(success => {
         console.log('done');
         resolve(success);
       });
@@ -120,12 +120,12 @@ export class TeamService {
     CSVStudentDataAccessService.clearSavedData();
   }
 
-  resetUnpinnedPersons() {
+  resetUnpinnedStudents() {
     this.teams.forEach(team => {
-      const personsToRemove = team.persons.filter(person => !person.isPinned);
-      team.persons = team.persons.filter(person => person.isPinned);
-      personsToRemove.forEach(person => (person.team = null));
-      this.personsWithoutTeam.push(...personsToRemove);
+      const studentsToRemove = team.students.filter(student => !student.isPinned);
+      team.students = team.students.filter(student => student.isPinned);
+      studentsToRemove.forEach(student => (student.team = null));
+      this.studentsWithoutTeam.push(...studentsToRemove);
     });
   }
 }
