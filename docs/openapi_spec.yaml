@@ -95,7 +95,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SkillSelfAssessment'
-
         projectPriorities:
           description: The priorities or preferences the student submitted for the available projects, the first project listed in the array is their first choice
           type: array

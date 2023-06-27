@@ -274,7 +274,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
       let prioritiesObjective = '';
       for (let i = 1; i <= students.length; i++) {
         const student = students[i - 1];
-        const priorities = student.teamPriorities;
+        const priorities = student.projectPriorities;
         for (let k = 0, v = priorities.length; k < priorities.length; k++, v--) {
           if (prioritiesObjective) {
             prioritiesObjective += ' + ';

@@ -24,24 +24,23 @@ export class Student {
 
   devices: Device[] = [];
   skills: Skill[] = [];
-  teamPriorities: Team[] = [];
+  projectPriorities: Team[] = [];
 
   studentComments: string;
   supervisorAssessment: SkillLevel;
-
   tutorComments: string;
+
+  isPinned: boolean;
 
   // reverse reference
   team: Team;
-
-  isPinned: boolean;
 
   constructor(id?: number, firstName?: string) {
     this.firstName = firstName || 'no name';
   }
 
   getTeamPriority(team: Team): number {
-    return this.teamPriorities.indexOf(team) + 1;
+    return this.projectPriorities.indexOf(team) + 1;
   }
 
   addDevice(device: Device) {

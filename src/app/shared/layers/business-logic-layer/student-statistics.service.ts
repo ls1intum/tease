@@ -49,14 +49,14 @@ export class StudentStatisticsService {
 
   private getStudentsForTeamPriority(team: Team, priorityNumber: number): Student[] {
     return team.students.filter(student => {
-      if (student.teamPriorities.length < priorityNumber) return false;
-      return student.teamPriorities[priorityNumber] === team;
+      if (student.projectPriorities.length < priorityNumber) return false;
+      return student.projectPriorities[priorityNumber] === team;
     });
   }
 
   getPriorityCountMax(team: Team): number {
     if (team.students.length === 0) return 0;
 
-    return Math.max(...team.students.map(student => student.teamPriorities.length));
+    return Math.max(...team.students.map(student => student.projectPriorities.length));
   }
 }

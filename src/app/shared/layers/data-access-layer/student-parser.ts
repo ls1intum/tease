@@ -25,7 +25,7 @@ export abstract class StudentParser {
       }
 
       const team = this.getOrCreateTeam(teams, studentProps[columnName]);
-      student.teamPriorities.push(team);
+      student.projectPriorities.push(team);
     }
   }
 

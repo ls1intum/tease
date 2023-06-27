@@ -34,7 +34,7 @@ export class StudentSerializer {
   }
 
   private static serializePriorities(student: Student, studentProps: any) {
-    for (const teamPrio of student.teamPriorities) {
+    for (const teamPrio of student.projectPriorities) {
       const columnName = StringHelper.format(CSVConstants.Team.Priority, student.getTeamPriority(teamPrio));
 
       studentProps[columnName] = teamPrio.name;
