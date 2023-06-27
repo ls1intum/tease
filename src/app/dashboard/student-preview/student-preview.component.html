@@ -52,7 +52,7 @@
     <div class="flex-column padding-3">
       <div class="flex-row flex-wrap team-badge-container">
         <div
-          *ngFor="let team of student.teamPriorities; let i = index"
+          *ngFor="let team of student.projectPriorities; let i = index"
           class="badge flex-row flex-center flex-justify-center team-badge"
           [class.badge-highlight]="team === student.team">
           <div>{{ team.name }}</div>
