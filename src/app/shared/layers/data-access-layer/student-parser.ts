@@ -4,6 +4,7 @@ import { Device } from '../../models/device';
 import { StringHelper } from '../../helpers/string.helper';
 import { Skill, SkillLevel } from '../../models/skill';
 import { Team } from '../../models/team';
+import { LanguageProficiency } from '../../models/generated-model/languageProficiency';
 
 export abstract class StudentParser {
   static parseStudents(teamCsvData: Array<any>): [Student[], Team[]] {
@@ -51,6 +52,7 @@ export abstract class StudentParser {
     student.email = studentProps[CSVConstants.Student.Email];
     student.studentId = studentProps[CSVConstants.Student.StudentId];
     student.gender = this.parseGender(studentProps[CSVConstants.Student.Gender]);
+
     student.nationality = studentProps[CSVConstants.Student.Nationality];
     student.studyProgram = studentProps[CSVConstants.Student.StudyProgram];
     student.semester = studentProps[CSVConstants.Student.Semester];

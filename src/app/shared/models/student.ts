@@ -1,8 +1,8 @@
 import { Team } from './team';
-import { Language } from './language';
 import { Skill, SkillLevel } from './skill';
 import { Device } from './device';
 import { CSVConstants } from '../constants/csv.constants';
+import { LanguageProficiency } from './generated-model/languageProficiency';
 /**
  * Created by wanur on 05/11/2016.
  */
@@ -18,8 +18,8 @@ export class Student {
   studyProgram: string;
   semester: number;
 
-  germanLanguageLevel: string;
-  englishLanguageLevel: string;
+  germanLanguageLevel: LanguageProficiency;
+  englishLanguageLevel: LanguageProficiency;
   introSelfAssessment: SkillLevel;
 
   devices: Device[] = [];
