@@ -1,7 +1,6 @@
 import { StudentConstraint } from './student-constraint';
-import { Gender, Student } from '../student';
-import { SkillLevel } from '../skill';
-import { ExperienceStudentConstraint } from './experience-student-constraint';
+import { Student } from '../student';
+import { Gender } from '../generated-model/gender';
 
 export class GenderStudentConstraint extends StudentConstraint {
   gender: Gender = Gender.Female;

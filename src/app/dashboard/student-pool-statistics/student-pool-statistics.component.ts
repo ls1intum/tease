@@ -3,7 +3,7 @@ import { Team } from '../../shared/models/team';
 import { Skill, SkillLevel } from '../../shared/models/skill';
 import { Colors } from '../../shared/constants/color.constants';
 import { Device } from '../../shared/models/device';
-import { Gender } from '../../shared/models/student';
+import { Gender } from '../../shared/models/generated-model/gender';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 
 @Component({

@@ -1,4 +1,5 @@
-import { Student, Gender } from '../../models/student';
+import { Student} from '../../models/student';
+import { Gender } from '../../models/generated-model/gender';
 import { StringHelper } from '../../helpers/string.helper';
 import { CSVConstants } from '../../constants/csv.constants';
 import { Device } from '../../models/device';
@@ -13,7 +14,7 @@ export class StudentSerializer {
     studentProps[CSVConstants.Student.LastName] = student.lastName;
     studentProps[CSVConstants.Student.Email] = student.email;
     studentProps[CSVConstants.Student.StudentId] = student.studentId;
-    studentProps[CSVConstants.Student.Gender] = this.serializeGender(student.gender);
+    studentProps[CSVConstants.Student.Gender] = student.gender;
     studentProps[CSVConstants.Student.Nationality] = student.nationality;
     studentProps[CSVConstants.Student.StudyProgram] = student.studyProgram;
     studentProps[CSVConstants.Student.Semester] = student.semester;
@@ -53,15 +54,6 @@ export class StudentSerializer {
       );
 
       studentProps[skillAbbreviation + CSVConstants.Skills.SkillLevelRationalePostfix] = skill.skillLevelRationale;
-    }
-  }
-
-  private static serializeGender(gender: Gender) {
-    switch (gender) {
-      case Gender.Male:
-        return CSVConstants.GenderValue.Male;
-      case Gender.Female:
-        return CSVConstants.GenderValue.Female;
     }
   }
 

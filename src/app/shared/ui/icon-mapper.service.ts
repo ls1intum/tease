@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SkillLevel } from '../models/skill';
-import { Gender } from '../models/student';
+import { Gender } from '../models/generated-model/gender';
 import { Device } from '../models/device';
 import { Md5 } from 'ts-md5/dist/md5';
 /**
@@ -9,7 +9,7 @@ import { Md5 } from 'ts-md5/dist/md5';
 
 export class IconMapperService {
   private static readonly BASE_PATH_IMAGES = '/assets/images/';
-  private static readonly GRAVATAR_URL = 'http://www.gravatar.com/avatar/';
+  private static readonly GRAVATAR_URL = 'https://www.gravatar.com/avatar/';
 
   constructor() {}
 
@@ -50,6 +50,9 @@ export class IconMapperService {
       case Gender.Male:
         return IconMapperService.BASE_PATH_IMAGES + 'mars.svg';
       case Gender.Female:
+        return IconMapperService.BASE_PATH_IMAGES + 'venus.svg';
+      default:
+         // TODO: create separate images for remaining gender options
         return IconMapperService.BASE_PATH_IMAGES + 'venus.svg';
     }
   }

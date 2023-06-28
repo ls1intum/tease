@@ -3,9 +3,7 @@ import { Skill, SkillLevel } from './skill';
 import { Device } from './device';
 import { CSVConstants } from '../constants/csv.constants';
 import { LanguageProficiency } from './generated-model/languageProficiency';
-/**
- * Created by wanur on 05/11/2016.
- */
+import { Gender } from './generated-model/gender';
 
 export class Student {
   firstName: string;
@@ -45,6 +43,7 @@ export class Student {
 
   addDevice(device: Device) {
     this.devices.push(device);
+    this.germanLanguageLevel;
   }
 
   ownsDevice(device: Device): boolean {
@@ -76,9 +75,4 @@ export class Student {
   getNoniOSSkills(): Array<Skill> {
     return this.skills.filter(skill => skill.name !== CSVConstants.SkillNameiOS);
   }
-}
-
-export enum Gender {
-  Male,
-  Female,
 }

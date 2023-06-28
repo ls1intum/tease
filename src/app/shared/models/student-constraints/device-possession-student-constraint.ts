@@ -1,6 +1,5 @@
 import { StudentConstraint } from './student-constraint';
-import { Gender, Student } from '../student';
-import { SkillLevel } from '../skill';
+import { Student } from '../student';
 import { Device } from '../device';
 
 export class DevicePossessionStudentConstraint extends StudentConstraint {

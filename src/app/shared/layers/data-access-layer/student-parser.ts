@@ -1,4 +1,5 @@
-import { Student, Gender } from '../../models/student';
+import { Student } from '../../models/student';
+import { Gender } from '../../models/generated-model/gender';
 import { CSVConstants } from '../../constants/csv.constants';
 import { Device } from '../../models/device';
 import { StringHelper } from '../../helpers/string.helper';
@@ -51,7 +52,7 @@ export abstract class StudentParser {
     student.lastName = studentProps[CSVConstants.Student.LastName];
     student.email = studentProps[CSVConstants.Student.Email];
     student.studentId = studentProps[CSVConstants.Student.StudentId];
-    student.gender = this.parseGender(studentProps[CSVConstants.Student.Gender]);
+    student.gender = studentProps[CSVConstants.Student.Gender];
 
     student.nationality = studentProps[CSVConstants.Student.Nationality];
     student.studyProgram = studentProps[CSVConstants.Student.StudyProgram];
@@ -118,13 +119,6 @@ export abstract class StudentParser {
     if (skillLevelString === CSVConstants.SkillLevelValue.None) return SkillLevel.None;
 
     return SkillLevel.None;
-  }
-
-  static parseGender(genderString: string): Gender {
-    if (genderString === CSVConstants.GenderValue.Male) return Gender.Male;
-    if (genderString === CSVConstants.GenderValue.Female) return Gender.Female;
-
-    return Gender.Male;
   }
 
   private static parseStudentDevices(student: Student, studentProps: Array<any>) {

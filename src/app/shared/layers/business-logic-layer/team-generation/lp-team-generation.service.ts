@@ -8,7 +8,8 @@ import { FemaleStudentConstraint } from '../../../models/constraints/female-stud
 import { IosDeviceConstraint } from '../../../models/constraints/ios-device.constraint';
 import { TeamSizeConstraint } from '../../../models/constraints/team-size.constraint';
 import { Device } from '../../../models/device';
-import { Student, Gender } from '../../../models/student';
+import { Student} from '../../../models/student';
+import { Gender } from '../../../models/generated-model/gender';
 import { ReformatLP, Solve } from 'javascript-lp-solver';
 import { SkillLevel } from '../../../models/skill';
 import { SkillExpertConstraint } from '../../../models/constraints/skill-expert.constraint';

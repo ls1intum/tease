@@ -1,6 +1,6 @@
 import { Constraint, ConstraintType } from './constraint';
 import { Team } from '../team';
-import { Gender } from '../student';
+import { Gender } from '../generated-model/gender';
 /**
  * Created by Malte Bucksch on 23/02/2017.
  */

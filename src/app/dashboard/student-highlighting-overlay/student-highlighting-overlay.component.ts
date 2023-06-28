@@ -8,7 +8,7 @@ import { ExperienceStudentConstraint } from '../../shared/models/student-constra
 import { GenderStudentConstraint } from '../../shared/models/student-constraints/gender-student-constraint';
 import { DevicePossessionStudentConstraint } from '../../shared/models/student-constraints/device-possession-student-constraint';
 import { CSVConstants } from '../../shared/constants/csv.constants';
-import { Gender } from '../../shared/models/student';
+import { Gender } from '../../shared/models/generated-model/gender';
 import { Device } from '../../shared/models/device';
 
 @Component({
