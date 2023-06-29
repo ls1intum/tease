@@ -7,7 +7,7 @@ import { IosDeviceConstraint } from '../../models/constraints/ios-device.constra
 import { MacDeviceConstraint } from '../../models/constraints/mac-device.constraint';
 import { SkillExpertConstraint } from '../../models/constraints/skill-expert.constraint';
 import { SkillAdvancedConstraint } from '../../models/constraints/skill-advanced.constraint';
-import { SkillNormalConstraint } from '../../models/constraints/skill-normal.constraint';
+import { SkillIntermediateConstraint } from '../../models/constraints/skill-intermediate.constraint';
 import { SkillNoviceConstraint } from '../../models/constraints/skill-novice.constraint';
 import { CSVStudentDataAccessService } from './csv-student-data-access.service';
 
@@ -39,7 +39,7 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
       classDefinition: SkillAdvancedConstraint,
       storageKey: KeyValueConstraintAccessService.KeySkillAdvancedConstraint,
     },
-    { classDefinition: SkillNormalConstraint, storageKey: KeyValueConstraintAccessService.KeySkillNormalConstraint },
+    { classDefinition: SkillIntermediateConstraint, storageKey: KeyValueConstraintAccessService.KeySkillNormalConstraint },
     { classDefinition: SkillNoviceConstraint, storageKey: KeyValueConstraintAccessService.KeySkillNoviceConstraint },
   ];
 

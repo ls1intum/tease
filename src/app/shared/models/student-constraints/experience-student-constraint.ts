@@ -1,10 +1,10 @@
 import { StudentConstraint } from './student-constraint';
 import { Student } from '../student';
-import { SkillLevel } from '../skill';
+import { SkillLevel } from '../generated-model/skillLevel';
 
 export class ExperienceStudentConstraint extends StudentConstraint {
-  minimumExperience: SkillLevel = SkillLevel.Low;
-  skillName: string;
+  minimumExperience: SkillLevel = SkillLevel.Novice;
+  skillTitle: string;
 
   static getTyped(constraint: StudentConstraint): ExperienceStudentConstraint {
     if (constraint instanceof ExperienceStudentConstraint) return constraint;
@@ -12,7 +12,7 @@ export class ExperienceStudentConstraint extends StudentConstraint {
   }
 
   isFullfilledFor(student: Student): boolean {
-    const skill = student.skills.find(s => s.name === this.skillName);
+    const skill = student.skills.find(assessment => assessment.skill.title === this.skillTitle);
 
     if (skill === undefined) return false;
 
@@ -22,7 +22,7 @@ export class ExperienceStudentConstraint extends StudentConstraint {
   copy(): StudentConstraint {
     const newConstraint = new ExperienceStudentConstraint();
     newConstraint.minimumExperience = this.minimumExperience;
-    newConstraint.skillName = this.skillName;
+    newConstraint.skillTitle = this.skillTitle;
     return newConstraint;
   }
 }

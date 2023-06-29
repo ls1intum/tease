@@ -1,9 +1,6 @@
 import { Team } from '../models/team';
 import { Student } from '../models/student';
-import { SkillLevel } from '../models/skill';
-/**
- * Created by Malte Bucksch on 16/12/2016.
- */
+import { SkillLevel } from '../models/generated-model/skillLevel';
 
 export abstract class TeamHelper {
   static getStudents(teams: Team[]): Student[] {

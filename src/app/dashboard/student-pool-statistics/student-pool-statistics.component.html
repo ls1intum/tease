@@ -63,20 +63,20 @@
 
         <!-- skill level stats -->
         <div
-          *ngFor="let skillLevel of [SkillLevel.Low, SkillLevel.Medium, SkillLevel.High, SkillLevel.VeryHigh]"
+          *ngFor="let skillLevel of SkillLevel | keyvalue"
           class="flex-row flex-center">
           <div class="flex-neutral-grow flex-row flex-center flex-no-shrink">
-            <div class="statistics-skill-level-badge" [style.background-color]="Colors.getColor(skillLevel)">
-              {{ Skill.getLabelForSkillLevel(skillLevel) }}
+            <div class="statistics-skill-level-badge" [style.background-color]="Colors.getColor(skillLevel.value)">
+              {{ skillLevel.value }}
             </div>
           </div>
-          <div class="flex-neutral-grow">{{ getNumberOfStudentsWithSupervisorRating(skillLevel) }}</div>
+          <div class="flex-neutral-grow">{{ getNumberOfStudentsWithSupervisorRating(skillLevel.value) }}</div>
           <div class="flex-neutral-grow">
-            {{ Math.round((getNumberOfStudentsWithSupervisorRating(skillLevel) * 1000) / getNumberOfStudents()) / 10 }}%
+            {{ Math.round((getNumberOfStudentsWithSupervisorRating(skillLevel.value) * 1000) / getNumberOfStudents()) / 10 }}%
           </div>
           <div class="flex-neutral-grow">
             {{
-              Math.round((getNumberOfStudentsWithSupervisorRating(skillLevel) * 100) / teamService.teams.length) / 100
+              Math.round((getNumberOfStudentsWithSupervisorRating(skillLevel.value) * 100) / teamService.teams.length) / 100
             }}
           </div>
         </div>

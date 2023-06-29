@@ -3,7 +3,7 @@ import { ArrayHelper } from '../../shared/helpers/array.helper';
 import { Team } from '../../shared/models/team';
 import { StudentStatisticsService } from '../../shared/layers/business-logic-layer/student-statistics.service';
 import { Colors } from '../../shared/constants/color.constants';
-import { SkillLevel } from '../../shared/models/skill';
+import { SkillLevel } from '../../shared/models/generated-model/skillLevel';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 
 @Component({
@@ -57,8 +57,8 @@ export class ProjectPrioritiesChartComponent implements OnInit, DoCheck {
   }
 
   getColorOfTeamDistributionBar(priority: number): string {
-    if (priority < 3) return Colors.getColor(SkillLevel.High);
-    else if (priority < 6) return Colors.getColor(SkillLevel.Medium);
-    else return Colors.getColor(SkillLevel.Low);
+    if (priority < 3) return Colors.getColor(SkillLevel.Advanced);
+    else if (priority < 6) return Colors.getColor(SkillLevel.Intermediate);
+    else return Colors.getColor(SkillLevel.Novice);
   }
 }

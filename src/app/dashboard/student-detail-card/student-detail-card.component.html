@@ -16,7 +16,7 @@
           *ngIf="isStudentRated()"
           class="supervisor-rating-badge flex-right"
           [style.background-color]="getSupervisorAssessmentColor()">
-          {{ getLabelForSkillLevel(student.supervisorAssessment) }}
+          {{ student.supervisorAssessment }}
         </div>
       </div>
 
@@ -100,26 +100,26 @@
 
     <div class="skill-container flex-column flex-center">
       <div class="skill-name">iOS Development</div>
-      <div class="skill-level-label" [ngClass]="'skill-level-label-' + student.getiOSSkillLevel()">
-        <div>{{ getLabelForSkillLevel(student.getiOSSkillLevel()) }}</div>
+      <div class="skill-level-label" [ngClass]="'skill-level-label-' + student.getiOSSkillLevel() | lowercase">
+        <div>{{ student.getiOSSkillLevel() }}</div>
       </div>
-      <div *ngIf="student.getiOSSkill().skillLevelRationale.length > 0" class="quote-text">
-        <span class="quotation-mark">“</span>{{ student.getiOSSkill().skillLevelRationale }}<span class="quotation-mark">”</span>
+      <div *ngIf="student.getiOSSkillSelfAssessment().skillLevelRationale.length > 0" class="quote-text">
+        <span class="quotation-mark">“</span>{{ student.getiOSSkillSelfAssessment().skillLevelRationale }}<span class="quotation-mark">”</span>
       </div>
-      <div class="quote-text" *ngIf="student.getiOSSkill().skillLevelRationale.length == 0">—</div>
+      <div class="quote-text" *ngIf="student.getiOSSkillSelfAssessment().skillLevelRationale.length == 0">—</div>
     </div>
 
     <div class="flex-row flex-wrap generic-skills-container-box">
-      <div *ngFor="let skill of student.getNoniOSSkills()" class="skill-container skill-container-generic flex-column flex-center">
-        <div class="skill-name">{{ skill.name }}</div>
-        <div class="skill-level-label" [ngClass]="'skill-level-label-' + skill.skillLevel">
-          <div>{{ getLabelForSkillLevel(skill.skillLevel) }}</div>
+      <div *ngFor="let assessment of student.getNoniOSSkillSelfAssessments()" class="skill-container skill-container-generic flex-column flex-center">
+        <div class="skill-name">{{ assessment.skill.title }}</div>
+        <div class="skill-level-label" [ngClass]="'skill-level-label-' + assessment.skillLevel | lowercase">
+          <div>{{ assessment.skillLevel }}</div>
         </div>
 
-        <div *ngIf="skill.skillLevelRationale.length > 0" class="quote-text">
-          <span class="quotation-mark">“</span>{{ skill.skillLevelRationale }}<span class="quotation-mark">”</span>
+        <div *ngIf="assessment.skillLevelRationale.length > 0" class="quote-text">
+          <span class="quotation-mark">“</span>{{ assessment.skillLevelRationale }}<span class="quotation-mark">”</span>
         </div>
-        <div class="quote-text" *ngIf="skill.skillLevelRationale.length == 0">—</div>
+        <div class="quote-text" *ngIf="assessment.skillLevelRationale.length == 0">—</div>
       </div>
     </div>
 
@@ -128,13 +128,13 @@
     <div class="flex-row spacing-x-3">
       <div
         class="skill-level-label flex-grow flex-basis-zero"
-        [ngClass]="'skill-level-label-' + student.getIntroSelfAssessmentLevel()">
-        <div>Student: “{{ getLabelForSelfAssessmentLevel(student.introSelfAssessment) | titlecase }}”</div>
+        [ngClass]="'skill-level-label-' + student.getIntroSelfAssessmentLevel() | lowercase">
+        <div>Student: “{{ CSVConstants.Student.IntroSelfAssessmentAnswers[student.getIntroSelfAssessmentLevel()] | titlecase }}”</div>
       </div>
       <div
         class="skill-level-label flex-grow flex-basis-zero"
-        [ngClass]="'skill-level-label-' + student.getSupervisorAssessmentLevel()">
-        <div>Tutor: “{{ getLabelForSkillLevel(student.supervisorAssessment) }}”</div>
+        [ngClass]="'skill-level-label-' + student.getSupervisorAssessmentLevel() | lowercase">
+        <div>Tutor: “{{ student.supervisorAssessment }}”</div>
       </div>
     </div>
 

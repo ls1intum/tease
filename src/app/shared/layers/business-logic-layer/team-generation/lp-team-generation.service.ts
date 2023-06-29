@@ -11,10 +11,10 @@ import { Device } from '../../../models/device';
 import { Student} from '../../../models/student';
 import { Gender } from '../../../models/generated-model/gender';
 import { ReformatLP, Solve } from 'javascript-lp-solver';
-import { SkillLevel } from '../../../models/skill';
+import { SkillLevel } from '../../../models/generated-model/skillLevel';
 import { SkillExpertConstraint } from '../../../models/constraints/skill-expert.constraint';
 import { SkillAdvancedConstraint } from '../../../models/constraints/skill-advanced.constraint';
-import { SkillNormalConstraint } from '../../../models/constraints/skill-normal.constraint';
+import { SkillIntermediateConstraint } from '../../../models/constraints/skill-intermediate.constraint';
 import { SkillNoviceConstraint } from '../../../models/constraints/skill-novice.constraint';
 
 function scaleObjective(objective, factor) {
@@ -287,11 +287,10 @@ export class LPTeamGenerationService implements TeamGenerationService {
 
       // TODO: this skillset objective does not work. Redesign / re-think it
       const desiredSkillWeights = {};
-      desiredSkillWeights[SkillLevel.VeryHigh] = 0.05;
-      desiredSkillWeights[SkillLevel.High] = 0.15;
-      desiredSkillWeights[SkillLevel.Medium] = 0.5;
-      desiredSkillWeights[SkillLevel.Low] = 0.3;
-      desiredSkillWeights[SkillLevel.None] = 0;
+      desiredSkillWeights[SkillLevel.Expert] = 0.05;
+      desiredSkillWeights[SkillLevel.Advanced] = 0.15;
+      desiredSkillWeights[SkillLevel.Intermediate] = 0.5;
+      desiredSkillWeights[SkillLevel.Novice] = 0.3;
 
       let skillSetObjective = '';
       for (let j = 1; j <= teams.length; j++) {
@@ -344,16 +343,16 @@ export class LPTeamGenerationService implements TeamGenerationService {
             }
 
             if (constraint instanceof SkillExpertConstraint) {
-              cs = this.generateSkillLevelConstraints(constraint, teamIndex, students, SkillLevel.VeryHigh);
+              cs = this.generateSkillLevelConstraints(constraint, teamIndex, students, SkillLevel.Expert);
             }
             if (constraint instanceof SkillAdvancedConstraint) {
-              cs = this.generateSkillLevelConstraints(constraint, teamIndex, students, SkillLevel.High);
+              cs = this.generateSkillLevelConstraints(constraint, teamIndex, students, SkillLevel.Advanced);
             }
-            if (constraint instanceof SkillNormalConstraint) {
-              cs = this.generateSkillLevelConstraints(constraint, teamIndex, students, SkillLevel.Medium);
+            if (constraint instanceof SkillIntermediateConstraint) {
+              cs = this.generateSkillLevelConstraints(constraint, teamIndex, students, SkillLevel.Intermediate);
             }
             if (constraint instanceof SkillNoviceConstraint) {
-              cs = this.generateSkillLevelConstraints(constraint, teamIndex, students, SkillLevel.Low);
+              cs = this.generateSkillLevelConstraints(constraint, teamIndex, students, SkillLevel.Novice);
             }
 
             model = model.concat(cs);

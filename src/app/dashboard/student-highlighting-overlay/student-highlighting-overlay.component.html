@@ -15,18 +15,16 @@
         <div
           *ngIf="InstructorRatingStudentConstraint.getTyped(studentConstraint)"
           class="flex-row flex-center flex-spacing-x-5px">
-          <div>Instructor Rating</div>
+          <div>Instructor Assessment</div>
           <div class="comparator-container flex-row flex-center flex-justify-center">
             <div>≥</div>
           </div>
 
           <mat-select [(value)]="InstructorRatingStudentConstraint.getTyped(studentConstraint).minimumRating">
-            <mat-option [value]="SkillLevel.Low">{{ Skill.getLabelForSkillLevel(SkillLevel.Low) }}</mat-option>
-            <mat-option [value]="SkillLevel.Medium">{{ Skill.getLabelForSkillLevel(SkillLevel.Medium) }}</mat-option>
-            <mat-option [value]="SkillLevel.High">{{ Skill.getLabelForSkillLevel(SkillLevel.High) }}</mat-option>
-            <mat-option [value]="SkillLevel.VeryHigh">{{
-              Skill.getLabelForSkillLevel(SkillLevel.VeryHigh)
-            }}</mat-option>
+            <mat-option [value]="SkillLevel.Novice">{{ SkillLevel.Novice }}</mat-option>
+            <mat-option [value]="SkillLevel.Intermediate">{{ SkillLevel.Intermediate }}</mat-option>
+            <mat-option [value]="SkillLevel.Advanced">{{ SkillLevel.Advanced }}</mat-option>
+            <mat-option [value]="SkillLevel.Expert">{{ SkillLevel.Expert }}</mat-option>
           </mat-select>
         </div>
 
@@ -34,17 +32,17 @@
           *ngIf="ExperienceStudentConstraint.getTyped(studentConstraint)"
           class="flex-row flex-center flex-spacing-x-5px">
           <div>Experience in</div>
-          <mat-select [(value)]="ExperienceStudentConstraint.getTyped(studentConstraint).skillName">
+          <mat-select [(value)]="ExperienceStudentConstraint.getTyped(studentConstraint).skillTitle">
             <mat-option *ngFor="let skillName of skillNames" [value]="skillName">{{ skillName }}</mat-option>
           </mat-select>
           <div class="comparator-container flex-row flex-center flex-justify-center">
             <div>≥</div>
           </div>
           <mat-select [(value)]="ExperienceStudentConstraint.getTyped(studentConstraint).minimumExperience">
-            <mat-option [value]="SkillLevel.Low">{{ SkillLevel.Low }}</mat-option>
-            <mat-option [value]="SkillLevel.Medium">{{ SkillLevel.Medium }}</mat-option>
-            <mat-option [value]="SkillLevel.High">{{ SkillLevel.High }}</mat-option>
-            <mat-option [value]="SkillLevel.VeryHigh">{{ SkillLevel.VeryHigh }}</mat-option>
+            <mat-option [value]="SkillLevel.Novice">{{ SkillLevel.Novice }}</mat-option>
+            <mat-option [value]="SkillLevel.Intermediate">{{ SkillLevel.Intermediate }}</mat-option>
+            <mat-option [value]="SkillLevel.Advanced">{{ SkillLevel.Advanced }}</mat-option>
+            <mat-option [value]="SkillLevel.Expert">{{ SkillLevel.Expert }}</mat-option>
           </mat-select>
         </div>
 

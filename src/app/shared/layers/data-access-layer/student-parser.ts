@@ -3,19 +3,21 @@ import { Gender } from '../../models/generated-model/gender';
 import { CSVConstants } from '../../constants/csv.constants';
 import { Device } from '../../models/device';
 import { StringHelper } from '../../helpers/string.helper';
-import { Skill, SkillLevel } from '../../models/skill';
+import { Skill } from '../../models/skill';
+import { SkillLevel } from '../../models/generated-model/skillLevel';
 import { Team } from '../../models/team';
-import { LanguageProficiency } from '../../models/generated-model/languageProficiency';
+import { SkillSelfAssessment } from '../../models/generated-model/skillSelfAssessment';
 
 export abstract class StudentParser {
-  static parseStudents(teamCsvData: Array<any>): [Student[], Team[]] {
+  static parseStudents(teamCsvData: Array<any>): [Student[], Team[], Skill[]] {
     const teams: Team[] = [];
+    const skills: Skill[] = [];
 
     const students = teamCsvData
-      .map((studentProps: Array<any>) => this.parseStudent(teams, studentProps))
+      .map((studentProps: Array<any>) => this.parseStudent(teams, skills, studentProps))
       .filter(student => student !== null);
 
-    return [students, teams];
+    return [students, teams, skills];
   }
 
   private static parseTeamPriorities(teams: Team[], student: Student, studentProps: Array<any>) {
@@ -45,7 +47,26 @@ export abstract class StudentParser {
     }
   }
 
-  static parseStudent(teams: Team[], studentProps: any): Student {
+  /**
+   * Retrieves a matching skill by ID or creates a new Skill object if none are found
+   * If the skill already exists in the array but the title hasn't been set yet,
+   * populate this property of the object in the array
+   * @param skills the current list of skills so far discovered while parsing the CSV
+   * @param skillTitle the title of the skill - can be empty
+   * @returns the skill referenced by the ID
+   */
+  private static getOrCreateSkill(skills: Skill[], skillId: string, skillTitle: string): Skill {
+    let skill: Skill = skills.find(skill => skill.id === skillId);
+    if (!skill) {
+      skill = new Skill(skillId, skillTitle, ''); // we don't require a skill description when parsing the CSV
+      skills.push(skill);
+    } else {
+      skill.setIfMissing(skillTitle);
+    }
+    return skill;
+  }
+
+  static parseStudent(teams: Team[], skills: Skill[], studentProps: any): Student {
     const student = new Student();
 
     student.firstName = studentProps[CSVConstants.Student.FirstName];
@@ -61,9 +82,9 @@ export abstract class StudentParser {
     student.englishLanguageLevel = studentProps[CSVConstants.Student.EnglishLanguageLevel];
     student.introSelfAssessment = this.parseSelfAssessment(studentProps[CSVConstants.Student.IntroSelfAssessment]);
     this.parseStudentDevices(student, studentProps);
-    this.parseStudentSkills(student, studentProps);
+    this.parseStudentSkillSelfAssessments(skills, student, studentProps);
     student.studentComments = studentProps[CSVConstants.Student.StudentComments];
-    student.supervisorAssessment = this.parseSkillLevel(studentProps[CSVConstants.Student.SupervisorAssessment]);
+    student.supervisorAssessment = studentProps[CSVConstants.Student.SupervisorAssessment];
     student.tutorComments = studentProps[CSVConstants.Student.TutorComments];
     if (studentProps.hasOwnProperty(CSVConstants.Student.IsPinned))
       student.isPinned = studentProps[CSVConstants.Student.IsPinned] === 'true';
@@ -82,43 +103,37 @@ export abstract class StudentParser {
     return student;
   }
 
-  private static parseStudentSkills(student: Student, studentProps: Array<any>) {
-    for (const [skillName, skillAbbreviation] of CSVConstants.Skills.SkillNameAbbreviationPairs) {
-      // const skillDescriptionString = studentProps[skillAbbreviation + CSVConstants.Skills.DescriptionPostfix]
+  private static parseStudentSkillSelfAssessments(skills: Skill[], student: Student, studentProps: Array<any>) {
+    const prefix = CSVConstants.Skills.SkillPrefix;
+    for (const skillId of CSVConstants.Skills.SkillIds) {
 
-      const skillLevelString = studentProps[skillAbbreviation + CSVConstants.Skills.SkillLevelPostfix];
+      const skillLevelString = studentProps[prefix + skillId + CSVConstants.Skills.SkillLevelPostfix];
+      const skillTitle = studentProps[prefix + skillId + CSVConstants.Skills.SkillTitlePostfix]
+      const skillLevelRationaleString = studentProps[prefix + skillId + CSVConstants.Skills.SkillLevelRationalePostfix];
 
-      const skillLevelRationaleString = studentProps[skillAbbreviation + CSVConstants.Skills.SkillLevelRationalePostfix];
+      if (!skillLevelString) {
+        console.log("could not find skill with id " + skillId);
+        continue; // skip to the next skill if there are no columns for it (assumed if no skill level exists)
+      }
 
-      if (!(skillLevelString)) continue;
+      const skill: Skill = this.getOrCreateSkill(skills, skillId, skillTitle);
 
-      let skillLevel: SkillLevel = StudentParser.parseSkillLevel(skillLevelString);
-
-      // TODO: retrieve the skill description from the appropriate CSV column
       student.skills.push(
-        new Skill(skillName, "placeholder: skill description", skillLevel, skillLevelRationaleString ? skillLevelRationaleString : '')
+        new SkillSelfAssessment(skill, skillLevelString, skillLevelRationaleString)
       );
     }
   }
 
   static parseSelfAssessment(selfAssessmentString: string): SkillLevel {
-    if (selfAssessmentString === CSVConstants.Student.IntroSelfAssessmentAnswers.VeryHigh) return SkillLevel.VeryHigh;
-    if (selfAssessmentString === CSVConstants.Student.IntroSelfAssessmentAnswers.High) return SkillLevel.High;
-    if (selfAssessmentString === CSVConstants.Student.IntroSelfAssessmentAnswers.Medium) return SkillLevel.Medium;
-    if (selfAssessmentString === CSVConstants.Student.IntroSelfAssessmentAnswers.Low) return SkillLevel.Low;
-    if (selfAssessmentString === CSVConstants.Student.IntroSelfAssessmentAnswers.None) return SkillLevel.None;
-
-    return SkillLevel.None;
-  }
-
-  static parseSkillLevel(skillLevelString: string): SkillLevel {
-    if (skillLevelString === CSVConstants.SkillLevelValue.VeryHigh) return SkillLevel.VeryHigh;
-    if (skillLevelString === CSVConstants.SkillLevelValue.High) return SkillLevel.High;
-    if (skillLevelString === CSVConstants.SkillLevelValue.Medium) return SkillLevel.Medium;
-    if (skillLevelString === CSVConstants.SkillLevelValue.Low) return SkillLevel.Low;
-    if (skillLevelString === CSVConstants.SkillLevelValue.None) return SkillLevel.None;
-
-    return SkillLevel.None;
+    let answers = CSVConstants.Student.IntroSelfAssessmentAnswers;
+    for (var key in answers) {
+      // neither of the two lines below seem safe
+      // TODO: refactor this and parse the self assessment answer strings in a better way
+      if (answers[key] === selfAssessmentString) {
+        return key as SkillLevel;
+      }
+    }
+    return SkillLevel.Novice;
   }
 
   private static parseStudentDevices(student: Student, studentProps: Array<any>) {

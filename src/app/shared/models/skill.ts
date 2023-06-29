@@ -1,77 +1,40 @@
 import { StudentSerializer } from '../layers/data-access-layer/student-serializer';
 import { CSVConstants } from '../constants/csv.constants';
-/**
- * Created by Malte Bucksch on 09/12/2016.
- */
+import { SkillLevel } from './generated-model/skillLevel';
 
 export class Skill {
-  private _name: string;
+  private _id: string;
+  private _title: string;
   private _description: string;
-  private _skillLevel: SkillLevel;
-  private _skillLevelRationale: string;
 
-  public static getLabelForSkillLevel(skillLevel: SkillLevel): string {
-    switch (skillLevel) {
-      case SkillLevel.Low:
-        return 'Novice';
-      case SkillLevel.Medium:
-        return 'Intermediate';
-      case SkillLevel.High:
-        return 'Advanced';
-      case SkillLevel.VeryHigh:
-        return 'Expert';
-    }
-
-    return 'Not rated';
-  }
-
-  public static getLabelForSelfAssessmentLevel(skillLevel: SkillLevel): string {
-    switch(skillLevel) {
-      case SkillLevel.Low:
-        return CSVConstants.Student.IntroSelfAssessmentAnswers.Low;
-      case SkillLevel.Medium:
-        return CSVConstants.Student.IntroSelfAssessmentAnswers.Medium;
-      case SkillLevel.High:
-        return CSVConstants.Student.IntroSelfAssessmentAnswers.High;
-      case SkillLevel.VeryHigh:
-        return CSVConstants.Student.IntroSelfAssessmentAnswers.VeryHigh;
-    }
-
-    return CSVConstants.Student.IntroSelfAssessmentAnswers.None;
-  }
-
-  constructor(name: string, description: string, skillLevel: SkillLevel, skillLevelRationale: string) {
-    this._name = name;
+  constructor(id: string, title: string, description: string, ) {
+    this._id = id;
+    this._title = title;
     this._description = description;
-    this._skillLevel = skillLevel;
-    this._skillLevelRationale = skillLevelRationale;
   }
 
-  get name(): string {
-    return this._name;
+  get id(): string {
+    return this._id;
+  }
+
+  get title(): string {
+    return this._title;
   }
 
   get description(): string {
     return this._description;
   }
 
-  get skillLevel(): SkillLevel {
-    return this._skillLevel;
-  }
-
-  get skillLevelRationale(): string {
-    return this._skillLevelRationale;
-  }
-
-  toString(): string {
-    return CSVConstants.SkillLevelValue[SkillLevel[this.skillLevel]];
+  /**
+   * Helper method to set some information if it is still missing from the skill definition
+   * To prevent redundancy in the CSV encoding only one row in the columns for a skills title
+   * is populated with values, so depending on in which row of the file this value
+   * is set and in which line the parser starts the value will initially be undefined
+   * until the row with the non-empty title is parsed
+   * @param {string} skillTitle the title of the skill, can be empty
+   */
+  public setIfMissing(skillTitle: string): void { 
+    if (!this.title && skillTitle && skillTitle !== '') { this._title = skillTitle; }
   }
 }
 
-export enum SkillLevel {
-  None = 0,
-  Low = 1,
-  Medium = 2,
-  High = 3,
-  VeryHigh = 4,
-}

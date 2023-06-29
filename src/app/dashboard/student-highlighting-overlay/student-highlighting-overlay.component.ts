@@ -3,7 +3,8 @@ import { OverlayComponent, OverlayService } from '../../overlay.service';
 import { StudentConstraintService } from '../../shared/layers/business-logic-layer/student-constraint.service';
 import { InstructorRatingStudentConstraint } from '../../shared/models/student-constraints/instructor-rating-student-constraint';
 import { StudentConstraint } from '../../shared/models/student-constraints/student-constraint';
-import { Skill, SkillLevel } from '../../shared/models/skill';
+import { Skill } from '../../shared/models/skill';
+import { SkillLevel } from 'src/app/shared/models/generated-model/skillLevel';
 import { ExperienceStudentConstraint } from '../../shared/models/student-constraints/experience-student-constraint';
 import { GenderStudentConstraint } from '../../shared/models/student-constraints/gender-student-constraint';
 import { DevicePossessionStudentConstraint } from '../../shared/models/student-constraints/device-possession-student-constraint';
@@ -28,7 +29,11 @@ export class StudentHighlightingOverlayComponent implements OnInit, OverlayCompo
   DevicePossessionStudentConstraint = DevicePossessionStudentConstraint;
   GenderStudentConstraint = GenderStudentConstraint;
 
-  skillNames = CSVConstants.Skills.SkillNameAbbreviationPairs.map(pair => pair[0]);
+  // TODO: instead of getting the skill names from the hardcoded CSV constants, retrieve them
+  // from the parsed skills stored inside the team service (this component needs access to the team service for that)
+  // empty for nwo
+  skillNames = []
+  // skillNames = [CSVConstants.Skills.SkillNameIdPairs.map(pair => pair[0])];
   studentConstraintsCopy: StudentConstraint[] = StudentConstraintService.studentConstraints.map(c => c.copy());
 
   public data: any;
@@ -51,7 +56,7 @@ export class StudentHighlightingOverlayComponent implements OnInit, OverlayCompo
 
   addExperienceConstraint() {
     const newConstraint = new ExperienceStudentConstraint();
-    newConstraint.skillName = this.skillNames[0];
+    newConstraint.skillTitle = this.skillNames[0];
     this.studentConstraintsCopy.push(newConstraint);
   }
 

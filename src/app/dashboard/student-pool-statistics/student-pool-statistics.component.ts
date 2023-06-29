@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Team } from '../../shared/models/team';
-import { Skill, SkillLevel } from '../../shared/models/skill';
+import { Skill} from '../../shared/models/skill';
+import { SkillLevel } from 'src/app/shared/models/generated-model/skillLevel';
 import { Colors } from '../../shared/constants/color.constants';
 import { Device } from '../../shared/models/device';
 import { Gender } from '../../shared/models/generated-model/gender';
@@ -55,17 +56,17 @@ export class StudentPoolStatisticsComponent implements OnInit {
   }
 
   getNumberOfVotesForTeamForPriority(team: Team, priority: number): number {
-    return this.getNumberOfStudentsWithPredicate(student => student.teamPriorities[priority] === team);
+    return this.getNumberOfStudentsWithPredicate(student => student.projectPriorities[priority] === team);
   }
 
   getColorOfTeamDistributionBar(priority: number): string {
-    if (priority < 3) return Colors.getColor(SkillLevel.High);
-    else if (priority < 6) return Colors.getColor(SkillLevel.Medium);
-    else return Colors.getColor(SkillLevel.Low);
+    if (priority < 3) return Colors.getColor(SkillLevel.Advanced);
+    else if (priority < 6) return Colors.getColor(SkillLevel.Intermediate);
+    else return Colors.getColor(SkillLevel.Novice);
   }
 
   getNumberOfStudentsWithSupervisorRating(skillLevel: SkillLevel): number {
-    return this.getNumberOfStudentsWithPredicate(student => student.supervisorRating === skillLevel);
+    return this.getNumberOfStudentsWithPredicate(student => student.supervisorAssessment === skillLevel);
   }
 
   getNumberOfStudents(): number {

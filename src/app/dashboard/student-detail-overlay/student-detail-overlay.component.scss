@@ -65,19 +65,19 @@
 }
 
 .btn-low.active, .btn-low:hover {
-  @extend .skill-level-label-1;
+  @extend .skill-level-label-novice;
 }
 
 .btn-medium.active, .btn-medium:hover {
-  @extend .skill-level-label-2;
+  @extend .skill-level-label-intermediate;
 }
 
 .btn-high.active, .btn-high:hover {
-  @extend .skill-level-label-3;
+  @extend .skill-level-label-advanced;
 }
 
 .btn-very-high.active, .btn-very-high:hover {
-  @extend .skill-level-label-4;
+  @extend .skill-level-label-expert;
 }
 
 input {

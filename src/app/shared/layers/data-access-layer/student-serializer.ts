@@ -1,12 +1,11 @@
 import { Student} from '../../models/student';
-import { Gender } from '../../models/generated-model/gender';
 import { StringHelper } from '../../helpers/string.helper';
 import { CSVConstants } from '../../constants/csv.constants';
 import { Device } from '../../models/device';
-import { SkillLevel } from '../../models/skill';
+import { SkillLevel } from '../../models/generated-model/skillLevel';
 
 export class StudentSerializer {
-  static serializeStudent(student: Student): any {
+  static serializeStudent(student: Student, serializeTitles: boolean): any {
     const studentProps = {};
 
     /* specified entries */
@@ -20,12 +19,12 @@ export class StudentSerializer {
     studentProps[CSVConstants.Student.Semester] = student.semester;
     studentProps[CSVConstants.Student.GermanLanguageLevel] = student.germanLanguageLevel;
     studentProps[CSVConstants.Student.EnglishLanguageLevel] = student.englishLanguageLevel;
-    studentProps[CSVConstants.Student.IntroSelfAssessment] = this.serializeSelfAssessment(student.introSelfAssessment);
+    studentProps[CSVConstants.Student.IntroSelfAssessment] = CSVConstants.Student.IntroSelfAssessmentAnswers[student.introSelfAssessment];
     this.serializeStudentDevices(student, studentProps);
-    this.serializeSkills(student, studentProps);
+    this.serializeSkillSelfAssessments(student, studentProps, serializeTitles);
     this.serializePriorities(student, studentProps);
     studentProps[CSVConstants.Student.StudentComments] = student.studentComments;
-    studentProps[CSVConstants.Student.SupervisorAssessment] = this.serializeSkillLevel(student.supervisorAssessment);
+    studentProps[CSVConstants.Student.SupervisorAssessment] = student.supervisorAssessment;
     studentProps[CSVConstants.Student.TutorComments] = student.tutorComments;
     studentProps[CSVConstants.Student.IsPinned] = String(student.isPinned);
 
@@ -42,48 +41,14 @@ export class StudentSerializer {
     }
   }
 
-  private static serializeSkills(student: Student, studentProps: any) {
-    for (const skill of student.skills) {
-      const skillAbbreviation = CSVConstants.Skills.SkillNameAbbreviationPairs.find(pair => pair[0] === skill.name)[1];
-
-      // skill description currently not populated yet
-      // studentProps[skillAbbreviation + CSVConstants.Skills.DescriptionPostfix] = skill.description;
-
-      studentProps[skillAbbreviation + CSVConstants.Skills.SkillLevelPostfix] = StudentSerializer.serializeSkillLevel(
-        skill.skillLevel
-      );
-
-      studentProps[skillAbbreviation + CSVConstants.Skills.SkillLevelRationalePostfix] = skill.skillLevelRationale;
-    }
-  }
-
-  static serializeSkillLevel(skillLevel: SkillLevel): string {
-    switch (skillLevel) {
-      case SkillLevel.VeryHigh:
-        return CSVConstants.SkillLevelValue.VeryHigh;
-      case SkillLevel.High:
-        return CSVConstants.SkillLevelValue.High;
-      case SkillLevel.Medium:
-        return CSVConstants.SkillLevelValue.Medium;
-      case SkillLevel.Low:
-        return CSVConstants.SkillLevelValue.Low;
-      case SkillLevel.None:
-        return CSVConstants.SkillLevelValue.None;
-    }
-  }
-
-  static serializeSelfAssessment(skillLevel: SkillLevel): string {
-    switch (skillLevel) {
-      case SkillLevel.VeryHigh:
-        return CSVConstants.Student.IntroSelfAssessmentAnswers.VeryHigh;
-      case SkillLevel.High:
-        return CSVConstants.Student.IntroSelfAssessmentAnswers.VeryHigh;
-      case SkillLevel.Medium:
-        return CSVConstants.Student.IntroSelfAssessmentAnswers.Medium;
-      case SkillLevel.Low:
-        return CSVConstants.Student.IntroSelfAssessmentAnswers.Low;
-      case SkillLevel.None:
-        return CSVConstants.Student.IntroSelfAssessmentAnswers.None;
+  private static serializeSkillSelfAssessments(student: Student, studentProps: any, serializeTitles: boolean) {
+    const prefix = CSVConstants.Skills.SkillPrefix;
+    for (const assessment of student.skills) {
+      const skill = assessment.skill;
+      studentProps[prefix + skill.id + CSVConstants.Skills.SkillLevelPostfix] = assessment.skillLevel;
+      // only populate the title field if instructed, we do this for only one student when exporting back into CSV
+      studentProps[prefix + skill.id + CSVConstants.Skills.SkillTitlePostfix] = (serializeTitles) ? assessment.skill.title : '';
+      studentProps[prefix + skill.id + CSVConstants.Skills.SkillLevelRationalePostfix] = assessment.skillLevelRationale;
     }
   }
 

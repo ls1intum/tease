@@ -12,13 +12,13 @@
         <div>≥</div>
       </div>
       <div>
-        {{ Skill.getLabelForSkillLevel(InstructorRatingStudentConstraint.getTyped(studentConstraint).minimumRating) }}
+        {{ InstructorRatingStudentConstraint.getTyped(studentConstraint).minimumRating }}
       </div>
     </div>
 
     <div *ngIf="ExperienceStudentConstraint.getTyped(studentConstraint)" class="flex-row flex-center flex-spacing-x-5px">
       <div>Experience in</div>
-      <div>{{ getSkillNameAbbreviation(ExperienceStudentConstraint.getTyped(studentConstraint).skillName) }}</div>
+      <div>{{ ExperienceStudentConstraint.getTyped(studentConstraint).skillTitle }}</div>
       <div class="comparator-container flex-row flex-center flex-justify-center">
         <div>≥</div>
       </div>

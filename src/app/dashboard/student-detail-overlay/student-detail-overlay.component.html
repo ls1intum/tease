@@ -14,54 +14,43 @@
                 <input
                   type="radio"
                   id="option-1"
-                  class="btn-check"
                   formControlName="studentSkillLevelControl"
-                  [value]="SkillLevel.None"
+                  [value]="SkillLevel.Novice"
                 />
-                <label class="btn-secondary btn-none" for="option-1">
-                  <div class="key-icon-container">0</div>
-                  {{ getLabelForSkillLevel(SkillLevel.None) }}
+                <label class="btn-secondary btn-low" for="option-1">
+                  <div class="key-icon-container">1</div>
+                  {{ SkillLevel.Novice }}
                 </label>
                 <input
                   type="radio"
                   id="option-2"
                   formControlName="studentSkillLevelControl"
-                  [value]="SkillLevel.Low"
+                  [value]="SkillLevel.Intermediate"
                 />
-                <label class="btn-secondary btn-low" for="option-2">
-                  <div class="key-icon-container">1</div>
-                  {{ getLabelForSkillLevel(SkillLevel.Low) }}
+                <label class="btn-secondary btn-medium" for="option-2">
+                  <div class="key-icon-container">2</div>
+                  {{ SkillLevel.Intermediate }}
                 </label>
                 <input
                   type="radio"
                   id="option-3"
                   formControlName="studentSkillLevelControl"
-                  [value]="SkillLevel.Medium"
+                  [value]="SkillLevel.Advanced"
                 />
-                <label class="btn-secondary btn-medium" for="option-3">
-                  <div class="key-icon-container">2</div>
-                  {{ getLabelForSkillLevel(SkillLevel.Medium) }}
+                <label class="btn-secondary btn-high" for="option-3">
+                  <div class="key-icon-container">3</div>
+                  {{ SkillLevel.Advanced }}
                 </label>
                 <input
                   type="radio"
                   id="option-4"
-                  formControlName="studentSkillLevelControl"
-                  [value]="SkillLevel.High"
-                />
-                <label class="btn-secondary btn-high" for="option-4">
-                  <div class="key-icon-container">3</div>
-                  {{ getLabelForSkillLevel(SkillLevel.High) }}
-                </label>
-                <input
-                  type="radio"
-                  id="option-5"
                   class="btn-check"
                   formControlName="studentSkillLevelControl"
-                  [value]="SkillLevel.VeryHigh"
+                  [value]="SkillLevel.Expert"
                 />
-                <label class="btn-secondary btn-very-high" for="option-5">
+                <label class="btn-secondary btn-very-high" for="option-4">
                   <div class="key-icon-container">4</div>
-                  {{ getLabelForSkillLevel(SkillLevel.VeryHigh) }}
+                  {{ SkillLevel.Expert }}
                 </label>
               </div>
             </form>

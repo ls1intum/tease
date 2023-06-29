@@ -6,7 +6,7 @@ import { Team } from '../../shared/models/team';
 import { StudentDetailOverlayComponent } from '../student-detail-overlay/student-detail-overlay.component';
 import { OverlayService } from '../../overlay.service';
 import { ConstraintsOverlayComponent } from '../constraints-overlay/constraints-overlay.component';
-import { SkillLevel } from '../../shared/models/skill';
+import { SkillLevel } from '../../shared/models/generated-model/skillLevel';
 import { Device } from '../../shared/models/device';
 import { FormControl, FormGroup } from '@angular/forms';
 

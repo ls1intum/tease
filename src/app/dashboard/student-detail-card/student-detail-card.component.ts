@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Student } from '../../shared/models/student';
-import { Skill, SkillLevel } from '../../shared/models/skill';
+import { Skill } from '../../shared/models/skill';
+import { SkillLevel } from 'src/app/shared/models/generated-model/skillLevel';
 import { Colors } from '../../shared/constants/color.constants';
 import { CSVConstants } from '../../shared/constants/csv.constants';
 import { IconMapperService } from '../../shared/ui/icon-mapper.service';
@@ -15,8 +16,6 @@ import { NationalityHelper } from '../../shared/helpers/nationality.helper';
 export class StudentDetailCardComponent implements OnInit {
   @Input() student: Student;
 
-  getLabelForSkillLevel = Skill.getLabelForSkillLevel;
-  getLabelForSelfAssessmentLevel = Skill.getLabelForSelfAssessmentLevel;
   getGravatarIcon = IconMapperService.getGravatarIcon;
   SkillLevel = SkillLevel;
   CSVConstants = CSVConstants;
@@ -28,7 +27,7 @@ export class StudentDetailCardComponent implements OnInit {
   ngOnInit() {}
 
   isStudentRated(): boolean {
-    return this.student.supervisorAssessment !== undefined && this.student.supervisorAssessment !== SkillLevel.None;
+    return this.student.supervisorAssessment !== undefined;
   }
 
   getSupervisorAssessmentColor(): string {

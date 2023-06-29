@@ -1,9 +1,9 @@
 import { Constraint, ConstraintType } from './constraint';
 import { Team } from '../team';
 import { TeamHelper } from '../../helpers/team.helper';
-import { Skill, SkillLevel } from '../skill';
+import { SkillLevel } from '../generated-model/skillLevel';
 
-export class SkillNormalConstraint extends Constraint {
+export class SkillIntermediateConstraint extends Constraint {
   constructor(config: any) {
     super(config);
   }
@@ -14,7 +14,7 @@ export class SkillNormalConstraint extends Constraint {
   }
 
   getName(): string {
-    return Skill.getLabelForSkillLevel(SkillLevel.Medium);
+    return SkillLevel.Intermediate;
   }
 
   getType(): ConstraintType {
@@ -22,6 +22,6 @@ export class SkillNormalConstraint extends Constraint {
   }
 
   getCurrentValue(team: Team): number {
-    return TeamHelper.getStudentsOfSkillLevelInTeam(team, SkillLevel.Medium);
+    return TeamHelper.getStudentsOfSkillLevelInTeam(team, SkillLevel.Intermediate);
   }
 }

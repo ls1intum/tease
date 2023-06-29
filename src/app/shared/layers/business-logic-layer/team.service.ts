@@ -5,6 +5,7 @@ import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
 import { CSVStudentDataAccessService } from '../data-access-layer/csv-student-data-access.service';
 import { ConstraintLoggingService } from './constraint-logging.service';
+import { Skill } from '../../models/skill';
 
 @Injectable()
 export class TeamService {
@@ -15,12 +16,13 @@ export class TeamService {
 
   teams: Team[];
   students: Student[];
+  skills: Skill[];
 
   // derived properties
   studentsWithoutTeam: Student[];
 
-  private load(data: [Student[], Team[]]) {
-    [this.students, this.teams] = data;
+  private load(data: [Student[], Team[], Skill[]]) {
+    [this.students, this.teams, this.skills] = data;
     this.updateDerivedProperties();
   }
 

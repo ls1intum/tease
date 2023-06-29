@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Student } from '../../shared/models/student';
-import { Skill, SkillLevel } from '../../shared/models/skill';
+import { Skill } from '../../shared/models/skill';
+import { SkillLevel } from '../../shared/models/generated-model/skillLevel';
 import { OverlayComponent } from '../../overlay.service';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -18,11 +19,10 @@ export class StudentDetailOverlayComponent implements OnInit, OverlayComponent {
     onStudentClicked: (Student) => void;
   };
 
-  getLabelForSkillLevel = Skill.getLabelForSkillLevel;
   SkillLevel = SkillLevel;
 
   studentSkillLevelFormGroup = new FormGroup({
-    studentSkillLevelControl: new FormControl(SkillLevel.None),
+    studentSkillLevelControl: new FormControl(SkillLevel.Novice),
   });
 
   constructor() {}
@@ -42,20 +42,17 @@ export class StudentDetailOverlayComponent implements OnInit, OverlayComponent {
     if (!this.data) return;
 
     switch (event.key) {
-      case '0':
-        this.data.student.supervisorAssessment = SkillLevel.None;
-        break;
       case '1':
-        this.data.student.supervisorAssessment = SkillLevel.Low;
+        this.data.student.supervisorAssessment = SkillLevel.Novice;
         break;
       case '2':
-        this.data.student.supervisorAssessment = SkillLevel.Medium;
+        this.data.student.supervisorAssessment = SkillLevel.Intermediate;
         break;
       case '3':
-        this.data.student.supervisorAssessment = SkillLevel.High;
+        this.data.student.supervisorAssessment = SkillLevel.Advanced;
         break;
       case '4':
-        this.data.student.supervisorAssessment = SkillLevel.VeryHigh;
+        this.data.student.supervisorAssessment = SkillLevel.Expert;
         break;
     }
 

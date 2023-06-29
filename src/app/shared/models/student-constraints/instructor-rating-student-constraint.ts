@@ -1,10 +1,9 @@
 import { StudentConstraint } from './student-constraint';
 import { Student } from '../student';
-import { SkillLevel } from '../skill';
-import { GenderStudentConstraint } from './gender-student-constraint';
+import { SkillLevel } from '../generated-model/skillLevel';
 
 export class InstructorRatingStudentConstraint extends StudentConstraint {
-  minimumRating: SkillLevel = SkillLevel.Low;
+  minimumRating: SkillLevel = SkillLevel.Novice;
 
   static getTyped(constraint: StudentConstraint): InstructorRatingStudentConstraint {
     if (constraint instanceof InstructorRatingStudentConstraint) return constraint;

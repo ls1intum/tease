@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { StudentConstraintService } from '../shared/layers/business-logic-layer/student-constraint.service';
 import { InstructorRatingStudentConstraint } from '../shared/models/student-constraints/instructor-rating-student-constraint';
 import { DevicePossessionStudentConstraint } from '../shared/models/student-constraints/device-possession-student-constraint';
-import { Skill, SkillLevel } from '../shared/models/skill';
+import { Skill} from '../shared/models/skill';
+import { SkillLevel } from '../shared/models/generated-model/skillLevel';
 import { CSVConstants } from '../shared/constants/csv.constants';
 import { ExperienceStudentConstraint } from '../shared/models/student-constraints/experience-student-constraint';
 import { Device } from '../shared/models/device';
@@ -39,8 +40,14 @@ export class HighlightingToolbarComponent implements OnInit {
   }
 
   getSkillNameAbbreviation(skillName: string) {
-    const pair = this.CSVConstants.Skills.SkillNameAbbreviationPairs.find(p => p[0] === skillName);
-    return pair ? pair[1] : skillName;
+    // TODO: instead of getting the skill names from the hardcoded CSV constants, retrieve them
+    // from the parsed skills stored inside the team service (this component needs access to
+    // the team service for that)
+
+    // const pair = this.CSVConstants.Skills.SkillNameIdPairs.find(p => p[0] === skillName);
+    // return pair ? pair[1] : skillName;
+
+    return skillName; // return just the skill name for now
   }
 
   removeConstraint(studentConstraint: StudentConstraint) {

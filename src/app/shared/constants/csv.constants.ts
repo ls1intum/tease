@@ -1,8 +1,3 @@
-/**
- * Created by Malte Bucksch on 20/11/2016.
- */
-import { SkillLevel } from '../models/skill';
-
 export class CSVConstants {
   static readonly Student = {
     FirstName: 'firstname',
@@ -20,11 +15,10 @@ export class CSVConstants {
     IosDevExperienceExplained: 'iOSDevExplained',
     IntroSelfAssessment: 'introSelfAssessment',
     IntroSelfAssessmentAnswers: {
-      None: 'extremely challenging',
-      Low: 'very challenging',
-      Medium: 'medium challenging',
-      High: 'hardly challenging',
-      VeryHigh: 'not challenging at all',
+      Novice: 'extremely challenging',
+      Intermediate: 'very challenging',
+      Advanced: 'medium challenging',
+      Expert: 'not challenging at all',
     },
 
     /* (devices) */
@@ -41,21 +35,17 @@ export class CSVConstants {
   };
 
   // TODO: We want this skill to always exist, but ideally we should store it somewhere else and definitely document it
-  static readonly SkillNameiOS = 'iOS Development';
+  static readonly SkillIdiOS = 'swift';
 
   static readonly Skills = {
-    DescriptionPostfix: '.description',
+    SkillPrefix: 'skill.',
+    SkillTitlePostfix: '.title',
     SkillLevelPostfix: '.skillLevel',
     SkillLevelRationalePostfix: '.skillLevelRationale',
-    SkillNameAbbreviationPairs: [
-      [CSVConstants.SkillNameiOS, 'IOSDEV'],
-      ['Frontend Development', 'WEBFE'],
-      ['Server-side Development', 'SSDEV'],
-      ['UI / UX', 'UIUX'],
-      ['Embedded Development', 'EMBED'],
-      ['Virtual & Augmented Reality', 'VRAR'],
-      ['Machine Learning & Algorithms', 'MLALG'],
-    ],
+
+    // TODO: instead of hardcoding them here infer team IDs from the CSV column names (using the prefix)
+    // for importing via the api there is a route to retrieve skills
+    SkillIds: [CSVConstants.SkillIdiOS, 'webfe', 'ssdev', 'uiux', 'embed', 'vrar', 'mlalg']
   };
 
   static readonly Devices = {
@@ -69,14 +59,6 @@ export class CSVConstants {
 
   static readonly Team = { TeamName: 'teamName', Priority: 'Priorities[{d}]' };
   static readonly ArrayBraces = { Open: '[', Close: ']' };
-
-  static readonly SkillLevelValue = {
-    VeryHigh: 'expert skills',
-    High: 'advanced skills',
-    Medium: 'average skills',
-    Low: 'beginner skills',
-    None: 'no skills',
-  };
 
   static readonly GenderValue = { Male: 'male', Female: 'female' };
 

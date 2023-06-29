@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import { SkillLevel } from '../models/skill';
+import { SkillLevel } from '../models/generated-model/skillLevel';
 import { Gender } from '../models/generated-model/gender';
 import { Device } from '../models/device';
 import { Md5 } from 'ts-md5/dist/md5';
-/**
- * Created by Malte Bucksch on 10/12/2016.
- */
 
 export class IconMapperService {
   private static readonly BASE_PATH_IMAGES = '/assets/images/';
@@ -15,15 +12,15 @@ export class IconMapperService {
 
   static getSkillIconPath(skillLevel: SkillLevel): string {
     switch (skillLevel) {
-      case SkillLevel.VeryHigh:
+      case SkillLevel.Expert:
         return IconMapperService.BASE_PATH_IMAGES + 'skill_very_high.png';
-      case SkillLevel.High:
+      case SkillLevel.Advanced:
         return IconMapperService.BASE_PATH_IMAGES + 'skill_high.png';
-      case SkillLevel.Medium:
+      case SkillLevel.Intermediate:
         return IconMapperService.BASE_PATH_IMAGES + 'skill_medium.png';
-      case SkillLevel.Low:
+      case SkillLevel.Novice:
         return IconMapperService.BASE_PATH_IMAGES + 'skill_low.png';
-      case SkillLevel.None:
+      default:
         return IconMapperService.BASE_PATH_IMAGES + 'skill_not_rated.png';
     }
   }

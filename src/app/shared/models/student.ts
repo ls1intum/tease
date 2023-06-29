@@ -1,9 +1,11 @@
 import { Team } from './team';
-import { Skill, SkillLevel } from './skill';
+import { Skill } from './skill';
 import { Device } from './device';
 import { CSVConstants } from '../constants/csv.constants';
 import { LanguageProficiency } from './generated-model/languageProficiency';
 import { Gender } from './generated-model/gender';
+import { SkillLevel } from './generated-model/skillLevel';
+import { SkillSelfAssessment } from './generated-model/skillSelfAssessment';
 
 export class Student {
   firstName: string;
@@ -21,7 +23,7 @@ export class Student {
   introSelfAssessment: SkillLevel;
 
   devices: Device[] = [];
-  skills: Skill[] = [];
+  skills: SkillSelfAssessment[] = [];
   projectPriorities: Team[] = [];
 
   studentComments: string;
@@ -51,17 +53,17 @@ export class Student {
   }
 
   hasSupervisorAssessment(): boolean {
-    return this.supervisorAssessment !== undefined && this.supervisorAssessment !== SkillLevel.None;
+    return this.supervisorAssessment !== undefined;
   }
 
-  getiOSSkill(): Skill {
+  getiOSSkillSelfAssessment(): SkillSelfAssessment {
     // TODO: have the iOS skill be hard-coded or forced to always exist due to its signifince or special
     // role in the iPraktikum, instead of a CSV constant store this somewhere else
-    return this.skills.find(skill => skill.name === CSVConstants.SkillNameiOS);
+    return this.skills.find(assessment => assessment.skill.id === CSVConstants.SkillIdiOS);
   }
 
   getiOSSkillLevel(): SkillLevel {
-    return this.getiOSSkill().skillLevel;
+    return this.getiOSSkillSelfAssessment().skillLevel;
   }
 
   getIntroSelfAssessmentLevel(): SkillLevel {
@@ -72,7 +74,7 @@ export class Student {
     return this.supervisorAssessment;
   }
 
-  getNoniOSSkills(): Array<Skill> {
-    return this.skills.filter(skill => skill.name !== CSVConstants.SkillNameiOS);
+  getNoniOSSkillSelfAssessments(): Array<SkillSelfAssessment> {
+    return this.skills.filter(skill => skill.skill.id !== CSVConstants.SkillIdiOS);
   }
 }

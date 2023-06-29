@@ -85,7 +85,7 @@ components:
         englishLanguageLevel:
           $ref: '#/components/schemas/LanguageProficiency'
         introSelfAssessment:
-          $ref: '#/components/schemas/SkillProficiencyLevel'
+          $ref: '#/components/schemas/SkillLevel'
 
         devices:
           type: array
@@ -105,7 +105,7 @@ components:
           type: string
         supervisorAssessment:
           description: General assessment given either initially by a tutor or overwritten at a later point by an instructor during the matching process, TEASE does not differentiate between the original tutor assessment and subsequent supervisor assessments but on the side of PROMPT the original tutor assessment should be kept in some form
-          $ref: '#/components/schemas/SkillProficiencyLevel'
+          $ref: '#/components/schemas/SkillLevel'
         tutorComments:
           type: string
 
@@ -179,16 +179,16 @@ components:
       description: A self assessment by a specific student in a referenced skill
       type: object
       properties:
-        skillId:
-          description: ID referencing a specific skill
-          type: string
+        skill:
+          description: Reference to a specific skill
+          $ref: '#/components/schemas/Skill'
         skillLevel:
           description: Proficiency in the skill as estimated and reported by the student
-          $ref: '#/components/schemas/SkillProficiencyLevel'
+          $ref: '#/components/schemas/SkillLevel'
         skillLevelRationale:
           type: string
           description: An explanation of why they assigned themselves the provided proficiency level, for example mentioning prior experience, projects etc.
-    SkillProficiencyLevel:
+    SkillLevel:
       description: Proficiency in some skillset, also used to for assessments of students, in particular their performance in the Swift/iOS intro course, for the self assessment we also this enum internally o store a students answer, but the UI should display strings that make more sense, see the deprecated SelfAssessmentLevel enum below
       type: string
       enum:
@@ -196,7 +196,7 @@ components:
         - Intermediate
         - Advanced
         - Expert
-    # deprecated, see SkillProficiencyLevel
+    # deprecated, see SkillLevel
     # SelfAssessmentLevel:
       # enum:
         # - Not challenging at all
@@ -226,7 +226,7 @@ components:
           type: string
         supervisorAssessment:
           description: A potentially updated supervisor assessment (changed during the matching process by a course instructor in TEASE)
-          $ref: '#/components/schemas/SkillProficiencyLevel'
+          $ref: '#/components/schemas/SkillLevel'
         isPinned:
           description: Whether the student should still be pinned or not
           type: boolean

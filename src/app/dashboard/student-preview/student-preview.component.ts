@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Student } from '../../shared/models/student';
 import { Colors } from '../../shared/constants/color.constants';
-import { Skill, SkillLevel } from '../../shared/models/skill';
+import { Skill } from '../../shared/models/skill';
+import { SkillLevel } from 'src/app/shared/models/generated-model/skillLevel';
 import { Device } from '../../shared/models/device';
 import { IconMapperService } from '../../shared/ui/icon-mapper.service';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
@@ -26,7 +27,6 @@ export class StudentPreviewComponent implements OnInit {
   protected getGravatarIcon = IconMapperService.getGravatarIcon;
   protected getGenderIconPath = IconMapperService.getGenderIconPath;
   protected getColor = Colors.getColor;
-  protected getLabelForSkillLevel = Skill.getLabelForSkillLevel;
   protected getDeviceTypeIconPath = IconMapperService.getDeviceTypeIconPath;
 
   constructor(public teamService: TeamService) {}
@@ -36,14 +36,14 @@ export class StudentPreviewComponent implements OnInit {
   }
 
   isStudentRated(): boolean {
-    return this.student.supervisorAssessment !== undefined && this.student.supervisorAssessment !== SkillLevel.None;
+    return this.student.supervisorAssessment !== undefined;
   }
 
   getFirstLetterOfSkillLevelName(skillLevel: SkillLevel): string {
-    return this.getLabelForSkillLevel(skillLevel).charAt(0);
+    return skillLevel.charAt(0);
   }
 
   getSupervisorAssessmentString(): string {
-    return Skill.getLabelForSkillLevel(this.student.supervisorAssessment);
+    return this.student.supervisorAssessment;
   }
 }
