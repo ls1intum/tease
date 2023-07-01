@@ -1,7 +1,6 @@
 import { Student } from '../../models/student';
-import { Gender } from '../../models/generated-model/gender';
 import { CSVConstants } from '../../constants/csv.constants';
-import { Device } from '../../models/device';
+import { DEVICE_TYPES, DeviceType } from '../../models/generated-model/device';
 import { StringHelper } from '../../helpers/string.helper';
 import { Skill } from '../../models/skill';
 import { SkillLevel } from '../../models/generated-model/skillLevel';
@@ -112,7 +111,6 @@ export abstract class StudentParser {
       const skillLevelRationaleString = studentProps[prefix + skillId + CSVConstants.Skills.SkillLevelRationalePostfix];
 
       if (!skillLevelString) {
-        console.log("could not find skill with id " + skillId);
         continue; // skip to the next skill if there are no columns for it (assumed if no skill level exists)
       }
 
@@ -128,7 +126,7 @@ export abstract class StudentParser {
     let answers = CSVConstants.Student.IntroSelfAssessmentAnswers;
     for (var key in answers) {
       // neither of the two lines below seem safe
-      // TODO: refactor this and parse the self assessment answer strings in a better way
+      // TODO: refactor this and parse the self assessment answer strings in a stricter way
       if (answers[key] === selfAssessmentString) {
         return key as SkillLevel;
       }
@@ -137,14 +135,12 @@ export abstract class StudentParser {
   }
 
   private static parseStudentDevices(student: Student, studentProps: Array<any>) {
-    const available = CSVConstants.DeviceAvailableBooleanValue.Available;
-
-    if (studentProps[CSVConstants.Devices.Ipad] === available) student.addDevice(Device.Ipad);
-    if (studentProps[CSVConstants.Devices.Mac] === available) student.addDevice(Device.Mac);
-    if (studentProps[CSVConstants.Devices.Watch] === available) student.addDevice(Device.Watch);
-    if (studentProps[CSVConstants.Devices.Iphone] === available) student.addDevice(Device.Iphone);
-    if (studentProps[CSVConstants.Devices.IphoneAR] === available) student.addDevice(Device.IphoneAR);
-    if (studentProps[CSVConstants.Devices.IpadAR] === available) student.addDevice(Device.IpadAR);
+    DEVICE_TYPES.forEach(device => {
+      const value = studentProps[CSVConstants.DevicePrefix + device.toLowerCase()];
+      if (value && value.toLowerCase() === 'true') {
+        student.addDevice(device);
+      }
+    });
   }
 
   private static parseArray(columnArrayName: string, studentProps: Array<any>): { [element: string]: string } {

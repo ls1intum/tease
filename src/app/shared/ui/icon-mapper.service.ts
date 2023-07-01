@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SkillLevel } from '../models/generated-model/skillLevel';
 import { Gender } from '../models/generated-model/gender';
-import { Device } from '../models/device';
+import { DeviceType } from '../models/generated-model/device';
 import { Md5 } from 'ts-md5/dist/md5';
 
 export class IconMapperService {
@@ -25,19 +25,15 @@ export class IconMapperService {
     }
   }
 
-  static getDeviceTypeIconPath(device: Device): string {
+  static getDeviceTypeIconPath(device: DeviceType): string {
     switch (device) {
-      case Device.Iphone:
+      case DeviceType.IPhone:
         return IconMapperService.BASE_PATH_IMAGES + 'iphone.png';
-      case Device.Ipad:
+      case DeviceType.IPad:
         return IconMapperService.BASE_PATH_IMAGES + 'ipad.png';
-      case Device.IphoneAR:
-        return IconMapperService.BASE_PATH_IMAGES + 'iphoneAR.png';
-      case Device.IpadAR:
-        return IconMapperService.BASE_PATH_IMAGES + 'ipadAR.png';
-      case Device.Watch:
+      case DeviceType.Watch:
         return IconMapperService.BASE_PATH_IMAGES + 'iwatch.png';
-      case Device.Mac:
+      case DeviceType.Mac:
         return IconMapperService.BASE_PATH_IMAGES + 'mac.png';
     }
   }

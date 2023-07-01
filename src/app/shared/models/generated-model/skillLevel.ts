@@ -1,6 +1,6 @@
-export const LEVELS = ['Novice', 'Intermediate', 'Advanced', 'Expert'] as const;
+export const SKILL_LEVELS = ['Novice', 'Intermediate', 'Advanced', 'Expert'] as const;
 
-export type SkillLevel = typeof LEVELS[number];
+export type SkillLevel = typeof SKILL_LEVELS[number];
 
 export const SkillLevel = {
     Novice: 'Novice' as SkillLevel,

@@ -1,8 +1,5 @@
 import { Student } from './student';
-import { Device } from './device';
-/**
- * Created by wanur on 05/11/2016.
- */
+import { DeviceType } from './generated-model/device';
 
 export class Team {
   name: string;
@@ -32,7 +29,7 @@ export class Team {
     }
   }
 
-  getDeviceCountOfType(device: Device): number {
+  getDeviceCountOfType(device: DeviceType): number {
     return this.students.reduce(
       (acc, student) => acc.concat(student.devices.filter(curDevice => curDevice === device)),
       []

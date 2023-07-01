@@ -10,7 +10,7 @@ import { GenderStudentConstraint } from '../../shared/models/student-constraints
 import { DevicePossessionStudentConstraint } from '../../shared/models/student-constraints/device-possession-student-constraint';
 import { CSVConstants } from '../../shared/constants/csv.constants';
 import { Gender } from '../../shared/models/generated-model/gender';
-import { Device } from '../../shared/models/device';
+import { DeviceType } from '../../shared/models/generated-model/device';
 
 @Component({
   selector: 'app-student-highlighting-overlay',
@@ -23,7 +23,7 @@ export class StudentHighlightingOverlayComponent implements OnInit, OverlayCompo
   Skill = Skill;
   CSVConstants = CSVConstants;
   Gender = Gender;
-  Device = Device;
+  Device = DeviceType;
   InstructorRatingStudentConstraint = InstructorRatingStudentConstraint;
   ExperienceStudentConstraint = ExperienceStudentConstraint;
   DevicePossessionStudentConstraint = DevicePossessionStudentConstraint;

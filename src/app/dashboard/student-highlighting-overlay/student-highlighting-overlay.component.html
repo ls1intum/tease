@@ -62,12 +62,10 @@
           class="flex-row flex-center flex-spacing-x-5px">
           <div>In Possession of</div>
           <mat-select [(value)]="DevicePossessionStudentConstraint.getTyped(studentConstraint).device">
-            <mat-option [value]="Device.Iphone">{{ Device[Device.Iphone] }}</mat-option>
-            <mat-option [value]="Device.Ipad">{{ Device[Device.Ipad] }}</mat-option>
-            <mat-option [value]="Device.IphoneAR">{{ Device[Device.IphoneAR] }}</mat-option>
-            <mat-option [value]="Device.IpadAR">{{ Device[Device.IpadAR] }}</mat-option>
-            <mat-option [value]="Device.Mac">{{ Device[Device.Mac] }}</mat-option>
-            <mat-option [value]="Device.Watch">{{ Device[Device.Watch] }}</mat-option>
+            <mat-option [value]="Device.IPhone">{{ Device.IPhone }}</mat-option>
+            <mat-option [value]="Device.IPad">{{ Device.IPad }}</mat-option>
+            <mat-option [value]="Device.Mac">{{ Device.Mac }}</mat-option>
+            <mat-option [value]="Device.Watch">{{ Device.Watch }}</mat-option>
           </mat-select>
         </div>
 

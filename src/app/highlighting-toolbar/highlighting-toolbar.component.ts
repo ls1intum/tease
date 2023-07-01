@@ -6,7 +6,7 @@ import { Skill} from '../shared/models/skill';
 import { SkillLevel } from '../shared/models/generated-model/skillLevel';
 import { CSVConstants } from '../shared/constants/csv.constants';
 import { ExperienceStudentConstraint } from '../shared/models/student-constraints/experience-student-constraint';
-import { Device } from '../shared/models/device';
+import { DeviceType } from '../shared/models/generated-model/device';
 import { GenderStudentConstraint } from '../shared/models/student-constraints/gender-student-constraint';
 import { Gender } from '../shared/models/generated-model/gender';
 import { StudentHighlightingOverlayComponent } from '../dashboard/student-highlighting-overlay/student-highlighting-overlay.component';
@@ -25,7 +25,7 @@ export class HighlightingToolbarComponent implements OnInit {
   Skill = Skill;
   CSVConstants = CSVConstants;
   Gender = Gender;
-  Device = Device;
+  Device = DeviceType;
   InstructorRatingStudentConstraint = InstructorRatingStudentConstraint;
   ExperienceStudentConstraint = ExperienceStudentConstraint;
   DevicePossessionStudentConstraint = DevicePossessionStudentConstraint;

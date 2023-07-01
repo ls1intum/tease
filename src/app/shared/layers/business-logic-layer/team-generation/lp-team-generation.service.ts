@@ -7,7 +7,7 @@ import { MacDeviceConstraint } from '../../../models/constraints/mac-device.cons
 import { FemaleStudentConstraint } from '../../../models/constraints/female-student.constraint';
 import { IosDeviceConstraint } from '../../../models/constraints/ios-device.constraint';
 import { TeamSizeConstraint } from '../../../models/constraints/team-size.constraint';
-import { Device } from '../../../models/device';
+import { DeviceType, DeviceTypeUtil } from '../../../models/generated-model/device';
 import { Student} from '../../../models/student';
 import { Gender } from '../../../models/generated-model/gender';
 import { ReformatLP, Solve } from 'javascript-lp-solver';
@@ -73,7 +73,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
       if (student.devices && student.devices.length > 0) {
         // If has a mac, add him to constraint
         const macCount = student.devices.filter(device => {
-          return device === Device.Mac;
+          return device === DeviceType.Mac;
         }).length;
 
         if (macCount > 0) {
@@ -107,9 +107,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
       const student = students[i - 1];
       if (student.devices && student.devices.length > 0) {
         // If has at least one iOS Device, add him to constraint
-        const iosDevicesCount = student.devices.filter(device => {
-          return [Device.Ipad, Device.Iphone, Device.IphoneAR, Device.IpadAR].includes(device);
-        }).length;
+        const iosDevicesCount = student.devices.filter(device => DeviceTypeUtil.hasIOS(device)).length;
 
         if (iosDevicesCount > 0) {
           // we only care whether they have at least one device

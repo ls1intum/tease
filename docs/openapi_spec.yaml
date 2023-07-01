@@ -90,7 +90,7 @@ components:
         devices:
           type: array
           items:
-            $ref: '#/components/schemas/Device'
+            $ref: '#/components/schemas/DeviceType'
         skills:
           type: array
           items:
@@ -153,7 +153,7 @@ components:
       example:
         name: Quartett
         id: ios2223quartett
-    Device:
+    DeviceType:
       type: string
       enum:
         - IPhone

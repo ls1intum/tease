@@ -1,6 +1,5 @@
 import { Team } from './team';
-import { Skill } from './skill';
-import { Device } from './device';
+import { DeviceType } from './generated-model/device';
 import { CSVConstants } from '../constants/csv.constants';
 import { LanguageProficiency } from './generated-model/languageProficiency';
 import { Gender } from './generated-model/gender';
@@ -22,7 +21,7 @@ export class Student {
   englishLanguageLevel: LanguageProficiency;
   introSelfAssessment: SkillLevel;
 
-  devices: Device[] = [];
+  devices: DeviceType[] = [];
   skills: SkillSelfAssessment[] = [];
   projectPriorities: Team[] = [];
 
@@ -43,12 +42,12 @@ export class Student {
     return this.projectPriorities.indexOf(team) + 1;
   }
 
-  addDevice(device: Device) {
+  addDevice(device: DeviceType) {
     this.devices.push(device);
     this.germanLanguageLevel;
   }
 
-  ownsDevice(device: Device): boolean {
+  hasDevice(device: DeviceType): boolean {
     return this.devices.includes(device);
   }
 

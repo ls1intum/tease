@@ -7,7 +7,7 @@ import { StudentDetailOverlayComponent } from '../student-detail-overlay/student
 import { OverlayService } from '../../overlay.service';
 import { ConstraintsOverlayComponent } from '../constraints-overlay/constraints-overlay.component';
 import { SkillLevel } from '../../shared/models/generated-model/skillLevel';
-import { Device } from '../../shared/models/device';
+import { DeviceType } from '../../shared/models/generated-model/device';
 import { FormControl, FormGroup } from '@angular/forms';
 
 enum StudentPoolDisplayMode {
@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
 
   StudentPoolDisplayMode = StudentPoolDisplayMode;
   SkillLevel = SkillLevel;
-  Device = Device;
+  Device = DeviceType;
 
   studentPoolDisplayModeFormGroup = new FormGroup({
     studentPoolDisplayModeControl: new FormControl(StudentPoolDisplayMode.OneRow),

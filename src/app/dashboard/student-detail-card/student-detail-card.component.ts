@@ -5,7 +5,7 @@ import { SkillLevel } from 'src/app/shared/models/generated-model/skillLevel';
 import { Colors } from '../../shared/constants/color.constants';
 import { CSVConstants } from '../../shared/constants/csv.constants';
 import { IconMapperService } from '../../shared/ui/icon-mapper.service';
-import { Device } from '../../shared/models/device';
+import { DeviceType } from '../../shared/models/generated-model/device';
 import { NationalityHelper } from '../../shared/helpers/nationality.helper';
 
 @Component({
@@ -19,7 +19,7 @@ export class StudentDetailCardComponent implements OnInit {
   getGravatarIcon = IconMapperService.getGravatarIcon;
   SkillLevel = SkillLevel;
   CSVConstants = CSVConstants;
-  Device = Device;
+  Device = DeviceType;
   getFlagEmojiFromNationality = NationalityHelper.getFlagEmojiFromNationality
 
   constructor() {}
@@ -38,7 +38,7 @@ export class StudentDetailCardComponent implements OnInit {
     return IconMapperService.getGenderIconPath(this.student.gender);
   }
 
-  getDeviceIconPath(device: Device): string {
+  getDeviceIconPath(device: DeviceType): string {
     return IconMapperService.getDeviceTypeIconPath(device);
   }
 }

@@ -1,10 +1,6 @@
 import { Constraint, ConstraintType } from './constraint';
 import { Team } from '../team';
-import { Device } from '../device';
-import { TeamHelper } from '../../helpers/team.helper';
-/**
- * Created by Malte Bucksch on 23/02/2017.
- */
+import { DeviceType } from '../generated-model/device';
 
 export class MacDeviceConstraint extends Constraint {
   constructor(config: any) {
@@ -24,6 +20,6 @@ export class MacDeviceConstraint extends Constraint {
   }
 
   getCurrentValue(team: Team): number {
-    return team.getDeviceCountOfType(Device.Mac);
+    return team.getDeviceCountOfType(DeviceType.Mac);
   }
 }

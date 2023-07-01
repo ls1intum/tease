@@ -1,8 +1,7 @@
 import { Student} from '../../models/student';
 import { StringHelper } from '../../helpers/string.helper';
 import { CSVConstants } from '../../constants/csv.constants';
-import { Device } from '../../models/device';
-import { SkillLevel } from '../../models/generated-model/skillLevel';
+import { DEVICE_TYPES, DeviceType } from '../../models/generated-model/device';
 
 export class StudentSerializer {
   static serializeStudent(student: Student, serializeTitles: boolean): any {
@@ -53,16 +52,8 @@ export class StudentSerializer {
   }
 
   private static serializeStudentDevices(student: Student, studentProps: object) {
-    const unavailableString = CSVConstants.DeviceAvailableBooleanValue.Unavailable;
-    const availableString = CSVConstants.DeviceAvailableBooleanValue.Available;
-
-    studentProps[CSVConstants.Devices.Ipad] = student.ownsDevice(Device.Ipad) ? availableString : unavailableString;
-    studentProps[CSVConstants.Devices.Iphone] = student.ownsDevice(Device.Iphone) ? availableString : unavailableString;
-    studentProps[CSVConstants.Devices.Watch] = student.ownsDevice(Device.Watch) ? availableString : unavailableString;
-    studentProps[CSVConstants.Devices.Mac] = student.ownsDevice(Device.Mac) ? availableString : unavailableString;
-    studentProps[CSVConstants.Devices.IpadAR] = student.ownsDevice(Device.IpadAR) ? availableString : unavailableString;
-    studentProps[CSVConstants.Devices.IphoneAR] = student.ownsDevice(Device.IphoneAR)
-      ? availableString
-      : unavailableString;
+    DEVICE_TYPES.forEach(device =>
+      studentProps[CSVConstants.DevicePrefix + device.toLowerCase()] = student.hasDevice(device) ? 'true' : 'false'
+    );
   }
 }

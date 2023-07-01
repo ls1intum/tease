@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Student } from '../../shared/models/student';
 import { Colors } from '../../shared/constants/color.constants';
-import { Skill } from '../../shared/models/skill';
 import { SkillLevel } from 'src/app/shared/models/generated-model/skillLevel';
-import { Device } from '../../shared/models/device';
+import { DeviceType } from '../../shared/models/generated-model/device';
 import { IconMapperService } from '../../shared/ui/icon-mapper.service';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import { StudentConstraintService } from '../../shared/layers/business-logic-layer/student-constraint.service';
@@ -19,7 +18,7 @@ export class StudentPreviewComponent implements OnInit {
   @Input() pinable = true;
 
   SkillLevel = SkillLevel;
-  Device = Device;
+  Device = DeviceType;
   StudentConstraintService = StudentConstraintService;
   getFlagEmojiFromNationality = NationalityHelper.getFlagEmojiFromNationality
 

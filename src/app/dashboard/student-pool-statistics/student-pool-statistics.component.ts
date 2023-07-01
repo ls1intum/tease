@@ -3,7 +3,7 @@ import { Team } from '../../shared/models/team';
 import { Skill} from '../../shared/models/skill';
 import { SkillLevel } from 'src/app/shared/models/generated-model/skillLevel';
 import { Colors } from '../../shared/constants/color.constants';
-import { Device } from '../../shared/models/device';
+import { DeviceType, DeviceTypeUtil } from '../../shared/models/generated-model/device';
 import { Gender } from '../../shared/models/generated-model/gender';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 
@@ -21,7 +21,7 @@ export class StudentPoolStatisticsComponent implements OnInit {
   Math = Math;
   Colors = Colors;
   Skill = Skill;
-  Device = Device;
+  Device = DeviceType;
   Gender = Gender;
 
   constructor(public teamService: TeamService) {}
@@ -74,16 +74,12 @@ export class StudentPoolStatisticsComponent implements OnInit {
   }
 
   getTotalNumberOfStudentsWithMacDevice(): number {
-    return this.getNumberOfStudentsWithPredicate(student => student.devices.includes(Device.Mac));
+    return this.getNumberOfStudentsWithPredicate(student => student.devices.includes(DeviceType.Mac));
   }
 
   getTotalNumberOfStudentsWithIOSDevice(): number {
     return this.getNumberOfStudentsWithPredicate(
-      student =>
-        student.devices.includes(Device.Ipad) ||
-        student.devices.includes(Device.Iphone) ||
-        student.devices.includes(Device.IpadAR) ||
-        student.devices.includes(Device.IphoneAR)
+      student => student.devices.some(device => DeviceTypeUtil.hasIOS(device))
     );
   }
 

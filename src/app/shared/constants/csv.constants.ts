@@ -48,23 +48,10 @@ export class CSVConstants {
     SkillIds: [CSVConstants.SkillIdiOS, 'webfe', 'ssdev', 'uiux', 'embed', 'vrar', 'mlalg']
   };
 
-  static readonly Devices = {
-    Iphone: 'devices[iPhone]',
-    Ipad: 'devices[iPad]',
-    Mac: 'devices[Mac]',
-    Watch: 'devices[Watch]',
-    IphoneAR: 'devices[iPhoneAR]',
-    IpadAR: 'devices[iPadAR]',
-  };
-
   static readonly Team = { TeamName: 'teamName', Priority: 'Priorities[{d}]' };
   static readonly ArrayBraces = { Open: '[', Close: ']' };
 
-  static readonly GenderValue = { Male: 'male', Female: 'female' };
-
-  static readonly DeviceAvailableBooleanValue = { Available: 'Yes', Unavailable: 'No' };
-
-  static readonly MajorOtherValue = 'Other';
+  static readonly DevicePrefix = "device.";
 }
 
 export const ExampleStudentPropertyCsvRemotePath = '/assets/students_example.csv';

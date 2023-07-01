@@ -1,9 +1,9 @@
 import { StudentConstraint } from './student-constraint';
 import { Student } from '../student';
-import { Device } from '../device';
+import { DeviceType } from '../generated-model/device';
 
 export class DevicePossessionStudentConstraint extends StudentConstraint {
-  device: Device = Device.Mac;
+  device: DeviceType = DeviceType.Mac;
 
   static getTyped(constraint: StudentConstraint): DevicePossessionStudentConstraint {
     if (constraint instanceof DevicePossessionStudentConstraint) return constraint;
