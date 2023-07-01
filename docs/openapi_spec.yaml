@@ -24,21 +24,21 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Student'
-  /v1/projects:
+  /v1/skills:
     get:
       tags:
-        - Projects
-      summary: Get the names of the iPraktikum projects
-      description: "Send a list of all projects/teams that students can work on during this semesters iteration of the iPraktikum course at TUM"
+        - Skills
+      summary: Get the unique names and descriptions of skills that students were asked about
+      description: Retrieve a list of skills, with their names/titles as well as descriptions, the self assessed proficiency levels in the canvassed skills reported by students is sent alongside the data on students
       responses:
         '200':
-          description: An array of project (names) in JSON format
+          description: An array of skills in JSON format
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Project'
+                  $ref: '#/components/schemas/Skill'
   /v1/allocation:
     post:
       tags:
@@ -47,16 +47,18 @@ paths:
       description: After the allocation is concluded, TEASE can report the results (which team each student was assigned to) to PROMPT without needing to repeat/send back all of the information that was initially sent
       responses:
         '200':
-          description: An array of arrays, each inner array contains the unique identifiers of students that were allocated to the same project
+          description: An array of StudentReference objects that contain solely the data that could have been updated in the matching process
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Allocation'
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentReference'
 components:
   schemas:
     Student:
+      description: A student enrolled in the iPraktikum course at TUM
       type: object
-      description: A person enrolled in the iPraktikum course at TUM
       properties:
         firstName:
           type: string
@@ -67,7 +69,7 @@ components:
           format: base64
         email:
           type: string
-        tumId:
+        studentId:
           type: string
         gender:
           $ref: '#/components/schemas/Gender'
@@ -77,32 +79,44 @@ components:
           type: string
         semester:
           type: integer
+
         germanLanguageLevel:
           $ref: '#/components/schemas/LanguageProficiency'
         englishLanguageLevel:
           $ref: '#/components/schemas/LanguageProficiency'
         introSelfAssessment:
-          $ref: '#/components/schemas/SkillProficiencyLevel'
+          $ref: '#/components/schemas/SkillLevel'
+
         devices:
           type: array
           items:
-            $ref: '#/components/schemas/Device'
+            $ref: '#/components/schemas/DeviceType'
         skills:
           type: array
           items:
-            $ref: '#/components/schemas/Skill'
+            $ref: '#/components/schemas/SkillSelfAssessment'
         projectPriorities:
+          description: The priorities or preferences the student submitted for the available projects, the first project listed in the array is their first choice
           type: array
           items:
             $ref: '#/components/schemas/Project'
+
         studentComments:
           type: string
-        # Aassessment given by a tutor, or the overwritten rating by an instructor, TEASE itself does not differentiate
         supervisorAssessment:
-          description: General assessment given either initially by a tutor or overwritten at a later point by an instructor during the matching process, TEASE does not differentiate between the original tutor assessment and subsequent supervisor assessments but on the side of PROMPT the original tutor assessment should be kept saved in some form
-          $ref: '#/components/schemas/SkillProficiencyLevel'
+          description: General assessment given either initially by a tutor or overwritten at a later point by an instructor during the matching process, TEASE does not differentiate between the original tutor assessment and subsequent supervisor assessments but on the side of PROMPT the original tutor assessment should be kept in some form
+          $ref: '#/components/schemas/SkillLevel'
         tutorComments:
           type: string
+
+        isPinned:
+          description: Whether or not this student should stay with the project they are currently assigned to
+          type: boolean
+
+        project:
+          description: A project that the student might already have been assigned to
+          $ref: '#/components/schemas/Project'
+
       example:
         firstName: Aerandir
         lastName: Brandybuck
@@ -118,14 +132,17 @@ components:
         introSelfAssessment: Intermediate
         devices: [IPhone, Mac]
         skills:
-          - { title: iOS, description: Development of applications for the iOS mobile operating system, skillLevel: Novice}
-          - { title: CI/CD, description: Continuous integration and delivery/deployment using automated tools, skillLevel: Intermediate}
+          - { id: swift, skillLevel: Novice, skillLevelRationale: Only dabbled a tiny bit with Swift}
+          - { id: uiux, skillLevel: Intermediate, skillLevelRationale: Participated in a project for a seminar that involved a decent amount of UI design}
         projectPriorities:
           - { name: Quartett, id: ios2223quartett}
           - { name: BSH, id: ios2223bsh}
         studentComments: I would prefer to work in an international team (diverse nationalities), thanks!
         supervisorAssessment: Novice
         tutorComments: Motivated, good at accepting constructive criticism
+        isPinned: false
+        project: null
+
     Project:
       type: object
       properties:
@@ -136,7 +153,7 @@ components:
       example:
         name: Quartett
         id: ios2223quartett
-    Device:
+    DeviceType:
       type: string
       enum:
         - IPhone
@@ -146,26 +163,40 @@ components:
     Skill:
       type: object
       properties:
+        id:
+          description: ID of a specific skill, instead of a random UUID we use descriptive simple names such as 'uiux', 'kubernetes' etc.
+          type: string
         title:
           type: string
         description:
           type: string
-        # self assessment for skill as reported by the student
-        skillLevel:
-          $ref: '#/components/schemas/SkillProficiencyLevel'
       example:
-        title: UI/UX
-        description: Development/design of user interfaces and the user experience
-        skillLevel: Advanced
-    SkillProficiencyLevel:
-      type: string
+        id: swift
+        title: iOS Development with Swift
+        description: Development of applications for the iOS mobile operating system using the Swift programming language
+
+    SkillSelfAssessment:
+      description: A self assessment by a specific student in a referenced skill
+      type: object
+      properties:
+        skill:
+          description: Reference to a specific skill
+          $ref: '#/components/schemas/Skill'
+        skillLevel:
+          description: Proficiency in the skill as estimated and reported by the student
+          $ref: '#/components/schemas/SkillLevel'
+        skillLevelRationale:
+          type: string
+          description: An explanation of why they assigned themselves the provided proficiency level, for example mentioning prior experience, projects etc.
+    SkillLevel:
       description: Proficiency in some skillset, also used to for assessments of students, in particular their performance in the Swift/iOS intro course, for the self assessment we also this enum internally o store a students answer, but the UI should display strings that make more sense, see the deprecated SelfAssessmentLevel enum below
+      type: string
       enum:
         - Novice
         - Intermediate
         - Advanced
         - Expert
-    # deprecated, see SkillProficiencyLevel
+    # deprecated, see SkillLevel
     # SelfAssessmentLevel:
       # enum:
         # - Not challenging at all
@@ -188,28 +219,22 @@ components:
         - Other
         - Prefer not to say
     StudentReference:
+      description: A subset of the properties that are a part of a Student object, used to update relevant fields in PROMPT after an allocation
       type: object
-      description: Object to only send a subset of the properties of the Student object, used for sending data about the allocation back to PROMPT, contains solely a property to uniquely identify a student as well as the last assessment stored in TEASE (to let PROMPT know about changes made to the assessment)
       properties:
         studentId:
           type: string
         supervisorAssessment:
-          $ref: '#/components/schemas/SkillProficiencyLevel'
+          description: A potentially updated supervisor assessment (changed during the matching process by a course instructor in TEASE)
+          $ref: '#/components/schemas/SkillLevel'
+        isPinned:
+          description: Whether the student should still be pinned or not
+          type: boolean
+        project:
+          description: The current project the student is assigned to
+          type: string
       example:
         studentId: 056036237
         supervisorAssessment: Expert
-    Allocation:
-      type: array
-      description: All projects with their respective assigned students
-      items:
-        $ref: '#/components/schemas/ProjectAllocation'
-    ProjectAllocation:
-      type: object
-      description: A project with references to the students assigned to this project as part of the matching result
-      properties:
-        project:
-          $ref: '#/components/schemas/Project'
-        students:
-          type: array
-          items:
-            $ref: '#/components/schemas/StudentReference'
+        isPinned: true
+        project: ios2223quartett

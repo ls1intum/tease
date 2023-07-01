@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Person } from '../../models/person';
+import { Student } from '../../models/student';
 import { Team } from '../../models/team';
 import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
-import { CSVPersonDataAccessService } from '../data-access-layer/csv-person-data-access.service';
+import { CSVStudentDataAccessService } from '../data-access-layer/csv-student-data-access.service';
 import { ConstraintLoggingService } from './constraint-logging.service';
+import { Skill } from '../../models/skill';
 
 @Injectable()
 export class TeamService {
@@ -14,13 +15,14 @@ export class TeamService {
   private readonly CSV_EXPORT_FILE_NAME = 'TEASE-project.csv';
 
   teams: Team[];
-  persons: Person[];
+  students: Student[];
+  skills: Skill[];
 
   // derived properties
-  personsWithoutTeam: Person[];
+  studentsWithoutTeam: Student[];
 
-  private load(data: [Person[], Team[]]) {
-    [this.persons, this.teams] = data;
+  private load(data: [Student[], Team[], Skill[]]) {
+    [this.students, this.teams, this.skills] = data;
     this.updateDerivedProperties();
   }
 
@@ -28,41 +30,41 @@ export class TeamService {
     return this.teams.find(team => team.name === teamName) // assumes multiple teams do not exist with the same name
   }
 
-  public getPersonById(tumId: string): Person {
-    return this.persons.find(person => person.tumId == tumId) // assumes multiple people do not exist with same TUM id
+  public getStudentById(studentId: string): Student {
+    return this.students.find(student => student.studentId == studentId) // assumes multiple people do not exist with same student id
   }
 
   public updateDerivedProperties() {
-    this.personsWithoutTeam = this.persons.filter(person => person.team === null);
+    this.studentsWithoutTeam = this.students.filter(student => student.team === null);
   }
 
   public updateReverseReferences() {
-    this.teams.forEach(team => team.persons.forEach(person => (person.team = team)));
-    this.personsWithoutTeam.forEach(person => (person.team = null));
+    this.teams.forEach(team => team.students.forEach(student => (student.team = team)));
+    this.studentsWithoutTeam.forEach(student => (student.team = null));
     this.updateDerivedProperties();
   }
 
-  public sortPersons() {
-    const compareFunction = (personA, personB) => personB.supervisorRating - personA.supervisorRating;
+  public sortStudents() {
+    const compareFunction = (studentA, studentB) => studentB.supervisorRating - studentA.supervisorRating;
 
-    this.teams.forEach(team => team.persons.sort(compareFunction));
-    this.persons.sort(compareFunction);
+    this.teams.forEach(team => team.students.sort(compareFunction));
+    this.students.sort(compareFunction);
     this.updateDerivedProperties();
   }
 
-  // removes all persons from their team
+  // removes all students from their team
   public resetTeamAllocation() {
     this.teams.forEach(team => team.clear());
     this.updateDerivedProperties();
   }
 
   public resetPinnedStatus() {
-    this.persons.forEach(person => (person.isPinned = false));
+    this.students.forEach(student => (student.isPinned = false));
   }
 
   public readFromBrowserStorage(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      CSVPersonDataAccessService.readDataFromBrowserStorage().then(data => {
+      CSVStudentDataAccessService.readDataFromBrowserStorage().then(data => {
         this.load(data);
         resolve(true);
       });
@@ -71,7 +73,7 @@ export class TeamService {
 
   public readFromCSVFile(csvFile: File): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      CSVPersonDataAccessService.readFromFile(csvFile).then(data => {
+      CSVStudentDataAccessService.readFromFile(csvFile).then(data => {
         this.load(data);
         this.saveToLocalBrowserStorage().then(saveSuccess => {
           this.readFromBrowserStorage().then(readSuccess => {
@@ -84,7 +86,7 @@ export class TeamService {
 
   public readRemoteData(remoteFilePath: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      CSVPersonDataAccessService.readFromRemote(remoteFilePath).then(data => {
+      CSVStudentDataAccessService.readFromRemote(remoteFilePath).then(data => {
         this.load(data);
         resolve(true);
       });
@@ -92,7 +94,7 @@ export class TeamService {
   }
 
   public exportSavedState() {
-    const csvData = CSVPersonDataAccessService.getSavedDataFromBrowserStorage();
+    const csvData = CSVStudentDataAccessService.getSavedDataFromBrowserStorage();
     const blob = new Blob([csvData], { type: this.EXPORT_DATA_TYPE });
 
     const zip = new JSZip();
@@ -109,7 +111,7 @@ export class TeamService {
 
     return new Promise((resolve, reject) => {
       this.updateReverseReferences();
-      CSVPersonDataAccessService.saveToBrowserStorage(this.persons).then(success => {
+      CSVStudentDataAccessService.saveToBrowserStorage(this.students).then(success => {
         console.log('done');
         resolve(success);
       });
@@ -117,15 +119,15 @@ export class TeamService {
   }
 
   public clearSavedData() {
-    CSVPersonDataAccessService.clearSavedData();
+    CSVStudentDataAccessService.clearSavedData();
   }
 
-  resetUnpinnedPersons() {
+  resetUnpinnedStudents() {
     this.teams.forEach(team => {
-      const personsToRemove = team.persons.filter(person => !person.isPinned);
-      team.persons = team.persons.filter(person => person.isPinned);
-      personsToRemove.forEach(person => (person.team = null));
-      this.personsWithoutTeam.push(...personsToRemove);
+      const studentsToRemove = team.students.filter(student => !student.isPinned);
+      team.students = team.students.filter(student => student.isPinned);
+      studentsToRemove.forEach(student => (student.team = null));
+      this.studentsWithoutTeam.push(...studentsToRemove);
     });
   }
 }

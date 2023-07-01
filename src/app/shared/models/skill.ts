@@ -1,62 +1,40 @@
-import { PersonSerializer } from '../layers/data-access-layer/PersonSerializer';
+import { StudentSerializer } from '../layers/data-access-layer/student-serializer';
 import { CSVConstants } from '../constants/csv.constants';
-/**
- * Created by Malte Bucksch on 09/12/2016.
- */
+import { SkillLevel } from './generated-model/skillLevel';
 
 export class Skill {
-  private _name: string;
-  private _skillLevel: SkillLevel;
-  private _interestLevel: SkillLevel;
-  private _justification: string;
+  private _id: string;
+  private _title: string;
+  private _description: string;
 
-  public static getLabelForSkillLevel(skillLevel: SkillLevel): string {
-    switch (skillLevel) {
-      case SkillLevel.Low:
-        return 'Novice';
-      case SkillLevel.Medium:
-        return 'Intermediate';
-      case SkillLevel.High:
-        return 'Advanced';
-      case SkillLevel.VeryHigh:
-        return 'Expert';
-    }
-
-    return 'Not rated';
+  constructor(id: string, title: string, description: string, ) {
+    this._id = id;
+    this._title = title;
+    this._description = description;
   }
 
-  constructor(name: string, skillLevel: SkillLevel, interestLevel: SkillLevel, justification: string) {
-    this._name = name;
-    this._skillLevel = skillLevel;
-    this._interestLevel = interestLevel;
-    this._justification = justification;
+  get id(): string {
+    return this._id;
   }
 
-  get name(): string {
-    return this._name;
+  get title(): string {
+    return this._title;
   }
 
-  get skillLevel(): SkillLevel {
-    return this._skillLevel;
+  get description(): string {
+    return this._description;
   }
 
-  get interestLevel(): SkillLevel {
-    return this._interestLevel;
-  }
-
-  get justification(): string {
-    return this._justification;
-  }
-
-  toString(): string {
-    return CSVConstants.SkillLevelValue[SkillLevel[this.skillLevel]];
+  /**
+   * Helper method to set some information if it is still missing from the skill definition
+   * To prevent redundancy in the CSV encoding only one row in the columns for a skills title
+   * is populated with values, so depending on in which row of the file this value
+   * is set and in which line the parser starts the value will initially be undefined
+   * until the row with the non-empty title is parsed
+   * @param {string} skillTitle the title of the skill, can be empty
+   */
+  public setIfMissing(skillTitle: string): void { 
+    if (!this.title && skillTitle && skillTitle !== '') { this._title = skillTitle; }
   }
 }
 
-export enum SkillLevel {
-  None = 0,
-  Low = 1,
-  Medium = 2,
-  High = 3,
-  VeryHigh = 4,
-}

@@ -52,9 +52,9 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
 
   public applyConstraints() {
     this.constraintService.saveConstraints(this.constraints);
-    this.teamService.resetUnpinnedPersons();
+    this.teamService.resetUnpinnedStudents();
 
-    this.teamGenerationService.generate(this.teamService.persons, this.teamService.teams).then(feasible => {
+    this.teamGenerationService.generate(this.teamService.students, this.teamService.teams).then(feasible => {
       if (!feasible) {
         clearTimeout(this.noFeasibleSolutionHintTimeoutHandle);
         this.noFeasibleSolutionHintShown = true;
@@ -76,7 +76,7 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
   private logConstraints() {
     const loggedMessage: string[] = [];
 
-    loggedMessage.push(new Date().toUTCString() + ' - Persons distributed with constraints:');
+    loggedMessage.push(new Date().toUTCString() + ' - Students distributed with constraints:');
     loggedMessage.push(
       ...this.constraints.filter(constraint => constraint.isEnabled).map(constraint => constraint.toString())
     );

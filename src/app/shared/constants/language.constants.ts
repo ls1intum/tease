@@ -12,12 +12,12 @@ export abstract class LangDefaults {
 export abstract class LangImport {
   static readonly ToolbarButtonName = 'Skip';
 }
-// person list
-export abstract class LangPersonList {
+// student list
+export abstract class LangStudentList {
   static readonly ToolbarButtonName = 'Set Constraints';
 }
-// person preview
-export abstract class LangPersonPreview {}
+// student preview
+export abstract class LangStudentPreview {}
 // team constraints
 export abstract class LangConstraints {
   static readonly ToolbarButtonName = 'Go to Dashboard';

@@ -1,46 +1,39 @@
 import { Injectable } from '@angular/core';
-import { SkillLevel } from '../models/skill';
-import { Gender } from '../models/person';
-import { Device } from '../models/device';
+import { SkillLevel } from '../models/generated-model/skillLevel';
+import { Gender } from '../models/generated-model/gender';
+import { DeviceType } from '../models/generated-model/device';
 import { Md5 } from 'ts-md5/dist/md5';
-/**
- * Created by Malte Bucksch on 10/12/2016.
- */
 
 export class IconMapperService {
   private static readonly BASE_PATH_IMAGES = '/assets/images/';
-  private static readonly GRAVATAR_URL = 'http://www.gravatar.com/avatar/';
+  private static readonly GRAVATAR_URL = 'https://www.gravatar.com/avatar/';
 
   constructor() {}
 
   static getSkillIconPath(skillLevel: SkillLevel): string {
     switch (skillLevel) {
-      case SkillLevel.VeryHigh:
+      case SkillLevel.Expert:
         return IconMapperService.BASE_PATH_IMAGES + 'skill_very_high.png';
-      case SkillLevel.High:
+      case SkillLevel.Advanced:
         return IconMapperService.BASE_PATH_IMAGES + 'skill_high.png';
-      case SkillLevel.Medium:
+      case SkillLevel.Intermediate:
         return IconMapperService.BASE_PATH_IMAGES + 'skill_medium.png';
-      case SkillLevel.Low:
+      case SkillLevel.Novice:
         return IconMapperService.BASE_PATH_IMAGES + 'skill_low.png';
-      case SkillLevel.None:
+      default:
         return IconMapperService.BASE_PATH_IMAGES + 'skill_not_rated.png';
     }
   }
 
-  static getDeviceTypeIconPath(device: Device): string {
+  static getDeviceTypeIconPath(device: DeviceType): string {
     switch (device) {
-      case Device.Iphone:
+      case DeviceType.IPhone:
         return IconMapperService.BASE_PATH_IMAGES + 'iphone.png';
-      case Device.Ipad:
+      case DeviceType.IPad:
         return IconMapperService.BASE_PATH_IMAGES + 'ipad.png';
-      case Device.IphoneAR:
-        return IconMapperService.BASE_PATH_IMAGES + 'iphoneAR.png';
-      case Device.IpadAR:
-        return IconMapperService.BASE_PATH_IMAGES + 'ipadAR.png';
-      case Device.Watch:
+      case DeviceType.Watch:
         return IconMapperService.BASE_PATH_IMAGES + 'iwatch.png';
-      case Device.Mac:
+      case DeviceType.Mac:
         return IconMapperService.BASE_PATH_IMAGES + 'mac.png';
     }
   }
@@ -50,6 +43,9 @@ export class IconMapperService {
       case Gender.Male:
         return IconMapperService.BASE_PATH_IMAGES + 'mars.svg';
       case Gender.Female:
+        return IconMapperService.BASE_PATH_IMAGES + 'venus.svg';
+      default:
+         // TODO: create separate images for remaining gender options
         return IconMapperService.BASE_PATH_IMAGES + 'venus.svg';
     }
   }

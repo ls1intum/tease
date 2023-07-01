@@ -10,22 +10,22 @@
       <app-team
         class="flex-no-shrink"
         [team]="team"
-        (onPersonClicked)="showPersonDetails($event)"
+        (onStudentClicked)="showStudentDetails($event)"
         [onTeamStatisticsButtonPressed]="onTeamStatisticsButtonPressed"></app-team>
     </div>
   </div>
 </div>
 
-<!-- person pool -->
+<!-- student pool -->
 <div
   *ngIf="isDataLoaded()"
-  class="person-pool flex-column overflow-hidden"
-  [ngClass]="getPersonPoolDisplayModeCSSClass(personPoolDisplayMode)">
+  class="student-pool flex-column overflow-hidden"
+  [ngClass]="getStudentPoolDisplayModeCSSClass(studentPoolDisplayMode)">
   <!-- title and buttons -->
-  <div class="flex-row flex-center person-pool-title-bar flex-no-shrink">
-    <div class="person-pool-label flex-no-shrink">Person Pool</div>
-    <div class="team-person-count flex-row flex-center flex-justify-center flex-no-shrink">
-      <div>{{ teamService.personsWithoutTeam.length }}</div>
+  <div class="flex-row flex-center student-pool-title-bar flex-no-shrink">
+    <div class="student-pool-label flex-no-shrink">Student Pool</div>
+    <div class="team-student-count flex-row flex-center flex-justify-center flex-no-shrink">
+      <div>{{ teamService.studentsWithoutTeam.length }}</div>
     </div>
     <div class="flex-grow"></div>
 
@@ -33,7 +33,7 @@
       mat-raised-button
       color="primary"
       class="distribute-button flex-no-shrink"
-      (click)="togglePersonPoolStatistics()">
+      (click)="toggleStudentPoolStatistics()">
       <div class="flex-row flex-center distribute-button-row">
         <mat-icon class="flex-spacing-x-2px material-icon-trailing-space">timeline</mat-icon>
         <div>{{ statisticsVisible ? 'Hide' : 'Show' }} Statistics</div>
@@ -45,74 +45,74 @@
         <div>Distribute With Constraints</div>
       </div>
     </button>
-    <form [formGroup]="personPoolDisplayModeFormGroup" (change)="personPoolDisplayModeUpdated()">
+    <form [formGroup]="studentPoolDisplayModeFormGroup" (change)="studentPoolDisplayModeUpdated()">
       <div class="btn-group">
         <input mdbRadio
           type="radio"
           id="option-1"
           class="btn-check"
-          formControlName="personPoolDisplayModeControl"
-          [value]="PersonPoolDisplayMode.Closed"
+          formControlName="studentPoolDisplayModeControl"
+          [value]="StudentPoolDisplayMode.Closed"
         />
         <label class="btn btn-secondary" for="option-1">
-          <img src="/assets/images/person-pool-closed.svg" class="person-pool-size-icon" />
+          <img src="/assets/images/student-pool-closed.svg" class="student-pool-size-icon" />
         </label>
         <input mdbRadio
           type="radio"
           id="option-2"
           class="btn-check"
-          formControlName="personPoolDisplayModeControl"
+          formControlName="studentPoolDisplayModeControl"
           checked="true"
-          [value]="PersonPoolDisplayMode.OneRow"
+          [value]="StudentPoolDisplayMode.OneRow"
         />
         <label class="btn btn-secondary" for="option-2">
-          <img src="/assets/images/person-pool-one-row.svg" class="person-pool-size-icon" />
+          <img src="/assets/images/student-pool-one-row.svg" class="student-pool-size-icon" />
         </label>
         <input mdbRadio
           type="radio"
           id="option-3"
           class="btn-check"
-          formControlName="personPoolDisplayModeControl"
-          [value]="PersonPoolDisplayMode.TwoRows"
+          formControlName="studentPoolDisplayModeControl"
+          [value]="StudentPoolDisplayMode.TwoRows"
         />
         <label class="btn btn-secondary" for="option-3">
-          <img src="/assets/images/person-pool-two-rows.svg" class="person-pool-size-icon" />
+          <img src="/assets/images/student-pool-two-rows.svg" class="student-pool-size-icon" />
         </label>
         <input mdbRadio
           type="radio"
           id="option-4"
           class="btn-check"
-          formControlName="personPoolDisplayModeControl"
-          [value]="PersonPoolDisplayMode.Full"
+          formControlName="studentPoolDisplayModeControl"
+          [value]="StudentPoolDisplayMode.Full"
         />
         <label class="btn btn-secondary" for="option-4">
-          <img src="/assets/images/person-pool-full.svg" class="person-pool-size-icon" />
+          <img src="/assets/images/student-pool-full.svg" class="student-pool-size-icon" />
         </label>
       </div>
     </form>
   </div>
 
-  <!-- person pool statistics -->
-  <app-person-pool-statistics *ngIf="statisticsVisible"></app-person-pool-statistics>
+  <!-- student pool statistics -->
+  <app-student-pool-statistics *ngIf="statisticsVisible"></app-student-pool-statistics>
 
-  <!-- person preview cards -->
+  <!-- student preview cards -->
   <div class="flex-grow flex-row position-relative">
     <div
-      *ngIf="teamService.personsWithoutTeam.length == 0"
+      *ngIf="teamService.studentsWithoutTeam.length == 0"
       class="position-absolute position-absolute-full-size pointer-events-none flex-row overflow-hidden">
       <div class="flex-grow empty-orphan-team-hint-box flex-row flex-center flex-justify-center">
-        <div>Drag persons here</div>
+        <div>Drag students here</div>
       </div>
     </div>
     <div
-      dragula="persons"
-      class="flex-row person-pool-preview-row flex-wrap flex-grow"
-      [(dragulaModel)]="teamService.personsWithoutTeam">
-      <app-person-preview
-        *ngFor="let person of teamService.personsWithoutTeam"
-        [person]="person"
-        (click)="showPersonDetails(person)"
-        [pinable]="false"></app-person-preview>
+      dragula="students"
+      class="flex-row student-pool-preview-row flex-wrap flex-grow"
+      [(dragulaModel)]="teamService.studentsWithoutTeam">
+      <app-student-preview
+        *ngFor="let student of teamService.studentsWithoutTeam"
+        [student]="student"
+        (click)="showStudentDetails(student)"
+        [pinable]="false"></app-student-preview>
     </div>
   </div>
 </div>

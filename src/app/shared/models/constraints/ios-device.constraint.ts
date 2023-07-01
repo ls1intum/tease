@@ -1,9 +1,6 @@
 import { Constraint, ConstraintType } from './constraint';
-import { Device } from '../device';
+import { DeviceType } from '../generated-model/device';
 import { Team } from '../team';
-/**
- * Created by Malte Bucksch on 23/02/2017.
- */
 
 export class IosDeviceConstraint extends Constraint {
   constructor(config: any) {
@@ -13,18 +10,16 @@ export class IosDeviceConstraint extends Constraint {
   isSatisfied(team: Team): boolean {
     return (this.minValue || 0) <= this.getCurrentValue(team) && this.getCurrentValue(team) <= (this.maxValue || Number.MAX_VALUE);
   }
-
+  
   private getDeviceCount(team: Team): number {
     return (
-      team.getDeviceCountOfType(Device.Iphone) +
-      team.getDeviceCountOfType(Device.Ipad) +
-      team.getDeviceCountOfType(Device.IphoneAR) +
-      team.getDeviceCountOfType(Device.IpadAR)
+      team.getDeviceCountOfType(DeviceType.IPhone) +
+      team.getDeviceCountOfType(DeviceType.IPad)
     );
   }
 
   getName(): string {
-    return 'Persons w. iDevice';
+    return 'Students w. iDevice';
   }
 
   getType(): ConstraintType {

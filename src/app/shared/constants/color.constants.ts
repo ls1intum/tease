@@ -1,7 +1,4 @@
-import { SkillLevel } from '../models/skill';
-/**
- * Created by Malte Bucksch on 16/12/2016.
- */
+import { SkillLevel } from '../models/generated-model/skillLevel';
 
 export abstract class Colors {
   static readonly LightGray = '#E0E0E0';
@@ -10,15 +7,15 @@ export abstract class Colors {
 
   static getColor(skillLevel: SkillLevel): string {
     switch (skillLevel) {
-      case SkillLevel.VeryHigh:
+      case SkillLevel.Expert:
         return '#5eb7e0';
-      case SkillLevel.High:
+      case SkillLevel.Advanced:
         return '#60c460';
-      case SkillLevel.Medium:
+      case SkillLevel.Intermediate:
         return '#f7b551';
-      case SkillLevel.Low:
+      case SkillLevel.Novice:
         return '#f47f67';
-      case SkillLevel.None:
+      default:
         return '#a4a4a4';
     }
   }

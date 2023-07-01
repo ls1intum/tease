@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Constraint } from '../../models/constraints/constraint';
 import { ConstraintAccessService } from './constraint.access.service';
-import { FemalePersonConstraint } from '../../models/constraints/female-person.constraint';
+import { FemaleStudentConstraint } from '../../models/constraints/female-student.constraint';
 import { TeamSizeConstraint } from '../../models/constraints/team-size.constraint';
 import { IosDeviceConstraint } from '../../models/constraints/ios-device.constraint';
 import { MacDeviceConstraint } from '../../models/constraints/mac-device.constraint';
 import { SkillExpertConstraint } from '../../models/constraints/skill-expert.constraint';
 import { SkillAdvancedConstraint } from '../../models/constraints/skill-advanced.constraint';
-import { SkillNormalConstraint } from '../../models/constraints/skill-normal.constraint';
+import { SkillIntermediateConstraint } from '../../models/constraints/skill-intermediate.constraint';
 import { SkillNoviceConstraint } from '../../models/constraints/skill-novice.constraint';
-import { CSVPersonDataAccessService } from './csv-person-data-access.service';
+import { CSVStudentDataAccessService } from './csv-student-data-access.service';
 
 /**
  * Created by Malte Bucksch on 23/02/2017.
@@ -22,7 +22,7 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
 
   private static readonly KeyMacDeviceConstraint = 'KeyMacDeviceConstraint';
   private static readonly KeyIosDeviceConstraint = 'KeyIosDeviceConstraint';
-  private static readonly KeyFemalePersonConstraint = 'KeyFemalePersonConstraint';
+  private static readonly KeyFemaleStudentConstraint = 'KeyFemaleStudentConstraint';
   private static readonly KeyTeamSizeConstraint = 'KeyTeamSizeConstraint';
   private static readonly KeySkillExpertConstraint = 'KeySkillExpertConstraint';
   private static readonly KeySkillAdvancedConstraint = 'KeySkillAdvancedConstraint';
@@ -32,14 +32,14 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
   private static readonly ConstraintDefinitionArray = [
     { classDefinition: MacDeviceConstraint, storageKey: KeyValueConstraintAccessService.KeyMacDeviceConstraint },
     { classDefinition: IosDeviceConstraint, storageKey: KeyValueConstraintAccessService.KeyIosDeviceConstraint },
-    { classDefinition: FemalePersonConstraint, storageKey: KeyValueConstraintAccessService.KeyFemalePersonConstraint },
+    { classDefinition: FemaleStudentConstraint, storageKey: KeyValueConstraintAccessService.KeyFemaleStudentConstraint },
     { classDefinition: TeamSizeConstraint, storageKey: KeyValueConstraintAccessService.KeyTeamSizeConstraint },
     { classDefinition: SkillExpertConstraint, storageKey: KeyValueConstraintAccessService.KeySkillExpertConstraint },
     {
       classDefinition: SkillAdvancedConstraint,
       storageKey: KeyValueConstraintAccessService.KeySkillAdvancedConstraint,
     },
-    { classDefinition: SkillNormalConstraint, storageKey: KeyValueConstraintAccessService.KeySkillNormalConstraint },
+    { classDefinition: SkillIntermediateConstraint, storageKey: KeyValueConstraintAccessService.KeySkillNormalConstraint },
     { classDefinition: SkillNoviceConstraint, storageKey: KeyValueConstraintAccessService.KeySkillNoviceConstraint },
   ];
 
@@ -100,8 +100,8 @@ export class KeyValueConstraintAccessService extends ConstraintAccessService {
       });
 
       // team-based constraints
-      CSVPersonDataAccessService.readDataFromBrowserStorage().then(data => {
-        const [persons, teams] = data;
+      CSVStudentDataAccessService.readDataFromBrowserStorage().then(data => {
+        const [students, teams] = data;
 
         teams.forEach(team => {
           const teamName = team.name;

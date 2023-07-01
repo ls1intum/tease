@@ -1,0 +1,155 @@
+<div *ngIf="student" class="detail-card flex-column flex-no-shrink overflow-hidden">
+  <!-- profile picture and everything right to it -->
+  <div class="flex-row overflow-hidden">
+    <div class="profile-picture">
+      <img src="{{ getGravatarIcon(student.email, 400) }}" />
+    </div>
+
+    <!-- column right to the profile picture -->
+    <div class="flex-column name-flex-column overflow-hidden">
+      <div class="flex-row" id="name-flex-row">
+        <div class="gender-icon">
+          <img src="{{ getGenderIconPath() }}" />
+        </div>
+        <div id="student-name">{{ student.firstName }} {{ student.lastName }}</div>
+        <div
+          *ngIf="isStudentRated()"
+          class="supervisor-rating-badge flex-right"
+          [style.background-color]="getSupervisorAssessmentColor()">
+          {{ student.supervisorAssessment }}
+        </div>
+      </div>
+
+      <div class="flex-row">
+        <div class="flex-column student-value-container">
+          <div class="heading">Major</div>
+          <div class="student-value">{{ student.studyProgram }}</div>
+        </div>
+        <div class="flex-column flex-grow student-value-container">
+          <div class="heading">Term</div>
+          <div class="student-value">{{ student.semester }}</div>
+        </div>
+        <div class="flex-column flex-grow student-value-container">
+          <div class="heading">Nationality</div>
+          <div class="student-value flag-emoji">{{ getFlagEmojiFromNationality(student.nationality) }}</div>
+          <div class="student-value">{{ student.nationality }}</div>
+        </div>
+        <div class="flex-column">
+          <div class="heading">Languages</div>
+          <div class="flex-row">
+            <div class="badge language-level-badge flex-row flex-center">
+              <div class="flag-icon">
+                <img src="/assets/images/german.png" />
+              </div>
+              <div class="student-language-name">{{ student.germanLanguageLevel }}</div>
+            </div>
+            <div class="badge language-level-badge flex-row flex-center">
+              <div class="flag-icon">
+                <img src="/assets/images/english.png" />
+              </div>
+              <div class="student-language-name">{{ student.englishLanguageLevel }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-row">
+        <div class="flex-column student-value-container">
+          <div class="heading">Devices</div>
+          <div class="flex-row spacing-x-3">
+            <div *ngIf="student.devices.length == 0" class="student-value">—</div>
+            <div *ngFor="let device of student.devices" matTooltip="{{ Device[device] }}" class="device-icon">
+              <img src="{{ getDeviceIconPath(device) }}" />
+            </div>
+          </div>
+        </div>
+        <div class="flex-column student-value-container flex-grow overflow-hidden">
+          <div class="heading">Mail</div>
+          <div class="student-value">{{ student.email }}</div>
+        </div>
+        <div class="flex-column">
+          <div class="heading">Student ID</div>
+          <div class="student-value">{{ student.studentId }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- everything below the profile picture -->
+  <div class="flex-column padding-x-main">
+    <!-- team priorities -->
+    <div class="flex-column">
+      <div class="heading">Project Priorities</div>
+      <div class="flex-row flex-wrap team-badge-container">
+        <div
+          *ngFor="let team of student.projectPriorities; let i = index"
+          class="flex-row flex-center team-badge flex-no-shrink"
+          [class.badge-highlight]="team === student.team">
+          <div class="team-badge-index flex-row flex-center flex-justify-center">
+            <div>{{ i + 1 }}</div>
+          </div>
+          <div class="flex-row flex-center flex-justify-center flex-grow">
+            <div class="team-badge-name">{{ team.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- skills -->
+    <div class="heading">Skills</div>
+
+    <div class="skill-container flex-column flex-center">
+      <div class="skill-name">iOS Development</div>
+      <div class="skill-level-label" [ngClass]="'skill-level-label-' + student.getiOSSkillLevel() | lowercase">
+        <div>{{ student.getiOSSkillLevel() }}</div>
+      </div>
+      <div *ngIf="student.getiOSSkillSelfAssessment().skillLevelRationale.length > 0" class="quote-text">
+        <span class="quotation-mark">“</span>{{ student.getiOSSkillSelfAssessment().skillLevelRationale }}<span class="quotation-mark">”</span>
+      </div>
+      <div class="quote-text" *ngIf="student.getiOSSkillSelfAssessment().skillLevelRationale.length == 0">—</div>
+    </div>
+
+    <div class="flex-row flex-wrap generic-skills-container-box">
+      <div *ngFor="let assessment of student.getNoniOSSkillSelfAssessments()" class="skill-container skill-container-generic flex-column flex-center">
+        <div class="skill-name">{{ assessment.skill.title }}</div>
+        <div class="skill-level-label" [ngClass]="'skill-level-label-' + assessment.skillLevel | lowercase">
+          <div>{{ assessment.skillLevel }}</div>
+        </div>
+
+        <div *ngIf="assessment.skillLevelRationale.length > 0" class="quote-text">
+          <span class="quotation-mark">“</span>{{ assessment.skillLevelRationale }}<span class="quotation-mark">”</span>
+        </div>
+        <div class="quote-text" *ngIf="assessment.skillLevelRationale.length == 0">—</div>
+      </div>
+    </div>
+
+    <!-- intro course assessment -->
+    <div class="heading">How challenging was the intro course?</div>
+    <div class="flex-row spacing-x-3">
+      <div
+        class="skill-level-label flex-grow flex-basis-zero"
+        [ngClass]="'skill-level-label-' + student.getIntroSelfAssessmentLevel() | lowercase">
+        <div>Student: “{{ CSVConstants.Student.IntroSelfAssessmentAnswers[student.getIntroSelfAssessmentLevel()] | titlecase }}”</div>
+      </div>
+      <div
+        class="skill-level-label flex-grow flex-basis-zero"
+        [ngClass]="'skill-level-label-' + student.getSupervisorAssessmentLevel() | lowercase">
+        <div>Tutor: “{{ student.supervisorAssessment }}”</div>
+      </div>
+    </div>
+
+    <!-- student comments -->
+    <div class="heading">Student Comments</div>
+    <div *ngIf="student.studentComments.length > 0" class="quote-text align-self-start">
+      <span class="quotation-mark">“</span>{{ student.studentComments }}<span class="quotation-mark">”</span>
+    </div>
+    <div class="quote-text align-self-start" *ngIf="student.studentComments.length === 0">—</div>
+
+    <!-- tutor comments -->
+    <div class="heading">Tutor Comments</div>
+    <div *ngIf="student.tutorComments.length > 0" class="quote-text align-self-start">
+      <span class="quotation-mark">“</span>{{ student.tutorComments }}<span class="quotation-mark">”</span>
+    </div>
+    <div class="quote-text align-self-start" *ngIf="student.tutorComments.length === 0">—</div>
+  </div>
+</div>

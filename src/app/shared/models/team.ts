@@ -1,40 +1,37 @@
-import { Person } from './person';
-import { Device } from './device';
-/**
- * Created by wanur on 05/11/2016.
- */
+import { Student } from './student';
+import { DeviceType } from './generated-model/device';
 
 export class Team {
   name: string;
-  persons: Person[] = [];
+  students: Student[] = [];
 
   constructor(name: string) {
     this.name = name;
   }
 
-  remove(person: Person) {
-    const index = this.persons.indexOf(person);
+  remove(student: Student) {
+    const index = this.students.indexOf(student);
     if (index < 0) return;
 
-    this.persons.splice(index, 1);
-    person.team = undefined;
+    this.students.splice(index, 1);
+    student.team = undefined;
   }
 
-  add(person: Person) {
-    this.persons.push(person);
-    person.team = this;
+  add(student: Student) {
+    this.students.push(student);
+    student.team = this;
   }
 
   clear() {
-    while (this.persons.length !== 0) {
-      const person: Person = this.persons.pop();
-      person.team = null;
+    while (this.students.length !== 0) {
+      const student: Student = this.students.pop();
+      student.team = null;
     }
   }
 
-  getDeviceCountOfType(device: Device): number {
-    return this.persons.reduce(
-      (acc, person) => acc.concat(person.devices.filter(curDevice => curDevice === device)),
+  getDeviceCountOfType(device: DeviceType): number {
+    return this.students.reduce(
+      (acc, student) => acc.concat(student.devices.filter(curDevice => curDevice === device)),
       []
     ).length;
   }

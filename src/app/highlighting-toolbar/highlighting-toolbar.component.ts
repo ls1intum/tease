@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { PersonConstraintService } from '../shared/layers/business-logic-layer/person-constraint.service';
-import { InstructorRatingPersonConstraint } from '../shared/models/person-constraints/instructor-rating-person-constraint';
-import { DevicePossessionPersonConstraint } from '../shared/models/person-constraints/device-possession-person-constraint';
-import { Skill, SkillLevel } from '../shared/models/skill';
+import { StudentConstraintService } from '../shared/layers/business-logic-layer/student-constraint.service';
+import { InstructorRatingStudentConstraint } from '../shared/models/student-constraints/instructor-rating-student-constraint';
+import { DevicePossessionStudentConstraint } from '../shared/models/student-constraints/device-possession-student-constraint';
+import { Skill} from '../shared/models/skill';
+import { SkillLevel } from '../shared/models/generated-model/skillLevel';
 import { CSVConstants } from '../shared/constants/csv.constants';
-import { ExperiencePersonConstraint } from '../shared/models/person-constraints/experience-person-constraint';
-import { Device } from '../shared/models/device';
-import { InterestPersonConstraint } from '../shared/models/person-constraints/interest-person-constraint';
-import { GenderPersonConstraint } from '../shared/models/person-constraints/gender-person-constraint';
-import { Gender } from '../shared/models/person';
-import { PersonHighlightingOverlayComponent } from '../dashboard/person-highlighting-overlay/person-highlighting-overlay.component';
+import { ExperienceStudentConstraint } from '../shared/models/student-constraints/experience-student-constraint';
+import { DeviceType } from '../shared/models/generated-model/device';
+import { GenderStudentConstraint } from '../shared/models/student-constraints/gender-student-constraint';
+import { Gender } from '../shared/models/generated-model/gender';
+import { StudentHighlightingOverlayComponent } from '../dashboard/student-highlighting-overlay/student-highlighting-overlay.component';
 import { OverlayService } from '../overlay.service';
-import { PersonConstraint } from '../shared/models/person-constraints/person-constraint';
+import { StudentConstraint } from '../shared/models/student-constraints/student-constraint';
 
 @Component({
   selector: 'app-highlighting-toolbar',
@@ -20,34 +20,39 @@ import { PersonConstraint } from '../shared/models/person-constraints/person-con
 })
 export class HighlightingToolbarComponent implements OnInit {
   s;
-  PersonConstraintService = PersonConstraintService;
+  StudentConstraintService = StudentConstraintService;
   SkillLevel = SkillLevel;
   Skill = Skill;
   CSVConstants = CSVConstants;
   Gender = Gender;
-  Device = Device;
-  InstructorRatingPersonConstraint = InstructorRatingPersonConstraint;
-  InterestPersonConstraint = InterestPersonConstraint;
-  ExperiencePersonConstraint = ExperiencePersonConstraint;
-  DevicePossessionPersonConstraint = DevicePossessionPersonConstraint;
-  GenderPersonConstraint = GenderPersonConstraint;
+  Device = DeviceType;
+  InstructorRatingStudentConstraint = InstructorRatingStudentConstraint;
+  ExperienceStudentConstraint = ExperienceStudentConstraint;
+  DevicePossessionStudentConstraint = DevicePossessionStudentConstraint;
+  GenderStudentConstraint = GenderStudentConstraint;
 
   constructor(private overlayService: OverlayService) {}
 
   ngOnInit() {}
 
-  showPersonHighlightingOverlay() {
-    this.overlayService.displayComponent(PersonHighlightingOverlayComponent, {});
+  showStudentHighlightingOverlay() {
+    this.overlayService.displayComponent(StudentHighlightingOverlayComponent, {});
   }
 
   getSkillNameAbbreviation(skillName: string) {
-    const pair = this.CSVConstants.Skills.SkillNameAbbreviationPairs.find(p => p[0] === skillName);
-    return pair ? pair[1] : skillName;
+    // TODO: instead of getting the skill names from the hardcoded CSV constants, retrieve them
+    // from the parsed skills stored inside the team service (this component needs access to
+    // the team service for that)
+
+    // const pair = this.CSVConstants.Skills.SkillNameIdPairs.find(p => p[0] === skillName);
+    // return pair ? pair[1] : skillName;
+
+    return skillName; // return just the skill name for now
   }
 
-  removeConstraint(personConstraint: PersonConstraint) {
-    PersonConstraintService.personConstraints = PersonConstraintService.personConstraints.filter(
-      c => c !== personConstraint
+  removeConstraint(studentConstraint: StudentConstraint) {
+    StudentConstraintService.studentConstraints = StudentConstraintService.studentConstraints.filter(
+      c => c !== studentConstraint
     );
   }
 }

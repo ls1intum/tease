@@ -10,7 +10,7 @@ export class TeamSizeConstraint extends Constraint {
   }
 
   isSatisfied(team: Team): boolean {
-    return (this.minValue || 0) <= team.persons.length && team.persons.length <= (this.maxValue || Number.MAX_VALUE);
+    return (this.minValue || 0) <= team.students.length && team.students.length <= (this.maxValue || Number.MAX_VALUE);
   }
 
   getName(): string {
@@ -22,6 +22,6 @@ export class TeamSizeConstraint extends Constraint {
   }
 
   getCurrentValue(team: Team): number {
-    return team.persons.length;
+    return team.students.length;
   }
 }

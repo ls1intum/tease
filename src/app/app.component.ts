@@ -5,7 +5,7 @@ import { OverlayHostDirective } from './overlay-host.directive';
 import { OverlayComponent, OverlayService, OverlayServiceHost } from './overlay.service';
 import { ImportOverlayComponent } from './dashboard/import-overlay/import-overlay.component';
 import { ConfirmationOverlayComponent } from './dashboard/confirmation-overlay/confirmation-overlay.component';
-import { PersonHighlightingOverlayComponent } from './dashboard/person-highlighting-overlay/person-highlighting-overlay.component';
+import { StudentHighlightingOverlayComponent } from './dashboard/student-highlighting-overlay/student-highlighting-overlay.component';
 import { Location } from '@angular/common';
 import { ExportOverlayComponent } from './dashboard/export-overlay/export-overlay.component';
 import { ConstraintLoggingService } from './shared/layers/business-logic-layer/constraint-logging.service';
@@ -52,7 +52,7 @@ export class AppComponent implements OverlayServiceHost {
   showResetTeamAllocationConfirmation() {
     this.overlayService.displayComponent(ConfirmationOverlayComponent, {
       action: 'Reset',
-      actionDescription: 'Resetting the team allocation will unpin all persons and remove them from their teams.',
+      actionDescription: 'Resetting the team allocation will unpin all students and remove them from their teams.',
       onConfirmed: () => {
         this.teamService.resetPinnedStatus();
         this.teamService.resetTeamAllocation();
@@ -66,9 +66,9 @@ export class AppComponent implements OverlayServiceHost {
   showSortConfirmation() {
     this.overlayService.displayComponent(ConfirmationOverlayComponent, {
       action: 'Sort',
-      actionDescription: 'Sorting all teams will destroy the current order of persons.',
+      actionDescription: 'Sorting all teams will destroy the current order of students.',
       onConfirmed: () => {
-        this.teamService.sortPersons();
+        this.teamService.sortStudents();
         this.teamService.saveToLocalBrowserStorage();
         this.overlayService.closeOverlay();
       },
@@ -89,8 +89,8 @@ export class AppComponent implements OverlayServiceHost {
     this.overlayService.displayComponent(ExportOverlayComponent, {});
   }
 
-  showPersonHighlightingOverlay() {
-    this.overlayService.displayComponent(PersonHighlightingOverlayComponent, {});
+  showStudentHighlightingOverlay() {
+    this.overlayService.displayComponent(StudentHighlightingOverlayComponent, {});
   }
 
   /* OverlayServiceHost interface */

@@ -1,40 +1,25 @@
-/**
- * Created by Malte Bucksch on 20/11/2016.
- */
-import { SkillLevel } from '../models/skill';
-
 export class CSVConstants {
-  static readonly Person = {
+  static readonly Student = {
     FirstName: 'firstname',
     LastName: 'lastname',
     Email: 'email',
-    TumId: 'attribute_2',
-    Gender: 'attribute_3',
+    StudentId: 'studentID',
+    Gender: 'gender',
     Nationality: 'nationality',
-    Major: 'major',
-    MajorOther: 'major[other]',
+    StudyProgram: 'studyProgram',
     Semester: 'semester',
-    GermanLanguageLevel: 'language[a1]',
-    EnglishLanguageLevel: 'language[a2]',
+    GermanLanguageLevel: 'germanLanguageLevel',
+    EnglishLanguageLevel: 'englishLanguageLevel',
     IosDevExperience: 'iOSDev',
     IosDevAppStoreLink: 'appStoreLink',
     IosDevExperienceExplained: 'iOSDevExplained',
-    IntroAssessment: 'introAssessment[INTRO]',
-    IntroAssessmentTutor: 'introAssessmentTutor[INTRO]',
-    IntroAssessmentAnswers: [
-      'extremely challenging',
-      'very challenging',
-      'medium challenging',
-      'hardly challenging',
-      'not challenging at all',
-    ],
-    IntroAssessmentTutorAnswers: [
-      'strongly below average',
-      'below average',
-      'average',
-      'above average',
-      'strongly above average',
-    ],
+    IntroSelfAssessment: 'introSelfAssessment',
+    IntroSelfAssessmentAnswers: {
+      Novice: 'extremely challenging',
+      Intermediate: 'very challenging',
+      Advanced: 'medium challenging',
+      Expert: 'not challenging at all',
+    },
 
     /* (devices) */
     /* (skills) */
@@ -43,67 +28,30 @@ export class CSVConstants {
 
     /* (priorities) */
 
-    StudentComments: 'Comments',
-    SupervisorRating: 'supervisorRating',
-    TutorComments: 'CommentsTutor',
-    IsPinned: 'IsPinned',
+    StudentComments: 'studentComments',
+    SupervisorAssessment: 'supervisorAssessment',
+    TutorComments: 'tutorComments',
+    IsPinned: 'isPinned',
   };
+
+  // TODO: We want this skill to always exist, but ideally we should store it somewhere else and definitely document it
+  static readonly SkillIdiOS = 'swift';
 
   static readonly Skills = {
-    JustifyPrefix: 'justify',
-    ExpInterPrefix: 'expinter',
-    ExperiencePostfix: '[expinter][1]',
-    InterestPostfix: '[expinter][2]',
-    SkillNameAbbreviationPairs: [
-      ['Frontend Development', 'WEBFE'],
-      ['Server-side Development', 'SSDEV'],
-      ['UI / UX', 'UIUX'],
-      ['Embedded Development', 'EMBED'],
-      ['Virtual & Augmented Reality', 'VRAR'],
-      ['Machine Learning & Algorithms', 'MLALG'],
-    ],
-    SkillLevelAnswers: ['no skills', 'beginner skills', 'average skills', 'advanced skills', 'expert skills'],
-    InterestLevelAnswers: [
-      'not interested at all',
-      'hardly interested',
-      'average interest',
-      'high interest',
-      'extremely interested',
-    ],
-  };
+    SkillPrefix: 'skill.',
+    SkillTitlePostfix: '.title',
+    SkillLevelPostfix: '.skillLevel',
+    SkillLevelRationalePostfix: '.skillLevelRationale',
 
-  static readonly Devices = {
-    Iphone: 'devices[iPhone]',
-    Ipad: 'devices[iPad]',
-    Mac: 'devices[Mac]',
-    Watch: 'devices[Watch]',
-    IphoneAR: 'devices[iPhoneAR]',
-    IpadAR: 'devices[iPadAR]',
+    // TODO: instead of hardcoding them here infer team IDs from the CSV column names (using the prefix)
+    // for importing via the api there is a route to retrieve skills
+    SkillIds: [CSVConstants.SkillIdiOS, 'webfe', 'ssdev', 'uiux', 'embed', 'vrar', 'mlalg']
   };
-
-  static readonly iOSDevExperienceLow =
-    'I have no experience in Apple platform development other than the intro course.';
-  static readonly iOSDevExperienceMedium =
-    'I was involved in the development of a native Apple application, but I had another role than developer (e.g. tester).';
-  static readonly iOSDevExperienceHigh = 'I have been an active developer for a native Apple application.';
-  static readonly iOSDevExperienceVeryHigh = 'I have submitted my own native Apple application(s) to the AppStore.';
 
   static readonly Team = { TeamName: 'teamName', Priority: 'Priorities[{d}]' };
   static readonly ArrayBraces = { Open: '[', Close: ']' };
 
-  static readonly SkillLevelValue = {
-    VeryHigh: 'Expert',
-    High: 'Advanced',
-    Medium: 'Normal',
-    Low: 'Novice',
-    None: 'No',
-  };
-
-  static readonly GenderValue = { Male: 'male', Female: 'female' };
-
-  static readonly DeviceAvailableBooleanValue = { Available: 'Yes', Unavailable: 'No' };
-
-  static readonly MajorOtherValue = 'Other';
+  static readonly DevicePrefix = "device.";
 }
 
-export const ExamplePersonPropertyCsvRemotePath = '/assets/persons_example.csv';
+export const ExampleStudentPropertyCsvRemotePath = '/assets/students_example.csv';

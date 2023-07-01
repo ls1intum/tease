@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { OverlayComponent } from '../../overlay.service';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
-import { ExamplePersonPropertyCsvRemotePath } from '../../shared/constants/csv.constants';
+import { ExampleStudentPropertyCsvRemotePath } from '../../shared/constants/csv.constants';
 import { ConstraintLoggingService } from '../../shared/layers/business-logic-layer/constraint-logging.service';
 
 @Component({
@@ -31,7 +31,7 @@ export class ImportOverlayComponent implements OnInit, OverlayComponent {
   }
 
   public loadExampleData() {
-    this.teamService.readRemoteData(ExamplePersonPropertyCsvRemotePath).then(success => {
+    this.teamService.readRemoteData(ExampleStudentPropertyCsvRemotePath).then(success => {
       this.data.onTeamsImported();
       ConstraintLoggingService.reset();
     });
