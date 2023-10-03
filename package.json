@@ -14,7 +14,6 @@
     "start": "ng serve --configuration development --host 0.0.0.0 --port 80 --disable-host-check",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
     "lint": "ng lint",
     "update": "npm-upgrade"
   },
@@ -44,7 +43,7 @@
     "html2canvas": "1.4.1",
     "javascript-lp-solver": "0.4.24",
     "jszip": "3.10.1",
-    "material-icons": "^1.13.6",
+    "material-icons": "1.13.12",
     "ng2-dragula": "4.0.0",
     "papaparse": "5.4.1",
     "prettier": "2.8.8",
@@ -55,7 +54,12 @@
     "zone.js": "0.12.0"
   },
   "overrides": {
-    "semver": "7.5.4"
+    "semver": "7.5.4",
+    "postcss": "8.4.31"
+  },
+  "browser": {
+    "fs": false,
+    "child_process": false
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "15.2.9",
@@ -68,18 +72,11 @@
     "@angular/compiler-cli": "15.2.9",
     "@angular/localize": "15.2.9",
     "@types/crypto-js": "4.1.2",
-    "@types/jasmine": "~4.3.0",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "eslint": "8.50.0",
     "eslint-config-prettier": "8.10.0",
     "eslint-plugin-prettier": "4.2.1",
-    "jasmine-core": "~4.5.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.0.0",
     "typescript": "4.9.5"
   }
 }
