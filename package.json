@@ -18,6 +18,7 @@
     "update": "npm-upgrade"
   },
   "contributors": [
+    "Stephan Krusche <krusche@tum.de>",
     "Adrian Sohn <adrian.sohn@tum.de>",
     "Malte Bucksch <malte.bucksch@quickbirdstudios.com>",
     "Eric Gopak <eric.gopak@tum.de>",
