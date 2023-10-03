@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, HammerModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,7 +15,6 @@ import { PersonDetailOverlayComponent } from './dashboard/person-detail-overlay/
 import { OverlayHostDirective } from './overlay-host.directive';
 import { OverlayService } from './overlay.service';
 import { PersonStatisticsService } from './shared/layers/business-logic-layer/person-statistics.service';
-import { NgChartsModule } from 'ng2-charts';
 import { DragulaModule } from 'ng2-dragula';
 import { ImportOverlayComponent } from './dashboard/import-overlay/import-overlay.component';
 import { ConstraintsOverlayComponent } from './dashboard/constraints-overlay/constraints-overlay.component';
@@ -37,9 +36,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatIconModule,
     NgbModule,
-    NgChartsModule,
     AppRoutingModule,
-    HammerModule,
     DragulaModule.forRoot(),
     ReactiveFormsModule,
     /* own modules */
