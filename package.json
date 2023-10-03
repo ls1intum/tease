@@ -12,10 +12,14 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --configuration development --host 0.0.0.0 --port 80 --disable-host-check",
-    "build": "ng build",
+    "build": "ng build --stats-json",
+    "build:prod": "ng build --configuration production --stats-json",
     "watch": "ng build --watch --configuration development",
     "lint": "ng lint",
-    "update": "npm-upgrade"
+    "lint:fix": "eslint --fix --ext .ts \"src/{app,test}/**/*.ts\"",
+    "update": "npm-upgrade",
+    "prettier:write": "prettier --write \"src/{app,test}/**/*.{json,ts,js,css,scss,html}\"",
+    "prettier:check": "prettier --check \"src/{app,test}/**/*.{json,ts,js,css,scss,html}\""
   },
   "contributors": [
     "Stephan Krusche <krusche@tum.de>",

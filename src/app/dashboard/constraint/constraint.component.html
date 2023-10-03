@@ -53,7 +53,7 @@
       <div>{{ constraint.getComparator() }}</div>
     </div>
     <input
-      *ngIf="[ConstraintType.LT, ConstraintType.LTE].indexOf(constraint.getType()) != -1"
+      *ngIf="[ConstraintType.LT, ConstraintType.LTE].indexOf(constraint.getType()) !== -1"
       mdInput
       class="number"
       placeholder=""
@@ -62,7 +62,7 @@
       (ngModelChange)="onConstraintMaxValueChanged($event)"
       [disabled]="!constraint.isEnabled" />
     <input
-      *ngIf="[ConstraintType.GT, ConstraintType.GTE].indexOf(constraint.getType()) != -1"
+      *ngIf="[ConstraintType.GT, ConstraintType.GTE].indexOf(constraint.getType()) !== -1"
       mdInput
       class="number"
       placeholder=""

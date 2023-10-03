@@ -1,14 +1,13 @@
-import { PersonSerializer } from '../layers/data-access-layer/PersonSerializer';
 import { CSVConstants } from '../constants/csv.constants';
 /**
  * Created by Malte Bucksch on 09/12/2016.
  */
 
 export class Skill {
-  private _name: string;
-  private _skillLevel: SkillLevel;
-  private _interestLevel: SkillLevel;
-  private _justification: string;
+  private readonly _name: string;
+  private readonly _skillLevel: SkillLevel;
+  private readonly _interestLevel: SkillLevel;
+  private readonly _justification: string;
 
   public static getLabelForSkillLevel(skillLevel: SkillLevel): string {
     switch (skillLevel) {

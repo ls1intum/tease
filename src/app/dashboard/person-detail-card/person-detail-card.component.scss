@@ -70,7 +70,7 @@
 }
 
 .language-level-badge {
-  background-color: #EAEAEA;
+  background-color: #eaeaea;
   margin-right: 10px;
   padding-right: 10px;
 }
@@ -148,7 +148,7 @@
 }
 
 .device-icon {
- @extend .img-container-aspect-fill-height;
+  @extend .img-container-aspect-fill-height;
   height: 30px;
   opacity: 0.6;
 }

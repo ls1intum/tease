@@ -16,18 +16,20 @@
 }
 
 .add-button {
-  background-color: #EEE;
+  background-color: #eee;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
 .add-constraint-dropdown {
   width: 150px;
-  background-color: #EEE;
+  background-color: #eee;
   border-radius: 5px;
   left: calc(50% - 75px);
   top: calc(100% + 10px);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
   transition: opacity 0.2s;
 }
 
@@ -51,11 +53,11 @@
 
 .add-constraint-dropdown-seperator {
   height: 1px;
-  background-color: #AAA;
+  background-color: #aaa;
 }
 
 .person-constraint {
-  background-color: #EEE;
+  background-color: #eee;
   border-radius: 20px;
   height: 40px;
   padding-left: 20px;
@@ -86,7 +88,7 @@ md-select {
 
 .dialog-footer {
   height: 25px;
-  background-color: #EEE;
+  background-color: #eee;
   padding: 10px;
 }
 

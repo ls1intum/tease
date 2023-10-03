@@ -1,7 +1,6 @@
 import { PersonConstraint } from './person-constraint';
 import { Person } from '../person';
 import { SkillLevel } from '../skill';
-import { ExperiencePersonConstraint } from './experience-person-constraint';
 
 export class InterestPersonConstraint extends PersonConstraint {
   minimumInterest: SkillLevel = SkillLevel.Low;

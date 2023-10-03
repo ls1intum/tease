@@ -35,7 +35,10 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
     logging: false,
   };
 
-  constructor(private teamService: TeamService, private applicationRef: ApplicationRef) {}
+  constructor(
+    private teamService: TeamService,
+    private applicationRef: ApplicationRef
+  ) {}
 
   ngOnDestroy() {
     this.destroyed = true;

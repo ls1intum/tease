@@ -1,7 +1,6 @@
 import { Constraint, ConstraintType } from './constraint';
 import { Team } from '../team';
 import { Device } from '../device';
-import { TeamHelper } from '../../helpers/team.helper';
 /**
  * Created by Malte Bucksch on 23/02/2017.
  */
@@ -12,7 +11,10 @@ export class MacDeviceConstraint extends Constraint {
   }
 
   isSatisfied(team: Team): boolean {
-    return (this.minValue || 0) <= this.getCurrentValue(team) && this.getCurrentValue(team) <= (this.maxValue || Number.MAX_VALUE);
+    return (
+      (this.minValue || 0) <= this.getCurrentValue(team) &&
+      this.getCurrentValue(team) <= (this.maxValue || Number.MAX_VALUE)
+    );
   }
 
   getName(): string {

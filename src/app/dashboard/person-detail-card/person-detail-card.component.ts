@@ -20,7 +20,7 @@ export class PersonDetailCardComponent {
   SkillLevel = SkillLevel;
   CSVConstants = CSVConstants;
   Device = Device;
-  getFlagEmojiFromNationality = NationalityHelper.getFlagEmojiFromNationality
+  getFlagEmojiFromNationality = NationalityHelper.getFlagEmojiFromNationality;
 
   isPersonRated(): boolean {
     return this.person.supervisorRating !== undefined && this.person.supervisorRating !== SkillLevel.None;

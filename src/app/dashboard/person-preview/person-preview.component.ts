@@ -20,7 +20,7 @@ export class PersonPreviewComponent implements OnInit {
   SkillLevel = SkillLevel;
   Device = Device;
   PersonConstraintService = PersonConstraintService;
-  getFlagEmojiFromNationality = NationalityHelper.getFlagEmojiFromNationality
+  getFlagEmojiFromNationality = NationalityHelper.getFlagEmojiFromNationality;
 
   /* functions used in template */
   protected getGravatarIcon = IconMapperService.getGravatarIcon;

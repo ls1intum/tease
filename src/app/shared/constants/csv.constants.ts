@@ -1,7 +1,6 @@
 /**
  * Created by Malte Bucksch on 20/11/2016.
  */
-import { SkillLevel } from '../models/skill';
 
 export class CSVConstants {
   static readonly Person = {
