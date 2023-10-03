@@ -25,7 +25,6 @@
     "Dora Dzvonyar <dora.dzvonyar@tum.de>"
   ],
   "dependencies": {
-    "@angular-builders/custom-webpack": "15.0.0",
     "@angular/animations": "15.2.9",
     "@angular/cdk": "15.2.9",
     "@angular/common": "15.2.9",
@@ -46,8 +45,6 @@
     "material-icons": "1.13.12",
     "ng2-dragula": "4.0.0",
     "papaparse": "5.4.1",
-    "prettier": "2.8.8",
-    "prettier-eslint": "15.0.1",
     "rxjs": "7.8.1",
     "crypto-js": "4.1.1",
     "tslib": "2.6.2",
@@ -77,6 +74,8 @@
     "eslint": "8.50.0",
     "eslint-config-prettier": "8.10.0",
     "eslint-plugin-prettier": "4.2.1",
+    "prettier": "2.8.8",
+    "prettier-eslint": "15.0.1",
     "typescript": "4.9.5"
   }
 }
