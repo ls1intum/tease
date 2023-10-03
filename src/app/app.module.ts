@@ -52,13 +52,5 @@ import { ReactiveFormsModule } from '@angular/forms';
     { provide: TeamGenerationService, useClass: LPTeamGenerationService },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [
-    PersonDetailOverlayComponent,
-    ImportOverlayComponent,
-    ConstraintsOverlayComponent,
-    ConfirmationOverlayComponent,
-    PersonHighlightingOverlayComponent,
-    ExportOverlayComponent,
-  ],
 })
 export class AppModule {}
