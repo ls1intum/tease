@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Person } from '../../shared/models/person';
 import { Skill, SkillLevel } from '../../shared/models/skill';
 import { Colors } from '../../shared/constants/color.constants';
@@ -12,7 +12,7 @@ import { NationalityHelper } from '../../shared/helpers/nationality.helper';
   templateUrl: './person-detail-card.component.html',
   styleUrls: ['./person-detail-card.component.scss'],
 })
-export class PersonDetailCardComponent implements OnInit {
+export class PersonDetailCardComponent {
   @Input() person: Person;
 
   getLabelForSkillLevel = Skill.getLabelForSkillLevel;
@@ -21,10 +21,6 @@ export class PersonDetailCardComponent implements OnInit {
   CSVConstants = CSVConstants;
   Device = Device;
   getFlagEmojiFromNationality = NationalityHelper.getFlagEmojiFromNationality
-
-  constructor() {}
-
-  ngOnInit() {}
 
   isPersonRated(): boolean {
     return this.person.supervisorRating !== undefined && this.person.supervisorRating !== SkillLevel.None;

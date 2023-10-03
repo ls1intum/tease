@@ -1,7 +1,14 @@
 {
-  "name": "TEASE",
+  "name": "tease",
   "version": "3.0.0",
   "description": "A reference implementation of a decision-support system for software engineering team allocation for multi-project courses.",
+  "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "ASE TUM",
+    "email": "krusche@tum.de",
+    "url": "https://ase.cit.tum.de"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve --configuration development --host 0.0.0.0 --port 80 --disable-host-check",
@@ -18,7 +25,6 @@
     "Quirin Schweigert <quirin.schweigert@tum.de>",
     "Dora Dzvonyar <dora.dzvonyar@tum.de>"
   ],
-  "private": true,
   "dependencies": {
     "@angular-builders/custom-webpack": "15.0.0",
     "@angular/animations": "15.2.9",
@@ -32,14 +38,12 @@
     "@angular/platform-browser-dynamic": "15.2.9",
     "@angular/router": "15.2.9",
     "@ng-bootstrap/ng-bootstrap": "14.2.0",
-    "bootstrap": "^5.2.3",
-    "dragula": "^3.7.3",
-    "eslint-config-prettier": "^8.7.0",
-    "eslint-plugin-prettier": "^4.2.1",
+    "bootstrap": "5.2.3",
+    "dragula": "3.7.3",
     "file-saver": "2.0.5",
-    "html2canvas": "^1.4.1",
-    "javascript-lp-solver": "^0.4.24",
-    "jszip": "^3.10.1",
+    "html2canvas": "1.4.1",
+    "javascript-lp-solver": "0.4.24",
+    "jszip": "3.10.1",
     "material-icons": "^1.13.6",
     "ng2-dragula": "4.0.0",
     "papaparse": "5.4.1",
@@ -67,6 +71,8 @@
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "eslint": "8.50.0",
+    "eslint-config-prettier": "8.10.0",
+    "eslint-plugin-prettier": "4.2.1",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",

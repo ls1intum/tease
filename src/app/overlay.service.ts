@@ -14,8 +14,6 @@ export class OverlayService {
   public host: OverlayServiceHost;
   private displayedComponentData: any = null;
 
-  constructor() {}
-
   public displayComponent(component: Type<OverlayComponent>, data: any) {
     if (this.displayedComponentData && this.displayedComponentData.onClose) {
       this.displayedComponentData.onClose();

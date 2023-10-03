@@ -105,7 +105,6 @@ export class AppComponent implements OverlayServiceHost {
 
   public closeOverlay() {
     this.overlayVisible = false;
-    const viewContainerRef = this.overlayHostDirective.viewContainerRef;
-    viewContainerRef.clear();
+    this.overlayHostDirective.viewContainerRef.clear();
   }
 }

@@ -1,13 +1,4 @@
-import {
-  ApplicationRef,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  NgZone,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { ApplicationRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { OverlayComponent } from '../../overlay.service';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import html2canvas from 'html2canvas';
@@ -23,7 +14,7 @@ import { Team } from '../../shared/models/team';
   templateUrl: './export-overlay.component.html',
   styleUrls: ['./export-overlay.component.scss'],
 })
-export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayComponent {
+export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
   public data: {};
   destroyed = false;
   imageExportRunning = false;
@@ -45,14 +36,13 @@ export class ExportOverlayComponent implements OnInit, OnDestroy, OverlayCompone
   };
 
   constructor(private teamService: TeamService, private applicationRef: ApplicationRef) {}
-  ngOnInit() {}
 
   ngOnDestroy() {
     this.destroyed = true;
   }
 
   exportCSV() {
-    this.teamService.saveToLocalBrowserStorage().then(success => {
+    this.teamService.saveToLocalBrowserStorage().then(() => {
       this.teamService.exportSavedState();
     });
   }

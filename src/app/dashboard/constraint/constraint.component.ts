@@ -7,13 +7,9 @@ import { Team } from '../../shared/models/team';
   templateUrl: './constraint.component.html',
   styleUrls: ['./constraint.component.scss'],
 })
-export class ConstraintComponent implements OnInit {
+export class ConstraintComponent {
   @Input() constraint: Constraint;
   ConstraintType = ConstraintType;
-
-  constructor() {}
-
-  ngOnInit() {}
 
   protected onConstraintMinValueChanged(value) {
     this.constraint.setMinValue(value === '' ? NaN : +value);
