@@ -6,7 +6,7 @@ RUN npm cache clean --force
 # copy files from local machine to virtual directory in image
 COPY . .
 # install dependencies, legacy option for dragula dependency that requires older angular version
-RUN npm install --legacy-peer-deps
+RUN npm install
 RUN npm run build --omit=dev
 
 
