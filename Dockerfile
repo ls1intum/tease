@@ -7,7 +7,7 @@ RUN npm cache clean --force
 COPY . .
 # install python3 and other dependencies for node-gyp (which is somehow required by the angular build)
 RUN apk add --no-cache --virtual .build-deps alpine-sdk python3
-# install dependencies, legacy option for dragula dependency that requires older angular version
+# install dependencies
 RUN npm install
 RUN npm run build --omit=dev
 
