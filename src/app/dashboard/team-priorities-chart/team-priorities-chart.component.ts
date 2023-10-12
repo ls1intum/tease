@@ -1,5 +1,4 @@
 import { Component, DoCheck, Input, OnInit } from '@angular/core';
-import { ArrayHelper } from '../../shared/helpers/array.helper';
 import { Team } from '../../shared/models/team';
 import { PersonStatisticsService } from '../../shared/layers/business-logic-layer/person-statistics.service';
 import { Colors } from '../../shared/constants/color.constants';
@@ -18,10 +17,9 @@ export class TeamPrioritiesChartComponent implements OnInit, DoCheck {
   priorityDistribution: number[];
   indices: number[];
   lastPersonLength: number;
-  teamCount: number;
   averagePriority: number;
 
-  constructor(private personStatisticsService: PersonStatisticsService, private teamService: TeamService) {}
+  constructor(private teamService: TeamService) {}
 
   ngOnInit(): void {
     this.updatePriorityDistribution();

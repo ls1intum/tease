@@ -1,19 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Constraint, ConstraintType } from '../../shared/models/constraints/constraint';
-import { Team } from '../../shared/models/team';
 
 @Component({
   selector: 'app-constraint',
   templateUrl: './constraint.component.html',
   styleUrls: ['./constraint.component.scss'],
 })
-export class ConstraintComponent implements OnInit {
+export class ConstraintComponent {
   @Input() constraint: Constraint;
   ConstraintType = ConstraintType;
-
-  constructor() {}
-
-  ngOnInit() {}
 
   protected onConstraintMinValueChanged(value) {
     this.constraint.setMinValue(value === '' ? NaN : +value);

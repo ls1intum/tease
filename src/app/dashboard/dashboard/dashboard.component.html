@@ -39,7 +39,11 @@
         <div>{{ statisticsVisible ? 'Hide' : 'Show' }} Statistics</div>
       </div>
     </button>
-    <button mat-raised-button color="primary" class="distribute-button flex-no-shrink" (click)="openConstraintsDialog()">
+    <button
+      mat-raised-button
+      color="primary"
+      class="distribute-button flex-no-shrink"
+      (click)="openConstraintsDialog()">
       <div class="flex-row flex-center distribute-button-row">
         <mat-icon class="flex-spacing-x-2px material-icon-trailing-space">build</mat-icon>
         <div>Distribute With Constraints</div>
@@ -47,44 +51,44 @@
     </button>
     <form [formGroup]="personPoolDisplayModeFormGroup" (change)="personPoolDisplayModeUpdated()">
       <div class="btn-group">
-        <input mdbRadio
+        <input
+          mdbRadio
           type="radio"
           id="option-1"
           class="btn-check"
           formControlName="personPoolDisplayModeControl"
-          [value]="PersonPoolDisplayMode.Closed"
-        />
+          [value]="PersonPoolDisplayMode.Closed" />
         <label class="btn btn-secondary" for="option-1">
           <img src="/assets/images/person-pool-closed.svg" class="person-pool-size-icon" />
         </label>
-        <input mdbRadio
+        <input
+          mdbRadio
           type="radio"
           id="option-2"
           class="btn-check"
           formControlName="personPoolDisplayModeControl"
           checked="true"
-          [value]="PersonPoolDisplayMode.OneRow"
-        />
+          [value]="PersonPoolDisplayMode.OneRow" />
         <label class="btn btn-secondary" for="option-2">
           <img src="/assets/images/person-pool-one-row.svg" class="person-pool-size-icon" />
         </label>
-        <input mdbRadio
+        <input
+          mdbRadio
           type="radio"
           id="option-3"
           class="btn-check"
           formControlName="personPoolDisplayModeControl"
-          [value]="PersonPoolDisplayMode.TwoRows"
-        />
+          [value]="PersonPoolDisplayMode.TwoRows" />
         <label class="btn btn-secondary" for="option-3">
           <img src="/assets/images/person-pool-two-rows.svg" class="person-pool-size-icon" />
         </label>
-        <input mdbRadio
+        <input
+          mdbRadio
           type="radio"
           id="option-4"
           class="btn-check"
           formControlName="personPoolDisplayModeControl"
-          [value]="PersonPoolDisplayMode.Full"
-        />
+          [value]="PersonPoolDisplayMode.Full" />
         <label class="btn btn-secondary" for="option-4">
           <img src="/assets/images/person-pool-full.svg" class="person-pool-size-icon" />
         </label>
@@ -98,7 +102,7 @@
   <!-- person preview cards -->
   <div class="flex-grow flex-row position-relative">
     <div
-      *ngIf="teamService.personsWithoutTeam.length == 0"
+      *ngIf="teamService.personsWithoutTeam.length === 0"
       class="position-absolute position-absolute-full-size pointer-events-none flex-row overflow-hidden">
       <div class="flex-grow empty-orphan-team-hint-box flex-row flex-center flex-justify-center">
         <div>Drag persons here</div>

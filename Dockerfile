@@ -1,12 +1,14 @@
 # first stage - build angular project #
-FROM node:lts-bullseye-slim AS build
+FROM node:lts-alpine AS build
 # create virtual directory in image
 WORKDIR /dist/src/app
 RUN npm cache clean --force
 # copy files from local machine to virtual directory in image
 COPY . .
-# install dependencies, legacy option for dragula dependency that requires older angular version
-RUN npm install --legacy-peer-deps
+# install python3 and other dependencies for node-gyp (which is somehow required by the angular build)
+RUN apk add --no-cache --virtual .build-deps alpine-sdk python3
+# install dependencies
+RUN npm install
 RUN npm run build --omit=dev
 
 

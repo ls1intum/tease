@@ -60,23 +60,28 @@
   border-bottom-right-radius: 5px;
 }
 
-.btn-none.active, .btn-none:hover {
+.btn-none.active,
+.btn-none:hover {
   @extend .skill-level-label-0;
 }
 
-.btn-low.active, .btn-low:hover {
+.btn-low.active,
+.btn-low:hover {
   @extend .skill-level-label-1;
 }
 
-.btn-medium.active, .btn-medium:hover {
+.btn-medium.active,
+.btn-medium:hover {
   @extend .skill-level-label-2;
 }
 
-.btn-high.active, .btn-high:hover {
+.btn-high.active,
+.btn-high:hover {
   @extend .skill-level-label-3;
 }
 
-.btn-very-high.active, .btn-very-high:hover {
+.btn-very-high.active,
+.btn-very-high:hover {
   @extend .skill-level-label-4;
 }
 
