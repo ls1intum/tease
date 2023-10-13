@@ -9,13 +9,14 @@ import { Team } from '../../models/team';
  */
 
 export abstract class PersonParser {
+  //TODO: type personProps
   static parsePersons(teamCsvData: Array<any>): [Person[], Team[]] {
     const teams: Team[] = [];
-
     const persons = teamCsvData
-      .map((personProps: Array<any>) => this.parsePerson(teams, personProps))
+      .map((personProps: Array<any>) => {
+        return this.parsePerson(teams, personProps);
+      })
       .filter(person => person !== null);
-
     return [persons, teams];
   }
 
@@ -28,15 +29,13 @@ export abstract class PersonParser {
       }
 
       const team = this.getOrCreateTeam(teams, personProps[columnName]);
-      person.teamPriorities.push(team);
+      person.teamPrioritiesString.push(team.name);
     }
   }
 
   private static getOrCreateTeam(teams: Team[], teamName: string): Team {
     if (teamName === null || teamName === '') return null;
-
     const existingTeam = teams.find(team => team.name === teamName);
-
     if (existingTeam) {
       return existingTeam;
     } else {
@@ -48,7 +47,6 @@ export abstract class PersonParser {
 
   static parsePerson(teams: Team[], personProps: any): Person {
     const person = new Person();
-
     person.firstName = personProps[CSVConstants.Person.FirstName];
     person.lastName = personProps[CSVConstants.Person.LastName];
     person.email = personProps[CSVConstants.Person.Email];
@@ -81,9 +79,11 @@ export abstract class PersonParser {
       return null;
     }
 
-    person.team = this.getOrCreateTeam(teams, personProps[CSVConstants.Team.TeamName]);
-
-    if (person.team) person.team.persons.push(person);
+    person.teamName = personProps[CSVConstants.Team.TeamName];
+    if (person.teamName) {
+      const teamIndex = teams.findIndex(team => team.name === person.teamName);
+      teams[teamIndex].persons.push(person);
+    }
 
     return person;
   }

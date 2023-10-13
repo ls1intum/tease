@@ -54,10 +54,10 @@
     <div class="flex-column padding-3">
       <div class="flex-row flex-wrap team-badge-container">
         <div
-          *ngFor="let team of person.teamPriorities; let i = index"
+          *ngFor="let team of person.teamPrioritiesString; let i = index"
           class="badge flex-row flex-center flex-justify-center team-badge"
-          [class.badge-highlight]="team === person.team">
-          <div>{{ team.name }}</div>
+          [class.badge-highlight]="team === person.teamName">
+          <div>{{ team }}</div>
         </div>
       </div>
     </div>

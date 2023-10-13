@@ -1,4 +1,4 @@
-<div *ngIf="team" class="team-card flex-column" (click)="$event.stopPropagation()">
+<div *ngIf="team" class="team-card flex-column">
   <!-- team title -->
   <div class="flex-row flex-justify-content-space-between flex-center">
     <div class="team-person-count title-elements-spacing flex-row flex-center flex-justify-center">
@@ -27,11 +27,23 @@
         <div>Drag persons here</div>
       </div>
     </div>
-    <div dragula="persons" class="drag-container" [(dragulaModel)]="team.persons">
-      <app-person-preview
-        *ngFor="let person of team.persons"
-        [person]="person"
-        (click)="onPersonClicked.emit(person); $event.stopPropagation()"></app-person-preview>
+    <div
+      *ngIf="isDraggable; else nonDraggable"
+      [id]="team.name"
+      dragula="persons"
+      class="drag-container"
+      [(dragulaModel)]="team.persons">
+      <ng-container *ngTemplateOutlet="personPreview"></ng-container>
     </div>
+    <ng-template #nonDraggable>
+      <ng-container *ngTemplateOutlet="personPreview"></ng-container>
+    </ng-template>
   </div>
 </div>
+
+<ng-template #personPreview>
+  <app-person-preview
+    *ngFor="let person of team.persons"
+    [person]="person"
+    (click)="onPersonClicked.emit(person); $event.stopPropagation()"></app-person-preview>
+</ng-template>

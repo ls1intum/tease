@@ -12,6 +12,9 @@ export class TeamComponent implements OnInit {
   @Input() onTeamStatisticsButtonPressed;
   @Output() onPersonClicked = new EventEmitter<Person>();
 
+  @Input() 
+  isDraggable: boolean = true;
+
   screenshotMode = false;
 
   statisticsVisible = false;

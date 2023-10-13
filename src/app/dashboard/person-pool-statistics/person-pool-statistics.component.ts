@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Team } from '../../shared/models/team';
 import { Skill, SkillLevel } from '../../shared/models/skill';
 import { Colors } from '../../shared/constants/color.constants';
@@ -49,13 +49,11 @@ export class PersonPoolStatisticsComponent implements OnInit {
     for (let i = step; i < numberOfPersons; i += step) this.priorityDistributionLabels.push([i, step]);
     const lastStep = numberOfPersons - this.priorityDistributionLabels[this.priorityDistributionLabels.length - 1][0];
     this.priorityDistributionLabels.push([numberOfPersons, lastStep]);
-
-    console.log(this.priorityDistributionLabels);
-    console.log(this.priorityDistributionStatistics);
   }
 
+  // TODO 
   getNumberOfVotesForTeamForPriority(team: Team, priority: number): number {
-    return this.getNumberOfPersonsWithPredicate(person => person.teamPriorities[priority] === team);
+    return this.getNumberOfPersonsWithPredicate(person => person.teamPrioritiesString[priority] === team.name);
   }
 
   getColorOfTeamDistributionBar(priority: number): string {

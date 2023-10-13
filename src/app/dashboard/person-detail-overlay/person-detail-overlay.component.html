@@ -92,7 +92,8 @@
     <div class="hidden-scrollbar-child flex-column">
       <app-team
         *ngIf="isInTeam(data.person)"
-        [team]="data.person.team"
+        [team]="this.data.team"
+        [isDraggable]="false"
         (onPersonClicked)="data.onPersonClicked($event)"></app-team>
     </div>
   </div>

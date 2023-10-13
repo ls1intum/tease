@@ -18,7 +18,6 @@ export class OverlayService {
     if (this.displayedComponentData && this.displayedComponentData.onClose) {
       this.displayedComponentData.onClose();
     }
-
     if (this.host) {
       this.host.displayComponent(component, data);
       this.displayedComponentData = data;
@@ -29,7 +28,6 @@ export class OverlayService {
     if (this.displayedComponentData && this.displayedComponentData.onClose) {
       this.displayedComponentData.onClose();
     }
-
     if (this.host) {
       this.host.closeOverlay();
       this.displayedComponentData = null;

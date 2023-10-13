@@ -17,18 +17,18 @@ export class Team {
     if (index < 0) return;
 
     this.persons.splice(index, 1);
-    person.team = undefined;
+    person.teamName = undefined;
   }
 
   add(person: Person) {
     this.persons.push(person);
-    person.team = this;
+    person.teamName = this.name;
   }
 
   clear() {
     while (this.persons.length !== 0) {
       const person: Person = this.persons.pop();
-      person.team = null;
+      person.teamName = null;
     }
   }
 

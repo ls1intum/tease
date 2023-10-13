@@ -33,13 +33,7 @@ export class TeamService {
   }
 
   public updateDerivedProperties() {
-    this.personsWithoutTeam = this.persons.filter(person => person.team === null);
-  }
-
-  public updateReverseReferences() {
-    this.teams.forEach(team => team.persons.forEach(person => (person.team = team)));
-    this.personsWithoutTeam.forEach(person => (person.team = null));
-    this.updateDerivedProperties();
+    this.personsWithoutTeam = this.persons.filter(person => !person.teamName);
   }
 
   public sortPersons() {
@@ -106,9 +100,7 @@ export class TeamService {
 
   public saveToLocalBrowserStorage(): Promise<boolean> {
     console.log('saving...');
-
     return new Promise((resolve, reject) => {
-      this.updateReverseReferences();
       CSVPersonDataAccessService.saveToBrowserStorage(this.persons).then(success => {
         console.log('done');
         resolve(success);
@@ -124,7 +116,7 @@ export class TeamService {
     this.teams.forEach(team => {
       const personsToRemove = team.persons.filter(person => !person.isPinned);
       team.persons = team.persons.filter(person => person.isPinned);
-      personsToRemove.forEach(person => (person.team = null));
+      personsToRemove.forEach(person => (person.teamName = null));
       this.personsWithoutTeam.push(...personsToRemove);
     });
   }
