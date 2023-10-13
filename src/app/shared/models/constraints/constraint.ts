@@ -8,7 +8,7 @@ export abstract class Constraint {
 
   protected minValue: number;
   protected maxValue: number;
-  protected teamName: string; // if defined, then the constraint only applies to that team
+  public teamName: string; // if defined, then the constraint only applies to that team
 
   protected constructor(config: any) {
     if (config && typeof config === 'object') {

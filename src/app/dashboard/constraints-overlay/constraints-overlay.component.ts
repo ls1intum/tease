@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OverlayComponent, OverlayService } from '../../overlay.service';
 import { Constraint } from '../../shared/models/constraints/constraint';
 import { ConstraintService } from '../../shared/layers/business-logic-layer/constraint.service';
-import { Team } from '../../shared/models/team';
 import { TeamGenerationService } from '../../shared/layers/business-logic-layer/team-generation/team-generation.service';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import { ConstraintLoggingService } from '../../shared/layers/business-logic-layer/constraint-logging.service';
@@ -17,9 +16,10 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
 
   public data: { displayWarning: boolean };
   protected constraints: Constraint[];
-  protected teamsWithVisibleConstraints: Team[] = [];
   noFeasibleSolutionHintShown = false;
   protected noFeasibleSolutionHintTimeoutHandle = null;
+  globalConstraints: Constraint[];
+  teamConstraints: Record<string, Constraint[]>;
 
   constructor(
     private constraintService: ConstraintService,
@@ -31,6 +31,8 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
   ngOnInit() {
     this.constraintService.fetchConstraints().then(constraints => {
       this.constraints = constraints;
+      this.globalConstraints = this.getGlobalConstraints();
+      this.teamConstraints = this.groupByTeam(this.constraints);
     });
   }
 
@@ -44,12 +46,6 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
       return constraint.getTeamName() === null;
     });
   }
-
-  protected getConstraintsForTeam(team: Team): Array<Constraint> {
-    if (!this.constraints) return [];
-    return this.constraints.filter(constraint => constraint.getTeamName() === team.name);
-  }
-
   public applyConstraints() {
     this.constraintService.saveConstraints(this.constraints);
     this.teamService.resetUnpinnedPersons();
@@ -84,29 +80,23 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
     ConstraintLoggingService.pushMessage(loggedMessage.join('\r\n'));
   }
 
-  public toggleTeamConstraintVisibility(team: Team) {
-    const indexOfTeam = this.teamsWithVisibleConstraints.indexOf(team);
-    if (indexOfTeam !== -1) {
-      this.teamsWithVisibleConstraints.splice(indexOfTeam, 1);
-    } else {
-      this.teamsWithVisibleConstraints.push(team);
-    }
+  hasActiveConstraints(constraints: Constraint[]) {
+    return constraints.reduce((acc, constraint) => acc || constraint.isEnabled, false);
   }
-
-  public areConstraintsForTeamVisible(team: Team): boolean {
-    return this.teamsWithVisibleConstraints.includes(team);
+  hasTabWarnings(constraints: Constraint[]): boolean {
+    return constraints ? constraints.reduce((acc, constraint) => acc || constraint.hasWarnings(), false) : false;
   }
-
-  public hasActiveConstraints(team) {
-    return this.getConstraintsForTeam(team).reduce(
-      (acc, constraint, index, array) => acc || constraint.isEnabled,
-      false
-    );
-  }
-
   hasWarnings(): boolean {
     return this.constraints
       ? this.constraints.reduce((acc, constraint) => acc || constraint.hasWarnings(), false)
       : false;
+  }
+  groupByTeam(constraints: Constraint[]) {
+    const result = constraints.reduce(function (previous, current) {
+      previous[current.teamName] = previous[current.teamName] || [];
+      previous[current.teamName].push(current);
+      return previous;
+    }, Object.create(null));
+    return result;
   }
 }
