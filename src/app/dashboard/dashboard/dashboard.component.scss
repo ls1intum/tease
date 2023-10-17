@@ -32,9 +32,9 @@
 
 .person-pool {
   position: fixed;
-  left: 10px;
-  right: 10px;
-  bottom: 20px;
+  bottom: 0px;
+  padding: 0px 10px 10px 10px;
+  width: calc(100vw - 20px);
   height: calc(50vh - 10px);
   background-color: white;
   box-shadow:
@@ -43,20 +43,32 @@
   transition: height 0.5s;
 }
 
-.person-pool-display-mode-closed {
-  height: 60px;
-}
-
-.person-pool-display-mode-onerow {
-  height: 220px;
-}
-
-.person-pool-display-mode-tworows {
-  height: 360px;
-}
-
-.person-pool-display-mode-full {
-  height: calc(100vh - 100px);
+// magic number -60px is height of title + margin
+.person-pool-display-mode- {
+  &Closed {
+    height: 50px;
+  }
+  &OneRow {
+    height: 220px;
+  .scrollable-content {
+    overflow-y: scroll;
+    height: calc(220px - 60px);
+  }
+  }
+  &TwoRows {
+    height: 360px;
+  .scrollable-content {
+    overflow-y: scroll;
+    height: calc(360px - 60px);
+  }
+  }
+  &Full {
+    height: calc(100vh - 100px);
+  .scrollable-content {
+    overflow-y: scroll;
+    height: calc(100vh - 100px - 60px);
+  }
+  }
 }
 
 .person-pool-title-bar {

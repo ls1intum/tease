@@ -26,7 +26,6 @@ export class DashboardComponent implements OnInit {
   @Output() onImportPressed = new EventEmitter();
   @Input() onTeamStatisticsButtonPressed;
 
-  personPoolDisplayMode: PersonPoolDisplayMode = PersonPoolDisplayMode.OneRow;
   statisticsVisible = false;
 
   PersonPoolDisplayMode = PersonPoolDisplayMode;
@@ -34,7 +33,7 @@ export class DashboardComponent implements OnInit {
   Device = Device;
 
   personPoolDisplayModeFormGroup = new FormGroup({
-    personPoolDisplayModeControl: new FormControl(PersonPoolDisplayMode.OneRow),
+    personPoolDisplayModeControl: new FormControl(this.PersonPoolDisplayMode[this.PersonPoolDisplayMode.OneRow]),
   });
 
   constructor(
@@ -58,18 +57,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  personPoolDisplayModeUpdated() {
-    this.personPoolDisplayMode = this.personPoolDisplayModeFormGroup.value.personPoolDisplayModeControl;
-    this.onPersonPoolDisplayModeChange();
-  }
-
   ngOnInit() {
     this.teamService.readFromBrowserStorage();
-  }
-
-  getPersonPoolDisplayModeCSSClass(value: PersonPoolDisplayMode): string {
-    const modeString = (Object.values(PersonPoolDisplayMode)[value] as string).toLowerCase();
-    return 'person-pool-display-mode-' + modeString;
   }
 
   public showPersonDetails(person: Person) {
@@ -104,17 +93,16 @@ export class DashboardComponent implements OnInit {
 
   togglePersonPoolStatistics() {
     this.statisticsVisible = !this.statisticsVisible;
-    if (this.statisticsVisible) {
-      this.personPoolDisplayMode = PersonPoolDisplayMode.Full;
 
-      // make sure the value of the radio button form is updated accordingly as well
-      this.personPoolDisplayModeFormGroup.setValue({ personPoolDisplayModeControl: PersonPoolDisplayMode.Full });
+    if (this.statisticsVisible) {
+      this.personPoolDisplayModeFormGroup.setValue({
+        personPoolDisplayModeControl: this.PersonPoolDisplayMode[this.PersonPoolDisplayMode.Full],
+      });
     }
   }
 
-  onPersonPoolDisplayModeChange() {
-    if (this.personPoolDisplayMode !== PersonPoolDisplayMode.Full && this.statisticsVisible)
-      this.togglePersonPoolStatistics();
+  hideStatistics(): void {
+    if (this.statisticsVisible) this.togglePersonPoolStatistics();
   }
 
   /**
