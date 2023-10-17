@@ -57,11 +57,11 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.teamService.readFromBrowserStorage();
   }
 
-  public showPersonDetails(person: Person) {
+  public showPersonDetails(person: Person): void {
     this.overlayService.closeOverlay();
 
     if (!person) {
@@ -83,7 +83,7 @@ export class DashboardComponent implements OnInit {
     return this.teamService.teams && this.teamService.teams.length > 0;
   }
 
-  openConstraintsDialog() {
+  openConstraintsDialog(): void {
     this.overlayService.displayComponent(ConstraintsOverlayComponent, { displayWarning: !this.areAllTeamsEmpty() });
   }
 
@@ -91,7 +91,7 @@ export class DashboardComponent implements OnInit {
     return this.teamService.teams.reduce((acc, team) => acc && team.persons.length === 0, true);
   }
 
-  togglePersonPoolStatistics() {
+  togglePersonPoolStatistics(): void {
     this.statisticsVisible = !this.statisticsVisible;
 
     if (this.statisticsVisible) {
