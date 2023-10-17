@@ -115,7 +115,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.togglePersonPoolStatistics();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.dragulaSubscription?.unsubscribe();
   }
 }

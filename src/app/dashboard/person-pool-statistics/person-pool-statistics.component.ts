@@ -51,9 +51,8 @@ export class PersonPoolStatisticsComponent implements OnInit {
     this.priorityDistributionLabels.push([numberOfPersons, lastStep]);
   }
 
-  // TODO 
   getNumberOfVotesForTeamForPriority(team: Team, priority: number): number {
-    return this.getNumberOfPersonsWithPredicate(person => person.teamPrioritiesString[priority] === team.name);
+    return this.getNumberOfPersonsWithPredicate(person => person.teamPriorities[priority] === team.name);
   }
 
   getColorOfTeamDistributionBar(priority: number): string {

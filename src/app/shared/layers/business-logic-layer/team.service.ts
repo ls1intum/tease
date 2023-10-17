@@ -32,11 +32,11 @@ export class TeamService {
     return this.persons.find(person => person.tumId == tumId); // assumes multiple people do not exist with same TUM id
   }
 
-  public updateDerivedProperties() {
+  public updateDerivedProperties(): void {
     this.personsWithoutTeam = this.persons.filter(person => !person.teamName);
   }
 
-  public sortPersons() {
+  public sortPersons(): void {
     const compareFunction = (personA, personB) => personB.supervisorRating - personA.supervisorRating;
 
     this.teams.forEach(team => team.persons.sort(compareFunction));
@@ -45,7 +45,7 @@ export class TeamService {
   }
 
   // removes all persons from their team
-  public resetTeamAllocation() {
+  public resetTeamAllocation(): void {
     this.teams.forEach(team => team.clear());
     this.updateDerivedProperties();
   }
@@ -85,7 +85,7 @@ export class TeamService {
     });
   }
 
-  public exportSavedState() {
+  public exportSavedState(): void {
     const csvData = CSVPersonDataAccessService.getSavedDataFromBrowserStorage();
     const blob = new Blob([csvData], { type: this.EXPORT_DATA_TYPE });
 
@@ -108,11 +108,11 @@ export class TeamService {
     });
   }
 
-  public clearSavedData() {
+  public clearSavedData(): void {
     CSVPersonDataAccessService.clearSavedData();
   }
 
-  resetUnpinnedPersons() {
+  resetUnpinnedPersons(): void {
     this.teams.forEach(team => {
       const personsToRemove = team.persons.filter(person => !person.isPinned);
       team.persons = team.persons.filter(person => person.isPinned);

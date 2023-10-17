@@ -49,18 +49,16 @@ export class PersonStatisticsService {
 
     return prioSum / personSum;
   }
-
-  // TODO
   private getPersonsForTeamPriority(team: Team, priorityNumber: number): Person[] {
     return team.persons.filter(person => {
-      if (person.teamPrioritiesString.length < priorityNumber) return false;
-      return person.teamPrioritiesString[priorityNumber] === team.name;
+      if (person.teamPriorities.length < priorityNumber) return false;
+      return person.teamPriorities[priorityNumber] === team.name;
     });
   }
 
   getPriorityCountMax(team: Team): number {
     if (team.persons.length === 0) return 0;
 
-    return Math.max(...team.persons.map(person => person.teamPrioritiesString.length));
+    return Math.max(...team.persons.map(person => person.teamPriorities.length));
   }
 }

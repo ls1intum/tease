@@ -36,14 +36,13 @@ export class PersonSerializer {
     personProps[CSVConstants.Person.TutorComments] = person.tutorComments;
     personProps[CSVConstants.Person.IsPinned] = String(person.isPinned);
 
-    // personProps[CSVConstants.Team.TeamName] = person.team ? person.team.name : '';
     personProps[CSVConstants.Team.TeamName] = person.teamName ?? '';
-    
+
     return personProps;
   }
 
   private static serializePriorities(person: Person, personProps: any) {
-    for (const teamPrio of person.teamPrioritiesString) {
+    for (const teamPrio of person.teamPriorities) {
       const columnName = StringHelper.format(CSVConstants.Team.Priority, person.getTeamPriority(teamPrio));
 
       personProps[columnName] = teamPrio;

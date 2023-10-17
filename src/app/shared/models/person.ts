@@ -35,16 +35,13 @@ export class Person {
   devices: Device[] = [];
   skills: Skill[] = [];
   otherSkills: string;
-  teamPriorities: Team[] = [];
-  teamPrioritiesString: string[] = [];
+  teamPriorities: string[] = [];
 
   studentComments: string;
   supervisorRating: SkillLevel;
 
   tutorComments: string;
 
-  // reverse reference
-  team: Team;
   teamName: string;
 
   isPinned: boolean;
@@ -54,7 +51,7 @@ export class Person {
   }
 
   getTeamPriority(team: string): number {
-    return this.teamPrioritiesString.indexOf(team) + 1;
+    return this.teamPriorities.indexOf(team) + 1;
   }
 
   addDevice(device: Device) {

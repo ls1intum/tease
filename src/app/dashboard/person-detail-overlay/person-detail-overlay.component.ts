@@ -19,7 +19,6 @@ export class PersonDetailOverlayComponent implements OverlayComponent {
     onPreviousPersonClicked: () => void;
     onPersonClicked: (Person) => void;
   };
-  t;
   getLabelForSkillLevel = Skill.getLabelForSkillLevel;
   SkillLevel = SkillLevel;
 
@@ -33,9 +32,8 @@ export class PersonDetailOverlayComponent implements OverlayComponent {
     this.data.person.supervisorRating = this.personSkillLevelFormGroup.value.personSkillLevelControl;
   }
 
-  //todo: rename
-  isInTeam(person: Person): boolean {
-    return !!person.teamName;
+  hasNoTeam(person: Person): boolean {
+    return !person.teamName;
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -60,7 +58,7 @@ export class PersonDetailOverlayComponent implements OverlayComponent {
         break;
     }
 
-    if (!this.isInTeam(this.data.person)) {
+    if (this.hasNoTeam(this.data.person)) {
       switch (event.key) {
         case 'ArrowLeft':
           this.data.onPreviousPersonClicked();

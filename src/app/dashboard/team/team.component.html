@@ -1,4 +1,4 @@
-<div *ngIf="team" class="team-card flex-column">
+<div *ngIf="team" class="team-card flex-column" (click)="$event.stopPropagation()">
   <!-- team title -->
   <div class="flex-row flex-justify-content-space-between flex-center">
     <div class="team-person-count title-elements-spacing flex-row flex-center flex-justify-center">

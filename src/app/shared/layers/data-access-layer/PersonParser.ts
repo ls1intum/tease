@@ -9,7 +9,6 @@ import { Team } from '../../models/team';
  */
 
 export abstract class PersonParser {
-  //TODO: type personProps
   static parsePersons(teamCsvData: Array<any>): [Person[], Team[]] {
     const teams: Team[] = [];
     const persons = teamCsvData
@@ -29,13 +28,15 @@ export abstract class PersonParser {
       }
 
       const team = this.getOrCreateTeam(teams, personProps[columnName]);
-      person.teamPrioritiesString.push(team.name);
+      person.teamPriorities.push(team.name);
     }
   }
 
   private static getOrCreateTeam(teams: Team[], teamName: string): Team {
     if (teamName === null || teamName === '') return null;
+
     const existingTeam = teams.find(team => team.name === teamName);
+
     if (existingTeam) {
       return existingTeam;
     } else {
@@ -47,6 +48,7 @@ export abstract class PersonParser {
 
   static parsePerson(teams: Team[], personProps: any): Person {
     const person = new Person();
+
     person.firstName = personProps[CSVConstants.Person.FirstName];
     person.lastName = personProps[CSVConstants.Person.LastName];
     person.email = personProps[CSVConstants.Person.Email];
@@ -82,7 +84,7 @@ export abstract class PersonParser {
     person.teamName = personProps[CSVConstants.Team.TeamName];
     if (person.teamName) {
       const teamIndex = teams.findIndex(team => team.name === person.teamName);
-      teams[teamIndex].persons.push(person);
+      if (teamIndex !== -1) teams[teamIndex].persons.push(person);
     }
 
     return person;

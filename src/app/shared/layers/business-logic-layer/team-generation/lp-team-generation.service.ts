@@ -270,11 +270,10 @@ export class LPTeamGenerationService implements TeamGenerationService {
         teamIndex[teams[j].name] = j + 1;
       }
 
-      // TODO
       let prioritiesObjective = '';
       for (let i = 1; i <= persons.length; i++) {
         const person = persons[i - 1];
-        const priorities = person.teamPrioritiesString;
+        const priorities = person.teamPriorities;
         for (let k = 0, v = priorities.length; k < priorities.length; k++, v--) {
           if (prioritiesObjective) {
             prioritiesObjective += ' + ';
