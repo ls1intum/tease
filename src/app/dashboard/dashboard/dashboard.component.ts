@@ -27,7 +27,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   @Output() onImportPressed = new EventEmitter();
   @Input() onTeamStatisticsButtonPressed;
 
-  personPoolDisplayMode: PersonPoolDisplayMode = PersonPoolDisplayMode.OneRow;
   statisticsVisible = false;
 
   PersonPoolDisplayMode = PersonPoolDisplayMode;
@@ -35,7 +34,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   Device = Device;
 
   personPoolDisplayModeFormGroup = new FormGroup({
-    personPoolDisplayModeControl: new FormControl(PersonPoolDisplayMode.OneRow),
+    personPoolDisplayModeControl: new FormControl(this.PersonPoolDisplayMode[this.PersonPoolDisplayMode.OneRow]),
   });
 
   dragulaSubscription = new Subscription();
@@ -56,21 +55,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     );
   }
 
-  personPoolDisplayModeUpdated() {
-    this.personPoolDisplayMode = this.personPoolDisplayModeFormGroup.value.personPoolDisplayModeControl;
-    this.onPersonPoolDisplayModeChange();
-  }
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.teamService.readFromBrowserStorage();
   }
 
-  getPersonPoolDisplayModeCSSClass(value: PersonPoolDisplayMode): string {
-    const modeString = (Object.values(PersonPoolDisplayMode)[value] as string).toLowerCase();
-    return 'person-pool-display-mode-' + modeString;
-  }
-
-  public showPersonDetails(person: Person) {
+  public showPersonDetails(person: Person): void {
     this.overlayService.closeOverlay();
     if (!person) {
       return;
@@ -92,7 +81,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return this.teamService.teams && this.teamService.teams.length > 0;
   }
 
-  openConstraintsDialog() {
+  openConstraintsDialog(): void {
     this.overlayService.displayComponent(ConstraintsOverlayComponent, { displayWarning: !this.areAllTeamsEmpty() });
   }
 
@@ -100,19 +89,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return this.teamService.teams.reduce((acc, team) => acc && team.persons.length === 0, true);
   }
 
-  togglePersonPoolStatistics() {
+  togglePersonPoolStatistics(): void {
     this.statisticsVisible = !this.statisticsVisible;
-    if (this.statisticsVisible) {
-      this.personPoolDisplayMode = PersonPoolDisplayMode.Full;
 
-      // make sure the value of the radio button form is updated accordingly as well
-      this.personPoolDisplayModeFormGroup.setValue({ personPoolDisplayModeControl: PersonPoolDisplayMode.Full });
+    if (this.statisticsVisible) {
+      this.personPoolDisplayModeFormGroup.setValue({
+        personPoolDisplayModeControl: this.PersonPoolDisplayMode[this.PersonPoolDisplayMode.Full],
+      });
     }
   }
 
-  onPersonPoolDisplayModeChange() {
-    if (this.personPoolDisplayMode !== PersonPoolDisplayMode.Full && this.statisticsVisible)
-      this.togglePersonPoolStatistics();
+  hideStatistics(): void {
+    if (this.statisticsVisible) this.togglePersonPoolStatistics();
   }
 
   ngOnDestroy(): void {
