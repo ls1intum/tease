@@ -142,10 +142,9 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
         return;
       }
 
+      this.teamComponent.team = team;
       this.teamComponent.screenshotMode = true;
       this.teamComponent.statisticsVisible = true;
-      this.teamComponent.team = team;
-      this.applicationRef.tick();
 
       if (this.destroyed) {
         reject();
