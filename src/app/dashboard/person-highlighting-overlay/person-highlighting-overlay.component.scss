@@ -3,9 +3,9 @@
 @import '../../../scss/flex-box';
 @import '../dialog-common';
 
-.dialog-header {
-  margin-bottom: 10px;
-}
+// .dialog-header {
+//   margin-bottom: 10px;
+// }
 
 .main {
   overflow-y: scroll;
@@ -84,12 +84,6 @@
 
 md-select {
   padding: 0;
-}
-
-.dialog-footer {
-  height: 25px;
-  background-color: #eee;
-  padding: 10px;
 }
 
 .constraint-separator {

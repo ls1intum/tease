@@ -4,26 +4,24 @@
 @import '../../../scss/utility';
 @import '../dashboard-common';
 
+
 .dashboard {
   overflow-x: scroll;
-  overflow-y: hidden;
   width: auto;
-  height: 100%;
-}
-
-// team containers
-.hidden-scrollbar-parent {
-  height: 100%;
-  flex-shrink: 0;
-  overflow: hidden;
-}
-
-.hidden-scrollbar-child {
-  height: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  margin-right: -$max-scrollbar-width;
-  padding-right: $max-scrollbar-width;
+  // first magic number is person pool height, magic number 80px is height of title-bar
+  &-Closed {
+    height: calc(100vh - 60px - 80px - 2rem);
+  }
+  &-OneRow {
+    height: calc(100vh - 230px - 80px - 2rem);
+  }
+  &-TwoRows {
+    height: calc(100vh - 370px - 80px - 2rem);
+  }
+  &-Full {
+    height: calc(100vh - 760px - 80px - 2rem);
+  }
+  transition: height 0.5s;
 }
 
 .scroll-spacer {
@@ -31,6 +29,7 @@
 }
 
 .person-pool {
+  box-sizing: content-box;
   position: fixed;
   bottom: 0px;
   padding: 0px 10px 10px 10px;
@@ -41,6 +40,7 @@
     0 3px 6px rgba(0, 0, 0, 0.16),
     0 3px 6px rgba(0, 0, 0, 0.23);
   transition: height 0.5s;
+  z-index: 1;
 }
 
 // magic number -60px is height of title + margin
@@ -87,10 +87,6 @@
   font-size: 14px;
 }
 
-app-team {
-  margin-top: $scroll-inset;
-  margin-bottom: 320px;
-}
 
 .distribute-button-row {
   height: 31px;
@@ -102,7 +98,7 @@ app-team {
 
 .person-pool-preview-row {
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: scroll;
   align-content: flex-start;
 }
 

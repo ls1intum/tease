@@ -41,10 +41,9 @@ html, body { height: 100%; }
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 
-// change 'border-box' box sizing from bootstrap that is causing some buttons to render outside their container
-* {
-  box-sizing: content-box;
-}
+// * {
+//   box-sizing: content-box;
+// }
 
 body {
   margin: 0;
@@ -58,13 +57,13 @@ body {
   pointer-events: none;
 }
 
-.position-fixed-fill {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
+// .position-fixed-fill {
+//   position: fixed;
+//   left: 0;
+//   top: 0;
+//   right: 0;
+//   bottom: 0;
+// }
 
 .position-absolute {
   position: absolute;
