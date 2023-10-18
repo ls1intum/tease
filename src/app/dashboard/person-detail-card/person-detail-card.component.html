@@ -82,14 +82,14 @@
       <div class="heading">Project Priorities</div>
       <div class="flex-row flex-wrap team-badge-container">
         <div
-          *ngFor="let team of person.teamPriorities; let i = index"
+          *ngFor="let teamPriority of person.teamPriorities; let i = index"
           class="flex-row flex-center team-badge flex-no-shrink"
-          [class.badge-highlight]="team === person.team">
+          [class.badge-highlight]="teamPriority === person.teamName">
           <div class="team-badge-index flex-row flex-center flex-justify-center">
             <div>{{ i + 1 }}</div>
           </div>
           <div class="flex-row flex-center flex-justify-center flex-grow">
-            <div class="team-badge-name">{{ team.name }}</div>
+            <div class="team-badge-name">{{ teamPriority }}</div>
           </div>
         </div>
       </div>

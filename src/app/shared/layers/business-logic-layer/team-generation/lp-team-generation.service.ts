@@ -278,7 +278,7 @@ export class LPTeamGenerationService implements TeamGenerationService {
           if (prioritiesObjective) {
             prioritiesObjective += ' + ';
           }
-          const j = teamIndex[priorities[k].name];
+          const j = teamIndex[priorities[k]];
           prioritiesObjective += v + ' x' + i + 'y' + j;
         }
       }

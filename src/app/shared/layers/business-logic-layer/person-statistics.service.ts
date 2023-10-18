@@ -49,11 +49,10 @@ export class PersonStatisticsService {
 
     return prioSum / personSum;
   }
-
   private getPersonsForTeamPriority(team: Team, priorityNumber: number): Person[] {
     return team.persons.filter(person => {
       if (person.teamPriorities.length < priorityNumber) return false;
-      return person.teamPriorities[priorityNumber] === team;
+      return person.teamPriorities[priorityNumber] === team.name;
     });
   }
 

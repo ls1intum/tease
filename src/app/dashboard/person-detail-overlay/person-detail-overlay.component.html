@@ -58,7 +58,7 @@
         <!-- next / previous person buttons -->
         <div class="flex-row flex-no-shrink">
           <button
-            *ngIf="!isInTeam(data.person)"
+            *ngIf="hasNoTeam(data.person)"
             mat-raised-button
             color="primary"
             (click)="data.onPreviousPersonClicked(); $event.stopPropagation()">
@@ -71,7 +71,7 @@
           </button>
           <div class="flex-grow"></div>
           <button
-            *ngIf="!isInTeam(data.person)"
+            *ngIf="hasNoTeam(data.person)"
             mat-raised-button
             color="primary"
             (click)="data.onNextPersonClicked(); $event.stopPropagation()">
@@ -91,8 +91,9 @@
   <div class="hidden-scrollbar-parent team-container">
     <div class="hidden-scrollbar-child flex-column">
       <app-team
-        *ngIf="isInTeam(data.person)"
-        [team]="data.person.team"
+        *ngIf="!hasNoTeam(data.person)"
+        [team]="this.data.team"
+        [isDraggable]="false"
         (onPersonClicked)="data.onPersonClicked($event)"></app-team>
     </div>
   </div>

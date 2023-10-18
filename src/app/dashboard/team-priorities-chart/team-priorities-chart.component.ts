@@ -37,7 +37,7 @@ export class TeamPrioritiesChartComponent implements OnInit, DoCheck {
 
     for (let i = 0; i < this.teamService.teams.length; i++) {
       this.priorityDistribution.push(
-        this.team.persons.reduce((acc, person) => acc + (person.teamPriorities[i] === this.team ? 1 : 0), 0)
+        this.team.persons.reduce((acc, person) => acc + (person.teamPriorities[i] === this.team.name ? 1 : 0), 0)
       );
     }
 
