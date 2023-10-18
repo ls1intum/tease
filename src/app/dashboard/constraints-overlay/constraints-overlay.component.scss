@@ -3,8 +3,16 @@
 @import '../../../scss/flex-box';
 @import '../dialog-common';
 
+
+.dialog-box {
+  margin-top: auto;
+  margin-bottom:auto;
+}
+
 .scrollable-content {
-  overflow-y: auto;
+  overflow-y: scroll;
+  height: 65vh;
+  max-height: 556px;
 }
 
 .warning {
@@ -16,12 +24,8 @@
 }
 
 .warning-element {
-  margin: 2.5px;
+  margin: 4px;
   color: #856404;
-}
-
-.warning-heading {
-  font-weight: bold;
 }
 
 .error {
@@ -94,3 +98,12 @@
   font-size: 14px;
   padding: 0 5px;
 }
+
+.active-icon {
+  color: $secondary-color;
+}
+.danger-icon {
+  color: #dc4747;
+}
+
+
