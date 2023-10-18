@@ -17,6 +17,7 @@ export class PersonPreviewComponent implements OnInit {
   @Input() person: Person;
   @Input() pinable = true;
 
+  gravatarUrl: string = '';
   SkillLevel = SkillLevel;
   Device = Device;
   PersonConstraintService = PersonConstraintService;

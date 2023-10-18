@@ -4,6 +4,7 @@ import { Device } from '../../models/device';
 import { StringHelper } from '../../helpers/string.helper';
 import { Skill, SkillLevel } from '../../models/skill';
 import { Team } from '../../models/team';
+import { IconMapperService } from '../../ui/icon-mapper.service';
 /**
  * Created by Malte Bucksch on 01/12/2016.
  */
@@ -86,6 +87,8 @@ export abstract class PersonParser {
       const teamIndex = teams.findIndex(team => team.name === person.teamName);
       if (teamIndex !== -1) teams[teamIndex].persons.push(person);
     }
+
+    person.gravatarUrl = IconMapperService.getGravatarIcon(personProps[CSVConstants.Person.Email]);
 
     return person;
   }

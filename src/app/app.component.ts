@@ -86,7 +86,11 @@ export class AppComponent implements OverlayServiceHost {
   }
 
   showExportOverlay() {
-    this.overlayService.displayComponent(ExportOverlayComponent, {});
+    this.overlayService.displayComponent(ExportOverlayComponent, {
+      onDownloadFinished: () => {
+        this.teamService.readFromBrowserStorage(), this.overlayService.closeOverlay();
+      },
+    });
   }
 
   showPersonHighlightingOverlay() {

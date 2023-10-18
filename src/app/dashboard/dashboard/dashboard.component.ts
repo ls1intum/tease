@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import { DragulaService } from 'ng2-dragula';
 import { Person } from '../../shared/models/person';

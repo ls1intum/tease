@@ -98,7 +98,7 @@
     <app-person-pool-statistics *ngIf="statisticsVisible"></app-person-pool-statistics>
 
     <!-- person preview cards -->
-    <div class="scrollable-content">
+    <div class="scrollable-content flex-grow flex-row position-relative">
       <div
         *ngIf="teamService.personsWithoutTeam.length === 0"
         class="position-absolute position-absolute-full-size pointer-events-none flex-row overflow-hidden">

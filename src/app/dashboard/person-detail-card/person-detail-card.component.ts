@@ -16,7 +16,6 @@ export class PersonDetailCardComponent {
   @Input() person: Person;
 
   getLabelForSkillLevel = Skill.getLabelForSkillLevel;
-  getGravatarIcon = IconMapperService.getGravatarIcon;
   SkillLevel = SkillLevel;
   CSVConstants = CSVConstants;
   Device = Device;

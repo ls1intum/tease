@@ -22,6 +22,7 @@ export class Person {
   nationality: string;
   major: string;
   semester: number;
+  gravatarUrl?: string;
 
   germanLanguageLevel: string;
   englishLanguageLevel: string;

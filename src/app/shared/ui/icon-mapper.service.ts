@@ -52,8 +52,7 @@ export class IconMapperService {
   }
 
   static getGravatarIcon(email: string, size = 200): string {
-    if (email === undefined) return IconMapperService.GRAVATAR_URL;
-
+    if (!email) return IconMapperService.GRAVATAR_URL;
     const emailHash = MD5(email).toString();
     return IconMapperService.GRAVATAR_URL + emailHash + '?s=' + size.toString() + '&d=mm';
   }
