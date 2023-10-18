@@ -1,4 +1,4 @@
-import { ApplicationRef, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { ApplicationRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { OverlayComponent } from '../../overlay.service';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import html2canvas from 'html2canvas';
@@ -30,18 +30,14 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
   @ViewChild(TeamComponent, { read: ElementRef }) teamComponentRef: ElementRef;
 
   html2canvasOptions = {
-    allowTaint: true,
+    allowTaint: false,
     backgroundColor: null,
     scale: 2.0,
     useCORS: true,
     logging: false,
   };
 
-  constructor(
-    private teamService: TeamService,
-    private applicationRef: ApplicationRef,
-    private readonly changeDetectorRef: ChangeDetectorRef
-  ) {}
+  constructor(private teamService: TeamService, private applicationRef: ApplicationRef,) {}
 
   ngOnDestroy() {
     this.destroyed = true;
@@ -119,7 +115,6 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
         return;
       }
       this.personDetailCardComponent.person = person;
-      // this.applicationRef.tick();
 
       if (this.destroyed) {
         reject();

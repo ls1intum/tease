@@ -17,14 +17,13 @@ export class PersonPreviewComponent implements OnInit {
   @Input() person: Person;
   @Input() pinable = true;
 
-  gravatarUrl: string = '';
   SkillLevel = SkillLevel;
   Device = Device;
   PersonConstraintService = PersonConstraintService;
   getFlagEmojiFromNationality = NationalityHelper.getFlagEmojiFromNationality;
 
   /* functions used in template */
-  protected getGravatarIcon = IconMapperService.getGravatarIcon;
+
   protected getGenderIconPath = IconMapperService.getGenderIconPath;
   protected getColor = Colors.getColor;
   protected getLabelForSkillLevel = Skill.getLabelForSkillLevel;

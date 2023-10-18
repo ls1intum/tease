@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import { DragulaService } from 'ng2-dragula';
 import { Person } from '../../shared/models/person';
-import { Team } from '../../shared/models/team';
 import { PersonDetailOverlayComponent } from '../person-detail-overlay/person-detail-overlay.component';
 import { OverlayService } from '../../overlay.service';
 import { ConstraintsOverlayComponent } from '../constraints-overlay/constraints-overlay.component';
@@ -24,8 +23,8 @@ enum PersonPoolDisplayMode {
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  @Output() onImportPressed = new EventEmitter();
-  @Input() onTeamStatisticsButtonPressed;
+  @Output() importPressed = new EventEmitter();
+  @Input() teamStatisticsButtonPressed;
 
   statisticsVisible = false;
 

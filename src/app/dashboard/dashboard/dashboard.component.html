@@ -7,7 +7,7 @@
           class="flex-no-shrink"
           [team]="team"
           (onPersonClicked)="showPersonDetails($event)"
-          [onTeamStatisticsButtonPressed]="onTeamStatisticsButtonPressed"></app-team>
+          [teamStatisticsButtonPressed]="teamStatisticsButtonPressed"></app-team>
       </div>
     </div>
   </div>
@@ -123,6 +123,6 @@
 <!-- card that is shown if no data is loaded -->
 <ng-template #loading>
   <div class="flex-row flex-justify-center">
-    <app-intro-card (onImportPressed)="onImportPressed.emit()"></app-intro-card>
+    <app-intro-card (importPressed)="importPressed.emit()"></app-intro-card>
   </div>
 </ng-template>
