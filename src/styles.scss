@@ -41,10 +41,6 @@ html, body { height: 100%; }
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 
-// * {
-//   box-sizing: content-box;
-// }
-
 body {
   margin: 0;
 }
@@ -56,14 +52,6 @@ body {
 .pointer-events-none {
   pointer-events: none;
 }
-
-// .position-fixed-fill {
-//   position: fixed;
-//   left: 0;
-//   top: 0;
-//   right: 0;
-//   bottom: 0;
-// }
 
 .position-absolute {
   position: absolute;
