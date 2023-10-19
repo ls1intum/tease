@@ -27,7 +27,7 @@
       <!-- lower box -->
       <div class="flex-row alternative-box">
         <mat-icon class="alternative-icon">assignment_ind</mat-icon>
-        <div class="flex-column align-items-start flex-spacing-5">
+        <div class="align-items-start flex-spacing-5">
           <div class="box-heading">Team and Person Card Images</div>
           <div class="flex-grow">
             Images of all team representations and person cards can be exported to visualize the team allocation and
@@ -35,11 +35,21 @@
           </div>
           <mat-progress-bar
             [class.progress-bar-disabled]="!imageExportRunning"
+            [class.opacity-0]="!imageExportRunning"
             mode="determinate"
             [value]="getImageExportProgressPercentage()"></mat-progress-bar>
-          <button mat-raised-button color="primary" [disabled]="imageExportRunning" (click)="exportScreenshots()">
-            <mat-icon>get_app</mat-icon>Download Archive
-          </button>
+          <div class="d-flex justify-content-between mt-3">
+            <button
+              mat-raised-button
+              color="primary"
+              [disabled]="imageExportRunning"
+              (click)="exportScreenshots(false)">
+              <mat-icon>get_app</mat-icon>Download Team Overview + Members
+            </button>
+            <button mat-raised-button color="primary" [disabled]="imageExportRunning" (click)="exportScreenshots(true)">
+              <mat-icon>get_app</mat-icon>Download Team Overview
+            </button>
+          </div>
         </div>
       </div>
     </div>

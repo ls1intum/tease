@@ -18,7 +18,7 @@ import { ConstraintLoggingService } from './shared/layers/business-logic-layer/c
 })
 export class AppComponent implements OverlayServiceHost {
   overlayVisible = false;
-  onTeamStatisticsButtonPressed = new EventEmitter<boolean>();
+  teamStatisticsButtonPressed = new EventEmitter<boolean>();
   toggleTeamStatisticsButtonState = true;
 
   @ViewChild(DashboardComponent)
@@ -86,7 +86,11 @@ export class AppComponent implements OverlayServiceHost {
   }
 
   showExportOverlay() {
-    this.overlayService.displayComponent(ExportOverlayComponent, {});
+    this.overlayService.displayComponent(ExportOverlayComponent, {
+      onDownloadFinished: () => {
+        this.teamService.readFromBrowserStorage(), this.overlayService.closeOverlay();
+      },
+    });
   }
 
   showPersonHighlightingOverlay() {

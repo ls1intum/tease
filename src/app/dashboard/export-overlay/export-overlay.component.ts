@@ -15,7 +15,9 @@ import { Team } from '../../shared/models/team';
   styleUrls: ['./export-overlay.component.scss'],
 })
 export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
-  public data: {};
+  public data: {
+    onDownloadFinished: () => void;
+  };
   destroyed = false;
   imageExportRunning = false;
   imageExportProgress = 0;
@@ -25,7 +27,7 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
   @ViewChild(PersonDetailCardComponent, { read: ElementRef }) personDetailCardComponentRef: ElementRef;
 
   @ViewChild(TeamComponent) teamComponent: TeamComponent;
-  @ViewChild(TeamComponent, { read: ElementRef }) teamCompomentRef: ElementRef;
+  @ViewChild(TeamComponent, { read: ElementRef }) teamComponentRef: ElementRef;
 
   html2canvasOptions = {
     allowTaint: false,
@@ -35,10 +37,7 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
     logging: false,
   };
 
-  constructor(
-    private teamService: TeamService,
-    private applicationRef: ApplicationRef
-  ) {}
+  constructor(private teamService: TeamService, private applicationRef: ApplicationRef,) {}
 
   ngOnDestroy() {
     this.destroyed = true;
@@ -47,18 +46,25 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
   exportCSV() {
     this.teamService.saveToLocalBrowserStorage().then(() => {
       this.teamService.exportSavedState();
+      this.data.onDownloadFinished();
     });
   }
 
-  exportScreenshots() {
+  getImageExportMaxProgress(onlyTeamOverview: boolean) {
+    return onlyTeamOverview
+      ? this.teamService.teams.reduce(acc => acc + 1, 0) + 1
+      : this.teamService.teams.reduce((acc, team) => acc + 1 + team.persons.length, 0) + 1;
+  }
+
+  exportScreenshots(onlyTeamOverview: boolean) {
     this.imageExportRunning = true;
     this.imageExportProgress = 0;
-    this.imageExportMaxProgress = this.teamService.teams.reduce((acc, team) => acc + 1 + team.persons.length, 0) + 1;
+    this.imageExportMaxProgress = this.getImageExportMaxProgress(onlyTeamOverview);
     let currentPromise = Promise.resolve();
     const zip = JSZip();
 
     this.teamService.teams.forEach(team => {
-      const teamFolder = zip.folder(team.name);
+      const teamFolder = zip.folder(onlyTeamOverview ? 'Team-Overview' : team.name);
 
       currentPromise = currentPromise.then(
         () => {
@@ -68,16 +74,18 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
         () => Promise.reject(null)
       );
 
-      team.persons.forEach(
-        (person, i) =>
-          (currentPromise = currentPromise.then(
-            () => {
-              this.imageExportProgress++;
-              return this.exportPersonScreenshot(person, teamFolder, team.name + '-' + (i + 1) + '.png');
-            },
-            () => Promise.reject(null)
-          ))
-      );
+      if (!onlyTeamOverview) {
+        team.persons.forEach(
+          (person, i) =>
+            (currentPromise = currentPromise.then(
+              () => {
+                this.imageExportProgress++;
+                return this.exportPersonScreenshot(person, teamFolder, team.name + '-' + (i + 1) + '.png');
+              },
+              () => Promise.reject(null)
+            ))
+        );
+      }
     });
 
     currentPromise = currentPromise.then(
@@ -86,6 +94,7 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
           FileSaver.saveAs(content, 'TEASE-image-export.zip');
           this.imageExportProgress++;
           this.imageExportRunning = false;
+          this.data.onDownloadFinished();
         }),
       () => {
         console.log('export cancelled');
@@ -105,21 +114,23 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
         reject();
         return;
       }
-
       this.personDetailCardComponent.person = person;
-      this.applicationRef.tick();
 
       if (this.destroyed) {
         reject();
         return;
       }
 
-      html2canvas(this.personDetailCardComponentRef.nativeElement, this.html2canvasOptions).then(canvas => {
-        canvas.toBlob(function (blob) {
-          zip.file(filename, blob);
-          resolve();
-        });
-      });
+      setTimeout(
+        () =>
+          html2canvas(this.personDetailCardComponentRef.nativeElement, this.html2canvasOptions).then(canvas => {
+            canvas.toBlob(function (blob) {
+              zip.file(filename, blob);
+              resolve();
+            });
+          }),
+        500
+      );
     });
   }
 
@@ -131,22 +142,24 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
         return;
       }
 
+      this.teamComponent.team = team;
       this.teamComponent.screenshotMode = true;
       this.teamComponent.statisticsVisible = true;
-      this.teamComponent.team = team;
-      this.applicationRef.tick();
 
       if (this.destroyed) {
         reject();
         return;
       }
-
-      html2canvas(this.teamCompomentRef.nativeElement, this.html2canvasOptions).then(canvas => {
-        canvas.toBlob(function (blob) {
-          zip.file(filename, blob);
-          resolve();
-        });
-      });
+      setTimeout(
+        () =>
+          html2canvas(this.teamComponentRef.nativeElement, this.html2canvasOptions).then(canvas => {
+            canvas.toBlob(function (blob) {
+              zip.file(filename, blob);
+              resolve();
+            });
+          }),
+        500
+      );
     });
   }
 }

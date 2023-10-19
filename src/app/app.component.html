@@ -20,8 +20,8 @@
   <!-- dashboard -->
   <div class="app-content position-fixed-fill">
     <app-dashboard
-      (onImportPressed)="showImportOverlay()"
-      [onTeamStatisticsButtonPressed]="onTeamStatisticsButtonPressed"></app-dashboard>
+      (importPressed)="showImportOverlay()"
+      [teamStatisticsButtonPressed]="teamStatisticsButtonPressed"></app-dashboard>
   </div>
 
   <!-- buttons overlay -->
@@ -31,7 +31,7 @@
         mat-raised-button
         color="primary"
         (click)="
-          onTeamStatisticsButtonPressed.emit(toggleTeamStatisticsButtonState);
+          teamStatisticsButtonPressed.emit(toggleTeamStatisticsButtonState);
           toggleTeamStatisticsButtonState = !toggleTeamStatisticsButtonState
         ">
         <div class="flex-row flex-center">

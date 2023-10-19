@@ -6,5 +6,5 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./intro-card.component.scss'],
 })
 export class IntroCardComponent {
-  @Output() onImportPressed = new EventEmitter();
+  @Output() importPressed = new EventEmitter();
 }

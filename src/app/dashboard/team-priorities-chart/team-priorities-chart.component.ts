@@ -1,6 +1,5 @@
-import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import { Component, DoCheck, Input, OnChanges, OnInit } from '@angular/core';
 import { Team } from '../../shared/models/team';
-import { PersonStatisticsService } from '../../shared/layers/business-logic-layer/person-statistics.service';
 import { Colors } from '../../shared/constants/color.constants';
 import { SkillLevel } from '../../shared/models/skill';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
@@ -10,7 +9,7 @@ import { TeamService } from '../../shared/layers/business-logic-layer/team.servi
   templateUrl: './team-priorities-chart.component.html',
   styleUrls: ['./team-priorities-chart.component.scss'],
 })
-export class TeamPrioritiesChartComponent implements OnInit, DoCheck {
+export class TeamPrioritiesChartComponent implements OnInit, DoCheck, OnChanges {
   @Input() team: Team;
   @Input() scale;
 
@@ -22,6 +21,10 @@ export class TeamPrioritiesChartComponent implements OnInit, DoCheck {
   constructor(private teamService: TeamService) {}
 
   ngOnInit(): void {
+    this.updatePriorityDistribution();
+  }
+
+  ngOnChanges(): void {
     this.updatePriorityDistribution();
   }
 
