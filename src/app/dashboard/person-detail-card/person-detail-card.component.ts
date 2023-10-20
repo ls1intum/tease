@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Person } from '../../shared/models/person';
 import { Skill, SkillLevel } from '../../shared/models/skill';
 import { Colors } from '../../shared/constants/color.constants';

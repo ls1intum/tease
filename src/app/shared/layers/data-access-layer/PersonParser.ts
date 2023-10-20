@@ -97,21 +97,20 @@ export abstract class PersonParser {
     for (const [skillName, skillAbbreviation] of CSVConstants.Skills.SkillNameAbbreviationPairs) {
       const skillLevelString =
         personProps[CSVConstants.Skills.ExpInterPrefix + skillAbbreviation + CSVConstants.Skills.ExperiencePostfix];
-      const interestLevelString =
-        personProps[CSVConstants.Skills.ExpInterPrefix + skillAbbreviation + CSVConstants.Skills.InterestPostfix];
+      //  At the moment there is no interestLevel in the Prompt CSV file
+      // const interestLevelString =
+      //  personProps[CSVConstants.Skills.ExpInterPrefix + skillAbbreviation + CSVConstants.Skills.InterestPostfix];
       const justificationString = personProps[CSVConstants.Skills.JustifyPrefix + skillAbbreviation];
 
-      if (!(skillLevelString && interestLevelString)) continue;
+      if (!skillLevelString) continue;
 
       let skillLevel: SkillLevel = CSVConstants.Skills.SkillLevelAnswers.indexOf(skillLevelString);
       if (!SkillLevel[skillLevel]) skillLevel = null;
+      // At the moment there is no interestLevel in the Prompt CSV file
+      // let interestLevel: SkillLevel = CSVConstants.Skills.InterestLevelAnswers.indexOf(interestLevelString);
+      // if (!SkillLevel[interestLevel]) interestLevel = null;
 
-      let interestLevel: SkillLevel = CSVConstants.Skills.InterestLevelAnswers.indexOf(interestLevelString);
-      if (!SkillLevel[interestLevel]) interestLevel = null;
-
-      person.skills.push(
-        new Skill(skillName, skillLevel, interestLevel, justificationString ? justificationString : '')
-      );
+      person.skills.push(new Skill(skillName, skillLevel, 0, justificationString ? justificationString : ''));
     }
   }
 
