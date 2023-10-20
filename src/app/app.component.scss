@@ -20,7 +20,7 @@
   width: 100vw;
   height: $toolbar-height;
   background-color: $primary-color;
-  position:fixed;
+  position:sticky;
 }
 
 .title-bar-item-container {
@@ -42,6 +42,9 @@
 
 /* overlay container */
 .overlay-container {
+    margin-top: auto;
+    margin-bottom:auto;
+
   position: fixed;
   left: 0;
   top: 0;
@@ -73,7 +76,6 @@
 
 // app content
 .app-content {
-  height: 100vh;
   width: 100vw;
   overflow: hidden;
 }

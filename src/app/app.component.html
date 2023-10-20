@@ -18,7 +18,7 @@
   </div>
 
   <!-- dashboard -->
-  <div class="app-content position-fixed-fill">
+  <div class="mt-3 app-content position-fixed-fill">
     <app-dashboard
       (importPressed)="showImportOverlay()"
       [teamStatisticsButtonPressed]="teamStatisticsButtonPressed"></app-dashboard>
@@ -35,7 +35,7 @@
           toggleTeamStatisticsButtonState = !toggleTeamStatisticsButtonState
         ">
         <div class="flex-row flex-center">
-          <mat-icon class="material-icon-trailing-space">timeline</mat-icon>
+          <mat-icon class="me-2">timeline</mat-icon>
           <div *ngIf="toggleTeamStatisticsButtonState">Show Team Statistics</div>
           <div *ngIf="!toggleTeamStatisticsButtonState">Hide Team Statistics</div>
         </div>
@@ -45,7 +45,7 @@
     <div class="buttons-overlay-item pointer-events-auto">
       <button mat-raised-button color="primary" (click)="showExportOverlay()">
         <div class="flex-row flex-center">
-          <mat-icon class="material-icon-trailing-space">file_download</mat-icon>
+          <mat-icon class="me-2">file_download</mat-icon>
           <div>Export</div>
         </div>
       </button>
@@ -54,7 +54,7 @@
     <div class="buttons-overlay-item pointer-events-auto">
       <button mat-raised-button color="primary" (click)="showResetTeamAllocationConfirmation()">
         <div class="flex-row flex-center">
-          <mat-icon class="material-icon-trailing-space">replay</mat-icon>
+          <mat-icon class="me-2">replay</mat-icon>
           <div>Reset</div>
         </div>
       </button>
@@ -63,7 +63,7 @@
     <div class="buttons-overlay-item pointer-events-auto">
       <button mat-raised-button color="primary" (click)="showSortConfirmation()">
         <div class="flex-row flex-center">
-          <mat-icon class="material-icon-trailing-space">sort</mat-icon>
+          <mat-icon class="me-2">sort</mat-icon>
           <div>Sort</div>
         </div>
       </button>
@@ -72,7 +72,7 @@
     <div class="buttons-overlay-item pointer-events-auto">
       <button mat-raised-button color="primary" (click)="showImportOverlay()">
         <div class="flex-row flex-center">
-          <mat-icon class="material-icon-trailing-space">file_upload</mat-icon>
+          <mat-icon class="me-2">file_upload</mat-icon>
           <div>Import</div>
         </div>
       </button>

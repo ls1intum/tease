@@ -1,18 +1,24 @@
-<div *ngIf="team" class="team-card flex-column" (click)="$event.stopPropagation()">
+<div *ngIf="team" class="team-card rounded flex-column h-100" (click)="$event.stopPropagation()">
   <!-- team title -->
-  <div class="flex-row flex-justify-content-space-between flex-center">
-    <div class="team-person-count title-elements-spacing flex-row flex-center flex-justify-center">
-      <div>{{ team.persons.length }}</div>
+  <div class="flex-row flex-justify-content-space-between flex-center my-2">
+    <div class="d-flex align-items-center">
+      <div class="team-name mx-3">{{ team.name }}</div>
+      <div class="team-person-count flex-row flex-center flex-justify-center">
+        <div>{{ team.persons.length }}</div>
+      </div>
     </div>
-    <div class="team-name title-elements-spacing">{{ team.name }}</div>
-    <div class="title-elements-spacing">
+
+    <div class="mx-3">
       <button
-        md-icon-button
+        mat-raised-button
         [disabled]="team.persons.length === 0"
+        color="primary"
+        class="distribute-button flex-no-shrink"
         (click)="statisticsVisible = !statisticsVisible"
-        [class.icon-button-highlight]="statisticsVisible"
         [class.opacity-zero]="screenshotMode">
-        <i class="material-icons">timeline</i>
+        <div class="flex-row flex-center distribute-button-row">
+          <i class="material-icons">timeline</i>
+        </div>
       </button>
     </div>
   </div>
@@ -21,7 +27,7 @@
   <app-team-statistics [team]="team" *ngIf="statisticsVisible && team.persons.length > 0"></app-team-statistics>
 
   <!-- person preview cards -->
-  <div class="position-relative">
+  <div class="position-relative h-100 overflow-y-scroll">
     <div *ngIf="team.persons.length === 0" class="pointer-events-none empty-team-hint-container flex-row">
       <div class="empty-team-hint flex-grow flex-row flex-center flex-justify-center">
         <div>Drag persons here</div>

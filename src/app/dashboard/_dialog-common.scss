@@ -2,11 +2,10 @@
   background-color: white;
   border: $standard-border;
   width: $regular-overlay-width;
-  margin-top: $scroll-inset;
+  margin-top: 15vh;
 }
 
 .dialog-header {
-  height: 30px;
   background-color: #eee;
   padding: 10px 10px 10px 20px;
 }
@@ -15,3 +14,9 @@
   font-size: 25px;
   font-weight: 300;
 }
+
+.dialog-footer {
+  background-color: #eee;
+  padding: 10px;
+}
+
