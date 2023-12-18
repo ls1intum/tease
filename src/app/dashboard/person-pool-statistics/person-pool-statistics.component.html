@@ -7,43 +7,44 @@
   <div class="flex-row flex-">
     <div class="statistics-legend-placeholder"></div>
     <div class="flex-row flex-grow">
-      <div
-        class="statistics-legend-label"
-        *ngFor="let label of priorityDistributionLabels"
-        [style.flex-grow]="label[1]">
-        {{ label[0] }}
-      </div>
+      @for (label of priorityDistributionLabels; track label) {
+        <div class="statistics-legend-label" [style.flex-grow]="label[1]">
+          {{ label[0] }}
+        </div>
+      }
     </div>
   </div>
 
   <!-- colored bars -->
-  <div *ngFor="let team of teamService.teams" class="flex-row">
-    <div class="statistics-team-label">{{ team.name }}</div>
-    <div class="statistics-vertical-divider"></div>
-    <div class="flex-row flex-grow">
-      <div
-        *ngFor="let i of teamIndices"
-        class="priority-bar flex-row flex-center"
-        [style.flex-grow]="priorityDistributionStatistics.get(team)[i]"
-        [style.background-color]="getColorOfTeamDistributionBar(i)"
-        [style.display]="priorityDistributionStatistics.get(team)[i] === 0 ? 'none' : null">
-        <div class="statistics-priority-index-label">{{ i + 1 }}</div>
-        <div class="statistics-bar-person-count">{{ priorityDistributionStatistics.get(team)[i] }} P.</div>
-        <!--div class="priority-bar-text-overflow-cover" [style.background]="'linear-gradient(to right, rgba(0,0,0,0), ' + getColorOfTeamDistributionBar(i) + ')'"></div-->
+  @for (team of teamService.teams; track team) {
+    <div class="flex-row">
+      <div class="statistics-team-label">{{ team.name }}</div>
+      <div class="statistics-vertical-divider"></div>
+      <div class="flex-row flex-grow">
+        @for (i of teamIndices; track i) {
+          <div
+            class="priority-bar flex-row flex-center"
+            [style.flex-grow]="priorityDistributionStatistics.get(team)[i]"
+            [style.background-color]="getColorOfTeamDistributionBar(i)"
+            [style.display]="priorityDistributionStatistics.get(team)[i] === 0 ? 'none' : null">
+            <div class="statistics-priority-index-label">{{ i + 1 }}</div>
+            <div class="statistics-bar-person-count">{{ priorityDistributionStatistics.get(team)[i] }} P.</div>
+            <!--div class="priority-bar-text-overflow-cover" [style.background]="'linear-gradient(to right, rgba(0,0,0,0), ' + getColorOfTeamDistributionBar(i) + ')'"></div-->
+          </div>
+        }
       </div>
     </div>
-  </div>
+  }
 
   <!-- legend labels bottom -->
   <div class="flex-row flex-">
     <div class="statistics-legend-placeholder"></div>
     <div class="flex-row flex-grow">
-      <div
-        class="statistics-legend-label"
-        *ngFor="let label of priorityDistributionLabels"
-        [style.flex-grow]="label[1]">
-        {{ label[0] }}
-      </div>
+      @for (label of priorityDistributionLabels; track label) {
+        <div class="statistics-legend-label" [style.flex-grow]="label[1]">
+          {{ label[0] }}
+        </div>
+      }
     </div>
   </div>
 
@@ -62,24 +63,27 @@
         </div>
 
         <!-- skill level stats -->
-        <div
-          *ngFor="let skillLevel of [SkillLevel.Low, SkillLevel.Medium, SkillLevel.High, SkillLevel.VeryHigh]"
-          class="flex-row flex-center">
-          <div class="flex-neutral-grow flex-row flex-center flex-no-shrink">
-            <div class="statistics-skill-level-badge" [style.background-color]="Colors.getColor(skillLevel)">
-              {{ Skill.getLabelForSkillLevel(skillLevel) }}
+        @for (
+          skillLevel of [SkillLevel.Low, SkillLevel.Medium, SkillLevel.High, SkillLevel.VeryHigh];
+          track skillLevel
+        ) {
+          <div class="flex-row flex-center">
+            <div class="flex-neutral-grow flex-row flex-center flex-no-shrink">
+              <div class="statistics-skill-level-badge" [style.background-color]="Colors.getColor(skillLevel)">
+                {{ Skill.getLabelForSkillLevel(skillLevel) }}
+              </div>
+            </div>
+            <div class="flex-neutral-grow">{{ getNumberOfPersonsWithSupervisorRating(skillLevel) }}</div>
+            <div class="flex-neutral-grow">
+              {{ Math.round((getNumberOfPersonsWithSupervisorRating(skillLevel) * 1000) / getNumberOfPersons()) / 10 }}%
+            </div>
+            <div class="flex-neutral-grow">
+              {{
+                Math.round((getNumberOfPersonsWithSupervisorRating(skillLevel) * 100) / teamService.teams.length) / 100
+              }}
             </div>
           </div>
-          <div class="flex-neutral-grow">{{ getNumberOfPersonsWithSupervisorRating(skillLevel) }}</div>
-          <div class="flex-neutral-grow">
-            {{ Math.round((getNumberOfPersonsWithSupervisorRating(skillLevel) * 1000) / getNumberOfPersons()) / 10 }}%
-          </div>
-          <div class="flex-neutral-grow">
-            {{
-              Math.round((getNumberOfPersonsWithSupervisorRating(skillLevel) * 100) / teamService.teams.length) / 100
-            }}
-          </div>
-        </div>
+        }
       </div>
     </div>
     <div class="statistics-vertical-divider"></div>

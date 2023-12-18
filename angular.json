@@ -101,10 +101,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "tease:build:production"
+              "buildTarget": "tease:build:production"
             },
             "development": {
-              "browserTarget": "tease:build:development"
+              "buildTarget": "tease:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -112,7 +112,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "tease:build"
+            "buildTarget": "tease:build"
           }
         },
         "lint": {
