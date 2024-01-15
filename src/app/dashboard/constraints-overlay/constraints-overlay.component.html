@@ -68,8 +68,7 @@
     <div>
       @if (hasTabWarnings(constraints)) {
         <mat-icon class="ms-2 danger-icon">warning</mat-icon>
-      }
-      @if (!hasTabWarnings(constraints)) {
+      } @else {
         <mat-icon class="ms-2 active-icon">check_circle</mat-icon>
       }
     </div>

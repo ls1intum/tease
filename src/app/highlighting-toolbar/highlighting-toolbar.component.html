@@ -1,6 +1,6 @@
 <div (click)="showPersonHighlightingOverlay()" class="highlight-toolbar flex-row flex-center">
   <div class="highlight-toolbar-heading">Highlighting</div>
-  @if (PersonConstraintService.personConstraints.length === 0) {
+  @if (!PersonConstraintService.personConstraints.length) {
     <div class="highlight-toolbar-none-text">None</div>
   }
   @for (personConstraint of PersonConstraintService.personConstraints; track personConstraint) {
