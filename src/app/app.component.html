@@ -38,8 +38,7 @@
           <mat-icon class="me-2">timeline</mat-icon>
           @if (toggleTeamStatisticsButtonState) {
             <div>Show Team Statistics</div>
-          }
-          @if (!toggleTeamStatisticsButtonState) {
+          } @else {
             <div>Hide Team Statistics</div>
           }
         </div>

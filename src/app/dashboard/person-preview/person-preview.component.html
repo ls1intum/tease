@@ -75,8 +75,7 @@
         [class.pin-button-active]="person.isPinned">
         @if (!person.isPinned) {
           <img class="pin-icon" src="/assets/images/pin-outline.png" />
-        }
-        @if (person.isPinned) {
+        } @else {
           <img class="pin-icon" src="/assets/images/pin-filled.png" />
         }
       </div>

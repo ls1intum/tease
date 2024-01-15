@@ -140,12 +140,11 @@
       </div>
       <!-- other skills -->
       <div class="heading">Other Skills</div>
-      @if (person.otherSkills.length > 0) {
+      @if (person.otherSkills.length) {
         <div class="quote-text align-self-start">
           <span class="quotation-mark">“</span>{{ person.otherSkills }}<span class="quotation-mark">”</span>
         </div>
-      }
-      @if (person.otherSkills.length === 0) {
+      } @else {
         <div class="quote-text align-self-start">—</div>
       }
       <!-- intro course assessment -->
@@ -164,22 +163,20 @@
       </div>
       <!-- student comments -->
       <div class="heading">Student Comments</div>
-      @if (person.studentComments.length > 0) {
+      @if (person.studentComments.length) {
         <div class="quote-text align-self-start">
           <span class="quotation-mark">“</span>{{ person.studentComments }}<span class="quotation-mark">”</span>
         </div>
-      }
-      @if (person.studentComments.length === 0) {
+      } @else {
         <div class="quote-text align-self-start">—</div>
       }
       <!-- tutor comments -->
       <div class="heading">Tutor Comments</div>
-      @if (person.tutorComments.length > 0) {
+      @if (person.tutorComments.length) {
         <div class="quote-text align-self-start">
           <span class="quotation-mark">“</span>{{ person.tutorComments }}<span class="quotation-mark">”</span>
         </div>
-      }
-      @if (person.tutorComments.length === 0) {
+      } @else {
         <div class="quote-text align-self-start">—</div>
       }
     </div>
