@@ -63,8 +63,8 @@
             </div>
           </div>
           <!-- next / previous person buttons -->
-          <div class="flex-row flex-no-shrink">
-            @if (hasNoTeam(data.person)) {
+          @if (hasNoTeam(data.person)) {
+            <div class="flex-row flex-no-shrink">
               <button
                 mat-raised-button
                 color="primary"
@@ -76,9 +76,7 @@
                   <div>Previous Person</div>
                 </div>
               </button>
-            }
-            <div class="flex-grow"></div>
-            @if (hasNoTeam(data.person)) {
+              <div class="flex-grow"></div>
               <button mat-raised-button color="primary" (click)="data.onNextPersonClicked(); $event.stopPropagation()">
                 <div class="flex-row flex-center">
                   <div class="key-icon-container next-previous-person-buttons">
@@ -87,8 +85,8 @@
                   <div>Next Person</div>
                 </div>
               </button>
-            }
-          </div>
+            </div>
+          }
         </div>
       </div>
     </div>

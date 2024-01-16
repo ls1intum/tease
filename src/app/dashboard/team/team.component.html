@@ -23,12 +23,12 @@
       </div>
     </div>
     <!-- statistics -->
-    @if (statisticsVisible && team.persons.length > 0) {
+    @if (statisticsVisible && team.persons.length) {
       <app-team-statistics [team]="team"></app-team-statistics>
     }
     <!-- person preview cards -->
     <div class="position-relative h-100 overflow-y-scroll">
-      @if (team.persons.length === 0) {
+      @if (!team.persons.length) {
         <div class="pointer-events-none empty-team-hint-container flex-row">
           <div class="empty-team-hint flex-grow flex-row flex-center flex-justify-center">
             <div>Drag persons here</div>
