@@ -54,13 +54,15 @@
           <div class="flex-column person-value-container">
             <div class="heading">Devices</div>
             <div class="flex-row spacing-x-3">
-              @if (person.devices.length == 0) {
+              @if (!person.devices.length) {
                 <div class="person-value">—</div>
               }
+              @else {
               @for (device of person.devices; track device) {
                 <div matTooltip="{{ Device[device] }}" class="device-icon">
                   <img src="{{ getDeviceIconPath(device) }}" />
                 </div>
+                }
               }
             </div>
           </div>
@@ -102,15 +104,15 @@
         <div class="skill-level-label" [ngClass]="'skill-level-label-' + person.getiOSSkillLevel()">
           <div>{{ person.iosDev }}</div>
         </div>
-        @if (person.iOSDevExplained.length > 0) {
+        @if (person.iOSDevExplained.length) {
           <div class="quote-text">
             <span class="quotation-mark">“</span>{{ person.iOSDevExplained }}<span class="quotation-mark">”</span>
           </div>
         }
-        @if (person.iOSDevExplained.length === 0) {
+        @else {
           <div class="quote-text">—</div>
         }
-        @if (person.appStoreLink && person.appStoreLink.length > 0) {
+        @if (person.appStoreLink && person.appStoreLink.length) {
           <div>
             <span>AppStore Link: </span>
             <a target="_blank" href="{{ person.appStoreLink }}">{{ person.appStoreLink }}</a>
@@ -127,12 +129,12 @@
             <div class="skill-level-label" [ngClass]="'skill-level-label-' + skill.interestLevel">
               <div>{{ CSVConstants.Skills.InterestLevelAnswers[skill.interestLevel] }}</div>
             </div>
-            @if (skill.justification.length > 0) {
+            @if (skill.justification.length) {
               <div class="quote-text">
                 <span class="quotation-mark">“</span>{{ skill.justification }}<span class="quotation-mark">”</span>
               </div>
             }
-            @if (skill.justification.length == 0) {
+            @else {
               <div class="quote-text">—</div>
             }
           </div>

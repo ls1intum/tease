@@ -4,7 +4,7 @@
       <div class="dialog-heading">Constraints for Person Highlighting</div>
     </div>
 
-    @if (personConstraintsCopy.length === 0) {
+    @if (!personConstraintsCopy.length) {
       <div class="no-constraints-hint align-self-center">No Constraints Configured</div>
     } @else {
       <!-- constraint list -->
