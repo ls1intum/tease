@@ -30,18 +30,19 @@
     "Dora Dzvonyar <dora.dzvonyar@tum.de>"
   ],
   "dependencies": {
-    "@angular/animations": "16.2.7",
-    "@angular/cdk": "16.2.6",
-    "@angular/common": "16.2.7",
-    "@angular/compiler": "16.2.7",
-    "@angular/core": "16.2.7",
-    "@angular/forms": "16.2.7",
-    "@angular/material": "16.2.6",
-    "@angular/platform-browser": "16.2.7",
-    "@angular/platform-browser-dynamic": "16.2.7",
-    "@angular/router": "16.2.7",
-    "@ng-bootstrap/ng-bootstrap": "15.1.1",
+    "@angular/animations": "17.0.7",
+    "@angular/cdk": "17.0.4",
+    "@angular/common": "17.0.7",
+    "@angular/compiler": "17.0.7",
+    "@angular/core": "17.0.7",
+    "@angular/forms": "17.0.7",
+    "@angular/material": "17.0.4",
+    "@angular/platform-browser": "17.0.7",
+    "@angular/platform-browser-dynamic": "17.0.7",
+    "@angular/router": "17.0.7",
+    "@ng-bootstrap/ng-bootstrap": "^16.0.0",
     "bootstrap": "5.3.2",
+    "crypto-js": "4.2.0",
     "dragula": "3.7.3",
     "file-saver": "2.0.5",
     "html2canvas": "1.4.1",
@@ -51,36 +52,40 @@
     "ng2-dragula": "5.0.1",
     "papaparse": "5.4.1",
     "rxjs": "7.8.1",
-    "crypto-js": "4.2.0",
     "tslib": "2.6.2",
-    "zone.js": "0.13.3"
+    "zone.js": "0.14.2"
   },
   "overrides": {
     "semver": "7.5.4",
-    "postcss": "8.4.31"
+    "postcss": "8.4.31",
+    "ng2-dragula": {
+      "@angular/common": "$@angular/common",
+      "@angular/core": "$@angular/core",
+      "@angular/animations": "$@angular/animations"
+    }
   },
   "browser": {
     "fs": false,
     "child_process": false
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "16.2.4",
-    "@angular-eslint/builder": "16.2.0",
-    "@angular-eslint/eslint-plugin": "16.2.0",
-    "@angular-eslint/eslint-plugin-template": "16.2.0",
-    "@angular-eslint/schematics": "16.2.0",
-    "@angular-eslint/template-parser": "16.2.0",
-    "@angular/cli": "16.2.4",
-    "@angular/compiler-cli": "16.2.7",
-    "@angular/localize": "16.2.7",
-    "@types/crypto-js": "4.1.2",
-    "@typescript-eslint/eslint-plugin": "6.7.4",
-    "@typescript-eslint/parser": "6.7.4",
-    "eslint": "8.50.0",
+    "@angular-devkit/build-angular": "17.0.7",
+    "@angular-eslint/builder": "17.1.1",
+    "@angular-eslint/eslint-plugin": "17.1.1",
+    "@angular-eslint/eslint-plugin-template": "17.1.1",
+    "@angular-eslint/schematics": "17.1.1",
+    "@angular-eslint/template-parser": "17.1.1",
+    "@angular/cli": "17.0.7",
+    "@angular/compiler-cli": "17.0.7",
+    "@angular/localize": "17.0.7",
+    "@types/crypto-js": "^4.2.1",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "eslint": "^8.53.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-prettier": "5.0.0",
-    "prettier": "3.0.3",
-    "prettier-eslint": "15.0.1",
-    "typescript": "5.1.6"
+    "prettier": "^3.0.3",
+    "prettier-eslint": "^16.1.1",
+    "typescript": "5.2.2"
   }
 }

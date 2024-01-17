@@ -1,19 +1,20 @@
-<ng-container *ngIf="isDataLoaded(); else loading">
+@if (isDataLoaded()) {
   <!-- team containers -->
   <div
     class="dashboard flex-row"
     [ngClass]="'dashboard-' + personPoolDisplayModeFormGroup.value.personPoolDisplayModeControl">
-    <div *ngFor="let team of teamService.teams" class="h-100 hidden-scrollbar-parent">
-      <div class="h-100 hidden-scrollbar-child flex-column">
-        <app-team
-          class="flex-no-shrink h-100"
-          [team]="team"
-          (onPersonClicked)="showPersonDetails($event)"
-          [teamStatisticsButtonPressed]="teamStatisticsButtonPressed"></app-team>
+    @for (team of teamService.teams; track team) {
+      <div class="h-100 hidden-scrollbar-parent">
+        <div class="h-100 hidden-scrollbar-child flex-column">
+          <app-team
+            class="flex-no-shrink h-100"
+            [team]="team"
+            (onPersonClicked)="showPersonDetails($event)"
+            [teamStatisticsButtonPressed]="teamStatisticsButtonPressed"></app-team>
+        </div>
       </div>
-    </div>
+    }
   </div>
-
   <!-- person pool -->
   <div
     class="person-pool flex-column overflow-hidden"
@@ -25,7 +26,6 @@
         <div>{{ teamService.personsWithoutTeam.length }}</div>
       </div>
       <div class="flex-grow"></div>
-
       <button
         mat-raised-button
         color="primary"
@@ -95,36 +95,36 @@
         </div>
       </form>
     </div>
-
     <!-- person pool statistics -->
-    <app-person-pool-statistics *ngIf="statisticsVisible"></app-person-pool-statistics>
-
+    @if (statisticsVisible) {
+      <app-person-pool-statistics></app-person-pool-statistics>
+    }
     <!-- person preview cards -->
     <div class="scrollable-content flex-grow flex-row position-relative">
-      <div
-        *ngIf="teamService.personsWithoutTeam.length === 0"
-        class="position-absolute position-absolute-full-size pointer-events-none flex-row overflow-hidden">
-        <div class="flex-grow empty-orphan-team-hint-box flex-row flex-center flex-justify-center">
-          <div>Drag persons here</div>
+      @if (teamService.personsWithoutTeam.length === 0) {
+        <div class="position-absolute position-absolute-full-size pointer-events-none flex-row overflow-hidden">
+          <div class="flex-grow empty-orphan-team-hint-box flex-row flex-center flex-justify-center">
+            <div>Drag persons here</div>
+          </div>
         </div>
-      </div>
+      }
       <div
         dragula="persons"
         class="flex-row person-pool-preview-row flex-wrap flex-grow"
         [(dragulaModel)]="teamService.personsWithoutTeam">
-        <app-person-preview
-          *ngFor="let person of teamService.personsWithoutTeam"
-          [person]="person"
-          (click)="showPersonDetails(person)"
-          [pinable]="false"></app-person-preview>
+        @for (person of teamService.personsWithoutTeam; track person) {
+          <app-person-preview
+            [person]="person"
+            (click)="showPersonDetails(person)"
+            [pinable]="false"></app-person-preview>
+        }
       </div>
     </div>
   </div>
-</ng-container>
-
-<!-- card that is shown if no data is loaded -->
-<ng-template #loading>
+} @else {
   <div class="flex-row flex-justify-center">
     <app-intro-card (importPressed)="importPressed.emit()"></app-intro-card>
   </div>
-</ng-template>
+}
+
+<!-- card that is shown if no data is loaded -->

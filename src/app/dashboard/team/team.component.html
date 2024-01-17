@@ -1,55 +1,55 @@
-<div *ngIf="team" class="team-card rounded flex-column h-100" (click)="$event.stopPropagation()">
-  <!-- team title -->
-  <div class="flex-row flex-justify-content-space-between flex-center my-2">
-    <div class="d-flex align-items-center">
-      <div class="team-name mx-3">{{ team.name }}</div>
-      <div class="team-person-count flex-row flex-center flex-justify-center">
-        <div>{{ team.persons.length }}</div>
-      </div>
-    </div>
-
-    <div class="mx-3">
-      <button
-        mat-raised-button
-        [disabled]="team.persons.length === 0"
-        color="primary"
-        class="distribute-button flex-no-shrink"
-        (click)="statisticsVisible = !statisticsVisible"
-        [class.opacity-zero]="screenshotMode">
-        <div class="flex-row flex-center distribute-button-row">
-          <i class="material-icons">timeline</i>
+@if (team) {
+  <div class="team-card rounded flex-column h-100" (click)="$event.stopPropagation()">
+    <!-- team title -->
+    <div class="flex-row flex-justify-content-space-between flex-center my-2">
+      <div class="d-flex align-items-center">
+        <div class="team-name mx-3">{{ team.name }}</div>
+        <div class="team-person-count flex-row flex-center flex-justify-center">
+          <div>{{ team.persons.length }}</div>
         </div>
-      </button>
-    </div>
-  </div>
-
-  <!-- statistics -->
-  <app-team-statistics [team]="team" *ngIf="statisticsVisible && team.persons.length > 0"></app-team-statistics>
-
-  <!-- person preview cards -->
-  <div class="position-relative h-100 overflow-y-scroll">
-    <div *ngIf="team.persons.length === 0" class="pointer-events-none empty-team-hint-container flex-row">
-      <div class="empty-team-hint flex-grow flex-row flex-center flex-justify-center">
-        <div>Drag persons here</div>
+      </div>
+      <div class="mx-3">
+        <button
+          mat-raised-button
+          [disabled]="team.persons.length === 0"
+          color="primary"
+          class="distribute-button flex-no-shrink"
+          (click)="statisticsVisible = !statisticsVisible"
+          [class.opacity-zero]="screenshotMode">
+          <div class="flex-row flex-center distribute-button-row">
+            <i class="material-icons">timeline</i>
+          </div>
+        </button>
       </div>
     </div>
-    <div
-      *ngIf="isDraggable; else nonDraggable"
-      [id]="team.name"
-      dragula="persons"
-      class="drag-container"
-      [(dragulaModel)]="team.persons">
-      <ng-container *ngTemplateOutlet="personPreview"></ng-container>
+    <!-- statistics -->
+    @if (statisticsVisible && team.persons.length) {
+      <app-team-statistics [team]="team"></app-team-statistics>
+    }
+    <!-- person preview cards -->
+    <div class="position-relative h-100 overflow-y-scroll">
+      @if (!team.persons.length) {
+        <div class="pointer-events-none empty-team-hint-container flex-row">
+          <div class="empty-team-hint flex-grow flex-row flex-center flex-justify-center">
+            <div>Drag persons here</div>
+          </div>
+        </div>
+      }
+      @if (isDraggable) {
+        <div [id]="team.name" dragula="persons" class="drag-container" [(dragulaModel)]="team.persons">
+          <ng-container *ngTemplateOutlet="personPreview"></ng-container>
+        </div>
+      } @else {
+        <ng-container *ngTemplateOutlet="personPreview"></ng-container>
+      }
     </div>
-    <ng-template #nonDraggable>
-      <ng-container *ngTemplateOutlet="personPreview"></ng-container>
-    </ng-template>
   </div>
-</div>
+}
 
 <ng-template #personPreview>
-  <app-person-preview
-    *ngFor="let person of team.persons"
-    [person]="person"
-    (click)="onPersonClicked.emit(person); $event.stopPropagation()"></app-person-preview>
+  @for (person of team.persons; track person) {
+    <app-person-preview
+      [person]="person"
+      (click)="onPersonClicked.emit(person); $event.stopPropagation()"></app-person-preview>
+  }
 </ng-template>
