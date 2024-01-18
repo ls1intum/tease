@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, EventEmitter, Type, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ComponentFactoryResolver, Type, ViewChild, ViewEncapsulation } from '@angular/core';
 import { TeamService } from './shared/layers/business-logic-layer/team.service';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { OverlayHostDirective } from './overlay-host.directive';
@@ -9,6 +9,7 @@ import { PersonHighlightingOverlayComponent } from './dashboard/person-highlight
 import { Location } from '@angular/common';
 import { ExportOverlayComponent } from './dashboard/export-overlay/export-overlay.component';
 import { ConstraintLoggingService } from './shared/layers/business-logic-layer/constraint-logging.service';
+import { ConstraintsOverlayComponent } from './dashboard/constraints-overlay/constraints-overlay.component';
 
 @Component({
   selector: 'app-root',
@@ -18,8 +19,6 @@ import { ConstraintLoggingService } from './shared/layers/business-logic-layer/c
 })
 export class AppComponent implements OverlayServiceHost {
   overlayVisible = false;
-  teamStatisticsButtonPressed = new EventEmitter<boolean>();
-  toggleTeamStatisticsButtonState = true;
 
   @ViewChild(DashboardComponent)
   dashboardComponent: DashboardComponent;
@@ -41,7 +40,7 @@ export class AppComponent implements OverlayServiceHost {
         history.pushState(null, '', '#TEASE');
       };
       pushState();
-      this.location.subscribe(event => {
+      this.location.subscribe(() => {
         pushState();
       });
     }
@@ -95,6 +94,14 @@ export class AppComponent implements OverlayServiceHost {
 
   showPersonHighlightingOverlay() {
     this.overlayService.displayComponent(PersonHighlightingOverlayComponent, {});
+  }
+
+  openConstraintsDialog(): void {
+    this.overlayService.displayComponent(ConstraintsOverlayComponent, { displayWarning: !this.areAllTeamsEmpty() });
+  }
+
+  protected areAllTeamsEmpty(): boolean {
+    return this.teamService.teams.reduce((acc, team) => acc && team.persons.length === 0, true);
   }
 
   /* OverlayServiceHost interface */

@@ -1,9 +1,39 @@
 <div>
   <!-- title bar -->
-  <div class="title-bar">
-    <div class="title-bar-item-container flex-row flex-center">
-      <img class="icon" src="/assets/images/icon.png" />
-      <div class="app-title toolbar-items-spacing flex-grow">TEASE</div>
+  <div class="navbar">
+    <div class="navbar-logo flex-row">
+      <img class="navbar-logo" src="/assets/images/icon.png" />
+      <div class="navbar-title toolbar-items-spacing flex-grow">TEASE</div>
+    </div>
+
+    <div class="navbar-buttons flex-row">
+      <button class="navbar-button-icon" matTooltip="Highlight" (click)="showPersonHighlightingOverlay()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button class="navbar-button-icon" matTooltip="Sort" (click)="showSortConfirmation()">
+        <mat-icon>sort</mat-icon>
+      </button>
+      <button mat-raised-button class="navbar-button-primary" (click)="openConstraintsDialog()">
+        <mat-icon>groups_3</mat-icon>
+        <div>Distribute Teams</div>
+      </button>
+      <button class="navbar-button-icon" [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="showExportOverlay()">
+          <mat-icon>file_upload</mat-icon>
+          <div>Export</div>
+        </button>
+        <button mat-menu-item (click)="showImportOverlay()">
+          <mat-icon>file_download</mat-icon>
+          <div>Import</div>
+        </button>
+        <button mat-menu-item (click)="showResetTeamAllocationConfirmation()">
+          <mat-icon>replay</mat-icon>
+          <div>Reset</div>
+        </button>
+      </mat-menu>
     </div>
   </div>
 
@@ -19,69 +49,6 @@
 
   <!-- dashboard -->
   <div class="mt-3 app-content position-fixed-fill">
-    <app-dashboard
-      (importPressed)="showImportOverlay()"
-      [teamStatisticsButtonPressed]="teamStatisticsButtonPressed"></app-dashboard>
-  </div>
-
-  <!-- buttons overlay -->
-  <div class="buttons-overlay flex-row-reverse pointer-events-none">
-    <div class="buttons-overlay-item pointer-events-auto">
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="
-          teamStatisticsButtonPressed.emit(toggleTeamStatisticsButtonState);
-          toggleTeamStatisticsButtonState = !toggleTeamStatisticsButtonState
-        ">
-        <div class="flex-row flex-center">
-          <mat-icon class="me-2">timeline</mat-icon>
-          @if (toggleTeamStatisticsButtonState) {
-            <div>Show Team Statistics</div>
-          } @else {
-            <div>Hide Team Statistics</div>
-          }
-        </div>
-      </button>
-    </div>
-    <div class="buttons-overlay-item pointer-events-auto">
-      <button mat-raised-button color="primary" (click)="showExportOverlay()">
-        <div class="flex-row flex-center">
-          <mat-icon class="me-2">file_download</mat-icon>
-          <div>Export</div>
-        </div>
-      </button>
-    </div>
-
-    <div class="buttons-overlay-item pointer-events-auto">
-      <button mat-raised-button color="primary" (click)="showResetTeamAllocationConfirmation()">
-        <div class="flex-row flex-center">
-          <mat-icon class="me-2">replay</mat-icon>
-          <div>Reset</div>
-        </div>
-      </button>
-    </div>
-
-    <div class="buttons-overlay-item pointer-events-auto">
-      <button mat-raised-button color="primary" (click)="showSortConfirmation()">
-        <div class="flex-row flex-center">
-          <mat-icon class="me-2">sort</mat-icon>
-          <div>Sort</div>
-        </div>
-      </button>
-    </div>
-
-    <div class="buttons-overlay-item pointer-events-auto">
-      <button mat-raised-button color="primary" (click)="showImportOverlay()">
-        <div class="flex-row flex-center">
-          <mat-icon class="me-2">file_upload</mat-icon>
-          <div>Import</div>
-        </div>
-      </button>
-    </div>
-
-    <div class="buttons-overlay-item pointer-events-auto">
-      <app-highlighting-toolbar></app-highlighting-toolbar>
-    </div>
+    <app-dashboard (importPressed)="showImportOverlay()"></app-dashboard>
   </div>
 </div>

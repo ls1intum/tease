@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import { DragulaService } from 'ng2-dragula';
 import { Person } from '../../shared/models/person';
 import { PersonDetailOverlayComponent } from '../person-detail-overlay/person-detail-overlay.component';
 import { OverlayService } from '../../overlay.service';
-import { ConstraintsOverlayComponent } from '../constraints-overlay/constraints-overlay.component';
 import { SkillLevel } from '../../shared/models/skill';
 import { Device } from '../../shared/models/device';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -24,7 +23,8 @@ enum PersonPoolDisplayMode {
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   @Output() importPressed = new EventEmitter();
-  @Input() teamStatisticsButtonPressed;
+  teamStatisticsButtonPressed = new EventEmitter<boolean>();
+  toggleTeamStatisticsButtonState = true;
 
   statisticsVisible = false;
 
@@ -78,14 +78,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   public isDataLoaded(): boolean {
     return this.teamService.teams && this.teamService.teams.length > 0;
-  }
-
-  openConstraintsDialog(): void {
-    this.overlayService.displayComponent(ConstraintsOverlayComponent, { displayWarning: !this.areAllTeamsEmpty() });
-  }
-
-  protected areAllTeamsEmpty(): boolean {
-    return this.teamService.teams.reduce((acc, team) => acc && team.persons.length === 0, true);
   }
 
   togglePersonPoolStatistics(): void {
