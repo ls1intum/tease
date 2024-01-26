@@ -30,20 +30,20 @@
         mat-raised-button
         color="primary"
         class="distribute-button flex-no-shrink"
-        (click)="togglePersonPoolStatistics()">
-        <div class="flex-row flex-center distribute-button-row">
-          <mat-icon class="flex-spacing-x-2px me-2">timeline</mat-icon>
-          <div>{{ statisticsVisible ? 'Hide' : 'Show' }} Statistics</div>
+        (click)="onTeamStatisticsButtonPressed()">
+        <div class="flex-row flex-center">
+          <mat-icon class="me-2">timeline</mat-icon>
+          <div>{{ toggleTeamStatisticsButtonState ? 'Show' : 'Hide' }} Team Statistics</div>
         </div>
       </button>
       <button
         mat-raised-button
         color="primary"
         class="distribute-button flex-no-shrink"
-        (click)="openConstraintsDialog()">
+        (click)="togglePersonPoolStatistics()">
         <div class="flex-row flex-center distribute-button-row">
-          <mat-icon class="flex-spacing-x-2px me-2">build</mat-icon>
-          <div>Distribute With Constraints</div>
+          <mat-icon class="flex-spacing-x-2px me-2">timeline</mat-icon>
+          <div>{{ statisticsVisible ? 'Hide' : 'Show' }} Statistics</div>
         </div>
       </button>
       <form [formGroup]="personPoolDisplayModeFormGroup">

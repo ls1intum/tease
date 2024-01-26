@@ -31,3 +31,26 @@
   height: 100%;
 }
 
+
+//tease 2.0
+.bg-artemis-dark {
+  background-color: $artemis-dark !important;
+}
+
+.bg-artemis-primary {
+  background-color: $artemis-primary !important;
+}
+
+.btn-icon {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-icon mat-icon {
+  color: $navbar-dark-color;
+}
+
+.btn-icon:hover mat-icon {
+  color: $artemis-primary;
+}
+

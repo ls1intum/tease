@@ -20,6 +20,8 @@ import { LPTeamGenerationService } from './shared/layers/business-logic-layer/te
 import { HighlightingToolbarComponent } from './highlighting-toolbar/highlighting-toolbar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [AppComponent, OverlayHostDirective, HighlightingToolbarComponent],
@@ -33,9 +35,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     DragulaModule.forRoot(),
     ReactiveFormsModule,
+    MatTooltipModule,
     /* own modules */
     SharedModule,
     DashboardModule,
+    MatMenuModule,
   ],
   providers: [
     TeamService,

@@ -15,31 +15,6 @@
   background-color: $gray-f5;
 }
 
-// toolbar
-.title-bar {
-  width: 100vw;
-  height: $toolbar-height;
-  background-color: $primary-color;
-  position:sticky;
-}
-
-.title-bar-item-container {
-  padding: 10px 20px;
-}
-
-@include horizontal-spacing(toolbar-items-spacing, 5px);
-
-.icon {
-  height: 60px;
-  margin-right: 20px;
-}
-
-.app-title {
-  color: white;
-  font-size: 40px;
-  font-weight: 100;
-}
-
 /* overlay container */
 .overlay-container {
     margin-top: auto;
@@ -78,16 +53,4 @@
 .app-content {
   width: 100vw;
   overflow: hidden;
-}
-
-// toolbar temporary
-.buttons-overlay {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-}
-
-.buttons-overlay-item {
-  margin: 10px 10px 0 0;
 }
