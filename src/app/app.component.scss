@@ -15,61 +15,6 @@
   background-color: $gray-f5;
 }
 
-// navbar
-.navbar {
-  width: 100vw;
-  height: $toolbar-height;
-  background-color: $artemis-dark;
-  position:sticky;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 40px;
-}
-
-.navbar-buttons {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.navbar-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.navbar-button-icon mat-icon {
-  color: $navbar-dark-color;
-}
-
-.navbar-button-icon:hover mat-icon {
-  color: $artemis-primary;
-}
-
-.navbar-button-icon {
-  background-color: transparent;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center !important;
-}
-
-.navbar-button-primary {
-  background-color: $artemis-primary !important;
-  color: white !important;
-}
-
-.navbar-logo {
-  height: 40px;
-}
-
-.navbar-title {
-  color: white;
-  font-size: 34px;
-  font-weight: 100;
-}
-
 /* overlay container */
 .overlay-container {
     margin-top: auto;

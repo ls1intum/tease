@@ -101,7 +101,7 @@ export class AppComponent implements OverlayServiceHost {
   }
 
   protected areAllTeamsEmpty(): boolean {
-    return this.teamService.teams.reduce((acc, team) => acc && team.persons.length === 0, true);
+    return this.teamService.teams.reduce((acc, team) => acc && !team.persons.length, true);
   }
 
   /* OverlayServiceHost interface */

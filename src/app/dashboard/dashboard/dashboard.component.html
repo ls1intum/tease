@@ -30,17 +30,10 @@
         mat-raised-button
         color="primary"
         class="distribute-button flex-no-shrink"
-        (click)="
-          teamStatisticsButtonPressed.emit(toggleTeamStatisticsButtonState);
-          toggleTeamStatisticsButtonState = !toggleTeamStatisticsButtonState
-        ">
+        (click)="onTeamStatisticsButtonPressed()">
         <div class="flex-row flex-center">
           <mat-icon class="me-2">timeline</mat-icon>
-          @if (toggleTeamStatisticsButtonState) {
-            <div>Show Team Statistics</div>
-          } @else {
-            <div>Hide Team Statistics</div>
-          }
+          <div>{{ toggleTeamStatisticsButtonState ? 'Show' : 'Hide' }} Team Statistics</div>
         </div>
       </button>
       <button

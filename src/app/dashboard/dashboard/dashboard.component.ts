@@ -97,4 +97,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.dragulaSubscription?.unsubscribe();
   }
+
+  onTeamStatisticsButtonPressed() {
+    this.teamStatisticsButtonPressed.emit(this.toggleTeamStatisticsButtonState);
+    this.toggleTeamStatisticsButtonState = !this.toggleTeamStatisticsButtonState;
+  }
 }
