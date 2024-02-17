@@ -19,7 +19,7 @@ export class TeamService {
   // derived properties
   personsWithoutTeam: Person[];
 
-  private load(data: [Person[], Team[]]) {
+  public load(data: [Person[], Team[]]) {
     [this.persons, this.teams] = data;
     this.updateDerivedProperties();
   }

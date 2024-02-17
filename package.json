@@ -19,7 +19,8 @@
     "lint:fix": "eslint --fix --ext .ts \"src/{app,test}/**/*.ts\"",
     "update": "npm-upgrade",
     "prettier:write": "prettier --write \"src/{app,test}/**/*.{json,ts,js,css,scss,html}\"",
-    "prettier:check": "prettier --check \"src/{app,test}/**/*.{json,ts,js,css,scss,html}\""
+    "prettier:check": "prettier --check \"src/{app,test}/**/*.{json,ts,js,css,scss,html}\"",
+    "openapi:generate": "ng-openapi-gen -c docs/ng-openapi-gen.json"
   },
   "contributors": [
     "Stephan Krusche <krusche@tum.de>",
@@ -78,12 +79,14 @@
     "@angular/cli": "17.0.7",
     "@angular/compiler-cli": "17.0.7",
     "@angular/localize": "17.0.7",
+    "@cypress/schematic": "^2.5.1",
     "@types/crypto-js": "^4.2.1",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "eslint": "^8.53.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-prettier": "5.0.0",
+    "ng-openapi-gen": "^0.51.0",
     "prettier": "^3.0.3",
     "prettier-eslint": "^16.1.1",
     "typescript": "5.2.2"

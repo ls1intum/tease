@@ -118,4 +118,20 @@ export class AppComponent implements OverlayServiceHost {
     this.overlayVisible = false;
     this.overlayHostDirective.viewContainerRef.clear();
   }
+
+  // TODO: Remove before merging #86, #75
+  areTokensSet(): boolean {
+    return localStorage.getItem('jwt_token') !== null && localStorage.getItem('course_iteration') !== null;
+  }
+
+  // TODO: Remove before merging #86, #75
+  async toggleTokens() {
+    if (this.areTokensSet()) {
+      localStorage.removeItem('jwt_token');
+      localStorage.removeItem('course_iteration');
+    } else {
+      localStorage.setItem('jwt_token', 'xxx');
+      localStorage.setItem('course_iteration', 'ios23');
+    }
+  }
 }

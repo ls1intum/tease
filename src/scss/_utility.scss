@@ -54,3 +54,8 @@
   color: $artemis-primary;
 }
 
+
+// TODO: Remove before merging #86, #75
+.red {
+  color: rgb(204, 0, 0) !important;
+}
