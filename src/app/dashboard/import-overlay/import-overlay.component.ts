@@ -4,9 +4,9 @@ import { TeamService } from '../../shared/layers/business-logic-layer/team.servi
 import { ExamplePersonPropertyCsvRemotePath } from '../../shared/constants/csv.constants';
 import { ConstraintLoggingService } from '../../shared/layers/business-logic-layer/constraint-logging.service';
 import { PromptService } from 'src/app/shared/services/prompt.service';
-import { StudentPersonTransformerService } from 'src/app/shared/services/student-person-transformer.service';
+import { StudentPersonTransformerService } from 'src/app/shared/services/student-to-person.service';
 import { AuthInterceptor } from 'src/app/shared/interceptors/auth.interceptor';
-import { ProjectTeamTransformerService } from 'src/app/shared/services/project-team-transformer.service';
+import { ProjectTeamTransformerService } from 'src/app/shared/services/project-to-team.service';
 
 @Component({
   selector: 'app-import-overlay',
