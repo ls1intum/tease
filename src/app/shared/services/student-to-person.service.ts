@@ -15,7 +15,8 @@ import { IconMapperService } from '../ui/icon-mapper.service';
 @Injectable({
   providedIn: 'root',
 })
-export class StudentPersonTransformerService {
+// TODO: Delete after removing person and team code
+export class StudentToPersonService {
   private skillsPrompt: SkillPrompt[] = [];
   private projectsPrompt: Project[] = [];
   private allocationsPrompt: Allocation[] = [];

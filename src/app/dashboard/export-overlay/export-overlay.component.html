@@ -52,6 +52,18 @@
           </div>
         </div>
       </div>
+
+      <div class="seperator"></div>
+      <div class="flex-row alternative-box">
+        <mat-icon class="alternative-icon">api</mat-icon>
+        <div class="flex-column align-items-start flex-spacing-5">
+          <div class="box-heading">Prompt Export</div>
+          <div class="flex-grow">This exports the current team allocation to prompt</div>
+          <button mat-raised-button color="primary" (click)="exportPrompt()">
+            <mat-icon>api</mat-icon>Export to Prompt
+          </button>
+        </div>
+      </div>
     </div>
 
     <div class="capturing-parent">

@@ -35,4 +35,11 @@ export class ProjectsService {
   public getProjects(): Project[] {
     return this.projectsSubject.getValue();
   }
+
+  // TODO: Delete after removing person and team code
+  public getProjectIdByName(name: string): string {
+    const projects = this.projectsSubject.getValue();
+    const project = projects.find(project => project.name === name);
+    return project ? project.id : '';
+  }
 }

@@ -4,8 +4,8 @@ import { TeamService } from '../../shared/layers/business-logic-layer/team.servi
 import { ExamplePersonPropertyCsvRemotePath } from '../../shared/constants/csv.constants';
 import { ConstraintLoggingService } from '../../shared/layers/business-logic-layer/constraint-logging.service';
 import { PromptService } from 'src/app/shared/services/prompt.service';
-import { StudentPersonTransformerService } from 'src/app/shared/services/student-to-person.service';
-import { ProjectTeamTransformerService } from 'src/app/shared/services/project-to-team.service';
+import { StudentToPersonService } from 'src/app/shared/services/student-to-person.service';
+import { ProjectToTeamService } from 'src/app/shared/services/project-to-team.service';
 import { SkillsService } from 'src/app/shared/data/skills.service';
 import { AllocationsService } from 'src/app/shared/data/allocations.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
@@ -23,8 +23,8 @@ export class ImportOverlayComponent implements OverlayComponent {
   constructor(
     private teamService: TeamService,
     private promptService: PromptService,
-    private studentPersonTransformerService: StudentPersonTransformerService,
-    private projectTeamTransformerService: ProjectTeamTransformerService,
+    private studentPersonTransformerService: StudentToPersonService,
+    private projectTeamTransformerService: ProjectToTeamService,
     private skillsService: SkillsService,
     private allocationsService: AllocationsService,
     private projectsService: ProjectsService,

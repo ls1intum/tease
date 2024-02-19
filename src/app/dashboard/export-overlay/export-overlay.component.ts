@@ -8,6 +8,8 @@ import { Person } from '../../shared/models/person';
 import { PersonDetailCardComponent } from '../person-detail-card/person-detail-card.component';
 import { TeamComponent } from '../team/team.component';
 import { Team } from '../../shared/models/team';
+import { TeamsToAllocationsService } from 'src/app/shared/services/teams-to-allocations.service';
+import { PromptService } from 'src/app/shared/services/prompt.service';
 
 @Component({
   selector: 'app-export-overlay',
@@ -37,10 +39,21 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
     logging: false,
   };
 
-  constructor(private teamService: TeamService, private applicationRef: ApplicationRef,) {}
+  constructor(
+    private teamService: TeamService,
+    private applicationRef: ApplicationRef,
+    private teamsToAllocationsService: TeamsToAllocationsService,
+    private promptService: PromptService
+  ) {}
 
   ngOnDestroy() {
     this.destroyed = true;
+  }
+
+  public async exportPrompt() {
+    const teams = this.teamService.teams;
+    const allocations = this.teamsToAllocationsService.transformTeamsToAllocations(teams);
+    await this.promptService.postAllocations(allocations);
   }
 
   exportCSV() {

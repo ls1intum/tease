@@ -6,7 +6,8 @@ import { Person } from '../models/person';
 @Injectable({
   providedIn: 'root',
 })
-export class ProjectTeamTransformerService {
+// TODO: Delete after removing person and team code
+export class ProjectToTeamService {
   constructor() {}
 
   projectsToTeams(projects: Project[], persons: Person[]): Team[] {
