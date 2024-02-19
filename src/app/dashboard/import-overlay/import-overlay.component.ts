@@ -5,8 +5,11 @@ import { ExamplePersonPropertyCsvRemotePath } from '../../shared/constants/csv.c
 import { ConstraintLoggingService } from '../../shared/layers/business-logic-layer/constraint-logging.service';
 import { PromptService } from 'src/app/shared/services/prompt.service';
 import { StudentPersonTransformerService } from 'src/app/shared/services/student-to-person.service';
-import { AuthInterceptor } from 'src/app/shared/interceptors/auth.interceptor';
 import { ProjectTeamTransformerService } from 'src/app/shared/services/project-to-team.service';
+import { SkillsService } from 'src/app/shared/data/skills.service';
+import { AllocationsService } from 'src/app/shared/data/allocations.service';
+import { ProjectsService } from 'src/app/shared/data/projects.service';
+import { StudentsService } from 'src/app/shared/data/students.service';
 
 @Component({
   selector: 'app-import-overlay',
@@ -22,41 +25,36 @@ export class ImportOverlayComponent implements OverlayComponent {
     private promptService: PromptService,
     private studentPersonTransformerService: StudentPersonTransformerService,
     private projectTeamTransformerService: ProjectTeamTransformerService,
-    private authInterceptor: AuthInterceptor
+    private skillsService: SkillsService,
+    private allocationsService: AllocationsService,
+    private projectsService: ProjectsService,
+    private studentService: StudentsService
   ) {}
 
   importFromCSV() {
     this.fileInput.nativeElement.click();
   }
 
-  isPromptImportAvailable(): boolean {
-    return this.getJwtToken() !== null && this.getCourseIteration() !== null;
-  }
-
-  getJwtToken(): string | null {
-    return localStorage.getItem('jwt_token');
-  }
-
-  getCourseIteration(): string | null {
-    return localStorage.getItem('course_iteration');
+  isImportPossible(): boolean {
+    return this.promptService.isImportPossible();
   }
 
   async importFromPrompt(): Promise<void> {
-    const courseIterationId = this.getCourseIteration();
-    const jwtToken = this.getJwtToken();
-    if (!courseIterationId || !jwtToken) {
-      console.log('Course iteration or jwt token not set');
+    if (!this.isImportPossible()) {
       return;
     }
-    this.teamService.clearSavedData();
-    ConstraintLoggingService.reset();
 
-    this.authInterceptor.setAccessToken(jwtToken);
+    const students = await this.promptService.getStudents();
+    const projects = await this.promptService.getProjects();
+    const skills = await this.promptService.getSkills();
+    const allocations = await this.promptService.getAllocations();
 
-    const students = await this.promptService.getStudents(courseIterationId);
-    const projects = await this.promptService.getProjects(courseIterationId);
-    const skills = await this.promptService.getSkills(courseIterationId);
-    const allocations = await this.promptService.getAllocations(courseIterationId);
+    this.studentService.setStudents(students);
+    this.projectsService.setProjects(projects);
+    this.skillsService.setSkills(skills);
+    this.allocationsService.setAllocations(allocations);
+
+    // this.allocationsService.addStudentToProject('tum_id_1', 'ios23ihaus');
 
     const persons = this.studentPersonTransformerService.transformStudentsToPersons(
       students,
@@ -64,11 +62,12 @@ export class ImportOverlayComponent implements OverlayComponent {
       projects,
       allocations
     );
-
     const teams = this.projectTeamTransformerService.projectsToTeams(projects, persons);
 
+    this.teamService.clearSavedData();
     this.teamService.load([persons, teams]);
 
+    ConstraintLoggingService.reset();
     this.data.onTeamsImported();
   }
 

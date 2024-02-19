@@ -46,6 +46,10 @@
   justify-content: center;
 }
 
+.btn-icon:active {
+  border-color: transparent !important;
+}
+
 .btn-icon mat-icon {
   color: $navbar-dark-color;
 }

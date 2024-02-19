@@ -10,6 +10,10 @@ import { Location } from '@angular/common';
 import { ExportOverlayComponent } from './dashboard/export-overlay/export-overlay.component';
 import { ConstraintLoggingService } from './shared/layers/business-logic-layer/constraint-logging.service';
 import { ConstraintsOverlayComponent } from './dashboard/constraints-overlay/constraints-overlay.component';
+import { StudentsService } from './shared/data/students.service';
+import { ProjectsService } from './shared/data/projects.service';
+import { AllocationsService } from './shared/data/allocations.service';
+import { SkillsService } from './shared/data/skills.service';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +34,11 @@ export class AppComponent implements OverlayServiceHost {
     public overlayService: OverlayService,
     private teamService: TeamService,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private location: Location
+    private location: Location,
+    private studentsService: StudentsService,
+    private projectsService: ProjectsService,
+    private allocationsService: AllocationsService,
+    private skillsService: SkillsService
   ) {
     this.overlayService.host = this;
 
@@ -126,6 +134,11 @@ export class AppComponent implements OverlayServiceHost {
 
   // TODO: Remove before merging #86, #75
   async toggleTokens() {
+    this.studentsService.deleteStudents();
+    this.projectsService.deleteProjects();
+    this.skillsService.deleteSkills();
+    this.allocationsService.deleteAllocations();
+
     if (this.areTokensSet()) {
       localStorage.removeItem('jwt_token');
       localStorage.removeItem('course_iteration');

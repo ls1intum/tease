@@ -22,7 +22,7 @@
       <button mat-raised-button color="primary" (click)="importFromCSV()">
         <mat-icon>insert_drive_file</mat-icon>Choose CSV File
       </button>
-      @if (this.isPromptImportAvailable()) {
+      @if (this.isImportPossible()) {
         <button mat-raised-button color="primary" (click)="importFromPrompt()"><mat-icon>api</mat-icon>PROMPT</button>
       }
       <button mat-raised-button color="primary" (click)="loadExampleData()">

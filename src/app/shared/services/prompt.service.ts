@@ -5,6 +5,7 @@ import { v2CourseIterationCourseIterationIdProjectsGet as getProjects } from '..
 import { v2CourseIterationCourseIterationIdSkillsGet as getSkills } from '../../api/fn/skills/v-2-course-iteration-course-iteration-id-skills-get';
 import { v2CourseIterationCourseIterationIdStudentsGet as getStudents } from '../../api/fn/students/v-2-course-iteration-course-iteration-id-students-get';
 import { v2CourseIterationCourseIterationIdAllocationsGet as getAllocations } from '../../api/fn/allocations/v-2-course-iteration-course-iteration-id-allocations-get';
+import { v2CourseIterationCourseIterationIdAllocationsPost as postAllocations } from 'src/app/api/fn/allocations/v-2-course-iteration-course-iteration-id-allocations-post';
 import { lastValueFrom } from 'rxjs';
 import { Skill, Student, Project, Allocation } from 'src/app/api/models';
 
@@ -14,25 +15,41 @@ import { Skill, Student, Project, Allocation } from 'src/app/api/models';
 export class PromptService {
   constructor(private apiService: ApiService) {}
 
-  private async fetchValue<P, R>(fn: ApiFnRequired<P, R>, courseIterationId: string): Promise<R> {
-    const param: P = { courseIterationId: courseIterationId } as P;
+  private async fetchValue<P, R>(fn: ApiFnRequired<P, R>): Promise<R> {
+    const param: P = { courseIterationId: this.getCourseIteration() } as P;
     const values$ = this.apiService.invoke(fn, param);
     return lastValueFrom(values$);
   }
 
-  async getProjects(courseIterationId: string): Promise<Project[]> {
-    return this.fetchValue(getProjects, courseIterationId);
+  public async getProjects(): Promise<Project[]> {
+    return this.fetchValue(getProjects);
   }
 
-  async getSkills(courseIterationId: string): Promise<Skill[]> {
-    return this.fetchValue(getSkills, courseIterationId);
+  public async getSkills(): Promise<Skill[]> {
+    return this.fetchValue(getSkills);
   }
 
-  async getStudents(courseIterationId: string): Promise<Student[]> {
-    return this.fetchValue(getStudents, courseIterationId);
+  public async getStudents(): Promise<Student[]> {
+    return this.fetchValue(getStudents);
   }
 
-  async getAllocations(courseIterationId: string): Promise<Allocation[]> {
-    return this.fetchValue(getAllocations, courseIterationId);
+  public async getAllocations(): Promise<Allocation[]> {
+    return this.fetchValue(getAllocations);
+  }
+
+  public async postAllocations(allocations: Allocation[]): Promise<void> {
+    const params = {
+      courseIterationId: this.getCourseIteration(),
+      body: allocations,
+    };
+    return lastValueFrom(this.apiService.invoke(postAllocations, params));
+  }
+
+  public isImportPossible(): boolean {
+    return this.getCourseIteration() !== null;
+  }
+
+  private getCourseIteration(): string | null {
+    return localStorage.getItem('course_iteration');
   }
 }
