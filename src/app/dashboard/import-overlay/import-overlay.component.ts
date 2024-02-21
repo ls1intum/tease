@@ -54,8 +54,6 @@ export class ImportOverlayComponent implements OverlayComponent {
     this.skillsService.setSkills(skills);
     this.allocationsService.setAllocations(allocations);
 
-    // this.allocationsService.addStudentToProject('tum_id_1', 'ios23ihaus');
-
     const persons = this.studentPersonTransformerService.transformStudentsToPersons(
       students,
       skills,

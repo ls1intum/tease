@@ -8,10 +8,7 @@ import { Student } from 'src/app/api/models';
 export class StudentsService {
   constructor() {
     try {
-      let students = JSON.parse(localStorage.getItem('students'));
-      if (!students) {
-        students = [];
-      }
+      const students = JSON.parse(localStorage.getItem('students')) || [];
       this.studentsSubject.next(students);
     } catch (error) {
       this.studentsSubject.next([]);
@@ -28,11 +25,11 @@ export class StudentsService {
     this.studentsSubject.next(students);
   }
 
-  public deleteStudents(): void {
+  deleteStudents(): void {
     this.studentsSubject.next([]);
   }
 
-  public getStudents(): Student[] {
+  getStudents(): Student[] {
     return this.studentsSubject.getValue();
   }
 }

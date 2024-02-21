@@ -50,7 +50,7 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
     this.destroyed = true;
   }
 
-  public async exportPrompt() {
+  async exportPrompt() {
     const teams = this.teamService.teams;
     const allocations = this.teamsToAllocationsService.transformTeamsToAllocations(teams);
     await this.promptService.postAllocations(allocations);

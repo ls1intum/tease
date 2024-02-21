@@ -28,11 +28,11 @@ export class SkillsService {
     this.skillsSubject.next(skills);
   }
 
-  public deleteSkills(): void {
+  deleteSkills(): void {
     this.skillsSubject.next([]);
   }
 
-  public getSkills(): Skill[] {
+  getSkills(): Skill[] {
     return this.skillsSubject.getValue();
   }
 

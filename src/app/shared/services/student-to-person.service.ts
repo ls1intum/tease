@@ -73,9 +73,6 @@ export class StudentToPersonService {
     //Other
     person.iOSDevExplained = 'iOSDevExplained';
     person.otherSkills = 'otherSkills';
-    if (person.tumId === 'tum_id_1') {
-      console.log(person);
-    }
     return person;
   }
 

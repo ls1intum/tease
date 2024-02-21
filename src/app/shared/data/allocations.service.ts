@@ -8,10 +8,7 @@ import { Allocation } from 'src/app/api/models';
 export class AllocationsService {
   constructor() {
     try {
-      let allocations = JSON.parse(localStorage.getItem('allocations'));
-      if (!allocations) {
-        allocations = [];
-      }
+      const allocations = JSON.parse(localStorage.getItem('allocations')) || [];
       this.allocationsSubject.next(allocations);
     } catch (error) {
       this.allocationsSubject.next([]);
@@ -28,15 +25,15 @@ export class AllocationsService {
     this.allocationsSubject.next(allocations);
   }
 
-  public deleteAllocations(): void {
+  deleteAllocations(): void {
     this.allocationsSubject.next([]);
   }
 
-  public getAllocation(): Allocation[] {
+  getAllocation(): Allocation[] {
     return this.allocationsSubject.getValue();
   }
 
-  public addStudentToProject(studentId: string, projectId: string): void {
+  addStudentToProject(studentId: string, projectId: string): void {
     this.removeStudentFromProjects(studentId);
 
     const allocations = this.getAllocation();
@@ -48,7 +45,7 @@ export class AllocationsService {
     this.allocationsSubject.next(allocations);
   }
 
-  public removeStudentFromProjects(studentId: string): void {
+  removeStudentFromProjects(studentId: string): void {
     const allocations = this.getAllocation();
     allocations.forEach(allocation => {
       allocation.studentIds = allocation.studentIds.filter(id => id !== studentId);

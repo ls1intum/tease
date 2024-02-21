@@ -21,23 +21,23 @@ export class PromptService {
     return lastValueFrom(values$);
   }
 
-  public async getProjects(): Promise<Project[]> {
+  async getProjects(): Promise<Project[]> {
     return this.fetchValue(getProjects);
   }
 
-  public async getSkills(): Promise<Skill[]> {
+  async getSkills(): Promise<Skill[]> {
     return this.fetchValue(getSkills);
   }
 
-  public async getStudents(): Promise<Student[]> {
+  async getStudents(): Promise<Student[]> {
     return this.fetchValue(getStudents);
   }
 
-  public async getAllocations(): Promise<Allocation[]> {
+  async getAllocations(): Promise<Allocation[]> {
     return this.fetchValue(getAllocations);
   }
 
-  public async postAllocations(allocations: Allocation[]): Promise<void> {
+  async postAllocations(allocations: Allocation[]): Promise<void> {
     const params = {
       courseIterationId: this.getCourseIteration(),
       body: allocations,
@@ -45,7 +45,7 @@ export class PromptService {
     return lastValueFrom(this.apiService.invoke(postAllocations, params));
   }
 
-  public isImportPossible(): boolean {
+  isImportPossible(): boolean {
     return this.getCourseIteration() !== null;
   }
 

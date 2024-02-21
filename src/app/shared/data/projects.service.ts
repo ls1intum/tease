@@ -8,10 +8,7 @@ import { Project } from 'src/app/api/models';
 export class ProjectsService {
   constructor() {
     try {
-      let projects = JSON.parse(localStorage.getItem('projects'));
-      if (!projects) {
-        projects = [];
-      }
+      const projects = JSON.parse(localStorage.getItem('projects')) || [];
       this.projectsSubject.next(projects);
     } catch (error) {
       this.projectsSubject.next([]);
@@ -28,16 +25,16 @@ export class ProjectsService {
     this.projectsSubject.next(projects);
   }
 
-  public deleteProjects(): void {
+  deleteProjects(): void {
     this.projectsSubject.next([]);
   }
 
-  public getProjects(): Project[] {
+  getProjects(): Project[] {
     return this.projectsSubject.getValue();
   }
 
   // TODO: Delete after removing person and team code
-  public getProjectIdByName(name: string): string {
+  getProjectIdByName(name: string): string {
     const projects = this.projectsSubject.getValue();
     const project = projects.find(project => project.name === name);
     return project ? project.id : '';
