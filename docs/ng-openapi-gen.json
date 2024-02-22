@@ -1,0 +1,5 @@
+{
+  "apiService": "ApiService",
+  "input": "docs/openapi_spec.yaml",
+  "output": "src/app/api"
+}

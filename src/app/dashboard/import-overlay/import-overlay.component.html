@@ -18,22 +18,16 @@
         <div class="warning-element">Importing new data replaces the current dataset.</div>
       </div>
     }
-    <div class="flex-row flex-grow">
-      <div class="flex-grow flex-column flex-basis-zero alternative-box flex-spacing-10">
-        <div class="align-self-center alternative-heading">Example Data</div>
-        <div>You can use example data to explore and test the app.</div>
-        <button mat-raised-button color="primary" (click)="loadExampleData()">
-          <mat-icon>cloud_download</mat-icon>Load Example Data
-        </button>
-      </div>
-      <div class="seperator"></div>
-      <div class="flex-grow flex-column flex-basis-zero alternative-box flex-spacing-10">
-        <div class="align-self-center alternative-heading">CSV File</div>
-        <div>Data can be loaded from a file in the CSV format.</div>
-        <button mat-raised-button color="primary" (click)="openFileInput()">
-          <mat-icon>insert_drive_file</mat-icon>Choose File
-        </button>
-      </div>
+    <div class="flex-column flex-grow gap-2 p-3">
+      <button mat-raised-button color="primary" (click)="importFromCSV()">
+        <mat-icon>insert_drive_file</mat-icon>Choose CSV File
+      </button>
+      @if (this.isImportPossible()) {
+        <button mat-raised-button color="primary" (click)="importFromPrompt()"><mat-icon>api</mat-icon>PROMPT</button>
+      }
+      <button mat-raised-button color="primary" (click)="loadExampleData()">
+        <mat-icon>cloud_download</mat-icon>Load Example Data
+      </button>
     </div>
   </div>
 </div>

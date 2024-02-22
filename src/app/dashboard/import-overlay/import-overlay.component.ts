@@ -3,6 +3,13 @@ import { OverlayComponent } from '../../overlay.service';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import { ExamplePersonPropertyCsvRemotePath } from '../../shared/constants/csv.constants';
 import { ConstraintLoggingService } from '../../shared/layers/business-logic-layer/constraint-logging.service';
+import { PromptService } from 'src/app/shared/services/prompt.service';
+import { StudentToPersonService } from 'src/app/shared/services/student-to-person.service';
+import { ProjectToTeamService } from 'src/app/shared/services/project-to-team.service';
+import { SkillsService } from 'src/app/shared/data/skills.service';
+import { AllocationsService } from 'src/app/shared/data/allocations.service';
+import { ProjectsService } from 'src/app/shared/data/projects.service';
+import { StudentsService } from 'src/app/shared/data/students.service';
 
 @Component({
   selector: 'app-import-overlay',
@@ -13,10 +20,53 @@ export class ImportOverlayComponent implements OverlayComponent {
   public data: { onTeamsImported: () => void; overwriteWarning: boolean }; // TODO: any should be Array<Team>
   @ViewChild('fileInput') fileInput: ElementRef;
 
-  constructor(private teamService: TeamService) {}
+  constructor(
+    private teamService: TeamService,
+    private promptService: PromptService,
+    private studentPersonTransformerService: StudentToPersonService,
+    private projectTeamTransformerService: ProjectToTeamService,
+    private skillsService: SkillsService,
+    private allocationsService: AllocationsService,
+    private projectsService: ProjectsService,
+    private studentService: StudentsService
+  ) {}
 
-  openFileInput() {
+  importFromCSV() {
     this.fileInput.nativeElement.click();
+  }
+
+  isImportPossible(): boolean {
+    return this.promptService.isImportPossible();
+  }
+
+  async importFromPrompt(): Promise<void> {
+    if (!this.isImportPossible()) {
+      return;
+    }
+
+    const students = await this.promptService.getStudents();
+    const projects = await this.promptService.getProjects();
+    const skills = await this.promptService.getSkills();
+    const allocations = await this.promptService.getAllocations();
+
+    this.studentService.setStudents(students);
+    this.projectsService.setProjects(projects);
+    this.skillsService.setSkills(skills);
+    this.allocationsService.setAllocations(allocations);
+
+    const persons = this.studentPersonTransformerService.transformStudentsToPersons(
+      students,
+      skills,
+      projects,
+      allocations
+    );
+    const teams = this.projectTeamTransformerService.projectsToTeams(projects, persons);
+
+    this.teamService.clearSavedData();
+    this.teamService.load([persons, teams]);
+
+    ConstraintLoggingService.reset();
+    this.data.onTeamsImported();
   }
 
   onFileChanged(event) {
@@ -30,7 +80,7 @@ export class ImportOverlayComponent implements OverlayComponent {
   }
 
   public loadExampleData() {
-    this.teamService.readRemoteData(ExamplePersonPropertyCsvRemotePath).then(success => {
+    this.teamService.readRemoteData(ExamplePersonPropertyCsvRemotePath).then(() => {
       this.data.onTeamsImported();
       ConstraintLoggingService.reset();
     });
