@@ -124,7 +124,7 @@
         <div class="skill-level-label" [ngClass]="'skill-level-label-' + skill.interestLevel">
           <!-- At the moment there is no interestLevel in the Prompt CSV file  -->
           <!-- <div class="skill-level-label" [ngClass]="'skill-level-label-' + skill.interestLevel">
-                <div>{{ CSVConstants.Skills.InterestLevelAnswers[skill.interestLevel] }}</div>  
+                <div>{{ CSVConstants.Skills.InterestLevelAnswers[skill.interestLevel] }}</div>
               </div> -->
         </div>
         @if (skill.justification.length) {
@@ -162,7 +162,7 @@
     </div>
     <!-- student comments -->
     <div class="heading">Student Comments</div>
-    @if (person.studentComments.length) {
+    @if (person.studentComments && person.studentComments.length) {
     <div class="quote-text align-self-start">
       <span class="quotation-mark">“</span>{{ person.studentComments }}<span class="quotation-mark">”</span>
     </div>
@@ -171,7 +171,7 @@
     }
     <!-- tutor comments -->
     <div class="heading">Tutor Comments</div>
-    @if (person.tutorComments.length) {
+    @if (person.tutorComments && person.tutorComments.length) {
     <div class="quote-text align-self-start">
       <span class="quotation-mark">“</span>{{ person.tutorComments }}<span class="quotation-mark">”</span>
     </div>

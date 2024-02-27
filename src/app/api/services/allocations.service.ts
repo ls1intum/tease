@@ -10,10 +10,10 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
 import { Allocation } from '../models/allocation';
-import { v2CourseIterationCourseIterationIdAllocationsGet } from '../fn/allocations/v-2-course-iteration-course-iteration-id-allocations-get';
-import { V2CourseIterationCourseIterationIdAllocationsGet$Params } from '../fn/allocations/v-2-course-iteration-course-iteration-id-allocations-get';
-import { v2CourseIterationCourseIterationIdAllocationsPost } from '../fn/allocations/v-2-course-iteration-course-iteration-id-allocations-post';
-import { V2CourseIterationCourseIterationIdAllocationsPost$Params } from '../fn/allocations/v-2-course-iteration-course-iteration-id-allocations-post';
+import { courseIterationsCourseIterationIdAllocationsGet } from '../fn/allocations/course-iterations-course-iteration-id-allocations-get';
+import { CourseIterationsCourseIterationIdAllocationsGet$Params } from '../fn/allocations/course-iterations-course-iteration-id-allocations-get';
+import { courseIterationsCourseIterationIdAllocationsPost } from '../fn/allocations/course-iterations-course-iteration-id-allocations-post';
+import { CourseIterationsCourseIterationIdAllocationsPost$Params } from '../fn/allocations/course-iterations-course-iteration-id-allocations-post';
 
 @Injectable({ providedIn: 'root' })
 export class AllocationsService extends BaseService {
@@ -21,8 +21,8 @@ export class AllocationsService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `v2CourseIterationCourseIterationIdAllocationsGet()` */
-  static readonly V2CourseIterationCourseIterationIdAllocationsGetPath = '/v2/courseIteration/{courseIterationId}/allocations';
+  /** Path part for operation `courseIterationsCourseIterationIdAllocationsGet()` */
+  static readonly CourseIterationsCourseIterationIdAllocationsGetPath = '/course-iterations/{courseIterationId}/allocations';
 
   /**
    * Retrieve the final result of the matching/allocation.
@@ -30,12 +30,12 @@ export class AllocationsService extends BaseService {
    * After the allocation is concluded, TEASE can report the results (which team each student was assigned to) to PROMPT without needing to repeat/send back all of the information that was initially sent
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `v2CourseIterationCourseIterationIdAllocationsGet()` instead.
+   * To access only the response body, use `courseIterationsCourseIterationIdAllocationsGet()` instead.
    *
    * This method doesn't expect any request body.
    */
-  v2CourseIterationCourseIterationIdAllocationsGet$Response(params: V2CourseIterationCourseIterationIdAllocationsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Allocation>>> {
-    return v2CourseIterationCourseIterationIdAllocationsGet(this.http, this.rootUrl, params, context);
+  courseIterationsCourseIterationIdAllocationsGet$Response(params: CourseIterationsCourseIterationIdAllocationsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Allocation>>> {
+    return courseIterationsCourseIterationIdAllocationsGet(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -44,18 +44,18 @@ export class AllocationsService extends BaseService {
    * After the allocation is concluded, TEASE can report the results (which team each student was assigned to) to PROMPT without needing to repeat/send back all of the information that was initially sent
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `v2CourseIterationCourseIterationIdAllocationsGet$Response()` instead.
+   * To access the full response (for headers, for example), `courseIterationsCourseIterationIdAllocationsGet$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  v2CourseIterationCourseIterationIdAllocationsGet(params: V2CourseIterationCourseIterationIdAllocationsGet$Params, context?: HttpContext): Observable<Array<Allocation>> {
-    return this.v2CourseIterationCourseIterationIdAllocationsGet$Response(params, context).pipe(
+  courseIterationsCourseIterationIdAllocationsGet(params: CourseIterationsCourseIterationIdAllocationsGet$Params, context?: HttpContext): Observable<Array<Allocation>> {
+    return this.courseIterationsCourseIterationIdAllocationsGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<Allocation>>): Array<Allocation> => r.body)
     );
   }
 
-  /** Path part for operation `v2CourseIterationCourseIterationIdAllocationsPost()` */
-  static readonly V2CourseIterationCourseIterationIdAllocationsPostPath = '/v2/courseIteration/{courseIterationId}/allocations';
+  /** Path part for operation `courseIterationsCourseIterationIdAllocationsPost()` */
+  static readonly CourseIterationsCourseIterationIdAllocationsPostPath = '/course-iterations/{courseIterationId}/allocations';
 
   /**
    * Submit the final result of the matching/allocation.
@@ -63,12 +63,12 @@ export class AllocationsService extends BaseService {
    * After the allocation is concluded, TEASE can report the results (which team each student was assigned to) to PROMPT without needing to repeat/send back all of the information that was initially sent
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `v2CourseIterationCourseIterationIdAllocationsPost()` instead.
+   * To access only the response body, use `courseIterationsCourseIterationIdAllocationsPost()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  v2CourseIterationCourseIterationIdAllocationsPost$Response(params: V2CourseIterationCourseIterationIdAllocationsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return v2CourseIterationCourseIterationIdAllocationsPost(this.http, this.rootUrl, params, context);
+  courseIterationsCourseIterationIdAllocationsPost$Response(params: CourseIterationsCourseIterationIdAllocationsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return courseIterationsCourseIterationIdAllocationsPost(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -77,12 +77,12 @@ export class AllocationsService extends BaseService {
    * After the allocation is concluded, TEASE can report the results (which team each student was assigned to) to PROMPT without needing to repeat/send back all of the information that was initially sent
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `v2CourseIterationCourseIterationIdAllocationsPost$Response()` instead.
+   * To access the full response (for headers, for example), `courseIterationsCourseIterationIdAllocationsPost$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  v2CourseIterationCourseIterationIdAllocationsPost(params: V2CourseIterationCourseIterationIdAllocationsPost$Params, context?: HttpContext): Observable<void> {
-    return this.v2CourseIterationCourseIterationIdAllocationsPost$Response(params, context).pipe(
+  courseIterationsCourseIterationIdAllocationsPost(params: CourseIterationsCourseIterationIdAllocationsPost$Params, context?: HttpContext): Observable<void> {
+    return this.courseIterationsCourseIterationIdAllocationsPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

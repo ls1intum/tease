@@ -47,21 +47,24 @@ export class StudentToPersonService {
     person.gravatarUrl = IconMapperService.getGravatarIcon(student.email);
 
     //LanguageProficiency
-    person.germanLanguageLevel = this.getLanguageProficiency(student, 'de');
-    person.englishLanguageLevel = this.getLanguageProficiency(student, 'en');
+    person.germanLanguageLevel = this.getLanguageProficiency(student, 'de') || LanguageProficiency.A1A2;
+    person.englishLanguageLevel = this.getLanguageProficiency(student, 'en') || LanguageProficiency.A1A2;
 
     //Skills
     person.skills = this.getSkills(student.skills);
-    person.supervisorRating = this.getSkillLevel(student.introCourseProficiency);
-    person.iosDev = this.getIOSDev(student.introSelfAssessment);
+    person.supervisorRating = this.getSkillLevel(student.introCourseProficiency) || SkillLevel.None;
+    person.iosDev =
+      this.getIOSDev(student.introSelfAssessment) ||
+      'I have no experience in Apple platform development other than the intro course.';
 
     //University
     person.semester = student.semester;
     person.major = student.studyDegree + ' ' + student.studyProgram;
 
     //Comments
-    person.tutorComments = student.tutorComments.map(c => c.text).join('\n');
-    person.studentComments = student.studentComments.map(c => c.text).join('\n');
+    if (student.tutorComments !== null) person.tutorComments = student.tutorComments.map(c => c.text).join('\n');
+
+    if (student.studentComments !== null) person.studentComments = student.studentComments.map(c => c.text).join('\n');
 
     //Priorities
     person.teamPriorities = student.projectPreferences.sort(p => p.priority).map(p => this.getProjectName(p.projectId));
@@ -73,13 +76,16 @@ export class StudentToPersonService {
     //Other
     person.iOSDevExplained = 'iOSDevExplained';
     person.otherSkills = 'otherSkills';
+    if (student.id === '52971014-fde7-45c6-8ebc-251603f20bd4') {
+      console.log(person);
+    }
     return person;
   }
 
   private getTeamName(studentId: string): string {
     return (
       this.allocationsPrompt
-        .filter(a => a.studentIds.includes(studentId))
+        .filter(a => a.students.includes(studentId))
         .map(a => this.getProjectName(a.projectId))[0] || ''
     );
   }

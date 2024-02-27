@@ -31,18 +31,11 @@
             "outputPath": "dist/tease",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [
-              "zone.js",
-              "./window-global-fix.ts"
-            ],
+            "polyfills": ["zone.js", "./window-global-fix.ts"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/assets"],
+            "styles": ["src/styles.scss", "node_modules/ngx-toastr/toastr.css"],
             "scripts": []
           },
           "configurations": {
@@ -118,10 +111,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
@@ -135,10 +125,6 @@
       "path": ".cache",
       "environment": "all"
     },
-    "schematicCollections": [
-      "@cypress/schematic",
-      "@angular-eslint/schematics",
-      "@schematics/angular"
-    ]
+    "schematicCollections": ["@cypress/schematic", "@angular-eslint/schematics", "@schematics/angular"]
   }
 }
