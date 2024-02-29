@@ -76,9 +76,7 @@ export class StudentToPersonService {
     //Other
     person.iOSDevExplained = 'iOSDevExplained';
     person.otherSkills = 'otherSkills';
-    if (student.id === '52971014-fde7-45c6-8ebc-251603f20bd4') {
-      console.log(person);
-    }
+
     return person;
   }
 
