@@ -33,12 +33,12 @@
 
 
 //tease 2.0
-.bg-artemis-dark {
-  background-color: $artemis-dark !important;
+.bg-dark {
+  background-color: $dark !important;
 }
 
-.bg-artemis-primary {
-  background-color: $artemis-primary !important;
+.bg-primary {
+  background-color: $primary !important;
 }
 
 .btn-icon {
@@ -51,10 +51,86 @@
 }
 
 .btn-icon mat-icon {
-  color: $navbar-dark-color;
+  color: $white;
 }
 
 .btn-icon:hover mat-icon {
-  color: $artemis-primary;
+  color: $primary;
 }
 
+.border-radius-8 {
+    border-radius: 0.5rem;
+}
+
+.border-radius-16 {
+    border-radius: 1rem;
+}
+
+.bg-card {
+  background-color: $card-background;
+}
+
+.bg-primary-20 {
+  background-color: $primary-20;
+}
+
+.bg-tile-priority {
+  background-color: $tile-priority-background;
+}
+
+.bg-skill-novice {
+    background-color: $skill-novice;
+}
+
+.bg-skill-intermediate {
+    background-color: $skill-intermediate;
+}
+
+.bg-skill-advanced {
+    background-color: $skill-advanced;
+}
+
+.bg-skill-expert {
+    background-color: $skill-expert;
+}
+
+.bg-inactive {
+  background-color: $inactive;
+}
+
+.bg-tile {
+  background-color: $tile-background;
+}
+
+.skill-circle {
+    width: 0.75rem;
+    height: 0.75rem;
+}
+
+.text-prefix {
+    color: $text-prefix;
+}
+
+.text-dark {
+    color: $dark;
+}
+
+.text-primary-high-contrast {
+    color: $primary-high-contrast;
+}
+
+.fill-active, .fill-dark {
+    fill: $dark;
+}
+
+.fill-white {
+    fill: $white;
+}
+
+.fill-primary-high-contrast {
+    fill: $primary-high-contrast;
+}
+
+.fill-inactive {
+    fill: $inactive;
+}

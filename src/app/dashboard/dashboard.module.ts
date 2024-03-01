@@ -27,6 +27,7 @@ import { ExportOverlayComponent } from './export-overlay/export-overlay.componen
 import { PersonDetailCardComponent } from './person-detail-card/person-detail-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
+import { StudentPreviewCardComponent } from './student-preview-card/student-preview-card.component';
 
 @NgModule({
   imports: [
@@ -60,6 +61,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     IntroCardComponent,
     ExportOverlayComponent,
     PersonDetailCardComponent,
+    StudentPreviewCardComponent,
   ],
   exports: [DashboardComponent, PersonDetailOverlayComponent, ImportOverlayComponent],
   providers: [],
