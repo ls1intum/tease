@@ -33,6 +33,12 @@ export class ProjectsService {
     return this.projectsSubject.getValue();
   }
 
+  getProjectNameById(id: string): string {
+    const projects = this.getProjects();
+    const project = projects.find(project => project.id === id);
+    return project.name;
+  }
+
   // TODO: Delete after removing person and team code
   getProjectIdByName(name: string): string {
     const projects = this.projectsSubject.getValue();

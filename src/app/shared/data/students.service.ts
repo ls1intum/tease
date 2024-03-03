@@ -32,4 +32,8 @@ export class StudentsService {
   getStudents(): Student[] {
     return this.studentsSubject.getValue();
   }
+
+  getStudentById(id: string): Student {
+    return this.studentsSubject.getValue().find(student => student.id === id);
+  }
 }

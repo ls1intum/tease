@@ -29,14 +29,14 @@ export class AllocationsService {
     this.allocationsSubject.next([]);
   }
 
-  getAllocation(): Allocation[] {
+  getAllocations(): Allocation[] {
     return this.allocationsSubject.getValue();
   }
 
   addStudentToProject(studentId: string, projectId: string): void {
     this.removeStudentFromProjects(studentId);
 
-    const allocations = this.getAllocation();
+    const allocations = this.getAllocations();
     const allocation = allocations.find(a => a.projectId === projectId);
 
     if (allocation) {
@@ -46,7 +46,7 @@ export class AllocationsService {
   }
 
   removeStudentFromProjects(studentId: string): void {
-    const allocations = this.getAllocation();
+    const allocations = this.getAllocations();
     allocations.forEach(allocation => {
       allocation.studentIds = allocation.studentIds.filter(id => id !== studentId);
     });

@@ -8,7 +8,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PersonPreviewComponent } from './person-preview/person-preview.component';
 import { DragulaModule } from 'ng2-dragula';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
@@ -48,7 +47,6 @@ import { StudentPreviewCardComponent } from './student-preview-card/student-prev
   declarations: [
     DashboardComponent,
     TeamComponent,
-    PersonPreviewComponent,
     PersonDetailOverlayComponent,
     TeamStatisticsComponent,
     TeamPrioritiesChartComponent,
