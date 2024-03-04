@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiConfiguration {
-  rootUrl: string = 'https://prompt.ase.cit.tum.de/tease';
+  rootUrl: string = 'https://prompt.ase.cit.tum.de/api/tease';
 }
 
 /**
