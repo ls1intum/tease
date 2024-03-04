@@ -62,9 +62,10 @@ export class StudentToPersonService {
     person.major = student.studyDegree + ' ' + student.studyProgram;
 
     //Comments
-    if (student.tutorComments !== null) person.tutorComments = student.tutorComments.map(c => c.text).join('\n');
+    if (student.tutorComments) person.tutorComments = student.tutorComments.map(comment => comment.text).join('\n');
 
-    if (student.studentComments !== null) person.studentComments = student.studentComments.map(c => c.text).join('\n');
+    if (student.studentComments)
+      person.studentComments = student.studentComments.map(comment => comment.text).join('\n');
 
     //Priorities
     person.teamPriorities = student.projectPreferences.sort(p => p.priority).map(p => this.getProjectName(p.projectId));

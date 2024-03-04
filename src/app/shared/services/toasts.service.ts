@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IndividualConfig, ToastrService } from 'ngx-toastr';
+import { GlobalConfig, IndividualConfig, ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -8,8 +8,7 @@ export class ToastsService {
   constructor(private toastr: ToastrService) {}
 
   showToast(message: string, title: string, isSuccess: boolean): void {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const options: Partial<IndividualConfig<any>> = {
+    const options: Partial<IndividualConfig<GlobalConfig>> = {
       timeOut: 3000,
       progressBar: true,
       closeButton: true,
