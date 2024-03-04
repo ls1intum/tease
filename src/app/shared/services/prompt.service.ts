@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../api/api.service';
 import { ApiFnRequired } from '../../api/api.service';
-import { v2CourseIterationCourseIterationIdProjectsGet as getProjects } from '../../api/fn/projects/v-2-course-iteration-course-iteration-id-projects-get';
-import { v2CourseIterationCourseIterationIdSkillsGet as getSkills } from '../../api/fn/skills/v-2-course-iteration-course-iteration-id-skills-get';
-import { v2CourseIterationCourseIterationIdStudentsGet as getStudents } from '../../api/fn/students/v-2-course-iteration-course-iteration-id-students-get';
-import { v2CourseIterationCourseIterationIdAllocationsGet as getAllocations } from '../../api/fn/allocations/v-2-course-iteration-course-iteration-id-allocations-get';
-import { v2CourseIterationCourseIterationIdAllocationsPost as postAllocations } from 'src/app/api/fn/allocations/v-2-course-iteration-course-iteration-id-allocations-post';
-import { lastValueFrom } from 'rxjs';
+import { courseIterationsCourseIterationIdProjectsGet as getProjects } from '../../api/fn/projects/course-iterations-course-iteration-id-projects-get';
+import { courseIterationsCourseIterationIdSkillsGet as getSkills } from '../../api/fn/skills/course-iterations-course-iteration-id-skills-get';
+import { courseIterationsCourseIterationIdStudentsGet as getStudents } from '../../api/fn/students/course-iterations-course-iteration-id-students-get';
+import { courseIterationsCourseIterationIdAllocationsGet as getAllocations } from '../../api/fn/allocations/course-iterations-course-iteration-id-allocations-get';
+import { courseIterationsCourseIterationIdAllocationsPost as postAllocations } from 'src/app/api/fn/allocations/course-iterations-course-iteration-id-allocations-post';
+import { Observable, lastValueFrom } from 'rxjs';
 import { Skill, Student, Project, Allocation } from 'src/app/api/models';
+import { StrictHttpResponse } from 'src/app/api/strict-http-response';
 
 @Injectable({
   providedIn: 'root',
@@ -37,12 +38,13 @@ export class PromptService {
     return this.fetchValue(getAllocations);
   }
 
-  async postAllocations(allocations: Allocation[]): Promise<void> {
+  async postAllocations(allocations: Allocation[]): Promise<boolean> {
     const params = {
       courseIterationId: this.getCourseIteration(),
       body: allocations,
     };
-    return lastValueFrom(this.apiService.invoke(postAllocations, params));
+    const result: Observable<StrictHttpResponse<void>> = this.apiService.invoke$Response(postAllocations, params);
+    return (await lastValueFrom(result)).ok;
   }
 
   isImportPossible(): boolean {

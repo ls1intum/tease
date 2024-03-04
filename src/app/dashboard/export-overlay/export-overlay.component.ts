@@ -10,6 +10,8 @@ import { TeamComponent } from '../team/team.component';
 import { Team } from '../../shared/models/team';
 import { TeamsToAllocationsService } from 'src/app/shared/services/teams-to-allocations.service';
 import { PromptService } from 'src/app/shared/services/prompt.service';
+import { ToastsService } from 'src/app/shared/services/toasts.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-export-overlay',
@@ -43,7 +45,8 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
     private teamService: TeamService,
     private applicationRef: ApplicationRef,
     private teamsToAllocationsService: TeamsToAllocationsService,
-    private promptService: PromptService
+    private promptService: PromptService,
+    private toastsService: ToastsService
   ) {}
 
   ngOnDestroy() {
@@ -53,7 +56,20 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
   async exportPrompt() {
     const teams = this.teamService.teams;
     const allocations = this.teamsToAllocationsService.transformTeamsToAllocations(teams);
-    await this.promptService.postAllocations(allocations);
+    try {
+      if (await this.promptService.postAllocations(allocations)) {
+        this.toastsService.showToast('Export successful', 'Export', true);
+      } else {
+        this.toastsService.showToast('Export failed', 'Export', false);
+      }
+    } catch (error) {
+      if (error instanceof HttpErrorResponse) {
+        console.log('Error while fetching data: ', error);
+        this.toastsService.showToast(`Error ${error.status}: ${error.statusText}`, 'Export failed', false);
+      } else {
+        console.log('Unknown error: ', error);
+      }
+    }
   }
 
   exportCSV() {

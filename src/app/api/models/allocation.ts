@@ -6,5 +6,5 @@
  */
 export interface Allocation {
   projectId: string;
-  studentIds: Array<string>;
+  students: Array<string>;
 }

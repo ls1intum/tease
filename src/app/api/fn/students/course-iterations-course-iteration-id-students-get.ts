@@ -6,9 +6,9 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { Skill } from '../../models/skill';
+import { Student } from '../../models/student';
 
-export interface V2CourseIterationCourseIterationIdSkillsGet$Params {
+export interface CourseIterationsCourseIterationIdStudentsGet$Params {
 
 /**
  * Unique identifier of the course iteration
@@ -16,8 +16,8 @@ export interface V2CourseIterationCourseIterationIdSkillsGet$Params {
   courseIterationId: string;
 }
 
-export function v2CourseIterationCourseIterationIdSkillsGet(http: HttpClient, rootUrl: string, params: V2CourseIterationCourseIterationIdSkillsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Skill>>> {
-  const rb = new RequestBuilder(rootUrl, v2CourseIterationCourseIterationIdSkillsGet.PATH, 'get');
+export function courseIterationsCourseIterationIdStudentsGet(http: HttpClient, rootUrl: string, params: CourseIterationsCourseIterationIdStudentsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Student>>> {
+  const rb = new RequestBuilder(rootUrl, courseIterationsCourseIterationIdStudentsGet.PATH, 'get');
   if (params) {
     rb.path('courseIterationId', params.courseIterationId, {});
   }
@@ -27,9 +27,9 @@ export function v2CourseIterationCourseIterationIdSkillsGet(http: HttpClient, ro
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<Skill>>;
+      return r as StrictHttpResponse<Array<Student>>;
     })
   );
 }
 
-v2CourseIterationCourseIterationIdSkillsGet.PATH = '/v2/courseIteration/{courseIterationId}/skills';
+courseIterationsCourseIterationIdStudentsGet.PATH = '/course-iterations/{courseIterationId}/students';

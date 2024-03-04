@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DragulaModule } from 'ng2-dragula';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { HighlightingToolbarComponent } from './highlighting-toolbar/highlighting-toolbar.component';
@@ -51,11 +53,13 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     ReactiveFormsModule,
     MatTooltipModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     /* own modules */
     SharedModule,
     DashboardModule,
     MatMenuModule,
-    environment.production ? ApiModule : ApiModule.forRoot({ rootUrl: 'http://localhost:3001/tease' }),
+    environment.production ? ApiModule : ApiModule.forRoot({ rootUrl: 'http://localhost:3001/api/tease' }),
   ],
   providers: [
     TeamService,
