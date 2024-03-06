@@ -99,7 +99,7 @@
   background-color: $tile-background;
 }
 
-/* Button Styles */ 
+/* Button Styles */
 .btn-icon {
   display: flex;
   justify-content: center;
@@ -117,11 +117,7 @@
   color: $primary;
 }
 
-/* Border Styles */ 
-.ngx-toastr {
-    box-shadow: 0 0 0px 0 rgba(0, 0, 0, 0) !important;
-}
-
+/* Border Styles */
 .border-radius-8 {
     border-radius: 0.5rem;
 }
@@ -130,7 +126,7 @@
     border-radius: 1rem;
 }
 
-/* Text Color Styles */ 
+/* Text Color Styles */
 
 .text-prefix {
     color: $text-prefix;
@@ -163,7 +159,6 @@
 }
 
 /* Other Styles */
-
 .default-cursor {
   cursor: default;
 }
@@ -174,4 +169,8 @@
 
 .gap-05 {
   gap: 0.125rem;
+}
+
+.ngx-toastr {
+    box-shadow: 0 0 0px 0 rgba(0, 0, 0, 0) !important;
 }

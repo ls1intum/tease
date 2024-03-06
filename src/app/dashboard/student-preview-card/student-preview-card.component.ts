@@ -47,7 +47,7 @@ export class StudentPreviewCardComponent implements OnInit {
 
   private getProjectPreferenceScore(): string {
     if (this.projectId) {
-      return this.student.projectPreferences.find(p => p.projectId === this.projectId).priority.toString() || '#';
+      return (this.student.projectPreferences.find(p => p.projectId === this.projectId).priority + 1).toString() || '#';
     }
     return '#';
   }
@@ -56,7 +56,7 @@ export class StudentPreviewCardComponent implements OnInit {
     return this.student.projectPreferences
       .sort((a, b) => a.priority - b.priority)
       .map(p => ({
-        priority: p.priority,
+        priority: p.priority + 1,
         name: this.projectsService.getProjectNameById(p.projectId),
         assigned: this.projectId === p.projectId,
       }));

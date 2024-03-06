@@ -3,9 +3,6 @@
 /* Student Name Styles */
 
 .student-name-wrapper {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
   overflow: hidden;
   width: 10rem;
 }
@@ -19,6 +16,10 @@
 }
 
 .student-name-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 400;
@@ -128,14 +129,15 @@
 }
 
 .project-preference-tile {
-  width: 3.5rem;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
   overflow: hidden;
+  width: 3.5rem;
 }
 
 .project-preference-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+
   font-size: 0.6875rem;
   font-style: normal;
   font-weight: 400;
