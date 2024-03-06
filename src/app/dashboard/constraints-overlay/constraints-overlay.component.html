@@ -46,6 +46,21 @@
       }
     </div>
 
+    <mat-form-field>
+      <mat-label>Constraint</mat-label>
+      <mat-select [formControl]="constraintControl" [(ngModel)]="propertySelected">
+        <mat-option>-- None --</mat-option>
+        @for (selectGroup of propertySelectGroups; track selectGroup) {
+          <mat-optgroup [label]="selectGroup.name">
+            @for (selectValues of selectGroup.values; track selectValues) {
+              <mat-option [value]="selectValues.value">{{ selectValues.name }}</mat-option>
+            }
+          </mat-optgroup>
+        }
+      </mat-select>
+    </mat-form-field>
+    <p>{{ propertySelected }}</p>
+
     <div class="dialog-footer flex-row-reverse flex-center p-3">
       <button
         mat-raised-button

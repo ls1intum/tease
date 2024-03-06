@@ -32,6 +32,10 @@ import { OverlayHostDirective } from './overlay-host.directive';
 import { environment } from '../environments/environment';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 
+import { FormControl } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
   useExisting: forwardRef(() => AuthInterceptor),
@@ -55,6 +59,8 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     SharedModule,
     DashboardModule,
     MatMenuModule,
+    MatInputModule,
+    MatFormFieldModule,
     environment.production ? ApiModule : ApiModule.forRoot({ rootUrl: 'http://localhost:3001/tease' }),
   ],
   providers: [

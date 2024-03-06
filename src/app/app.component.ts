@@ -105,7 +105,7 @@ export class AppComponent implements OverlayServiceHost {
   }
 
   openConstraintsDialog(): void {
-    this.overlayService.displayComponent(ConstraintsOverlayComponent, { displayWarning: !this.areAllTeamsEmpty() });
+    this.overlayService.displayComponent(ConstraintsOverlayComponent, {});
   }
 
   protected areAllTeamsEmpty(): boolean {

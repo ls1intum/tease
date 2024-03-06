@@ -5,6 +5,10 @@ import { ConstraintService } from '../../shared/layers/business-logic-layer/cons
 import { TeamGenerationService } from '../../shared/layers/business-logic-layer/team-generation/team-generation.service';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import { ConstraintLoggingService } from '../../shared/layers/business-logic-layer/constraint-logging.service';
+import { FormControl } from '@angular/forms';
+import { SelectData, SelectGroup } from 'src/app/shared/matching/constraints-2/constraint-function';
+import { ConstraintFunctionGeneratorService } from 'src/app/shared/matching/constraints-2/constraint-function-generator.service';
+import { StudentsService } from 'src/app/shared/data/students.service';
 
 @Component({
   selector: 'app-constraints-overlay',
@@ -25,7 +29,9 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
     private constraintService: ConstraintService,
     private teamGenerationService: TeamGenerationService,
     public teamService: TeamService,
-    private overlayService: OverlayService
+    private overlayService: OverlayService,
+    private constraintFunctionGeneratorService: ConstraintFunctionGeneratorService,
+    private studentsService: StudentsService
   ) {}
 
   ngOnInit() {
@@ -34,6 +40,14 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
       this.globalConstraints = this.getGlobalConstraints();
       this.teamConstraints = this.groupByTeam(this.constraints);
     });
+
+    this.propertySelectGroups = this.constraintFunctionGeneratorService.getProperties(
+      this.studentsService.getStudents(),
+      'ios23bsh'
+    );
+
+    this.operatorSelectData = [];
+    this.valueSelectData = [];
   }
 
   ngOnDestroy(): void {
@@ -99,4 +113,12 @@ export class ConstraintsOverlayComponent implements OnInit, OnDestroy, OverlayCo
     }, Object.create(null));
     return result;
   }
+
+  constraintControl = new FormControl('');
+  propertySelectGroups: SelectGroup[];
+  propertySelected: string;
+  operatorSelectData: SelectData[];
+  operatorSelected: string;
+  valueSelectData: SelectData[];
+  valueSelected: string;
 }
