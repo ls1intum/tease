@@ -14,6 +14,7 @@
     "start": "ng serve --configuration development --host 0.0.0.0 --port 80 --disable-host-check",
     "build": "ng build --stats-json",
     "build:prod": "ng build --configuration production --stats-json",
+    "build:traefik": "ng build --configuration production --base-href /tease/ --stats-json",
     "watch": "ng build --watch --configuration development",
     "lint": "ng lint",
     "lint:fix": "eslint --fix --ext .ts \"src/{app,test}/**/*.ts\"",
