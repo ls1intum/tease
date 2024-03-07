@@ -32,9 +32,9 @@ import { OverlayHostDirective } from './overlay-host.directive';
 import { environment } from '../environments/environment';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 
-import { FormControl } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ConstraintsOverlay2Component } from './dashboard/constraints-overlay-2/constraints-overlay-2.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -43,7 +43,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
 };
 
 @NgModule({
-  declarations: [AppComponent, OverlayHostDirective, HighlightingToolbarComponent],
+  declarations: [AppComponent, OverlayHostDirective, HighlightingToolbarComponent, ConstraintsOverlay2Component],
   imports: [
     /* external modules */
     BrowserModule,

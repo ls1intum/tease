@@ -1,5 +1,5 @@
 import { StudentConstraintFunction } from './student-constraint-function';
-import { Comparator, Operator } from '../constraint-utils';
+import { Comparator, Operator } from '../../constraints-2/constraint-utils';
 import { Device } from 'src/app/api/models';
 
 export class DevicesConstraintFunction extends StudentConstraintFunction {

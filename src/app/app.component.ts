@@ -14,6 +14,7 @@ import { StudentsService } from './shared/data/students.service';
 import { ProjectsService } from './shared/data/projects.service';
 import { AllocationsService } from './shared/data/allocations.service';
 import { SkillsService } from './shared/data/skills.service';
+import { ConstraintsOverlay2Component } from './dashboard/constraints-overlay-2/constraints-overlay-2.component';
 
 @Component({
   selector: 'app-root',
@@ -125,5 +126,9 @@ export class AppComponent implements OverlayServiceHost {
   public closeOverlay() {
     this.overlayVisible = false;
     this.overlayHostDirective.viewContainerRef.clear();
+  }
+
+  showConstraintsOverlay2(): void {
+    this.overlayService.displayComponent(ConstraintsOverlay2Component, {});
   }
 }

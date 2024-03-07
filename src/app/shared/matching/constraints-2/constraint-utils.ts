@@ -31,6 +31,16 @@ export const SkillLevels: Record<string, number> = {
   [SkillProficiency.Expert]: 4,
 };
 
-export function mapStudentAndProject(studentId, projectId): string {
-  return `${studentId}|${projectId}`;
+export const valueSeparator = '<#>';
+
+export function mapTwoValues(studentId, projectId): string {
+  return `${studentId}${valueSeparator}${projectId}`;
+}
+
+export function splitTwoValues(value: string): string[] {
+  return value.split(valueSeparator);
+}
+
+export function getOperatorFromValue(value: string): Operator {
+  return Object.values(Operator).find(operator => operator === value);
 }

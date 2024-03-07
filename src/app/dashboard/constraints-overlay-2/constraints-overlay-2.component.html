@@ -1,0 +1,92 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="w-75">
+    <div class="bg-white p-4" (click)="$event.stopPropagation()">
+      <div class="d-flex gap-4 p-4 bg-dark">
+        <div class="form-floating w-100">
+          <select
+            class="form-select"
+            id="ProjectSelect"
+            [(ngModel)]="constraintProjectSelected"
+            (ngModelChange)="getConstraintFunction()">
+            @for (selectGroup of constraintProjectSelectData; track selectGroup) {
+              <option [value]="selectGroup.value">{{ selectGroup.name }}</option>
+            }
+          </select>
+          <label for="ProjectSelect">Project</label>
+        </div>
+
+        <div class="form-floating w-100">
+          <select
+            class="form-select"
+            id="ConstraintPropertySelect"
+            [(ngModel)]="constraintFunctionPropertySelected"
+            (ngModelChange)="selectData()">
+            @for (selectGroup of constraintFunctionPropertySelectGroups; track selectGroup) {
+              <optgroup [label]="selectGroup.name">
+                @for (selectData of selectGroup.values; track selectData) {
+                  <option [value]="selectData.value">{{ selectData.name }}</option>
+                }
+              </optgroup>
+            }
+          </select>
+          <label for="ConstraintPropertySelect">Property</label>
+        </div>
+
+        <div class="form-floating w-100">
+          <select
+            class="form-select"
+            id="ConstraintFunctionOperatorSelect"
+            [(ngModel)]="constraintFunctionOperatorSelected"
+            (ngModelChange)="getConstraintFunction()">
+            @for (selectData of constraintFunctionOperatorSelectData; track selectData) {
+              <option [value]="selectData.value">{{ selectData.name }}</option>
+            }
+          </select>
+          <label for="ConstraintFunctionOperatorSelect">Operator</label>
+        </div>
+
+        <div class="form-floating w-100">
+          <select
+            class="form-select"
+            id="ConstraintFunctionValueSelect"
+            [(ngModel)]="constraintFunctionValueSelected"
+            (ngModelChange)="getConstraintFunction()">
+            @for (selectData of constraintFunctionValueSelectData; track selectData) {
+              <option [value]="selectData.value">{{ selectData.name }}</option>
+            }
+          </select>
+          <label for="ConstraintFunctionValueSelect">Value</label>
+        </div>
+
+        <div class="form-floating w-100">
+          <select
+            class="form-select"
+            id="OperatorSelect"
+            [(ngModel)]="constraintOperatorSelected"
+            (ngModelChange)="getConstraintFunction()">
+            @for (selectData of constraintOperatorSelectData; track selectData) {
+              <option [value]="selectData.value">{{ selectData.name }}</option>
+            }
+          </select>
+          <label for="OperatorSelect">Value</label>
+        </div>
+
+        <div class="form-floating w-100">
+          <input
+            type="number"
+            class="form-control"
+            id="ThresholdInput"
+            [(ngModel)]="constraintThresholdValue"
+            (ngModelChange)="getConstraintFunction()" />
+          <label for="ThresholdInput">Threshold</label>
+        </div>
+      </div>
+
+      <div style="height: 10rem" class="overflow-y-scroll my-5 bg-dark p-3 w-100">
+        @for (constraintFunction of constraintFunctions; track constraintFunction) {
+          <p class="text-white">{{ constraintFunction }}</p>
+        }
+      </div>
+    </div>
+  </div>
+</div>

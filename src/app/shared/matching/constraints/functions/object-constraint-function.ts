@@ -1,6 +1,6 @@
 import { Student } from 'src/app/api/models';
 import { StudentConstraintFunction } from './student-constraint-function';
-import { Operator } from '../constraint-utils';
+import { Operator } from '../../constraints-2/constraint-utils';
 
 export abstract class ObjectConstraintFunction extends StudentConstraintFunction {
   protected constructor(

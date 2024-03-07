@@ -1,6 +1,6 @@
 import { Student } from 'src/app/api/models';
 import { ConstraintFunction } from './functions/constraint-function';
-import { Operator } from './constraint-utils';
+import { Operator } from '../constraints-2/constraint-utils';
 
 export class Constraint {
   constructor(

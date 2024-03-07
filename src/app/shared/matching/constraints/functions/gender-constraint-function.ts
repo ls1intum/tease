@@ -1,4 +1,4 @@
-import { Comparator, Operator } from '../constraint-utils';
+import { Comparator, Operator } from '../../constraints-2/constraint-utils';
 import { StudentConstraintFunction } from './student-constraint-function';
 
 export class GenderConstraintFunction extends StudentConstraintFunction {

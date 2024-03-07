@@ -1,5 +1,5 @@
 import { StudentSkill } from 'src/app/api/models';
-import { Comparator, Operator, SkillLevels } from '../constraint-utils';
+import { Comparator, Operator, SkillLevels } from '../../constraints-2/constraint-utils';
 import { ObjectConstraintFunction } from './object-constraint-function';
 
 export class SkillsConstraintFunction extends ObjectConstraintFunction {

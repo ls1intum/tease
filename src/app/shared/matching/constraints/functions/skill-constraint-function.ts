@@ -1,4 +1,4 @@
-import { Comparator, Operator, SkillLevels } from '../constraint-utils';
+import { Comparator, Operator, SkillLevels } from '../../constraints-2/constraint-utils';
 import { StudentConstraintFunction } from './student-constraint-function';
 
 export class SkillConstraintFunction extends StudentConstraintFunction {

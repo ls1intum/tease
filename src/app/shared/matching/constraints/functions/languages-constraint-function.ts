@@ -1,5 +1,5 @@
 import { Language } from 'src/app/api/models';
-import { Comparator, Operator, LanguageLevels } from '../constraint-utils';
+import { Comparator, Operator, LanguageLevels } from '../../constraints-2/constraint-utils';
 import { ObjectConstraintFunction } from './object-constraint-function';
 
 export class LanguagesConstraintFunction extends ObjectConstraintFunction {
