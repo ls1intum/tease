@@ -45,7 +45,7 @@ export class AppComponent implements OverlayServiceHost {
     // disable back button
     if (typeof history.pushState !== 'undefined') {
       const pushState = () => {
-        history.pushState(null, '', '#TEASE');
+        history.pushState(null, '', '');
       };
       pushState();
       this.location.subscribe(() => {
