@@ -8,9 +8,7 @@
     <div class="statistics-legend-placeholder"></div>
     <div class="flex-row flex-grow">
       @for (label of priorityDistributionLabels; track label) {
-        <div class="statistics-legend-label" [style.flex-grow]="label[1]">
-          {{ label[0] }}
-        </div>
+        <div class="statistics-legend-label" [style.flex-grow]="label[1]">{{ label[0] }}</div>
       }
     </div>
   </div>
@@ -41,9 +39,7 @@
     <div class="statistics-legend-placeholder"></div>
     <div class="flex-row flex-grow">
       @for (label of priorityDistributionLabels; track label) {
-        <div class="statistics-legend-label" [style.flex-grow]="label[1]">
-          {{ label[0] }}
-        </div>
+        <div class="statistics-legend-label" [style.flex-grow]="label[1]">{{ label[0] }}</div>
       }
     </div>
   </div>
@@ -100,9 +96,7 @@
         <!-- iOS Devices -->
         <div class="flex-row flex-center">
           <div class="flex-neutral-grow flex-no-shrink statistics-general-header">Persons iDevice</div>
-          <div class="flex-neutral-grow">
-            {{ getTotalNumberOfPersonsWithIOSDevice() }}
-          </div>
+          <div class="flex-neutral-grow">{{ getTotalNumberOfPersonsWithIOSDevice() }}</div>
           <div class="flex-neutral-grow">
             {{ Math.round((getTotalNumberOfPersonsWithIOSDevice() * 1000) / getNumberOfPersons()) / 10 }}%
           </div>
@@ -114,9 +108,7 @@
         <!-- Mac Devices -->
         <div class="flex-row flex-center">
           <div class="flex-neutral-grow flex-no-shrink statistics-general-header">Persons Mac</div>
-          <div class="flex-neutral-grow">
-            {{ getTotalNumberOfPersonsWithMacDevice() }}
-          </div>
+          <div class="flex-neutral-grow">{{ getTotalNumberOfPersonsWithMacDevice() }}</div>
           <div class="flex-neutral-grow">
             {{ Math.round((getTotalNumberOfPersonsWithMacDevice() * 1000) / getNumberOfPersons()) / 10 }}%
           </div>
@@ -128,9 +120,7 @@
         <!-- Female Persons -->
         <div class="flex-row flex-center">
           <div class="flex-neutral-grow flex-no-shrink statistics-general-header">Female</div>
-          <div class="flex-neutral-grow">
-            {{ getNumberOfPersonsWithGender(Gender.Female) }}
-          </div>
+          <div class="flex-neutral-grow">{{ getNumberOfPersonsWithGender(Gender.Female) }}</div>
           <div class="flex-neutral-grow">
             {{ Math.round((getNumberOfPersonsWithGender(Gender.Female) * 1000) / getNumberOfPersons()) / 10 }}%
           </div>

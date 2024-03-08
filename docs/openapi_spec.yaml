@@ -1,18 +1,18 @@
 openapi: 3.1.0
 info:
   title: TEASE & PROMPT
-  version: 2.1.0
+  version: 3.0.0
   description: |-
     Work-in-progress example API to enable the TEASE UI to communicate with a service (PROMPT) that can deliver information on students participating in the iPraktikum at TUM.
     ---
     Using this API you can retrieve information on students and their associated attributes.
 servers:
-  - url: https://prompt.ase.cit.tum.de/tease
+  - url: https://prompt.ase.cit.tum.de/api/tease
 paths:
-  /v2/courseIteration/{courseIterationId}/projects:
+  /course-iterations/{courseIterationId}/projects:
     get:
       tags:
-      - Projects
+        - Projects
       summary: Retrieve projects from a specific course iteration
       description: Returns projects from a course iteration based on the provided ID.
       parameters:
@@ -30,11 +30,11 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Project'     
-  /v2/courseIteration/{courseIterationId}/students:
+                  $ref: '#/components/schemas/Project'
+  /course-iterations/{courseIterationId}/students:
     get:
       tags:
-      - Students
+        - Students
       summary: Retrieve students from a specific course iteration
       description: Returns students from a course iteration based on the provided ID.
       parameters:
@@ -53,7 +53,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Student'
-  /v2/courseIteration/{courseIterationId}/allocations:
+  /course-iterations/{courseIterationId}/allocations:
     post:
       tags:
         - Allocations
@@ -97,7 +97,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Allocation'
-  /v2/courseIteration/{courseIterationId}/skills:
+  /course-iterations/{courseIterationId}/skills:
     get:
       tags:
         - Skills
@@ -210,25 +210,25 @@ components:
           introCourseProficiency: Novice
           devices: [IPhone, Mac]
           skills:
-            - { id: key_iOS, proficiency: Novice}
-            - { id: key_CI/CD, proficiency: Intermediate}
+            - { id: key_iOS, proficiency: Novice }
+            - { id: key_CI/CD, proficiency: Intermediate }
           projectPreferences:
-            - { priority: 1, projectId: ios2223quartett}
-            - { priority: 2, projectId: ios2223bsh}
-          studentComments: 
-          - author: Aerandir Brandybuck
-            description: Reason for first choice
-            text: I love cars
-            date: 2024-02-15
-          - author: Aerandir Brandybuck
-            description: Intro course
-            text: I would prefer to work in an international team
-            date: 2024-01-11
-          tutorComments: 
-          - author: Liam Nguyen
-            description: Intro course
-            text: Motivated, good at accepting constructive criticism
-            date: 2024-01-12
+            - { priority: 1, projectId: ios2223quartett }
+            - { priority: 2, projectId: ios2223bsh }
+          studentComments:
+            - author: Aerandir Brandybuck
+              description: Reason for first choice
+              text: I love cars
+              date: 2024-02-15
+            - author: Aerandir Brandybuck
+              description: Intro course
+              text: I would prefer to work in an international team
+              date: 2024-01-11
+          tutorComments:
+            - author: Liam Nguyen
+              description: Intro course
+              text: Motivated, good at accepting constructive criticism
+              date: 2024-01-12
     Project:
       type: object
       properties:
@@ -236,7 +236,7 @@ components:
           type: string
         id:
           type: string
-      required: 
+      required:
         - name
         - id
       examples:
@@ -246,12 +246,13 @@ components:
           id: ios2223bsh
     ProjectPreference:
       type: object
+      description: A student's preference for a project. Priority starting from 0 (highest)
       properties:
-        projectId: 
+        projectId:
           type: string
         priority:
           type: integer
-      required: 
+      required:
         - projectId
         - priority
       examples:
@@ -274,7 +275,7 @@ components:
           type: string
         id:
           type: string
-      required: 
+      required:
         - description
         - title
         - id
@@ -306,15 +307,15 @@ components:
     Language:
       type: object
       properties:
-        language: 
+        language:
           type: string
           format: ISO 639-1
         proficiency:
           $ref: '#/components/schemas/LanguageProficiency'
-      required: 
+      required:
         - language
         - proficiency
-      examples: 
+      examples:
         - language: en
           proficiency: Native
     LanguageProficiency:
@@ -334,7 +335,7 @@ components:
     Comment:
       type: object
       properties:
-        author: 
+        author:
           type: string
         description:
           type: string
@@ -356,18 +357,18 @@ components:
       type: object
       description: A project with references to the students assigned to this project as part of the matching result
       properties:
-        projectId: 
+        projectId:
           type: string
-        studentIds:
+        students:
           type: array
           items:
-           type: string
-           format: tum id
+            type: string
+            format: tum id
       required:
         - projectId
-        - studentIds
-      examples: 
+        - students
+      examples:
         - projectId: ios2223quartett
-          studendIds: 
-            - "9d0e016b-5019-41fe-9ae9-8b6784080693"
-            - "704f39d9-3936-4005-a0ca-2cc2fe989cec"
+          students:
+            - '9d0e016b-5019-41fe-9ae9-8b6784080693'
+            - '704f39d9-3936-4005-a0ca-2cc2fe989cec'

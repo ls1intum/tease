@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DragulaModule } from 'ng2-dragula';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { HighlightingToolbarComponent } from './highlighting-toolbar/highlighting-toolbar.component';
@@ -31,6 +33,8 @@ import { PromptService } from './shared/services/prompt.service';
 import { OverlayHostDirective } from './overlay-host.directive';
 import { environment } from '../environments/environment';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { teaseIconPack } from 'src/assets/icons/icons';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -55,13 +59,16 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     ReactiveFormsModule,
     MatTooltipModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     /* own modules */
     SharedModule,
     DashboardModule,
     MatMenuModule,
     MatInputModule,
     MatFormFieldModule,
-    environment.production ? ApiModule : ApiModule.forRoot({ rootUrl: 'http://localhost:3001/tease' }),
+    environment.production ? ApiModule : ApiModule.forRoot({ rootUrl: 'http://localhost:3001/api/tease' }),
+    FontAwesomeModule,
   ],
   providers: [
     TeamService,
@@ -76,4 +83,8 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIconPacks(teaseIconPack);
+  }
+}

@@ -113,10 +113,9 @@
         class="flex-row person-pool-preview-row flex-wrap flex-grow"
         [(dragulaModel)]="teamService.personsWithoutTeam">
         @for (person of teamService.personsWithoutTeam; track person) {
-          <app-person-preview
-            [person]="person"
-            (click)="showPersonDetails(person)"
-            [pinable]="false"></app-person-preview>
+          <app-student-preview-card
+            [student]="getStudentById(person.tumId)"
+            (click)="showPersonDetails(person)"></app-student-preview-card>
         }
       </div>
     </div>

@@ -9,27 +9,31 @@ export class StudentsService {
   constructor() {
     try {
       const students = JSON.parse(localStorage.getItem('students')) || [];
-      this.studentsSubject.next(students);
+      this.studentsSubject$.next(students);
     } catch (error) {
-      this.studentsSubject.next([]);
+      this.studentsSubject$.next([]);
     }
 
-    this.studentsSubject.subscribe(students => {
+    this.studentsSubject$.subscribe(students => {
       localStorage.setItem('students', JSON.stringify(students));
     });
   }
 
-  private studentsSubject: BehaviorSubject<Student[]> = new BehaviorSubject<Student[]>([]);
+  private studentsSubject$: BehaviorSubject<Student[]> = new BehaviorSubject<Student[]>([]);
 
   setStudents(students: Student[]): void {
-    this.studentsSubject.next(students);
+    this.studentsSubject$.next(students);
   }
 
   deleteStudents(): void {
-    this.studentsSubject.next([]);
+    this.studentsSubject$.next([]);
   }
 
   getStudents(): Student[] {
-    return this.studentsSubject.getValue();
+    return this.studentsSubject$.getValue();
+  }
+
+  getStudentById(id: string): Student {
+    return this.studentsSubject$.getValue().find(student => student.id === id);
   }
 }

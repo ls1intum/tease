@@ -31,16 +31,7 @@
   height: 100%;
 }
 
-
-//tease 2.0
-.bg-artemis-dark {
-  background-color: $artemis-dark !important;
-}
-
-.bg-artemis-primary {
-  background-color: $artemis-primary !important;
-}
-
+/* Button Styles */
 .btn-icon {
   display: flex;
   justify-content: center;
@@ -51,10 +42,38 @@
 }
 
 .btn-icon mat-icon {
-  color: $navbar-dark-color;
+  color: $white;
 }
 
 .btn-icon:hover mat-icon {
-  color: $artemis-primary;
+  color: $primary;
 }
 
+/* Other Styles */
+.default-cursor {
+  cursor: default;
+}
+
+.ps-05 {
+  padding-left: 0.125rem;
+}
+
+.gap-05 {
+  gap: 0.125rem;
+}
+
+.ngx-toastr {
+    box-shadow: 0 0 0px 0 rgba(0, 0, 0, 0) !important;
+}
+
+.fs-s {
+  font-size: $font-size-small;
+}
+
+.fs-xs {
+  font-size: $font-size-xsmall;
+}
+
+.fs-xxs {
+  font-size: $font-size-xxsmall;
+}

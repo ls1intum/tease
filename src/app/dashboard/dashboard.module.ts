@@ -8,7 +8,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PersonPreviewComponent } from './person-preview/person-preview.component';
 import { DragulaModule } from 'ng2-dragula';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
@@ -27,6 +26,8 @@ import { ExportOverlayComponent } from './export-overlay/export-overlay.componen
 import { PersonDetailCardComponent } from './person-detail-card/person-detail-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
+import { StudentPreviewCardComponent } from './student-preview-card/student-preview-card.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   imports: [
@@ -43,11 +44,11 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatProgressBarModule,
     ReactiveFormsModule,
     MatTabsModule,
+    FontAwesomeModule,
   ],
   declarations: [
     DashboardComponent,
     TeamComponent,
-    PersonPreviewComponent,
     PersonDetailOverlayComponent,
     TeamStatisticsComponent,
     TeamPrioritiesChartComponent,
@@ -60,6 +61,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     IntroCardComponent,
     ExportOverlayComponent,
     PersonDetailCardComponent,
+    StudentPreviewCardComponent,
   ],
   exports: [DashboardComponent, PersonDetailOverlayComponent, ImportOverlayComponent],
   providers: [],

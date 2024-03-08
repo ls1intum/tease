@@ -18,11 +18,11 @@ export class TeamsToAllocationsService {
     teams.forEach(team => {
       const allocation: Allocation = {
         projectId: this.projectsService.getProjectIdByName(team.name),
-        studentIds: [],
+        students: [],
       };
       if (team.persons && Array.isArray(team.persons)) {
         team.persons.forEach(person => {
-          allocation.studentIds.push(person.tumId);
+          allocation.students.push(person.tumId);
         });
       }
       allocations.push(allocation);
