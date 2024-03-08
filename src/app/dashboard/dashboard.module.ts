@@ -27,6 +27,7 @@ import { PersonDetailCardComponent } from './person-detail-card/person-detail-ca
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { StudentPreviewCardComponent } from './student-preview-card/student-preview-card.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import { StudentPreviewCardComponent } from './student-preview-card/student-prev
     MatProgressBarModule,
     ReactiveFormsModule,
     MatTabsModule,
+    FontAwesomeModule,
   ],
   declarations: [
     DashboardComponent,

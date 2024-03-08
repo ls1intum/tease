@@ -1,81 +1,64 @@
-<div class="bg-card border-radius-8 p-2 d-inline-flex flex-column gap-2 m-1 default-cursor">
+<div class="bg-card rounded-3 p-2 d-inline-flex flex-column gap-2 m-1 default-cursor">
   <div class="d-flex justify-content-between">
     <div class="d-flex flex-column gap-1">
       <div class="d-flex gap-1">
-        <p class="student-gender-text text-prefix">{{ genderIcon }}</p>
+        <p class="text-prefix mb-0 lh-1">{{ genderIcon }}</p>
         <div class="d-flex flex-column">
           <div class="student-name-wrapper">
-            <p class="student-name-text text-dark">{{ name }}</p>
+            <p class="fs-s text-truncate text-dark mb-0 lh-sm">{{ name }}</p>
           </div>
         </div>
       </div>
       <div class="d-flex justify-content-start">
         <div class="d-inline-flex gap-1">
-          <div class="rounded-circle student-skill-circle" [ngClass]="'bg-1-' + skillProficiency"></div>
-          <div class="rounded-circle student-skill-circle" [ngClass]="'bg-2-' + skillProficiency"></div>
-          <div class="rounded-circle student-skill-circle" [ngClass]="'bg-3-' + skillProficiency"></div>
-          <div class="rounded-circle student-skill-circle" [ngClass]="'bg-4-' + skillProficiency"></div>
+          @for (skillColor of skillColors; track skillColor) {
+            <div class="rounded-circle student-skill-circle" [ngClass]="'bg-' + skillColor"></div>
+          }
         </div>
       </div>
     </div>
     <div class="profile-picture-wrapper position-relative">
       <img
-        class="profile-picture-image rounded-circle overflow-hidden"
+        class="w-100 h-100 rounded-circle overflow-hidden"
         src="{{ gravatarURL }}"
         alt="Profile Picture of {{ name }}"
         onerror="this.onerror=null; this.src='/assets/images/placeholder.png'" />
-      <div
-        class="student-nationality-tile bg-tile border-radius-16 p-1 d-flex justify-content-center align-items-center">
-        <p class="student-nationality-text student-nationality-description">{{ nationalityText }}</p>
+      <div class="student-nationality-tile bg-tile rounded-4 p-1 d-flex justify-content-center align-items-center">
+        <p class="student-nationality-description mb-0 lh-1 fs-xxs text-nowrap">
+          {{ nationalityText }}
+        </p>
         <div class="student-nationality-emoji-wrapper d-flex justify-content-center align-items-center">
-          <p class="student-nationality-text student-nationality-emoji">{{ nationalityEmoji }}</p>
+          <p class="mb-0 lh-1 fs-xxs">{{ nationalityEmoji }}</p>
         </div>
       </div>
     </div>
   </div>
   <div class="d-flex flex-column gap-1">
     <div class="d-flex gap-1">
-      <div class="d-flex justify-content-center align-items-center flex-grow px-2 py-1 bg-tile border-radius-16">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M1.76917 19.4615V18.4615H22.2307V19.4615H1.76917ZM4.61532 17.4615C4.15507 17.4615 3.77077 17.3074 3.46244 16.999C3.15411 16.6907 2.99994 16.3064 2.99994 15.8461V6.07692C2.99994 5.61665 3.15411 5.23235 3.46244 4.92402C3.77077 4.61568 4.15507 4.46152 4.61532 4.46152H19.3846C19.8448 4.46152 20.2291 4.61568 20.5374 4.92402C20.8458 5.23235 20.9999 5.61665 20.9999 6.07692V15.8461C20.9999 16.3064 20.8458 16.6907 20.5374 16.999C20.2291 17.3074 19.8448 17.4615 19.3846 17.4615H4.61532ZM4.61532 16.4615H19.3846C19.5384 16.4615 19.6794 16.3974 19.8076 16.2692C19.9358 16.141 19.9999 16 19.9999 15.8461V6.07692C19.9999 5.92307 19.9358 5.78204 19.8076 5.65384C19.6794 5.52563 19.5384 5.46152 19.3846 5.46152H4.61532C4.46148 5.46152 4.32046 5.52563 4.19224 5.65384C4.06404 5.78204 3.99994 5.92307 3.99994 6.07692V15.8461C3.99994 16 4.06404 16.141 4.19224 16.2692C4.32046 16.3974 4.46148 16.4615 4.61532 16.4615Z"
-            [ngClass]="student.devices.includes(Device.Mac) ? 'fill-active' : 'fill-inactive'" />
-        </svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M7.61537 22C7.15512 22 6.77083 21.8458 6.4625 21.5375C6.15417 21.2292 6 20.8449 6 20.3846V3.61537C6 3.15512 6.15417 2.77083 6.4625 2.4625C6.77083 2.15417 7.15512 2 7.61537 2H16.3846C16.8449 2 17.2292 2.15417 17.5375 2.4625C17.8458 2.77083 18 3.15512 18 3.61537V20.3846C18 20.8449 17.8458 21.2292 17.5375 21.5375C17.2292 21.8458 16.8449 22 16.3846 22H7.61537ZM7 17.5385V20.3846C7 20.5385 7.0641 20.6795 7.1923 20.8077C7.32052 20.9359 7.46154 21 7.61537 21H16.3846C16.5385 21 16.6795 20.9359 16.8077 20.8077C16.9359 20.6795 17 20.5385 17 20.3846V17.5385H7V17.5385ZM12 20.0385C12.2064 20.0385 12.3862 19.9619 12.5394 19.8087C12.6926 19.6555 12.7692 19.4757 12.7692 19.2693C12.7692 19.0629 12.6926 18.883 12.5394 18.7298C12.3862 18.5766 12.2064 18.5 12 18.5C11.7936 18.5 11.6138 18.5766 11.4606 18.7298C11.3074 18.883 11.2308 19.0628 11.2308 19.2692C11.2308 19.4756 11.3074 19.6555 11.4606 19.8087C11.6138 19.9619 11.7936 20.0385 12 20.0385ZM7 16.5384H17V5.5H7V16.5384ZM7 4.5H17V3.61537C17 3.46154 16.9359 3.32052 16.8077 3.1923C16.6795 3.0641 16.5385 3 16.3846 3H7.61537C7.46154 3 7.32052 3.0641 7.1923 3.1923C7.0641 3.32052 7 3.46154 7 3.61537V4.5Z"
-            [ngClass]="student.devices.includes(Device.IPhone) ? 'fill-active' : 'fill-inactive'" />
-        </svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M12 20.0385C12.2064 20.0385 12.3862 19.9619 12.5394 19.8086C12.6926 19.6554 12.7692 19.4756 12.7692 19.2692C12.7692 19.0628 12.6926 18.883 12.5394 18.7298C12.3862 18.5766 12.2064 18.5 12 18.5C11.7936 18.5 11.6138 18.5766 11.4606 18.7298C11.3074 18.883 11.2308 19.0628 11.2308 19.2692C11.2308 19.4756 11.3074 19.6554 11.4606 19.8086C11.6138 19.9619 11.7936 20.0385 12 20.0385ZM5.61538 22C5.16794 22 4.78685 21.8426 4.4721 21.5279C4.15737 21.2131 4 20.832 4 20.3846V3.61537C4 3.16794 4.15737 2.78685 4.4721 2.4721C4.78685 2.15737 5.16794 2 5.61538 2H18.3846C18.8321 2 19.2132 2.15737 19.5279 2.4721C19.8426 2.78685 20 3.16794 20 3.61537V20.3846C20 20.8321 19.8426 21.2131 19.5279 21.5279C19.2132 21.8426 18.8321 22 18.3846 22H5.61538ZM5 17.5385V20.3846C5 20.5641 5.05769 20.7116 5.17308 20.8269C5.28846 20.9423 5.43589 21 5.61538 21H18.3846C18.5641 21 18.7115 20.9423 18.8269 20.8269C18.9423 20.7115 19 20.5641 19 20.3846V17.5385H5V17.5385ZM5 16.5385H19V5.5H5V16.5384V16.5385ZM5 4.5H19V3.61537C19 3.43589 18.9423 3.28846 18.8269 3.17307C18.7115 3.05769 18.5641 3 18.3846 3H5.61538C5.43589 3 5.28846 3.05769 5.17308 3.17307C5.05769 3.28846 5 3.43589 5 3.61537V4.5Z"
-            [ngClass]="student.devices.includes(Device.IPad) ? 'fill-active' : 'fill-inactive'" />
-        </svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M9.73077 20.1923L8.8423 17.0654C8.00383 16.5731 7.3205 15.8776 6.7923 14.9789C6.2641 14.0801 6 13.0872 6 12C6 10.9128 6.2641 9.91987 6.7923 9.02115C7.3205 8.12244 8.00383 7.42693 8.8423 6.93463L9.73077 3.80768H14.2692L15.1577 6.93463C15.9962 7.42693 16.6795 8.12244 17.2077 9.02115C17.7359 9.91987 18 10.9128 18 12C18 13.0872 17.7359 14.0801 17.2077 14.9789C16.6795 15.8776 15.9962 16.5731 15.1577 17.0654L14.2692 20.1923H9.73077ZM12 17C13.3833 17 14.5625 16.5125 15.5375 15.5375C16.5125 14.5625 17 13.3833 17 12C17 10.6167 16.5125 9.4375 15.5375 8.4625C14.5625 7.4875 13.3833 7 12 7C10.6167 7 9.4375 7.4875 8.4625 8.4625C7.4875 9.4375 7 10.6167 7 12C7 13.3833 7.4875 14.5625 8.4625 15.5375C9.4375 16.5125 10.6167 17 12 17ZM10.0616 6.32693C10.4077 6.21795 10.7381 6.13525 11.0529 6.07885C11.3676 6.02244 11.6833 5.99423 12 5.99423C12.3167 5.99423 12.6324 6.02244 12.9471 6.07885C13.2619 6.13525 13.5923 6.21795 13.9385 6.32693L13.5 4.80768H10.5L10.0616 6.32693ZM10.5 19.1923H13.5L13.9385 17.6731C13.5923 17.7821 13.2619 17.8606 12.9471 17.9087C12.6324 17.9567 12.3167 17.9808 12 17.9808C11.6833 17.9808 11.3676 17.9567 11.0529 17.9087C10.7381 17.8606 10.4077 17.7821 10.0616 17.6731L10.5 19.1923ZM10.5 19.1923H10.0616H13.9385H10.5Z"
-            [ngClass]="student.devices.includes(Device.Watch) ? 'fill-active' : 'fill-inactive'" />
-        </svg>
+      <div class="d-flex justify-content-center align-items-center flex-grow px-2 py-1 bg-tile rounded-4">
+        <fa-icon [icon]="facMacIcon" class="lh-1" [ngClass]="ownsMac ? 'text-dark' : 'text-inactive'"></fa-icon>
+        <fa-icon [icon]="facIphoneIcon" class="lh-1" [ngClass]="ownsIPhone ? 'text-dark' : 'text-inactive'"></fa-icon>
+        <fa-icon [icon]="facIpadIcon" class="lh-1" [ngClass]="ownsIPad ? 'text-dark' : 'text-inactive'"></fa-icon>
+        <fa-icon [icon]="facWatchIcon" class="lh-1" [ngClass]="ownsWatch ? 'text-dark' : 'text-inactive'"></fa-icon>
       </div>
-      <div class="d-flex justify-content-center align-items-center flex-grow px-2 py-1 bg-tile border-radius-16">
-        <div class="d-flex">
-          <p class="student-language-prefix text-prefix">de</p>
-          <p class="student-language-text text-dark">{{ germanProficiency }}</p>
+      <div class="d-flex justify-content-center align-items-center flex-grow px-2 py-1 bg-tile rounded-4">
+        <div class="d-flex gap-05">
+          <p class="text-prefix mb-0 lh-sm fs-xxs">de</p>
+          <p class="text-dark mb-0 lh-1 fs-xs">{{ germanProficiency }}</p>
         </div>
       </div>
     </div>
-    <div class="d-flex justify-content-start align-items-center flex-grow ps-05 pe-1 bg-tile border-radius-16 gap-1">
-      <div
-        class="project-preference-score-circle d-flex justify-content-center align-items-center bg-dark border-radius-16">
-        <p class="project-preference-score-text text-white p-05">{{ projectPreferenceScore }}</p>
+    <div class="d-flex justify-content-start align-items-center flex-grow ps-05 pe-1 bg-tile rounded-4 gap-1">
+      <div class="project-preference-score-circle d-flex justify-content-center align-items-center bg-dark rounded-4">
+        <p class="text-white p-05 mb-0 lh-1 fs-xxs">{{ projectPreferenceScore }}</p>
       </div>
       <div class="d-flex gap-05 py-1">
         @for (projectPreference of projectPreferences; track projectPreference) {
           <div
-            class="project-preference-tile d-flex justify-content-center align-items-center px-1 border-radius-16"
+            class="project-preference-tile d-flex justify-content-center align-items-center px-1 rounded-4"
             [ngClass]="projectPreference.assigned ? 'bg-primary-20' : 'bg-tile-priority'">
             <p
-              class="project-preference-text"
+              class="mb-0 fs-xxs text-truncate"
               [ngClass]="projectPreference.assigned ? 'text-primary-high-contrast' : 'text-dark'">
               {{ projectPreference.name }}
             </p>

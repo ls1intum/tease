@@ -1,80 +1,21 @@
 @import '../../../scss/_style-constants.scss';
 
-/* Student Name Styles */
 
 .student-name-wrapper {
-  overflow: hidden;
   width: 10rem;
 }
-
-.student-gender-text {
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.25rem;
-  margin-bottom: 0;
-}
-
-.student-name-text {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-
-  font-size: 0.875rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.25rem;
-  margin-bottom: 0;
-}
-
-/* Language Styles */
-
-.student-language-text {
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1rem;
-  margin-bottom: 0;
-  white-space: nowrap;
-}
-
-.student-language-prefix {
-  font-size: 0.625rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1rem;
-  margin-bottom: 0;
-  padding-right: 0.125rem;
-}
-
-/* Profile Picture Styles */
 
 .profile-picture-wrapper {
   width: 3rem;
   height: 3rem;
 }
 
-.profile-picture-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Nationality Styles */
-
-.student-nationality-text {
-  font-size: 0.625rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 0.625rem;
-  margin-bottom: 0;
-  white-space: nowrap;
-}
-
 .student-nationality-emoji-wrapper {
   width: 1rem;
   height: 1rem;
 }
+
+/* Nationality Styles */
 
 .student-nationality-tile {
   position: absolute;
@@ -92,12 +33,6 @@
 }
 
 @keyframes slideIn {
-  0% {
-    width: 0;
-    opacity: 0;
-    padding: 0;
-  }
-
   50% {
     width: 0;
     opacity: 0;
@@ -131,26 +66,6 @@
 .project-preference-tile {
   overflow: hidden;
   width: 3.5rem;
-}
-
-.project-preference-text {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-
-  font-size: 0.6875rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1rem;
-  margin-bottom: 0;
-}
-
-.project-preference-score-text {
-  font-size: 0.6875rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 0.6875rem;
-  margin-bottom: 0;
 }
 
 /* Skill Styles */

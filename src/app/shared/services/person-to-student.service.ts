@@ -133,7 +133,7 @@ export class PersonToStudentService {
   }
 
   transformPersonsToSkills(persons: Person[]): Skill[] {
-    if (!persons || persons.length < 1) {
+    if (!persons?.length) {
       return [];
     }
     const firstPerson = persons[0];

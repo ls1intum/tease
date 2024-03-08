@@ -37,24 +37,21 @@
       }
       @if (isDraggable) {
         <div [id]="team.name" dragula="persons" class="drag-container" [(dragulaModel)]="team.persons">
-          <ng-container *ngTemplateOutlet="personPreview; context: { projectName: team.name }"></ng-container>
+          <ng-container *ngTemplateOutlet="personPreview"></ng-container>
         </div>
       } @else {
-        <ng-container *ngTemplateOutlet="personPreview; context: { projectName: team.name }"></ng-container>
+        <ng-container *ngTemplateOutlet="personPreview"></ng-container>
       }
     </div>
   </div>
 }
 
-<ng-template #personPreview let-projectName="projectName">
+<ng-template #personPreview>
   @for (person of team.persons; track person) {
-    <!-- <app-person-preview
-    [person]="person"
-    (click)="onPersonClicked.emit(person); $event.stopPropagation()"></app-person-preview> -->
     @if (getStudentById(person.tumId)) {
       <app-student-preview-card
         [student]="getStudentById(person.tumId)"
-        [projectId]="getProjectIdByName(projectName)"
+        [projectId]="getProjectIdByName(team.name)"
         (click)="onPersonClicked.emit(person); $event.stopPropagation()"></app-student-preview-card>
     }
   }

@@ -31,74 +31,6 @@
   height: 100%;
 }
 
-
-//tease 2.0
-
-/* Background Styles */
-.bg-dark {
-  background-color: $dark !important;
-}
-
-.bg-primary {
-  background-color: $primary !important;
-}
-
-.bg-card {
-  background-color: $card-background;
-}
-
-.bg-primary-20 {
-  background-color: $primary-20;
-}
-
-.bg-tile-priority {
-  background-color: $tile-priority-background;
-}
-
-.bg-novice {
-    background-color: $novice;
-}
-
-.bg-intermediate {
-    background-color: $intermediate;
-}
-
-.bg-advanced {
-    background-color: $advanced;
-}
-
-.bg-expert {
-    background-color: $expert;
-}
-
-.bg-inactive {
-  background-color: $inactive;
-}
-
-.bg-1-novice {
-    @extend .bg-novice;
-}
-
-.bg-1-intermediate, .bg-2-intermediate {
-    @extend .bg-intermediate;
-}
-
-.bg-1-advanced, .bg-2-advanced, .bg-3-advanced {
-    @extend .bg-advanced;
-}
-
-.bg-1-expert, .bg-2-expert, .bg-3-expert, .bg-4-expert {
-  @extend .bg-expert;
-}
-
-.bg-2-novice, .bg-3-novice, .bg-4-novice, .bg-3-intermediate, .bg-4-intermediate, .bg-4-advanced {
-  @extend .bg-inactive;
-}
-
-.bg-tile {
-  background-color: $tile-background;
-}
-
 /* Button Styles */
 .btn-icon {
   display: flex;
@@ -117,47 +49,6 @@
   color: $primary;
 }
 
-/* Border Styles */
-.border-radius-8 {
-    border-radius: 0.5rem;
-}
-
-.border-radius-16 {
-    border-radius: 1rem;
-}
-
-/* Text Color Styles */
-
-.text-prefix {
-    color: $text-prefix;
-}
-
-.text-dark {
-    color: $dark;
-}
-
-.text-primary-high-contrast {
-    color: $primary-high-contrast;
-}
-
-/* Fill Styles */
-
-.fill-active, .fill-dark {
-    fill: $dark;
-}
-
-.fill-white {
-    fill: $white;
-}
-
-.fill-primary-high-contrast {
-    fill: $primary-high-contrast;
-}
-
-.fill-inactive {
-    fill: $inactive;
-}
-
 /* Other Styles */
 .default-cursor {
   cursor: default;
@@ -173,4 +64,16 @@
 
 .ngx-toastr {
     box-shadow: 0 0 0px 0 rgba(0, 0, 0, 0) !important;
+}
+
+.fs-s {
+  font-size: $font-size-small;
+}
+
+.fs-xs {
+  font-size: $font-size-xsmall;
+}
+
+.fs-xxs {
+  font-size: $font-size-xxsmall;
 }
