@@ -1,0 +1,25 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+$theme-colors: (
+    "dark": #343A40,
+    "primary": #3E8ACC,
+    "primary-20": #D8E8F5,
+    "primary-high-contrast": #1169B7,
+    "white": #FFFFFF,
+    "white-hover": #F5F5F5,
+    "black": #282828,
+    "novice": #E16868,
+    "intermediate": #EED373,
+    "advanced": #94DA7C,
+    "expert": #4E8CB9,
+    "card": #F9F9FA,
+    "prefix": #A1A5A9,
+    "inactive": #D7DADD,
+    "tile": #E9ECEF,
+    "tile-priority": #FAFAFA,
+    "warn": #BC3333
+);
+
+@import "node_modules/bootstrap/scss/bootstrap";

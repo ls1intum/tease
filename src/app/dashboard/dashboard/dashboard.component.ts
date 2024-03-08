@@ -8,6 +8,8 @@ import { SkillLevel } from '../../shared/models/skill';
 import { Device } from '../../shared/models/device';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Student } from 'src/app/api/models';
+import { StudentsService } from 'src/app/shared/data/students.service';
 
 enum PersonPoolDisplayMode {
   Closed,
@@ -40,7 +42,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     public teamService: TeamService,
     private dragulaService: DragulaService,
-    private overlayService: OverlayService
+    private overlayService: OverlayService,
+    private studentsService: StudentsService
   ) {
     /* save model when modified by drag & drop operation */
     this.dragulaSubscription.add(
@@ -101,5 +104,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   onTeamStatisticsButtonPressed() {
     this.teamStatisticsButtonPressed.emit(this.toggleTeamStatisticsButtonState);
     this.toggleTeamStatisticsButtonState = !this.toggleTeamStatisticsButtonState;
+  }
+
+  getStudentById(id: string): Student {
+    return this.studentsService.getStudentById(id);
   }
 }

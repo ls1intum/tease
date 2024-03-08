@@ -48,8 +48,11 @@
 
 <ng-template #personPreview>
   @for (person of team.persons; track person) {
-    <app-person-preview
-      [person]="person"
-      (click)="onPersonClicked.emit(person); $event.stopPropagation()"></app-person-preview>
+    @if (getStudentById(person.tumId)) {
+      <app-student-preview-card
+        [student]="getStudentById(person.tumId)"
+        [projectId]="getProjectIdByName(team.name)"
+        (click)="onPersonClicked.emit(person); $event.stopPropagation()"></app-student-preview-card>
+    }
   }
 </ng-template>

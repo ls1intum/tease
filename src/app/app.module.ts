@@ -33,6 +33,8 @@ import { PromptService } from './shared/services/prompt.service';
 import { OverlayHostDirective } from './overlay-host.directive';
 import { environment } from '../environments/environment';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { teaseIconPack } from 'src/assets/icons/icons';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -60,6 +62,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     DashboardModule,
     MatMenuModule,
     environment.production ? ApiModule : ApiModule.forRoot({ rootUrl: 'http://localhost:3001/api/tease' }),
+    FontAwesomeModule,
   ],
   providers: [
     TeamService,
@@ -74,4 +77,8 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIconPacks(teaseIconPack);
+  }
+}

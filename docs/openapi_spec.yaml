@@ -246,6 +246,7 @@ components:
           id: ios2223bsh
     ProjectPreference:
       type: object
+      description: A student's preference for a project. Priority starting from 0 (highest)
       properties:
         projectId:
           type: string
