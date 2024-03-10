@@ -9,12 +9,12 @@ import { PersonHighlightingOverlayComponent } from './dashboard/person-highlight
 import { Location } from '@angular/common';
 import { ExportOverlayComponent } from './dashboard/export-overlay/export-overlay.component';
 import { ConstraintLoggingService } from './shared/layers/business-logic-layer/constraint-logging.service';
-import { ConstraintsOverlayComponent } from './dashboard/constraints-overlay/constraints-overlay.component';
 import { StudentsService } from './shared/data/students.service';
 import { ProjectsService } from './shared/data/projects.service';
 import { AllocationsService } from './shared/data/allocations.service';
 import { SkillsService } from './shared/data/skills.service';
-import { ConstraintsOverlay2Component } from './dashboard/constraints-overlay-2/constraints-overlay-2.component';
+import { ConstraintBuilderComponent } from './dashboard/constraint-builder-overlay/constraint-builder.component';
+import { ConstraintsOverlayComponent } from './dashboard/constraints-overlay/constraints-overlay.component';
 
 @Component({
   selector: 'app-root',
@@ -128,7 +128,7 @@ export class AppComponent implements OverlayServiceHost {
     this.overlayHostDirective.viewContainerRef.clear();
   }
 
-  showConstraintsOverlay2(): void {
-    this.overlayService.displayComponent(ConstraintsOverlay2Component, {});
+  showConstraintBuilderOverlay(): void {
+    this.overlayService.displayComponent(ConstraintBuilderComponent, {});
   }
 }

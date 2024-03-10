@@ -1,14 +1,11 @@
-import { ConstraintFunction, SelectData, SelectGroup } from './constraint-function';
-import { Operator, SkillLevels, mapTwoValues, Comparator } from '../constraint-utils';
-import { SkillProficiency, StudentSkill } from 'src/app/api/models';
+import { ConstraintFunction, SelectData, PropertySelectGroup } from './constraint-function';
+import { Operator, SkillLevels, Comparator } from '../constraint-utils';
+import { SkillProficiency, Student, StudentSkill } from 'src/app/api/models';
 
 export class SkillConstraintFunction extends ConstraintFunction {
-  override getConstraintFunction(projectId: string, property: string, operator: Operator, value: string): string {
-    return this.combineStudentAndProjects(
-      projectId,
-      this.students.filter(student =>
-        this.fulfillsConstraint(student.skills, property, operator, value as SkillProficiency)
-      )
+  override filterStudentsByConstraintFunction(property: string, operator: Operator, value: string): Student[] {
+    return this.students.filter(student =>
+      this.fulfillsConstraint(student.skills, property, operator, value as SkillProficiency)
     );
   }
 
@@ -18,6 +15,7 @@ export class SkillConstraintFunction extends ConstraintFunction {
     operator: Operator,
     skillProficiency: SkillProficiency
   ): boolean {
+    console.log(studentSkills, skillId, operator, skillProficiency);
     for (const studentSkill of studentSkills) {
       if (studentSkill.id === skillId) {
         if (Comparator[operator](SkillLevels[studentSkill.proficiency], SkillLevels[skillProficiency])) {
@@ -28,17 +26,17 @@ export class SkillConstraintFunction extends ConstraintFunction {
     return false;
   }
 
-  override getProperties(): SelectGroup {
+  override getProperties(): PropertySelectGroup {
     const values = this.skills.map(skill => ({
+      id: skill.id,
       name: skill.title,
-      value: mapTwoValues(this.id, skill.id),
     }));
-    return { name: 'Skills', values: values };
+    return { name: 'Skills', constraintFunction: this, values: values };
   }
 
   override getValues(): SelectData[] {
     return Object.values(SkillProficiency).map(skillProficiency => ({
-      value: skillProficiency,
+      id: skillProficiency,
       name: skillProficiency,
     }));
   }

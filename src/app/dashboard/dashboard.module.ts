@@ -16,8 +16,6 @@ import { PersonDetailOverlayComponent } from './person-detail-overlay/person-det
 import { TeamStatisticsComponent } from './team-statistics/team-statistics.component';
 import { TeamPrioritiesChartComponent } from './team-priorities-chart/team-priorities-chart.component';
 import { ImportOverlayComponent } from './import-overlay/import-overlay.component';
-import { ConstraintsOverlayComponent } from './constraints-overlay/constraints-overlay.component';
-import { ConstraintComponent } from './constraint/constraint.component';
 import { ConfirmationOverlayComponent } from './confirmation-overlay/confirmation-overlay.component';
 import { PersonPoolStatisticsComponent } from './person-pool-statistics/person-pool-statistics.component';
 import { PersonHighlightingOverlayComponent } from './person-highlighting-overlay/person-highlighting-overlay.component';
@@ -53,8 +51,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     TeamStatisticsComponent,
     TeamPrioritiesChartComponent,
     ImportOverlayComponent,
-    ConstraintsOverlayComponent,
-    ConstraintComponent,
     ConfirmationOverlayComponent,
     PersonPoolStatisticsComponent,
     PersonHighlightingOverlayComponent,

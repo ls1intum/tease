@@ -15,6 +15,13 @@ export const Comparator: Record<Operator, ComparisonFunction> = {
   [Operator.NOT_EQUALS]: (a, b) => a !== b,
 };
 
+export const OperatorMapping: Record<Operator, string> = {
+  [Operator.EQUALS]: 'is equal to',
+  [Operator.GREATER_THAN_OR_EQUAL]: 'at least',
+  [Operator.LESS_THAN_OR_EQUAL]: 'at most',
+  [Operator.NOT_EQUALS]: 'not equals',
+};
+
 import { LanguageProficiency } from 'src/app/api/models';
 export const LanguageLevels: Record<string, number> = {
   [LanguageProficiency.A1A2]: 1,

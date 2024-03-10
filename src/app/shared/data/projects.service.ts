@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Project } from 'src/app/api/models';
 
 @Injectable({
@@ -31,6 +31,10 @@ export class ProjectsService {
 
   getProjects(): Project[] {
     return this.projectsSubject$.getValue();
+  }
+
+  get projects$(): Observable<Project[]> {
+    return this.projectsSubject$.asObservable();
   }
 
   getProjectNameById(id: string): string {

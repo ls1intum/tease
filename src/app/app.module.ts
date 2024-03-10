@@ -38,7 +38,8 @@ import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontaweso
 
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ConstraintsOverlay2Component } from './dashboard/constraints-overlay-2/constraints-overlay-2.component';
+import { ConstraintBuilderComponent } from './dashboard/constraint-builder-overlay/constraint-builder.component';
+import { ConstraintsOverlayComponent } from './dashboard/constraints-overlay/constraints-overlay.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -47,7 +48,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
 };
 
 @NgModule({
-  declarations: [AppComponent, OverlayHostDirective, HighlightingToolbarComponent, ConstraintsOverlay2Component],
+  declarations: [AppComponent, OverlayHostDirective, HighlightingToolbarComponent, ConstraintBuilderComponent, ConstraintsOverlayComponent],
   imports: [
     /* external modules */
     BrowserModule,

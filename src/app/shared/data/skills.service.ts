@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Skill } from 'src/app/api/models';
 
 @Injectable({
@@ -31,5 +31,9 @@ export class SkillsService {
 
   getSkills(): Skill[] {
     return this.skillsSubject$.getValue();
+  }
+
+  get skills$(): Observable<Skill[]> {
+    return this.skillsSubject$;
   }
 }
