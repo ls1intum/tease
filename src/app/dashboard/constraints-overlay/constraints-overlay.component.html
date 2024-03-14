@@ -14,8 +14,8 @@
           <tr *ngFor="let constraint of constraints">
             <td>{{ constraint.projectIds.join(', ') }}</td>
             <td>
-              {{ constraint.constraintFunctionProperty }}, {{ constraint.constraintFunctionOperator }}, {{
-              constraint.constraintFunctionValue }}
+              {{ constraint.constraintFunctionProperty }}, {{ constraint.constraintFunctionOperator }},
+              {{ constraint.constraintFunctionValue }}
             </td>
             <td>{{ constraint.constraintOperator }}, {{ constraint.constraintThreshold }}</td>
             <td>{{ constraint.students.length }}</td>
@@ -23,7 +23,7 @@
         </tbody>
       </table>
 
-      <button (click)="distributeTeams()">Add Constraint</button>
+      <button (click)="distributeTeams()">Match</button>
     </div>
   </div>
 </div>

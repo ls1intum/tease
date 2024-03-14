@@ -6,10 +6,9 @@ import {
   SelectData,
 } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 import { StudentsService } from 'src/app/shared/data/students.service';
-import { ConstraintBuilder } from 'src/app/shared/matching/constraints/constraint-builder';
+import { ConstraintBuilderService } from 'src/app/shared/matching/constraints/constraint-builder';
 import { SkillsService } from 'src/app/shared/data/skills.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
-import { valueSeparator } from 'src/app/shared/matching/constraints/constraint-utils';
 import { ConstraintWrapper } from 'src/app/shared/matching/constraints/constraint';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { ConstraintMappingService } from 'src/app/shared/data/constraint-mapping.service';
@@ -31,7 +30,7 @@ export class ConstraintBuilderComponent implements OverlayComponent, OnInit {
     private constraintsService: ConstraintsService,
     private constraintMappingService: ConstraintMappingService,
     private overlayService: OverlayService,
-    private constraintGenerator: ConstraintBuilder
+    private constraintGenerator: ConstraintBuilderService
   ) {}
 
   ngOnInit(): void {

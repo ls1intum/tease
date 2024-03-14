@@ -4,6 +4,9 @@ import { ConstraintsService } from '../../shared/data/constraints.service';
 import { ConstraintWrapper } from '../../shared/matching/constraints/constraint';
 import { MatchingService } from 'src/app/shared/matching/matching.service';
 import { StudentsService } from 'src/app/shared/data/students.service';
+import { MandatoryConstraintsService } from 'src/app/shared/matching/constraints/mandatory-contraints';
+import { CostFunctionsService } from 'src/app/shared/matching/constraints/cost-functions';
+import { AllocationsService } from 'src/app/shared/data/allocations.service';
 
 @Component({
   selector: 'app-constraints-overlay',
@@ -16,8 +19,11 @@ export class ConstraintsOverlayComponent implements OverlayComponent, OnInit {
 
   constructor(
     private constraintsService: ConstraintsService,
+    private mandatoryConstraintsService: MandatoryConstraintsService,
+    private costFunctionsService: CostFunctionsService,
     private matchingService: MatchingService,
-    private studentsService: StudentsService
+    private studentsService: StudentsService,
+    private allocationsService: AllocationsService
   ) {}
 
   constraints: ConstraintWrapper[];
@@ -26,8 +32,11 @@ export class ConstraintsOverlayComponent implements OverlayComponent, OnInit {
     this.constraints = this.constraintsService.getConstraints();
   }
 
-  distributeTeams() {
+  async distributeTeams() {
     const constraints = this.constraints.flatMap(constraint => constraint.constraint);
-    this.matchingService.getMatching(constraints, this.studentsService.getStudents());
+    constraints.push(...this.mandatoryConstraintsService.constraints);
+    constraints.push(...this.costFunctionsService.constraints);
+    const allocations = await this.matchingService.getAllocations(constraints, this.studentsService.getStudents());
+    this.allocationsService.setAllocations(allocations);
   }
 }

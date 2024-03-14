@@ -15,7 +15,6 @@ import { DragulaModule } from 'ng2-dragula';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
-import { HighlightingToolbarComponent } from './highlighting-toolbar/highlighting-toolbar.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
@@ -48,7 +47,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
 };
 
 @NgModule({
-  declarations: [AppComponent, OverlayHostDirective, HighlightingToolbarComponent, ConstraintBuilderComponent, ConstraintsOverlayComponent],
+  declarations: [AppComponent, OverlayHostDirective, ConstraintBuilderComponent, ConstraintsOverlayComponent],
   imports: [
     /* external modules */
     BrowserModule,

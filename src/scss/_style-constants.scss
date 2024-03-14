@@ -1,4 +1,3 @@
-
 // main colors
 $primary-color: #0076bc; /*#e91e63;*/
 $secondary-color: #ffc107;
@@ -6,7 +5,7 @@ $gray: #e1e1e1;
 $gray-f5: #f5f5f5;
 $grey-48: #484848;
 $grey-4f: #4f4f4f;
-$shadow-color: rgba(0,0,0,0.12);
+$shadow-color: rgba(0, 0, 0, 0.12);
 
 $dialog-background: rgba(0, 0, 0, 0.5);
 
@@ -29,26 +28,28 @@ $standard-border: 1px solid #ccc;
 $regular-overlay-width: 850px;
 
 //tease 2.0 colors
-$dark: #343A40;
-$primary: #3E8ACC;
-$primary-20: #D8E8F5;
-$primary-high-contrast: #1169B7;
-$white: #FFFFFF;
-$white-hover: #F5F5F5;
+$dark: #343a40;
+$primary: #3e8acc;
+$primary-20: #d8e8f5;
+$primary-high-contrast: #1169b7;
+$white: #ffffff;
+$white-hover: #f5f5f5;
 $black: #282828;
 
+$novice: #e16868;
+$intermediate: #eed373;
+$advanced: #94da7c;
+$expert: #4e8cb9;
 
-$novice: #E16868;
-$intermediate: #EED373;
-$advanced: #94DA7C;
-$expert: #4E8CB9;
+$card-background: #f9f9fa;
+$text-prefix: #a1a5a9;
+$inactive: #d7dadd;
+$tile-background: #e9ecef;
+$tile-priority-background: #fafafa;
+$warn: #bc3333;
 
-$card-background: #F9F9FA;
-$text-prefix: #A1A5A9;
-$inactive: #D7DADD;
-$tile-background: #E9ECEF;
-$tile-priority-background: #FAFAFA;
-$warn: #BC3333;
+$bright: #ececec;
+$seperator-blue: #1f6feb;
 
 //font sizes
 $font-size-xxsmall: 0.6875rem;

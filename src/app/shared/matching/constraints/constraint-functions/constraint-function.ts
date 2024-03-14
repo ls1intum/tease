@@ -1,5 +1,5 @@
 import { Skill, Student } from 'src/app/api/models';
-import { Operator, OperatorMapping, mapTwoValues } from '../constraint-utils';
+import { Operator, OperatorMapping } from '../constraint-utils';
 import { v4 as uuid } from 'uuid';
 
 export abstract class ConstraintFunction {
@@ -21,10 +21,6 @@ export abstract class ConstraintFunction {
       id: operator,
       name: OperatorMapping[operator],
     }));
-  }
-
-  protected combineStudentAndProjects(projectId: string, students: Student[]): string {
-    return students.map(student => mapTwoValues(student.id, projectId)).join(' + ');
   }
 }
 

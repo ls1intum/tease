@@ -90,16 +90,5 @@
         </div>
       </div>
     </div>
-    <!-- team container -->
-    <div class="hidden-scrollbar-parent team-container">
-      <div class="hidden-scrollbar-child flex-column">
-        @if (!hasNoTeam(data.person)) {
-          <app-team
-            [team]="this.data.team"
-            [isDraggable]="false"
-            (onPersonClicked)="data.onPersonClicked($event)"></app-team>
-        }
-      </div>
-    </div>
   </div>
 }

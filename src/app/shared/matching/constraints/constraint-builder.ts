@@ -15,7 +15,7 @@ import { v4 as uuid } from 'uuid';
 @Injectable({
   providedIn: 'root',
 })
-export class ConstraintBuilder {
+export class ConstraintBuilderService {
   private readonly CONSTRAINT_OPERATORS = [Operator.GREATER_THAN_OR_EQUAL, Operator.LESS_THAN_OR_EQUAL];
   private _students: Student[];
   private _projects: Project[];
@@ -106,7 +106,6 @@ export class ConstraintBuilder {
     const constraint = projectIds.map(projectId => {
       return this.buildConstraint(filteredStudents, projectId, constraintOperator, constraintThreshold);
     });
-    console.log('projectIds', projectIds);
 
     return new ConstraintWrapper(
       constraint,

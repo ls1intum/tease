@@ -8,7 +8,7 @@ import { Student } from 'src/app/api/models';
 export class StudentsService {
   constructor() {
     try {
-      const students = JSON.parse(localStorage.getItem('students')) || [];
+      const students = JSON.parse(localStorage.getItem('students'));
       this.studentsSubject$.next(students);
     } catch (error) {
       this.studentsSubject$.next([]);
@@ -38,6 +38,6 @@ export class StudentsService {
   }
 
   getStudentById(id: string): Student {
-    return this.studentsSubject$.getValue().find(student => student.id === id);
+    return this.getStudents().find(student => student.id === id);
   }
 }

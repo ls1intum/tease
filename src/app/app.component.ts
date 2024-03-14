@@ -5,7 +5,6 @@ import { OverlayHostDirective } from './overlay-host.directive';
 import { OverlayComponent, OverlayService, OverlayServiceHost } from './overlay.service';
 import { ImportOverlayComponent } from './dashboard/import-overlay/import-overlay.component';
 import { ConfirmationOverlayComponent } from './dashboard/confirmation-overlay/confirmation-overlay.component';
-import { PersonHighlightingOverlayComponent } from './dashboard/person-highlighting-overlay/person-highlighting-overlay.component';
 import { Location } from '@angular/common';
 import { ExportOverlayComponent } from './dashboard/export-overlay/export-overlay.component';
 import { ConstraintLoggingService } from './shared/layers/business-logic-layer/constraint-logging.service';
@@ -99,10 +98,6 @@ export class AppComponent implements OverlayServiceHost {
         this.teamService.readFromBrowserStorage(), this.overlayService.closeOverlay();
       },
     });
-  }
-
-  showPersonHighlightingOverlay() {
-    this.overlayService.displayComponent(PersonHighlightingOverlayComponent, {});
   }
 
   openConstraintsDialog(): void {

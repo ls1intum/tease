@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Allocation } from 'src/app/api/models';
 
 @Injectable({
@@ -33,7 +33,11 @@ export class AllocationsService {
     return this.allocationsSubject$.getValue();
   }
 
-  addStudentToProject(studentId: string, projectId: string): void {
+  get allocations$(): Observable<Allocation[]> {
+    return this.allocationsSubject$.asObservable();
+  }
+
+  moveStudentToProject(studentId: string, projectId: string): void {
     this.removeStudentFromProjects(studentId);
 
     const allocations = this.getAllocations();
@@ -42,7 +46,22 @@ export class AllocationsService {
     if (allocation) {
       allocation.students.push(studentId);
     }
-    this.allocationsSubject$.next(allocations);
+    this.setAllocations(allocations);
+  }
+
+  moveStudentToProjectAtInset(studentId: string, projectId: string, siblingId?: string): void {
+    this.removeStudentFromProjects(studentId);
+
+    const allocations = this.getAllocations();
+    const allocation = allocations.find(a => a.projectId === projectId);
+
+    if (allocation && siblingId) {
+      const index = allocation.students.indexOf(siblingId);
+      allocation.students.splice(index, 0, studentId);
+      this.setAllocations(allocations);
+    } else {
+      this.moveStudentToProject(studentId, projectId);
+    }
   }
 
   removeStudentFromProjects(studentId: string): void {

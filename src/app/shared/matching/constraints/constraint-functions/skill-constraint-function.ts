@@ -15,7 +15,6 @@ export class SkillConstraintFunction extends ConstraintFunction {
     operator: Operator,
     skillProficiency: SkillProficiency
   ): boolean {
-    console.log(studentSkills, skillId, operator, skillProficiency);
     for (const studentSkill of studentSkills) {
       if (studentSkill.id === skillId) {
         if (Comparator[operator](SkillLevels[studentSkill.proficiency], SkillLevels[skillProficiency])) {

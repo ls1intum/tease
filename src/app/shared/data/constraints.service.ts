@@ -36,6 +36,7 @@ export class ConstraintsService {
   }
 
   getConstraints(): ConstraintWrapper[] {
+    console.log(this.constraintsSubject$.getValue());
     return this.constraintsSubject$.getValue();
   }
 }

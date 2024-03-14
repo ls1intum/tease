@@ -7,60 +7,58 @@ import { ConstraintMappingService } from '../data/constraint-mapping.service';
   providedIn: 'root',
 })
 export class MatchingService {
+  private readonly DELETE_PROPERTIES = ['feasible', 'bounded', 'result', 'isIntegral'];
+
   constructor(private constraintMappingService: ConstraintMappingService) {}
 
-  async getMatching(constraints: string[], students: Student[]) {
-    constraints.push(this.createCostFunction(students));
-    const c = this.createOnePersonOneProjectConstraint(students);
-    constraints.push(...c);
-    const intConstraints = this.createIntConstraints(students);
-    constraints.push(...intConstraints);
-
-    console.log(constraints);
-
-    const startTime = Date.now();
-    console.log(await this.solveLP(constraints));
-    const endTime = Date.now();
-
-    const timeTaken = endTime - startTime; // time in milliseconds
-    console.log(`Time taken by solveLP: ${timeTaken} ms`);
+  async getAllocations(constraints: string[], students: Student[]): Promise<Allocation[]> {
+    try {
+      const startTime = Date.now();
+      const allocations = await this._getAllocations(constraints);
+      const endTime = Date.now();
+      console.log(`Time taken by solveLP: ${endTime - startTime} ms`);
+      return allocations;
+    } catch (error) {
+      console.log('Error');
+    }
+    return null;
   }
 
-  async solveLP(constraints: any): Promise<Allocation[]> {
-    const lp = new ReformatLP(constraints);
-    console.log(lp);
+  private async _getAllocations(constraints: string[]): Promise<Allocation[]> {
     return new Promise((resolve, reject) => {
       try {
-        const result = new Solve(lp);
-        console.log(result);
-        delete result['feasible'];
-        delete result['bounded'];
-        delete result['result'];
-        delete result['isIntegral'];
-
-        const keys = Object.keys(result);
-        console.log(keys);
-
-        const allocations: Allocation[] = [];
-
-        keys.forEach(key => {
-          const { studentId, projectId } = this.splitVariable(key);
-
-          let allocation = allocations.find(a => a.projectId === projectId);
-
-          if (!allocation) {
-            allocation = { projectId, students: [] };
-            allocations.push(allocation);
-          }
-
-          allocation.students.push(studentId);
-        });
-
+        const solution = this.solveLinearProgram(constraints);
+        const allocations = this.transformSolutionToAllocations(solution);
+        if (!allocations) reject();
         resolve(allocations);
       } catch (error) {
         reject(error);
       }
     });
+  }
+
+  private solveLinearProgram(constraints: string[]): Solve {
+    const reformattedLinearProgram: ReformatLP = new ReformatLP(constraints);
+    return new Solve(reformattedLinearProgram);
+  }
+
+  private transformSolutionToAllocations(solution: Solve): Allocation[] {
+    if (!solution.feasible) return null;
+
+    for (const property of this.DELETE_PROPERTIES) {
+      delete solution[property];
+    }
+    const keys = Object.keys(solution);
+    const allocations: Allocation[] = [];
+
+    keys.forEach(key => {
+      const { studentId, projectId } = this.splitVariable(key);
+      let allocation = allocations.find(allocation => allocation.projectId === projectId);
+      if (!allocation) allocations.push({ projectId: projectId, students: [studentId] });
+      else allocation.students.push(studentId);
+    });
+
+    return allocations;
   }
 
   private splitVariable(variable: string): { studentId: string; projectId: string } {
@@ -70,60 +68,7 @@ export class MatchingService {
 
   private getId(value: string): string {
     const key = this.constraintMappingService.getKey(value);
-    if (key === undefined) {
-      throw new Error(`Key for value "${value}" is undefined`);
-    }
+    if (!key) throw new Error(`Key for value "${value}" is undefined`);
     return key;
-  }
-
-  private createCostFunction(students: Student[]): string {
-    return (
-      'max: ' +
-      students
-        .flatMap(student => {
-          length = student.projectPreferences.length;
-          return student.projectPreferences.map(projectPreference => {
-            return (
-              length -
-              projectPreference.priority +
-              ' x' +
-              this.constraintMappingService.getNumber(student.id) +
-              'y' +
-              this.constraintMappingService.getNumber(projectPreference.projectId)
-            );
-          });
-        })
-        .join(' + ')
-    );
-  }
-
-  private createOnePersonOneProjectConstraint(students: Student[]): string[] {
-    return students.map(student => {
-      return (
-        student.projectPreferences
-          .map(projectPreference => {
-            return (
-              'x' +
-              this.constraintMappingService.getNumber(student.id) +
-              'y' +
-              this.constraintMappingService.getNumber(projectPreference.projectId)
-            );
-          })
-          .join(' + ') + ' = 1'
-      );
-    });
-  }
-
-  private createIntConstraints(students: Student[]): string[] {
-    return students.flatMap(student => {
-      return student.projectPreferences.map(projectPreference => {
-        return (
-          'int x' +
-          this.constraintMappingService.getNumber(student.id) +
-          'y' +
-          this.constraintMappingService.getNumber(projectPreference.projectId)
-        );
-      });
-    });
   }
 }

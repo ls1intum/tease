@@ -1,10 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Student, Device, SkillProficiency, LanguageProficiency } from 'src/app/api/models';
+import { OverlayService } from 'src/app/overlay.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { GenderService } from 'src/app/shared/helpers/gender.service';
 import { GravatarService } from 'src/app/shared/helpers/gravatar.service';
 import { NationalityService } from 'src/app/shared/helpers/nationality.service';
+import { TeamService } from 'src/app/shared/layers/business-logic-layer/team.service';
 import { facIpadIcon, facIphoneIcon, facMacIcon, facWatchIcon } from 'src/assets/icons/icons';
+import { PersonDetailOverlayComponent } from '../person-detail-overlay/person-detail-overlay.component';
 
 @Component({
   selector: 'app-student-preview-card',
@@ -26,10 +29,13 @@ export class StudentPreviewCardComponent implements OnInit {
     private nationalityService: NationalityService,
     private projectsService: ProjectsService,
     private genderService: GenderService,
-    private gravatarService: GravatarService
+    private gravatarService: GravatarService,
+    private teamService: TeamService,
+    private overlayService: OverlayService
   ) {}
 
   ngOnInit() {
+    if (!this.student) throw Error();
     this.projectPreferences = this.getDisplayedProjectPreferences();
     this.projectPreferenceScore = this.getProjectPreferenceScore();
     this.germanProficiency = this.findGermanProficiency();
@@ -101,6 +107,13 @@ export class StudentPreviewCardComponent implements OnInit {
         return Array(4).fill('expert');
     }
     return Array(4).fill('inactive');
+  }
+
+  showPersonDetails(student: Student) {
+    const person = this.teamService.persons.find(p => p.tumId === student.id);
+    this.overlayService.displayComponent(PersonDetailOverlayComponent, {
+      person: person,
+    });
   }
 }
 

@@ -2,8 +2,8 @@
   position: fixed !important;
   margin: 0 !important;
   z-index: 9999 !important;
-  opacity: 1.0;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  opacity: 1;
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=80)';
   filter: alpha(opacity=80);
 }
 .gu-hide {
@@ -16,22 +16,22 @@
   user-select: none !important;
 }
 .gu-transit {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=20)';
   filter: alpha(opacity=20);
 }
 
 /* customization */
+.gu-transit {
+  height: 0.25rem;
+  border-radius: 1rem;
+  background-color: $seperator-blue;
+}
+.gu-transit > * {
+  opacity: 0;
+}
+
 .gu-mirror {
-  opacity: 1 !important;
-  cursor: move;
-}
-
-.gu-mirror > .person-card {
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
-
-.gu-transit > .person-card {
-  opacity: 0.2;
+  opacity: 0.6 !important;
 }
 
 /* TODO: the customized styles shouldn't be in this file but inside of the dashboard module. The nested css

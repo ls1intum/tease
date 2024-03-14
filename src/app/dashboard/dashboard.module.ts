@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { TeamComponent } from './team/team.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -18,7 +17,6 @@ import { TeamPrioritiesChartComponent } from './team-priorities-chart/team-prior
 import { ImportOverlayComponent } from './import-overlay/import-overlay.component';
 import { ConfirmationOverlayComponent } from './confirmation-overlay/confirmation-overlay.component';
 import { PersonPoolStatisticsComponent } from './person-pool-statistics/person-pool-statistics.component';
-import { PersonHighlightingOverlayComponent } from './person-highlighting-overlay/person-highlighting-overlay.component';
 import { IntroCardComponent } from './intro-card/intro-card.component';
 import { ExportOverlayComponent } from './export-overlay/export-overlay.component';
 import { PersonDetailCardComponent } from './person-detail-card/person-detail-card.component';
@@ -26,6 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { StudentPreviewCardComponent } from './student-preview-card/student-preview-card.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ProjectsComponent } from './projects/projects.component';
 
 @NgModule({
   imports: [
@@ -46,18 +45,17 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   ],
   declarations: [
     DashboardComponent,
-    TeamComponent,
     PersonDetailOverlayComponent,
     TeamStatisticsComponent,
     TeamPrioritiesChartComponent,
     ImportOverlayComponent,
     ConfirmationOverlayComponent,
     PersonPoolStatisticsComponent,
-    PersonHighlightingOverlayComponent,
     IntroCardComponent,
     ExportOverlayComponent,
     PersonDetailCardComponent,
     StudentPreviewCardComponent,
+    ProjectsComponent,
   ],
   exports: [DashboardComponent, PersonDetailOverlayComponent, ImportOverlayComponent],
   providers: [],

@@ -8,8 +8,9 @@ import { SkillLevel } from '../../shared/models/skill';
 import { Device } from '../../shared/models/device';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Student } from 'src/app/api/models';
+import { Allocation, Project, Student } from 'src/app/api/models';
 import { StudentsService } from 'src/app/shared/data/students.service';
+import { AllocationsService } from 'src/app/shared/data/allocations.service';
 
 enum PersonPoolDisplayMode {
   Closed,
@@ -41,24 +42,51 @@ export class DashboardComponent implements OnInit, OnDestroy {
   dragulaSubscription = new Subscription();
   constructor(
     public teamService: TeamService,
-    private dragulaService: DragulaService,
+    private dragularService: DragulaService,
+    private allocationsService: AllocationsService,
     private overlayService: OverlayService,
     private studentsService: StudentsService
-  ) {
-    /* save model when modified by drag & drop operation */
-    this.dragulaSubscription.add(
-      dragulaService.dropModel('persons').subscribe(({ target, item }) => {
-        const newTeam = teamService.getTeamByName(target.id);
-        item.teamName = target.id;
-        // if person belongs to no Team (Person Pool) newTeam is undefined
-        newTeam?.add(item);
-        teamService.saveToLocalBrowserStorage();
-      })
-    );
-  }
+  ) {}
+
+  private _students: Student[];
+  private _allocations: Allocation[];
+  private _sorting: Map<string, string> = new Map<string, string>();
+  studentsWithoutTeam: Student[];
 
   ngOnInit(): void {
-    this.teamService.readFromBrowserStorage();
+    this.studentsService.students$.subscribe(students => {
+      this._students = students;
+      this.updateAllocationsData();
+    });
+    this.allocationsService.allocations$.subscribe(allocations => {
+      this._allocations = allocations;
+      this.updateAllocationsData();
+    });
+    this.dragularService.drop('STUDENTS').subscribe(({ el, target, sibling }) => {
+      this.handleStudentDrop(el, target, sibling);
+    });
+  }
+
+  private handleStudentDrop(el: Element, target: Element, sibling: Element): void {
+    if (!el || !target) return;
+    const studentId = el.children[0].id;
+    const projectId = target.id;
+    const siblingId = sibling?.children[0].id;
+
+    if (!studentId) return;
+
+    if (!projectId) {
+      this.allocationsService.removeStudentFromProjects(studentId);
+      return;
+    }
+
+    this.allocationsService.moveStudentToProjectAtInset(studentId, projectId, siblingId);
+  }
+
+  private updateAllocationsData(): void {
+    if (!this._students || !this._allocations) return;
+    const studentIdsWithTeam = this._allocations.flatMap(allocation => allocation.students);
+    this.studentsWithoutTeam = this._students.filter(student => !studentIdsWithTeam.includes(student.id));
   }
 
   public showPersonDetails(person: Person): void {

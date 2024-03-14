@@ -46,7 +46,7 @@ export class ConstraintMappingService {
   }
 
   deleteMapping(): void {
-    this.mappingSubject$.next(new Map<string, number>());
+    this.mappingSubject$.next(this.newMapping());
   }
 
   private getMapping(): UUIDtoNumberMapping {
