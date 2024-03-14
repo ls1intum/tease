@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ConstraintWrapper } from '../matching/constraints/constraint';
 
 @Injectable({
@@ -20,6 +20,10 @@ export class ConstraintsService {
   }
 
   private constraintsSubject$: BehaviorSubject<ConstraintWrapper[]> = new BehaviorSubject<ConstraintWrapper[]>([]);
+
+  get constraints$(): Observable<ConstraintWrapper[]> {
+    return this.constraintsSubject$.asObservable();
+  }
 
   setConstraints(constraints: ConstraintWrapper[]): void {
     this.constraintsSubject$.next(constraints);

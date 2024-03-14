@@ -1,4 +1,4 @@
-<div class="d-flex h-100 gap-2">
+<div class="d-flex h-100 gap-2 px-2">
   @for (allocation of allocationsData; track allocation) {
     <div class="d-flex flex-column p-2 rounded-3 bg-white">
       <div class="ps-2 d-flex justify-content-between">
@@ -9,8 +9,12 @@
             {{ allocation.students.length }}
           </div>
           <div
-            class="bg-card rounded-circle project-circle d-flex justify-content-center align-items-center lh-1 text-dark">
-            {{ allocation.students.length }}
+            class="rounded-circle project-circle d-flex justify-content-center align-items-center lh-1 fs-5 text-dark"
+            [matTooltip]="allocation.error.info"
+            [ngClass]="allocation.error.error ? 'bg-warn' : 'bg-card'">
+            <fa-icon
+              [icon]="allocation.error.error ? facErrorIcon : facCheckIcon"
+              [ngClass]="allocation.error.error ? 'text-white' : 'text-dark'"></fa-icon>
           </div>
         </div>
       </div>
