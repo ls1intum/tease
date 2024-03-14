@@ -1,0 +1,19 @@
+services:
+  tease:
+    image: ghcr.io/ls1intum/tease:latest
+    container_name: tease
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tease.rule=Host(`${SERVER_HOST}`) && PathPrefix(`/tease`)"
+      - "traefik.http.middlewares.tease-stripprefix.stripprefix.prefixes=/tease"
+      - "traefik.http.routers.tease.middlewares=tease-stripprefix"
+      - "traefik.http.routers.tease.entrypoints=websecure"
+      - "traefik.http.routers.tease.tls.certresolver=letsencrypt"
+    expose:
+      - "80"
+    networks:
+      - prompt-network
+
+networks:
+  prompt-network:
+    external: true

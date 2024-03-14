@@ -1,0 +1,7 @@
+services:
+  tease:
+    image: ghcr.io/ls1intum/tease:latest
+    build: .
+    container_name: tease
+    ports:
+      - "8080:80"

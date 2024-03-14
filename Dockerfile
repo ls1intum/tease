@@ -9,7 +9,7 @@ COPY . .
 RUN apk add --no-cache --virtual .build-deps alpine-sdk python3
 # install dependencies
 RUN npm install
-RUN npm run build --omit=dev
+RUN npm run build:traefik --omit=dev
 
 
 # second stage - serve compiled output via nginx server #
