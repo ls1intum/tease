@@ -45,6 +45,8 @@ export class AllocationsService {
 
     if (allocation) {
       allocation.students.push(studentId);
+    } else {
+      allocations.push({ projectId, students: [studentId] });
     }
     this.setAllocations(allocations);
   }

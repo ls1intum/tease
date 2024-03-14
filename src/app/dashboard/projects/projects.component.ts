@@ -60,10 +60,14 @@ export class ProjectsComponent implements OnInit {
     if (!this._allocations || !this._projects || !this._students || !this._constraints) return;
     this.emptyStudent = this._students[0];
     const constraints = this.constraintsService.getConstraints();
-    const allocationsData = this._allocations.map(allocation => {
-      const project = this._projects.find(project => project.id == allocation.projectId);
-      const students = allocation.students.map(studentId => this._students.find(student => student.id === studentId));
-      const errorData = this.getErrorData(allocation.projectId, students);
+
+    const allocationsData = this._projects.map(project => {
+      const allocation = this._allocations.find(allocation => project.id === allocation.projectId);
+      let students = [];
+      if (allocation) {
+        students = allocation.students.map(studentId => this._students.find(student => student.id === studentId));
+      }
+      const errorData = this.getErrorData(project.id, students);
 
       return { project: project, error: errorData, students: students };
     });

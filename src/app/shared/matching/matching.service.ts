@@ -11,7 +11,7 @@ export class MatchingService {
 
   constructor(private constraintMappingService: ConstraintMappingService) {}
 
-  async getAllocations(constraints: string[], students: Student[]): Promise<Allocation[]> {
+  async getAllocations(constraints: string[]): Promise<Allocation[]> {
     try {
       const startTime = Date.now();
       const allocations = await this._getAllocations(constraints);

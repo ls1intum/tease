@@ -36,7 +36,11 @@ export class ConstraintsOverlayComponent implements OverlayComponent, OnInit {
     const constraints = this.constraints.flatMap(constraint => constraint.constraint);
     constraints.push(...this.mandatoryConstraintsService.constraints);
     constraints.push(...this.costFunctionsService.constraints);
-    const allocations = await this.matchingService.getAllocations(constraints, this.studentsService.getStudents());
+    const allocations = await this.matchingService.getAllocations(constraints);
     this.allocationsService.setAllocations(allocations);
+  }
+
+  deleteConstraint(constraint: ConstraintWrapper) {
+    this.constraintsService.deleteConstraint(constraint);
   }
 }

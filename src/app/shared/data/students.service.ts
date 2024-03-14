@@ -29,7 +29,7 @@ export class StudentsService {
     this.studentsSubject$.next([]);
   }
 
-  getStudents(): Student[] {
+  private getStudents(): Student[] {
     return this.studentsSubject$.getValue();
   }
 

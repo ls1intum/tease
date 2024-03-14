@@ -29,10 +29,6 @@ export class SkillsService {
     this.skillsSubject$.next([]);
   }
 
-  getSkills(): Skill[] {
-    return this.skillsSubject$.getValue();
-  }
-
   get skills$(): Observable<Skill[]> {
     return this.skillsSubject$;
   }

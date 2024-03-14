@@ -12,7 +12,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { PersonDetailOverlayComponent } from './person-detail-overlay/person-detail-overlay.component';
-import { TeamStatisticsComponent } from './team-statistics/team-statistics.component';
 import { TeamPrioritiesChartComponent } from './team-priorities-chart/team-priorities-chart.component';
 import { ImportOverlayComponent } from './import-overlay/import-overlay.component';
 import { ConfirmationOverlayComponent } from './confirmation-overlay/confirmation-overlay.component';
@@ -46,7 +45,6 @@ import { ProjectsComponent } from './projects/projects.component';
   declarations: [
     DashboardComponent,
     PersonDetailOverlayComponent,
-    TeamStatisticsComponent,
     TeamPrioritiesChartComponent,
     ImportOverlayComponent,
     ConfirmationOverlayComponent,

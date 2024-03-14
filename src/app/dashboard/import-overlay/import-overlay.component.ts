@@ -2,7 +2,6 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { OverlayComponent } from '../../overlay.service';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import { ExamplePersonPropertyCsvRemotePath } from '../../shared/constants/csv.constants';
-import { ConstraintLoggingService } from '../../shared/layers/business-logic-layer/constraint-logging.service';
 import { PromptService } from 'src/app/shared/services/prompt.service';
 import { StudentToPersonService } from 'src/app/shared/services/student-to-person.service';
 import { ProjectToTeamService } from 'src/app/shared/services/project-to-team.service';
@@ -24,7 +23,8 @@ import { PersonToStudentService } from 'src/app/shared/services/person-to-studen
   styleUrls: ['./import-overlay.component.scss'],
 })
 export class ImportOverlayComponent implements OverlayComponent {
-  public data: { onTeamsImported: () => void; overwriteWarning: boolean }; // TODO: any should be Array<Team>
+  // TODO: Fix Overlay Component
+  public data: any;
   @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(
@@ -66,8 +66,6 @@ export class ImportOverlayComponent implements OverlayComponent {
       this.allocationsService.setAllocations(allocations);
 
       this.loadPersonData(students, skills, projects, allocations);
-
-      this.dataLoaded();
     } catch (error) {
       if (error instanceof HttpErrorResponse) {
         console.log('Error while fetching data: ', error);
@@ -85,20 +83,13 @@ export class ImportOverlayComponent implements OverlayComponent {
 
     this.teamService.readFromCSVFile(files[0]).then(() => {
       this.loadStudentData(this.teamService.teams, this.teamService.persons);
-      this.dataLoaded();
     });
   }
 
   public loadExampleData() {
     this.teamService.readRemoteData(ExamplePersonPropertyCsvRemotePath).then(() => {
       this.loadStudentData(this.teamService.teams, this.teamService.persons);
-      this.dataLoaded();
     });
-  }
-
-  private dataLoaded(): void {
-    this.data.onTeamsImported();
-    ConstraintLoggingService.reset();
   }
 
   private loadStudentData(teams: Team[], persons: Person[]): void {

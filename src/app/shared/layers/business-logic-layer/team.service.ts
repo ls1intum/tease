@@ -4,7 +4,6 @@ import { Team } from '../../models/team';
 import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
 import { CSVPersonDataAccessService } from '../data-access-layer/csv-person-data-access.service';
-import { ConstraintLoggingService } from './constraint-logging.service';
 
 @Injectable()
 export class TeamService {
@@ -90,7 +89,6 @@ export class TeamService {
     const blob = new Blob([csvData], { type: this.EXPORT_DATA_TYPE });
 
     const zip = new JSZip();
-    zip.file(this.LOG_EXPORT_FILE_NAME, ConstraintLoggingService.getLog());
     zip.file(this.CSV_EXPORT_FILE_NAME, blob);
 
     zip.generateAsync({ type: 'blob' }).then(content => {

@@ -1,4 +1,4 @@
-@if (isDataLoaded()) {
+@if (dataLoaded) {
   <!-- team containers -->
   <div
     class="dashboard flex-row"
@@ -16,16 +16,6 @@
         <div>{{ studentsWithoutTeam.length }}</div>
       </div>
       <div class="flex-grow"></div>
-      <button
-        mat-raised-button
-        color="primary"
-        class="distribute-button flex-no-shrink"
-        (click)="onTeamStatisticsButtonPressed()">
-        <div class="flex-row flex-center">
-          <mat-icon class="me-2">timeline</mat-icon>
-          <div>{{ toggleTeamStatisticsButtonState ? 'Show' : 'Hide' }} Team Statistics</div>
-        </div>
-      </button>
       <button
         mat-raised-button
         color="primary"
@@ -102,6 +92,6 @@
   </div>
 } @else {
   <div class="flex-row flex-justify-center">
-    <app-intro-card (importPressed)="importPressed.emit()"></app-intro-card>
+    <app-intro-card (importPressed)="showImportOverlay()"></app-intro-card>
   </div>
 }

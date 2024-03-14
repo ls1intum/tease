@@ -5,15 +5,14 @@ import { OverlayHostDirective } from './overlay-host.directive';
 import { OverlayComponent, OverlayService, OverlayServiceHost } from './overlay.service';
 import { ImportOverlayComponent } from './dashboard/import-overlay/import-overlay.component';
 import { ConfirmationOverlayComponent } from './dashboard/confirmation-overlay/confirmation-overlay.component';
-import { Location } from '@angular/common';
 import { ExportOverlayComponent } from './dashboard/export-overlay/export-overlay.component';
-import { ConstraintLoggingService } from './shared/layers/business-logic-layer/constraint-logging.service';
 import { StudentsService } from './shared/data/students.service';
 import { ProjectsService } from './shared/data/projects.service';
 import { AllocationsService } from './shared/data/allocations.service';
 import { SkillsService } from './shared/data/skills.service';
 import { ConstraintBuilderComponent } from './dashboard/constraint-builder-overlay/constraint-builder.component';
 import { ConstraintsOverlayComponent } from './dashboard/constraints-overlay/constraints-overlay.component';
+import { ConstraintsService } from './shared/data/constraints.service';
 
 @Component({
   selector: 'app-root',
@@ -34,26 +33,13 @@ export class AppComponent implements OverlayServiceHost {
     public overlayService: OverlayService,
     private teamService: TeamService,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private location: Location,
     private studentsService: StudentsService,
     private projectsService: ProjectsService,
     private allocationsService: AllocationsService,
-    private skillsService: SkillsService
+    private skillsService: SkillsService,
+    private constraintsService: ConstraintsService
   ) {
     this.overlayService.host = this;
-
-    // disable back button
-    if (typeof history.pushState !== 'undefined') {
-      const pushState = () => {
-        history.pushState(null, '', '#TEASE');
-      };
-      pushState();
-      this.location.subscribe(() => {
-        pushState();
-      });
-    }
-
-    ConstraintLoggingService.load();
   }
 
   showResetTeamAllocationConfirmation() {
@@ -61,9 +47,8 @@ export class AppComponent implements OverlayServiceHost {
       action: 'Reset',
       actionDescription: 'Resetting the team allocation will unpin all persons and remove them from their teams.',
       onConfirmed: () => {
-        this.teamService.resetPinnedStatus();
-        this.teamService.resetTeamAllocation();
-        this.teamService.saveToLocalBrowserStorage();
+        // TODO: Reset Pinned Status
+        this.allocationsService.deleteAllocations();
         this.overlayService.closeOverlay();
       },
       onCancelled: () => this.overlayService.closeOverlay(),
@@ -88,7 +73,7 @@ export class AppComponent implements OverlayServiceHost {
       onTeamsImported: () => {
         this.overlayService.closeOverlay();
       },
-      overwriteWarning: this.dashboardComponent.isDataLoaded(),
+      overwriteWarning: this.dashboardComponent.dataLoaded,
     });
   }
 
@@ -125,5 +110,13 @@ export class AppComponent implements OverlayServiceHost {
 
   showConstraintBuilderOverlay(): void {
     this.overlayService.displayComponent(ConstraintBuilderComponent, {});
+  }
+
+  deleteData() {
+    this.studentsService.deleteStudents();
+    this.projectsService.deleteProjects();
+    this.allocationsService.deleteAllocations();
+    this.skillsService.deleteSkills();
+    this.constraintsService.deleteConstraints();
   }
 }

@@ -12,6 +12,7 @@ import { TeamsToAllocationsService } from 'src/app/shared/services/teams-to-allo
 import { PromptService } from 'src/app/shared/services/prompt.service';
 import { ToastsService } from 'src/app/shared/services/toasts.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AllocationsService } from 'src/app/shared/data/allocations.service';
 
 @Component({
   selector: 'app-export-overlay',
@@ -44,9 +45,9 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
   constructor(
     private teamService: TeamService,
     private applicationRef: ApplicationRef,
-    private teamsToAllocationsService: TeamsToAllocationsService,
     private promptService: PromptService,
-    private toastsService: ToastsService
+    private toastsService: ToastsService,
+    private allocationsService: AllocationsService
   ) {}
 
   ngOnDestroy() {
@@ -54,8 +55,7 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
   }
 
   async exportPrompt() {
-    const teams = this.teamService.teams;
-    const allocations = this.teamsToAllocationsService.transformTeamsToAllocations(teams);
+    const allocations = this.allocationsService.getAllocations();
     try {
       if (await this.promptService.postAllocations(allocations)) {
         this.toastsService.showToast('Export successful', 'Export', true);

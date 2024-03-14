@@ -43,4 +43,11 @@ export class ConstraintsService {
     console.log(this.constraintsSubject$.getValue());
     return this.constraintsSubject$.getValue();
   }
+
+  deleteConstraint(constraint: ConstraintWrapper): void {
+    const constraints = this.getConstraints();
+    const index = constraints.indexOf(constraint);
+    constraints.splice(index, 1);
+    this.setConstraints(constraints);
+  }
 }

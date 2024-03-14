@@ -25,8 +25,6 @@ import { TeamService } from './shared/layers/business-logic-layer/team.service';
 import { ConstraintService } from './shared/layers/business-logic-layer/constraint.service';
 import { OverlayService } from './overlay.service';
 import { PersonStatisticsService } from './shared/layers/business-logic-layer/person-statistics.service';
-import { TeamGenerationService } from './shared/layers/business-logic-layer/team-generation/team-generation.service';
-import { LPTeamGenerationService } from './shared/layers/business-logic-layer/team-generation/lp-team-generation.service';
 import { PromptService } from './shared/services/prompt.service';
 
 import { OverlayHostDirective } from './overlay-host.directive';
@@ -79,7 +77,6 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     AuthInterceptor,
     API_INTERCEPTOR_PROVIDER,
     [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }],
-    { provide: TeamGenerationService, useClass: LPTeamGenerationService },
   ],
   bootstrap: [AppComponent],
 })

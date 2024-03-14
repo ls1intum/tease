@@ -11,15 +11,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let constraint of constraints">
-            <td>{{ constraint.projectIds.join(', ') }}</td>
-            <td>
-              {{ constraint.constraintFunctionProperty }}, {{ constraint.constraintFunctionOperator }},
-              {{ constraint.constraintFunctionValue }}
-            </td>
-            <td>{{ constraint.constraintOperator }}, {{ constraint.constraintThreshold }}</td>
-            <td>{{ constraint.students.length }}</td>
-          </tr>
+          @for (constraint of constraints; track constraint) {
+            <tr>
+              <td>{{ constraint.projectIds.join(', ') }}</td>
+              <td>
+                {{ constraint.constraintFunctionProperty }}, {{ constraint.constraintFunctionOperator }},
+                {{ constraint.constraintFunctionValue }}
+              </td>
+              <td>{{ constraint.constraintOperator }}, {{ constraint.constraintThreshold }}</td>
+              <td>{{ constraint.students.length }}</td>
+              <td><button (click)="deleteConstraint(constraint)">Delete</button></td>
+            </tr>
+          }
         </tbody>
       </table>
 
