@@ -6,6 +6,8 @@ import { Project } from 'src/app/api/models';
   providedIn: 'root',
 })
 export class ProjectsService {
+  private projectsSubject$: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);
+
   constructor() {
     try {
       const projects = JSON.parse(localStorage.getItem('projects')) || [];
@@ -18,8 +20,6 @@ export class ProjectsService {
       localStorage.setItem('projects', JSON.stringify(projects));
     });
   }
-
-  private projectsSubject$: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);
 
   setProjects(projects: Project[]): void {
     this.projectsSubject$.next(projects);

@@ -14,21 +14,31 @@ import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { ConstraintMappingService } from 'src/app/shared/data/constraint-mapping.service';
 
 @Component({
-  selector: 'app-constraints-overlay-2',
+  selector: 'app-constraint-builder',
   templateUrl: './constraint-builder.component.html',
-  styleUrl: './constraint-builder.component.css',
+  styleUrl: './constraint-builder.component.scss',
 })
 export class ConstraintBuilderComponent implements OverlayComponent, OnInit {
   // change OverlayComponent in future
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any;
+  constraintFunctionProperties: PropertySelectGroup[];
+  constraintFunctionOperatorSelectData: SelectData[];
+  constraintFunctionValueSelectData: SelectData[];
+  constraintProjectSelectData: SelectData[];
+  constraintOperators: SelectData[];
+
+  selectedConstraintFunctionProperty: string;
+  selectedConstraintFunctionOperator: string;
+  selectedConstraintFunctionValue: string;
+  selectedConstraintProject: string;
+  selectedConstraintOperator: string;
+  constraintThresholdValue: number;
+
+  constraint?: ConstraintWrapper;
 
   constructor(
-    private studentsService: StudentsService,
-    private skillsService: SkillsService,
-    private projectsService: ProjectsService,
     private constraintsService: ConstraintsService,
-    private constraintMappingService: ConstraintMappingService,
     private overlayService: OverlayService,
     private constraintGenerator: ConstraintBuilderService
   ) {}
@@ -37,24 +47,11 @@ export class ConstraintBuilderComponent implements OverlayComponent, OnInit {
     this.constraintFunctionProperties = this.constraintGenerator.constraintFunctionProperties;
 
     this.constraintProjectSelectData = this.constraintGenerator.constraintProjects;
-    this.constraintProjectSelected = this.constraintProjectSelectData[0].id;
+    this.selectedConstraintProject = this.constraintProjectSelectData[0].id;
 
     this.constraintOperators = this.constraintGenerator.constraintOperators;
-    this.constraintOperatorSelected = this.constraintOperators[0].id;
+    this.selectedConstraintOperator = this.constraintOperators[0].id;
   }
-
-  constraintFunctionProperties: PropertySelectGroup[];
-  constraintFunctionOperatorSelectData: SelectData[];
-  constraintFunctionValueSelectData: SelectData[];
-  constraintProjectSelectData: SelectData[];
-  constraintOperators: SelectData[];
-
-  constraintFunctionPropertySelected: string;
-  constraintFunctionOperatorSelected: string;
-  constraintFunctionValueSelected: string;
-  constraintProjectSelected: string;
-  constraintOperatorSelected: string;
-  constraintThresholdValue: number;
 
   selectData(): void {
     this.getConstraintFunctionValues();
@@ -64,47 +61,44 @@ export class ConstraintBuilderComponent implements OverlayComponent, OnInit {
 
   private getConstraintFunctionValues(): void {
     this.constraintFunctionValueSelectData = this.constraintGenerator.getConstraintFunctionValues(
-      this.constraintFunctionPropertySelected
+      this.selectedConstraintFunctionProperty
     );
 
-    if (this.constraintFunctionValueSelectData || this.constraintFunctionValueSelectData.length < 1) {
-      this.constraintFunctionValueSelected = null;
+    if (this.constraintFunctionValueSelectData || !this.constraintFunctionValueSelectData.length) {
+      this.selectedConstraintFunctionValue = null;
     }
-    this.constraintFunctionValueSelected = this.constraintFunctionValueSelectData[0].id;
+    this.selectedConstraintFunctionValue = this.constraintFunctionValueSelectData[0].id;
   }
 
   private getConstraintFunctionOperators(): void {
     this.constraintFunctionOperatorSelectData = this.constraintGenerator.getConstraintFunctionOperators(
-      this.constraintFunctionPropertySelected
+      this.selectedConstraintFunctionProperty
     );
 
-    if (this.constraintFunctionOperatorSelectData || this.constraintFunctionOperatorSelectData.length < 1) {
-      this.constraintFunctionOperatorSelected = null;
+    if (this.constraintFunctionOperatorSelectData || !this.constraintFunctionOperatorSelectData.length) {
+      this.selectedConstraintFunctionOperator = null;
     }
-    this.constraintFunctionOperatorSelected = this.constraintFunctionOperatorSelectData[0].id;
+    this.selectedConstraintFunctionOperator = this.constraintFunctionOperatorSelectData[0].id;
   }
 
-  constraint: ConstraintWrapper | null = null;
-
   getConstraint(): void {
-    this.constraint = null;
     if (
-      !this.constraintProjectSelected ||
-      !this.constraintFunctionPropertySelected ||
-      !this.constraintFunctionOperatorSelected ||
-      !this.constraintFunctionValueSelected ||
-      !this.constraintOperatorSelected ||
+      !this.selectedConstraintProject ||
+      !this.selectedConstraintFunctionProperty ||
+      !this.selectedConstraintFunctionOperator ||
+      !this.selectedConstraintFunctionValue ||
+      !this.selectedConstraintOperator ||
       !this.constraintThresholdValue
     ) {
       return;
     }
 
     this.constraint = this.constraintGenerator.createConstraint(
-      this.constraintProjectSelected,
-      this.constraintFunctionPropertySelected,
-      this.constraintFunctionOperatorSelected,
-      this.constraintFunctionValueSelected,
-      this.constraintOperatorSelected,
+      this.selectedConstraintProject,
+      this.selectedConstraintFunctionProperty,
+      this.selectedConstraintFunctionOperator,
+      this.selectedConstraintFunctionValue,
+      this.selectedConstraintOperator,
       this.constraintThresholdValue
     );
   }
@@ -112,7 +106,6 @@ export class ConstraintBuilderComponent implements OverlayComponent, OnInit {
   storeConstraint(): void {
     if (this.constraint) {
       this.constraintsService.addConstraint(this.constraint);
-      // this.overlayService.closeOverlay();
       this.overlayService.closeOverlay();
     }
   }

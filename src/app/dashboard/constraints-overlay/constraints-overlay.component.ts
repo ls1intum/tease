@@ -11,11 +11,12 @@ import { AllocationsService } from 'src/app/shared/data/allocations.service';
 @Component({
   selector: 'app-constraints-overlay',
   templateUrl: './constraints-overlay.component.html',
-  styleUrl: './constraints-overlay.component.css',
+  styleUrl: './constraints-overlay.component.scss',
 })
 export class ConstraintsOverlayComponent implements OverlayComponent, OnInit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any;
+  constraints: ConstraintWrapper[];
 
   constructor(
     private constraintsService: ConstraintsService,
@@ -26,18 +27,17 @@ export class ConstraintsOverlayComponent implements OverlayComponent, OnInit {
     private allocationsService: AllocationsService
   ) {}
 
-  constraints: ConstraintWrapper[];
-
   ngOnInit() {
     this.constraints = this.constraintsService.getConstraints();
   }
 
   async distributeTeams() {
     const constraints = this.constraints.flatMap(constraint => constraint.constraint);
-    constraints.push(...this.mandatoryConstraintsService.constraints);
-    constraints.push(...this.costFunctionsService.constraints);
+    constraints.push(...this.mandatoryConstraintsService.constraints, ...this.costFunctionsService.constraints);
     const allocations = await this.matchingService.getAllocations(constraints);
-    this.allocationsService.setAllocations(allocations);
+    if (allocations) {
+      this.allocationsService.setAllocations(allocations);
+    }
   }
 
   deleteConstraint(constraint: ConstraintWrapper) {

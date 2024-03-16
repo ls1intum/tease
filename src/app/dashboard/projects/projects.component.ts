@@ -1,17 +1,23 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StudentsService } from 'src/app/shared/data/students.service';
 import { Allocation, Project, Student } from 'src/app/api/models';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { AllocationsService } from 'src/app/shared/data/allocations.service';
-import { Subscription } from 'rxjs';
-import { OverlayService } from 'src/app/overlay.service';
-import { PersonDetailOverlayComponent } from '../person-detail-overlay/person-detail-overlay.component';
-import { TeamService } from 'src/app/shared/layers/business-logic-layer/team.service';
-import { DragulaService } from 'ng2-dragula';
 import { facCheckIcon, facErrorIcon } from 'src/assets/icons/icons';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { ConstraintWrapper } from 'src/app/shared/matching/constraints/constraint';
 import { Comparator } from 'src/app/shared/matching/constraints/constraint-utils';
+
+interface AllocationData {
+  project: Project;
+  error: ErrorData;
+  students: Student[];
+}
+
+interface ErrorData {
+  error: boolean;
+  info: string;
+}
 
 @Component({
   selector: 'app-projects',
@@ -59,7 +65,6 @@ export class ProjectsComponent implements OnInit {
   private updateAllocationsData() {
     if (!this._allocations || !this._projects || !this._students || !this._constraints) return;
     this.emptyStudent = this._students[0];
-    const constraints = this.constraintsService.getConstraints();
 
     const allocationsData = this._projects.map(project => {
       const allocation = this._allocations.find(allocation => project.id === allocation.projectId);
@@ -95,15 +100,4 @@ export class ProjectsComponent implements OnInit {
     }
     return { error: error, info: info };
   }
-}
-
-interface AllocationData {
-  project: Project;
-  error: ErrorData;
-  students: Student[];
-}
-
-interface ErrorData {
-  error: boolean;
-  info: string;
 }

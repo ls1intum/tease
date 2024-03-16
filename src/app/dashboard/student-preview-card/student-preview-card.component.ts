@@ -9,6 +9,11 @@ import { TeamService } from 'src/app/shared/layers/business-logic-layer/team.ser
 import { facIpadIcon, facIphoneIcon, facMacIcon, facWatchIcon } from 'src/assets/icons/icons';
 import { PersonDetailOverlayComponent } from '../person-detail-overlay/person-detail-overlay.component';
 
+class AssignedProjectPreference {
+  name: string;
+  priority: number;
+  assigned: boolean;
+}
 @Component({
   selector: 'app-student-preview-card',
   templateUrl: './student-preview-card.component.html',
@@ -24,6 +29,20 @@ export class StudentPreviewCardComponent implements OnInit {
   facIphoneIcon = facIphoneIcon;
   facIpadIcon = facIpadIcon;
   facWatchIcon = facWatchIcon;
+
+  projectPreferences: AssignedProjectPreference[];
+  projectPreferenceScore: string;
+  germanProficiency: string;
+  nationalityText: string;
+  nationalityEmoji: string;
+  genderIcon: string;
+  gravatarURL: string;
+  skillColors: string[];
+  name: string;
+  ownsMac: boolean;
+  ownsIPhone: boolean;
+  ownsIPad: boolean;
+  ownsWatch: boolean;
 
   constructor(
     private nationalityService: NationalityService,
@@ -50,20 +69,6 @@ export class StudentPreviewCardComponent implements OnInit {
     this.ownsWatch = this.student.devices.includes(Device.Watch);
     this.name = `${this.student.firstName} ${this.student.lastName}`;
   }
-
-  projectPreferences: AssignedProjectPreference[];
-  projectPreferenceScore: string;
-  germanProficiency: string;
-  nationalityText: string;
-  nationalityEmoji: string;
-  genderIcon: string;
-  gravatarURL: string;
-  skillColors: string[];
-  name: string;
-  ownsMac: boolean;
-  ownsIPhone: boolean;
-  ownsIPad: boolean;
-  ownsWatch: boolean;
 
   private getProjectPreferenceScore(): string {
     if (this.projectId) {
@@ -110,15 +115,9 @@ export class StudentPreviewCardComponent implements OnInit {
   }
 
   showPersonDetails(student: Student) {
-    const person = this.teamService.persons.find(p => p.tumId === student.id);
+    const person = this.teamService.persons.find(person => person.tumId === student.id);
     this.overlayService.displayComponent(PersonDetailOverlayComponent, {
       person: person,
     });
   }
-}
-
-class AssignedProjectPreference {
-  name: string;
-  priority: number;
-  assigned: boolean;
 }

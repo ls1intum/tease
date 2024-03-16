@@ -28,11 +28,10 @@ export class MandatoryConstraintsService {
   }
 
   get constraints(): string[] {
-    console.log(this._constraints);
     return this._constraints;
   }
 
-  private updateConstraints() {
+  private updateConstraints(): void {
     if (!this._projectNumbers || !this._studentNumbers) return;
     this._constraints = this.createIntegerConstraints();
     this._constraints.push(...this.createOneStudentConstraint());

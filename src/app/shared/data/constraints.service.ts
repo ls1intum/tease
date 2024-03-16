@@ -6,6 +6,8 @@ import { ConstraintWrapper } from '../matching/constraints/constraint';
   providedIn: 'root',
 })
 export class ConstraintsService {
+  private constraintsSubject$: BehaviorSubject<ConstraintWrapper[]> = new BehaviorSubject<ConstraintWrapper[]>([]);
+
   constructor() {
     try {
       const constraints: ConstraintWrapper[] = JSON.parse(localStorage.getItem('constraints')) || [];
@@ -18,8 +20,6 @@ export class ConstraintsService {
       localStorage.setItem('constraints', JSON.stringify(constraints));
     });
   }
-
-  private constraintsSubject$: BehaviorSubject<ConstraintWrapper[]> = new BehaviorSubject<ConstraintWrapper[]>([]);
 
   get constraints$(): Observable<ConstraintWrapper[]> {
     return this.constraintsSubject$.asObservable();
@@ -40,7 +40,6 @@ export class ConstraintsService {
   }
 
   getConstraints(): ConstraintWrapper[] {
-    console.log(this.constraintsSubject$.getValue());
     return this.constraintsSubject$.getValue();
   }
 

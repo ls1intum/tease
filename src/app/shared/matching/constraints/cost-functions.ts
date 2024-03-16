@@ -23,11 +23,10 @@ export class CostFunctionsService {
   }
 
   get constraints(): string[] {
-    console.log(this._constraints);
     return this._constraints;
   }
 
-  private updateConstraints() {
+  private updateConstraints(): void {
     if (!this._students) return;
     this._constraints = [this.createCostFunction()];
   }

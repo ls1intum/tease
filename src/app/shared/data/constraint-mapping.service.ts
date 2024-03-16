@@ -5,6 +5,8 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class ConstraintMappingService {
+  mappingSubject$: BehaviorSubject<UUIDtoNumberMapping> = new BehaviorSubject<UUIDtoNumberMapping>(this.newMapping());
+
   constructor() {
     try {
       const mapping: UUIDtoNumberMapping = new Map(JSON.parse(localStorage.getItem('mapping'))) || this.newMapping();
@@ -17,8 +19,6 @@ export class ConstraintMappingService {
       localStorage.setItem('mapping', JSON.stringify(Array.from(mapping.entries())));
     });
   }
-
-  mappingSubject$: BehaviorSubject<UUIDtoNumberMapping> = new BehaviorSubject<UUIDtoNumberMapping>(this.newMapping());
 
   private setMapping(mapping: UUIDtoNumberMapping): void {
     this.mappingSubject$.next(mapping);

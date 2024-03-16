@@ -2,6 +2,23 @@ import { Skill, Student } from 'src/app/api/models';
 import { Operator, OperatorMapping } from '../constraint-utils';
 import { v4 as uuid } from 'uuid';
 
+export interface ConstraintFunctionValues {
+  property: string;
+  operator: Operator;
+  value: string;
+}
+
+export interface SelectData {
+  name: string; //shown in the dropdown
+  id: string; //value to be used in constraint
+}
+
+export interface PropertySelectGroup {
+  name: string; //shown in the dropdown
+  values: SelectData[];
+  constraintFunction: ConstraintFunction;
+}
+
 export abstract class ConstraintFunction {
   constructor(
     protected readonly students: Student[],
@@ -22,21 +39,4 @@ export abstract class ConstraintFunction {
       name: OperatorMapping[operator],
     }));
   }
-}
-
-export interface ConstraintFunctionValues {
-  property: string;
-  operator: Operator;
-  value: string;
-}
-
-export interface SelectData {
-  name: string; //shown in the dropdown
-  id: string; //value to be used in constraint
-}
-
-export interface PropertySelectGroup {
-  name: string; //shown in the dropdown
-  values: SelectData[];
-  constraintFunction: ConstraintFunction;
 }

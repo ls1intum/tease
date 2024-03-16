@@ -6,6 +6,8 @@ import { Skill } from 'src/app/api/models';
   providedIn: 'root',
 })
 export class SkillsService {
+  private skillsSubject$: BehaviorSubject<Skill[]> = new BehaviorSubject<Skill[]>([]);
+
   constructor() {
     try {
       const skills: Skill[] = JSON.parse(localStorage.getItem('skills'));
@@ -18,8 +20,6 @@ export class SkillsService {
       localStorage.setItem('skills', JSON.stringify(skills));
     });
   }
-
-  private skillsSubject$: BehaviorSubject<Skill[]> = new BehaviorSubject<Skill[]>([]);
 
   setSkills(skills: Skill[]): void {
     this.skillsSubject$.next(skills);

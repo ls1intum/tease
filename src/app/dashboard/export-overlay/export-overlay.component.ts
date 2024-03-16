@@ -31,9 +31,6 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
   @ViewChild(PersonDetailCardComponent) personDetailCardComponent: PersonDetailCardComponent;
   @ViewChild(PersonDetailCardComponent, { read: ElementRef }) personDetailCardComponentRef: ElementRef;
 
-  // @ViewChild(TeamComponent) teamComponent: TeamComponent;
-  // @ViewChild(TeamComponent, { read: ElementRef }) teamComponentRef: ElementRef;
-
   html2canvasOptions = {
     allowTaint: false,
     backgroundColor: null,

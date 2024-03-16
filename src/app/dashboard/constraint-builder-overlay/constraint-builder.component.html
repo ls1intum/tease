@@ -6,7 +6,7 @@
           <select
             class="form-select"
             id="ProjectSelect"
-            [(ngModel)]="constraintProjectSelected"
+            [(ngModel)]="selectedConstraintProject"
             (ngModelChange)="getConstraint()">
             @for (selectGroup of constraintProjectSelectData; track selectGroup) {
               <option [value]="selectGroup.id">{{ selectGroup.name }}</option>
@@ -19,7 +19,7 @@
           <select
             class="form-select"
             id="ConstraintPropertySelect"
-            [(ngModel)]="constraintFunctionPropertySelected"
+            [(ngModel)]="selectedConstraintFunctionProperty"
             (ngModelChange)="selectData()">
             @for (selectGroup of constraintFunctionProperties; track selectGroup) {
               <optgroup [label]="selectGroup.name">
@@ -36,7 +36,7 @@
           <select
             class="form-select"
             id="ConstraintFunctionOperatorSelect"
-            [(ngModel)]="constraintFunctionOperatorSelected"
+            [(ngModel)]="selectedConstraintFunctionOperator"
             (ngModelChange)="getConstraint()">
             @for (selectData of constraintFunctionOperatorSelectData; track selectData) {
               <option [value]="selectData.id">{{ selectData.name }}</option>
@@ -49,7 +49,7 @@
           <select
             class="form-select"
             id="ConstraintFunctionValueSelect"
-            [(ngModel)]="constraintFunctionValueSelected"
+            [(ngModel)]="selectedConstraintFunctionValue"
             (ngModelChange)="getConstraint()">
             @for (selectData of constraintFunctionValueSelectData; track selectData) {
               <option [value]="selectData.id">{{ selectData.name }}</option>
@@ -62,7 +62,7 @@
           <select
             class="form-select"
             id="OperatorSelect"
-            [(ngModel)]="constraintOperatorSelected"
+            [(ngModel)]="selectedConstraintOperator"
             (ngModelChange)="getConstraint()">
             @for (selectData of constraintOperators; track selectData) {
               <option [value]="selectData.id">{{ selectData.name }}</option>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ReformatLP, Solve } from 'javascript-lp-solver';
 import { Allocation, Student } from 'src/app/api/models';
 import { ConstraintMappingService } from '../data/constraint-mapping.service';
+import { ToastsService } from '../services/toasts.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,25 +10,29 @@ import { ConstraintMappingService } from '../data/constraint-mapping.service';
 export class MatchingService {
   private readonly DELETE_PROPERTIES = ['feasible', 'bounded', 'result', 'isIntegral'];
 
-  constructor(private constraintMappingService: ConstraintMappingService) {}
+  constructor(
+    private constraintMappingService: ConstraintMappingService,
+    private toastsService: ToastsService
+  ) {}
 
   async getAllocations(constraints: string[]): Promise<Allocation[]> {
     try {
       const startTime = Date.now();
-      const allocations = await this._getAllocations(constraints);
+      const allocations = await this.solveLinearProgram(constraints);
       const endTime = Date.now();
       console.log(`Time taken by solveLP: ${endTime - startTime} ms`);
       return allocations;
     } catch (error) {
-      console.log('Error');
+      this.toastsService.showToast('No feasible solution found', 'Error', false);
     }
     return null;
   }
 
-  private async _getAllocations(constraints: string[]): Promise<Allocation[]> {
+  private async solveLinearProgram(constraints: string[]): Promise<Allocation[]> {
     return new Promise((resolve, reject) => {
       try {
-        const solution = this.solveLinearProgram(constraints);
+        const reformattedLinearProgram: ReformatLP = new ReformatLP(constraints);
+        const solution = new Solve(reformattedLinearProgram);
         const allocations = this.transformSolutionToAllocations(solution);
         if (!allocations) reject();
         resolve(allocations);
@@ -35,11 +40,6 @@ export class MatchingService {
         reject(error);
       }
     });
-  }
-
-  private solveLinearProgram(constraints: string[]): Solve {
-    const reformattedLinearProgram: ReformatLP = new ReformatLP(constraints);
-    return new Solve(reformattedLinearProgram);
   }
 
   private transformSolutionToAllocations(solution: Solve): Allocation[] {
@@ -53,11 +53,13 @@ export class MatchingService {
 
     keys.forEach(key => {
       const { studentId, projectId } = this.splitVariable(key);
-      let allocation = allocations.find(allocation => allocation.projectId === projectId);
-      if (!allocation) allocations.push({ projectId: projectId, students: [studentId] });
-      else allocation.students.push(studentId);
+      const allocation = allocations.find(allocation => allocation.projectId === projectId);
+      if (allocation) {
+        allocation.students.push(studentId);
+      } else {
+        allocations.push({ projectId: projectId, students: [studentId] });
+      }
     });
-
     return allocations;
   }
 

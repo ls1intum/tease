@@ -17,8 +17,14 @@ export class SkillConstraintFunction extends ConstraintFunction {
   ): boolean {
     for (const studentSkill of studentSkills) {
       if (studentSkill.id === skillId) {
-        if (Comparator[operator](SkillLevels[studentSkill.proficiency], SkillLevels[skillProficiency])) {
+        const skillLevelFullfillsConstraint = Comparator[operator](
+          SkillLevels[studentSkill.proficiency],
+          SkillLevels[skillProficiency]
+        );
+        if (skillLevelFullfillsConstraint) {
           return true;
+        } else {
+          return false;
         }
       }
     }

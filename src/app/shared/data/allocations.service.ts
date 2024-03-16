@@ -6,6 +6,8 @@ import { Allocation } from 'src/app/api/models';
   providedIn: 'root',
 })
 export class AllocationsService {
+  private allocationsSubject$: BehaviorSubject<Allocation[]> = new BehaviorSubject<Allocation[]>([]);
+
   constructor() {
     try {
       const allocations = JSON.parse(localStorage.getItem('allocations')) || [];
@@ -18,8 +20,6 @@ export class AllocationsService {
       localStorage.setItem('allocations', JSON.stringify(allocations));
     });
   }
-
-  private allocationsSubject$: BehaviorSubject<Allocation[]> = new BehaviorSubject<Allocation[]>([]);
 
   setAllocations(allocations: Allocation[]): void {
     this.allocationsSubject$.next(allocations);
@@ -38,32 +38,26 @@ export class AllocationsService {
   }
 
   moveStudentToProject(studentId: string, projectId: string): void {
-    this.removeStudentFromProjects(studentId);
+    this.moveStudentToProjectAtPosition(studentId, projectId);
+  }
 
+  moveStudentToProjectAtPosition(studentId: string, projectId: string, siblingId?: string): void {
+    this.removeStudentFromProjects(studentId);
     const allocations = this.getAllocations();
-    const allocation = allocations.find(a => a.projectId === projectId);
+    const allocation = this.getAllocationForProjectId(projectId);
+    var positionInAllocation = allocation.students.indexOf(siblingId);
+
+    if (positionInAllocation === -1) {
+      positionInAllocation = allocation.students.length;
+    }
 
     if (allocation) {
-      allocation.students.push(studentId);
+      allocation.students.splice(positionInAllocation, 0, studentId);
     } else {
       allocations.push({ projectId, students: [studentId] });
     }
+
     this.setAllocations(allocations);
-  }
-
-  moveStudentToProjectAtInset(studentId: string, projectId: string, siblingId?: string): void {
-    this.removeStudentFromProjects(studentId);
-
-    const allocations = this.getAllocations();
-    const allocation = allocations.find(a => a.projectId === projectId);
-
-    if (allocation && siblingId) {
-      const index = allocation.students.indexOf(siblingId);
-      allocation.students.splice(index, 0, studentId);
-      this.setAllocations(allocations);
-    } else {
-      this.moveStudentToProject(studentId, projectId);
-    }
   }
 
   removeStudentFromProjects(studentId: string): void {
@@ -72,5 +66,9 @@ export class AllocationsService {
       allocation.students = allocation.students.filter(id => id !== studentId);
     });
     this.allocationsSubject$.next(allocations);
+  }
+
+  private getAllocationForProjectId(projectId: string): Allocation {
+    return this.getAllocations().find(allocation => allocation.projectId === projectId);
   }
 }
