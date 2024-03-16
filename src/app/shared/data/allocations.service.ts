@@ -45,9 +45,9 @@ export class AllocationsService {
     this.removeStudentFromProjects(studentId);
     const allocations = this.getAllocations();
     const allocation = this.getAllocationForProjectId(projectId);
-    var positionInAllocation = allocation.students.indexOf(siblingId);
+    var positionInAllocation = allocation?.students.indexOf(siblingId) ?? -1;
 
-    if (positionInAllocation === -1) {
+    if (allocation && positionInAllocation === -1) {
       positionInAllocation = allocation.students.length;
     }
 
