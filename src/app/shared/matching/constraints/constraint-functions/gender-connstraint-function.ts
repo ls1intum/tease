@@ -1,7 +1,6 @@
 import { ConstraintFunction, PropertySelectGroup, SelectData } from './constraint-function';
 import { Operator, Comparator } from '../constraint-utils';
 import { Gender, Student, Skill } from 'src/app/api/models';
-import { v4 as uuid } from 'uuid';
 
 export class GenderConstraintFunction extends ConstraintFunction {
   constructor(students: Student[], skills: Skill[]) {
@@ -13,7 +12,7 @@ export class GenderConstraintFunction extends ConstraintFunction {
   }
 
   override getProperties(): PropertySelectGroup {
-    return { name: 'Gender', constraintFunction: this, values: [{ id: uuid(), name: 'Gender' }] };
+    return { name: 'Gender', constraintFunction: this, values: [{ id: 'cf-gender', name: 'Gender' }] };
   }
 
   override getValues(): SelectData[] {

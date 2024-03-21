@@ -1,6 +1,5 @@
 import { Skill, Student } from 'src/app/api/models';
 import { Operator, OperatorMapping } from '../constraint-utils';
-import { v4 as uuid } from 'uuid';
 
 export interface ConstraintFunctionValues {
   property: string;
@@ -24,7 +23,7 @@ export abstract class ConstraintFunction {
     protected readonly students: Student[],
     protected readonly skills: Skill[],
     protected operators: Operator[] = Object.values(Operator),
-    readonly id: string = uuid()
+    readonly id: string = 'cf-abstract'
   ) {}
 
   abstract filterStudentsByConstraintFunction(property: string, operator: Operator, value: string): Student[];

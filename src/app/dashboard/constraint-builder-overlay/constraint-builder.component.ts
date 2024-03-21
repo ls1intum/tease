@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OverlayComponent, OverlayService } from 'src/app/overlay.service';
-
 import {
+  ConstraintFunction,
   PropertySelectGroup,
   SelectData,
 } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
@@ -11,14 +11,16 @@ import { SkillsService } from 'src/app/shared/data/skills.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { ConstraintWrapper } from 'src/app/shared/matching/constraints/constraint';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
-import { IdMappingService } from 'src/app/shared/data/id-mapping.service';
+import { Project, Skill, Student } from 'src/app/api/models';
+import { Subscription } from 'rxjs';
+import { Operator } from 'src/app/shared/matching/constraints/constraint-utils';
 
 @Component({
   selector: 'app-constraint-builder',
   templateUrl: './constraint-builder.component.html',
   styleUrl: './constraint-builder.component.scss',
 })
-export class ConstraintBuilderComponent implements OverlayComponent, OnInit {
+export class ConstraintBuilderComponent implements OverlayComponent, OnInit, OnDestroy {
   // change OverlayComponent in future
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any;
@@ -37,19 +39,54 @@ export class ConstraintBuilderComponent implements OverlayComponent, OnInit {
 
   constraint?: ConstraintWrapper;
 
+  private students: Student[];
+  private skills: Skill[];
+  private projects: Project[];
+  private subscriptions: Subscription[] = [];
+
+  private constraintFunctions: ConstraintFunction[];
+  private readonly CONSTRAINT_OPERATORS = [Operator.GREATER_THAN_OR_EQUAL, Operator.LESS_THAN_OR_EQUAL];
+
   constructor(
     private constraintsService: ConstraintsService,
     private overlayService: OverlayService,
-    private constraintGenerator: ConstraintBuilderService
+    private constraintBuilderService: ConstraintBuilderService,
+    private studentsService: StudentsService,
+    private skillsService: SkillsService,
+    private projectsService: ProjectsService
   ) {}
 
   ngOnInit(): void {
-    this.constraintFunctionProperties = this.constraintGenerator.constraintFunctionProperties;
+    this.subscriptions.push(
+      this.studentsService.students$.subscribe(students => {
+        this.students = students;
+        this.updateData();
+      }),
+      this.skillsService.skills$.subscribe(skills => {
+        this.skills = skills;
+        this.updateData();
+      }),
+      this.projectsService.projects$.subscribe(projects => {
+        this.projects = projects;
+        this.updateData();
+      })
+    );
+  }
 
-    this.constraintProjectSelectData = this.constraintGenerator.constraintProjects;
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+  private updateData(): void {
+    if (!this.students || !this.skills || !this.projects) return;
+    this.constraintFunctions = this.constraintBuilderService.getConstraintFunctions(this.students, this.skills);
+    console.log(this.constraintFunctions);
+    this.constraintFunctionProperties = this.constraintBuilderService.getConstraintFunctionProperties(
+      this.constraintFunctions
+    );
+    this.constraintProjectSelectData = this.constraintBuilderService.getConstraintProjects(this.projects);
     this.selectedConstraintProject = this.constraintProjectSelectData[0].id;
-
-    this.constraintOperators = this.constraintGenerator.constraintOperators;
+    this.constraintOperators = this.constraintBuilderService.getConstraintOperators();
     this.selectedConstraintOperator = this.constraintOperators[0].id;
   }
 
@@ -60,22 +97,24 @@ export class ConstraintBuilderComponent implements OverlayComponent, OnInit {
   }
 
   private getConstraintFunctionValues(): void {
-    this.constraintFunctionValueSelectData = this.constraintGenerator.getConstraintFunctionValues(
+    this.constraintFunctionValueSelectData = this.constraintBuilderService.getConstraintFunctionValues(
+      this.constraintFunctions,
       this.selectedConstraintFunctionProperty
     );
 
-    if (this.constraintFunctionValueSelectData || !this.constraintFunctionValueSelectData.length) {
+    if (!this.constraintFunctionValueSelectData || !this.constraintFunctionValueSelectData.length) {
       this.selectedConstraintFunctionValue = null;
     }
     this.selectedConstraintFunctionValue = this.constraintFunctionValueSelectData[0].id;
   }
 
   private getConstraintFunctionOperators(): void {
-    this.constraintFunctionOperatorSelectData = this.constraintGenerator.getConstraintFunctionOperators(
+    this.constraintFunctionOperatorSelectData = this.constraintBuilderService.getConstraintFunctionOperators(
+      this.constraintFunctions,
       this.selectedConstraintFunctionProperty
     );
 
-    if (this.constraintFunctionOperatorSelectData || !this.constraintFunctionOperatorSelectData.length) {
+    if (!this.constraintFunctionOperatorSelectData || !this.constraintFunctionOperatorSelectData.length) {
       this.selectedConstraintFunctionOperator = null;
     }
     this.selectedConstraintFunctionOperator = this.constraintFunctionOperatorSelectData[0].id;
@@ -93,7 +132,9 @@ export class ConstraintBuilderComponent implements OverlayComponent, OnInit {
       return;
     }
 
-    this.constraint = this.constraintGenerator.createConstraint(
+    this.constraint = this.constraintBuilderService.createConstraint(
+      this.constraintFunctions,
+      this.projects,
       this.selectedConstraintProject,
       this.selectedConstraintFunctionProperty,
       this.selectedConstraintFunctionOperator,
@@ -108,5 +149,15 @@ export class ConstraintBuilderComponent implements OverlayComponent, OnInit {
       this.constraintsService.addConstraint(this.constraint);
       this.overlayService.closeOverlay();
     }
+  }
+
+  private findConstraintFunction(id: string): ConstraintFunction {
+    for (const constraintFunctionProperty of this.constraintFunctionProperties) {
+      const value = constraintFunctionProperty.values.find(value => value.id === id);
+      if (value) {
+        return constraintFunctionProperty.constraintFunction;
+      }
+    }
+    throw new Error(`Property for id "${id}" not found`);
   }
 }

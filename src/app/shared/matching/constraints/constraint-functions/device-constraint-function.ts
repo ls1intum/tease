@@ -1,7 +1,6 @@
 import { ConstraintFunction, SelectData, PropertySelectGroup } from './constraint-function';
 import { Device, Skill, Student } from 'src/app/api/models';
 import { Operator } from '../constraint-utils';
-import { v4 as uuid } from 'uuid';
 
 export class DeviceConstraintFunction extends ConstraintFunction {
   constructor(students: Student[], skills: Skill[]) {
@@ -13,7 +12,7 @@ export class DeviceConstraintFunction extends ConstraintFunction {
   }
 
   override getProperties(): PropertySelectGroup {
-    return { name: 'Device', constraintFunction: this, values: [{ id: uuid(), name: 'Device' }] };
+    return { name: 'Device', constraintFunction: this, values: [{ id: 'cf-device', name: 'Device' }] };
   }
 
   override getValues(): SelectData[] {
