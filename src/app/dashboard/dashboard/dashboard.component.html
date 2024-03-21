@@ -80,6 +80,7 @@
       <app-person-pool-statistics></app-person-pool-statistics>
     }
     <!-- person preview cards -->
+    <!-- trigger refresh after dragular action -->
     @for (students of [studentsWithoutTeam]; track students) {
       <div class="scrollable-content flex-grow flex-row position-relative">
         <div dragula="STUDENTS" class="flex-row person-pool-preview-row flex-wrap flex-grow">

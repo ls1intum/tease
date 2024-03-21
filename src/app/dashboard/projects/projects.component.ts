@@ -23,7 +23,7 @@ interface ErrorData {
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
-  styleUrl: './projects.component.css',
+  styleUrl: './projects.component.scss',
 })
 export class ProjectsComponent implements OnInit, OnDestroy {
   facErrorIcon = facErrorIcon;
@@ -36,7 +36,6 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   private _constraints: ConstraintWrapper[];
 
   allocationsData: AllocationData[];
-  emptyStudent: Student;
 
   constructor(
     private studentsService: StudentsService,
@@ -72,7 +71,6 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
   private updateAllocationsData() {
     if (!this._allocations || !this._projects || !this._students || !this._constraints) return;
-    this.emptyStudent = this._students[0];
 
     const allocationsData = this._projects.map(project => {
       const allocation = this._allocations.find(allocation => project.id === allocation.projectId);

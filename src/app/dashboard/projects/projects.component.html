@@ -18,10 +18,9 @@
           </div>
         </div>
       </div>
-      <app-student-preview-card [student]="emptyStudent" class="overflow-hidden h-0"></app-student-preview-card>
       <div
         dragula="STUDENTS"
-        class="d-flex flex-column overflow-y-scroll overflow-x-hidden gap-1 h-100"
+        class="d-flex flex-column overflow-y-scroll overflow-x-hidden gap-1 h-100 project-width"
         id="{{ allocation.project.id }}">
         @for (student of allocation.students; track student) {
           <app-student-preview-card [student]="student" [projectId]="allocation.project.id"></app-student-preview-card>
