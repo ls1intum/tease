@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import { DragulaService } from 'ng2-dragula';
 import { Person } from '../../shared/models/person';
@@ -15,6 +15,7 @@ import { SkillsService } from 'src/app/shared/data/skills.service';
 import { ImportOverlayComponent } from '../import-overlay/import-overlay.component';
 import { StudentToPersonService } from 'src/app/shared/services/student-to-person.service';
 import { ProjectToTeamService } from 'src/app/shared/services/project-to-team.service';
+import { Subscription } from 'rxjs';
 
 enum PersonPoolDisplayMode {
   Closed,
@@ -28,7 +29,7 @@ enum PersonPoolDisplayMode {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   statisticsVisible = false;
 
   PersonPoolDisplayMode = PersonPoolDisplayMode;
@@ -39,6 +40,7 @@ export class DashboardComponent implements OnInit {
     personPoolDisplayModeControl: new FormControl(this.PersonPoolDisplayMode[this.PersonPoolDisplayMode.OneRow]),
   });
 
+  private subscriptions: Subscription[] = [];
   private _students: Student[];
   private _projects: Project[];
   private _skills: Skill[];
@@ -60,25 +62,31 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.studentsService.students$.subscribe(students => {
-      this._students = students;
-      this.updateAllocationsData();
-    });
-    this.allocationsService.allocations$.subscribe(allocations => {
-      this._allocations = allocations;
-      this.updateAllocationsData();
-    });
-    this.projectsService.projects$.subscribe(projects => {
-      this._projects = projects;
-      this.updateAllocationsData();
-    });
-    this.skillsService.skills$.subscribe(skills => {
-      this._skills = skills;
-      this.updateAllocationsData();
-    });
-    this.dragularService.drop('STUDENTS').subscribe(({ el, target, sibling }) => {
-      this.handleStudentDrop(el, target, sibling);
-    });
+    this.subscriptions.push(
+      this.studentsService.students$.subscribe(students => {
+        this._students = students;
+        this.updateAllocationsData();
+      }),
+      this.allocationsService.allocations$.subscribe(allocations => {
+        this._allocations = allocations;
+        this.updateAllocationsData();
+      }),
+      this.projectsService.projects$.subscribe(projects => {
+        this._projects = projects;
+        this.updateAllocationsData();
+      }),
+      this.skillsService.skills$.subscribe(skills => {
+        this._skills = skills;
+        this.updateAllocationsData();
+      }),
+      this.dragularService.drop('STUDENTS').subscribe(({ el, target, sibling }) => {
+        this.handleStudentDrop(el, target, sibling);
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   private handleStudentDrop(el: Element, target: Element, sibling: Element): void {

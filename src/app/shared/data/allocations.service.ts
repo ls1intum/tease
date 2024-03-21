@@ -10,23 +10,21 @@ export class AllocationsService {
 
   constructor() {
     try {
-      const allocations = JSON.parse(localStorage.getItem('allocations')) || [];
-      this.allocationsSubject$.next(allocations);
+      const storedAllocations = localStorage.getItem('allocations') || '[]';
+      const allocations = JSON.parse(storedAllocations);
+      this.setAllocations(allocations);
     } catch (error) {
-      this.allocationsSubject$.next([]);
+      this.deleteAllocations();
     }
-
-    this.allocationsSubject$.subscribe(allocations => {
-      localStorage.setItem('allocations', JSON.stringify(allocations));
-    });
   }
 
   setAllocations(allocations: Allocation[]): void {
     this.allocationsSubject$.next(allocations);
+    localStorage.setItem('allocations', JSON.stringify(allocations));
   }
 
   deleteAllocations(): void {
-    this.allocationsSubject$.next([]);
+    this.setAllocations([]);
   }
 
   getAllocations(): Allocation[] {
@@ -65,7 +63,7 @@ export class AllocationsService {
     allocations.forEach(allocation => {
       allocation.students = allocation.students.filter(id => id !== studentId);
     });
-    this.allocationsSubject$.next(allocations);
+    this.setAllocations(allocations);
   }
 
   private getAllocationForProjectId(projectId: string): Allocation {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ReformatLP, Solve } from 'javascript-lp-solver';
 import { Allocation, Student } from 'src/app/api/models';
-import { ConstraintMappingService } from '../data/constraint-mapping.service';
+import { IdMappingService } from '../data/id-mapping.service';
 import { ToastsService } from '../services/toasts.service';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class MatchingService {
   private readonly DELETE_PROPERTIES = ['feasible', 'bounded', 'result', 'isIntegral'];
 
   constructor(
-    private constraintMappingService: ConstraintMappingService,
+    private constraintMappingService: IdMappingService,
     private toastsService: ToastsService
   ) {}
 
@@ -69,7 +69,7 @@ export class MatchingService {
   }
 
   private getId(value: string): string {
-    const key = this.constraintMappingService.getKey(value);
+    const key = this.constraintMappingService.getId(value);
     if (!key) throw new Error(`Key for value "${value}" is undefined`);
     return key;
   }

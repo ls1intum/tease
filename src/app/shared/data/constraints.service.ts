@@ -10,15 +10,12 @@ export class ConstraintsService {
 
   constructor() {
     try {
-      const constraints: ConstraintWrapper[] = JSON.parse(localStorage.getItem('constraints')) || [];
+      const storedConstraints = localStorage.getItem('constraints') || '[]';
+      const constraints: ConstraintWrapper[] = JSON.parse(storedConstraints);
       this.setConstraints(constraints);
     } catch (error) {
-      this.setConstraints([]);
+      this.deleteConstraints();
     }
-
-    this.constraintsSubject$.subscribe(constraints => {
-      localStorage.setItem('constraints', JSON.stringify(constraints));
-    });
   }
 
   get constraints$(): Observable<ConstraintWrapper[]> {
@@ -27,6 +24,7 @@ export class ConstraintsService {
 
   setConstraints(constraints: ConstraintWrapper[]): void {
     this.constraintsSubject$.next(constraints);
+    localStorage.setItem('constraints', JSON.stringify(constraints));
   }
 
   addConstraint(constraint: ConstraintWrapper): void {
@@ -36,7 +34,7 @@ export class ConstraintsService {
   }
 
   deleteConstraints(): void {
-    this.constraintsSubject$.next([]);
+    this.setConstraints([]);
   }
 
   getConstraints(): ConstraintWrapper[] {

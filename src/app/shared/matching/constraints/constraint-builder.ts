@@ -5,7 +5,7 @@ import { Project, Skill, Student } from 'src/app/api/models';
 import { DeviceConstraintFunction } from './constraint-functions/device-constraint-function';
 import { Operator, OperatorMapping } from './constraint-utils';
 import { ConstraintWrapper } from './constraint';
-import { ConstraintMappingService } from '../../data/constraint-mapping.service';
+import { IdMappingService } from '../../data/id-mapping.service';
 import { Injectable } from '@angular/core';
 import { StudentsService } from '../../data/students.service';
 import { ProjectsService } from '../../data/projects.service';
@@ -30,7 +30,7 @@ export class ConstraintBuilderService {
     private studentsService: StudentsService,
     private projectsService: ProjectsService,
     private skillsService: SkillsService,
-    private constraintMappingService: ConstraintMappingService
+    private constraintMappingService: IdMappingService
   ) {
     this.studentsService.students$.subscribe(students => {
       this._students = students;
@@ -128,8 +128,8 @@ export class ConstraintBuilderService {
     const constraintMappingService = this.constraintMappingService;
 
     const studentProjectPairs = students.map(student => {
-      const studentId = constraintMappingService.getNumber(student.id);
-      const projectIdNumber = constraintMappingService.getNumber(projectId);
+      const studentId = constraintMappingService.getNumericalId(student.id);
+      const projectIdNumber = constraintMappingService.getNumericalId(projectId);
       return `x${studentId}y${projectIdNumber}`;
     });
 

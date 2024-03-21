@@ -10,26 +10,24 @@ export class StudentsService {
 
   constructor() {
     try {
-      const students = JSON.parse(localStorage.getItem('students'));
-      this.studentsSubject$.next(students);
+      const storedStudents = localStorage.getItem('students') || '[]';
+      const students = JSON.parse(storedStudents);
+      this.setStudents(students);
     } catch (error) {
-      this.studentsSubject$.next([]);
+      this.deleteStudents();
     }
-
-    this.studentsSubject$.subscribe(students => {
-      localStorage.setItem('students', JSON.stringify(students));
-    });
   }
 
   setStudents(students: Student[]): void {
     this.studentsSubject$.next(students);
+    localStorage.setItem('students', JSON.stringify(students));
   }
 
   deleteStudents(): void {
-    this.studentsSubject$.next([]);
+    this.setStudents([]);
   }
 
-  private getStudents(): Student[] {
+  getStudents(): Student[] {
     return this.studentsSubject$.getValue();
   }
 

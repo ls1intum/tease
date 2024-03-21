@@ -10,23 +10,21 @@ export class SkillsService {
 
   constructor() {
     try {
-      const skills: Skill[] = JSON.parse(localStorage.getItem('skills'));
-      this.skillsSubject$.next(skills);
+      const storedSkills = localStorage.getItem('skills') || '[]';
+      const skills: Skill[] = JSON.parse(storedSkills);
+      this.setSkills(skills);
     } catch (error) {
-      this.skillsSubject$.next([]);
+      this.deleteSkills();
     }
-
-    this.skillsSubject$.subscribe(skills => {
-      localStorage.setItem('skills', JSON.stringify(skills));
-    });
   }
 
   setSkills(skills: Skill[]): void {
     this.skillsSubject$.next(skills);
+    localStorage.setItem('skills', JSON.stringify(skills));
   }
 
   deleteSkills(): void {
-    this.skillsSubject$.next([]);
+    this.setSkills([]);
   }
 
   get skills$(): Observable<Skill[]> {

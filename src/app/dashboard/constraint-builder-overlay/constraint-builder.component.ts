@@ -11,7 +11,7 @@ import { SkillsService } from 'src/app/shared/data/skills.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { ConstraintWrapper } from 'src/app/shared/matching/constraints/constraint';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
-import { ConstraintMappingService } from 'src/app/shared/data/constraint-mapping.service';
+import { IdMappingService } from 'src/app/shared/data/id-mapping.service';
 
 @Component({
   selector: 'app-constraint-builder',

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StudentsService } from 'src/app/shared/data/students.service';
 import { Allocation, Project, Student } from 'src/app/api/models';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
@@ -7,6 +7,7 @@ import { facCheckIcon, facErrorIcon } from 'src/assets/icons/icons';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { ConstraintWrapper } from 'src/app/shared/matching/constraints/constraint';
 import { Comparator } from 'src/app/shared/matching/constraints/constraint-utils';
+import { Subscription } from 'rxjs';
 
 interface AllocationData {
   project: Project;
@@ -24,10 +25,11 @@ interface ErrorData {
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.css',
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent implements OnInit, OnDestroy {
   facErrorIcon = facErrorIcon;
   facCheckIcon = facCheckIcon;
 
+  private subscriptions: Subscription[] = [];
   private _students: Student[];
   private _projects: Project[];
   private _allocations: Allocation[];
@@ -44,22 +46,28 @@ export class ProjectsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.studentsService.students$.subscribe(students => {
-      this._students = students;
-      this.updateAllocationsData();
-    });
-    this.projectsService.projects$.subscribe(projects => {
-      this._projects = projects;
-      this.updateAllocationsData();
-    });
-    this.allocationsService.allocations$.subscribe(allocations => {
-      this._allocations = allocations;
-      this.updateAllocationsData();
-    });
-    this.constraintsService.constraints$.subscribe(constraints => {
-      this._constraints = constraints;
-      this.updateAllocationsData();
-    });
+    this.subscriptions.push(
+      this.studentsService.students$.subscribe(students => {
+        this._students = students;
+        this.updateAllocationsData();
+      }),
+      this.projectsService.projects$.subscribe(projects => {
+        this._projects = projects;
+        this.updateAllocationsData();
+      }),
+      this.allocationsService.allocations$.subscribe(allocations => {
+        this._allocations = allocations;
+        this.updateAllocationsData();
+      }),
+      this.constraintsService.constraints$.subscribe(constraints => {
+        this._constraints = constraints;
+        this.updateAllocationsData();
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   private updateAllocationsData() {

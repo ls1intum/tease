@@ -10,26 +10,24 @@ export class ProjectsService {
 
   constructor() {
     try {
-      const projects = JSON.parse(localStorage.getItem('projects')) || [];
-      this.projectsSubject$.next(projects);
+      const storedProjects = localStorage.getItem('projects') || '[]';
+      const projects = JSON.parse(storedProjects);
+      this.setProjects(projects);
     } catch (error) {
-      this.projectsSubject$.next([]);
+      this.deleteProjects();
     }
-
-    this.projectsSubject$.subscribe(projects => {
-      localStorage.setItem('projects', JSON.stringify(projects));
-    });
   }
 
   setProjects(projects: Project[]): void {
     this.projectsSubject$.next(projects);
+    localStorage.setItem('projects', JSON.stringify(projects));
   }
 
   deleteProjects(): void {
-    this.projectsSubject$.next([]);
+    this.setProjects([]);
   }
 
-  private getProjects(): Project[] {
+  getProjects(): Project[] {
     return this.projectsSubject$.getValue();
   }
 
