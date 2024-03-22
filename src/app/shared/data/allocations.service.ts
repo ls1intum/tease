@@ -1,48 +1,61 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Allocation } from 'src/app/api/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AllocationsService {
+  private allocationsSubject$: BehaviorSubject<Allocation[]> = new BehaviorSubject<Allocation[]>([]);
+
   constructor() {
     try {
-      const allocations = JSON.parse(localStorage.getItem('allocations')) || [];
-      this.allocationsSubject$.next(allocations);
+      const storedAllocations = localStorage.getItem('allocations') || '[]';
+      const allocations = JSON.parse(storedAllocations);
+      this.setAllocations(allocations);
     } catch (error) {
-      this.allocationsSubject$.next([]);
+      this.deleteAllocations();
     }
-
-    this.allocationsSubject$.subscribe(allocations => {
-      localStorage.setItem('allocations', JSON.stringify(allocations));
-    });
   }
-
-  private allocationsSubject$: BehaviorSubject<Allocation[]> = new BehaviorSubject<Allocation[]>([]);
 
   setAllocations(allocations: Allocation[]): void {
     this.allocationsSubject$.next(allocations);
+    localStorage.setItem('allocations', JSON.stringify(allocations));
   }
 
   deleteAllocations(): void {
-    this.allocationsSubject$.next([]);
+    this.setAllocations([]);
   }
 
   getAllocations(): Allocation[] {
     return this.allocationsSubject$.getValue();
   }
 
-  addStudentToProject(studentId: string, projectId: string): void {
-    this.removeStudentFromProjects(studentId);
+  get allocations$(): Observable<Allocation[]> {
+    return this.allocationsSubject$.asObservable();
+  }
 
+  moveStudentToProject(studentId: string, projectId: string): void {
+    this.moveStudentToProjectAtPosition(studentId, projectId);
+  }
+
+  moveStudentToProjectAtPosition(studentId: string, projectId: string, siblingId?: string): void {
+    this.removeStudentFromProjects(studentId);
     const allocations = this.getAllocations();
-    const allocation = allocations.find(a => a.projectId === projectId);
+    const allocation = this.getAllocationForProjectId(projectId);
+    var positionInAllocation = allocation?.students.indexOf(siblingId) ?? -1;
+
+    if (allocation && positionInAllocation === -1) {
+      positionInAllocation = allocation.students.length;
+    }
 
     if (allocation) {
-      allocation.students.push(studentId);
+      allocation.students.splice(positionInAllocation, 0, studentId);
+    } else {
+      allocations.push({ projectId, students: [studentId] });
     }
-    this.allocationsSubject$.next(allocations);
+
+    this.setAllocations(allocations);
   }
 
   removeStudentFromProjects(studentId: string): void {
@@ -50,6 +63,10 @@ export class AllocationsService {
     allocations.forEach(allocation => {
       allocation.students = allocation.students.filter(id => id !== studentId);
     });
-    this.allocationsSubject$.next(allocations);
+    this.setAllocations(allocations);
+  }
+
+  private getAllocationForProjectId(projectId: string): Allocation {
+    return this.getAllocations().find(allocation => allocation.projectId === projectId);
   }
 }

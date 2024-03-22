@@ -1,36 +1,38 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Project } from 'src/app/api/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectsService {
+  private projectsSubject$: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);
+
   constructor() {
     try {
-      const projects = JSON.parse(localStorage.getItem('projects')) || [];
-      this.projectsSubject$.next(projects);
+      const storedProjects = localStorage.getItem('projects') || '[]';
+      const projects = JSON.parse(storedProjects);
+      this.setProjects(projects);
     } catch (error) {
-      this.projectsSubject$.next([]);
+      this.deleteProjects();
     }
-
-    this.projectsSubject$.subscribe(projects => {
-      localStorage.setItem('projects', JSON.stringify(projects));
-    });
   }
-
-  private projectsSubject$: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);
 
   setProjects(projects: Project[]): void {
     this.projectsSubject$.next(projects);
+    localStorage.setItem('projects', JSON.stringify(projects));
   }
 
   deleteProjects(): void {
-    this.projectsSubject$.next([]);
+    this.setProjects([]);
   }
 
   getProjects(): Project[] {
     return this.projectsSubject$.getValue();
+  }
+
+  get projects$(): Observable<Project[]> {
+    return this.projectsSubject$.asObservable();
   }
 
   getProjectNameById(id: string): string {

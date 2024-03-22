@@ -1,78 +1,32 @@
-<div class="flex-column flex-center full-size">
-  <div class="dialog-box" (click)="$event.stopPropagation()">
-    <div class="dialog-header">
-      <div class="dialog-heading">Distribute With Constraints</div>
-    </div>
-    <div class="scrollable-content">
-      @if (data.displayWarning) {
-        <div class="warning">
-          <div class="warning-element">
-            <b>Warning!</b>
-            Applying constraints overwrites the current team allocation. Pin persons to keep them in their teams.
-          </div>
-        </div>
-      }
-      <h4 class="mx-4 mt-4">Constraints Settings:</h4>
-
-      @if (globalConstraints && teamConstraints) {
-        <mat-tab-group class="mb-4 mt-1 mx-3 scrollable">
-          <mat-tab>
-            <ng-template mat-tab-label>
-              <ng-container *ngTemplateOutlet="tabHeader; context: { $implicit: globalConstraints }"></ng-container>
-            </ng-template>
-            <div class="my-2">
-              @for (constraint of globalConstraints; track constraint) {
-                <app-constraint [constraint]="constraint"></app-constraint>
-              }
-            </div>
-          </mat-tab>
-          @for (team of teamService.teams; track team) {
-            <mat-tab>
-              <ng-template mat-tab-label>
-                <ng-container
-                  *ngTemplateOutlet="
-                    tabHeader;
-                    context: { $implicit: teamConstraints[team.name], teamName: team.name }
-                  "></ng-container>
-              </ng-template>
-              <div class="my-2">
-                @for (constraint of teamConstraints[team.name]; track constraint) {
-                  <app-constraint [constraint]="constraint"></app-constraint>
-                }
-              </div>
-            </mat-tab>
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="w-75">
+    <div class="bg-white p-4" (click)="$event.stopPropagation()">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Project Names</th>
+            <th scope="col">Constraint Function</th>
+            <th scope="col">Threshold</th>
+            <th scope="col">#Students</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (constraint of constraints; track constraint) {
+            <tr>
+              <td>{{ constraint.projectIds.join(', ') }}</td>
+              <td>
+                {{ constraint.constraintFunctionProperty }}, {{ constraint.constraintFunctionOperator }},
+                {{ constraint.constraintFunctionValue }}
+              </td>
+              <td>{{ constraint.constraintOperator }}, {{ constraint.constraintThreshold }}</td>
+              <td>{{ constraint.students.length }}</td>
+              <td><button (click)="deleteConstraint(constraint)">Delete</button></td>
+            </tr>
           }
-        </mat-tab-group>
-      }
-    </div>
+        </tbody>
+      </table>
 
-    <div class="dialog-footer flex-row-reverse flex-center p-3">
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="hasWarnings()"
-        (click)="applyConstraints(); $event.stopPropagation()">
-        Distribute Persons
-      </button>
-      <div class="error flex-grow flex-row" [class.error-hidden]="!noFeasibleSolutionHintShown">
-        <div class="error-heading error-element">Error!</div>
-        <div class="error-element">No feasible solution was found.</div>
-      </div>
+      <button (click)="distributeTeams()">Match</button>
     </div>
   </div>
 </div>
-
-<ng-template #tabHeader let-constraints let-name="teamName">
-  {{ name ?? 'Global' }}
-  @if (hasActiveConstraints(constraints)) {
-    <div>
-      @if (hasTabWarnings(constraints)) {
-        <mat-icon class="ms-2 danger-icon">warning</mat-icon>
-      } @else {
-        <mat-icon class="ms-2 active-icon">check_circle</mat-icon>
-      }
-    </div>
-  } @else {
-    <mat-icon class="ms-2">block</mat-icon>
-  }
-</ng-template>

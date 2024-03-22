@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
 import { DragulaService } from 'ng2-dragula';
 import { Person } from '../../shared/models/person';
@@ -7,9 +7,15 @@ import { OverlayService } from '../../overlay.service';
 import { SkillLevel } from '../../shared/models/skill';
 import { Device } from '../../shared/models/device';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { Student } from 'src/app/api/models';
+import { Allocation, Project, Skill, Student } from 'src/app/api/models';
 import { StudentsService } from 'src/app/shared/data/students.service';
+import { AllocationsService } from 'src/app/shared/data/allocations.service';
+import { ProjectsService } from 'src/app/shared/data/projects.service';
+import { SkillsService } from 'src/app/shared/data/skills.service';
+import { ImportOverlayComponent } from '../import-overlay/import-overlay.component';
+import { StudentToPersonService } from 'src/app/shared/services/student-to-person.service';
+import { ProjectToTeamService } from 'src/app/shared/services/project-to-team.service';
+import { Subscription } from 'rxjs';
 
 enum PersonPoolDisplayMode {
   Closed,
@@ -24,10 +30,6 @@ enum PersonPoolDisplayMode {
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  @Output() importPressed = new EventEmitter();
-  teamStatisticsButtonPressed = new EventEmitter<boolean>();
-  toggleTeamStatisticsButtonState = true;
-
   statisticsVisible = false;
 
   PersonPoolDisplayMode = PersonPoolDisplayMode;
@@ -38,27 +40,86 @@ export class DashboardComponent implements OnInit, OnDestroy {
     personPoolDisplayModeControl: new FormControl(this.PersonPoolDisplayMode[this.PersonPoolDisplayMode.OneRow]),
   });
 
-  dragulaSubscription = new Subscription();
+  private subscriptions: Subscription[] = [];
+  private _students: Student[];
+  private _projects: Project[];
+  private _skills: Skill[];
+  private _allocations: Allocation[];
+
+  studentsWithoutTeam: Student[];
+  dataLoaded = false;
+
   constructor(
     public teamService: TeamService,
-    private dragulaService: DragulaService,
+    private dragularService: DragulaService,
+    private allocationsService: AllocationsService,
+    private projectsService: ProjectsService,
+    private skillsService: SkillsService,
     private overlayService: OverlayService,
-    private studentsService: StudentsService
-  ) {
-    /* save model when modified by drag & drop operation */
-    this.dragulaSubscription.add(
-      dragulaService.dropModel('persons').subscribe(({ target, item }) => {
-        const newTeam = teamService.getTeamByName(target.id);
-        item.teamName = target.id;
-        // if person belongs to no Team (Person Pool) newTeam is undefined
-        newTeam?.add(item);
-        teamService.saveToLocalBrowserStorage();
+    private studentsService: StudentsService,
+    private studentPersonTransformerService: StudentToPersonService,
+    private projectTeamTransformerService: ProjectToTeamService
+  ) {}
+
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.studentsService.students$.subscribe(students => {
+        this._students = students;
+        this.updateAllocationsData();
+      }),
+      this.allocationsService.allocations$.subscribe(allocations => {
+        this._allocations = allocations;
+        this.updateAllocationsData();
+      }),
+      this.projectsService.projects$.subscribe(projects => {
+        this._projects = projects;
+        this.updateAllocationsData();
+      }),
+      this.skillsService.skills$.subscribe(skills => {
+        this._skills = skills;
+        this.updateAllocationsData();
+      }),
+      this.dragularService.drop('STUDENTS').subscribe(({ el, target, sibling }) => {
+        this.handleStudentDrop(el, target, sibling);
       })
     );
   }
 
-  ngOnInit(): void {
-    this.teamService.readFromBrowserStorage();
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription?.unsubscribe());
+  }
+
+  private handleStudentDrop(el: Element, target: Element, sibling: Element): void {
+    if (!el || !target) return;
+    const studentId = el.children[0].id;
+    const projectId = target.id;
+    const siblingId = sibling?.children[0].id;
+
+    if (!studentId) return;
+
+    if (!projectId) {
+      this.allocationsService.removeStudentFromProjects(studentId);
+      return;
+    }
+
+    this.allocationsService.moveStudentToProjectAtPosition(studentId, projectId, siblingId);
+  }
+
+  private updateDataLoaded(): void {
+    this.dataLoaded = !(
+      !this._students?.length ||
+      !this._projects?.length ||
+      !this._skills?.length ||
+      !this._allocations
+    );
+  }
+
+  private updateAllocationsData(): void {
+    this.updateDataLoaded();
+    if (!this.dataLoaded) return;
+    this.loadPersonData(this._students, this._skills, this._projects, this._allocations);
+    const studentIdsWithTeam = this._allocations.flatMap(allocation => allocation.students);
+    this.studentsWithoutTeam = this._students.filter(student => !studentIdsWithTeam.includes(student.id));
   }
 
   public showPersonDetails(person: Person): void {
@@ -79,10 +140,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  public isDataLoaded(): boolean {
-    return this.teamService.teams && this.teamService.teams.length > 0;
-  }
-
   togglePersonPoolStatistics(): void {
     this.statisticsVisible = !this.statisticsVisible;
 
@@ -97,16 +154,31 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (this.statisticsVisible) this.togglePersonPoolStatistics();
   }
 
-  ngOnDestroy(): void {
-    this.dragulaSubscription?.unsubscribe();
-  }
-
-  onTeamStatisticsButtonPressed() {
-    this.teamStatisticsButtonPressed.emit(this.toggleTeamStatisticsButtonState);
-    this.toggleTeamStatisticsButtonState = !this.toggleTeamStatisticsButtonState;
-  }
-
   getStudentById(id: string): Student {
     return this.studentsService.getStudentById(id);
+  }
+
+  showImportOverlay() {
+    this.overlayService.displayComponent(ImportOverlayComponent, {
+      onTeamsImported: () => {
+        this.overlayService.closeOverlay();
+      },
+      overwriteWarning: this.dataLoaded,
+    });
+  }
+
+  //TODO: Remove this with person and team data
+  private loadPersonData(students: Student[], skills: Skill[], projects: Project[], allocations: Allocation[]): void {
+    const persons = this.studentPersonTransformerService.transformStudentsToPersons(
+      students,
+      skills,
+      projects,
+      allocations
+    );
+    const teams = this.projectTeamTransformerService.projectsToTeams(projects, persons);
+
+    this.teamService.clearSavedData();
+    this.teamService.load([persons, teams]);
+    return;
   }
 }

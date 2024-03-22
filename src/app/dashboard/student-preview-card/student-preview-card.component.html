@@ -1,4 +1,7 @@
-<div class="bg-card rounded-3 p-2 d-inline-flex flex-column gap-2 m-1 default-cursor">
+<div
+  class="bg-card rounded-3 p-2 d-inline-flex flex-column gap-2 default-cursor student-preview-card"
+  (click)="showPersonDetails(student)"
+  id="{{ student.id }}">
   <div class="d-flex justify-content-between">
     <div class="d-flex flex-column gap-1">
       <div class="d-flex gap-1">

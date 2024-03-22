@@ -1,19 +1,9 @@
-@if (isDataLoaded()) {
+@if (dataLoaded) {
   <!-- team containers -->
   <div
     class="dashboard flex-row"
     [ngClass]="'dashboard-' + personPoolDisplayModeFormGroup.value.personPoolDisplayModeControl">
-    @for (team of teamService.teams; track team) {
-      <div class="h-100 hidden-scrollbar-parent">
-        <div class="h-100 hidden-scrollbar-child flex-column">
-          <app-team
-            class="flex-no-shrink h-100"
-            [team]="team"
-            (onPersonClicked)="showPersonDetails($event)"
-            [teamStatisticsButtonPressed]="teamStatisticsButtonPressed"></app-team>
-        </div>
-      </div>
-    }
+    <app-projects class="flex-no-shrink h-100"></app-projects>
   </div>
   <!-- person pool -->
   <div
@@ -23,19 +13,9 @@
     <div class="flex-row flex-center person-pool-title-bar flex-no-shrink">
       <div class="person-pool-label flex-no-shrink">Person Pool</div>
       <div class="team-person-count flex-row flex-center flex-justify-center flex-no-shrink">
-        <div>{{ teamService.personsWithoutTeam.length }}</div>
+        <div>{{ studentsWithoutTeam.length }}</div>
       </div>
       <div class="flex-grow"></div>
-      <button
-        mat-raised-button
-        color="primary"
-        class="distribute-button flex-no-shrink"
-        (click)="onTeamStatisticsButtonPressed()">
-        <div class="flex-row flex-center">
-          <mat-icon class="me-2">timeline</mat-icon>
-          <div>{{ toggleTeamStatisticsButtonState ? 'Show' : 'Hide' }} Team Statistics</div>
-        </div>
-      </button>
       <button
         mat-raised-button
         color="primary"
@@ -100,30 +80,19 @@
       <app-person-pool-statistics></app-person-pool-statistics>
     }
     <!-- person preview cards -->
-    <div class="scrollable-content flex-grow flex-row position-relative">
-      @if (teamService.personsWithoutTeam.length === 0) {
-        <div class="position-absolute position-absolute-full-size pointer-events-none flex-row overflow-hidden">
-          <div class="flex-grow empty-orphan-team-hint-box flex-row flex-center flex-justify-center">
-            <div>Drag persons here</div>
-          </div>
+    <!-- trigger refresh after dragular action -->
+    @for (students of [studentsWithoutTeam]; track students) {
+      <div class="scrollable-content flex-grow flex-row position-relative">
+        <div dragula="STUDENTS" class="flex-row person-pool-preview-row flex-wrap flex-grow">
+          @for (student of students; track student) {
+            <app-student-preview-card [student]="student"></app-student-preview-card>
+          }
         </div>
-      }
-      <div
-        dragula="persons"
-        class="flex-row person-pool-preview-row flex-wrap flex-grow"
-        [(dragulaModel)]="teamService.personsWithoutTeam">
-        @for (person of teamService.personsWithoutTeam; track person) {
-          <app-student-preview-card
-            [student]="getStudentById(person.tumId)"
-            (click)="showPersonDetails(person)"></app-student-preview-card>
-        }
       </div>
-    </div>
+    }
   </div>
 } @else {
   <div class="flex-row flex-justify-center">
-    <app-intro-card (importPressed)="importPressed.emit()"></app-intro-card>
+    <app-intro-card (importPressed)="showImportOverlay()"></app-intro-card>
   </div>
 }
-
-<!-- card that is shown if no data is loaded -->

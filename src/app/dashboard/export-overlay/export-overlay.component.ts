@@ -6,12 +6,13 @@ import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
 import { Person } from '../../shared/models/person';
 import { PersonDetailCardComponent } from '../person-detail-card/person-detail-card.component';
-import { TeamComponent } from '../team/team.component';
+// import { TeamComponent } from '../team/team.component';
 import { Team } from '../../shared/models/team';
 import { TeamsToAllocationsService } from 'src/app/shared/services/teams-to-allocations.service';
 import { PromptService } from 'src/app/shared/services/prompt.service';
 import { ToastsService } from 'src/app/shared/services/toasts.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AllocationsService } from 'src/app/shared/data/allocations.service';
 
 @Component({
   selector: 'app-export-overlay',
@@ -30,9 +31,6 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
   @ViewChild(PersonDetailCardComponent) personDetailCardComponent: PersonDetailCardComponent;
   @ViewChild(PersonDetailCardComponent, { read: ElementRef }) personDetailCardComponentRef: ElementRef;
 
-  @ViewChild(TeamComponent) teamComponent: TeamComponent;
-  @ViewChild(TeamComponent, { read: ElementRef }) teamComponentRef: ElementRef;
-
   html2canvasOptions = {
     allowTaint: false,
     backgroundColor: null,
@@ -44,9 +42,9 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
   constructor(
     private teamService: TeamService,
     private applicationRef: ApplicationRef,
-    private teamsToAllocationsService: TeamsToAllocationsService,
     private promptService: PromptService,
-    private toastsService: ToastsService
+    private toastsService: ToastsService,
+    private allocationsService: AllocationsService
   ) {}
 
   ngOnDestroy() {
@@ -54,8 +52,7 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
   }
 
   async exportPrompt() {
-    const teams = this.teamService.teams;
-    const allocations = this.teamsToAllocationsService.transformTeamsToAllocations(teams);
+    const allocations = this.allocationsService.getAllocations();
     try {
       if (await this.promptService.postAllocations(allocations)) {
         this.toastsService.showToast('Export successful', 'Export', true);
@@ -98,7 +95,7 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
       currentPromise = currentPromise.then(
         () => {
           this.imageExportProgress++;
-          return this.exportTeamScreenshot(team, teamFolder, team.name + '-0-overview.png');
+          // return this.exportTeamScreenshot(team, teamFolder, team.name + '-0-overview.png');
         },
         () => Promise.reject(null)
       );
@@ -163,32 +160,32 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
     });
   }
 
-  exportTeamScreenshot(team: Team, zip: JSZip, filename: string): Promise<void> {
-    console.log('exporting team ' + team.name + '...');
-    return new Promise<void>((resolve, reject) => {
-      if (this.destroyed) {
-        reject();
-        return;
-      }
+  // exportTeamScreenshot(team: Team, zip: JSZip, filename: string): Promise<void> {
+  //   console.log('exporting team ' + team.name + '...');
+  //   return new Promise<void>((resolve, reject) => {
+  //     if (this.destroyed) {
+  //       reject();
+  //       return;
+  //     }
 
-      this.teamComponent.team = team;
-      this.teamComponent.screenshotMode = true;
-      this.teamComponent.statisticsVisible = true;
+  //     this.teamComponent.team = team;
+  //     this.teamComponent.screenshotMode = true;
+  //     this.teamComponent.statisticsVisible = true;
 
-      if (this.destroyed) {
-        reject();
-        return;
-      }
-      setTimeout(
-        () =>
-          html2canvas(this.teamComponentRef.nativeElement, this.html2canvasOptions).then(canvas => {
-            canvas.toBlob(function (blob) {
-              zip.file(filename, blob);
-              resolve();
-            });
-          }),
-        500
-      );
-    });
-  }
+  //     if (this.destroyed) {
+  //       reject();
+  //       return;
+  //     }
+  //     setTimeout(
+  //       () =>
+  //         html2canvas(this.teamComponentRef.nativeElement, this.html2canvasOptions).then(canvas => {
+  //           canvas.toBlob(function (blob) {
+  //             zip.file(filename, blob);
+  //             resolve();
+  //           });
+  //         }),
+  //       500
+  //     );
+  //   });
+  // }
 }

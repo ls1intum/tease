@@ -1,11 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Student, Device, SkillProficiency, LanguageProficiency } from 'src/app/api/models';
+import { OverlayService } from 'src/app/overlay.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { GenderService } from 'src/app/shared/helpers/gender.service';
 import { GravatarService } from 'src/app/shared/helpers/gravatar.service';
 import { NationalityService } from 'src/app/shared/helpers/nationality.service';
+import { TeamService } from 'src/app/shared/layers/business-logic-layer/team.service';
 import { facIpadIcon, facIphoneIcon, facMacIcon, facWatchIcon } from 'src/assets/icons/icons';
+import { PersonDetailOverlayComponent } from '../person-detail-overlay/person-detail-overlay.component';
 
+class AssignedProjectPreference {
+  name: string;
+  priority: number;
+  assigned: boolean;
+}
 @Component({
   selector: 'app-student-preview-card',
   templateUrl: './student-preview-card.component.html',
@@ -22,14 +30,31 @@ export class StudentPreviewCardComponent implements OnInit {
   facIpadIcon = facIpadIcon;
   facWatchIcon = facWatchIcon;
 
+  projectPreferences: AssignedProjectPreference[];
+  projectPreferenceScore: string;
+  germanProficiency: string;
+  nationalityText: string;
+  nationalityEmoji: string;
+  genderIcon: string;
+  gravatarURL: string;
+  skillColors: string[];
+  name: string;
+  ownsMac: boolean;
+  ownsIPhone: boolean;
+  ownsIPad: boolean;
+  ownsWatch: boolean;
+
   constructor(
     private nationalityService: NationalityService,
     private projectsService: ProjectsService,
     private genderService: GenderService,
-    private gravatarService: GravatarService
+    private gravatarService: GravatarService,
+    private teamService: TeamService,
+    private overlayService: OverlayService
   ) {}
 
   ngOnInit() {
+    if (!this.student) throw Error();
     this.projectPreferences = this.getDisplayedProjectPreferences();
     this.projectPreferenceScore = this.getProjectPreferenceScore();
     this.germanProficiency = this.findGermanProficiency();
@@ -44,20 +69,6 @@ export class StudentPreviewCardComponent implements OnInit {
     this.ownsWatch = this.student.devices.includes(Device.Watch);
     this.name = `${this.student.firstName} ${this.student.lastName}`;
   }
-
-  projectPreferences: AssignedProjectPreference[];
-  projectPreferenceScore: string;
-  germanProficiency: string;
-  nationalityText: string;
-  nationalityEmoji: string;
-  genderIcon: string;
-  gravatarURL: string;
-  skillColors: string[];
-  name: string;
-  ownsMac: boolean;
-  ownsIPhone: boolean;
-  ownsIPad: boolean;
-  ownsWatch: boolean;
 
   private getProjectPreferenceScore(): string {
     if (this.projectId) {
@@ -102,10 +113,11 @@ export class StudentPreviewCardComponent implements OnInit {
     }
     return Array(4).fill('inactive');
   }
-}
 
-class AssignedProjectPreference {
-  name: string;
-  priority: number;
-  assigned: boolean;
+  showPersonDetails(student: Student) {
+    const person = this.teamService.persons.find(person => person.tumId === student.id);
+    this.overlayService.displayComponent(PersonDetailOverlayComponent, {
+      person: person,
+    });
+  }
 }
