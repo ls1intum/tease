@@ -35,7 +35,7 @@ export class StudentToPersonService {
     return students.map(s => this.transformStudentToPerson(s));
   }
 
-  public transformStudentToPerson(student: Student): Person {
+  private transformStudentToPerson(student: Student): Person {
     const person = new Person();
 
     person.firstName = student.firstName;

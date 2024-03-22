@@ -86,7 +86,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions.forEach(subscription => subscription?.unsubscribe());
   }
 
   private handleStudentDrop(el: Element, target: Element, sibling: Element): void {
@@ -105,20 +105,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.allocationsService.moveStudentToProjectAtPosition(studentId, projectId, siblingId);
   }
 
-  private isDataLoaded(): boolean {
+  private updateDataLoaded(): void {
     this.dataLoaded = !(
       !this._students?.length ||
       !this._projects?.length ||
       !this._skills?.length ||
       !this._allocations
     );
-    this.loadPersonData(this._students, this._skills, this._projects, this._allocations);
-    return this.dataLoaded;
   }
 
   private updateAllocationsData(): void {
-    this.isDataLoaded();
+    this.updateDataLoaded();
     if (!this.dataLoaded) return;
+    this.loadPersonData(this._students, this._skills, this._projects, this._allocations);
     const studentIdsWithTeam = this._allocations.flatMap(allocation => allocation.students);
     this.studentsWithoutTeam = this._students.filter(student => !studentIdsWithTeam.includes(student.id));
   }

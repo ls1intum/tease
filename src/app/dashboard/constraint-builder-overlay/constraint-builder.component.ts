@@ -74,13 +74,12 @@ export class ConstraintBuilderComponent implements OverlayComponent, OnInit, OnD
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions.forEach(subscription => subscription?.unsubscribe());
   }
 
   private updateData(): void {
     if (!this.students || !this.skills || !this.projects) return;
     this.constraintFunctions = this.constraintBuilderService.getConstraintFunctions(this.students, this.skills);
-    console.log(this.constraintFunctions);
     this.constraintFunctionProperties = this.constraintBuilderService.getConstraintFunctionProperties(
       this.constraintFunctions
     );
@@ -102,10 +101,9 @@ export class ConstraintBuilderComponent implements OverlayComponent, OnInit, OnD
       this.selectedConstraintFunctionProperty
     );
 
-    if (!this.constraintFunctionValueSelectData || !this.constraintFunctionValueSelectData.length) {
-      this.selectedConstraintFunctionValue = null;
-    }
-    this.selectedConstraintFunctionValue = this.constraintFunctionValueSelectData[0].id;
+    this.selectedConstraintFunctionValue = !this.constraintFunctionValueSelectData?.length
+      ? this.constraintFunctionValueSelectData[0].id
+      : null;
   }
 
   private getConstraintFunctionOperators(): void {
@@ -114,10 +112,9 @@ export class ConstraintBuilderComponent implements OverlayComponent, OnInit, OnD
       this.selectedConstraintFunctionProperty
     );
 
-    if (!this.constraintFunctionOperatorSelectData || !this.constraintFunctionOperatorSelectData.length) {
-      this.selectedConstraintFunctionOperator = null;
-    }
-    this.selectedConstraintFunctionOperator = this.constraintFunctionOperatorSelectData[0].id;
+    this.selectedConstraintFunctionOperator = !this.constraintFunctionOperatorSelectData?.length
+      ? this.constraintFunctionOperatorSelectData[0].id
+      : null;
   }
 
   getConstraint(): void {
