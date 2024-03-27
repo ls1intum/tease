@@ -1,0 +1,41 @@
+<div class="w-100 d-flex bg-dark justify-content-between p-3 align-items-center">
+  <div class="d-flex align-items-center gap-3">
+    <img class="" src="/assets/images/logo-s.svg" />
+    <div class="text-white fs-3 fw-light">TEASE</div>
+  </div>
+
+  <div class="d-flex gap-2">
+    <button
+      type="button"
+      class="btn btn-icon"
+      (click)="showConstraintBuilderOverlay()"
+      ngbTooltip="Add Constraint"
+      triggers="hover">
+      <fa-icon [icon]="facGroupsIcon" class="fs-3 text-white"></fa-icon>
+    </button>
+    <button type="button" class="btn btn-primary btn-icon-text" (click)="showConstraintsOverlay()">
+      <fa-icon [icon]="facGroupsIcon" class="pe-2 fs-3"></fa-icon>
+      <div>Distribute Projects</div>
+    </button>
+
+    <div ngbDropdown class="d-inline-block">
+      <button type="button" class="btn btn-icon" id="moreDropdown" ngbDropdownToggle>
+        <fa-icon [icon]="facMoreIcon" class="fs-3 text-white"></fa-icon>
+      </button>
+      <div ngbDropdownMenu>
+        <button ngbDropdownItem (click)="showExportOverlay()" class="btn-icon-text py-2">
+          <fa-icon [icon]="facExportIcon" class="pe-2 fs-3"></fa-icon>Export
+        </button>
+        <button ngbDropdownItem (click)="showImportOverlay()" class="btn-icon-text py-2">
+          <fa-icon [icon]="facImportIcon" class="pe-2 fs-3"></fa-icon>Import
+        </button>
+        <button ngbDropdownItem (click)="showResetTeamAllocationConfirmation()" class="btn-icon-text py-2">
+          <fa-icon [icon]="facRestartIcon" class="pe-2 fs-3"></fa-icon>Restart
+        </button>
+        <button ngbDropdownItem (click)="deleteData()" class="btn-icon-text py-2 text-warn">
+          <fa-icon [icon]="facDeleteIcon" class="pe-2 fs-3"></fa-icon>Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

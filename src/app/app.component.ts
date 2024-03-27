@@ -1,18 +1,26 @@
-import { Component, ComponentFactoryResolver, Type, ViewChild, ViewEncapsulation } from '@angular/core';
-import { TeamService } from './shared/layers/business-logic-layer/team.service';
-import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import {
+  ChangeDetectorRef,
+  Component,
+  ComponentFactoryResolver,
+  OnDestroy,
+  OnInit,
+  Type,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { OverlayHostDirective } from './overlay-host.directive';
 import { OverlayComponent, OverlayService, OverlayServiceHost } from './overlay.service';
-import { ImportOverlayComponent } from './dashboard/import-overlay/import-overlay.component';
-import { ConfirmationOverlayComponent } from './dashboard/confirmation-overlay/confirmation-overlay.component';
-import { ExportOverlayComponent } from './dashboard/export-overlay/export-overlay.component';
-import { StudentsService } from './shared/data/students.service';
-import { ProjectsService } from './shared/data/projects.service';
-import { AllocationsService } from './shared/data/allocations.service';
-import { SkillsService } from './shared/data/skills.service';
-import { ConstraintBuilderComponent } from './dashboard/constraint-builder-overlay/constraint-builder.component';
-import { ConstraintsOverlayComponent } from './dashboard/constraints-overlay/constraints-overlay.component';
-import { ConstraintsService } from './shared/data/constraints.service';
+import { DragulaService } from 'ng2-dragula';
+import { Allocation, Project, Skill, Student } from 'src/app/api/models';
+import { StudentsService } from 'src/app/shared/data/students.service';
+import { AllocationsService } from 'src/app/shared/data/allocations.service';
+import { ProjectsService } from 'src/app/shared/data/projects.service';
+import { SkillsService } from 'src/app/shared/data/skills.service';
+import { ConstraintsService } from 'src/app/shared/data/constraints.service';
+import { Subscription } from 'rxjs';
+import { Comparator } from './shared/matching/constraints/constraint-utils';
+import { ConstraintWrapper } from './shared/matching/constraints/constraint';
+import { AllocationData, ProjectData, ProjectError } from './shared/models/allocation-data';
 
 @Component({
   selector: 'app-root',
@@ -20,77 +28,98 @@ import { ConstraintsService } from './shared/data/constraints.service';
   styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None, // This is needed to get the material icons to work. Angular bug?
 })
-export class AppComponent implements OverlayServiceHost {
+export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
   overlayVisible = false;
-
-  @ViewChild(DashboardComponent)
-  dashboardComponent: DashboardComponent;
+  dataLoaded = false;
+  allocationData: AllocationData;
 
   @ViewChild(OverlayHostDirective)
   private overlayHostDirective: OverlayHostDirective;
 
+  private subscriptions: Subscription[] = [];
+  private students: Student[];
+  private projects: Project[];
+  private skills: Skill[];
+  private allocations: Allocation[];
+  private constraints: ConstraintWrapper[];
+
   constructor(
     public overlayService: OverlayService,
-    private teamService: TeamService,
     private componentFactoryResolver: ComponentFactoryResolver,
+    private dragularService: DragulaService,
     private studentsService: StudentsService,
-    private projectsService: ProjectsService,
     private allocationsService: AllocationsService,
+    private projectsService: ProjectsService,
     private skillsService: SkillsService,
-    private constraintsService: ConstraintsService
+    private constraintsService: ConstraintsService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     this.overlayService.host = this;
   }
 
-  showResetTeamAllocationConfirmation() {
-    this.overlayService.displayComponent(ConfirmationOverlayComponent, {
-      action: 'Reset',
-      actionDescription: 'Resetting the team allocation will unpin all persons and remove them from their teams.',
-      onConfirmed: () => {
-        // TODO: Reset Pinned Status
-        this.allocationsService.deleteAllocations();
-        this.overlayService.closeOverlay();
-      },
-      onCancelled: () => this.overlayService.closeOverlay(),
-    });
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.dragularService.drop('STUDENTS').subscribe(({ el, target, sibling }) => {
+        this.handleStudentDrop(el, target, sibling);
+      }),
+      this.allocationsService.allocations$.subscribe(allocations => {
+        this.allocations = allocations;
+        this.updateData();
+      }),
+      this.studentsService.students$.subscribe(students => {
+        this.students = students;
+        this.updateData();
+      }),
+      this.projectsService.projects$.subscribe(projects => {
+        this.projects = projects;
+        this.updateData();
+      }),
+      this.skillsService.skills$.subscribe(skills => {
+        this.skills = skills;
+        this.updateData();
+      }),
+      this.constraintsService.constraints$.subscribe(constraints => {
+        this.constraints = constraints;
+        this.updateData();
+      })
+    );
   }
 
-  showSortConfirmation() {
-    this.overlayService.displayComponent(ConfirmationOverlayComponent, {
-      action: 'Sort',
-      actionDescription: 'Sorting all teams will destroy the current order of persons.',
-      onConfirmed: () => {
-        this.teamService.sortPersons();
-        this.teamService.saveToLocalBrowserStorage();
-        this.overlayService.closeOverlay();
-      },
-      onCancelled: () => this.overlayService.closeOverlay(),
-    });
+  private updateDataLoaded(): void {
+    this.dataLoaded = !!(
+      this.students?.length &&
+      this.projects?.length &&
+      this.skills?.length &&
+      this.allocations &&
+      this.constraints
+    );
   }
 
-  showImportOverlay() {
-    this.overlayService.displayComponent(ImportOverlayComponent, {
-      onTeamsImported: () => {
-        this.overlayService.closeOverlay();
-      },
-      overwriteWarning: this.dashboardComponent.dataLoaded,
-    });
+  private updateData(): void {
+    this.updateDataLoaded();
+    if (!this.dataLoaded) return;
+    this.updateAllocation();
+    this.changeDetectorRef.detectChanges();
   }
 
-  showExportOverlay() {
-    this.overlayService.displayComponent(ExportOverlayComponent, {
-      onDownloadFinished: () => {
-        this.teamService.readFromBrowserStorage(), this.overlayService.closeOverlay();
-      },
-    });
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription?.unsubscribe());
   }
 
-  openConstraintsDialog(): void {
-    this.overlayService.displayComponent(ConstraintsOverlayComponent, {});
-  }
+  private handleStudentDrop(el: Element, target: Element, sibling: Element): void {
+    if (!el || !target) return;
+    const studentId = el.children[0].id;
+    const projectId = target.id;
+    const siblingId = sibling?.children[0].id;
 
-  protected areAllTeamsEmpty(): boolean {
-    return this.teamService.teams.reduce((acc, team) => acc && !team.persons.length, true);
+    if (!studentId) return;
+
+    if (!projectId) {
+      this.allocationsService.removeStudentFromProjects(studentId);
+      return;
+    }
+
+    this.allocationsService.moveStudentToProjectAtPosition(studentId, projectId, siblingId);
   }
 
   /* OverlayServiceHost interface */
@@ -108,15 +137,50 @@ export class AppComponent implements OverlayServiceHost {
     this.overlayHostDirective.viewContainerRef.clear();
   }
 
-  showConstraintBuilderOverlay(): void {
-    this.overlayService.displayComponent(ConstraintBuilderComponent, {});
+  private updateAllocation() {
+    this.allocationData = {
+      projectsData: this.updateProjectsData(),
+      studentsWithoutTeam: this.updateStudentsWithoutTeam(),
+    };
   }
 
-  deleteData() {
-    this.studentsService.deleteStudents();
-    this.projectsService.deleteProjects();
-    this.allocationsService.deleteAllocations();
-    this.skillsService.deleteSkills();
-    this.constraintsService.deleteConstraints();
+  private updateProjectsData(): ProjectData[] {
+    return this.projects.map(project => {
+      const allocation = this.allocations.find(allocation => project.id === allocation.projectId);
+      let students = [];
+      if (allocation) {
+        students = allocation.students.map(studentId => this.students.find(student => student.id === studentId));
+      }
+      const errorData = this.getErrorData(project.id, students);
+
+      return { project: project, error: errorData, students: students };
+    });
+  }
+
+  private updateStudentsWithoutTeam(): Student[] {
+    return this.students.filter(
+      student => !this.allocations.some(allocation => allocation.students.includes(student.id))
+    );
+  }
+
+  private getErrorData(projectId: string, students: Student[]): ProjectError {
+    let error = false;
+    let info = '';
+    for (const constraint of this.constraints) {
+      if (!constraint.projectIds.includes(projectId)) continue;
+
+      const studentsPassing = students.filter(student =>
+        constraint.students.map(student => student.id).includes(student.id)
+      );
+      const passesConstraint = Comparator[constraint.constraintOperator](
+        studentsPassing.length,
+        constraint.constraintThreshold
+      );
+      if (!passesConstraint) {
+        error = true;
+        info += `${constraint.constraintFunctionProperty} ${constraint.constraintOperator} ${constraint.constraintThreshold} has ${studentsPassing.length};\n`;
+      }
+    }
+    return { error: error, info: info };
   }
 }

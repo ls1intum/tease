@@ -1,0 +1,64 @@
+@import '/src/scss/style-constants';
+
+/* Button Styles */
+.btn-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-icon fa-icon {
+  line-height: 1rem;
+}
+
+.btn-icon:active,
+.btn-icon:focus {
+  border-color: transparent !important;
+}
+
+.btn-icon:hover fa-icon {
+  color: $primary !important;
+}
+
+.btn-icon.dropdown-toggle::after {
+  border-color: transparent !important;
+  display: none !important;
+}
+
+.btn-icon-text {
+  display: flex !important;
+  align-items: center;
+}
+
+.btn-icon-text fa-icon {
+  line-height: 1rem;
+}
+
+/* Other Styles */
+.default-cursor {
+  cursor: default;
+}
+
+.ps-05 {
+  padding-left: 0.125rem;
+}
+
+.gap-05 {
+  gap: 0.125rem;
+}
+
+.ngx-toastr {
+  box-shadow: 0 0 0px 0 rgba(0, 0, 0, 0) !important;
+}
+
+.fs-s {
+  font-size: $font-size-small;
+}
+
+.fs-xs {
+  font-size: $font-size-xsmall;
+}
+
+.fs-xxs {
+  font-size: $font-size-xxsmall;
+}

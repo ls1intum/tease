@@ -1,0 +1,164 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div
+    class="w-75 h-75 bg-card d-flex flex-column p-4 rounded-3 overflow-hidden overflow-y-scroll"
+    (click)="$event.stopPropagation()">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex flex-column gap-2">
+        <div class="d-flex gap-1">
+          <p class="text-prefix mb-0 lh-1 fs-3">{{ genderIcon }}</p>
+          <div class="d-flex flex-column">
+            <div class="student-name-wrapper">
+              <p class="fs-4 text-truncate text-dark mb-0 lh-sm">{{ name }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-start">
+          <div class="d-inline-flex gap-1" [ngbTooltip]="student.introCourseProficiency">
+            @for (skillColor of skillColors; track skillColor) {
+              <div class="rounded-circle student-skill-circle" [ngClass]="'bg-' + skillColor"></div>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="profile-picture-wrapper position-relative default-cursor">
+        <img
+          class="w-100 h-100 rounded-circle overflow-hidden"
+          src="{{ gravatarURL }}"
+          alt="Profile Picture of {{ name }}"
+          onerror="this.onerror=null; this.src='/assets/images/placeholder.png'" />
+        <div class="student-nationality-tile bg-tile rounded-5 p-2 d-flex justify-content-center align-items-center">
+          <p class="student-nationality-description mb-0 lh-1 fs-6 text-nowrap">
+            {{ nationalityText }}
+          </p>
+          <div class="student-nationality-emoji-wrapper d-flex justify-content-center align-items-center">
+            <p class="mb-0 lh-1 fs-6">{{ nationalityEmoji }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row gap-2">
+      <div class="col-12">
+        <div class="fs-5 fw-semibold mb-2">Data</div>
+      </div>
+      <!-- Tiles -->
+      <div class="d-flex flex-column gap-2">
+        <div class="d-flex justify-content-start align-items-center ps-05 pe-1 bg-tile rounded-4 gap-1 overflow-scroll">
+          <div
+            class="project-preference-score-circle d-flex justify-content-center align-items-center bg-dark rounded-4">
+            <p class="text-white p-1 mb-0 lh-1 fs-5">{{ projectPreferenceScore }}</p>
+          </div>
+          <div class="d-flex gap-1 py-2">
+            @for (projectPreference of projectPreferences; track projectPreference) {
+              <div
+                class="project-preference-tile d-flex justify-content-center align-items-center px-1 rounded-4"
+                [ngClass]="projectPreference.assigned ? 'bg-primary-20' : 'bg-tile-priority'">
+                <p
+                  class="mb-0 fs-6 text-truncate"
+                  [ngClass]="projectPreference.assigned ? 'text-primary-high-contrast' : 'text-dark'">
+                  {{ projectPreference.name }}
+                </p>
+              </div>
+            }
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <div class="d-flex justify-content-center align-items-center flex-grow-1 px-3 py-1 bg-tile rounded-5">
+            <fa-icon
+              [icon]="facMacIcon"
+              class="lh-1 fs-3"
+              [ngClass]="ownsMac ? 'text-dark' : 'text-inactive'"></fa-icon>
+            <fa-icon
+              [icon]="facIphoneIcon"
+              class="lh-1 fs-3"
+              [ngClass]="ownsIPhone ? 'text-dark' : 'text-inactive'"></fa-icon>
+            <fa-icon
+              [icon]="facIpadIcon"
+              class="lh-1 fs-3"
+              [ngClass]="ownsIPad ? 'text-dark' : 'text-inactive'"></fa-icon>
+            <fa-icon
+              [icon]="facWatchIcon"
+              class="lh-1 fs-3"
+              [ngClass]="ownsWatch ? 'text-dark' : 'text-inactive'"></fa-icon>
+          </div>
+          <div class="d-flex justify-content-center align-items-center flex-grow-1 px-2 py-1 bg-tile rounded-5">
+            <div class="d-flex gap-05">
+              <p class="text-prefix mb-0 lh-sm fs-s">de</p>
+              <p class="text-dark mb-0 lh-1 fs-6">{{ germanProficiency }}</p>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center align-items-center flex-grow-1 px-2 py-1 bg-tile rounded-5">
+            <div class="d-flex gap-05">
+              <p class="text-prefix mb-0 lh-sm fs-s">en</p>
+              <p class="text-dark mb-0 lh-1 fs-6">{{ englishProficiency }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Study Information -->
+      <div class="col-12 pt-3">
+        <div class="fs-5 fw-semibold mb-2">Information</div>
+      </div>
+      <div class="col-12 row">
+        <div class="col">
+          <p class="fs-s text-prefix mb-0">Programm</p>
+          <p class="fs-6 fw-semibold mb-0">{{ student.studyProgram }}</p>
+        </div>
+        <div class="col">
+          <p class="fs-s text-prefix mb-0">Degree</p>
+          <p class="fs-6 fw-semibold mb-0">{{ student.studyDegree }}</p>
+        </div>
+        <div class="col">
+          <p class="fs-s text-prefix mb-0">Semester</p>
+          <p class="fs-6 fw-semibold mb-0">{{ student.semester }}</p>
+        </div>
+      </div>
+      <!-- Mail and ID -->
+      <div class="col-12 row">
+        <div class="col">
+          <p class="fs-s text-prefix mb-0">Mail</p>
+          <p class="fs-6 fw-semibold mb-0">{{ student.email }}</p>
+        </div>
+        <div class="col">
+          <p class="fs-s text-prefix mb-0">ID</p>
+          <p class="fs-6 fw-semibold text-nowrap mb-0">{{ student.id }}</p>
+        </div>
+      </div>
+      <div class="col-12 pt-3">
+        <div class="fs-5 fw-semibold mb-2">Skills</div>
+      </div>
+      <div class="col-12 row">
+        @for (skill of skills; track skill) {
+          <div class="col-4 p-2">
+            <div class="bg-tile rounded-3 p-3">
+              <p class="fs-6 text-dark mb-2">{{ skill.title }}</p>
+              <div class="d-flex gap-05">
+                @for (color of skill.colors; track color) {
+                  <div class="rounded-circle student-skill-circle" [ngClass]="'bg-' + color"></div>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="col-12 pt-3">
+        <div class="fs-5 fw-semibold mb-2">Comments</div>
+        <div>
+          @if (student.tutorComments) {
+            <div class="fs-6 fw-semibold mb-1">Tutor</div>
+            @for (tutorComment of student.tutorComments; track tutorComment) {
+              <p>{{ tutorComment.text }}</p>
+            }
+          }
+          @if (student.studentComments) {
+            <div class="fs-6 fw-semibold mb-1">Student</div>
+            @for (studentComment of student.studentComments; track studentComment) {
+              <p>{{ studentComment.text }}</p>
+            }
+          }
+        </div>
+      </div>
+      <div class="col-12 row"></div>
+    </div>
+  </div>
+</div>
