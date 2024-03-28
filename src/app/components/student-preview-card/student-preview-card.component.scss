@@ -15,7 +15,6 @@
 /* Nationality Styles */
 
 .student-nationality-tile {
-  position: absolute;
   bottom: 0rem;
   right: 2.5rem;
 }
@@ -70,4 +69,29 @@
 .student-skill-circle {
   width: 0.75rem;
   height: 0.75rem;
+}
+
+/* Lock Styles */
+
+.lock-wrapper {
+  top: -0.25rem;
+  left: 1.75rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.5s;
+  transition-delay: 0s;
+}
+
+.student-preview-card:hover .lock-wrapper {
+  opacity: 1;
+  transition-delay: 0.3s;
+}
+
+.locked {
+  opacity: 1 !important;
+}
+
+.no-select {
+  user-select: none;
 }

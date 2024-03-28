@@ -8,6 +8,8 @@ import { MandatoryConstraintsService } from 'src/app/shared/matching/constraints
 import { CostFunctionsService } from 'src/app/shared/matching/constraints/cost-functions';
 import { AllocationsService } from 'src/app/shared/data/allocations.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
+import { LocksService } from 'src/app/shared/data/locks.service';
+import { LockedConstraintsService } from 'src/app/shared/matching/constraints/locked-constraints';
 
 @Component({
   selector: 'app-constraints-overlay',
@@ -22,11 +24,13 @@ export class ConstraintsOverlayComponent implements OverlayComponent, OnInit {
   constructor(
     private constraintsService: ConstraintsService,
     private mandatoryConstraintsService: MandatoryConstraintsService,
+    private lockedConstraintsService: LockedConstraintsService,
     private costFunctionsService: CostFunctionsService,
     private matchingService: MatchingService,
     private studentsService: StudentsService,
     private projectsService: ProjectsService,
-    private allocationsService: AllocationsService
+    private allocationsService: AllocationsService,
+    private locksService: LocksService
   ) {}
 
   ngOnInit() {
@@ -40,6 +44,7 @@ export class ConstraintsOverlayComponent implements OverlayComponent, OnInit {
 
     constraints.push(
       ...this.mandatoryConstraintsService.createMandatoryConstraints(students, projects),
+      ...this.lockedConstraintsService.createConstraints(this.locksService.getLocks()),
       this.costFunctionsService.createCostFunction(students)
     );
     const allocations = await this.matchingService.getAllocations(constraints);

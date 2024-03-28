@@ -11,6 +11,7 @@ import { SkillsService } from 'src/app/shared/data/skills.service';
 import { StudentsService } from 'src/app/shared/data/students.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { teaseIconPack } from 'src/assets/icons/icons';
+import { LocksService } from 'src/app/shared/data/locks.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -31,7 +32,8 @@ export class NavigationBarComponent {
     private studentsService: StudentsService,
     private projectsService: ProjectsService,
     private skillsService: SkillsService,
-    private constraintsService: ConstraintsService
+    private constraintsService: ConstraintsService,
+    private locksService: LocksService
   ) {}
 
   dropdownItems = [
@@ -59,7 +61,7 @@ export class NavigationBarComponent {
       action: 'Reset',
       actionDescription: 'Resetting the team allocation will unpin all persons and remove them from their teams.',
       onConfirmed: () => {
-        // TODO: Reset Pinned Status
+        this.locksService.deleteLocks();
         this.allocationsService.deleteAllocations();
         this.overlayService.closeOverlay();
       },
@@ -90,5 +92,6 @@ export class NavigationBarComponent {
     this.allocationsService.deleteAllocations();
     this.skillsService.deleteSkills();
     this.constraintsService.deleteConstraints();
+    this.locksService.deleteLocks();
   }
 }

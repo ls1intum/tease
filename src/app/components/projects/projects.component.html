@@ -26,7 +26,10 @@
         class="d-flex flex-column gap-1 project-width overflow-scroll flex-grow-1 pt-1"
         id="{{ projectData.project.id }}">
         @for (student of projectData.students; track student) {
-          <app-student-preview-card [student]="student" [projectId]="projectData.project.id"></app-student-preview-card>
+          <app-student-preview-card
+            [student]="student"
+            [projectId]="projectData.project.id"
+            [isLocked]="lockedStudents.includes(student.id)"></app-student-preview-card>
         }
       </div>
     </div>
