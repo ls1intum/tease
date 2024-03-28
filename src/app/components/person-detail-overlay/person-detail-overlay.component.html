@@ -8,7 +8,7 @@
           <p class="text-prefix mb-0 lh-1 fs-3">{{ genderIcon }}</p>
           <div class="d-flex flex-column">
             <div class="student-name-wrapper">
-              <p class="fs-4 text-truncate text-dark mb-0 lh-sm">{{ name }}</p>
+              <h4 class="text-truncate text-dark mb-0 lh-sm">{{ name }}</h4>
             </div>
           </div>
         </div>
@@ -39,14 +39,14 @@
 
     <div class="row gap-2">
       <div class="col-12">
-        <div class="fs-5 fw-semibold mb-2">Data</div>
+        <h5 class="fw-semibold mb-2">Data</h5>
       </div>
       <!-- Tiles -->
       <div class="d-flex flex-column gap-2">
         <div class="d-flex justify-content-start align-items-center ps-05 pe-1 bg-tile rounded-4 gap-1 overflow-scroll">
           <div
             class="project-preference-score-circle d-flex justify-content-center align-items-center bg-dark rounded-4">
-            <p class="text-white p-1 mb-0 lh-1 fs-5">{{ projectPreferenceScore }}</p>
+            <h5 class="text-white p-1 mb-0 lh-1">{{ projectPreferenceScore }}</h5>
           </div>
           <div class="d-flex gap-1 py-2">
             @for (projectPreference of projectPreferences; track projectPreference) {
@@ -97,7 +97,7 @@
       </div>
       <!-- Study Information -->
       <div class="col-12 pt-3">
-        <div class="fs-5 fw-semibold mb-2">Information</div>
+        <h5 class="fw-semibold mb-2">Information</h5>
       </div>
       <div class="col-12 row">
         <div class="col">
@@ -125,7 +125,7 @@
         </div>
       </div>
       <div class="col-12 pt-3">
-        <div class="fs-5 fw-semibold mb-2">Skills</div>
+        <h5 class="fw-semibold mb-2">Skills</h5>
       </div>
       <div class="col-12 row">
         @for (skill of skills; track skill) {
@@ -142,7 +142,7 @@
         }
       </div>
       <div class="col-12 pt-3">
-        <div class="fs-5 fw-semibold mb-2">Comments</div>
+        <h5 class="fw-semibold mb-2">Comments</h5>
         <div>
           @if (student.tutorComments) {
             <div class="fs-6 fw-semibold mb-1">Tutor</div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
 import { AllocationData } from 'src/app/shared/models/allocation-data';
 import { ProficiencyChartDataService } from './charts/chart-data-formatter/formatters/proficiency-chart-data.service';
@@ -27,7 +27,7 @@ export class StatisticsComponent implements OnInit, OnChanges {
     this.updateDougnutChartData();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.updateDougnutChartData();
     this.updatePeopleChartData();
   }

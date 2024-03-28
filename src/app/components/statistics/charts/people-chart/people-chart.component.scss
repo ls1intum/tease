@@ -1,13 +1,6 @@
 @import '/src/scss/style-constants';
 
-.people-chart-element {
-  color: $dark;
+/* 3rem, due to font size + 0.125rem, due to fa-icon padding */
+.people-chart-icon-wrapper {
+  height: 3.125rem;
 }
-
-// .people-chart-element:hover {
-//   font-weight: 600;
-
-//   * {
-//     font-weight: inherit;
-//   }
-// }

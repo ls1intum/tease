@@ -169,9 +169,9 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
     for (const constraint of this.constraints) {
       if (!constraint.projectIds.includes(projectId)) continue;
 
-      const studentsPassing = students.filter(student =>
-        constraint.students.map(student => student.id).includes(student.id)
-      );
+      const studentIdsInConstraint = constraint.students.map(studentInConstraint => studentInConstraint.id);
+      const studentsPassing = students.filter(student => studentIdsInConstraint.includes(student.id));
+
       const passesConstraint = Comparator[constraint.constraintOperator](
         studentsPassing.length,
         constraint.constraintThreshold

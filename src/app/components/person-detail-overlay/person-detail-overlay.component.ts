@@ -77,8 +77,7 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
     this.ownsIPad = this.student.devices.includes(Device.IPad);
     this.ownsWatch = this.student.devices.includes(Device.Watch);
     this.name = `${this.student.firstName} ${this.student.lastName}`;
-    const skills = this.skillsService.getSkills();
-    this.skills = this.getStudentSkills(skills, this.student.skills);
+    this.skills = this.getStudentSkills(this.skillsService.getSkills(), this.student.skills);
   }
 
   private getStudentSkills(skills: Skill[], studentSkills: StudentSkill[]): SkillDescription[] {
@@ -95,11 +94,9 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
 
   private getProjectPreferenceScore(): string {
     if (this.projectId) {
-      return (
-        (
-          this.student.projectPreferences.find(project => project.projectId === this.projectId).priority + 1
-        ).toString() || '#'
-      );
+      const priority = this.student.projectPreferences.find(project => project.projectId === this.projectId)?.priority;
+      // +1 because the priority is 0-based
+      return (priority + 1).toString() || '#';
     }
     return '#';
   }
@@ -108,6 +105,7 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
     return this.student.projectPreferences
       .sort((a, b) => a.priority - b.priority)
       .map(project => ({
+        // +1 because the priority is 0-based
         priority: project.priority + 1,
         name: this.projectsService.getProjectNameById(project.projectId),
         assigned: this.projectId === project.projectId,

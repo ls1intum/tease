@@ -52,13 +52,18 @@
     </div>
   </div>
 
-  <div class="utility-container overflow-y-scroll" [ngClass]="utilityContainerVisible ? 'visible' : 'hidden'">
+  <div
+    class="utility-container d-flex overflow-y-scroll mt-2"
+    [ngClass]="utilityContainerVisible ? 'visible' : 'hidden'">
     @if (viewMode === ViewMode.Statistics) {
-      <app-statistics [allocationData]="allocationData" [statisticsViewMode]="statisticsViewMode"></app-statistics>
+      <app-statistics
+        class="d-flex flex-grow-1"
+        [allocationData]="allocationData"
+        [statisticsViewMode]="statisticsViewMode"></app-statistics>
     }
     @if (viewMode === ViewMode.Students) {
       @for (students of [allocationData.studentsWithoutTeam]; track students) {
-        <div dragula="STUDENTS" class="d-flex flex-wrap flex-grow gap-1 w-100 h-25">
+        <div dragula="STUDENTS" class="d-flex flex-wrap flex-grow-1 gap-1 h-25">
           @for (student of students; track student) {
             <app-student-preview-card [student]="student"></app-student-preview-card>
           }

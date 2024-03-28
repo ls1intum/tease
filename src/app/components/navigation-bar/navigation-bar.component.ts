@@ -34,6 +34,18 @@ export class NavigationBarComponent {
     private constraintsService: ConstraintsService
   ) {}
 
+  dropdownItems = [
+    { action: this.showExportOverlay.bind(this), icon: this.facExportIcon, label: 'Export', class: 'text-dark' },
+    { action: this.showImportOverlay.bind(this), icon: this.facImportIcon, label: 'Import', class: 'text-dark' },
+    {
+      action: this.showResetTeamAllocationConfirmation.bind(this),
+      icon: this.facRestartIcon,
+      label: 'Restart',
+      class: 'text-dark',
+    },
+    { action: this.deleteData.bind(this), icon: this.facDeleteIcon, label: 'Delete', class: 'text-warn' },
+  ];
+
   showConstraintBuilderOverlay(): void {
     this.overlayService.displayComponent(ConstraintBuilderComponent, {});
   }

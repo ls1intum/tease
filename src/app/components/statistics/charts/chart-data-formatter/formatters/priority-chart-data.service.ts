@@ -44,14 +44,14 @@ export class PriorityChartDataService implements ChartDataFormatter {
       const studentData: PeopleChartStudentData[] = [];
       const studentPriorities: number[] = [];
 
-      projectData.students
-        .map(student => {
-          const priority = this.getStudentPriorityForProject(student, projectData.project.id);
-          const color = this.getColorForPriority(priority);
-          const tooltip = this.getTooltip(student.firstName, student.lastName, priority);
-          studentPriorities.push(priority);
-          return { priority, color, tooltip };
-        })
+      const mappedStudents = projectData.students.map(student => {
+        const priority = this.getStudentPriorityForProject(student, projectData.project.id);
+        const color = this.getColorForPriority(priority);
+        const tooltip = this.getTooltip(student.firstName, student.lastName, priority);
+        studentPriorities.push(priority);
+        return { priority, color, tooltip };
+      });
+      mappedStudents
         .sort((a, b) => a.priority - b.priority)
         .forEach(student => studentData.push({ color: student.color, tooltip: student.tooltip }));
 

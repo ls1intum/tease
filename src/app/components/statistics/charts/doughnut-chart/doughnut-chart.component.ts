@@ -55,8 +55,7 @@ export class DoughnutChartComponent implements OnInit, OnChanges {
       return;
     }
 
-    // this.chartDatasets = this.chartData.datasets;
-    const datasets = (this.chartDatasets = this.doughnutChartData.datasets);
+    this.chartDatasets = this.doughnutChartData.datasets;
     this.chartLabels = this.doughnutChartData.labels;
     this.defaultCount = this.chartDatasets[0].data.reduce((a, b) => a + b, 0);
     this.count = this.defaultCount;
