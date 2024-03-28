@@ -40,8 +40,7 @@ export class AllocationsService {
   }
 
   moveStudentToProjectAtPosition(studentId: string, projectId: string, siblingId?: string): void {
-    this.removeStudentFromProjects(studentId);
-    const allocations = this.getAllocations();
+    const allocations = this.getAllocationsWithoutStudent(studentId);
     const allocation = this.getAllocationForProjectId(projectId);
     var positionInAllocation = allocation?.students.indexOf(siblingId) ?? -1;
 
@@ -56,6 +55,14 @@ export class AllocationsService {
     }
 
     this.setAllocations(allocations);
+  }
+
+  private getAllocationsWithoutStudent(studentId: string): Allocation[] {
+    const allocations = this.getAllocations();
+    allocations.forEach(allocation => {
+      allocation.students = allocation.students.filter(id => id !== studentId);
+    });
+    return allocations;
   }
 
   removeStudentFromProjects(studentId: string): void {
