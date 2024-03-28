@@ -18,6 +18,11 @@ export class SkillsService {
     }
   }
 
+  // TODO: Delete with person code
+  getSkills(): Skill[] {
+    return this.skillsSubject$.getValue();
+  }
+
   setSkills(skills: Skill[]): void {
     this.skillsSubject$.next(skills);
     localStorage.setItem('skills', JSON.stringify(skills));

@@ -1,0 +1,73 @@
+.student-name-wrapper {
+  width: 10rem;
+}
+
+.profile-picture-wrapper {
+  width: 3rem;
+  height: 3rem;
+}
+
+.student-nationality-emoji-wrapper {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Nationality Styles */
+
+.student-nationality-tile {
+  position: absolute;
+  bottom: 0rem;
+  right: 2.5rem;
+}
+
+.student-nationality-description {
+  width: 0;
+  opacity: 0;
+}
+
+.student-nationality-tile:hover .student-nationality-description {
+  animation: slideIn 0.7s forwards;
+}
+
+@keyframes slideIn {
+  50% {
+    width: 0;
+    opacity: 0;
+    padding: 0;
+  }
+
+  80% {
+    width: auto;
+    opacity: 0;
+    padding: 0 0.35rem 0 0.8rem;
+  }
+
+  90% {
+    opacity: 0.5;
+  }
+
+  100% {
+    width: auto;
+    opacity: 1;
+    padding: 0 0.35rem 0 0.35rem;
+  }
+}
+
+/* Project Preference Styles */
+
+.project-preference-score-circle {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.project-preference-tile {
+  overflow: hidden;
+  width: 3.5rem;
+}
+
+/* Skill Styles */
+
+.student-skill-circle {
+  width: 0.75rem;
+  height: 0.75rem;
+}

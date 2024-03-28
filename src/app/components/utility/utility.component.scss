@@ -1,0 +1,62 @@
+@import '/src/scss/style-constants';
+
+.seperator {
+  width: 0.125rem;
+  margin: 0.25rem 0;
+}
+
+.tab-title {
+  color: $inactive;
+  font-weight: 600;
+}
+
+.tab-title.active {
+  color: $dark !important;
+  font-weight: 600;
+}
+
+.tab-title:hover {
+  color: $prefix;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.count-circle {
+  width: 2.375rem;
+  height: 2.375rem;
+}
+
+.utility-container.visible {
+  animation: slideIn 0.5s ease-in;
+  animation-fill-mode: forwards;
+}
+
+.utility-container.hidden {
+  animation: slideOut 0.5s ease-in;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideOut {
+  0% {
+    height: 16rem;
+  }
+  100% {
+    height: 0;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 16rem;
+  }
+}
+
+.utility-action {
+  transition: transform 0.5s ease-in;
+}
+.utility-action.hidden {
+  transform: rotate(135deg);
+}

@@ -1,0 +1,14 @@
+<div class="p-4" class="position-relative">
+  <div class="position-absolute d-flex flex-column justify-content-center align-items-center h-100 w-100 pe-none">
+    <p class="text-dark fs-2 mb-0 fw-semibold pt-2">{{ count }}</p>
+    <p class="text-dark fs-6 m-0 fw-medium">{{ subtitle }}</p>
+  </div>
+  <canvas
+    baseChart
+    [labels]="chartLabels"
+    [type]="'doughnut'"
+    [datasets]="chartDatasets"
+    [options]="chartOptions"
+    id="intro-course-proficiency-chart">
+  </canvas>
+</div>

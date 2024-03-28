@@ -1,0 +1,62 @@
+.profile-picture-wrapper {
+  width: 6rem;
+  height: 6rem;
+}
+
+.student-skill-circle {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Nationality Styles */
+
+.student-nationality-tile {
+  position: absolute;
+  bottom: 0rem;
+  right: 4.5rem;
+}
+
+.student-nationality-description {
+  width: 0;
+  opacity: 0;
+}
+
+.student-nationality-tile:hover .student-nationality-description {
+  animation: slideIn 0.7s forwards;
+}
+
+@keyframes slideIn {
+  50% {
+    width: 0;
+    opacity: 0;
+    padding: 0;
+  }
+
+  80% {
+    width: auto;
+    opacity: 0;
+    padding: 0 0.35rem 0 0.8rem;
+  }
+
+  90% {
+    opacity: 0.5;
+  }
+
+  100% {
+    width: auto;
+    opacity: 1;
+    padding: 0 0.35rem 0 0.35rem;
+  }
+}
+
+/* Project Preference Styles */
+
+.project-preference-score-circle {
+  width: 2rem;
+  height: 2rem;
+}
+
+.project-preference-tile {
+  overflow: hidden;
+  width: 5rem;
+}

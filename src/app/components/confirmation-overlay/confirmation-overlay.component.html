@@ -1,0 +1,15 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="w-50 bg-white d-flex flex-column p-4 rounded-3 gap-4" (click)="$event.stopPropagation()">
+    <div class="fs-4 fw-semibold">{{ data.action }}</div>
+    <div class="fs-5 fw-semibold">Warning!</div>
+    <div class="fs-6">{{ data.actionDescription }}</div>
+
+    <div class="d-flex gap-2">
+      <button type="button" class="btn btn-primary" (click)="data.onCancelled()">Cancel</button>
+      <div class="flex-grow-1"></div>
+      <button type="button" class="btn btn-warn" color="warn" (click)="data.onConfirmed()">
+        {{ data.action }}
+      </button>
+    </div>
+  </div>
+</div>
