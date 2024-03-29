@@ -7,6 +7,10 @@ import { Operator, OperatorMapping } from './constraint-utils';
 import { ConstraintWrapper } from './constraint';
 import { IdMappingService } from '../../data/id-mapping.service';
 import { Injectable } from '@angular/core';
+import { TeamSizeConstraintFunction } from './constraint-functions/team-size-constraint-function';
+import { IntroCourseProficiencyConstraintFunction } from './constraint-functions/intro-course-proficiency-constraint-function';
+import { LanguageProficiencyConstraintFunction } from './constraint-functions/language-proficiency-constraint-function';
+import { NationalityConstraintFunction } from './constraint-functions/nationality-constraint-function';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +25,10 @@ export class ConstraintBuilderService {
       new GenderConstraintFunction(students, skills),
       new SkillConstraintFunction(students, skills),
       new DeviceConstraintFunction(students, skills),
+      new TeamSizeConstraintFunction(students, skills),
+      new IntroCourseProficiencyConstraintFunction(students, skills),
+      new LanguageProficiencyConstraintFunction(students, skills),
+      new NationalityConstraintFunction(students, skills),
     ];
   }
 
