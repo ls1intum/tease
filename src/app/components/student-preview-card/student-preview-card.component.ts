@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Student, Device, SkillProficiency, LanguageProficiency } from 'src/app/api/models';
 import { OverlayService } from 'src/app/overlay.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
@@ -23,7 +23,7 @@ class AssignedProjectPreference {
 export class StudentPreviewCardComponent implements OnInit {
   @Input({ required: true }) student: Student;
   @Input() projectId: string;
-  @Input() isLocked: boolean = false;
+  @Input() lockedStudents: string[] = [];
   Device = Device;
   private readonly PROJECT_PREFRENCE_LIMIT = 4;
 
@@ -47,6 +47,7 @@ export class StudentPreviewCardComponent implements OnInit {
   ownsIPhone: boolean;
   ownsIPad: boolean;
   ownsWatch: boolean;
+  isLocked: boolean;
 
   constructor(
     private nationalityService: NationalityService,
@@ -54,11 +55,13 @@ export class StudentPreviewCardComponent implements OnInit {
     private genderService: GenderService,
     private gravatarService: GravatarService,
     private overlayService: OverlayService,
-    private locksService: LocksService
+    private locksService: LocksService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     if (!this.student) throw Error();
+    this.isLocked = this.lockedStudents.includes(this.student.id);
     this.projectPreferences = this.getDisplayedProjectPreferences();
     this.projectPreferenceScore = this.getProjectPreferenceScore();
     this.germanProficiency = this.findGermanProficiency();
@@ -114,8 +117,10 @@ export class StudentPreviewCardComponent implements OnInit {
   toggleLock() {
     if (this.isLocked) {
       this.locksService.removeLock(this.student.id);
+      this.isLocked = false;
     } else {
       this.locksService.addLock(this.student.id, this.projectId);
+      this.isLocked = true;
     }
   }
 }
