@@ -9,6 +9,7 @@ import { teaseIconPack } from 'src/assets/icons/icons';
 import { PersonDetailOverlayComponent } from '../person-detail-overlay/person-detail-overlay.component';
 import { ColorService } from 'src/app/shared/constants/color.service';
 import { LocksService } from 'src/app/shared/data/locks.service';
+import { SkillViewMode } from '../navigation-bar/navigation-bar.component';
 
 class AssignedProjectPreference {
   name: string;
@@ -49,6 +50,11 @@ export class StudentPreviewCardComponent implements OnInit {
   ownsWatch: boolean;
   isLocked: boolean;
 
+  //Delete after Kickoff
+  ViewMode = SkillViewMode;
+  selectedViewMode: SkillViewMode;
+  backgroundColor: string;
+
   constructor(
     private nationalityService: NationalityService,
     private projectsService: ProjectsService,
@@ -60,8 +66,12 @@ export class StudentPreviewCardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (!this.student) throw Error();
     this.isLocked = this.lockedStudents.includes(this.student.id);
+    //Delete after Kickoff
+    const localViewMode = localStorage.getItem('skillViewMode') ?? SkillViewMode.CIRCLE;
+    this.selectedViewMode = localViewMode as SkillViewMode;
+    this.backgroundColor = this.getBackgroundColor(this.student.introCourseProficiency, this.selectedViewMode);
+
     this.projectPreferences = this.getDisplayedProjectPreferences();
     this.projectPreferenceScore = this.getProjectPreferenceScore();
     this.germanProficiency = this.findGermanProficiency();
@@ -121,6 +131,25 @@ export class StudentPreviewCardComponent implements OnInit {
     } else {
       this.locksService.addLock(this.student.id, this.projectId);
       this.isLocked = true;
+    }
+  }
+
+  //Delete after Kickoff
+  private getBackgroundColor(skillProficiency: SkillProficiency, viewMode: SkillViewMode): string {
+    if (viewMode != SkillViewMode.DEATH) {
+      return '#F9F9FA';
+    }
+    switch (skillProficiency) {
+      case SkillProficiency.Expert:
+        return '#BCDEF7';
+      case SkillProficiency.Advanced:
+        return '#E7F7E2';
+      case SkillProficiency.Intermediate:
+        return '#F5ECCD';
+      case SkillProficiency.Novice:
+        return '#EFC6C6';
+      default:
+        return '#F9F9FA';
     }
   }
 }

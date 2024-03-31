@@ -67,8 +67,8 @@
 /* Skill Styles */
 
 .student-skill-circle {
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 1em;
+  height: 1rem;
 }
 
 /* Lock Styles */
@@ -94,4 +94,8 @@
 
 .no-select {
   user-select: none;
+}
+
+.skill-level-sidebar {
+  width: 0.4rem;
 }
