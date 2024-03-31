@@ -5,12 +5,14 @@ import html2canvas from 'html2canvas';
 import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
 import { Person } from '../../shared/models/person';
-import { Team } from '../../shared/models/team';
-import { TeamsToAllocationsService } from 'src/app/shared/services/teams-to-allocations.service';
 import { PromptService } from 'src/app/shared/services/prompt.service';
 import { ToastsService } from 'src/app/shared/services/toasts.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AllocationsService } from 'src/app/shared/data/allocations.service';
+import { saveAs } from 'file-saver';
+import { Allocation } from 'src/app/api/models';
+import { ProjectsService } from 'src/app/shared/data/projects.service';
+import { StudentsService } from 'src/app/shared/data/students.service';
 
 @Component({
   selector: 'app-export-overlay',
@@ -34,12 +36,17 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
     logging: false,
   };
 
+  private readonly EXPORT_FILE_NAME = 'TEASE-mappings.csv';
+  private readonly EXPORT_DATA_TYPE = 'text/csv;charset=utf-8';
+
   constructor(
     private teamService: TeamService,
     private applicationRef: ApplicationRef,
     private promptService: PromptService,
     private toastsService: ToastsService,
-    private allocationsService: AllocationsService
+    private allocationsService: AllocationsService,
+    private projectsService: ProjectsService,
+    private studentsService: StudentsService
   ) {}
 
   ngOnDestroy() {
@@ -65,10 +72,23 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
   }
 
   exportCSV() {
-    this.teamService.saveToLocalBrowserStorage().then(() => {
-      this.teamService.exportSavedState();
-      this.data.onDownloadFinished();
+    const allocations = this.allocationsService.getAllocations();
+    const csvData = this.allocationsToCSV(allocations);
+    const blob = new Blob([csvData], { type: this.EXPORT_DATA_TYPE });
+    saveAs(blob, this.EXPORT_FILE_NAME);
+  }
+
+  private allocationsToCSV(allocations: Allocation[]): string {
+    let csvData = 'Username,Team\n';
+    allocations.forEach(allocation => {
+      const projectName = this.projectsService.getProjectNameById(allocation.projectId);
+      allocation.students.forEach(studentId => {
+        const student = this.studentsService.getStudentById(studentId);
+        const studentName = `${student.firstName} ${student.lastName}`;
+        csvData += `${studentName},${projectName}\n`;
+      });
     });
+    return csvData;
   }
 
   getImageExportMaxProgress(onlyTeamOverview: boolean) {
