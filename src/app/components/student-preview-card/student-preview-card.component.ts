@@ -1,13 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Student, Device, SkillProficiency, LanguageProficiency } from 'src/app/api/models';
 import { OverlayService } from 'src/app/overlay.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { GenderService } from 'src/app/shared/helpers/gender.service';
 import { GravatarService } from 'src/app/shared/helpers/gravatar.service';
 import { NationalityService } from 'src/app/shared/helpers/nationality.service';
-import { facIpadIcon, facIphoneIcon, facMacIcon, facWatchIcon } from 'src/assets/icons/icons';
+import { teaseIconPack } from 'src/assets/icons/icons';
 import { PersonDetailOverlayComponent } from '../person-detail-overlay/person-detail-overlay.component';
 import { ColorService } from 'src/app/shared/constants/color.service';
+import { LocksService } from 'src/app/shared/data/locks.service';
 
 class AssignedProjectPreference {
   name: string;
@@ -22,13 +23,16 @@ class AssignedProjectPreference {
 export class StudentPreviewCardComponent implements OnInit {
   @Input({ required: true }) student: Student;
   @Input() projectId: string;
+  @Input() lockedStudents: string[] = [];
   Device = Device;
   private readonly PROJECT_PREFRENCE_LIMIT = 4;
 
-  facMacIcon = facMacIcon;
-  facIphoneIcon = facIphoneIcon;
-  facIpadIcon = facIpadIcon;
-  facWatchIcon = facWatchIcon;
+  facMacIcon = teaseIconPack['facMacIcon'];
+  facIphoneIcon = teaseIconPack['facIphoneIcon'];
+  facIpadIcon = teaseIconPack['facIpadIcon'];
+  facWatchIcon = teaseIconPack['facWatchIcon'];
+  facLockClosedIcon = teaseIconPack['facLockClosedIcon'];
+  facLockOpenIcon = teaseIconPack['facLockOpenIcon'];
 
   projectPreferences: AssignedProjectPreference[];
   projectPreferenceScore: string;
@@ -43,17 +47,21 @@ export class StudentPreviewCardComponent implements OnInit {
   ownsIPhone: boolean;
   ownsIPad: boolean;
   ownsWatch: boolean;
+  isLocked: boolean;
 
   constructor(
     private nationalityService: NationalityService,
     private projectsService: ProjectsService,
     private genderService: GenderService,
     private gravatarService: GravatarService,
-    private overlayService: OverlayService
+    private overlayService: OverlayService,
+    private locksService: LocksService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     if (!this.student) throw Error();
+    this.isLocked = this.lockedStudents.includes(this.student.id);
     this.projectPreferences = this.getDisplayedProjectPreferences();
     this.projectPreferenceScore = this.getProjectPreferenceScore();
     this.germanProficiency = this.findGermanProficiency();
@@ -104,5 +112,15 @@ export class StudentPreviewCardComponent implements OnInit {
       student: student,
       projectId: this.projectId,
     });
+  }
+
+  toggleLock() {
+    if (this.isLocked) {
+      this.locksService.removeLock(this.student.id);
+      this.isLocked = false;
+    } else {
+      this.locksService.addLock(this.student.id, this.projectId);
+      this.isLocked = true;
+    }
   }
 }

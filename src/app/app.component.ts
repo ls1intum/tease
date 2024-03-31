@@ -46,7 +46,7 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
   constructor(
     public overlayService: OverlayService,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private dragularService: DragulaService,
+    private dragulaService: DragulaService,
     private studentsService: StudentsService,
     private allocationsService: AllocationsService,
     private projectsService: ProjectsService,
@@ -58,8 +58,14 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.dragulaService.createGroup('STUDENTS', {
+      invalid: el => {
+        return el.classList.contains('locked');
+      },
+    });
+
     this.subscriptions.push(
-      this.dragularService.drop('STUDENTS').subscribe(({ el, target, sibling }) => {
+      this.dragulaService.drop('STUDENTS').subscribe(({ el, target, sibling }) => {
         this.handleStudentDrop(el, target, sibling);
       }),
       this.allocationsService.allocations$.subscribe(allocations => {

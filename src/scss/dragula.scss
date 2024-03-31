@@ -38,6 +38,10 @@
   opacity: 0.6 !important;
 }
 
+.gu-mirror .lock-wrapper {
+  opacity: 0 !important;
+}
+
 /* TODO: the customized styles shouldn't be in this file but inside of the dashboard module. The nested css
    statements however don't work together with the view encapsulation. In this component the above css works as view
    encapsulation is set to NONE.
