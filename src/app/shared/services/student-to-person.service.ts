@@ -35,7 +35,7 @@ export class StudentToPersonService {
     return students.map(s => this.transformStudentToPerson(s));
   }
 
-  private transformStudentToPerson(student: Student): Person {
+  public transformStudentToPerson(student: Student): Person {
     const person = new Person();
 
     person.firstName = student.firstName;
@@ -68,7 +68,9 @@ export class StudentToPersonService {
       person.studentComments = student.studentComments.map(comment => comment.text).join('\n');
 
     //Priorities
-    person.teamPriorities = student.projectPreferences.sort(p => p.priority).map(p => this.getProjectName(p.projectId));
+    person.teamPriorities = student.projectPreferences
+      .sort(preference => preference.priority)
+      .map(p => this.getProjectName(p.projectId));
     person.teamName = this.getTeamName(student.id);
 
     //Devices
@@ -90,7 +92,7 @@ export class StudentToPersonService {
   }
 
   private getProjectName(projectId: string): string {
-    const project = this.projectsPrompt.find(p => p.id === projectId);
+    const project = this.projectsPrompt.find(person => person.id === projectId);
     if (project) {
       return project.name;
     } else {

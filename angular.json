@@ -35,7 +35,7 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/assets"],
-            "styles": ["src/styles.scss", "node_modules/ngx-toastr/toastr.css"],
+            "styles": ["src/styles.scss", "node_modules/ngx-toastr/toastr.css", "src/scss/bootstrap-theme.scss"],
             "scripts": []
           },
           "configurations": {

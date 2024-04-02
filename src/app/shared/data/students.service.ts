@@ -1,35 +1,41 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Student } from 'src/app/api/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StudentsService {
+  private studentsSubject$: BehaviorSubject<Student[]> = new BehaviorSubject<Student[]>([]);
+
   constructor() {
     try {
-      const students = JSON.parse(localStorage.getItem('students')) || [];
-      this.studentsSubject.next(students);
+      const storedStudents = localStorage.getItem('students') || '[]';
+      const students = JSON.parse(storedStudents);
+      this.setStudents(students);
     } catch (error) {
-      this.studentsSubject.next([]);
+      this.deleteStudents();
     }
-
-    this.studentsSubject.subscribe(students => {
-      localStorage.setItem('students', JSON.stringify(students));
-    });
   }
 
-  private studentsSubject: BehaviorSubject<Student[]> = new BehaviorSubject<Student[]>([]);
-
   setStudents(students: Student[]): void {
-    this.studentsSubject.next(students);
+    this.studentsSubject$.next(students);
+    localStorage.setItem('students', JSON.stringify(students));
   }
 
   deleteStudents(): void {
-    this.studentsSubject.next([]);
+    this.setStudents([]);
   }
 
   getStudents(): Student[] {
-    return this.studentsSubject.getValue();
+    return this.studentsSubject$.getValue();
+  }
+
+  get students$(): Observable<Student[]> {
+    return this.studentsSubject$.asObservable();
+  }
+
+  getStudentById(id: string): Student {
+    return this.getStudents().find(student => student.id === id);
   }
 }

@@ -1,0 +1,48 @@
+@import '/src/scss/style-constants';
+
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 1;
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=80)';
+  filter: alpha(opacity=80);
+}
+.gu-hide {
+  display: none !important;
+}
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+.gu-transit {
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=20)';
+  filter: alpha(opacity=20);
+}
+
+/* customization */
+.gu-transit {
+  height: 0.25rem;
+  border-radius: 1rem;
+  background-color: $seperator-blue;
+  margin-bottom: -0.25rem;
+  margin-top: -0.25rem;
+}
+.gu-transit > * {
+  opacity: 0;
+}
+
+.gu-mirror {
+  opacity: 0.6 !important;
+}
+
+.gu-mirror .lock-wrapper {
+  opacity: 0 !important;
+}
+
+/* TODO: the customized styles shouldn't be in this file but inside of the dashboard module. The nested css
+   statements however don't work together with the view encapsulation. In this component the above css works as view
+   encapsulation is set to NONE.
+ */

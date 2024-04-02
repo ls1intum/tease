@@ -1,43 +1,38 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Skill } from 'src/app/api/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SkillsService {
+  private skillsSubject$: BehaviorSubject<Skill[]> = new BehaviorSubject<Skill[]>([]);
+
   constructor() {
     try {
-      let skills: Skill[] = JSON.parse(localStorage.getItem('skills'));
-      if (!skills || !Array.isArray(skills) || !skills.every(this.isSkill)) {
-        skills = [];
-      }
-      this.skillsSubject.next(skills);
+      const storedSkills = localStorage.getItem('skills') || '[]';
+      const skills: Skill[] = JSON.parse(storedSkills);
+      this.setSkills(skills);
     } catch (error) {
-      this.skillsSubject.next([]);
+      this.deleteSkills();
     }
-
-    this.skillsSubject.subscribe(skills => {
-      localStorage.setItem('skills', JSON.stringify(skills));
-    });
   }
 
-  private skillsSubject: BehaviorSubject<Skill[]> = new BehaviorSubject<Skill[]>([]);
+  // TODO: Delete with person code
+  getSkills(): Skill[] {
+    return this.skillsSubject$.getValue();
+  }
 
   setSkills(skills: Skill[]): void {
-    this.skillsSubject.next(skills);
+    this.skillsSubject$.next(skills);
+    localStorage.setItem('skills', JSON.stringify(skills));
   }
 
   deleteSkills(): void {
-    this.skillsSubject.next([]);
+    this.setSkills([]);
   }
 
-  getSkills(): Skill[] {
-    return this.skillsSubject.getValue();
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private isSkill(obj: any): obj is Skill {
-    return obj && typeof obj.description === 'string' && typeof obj.id === 'string' && typeof obj.title === 'string';
+  get skills$(): Observable<Skill[]> {
+    return this.skillsSubject$;
   }
 }

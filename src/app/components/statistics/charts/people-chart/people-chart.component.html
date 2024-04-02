@@ -1,0 +1,32 @@
+<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 row-cols-xxxl-5 m-0">
+  @for (projectData of peopleChartData; track projectData) {
+    <div class="col p-0 m-0">
+      <div class="me-1 mb-1 bg-card rounded-3 people-chart-element align-self-center align-items-center p-2 ps-3">
+        <!-- Top Row -->
+        <div class="d-flex">
+          <p class="fs-6 lh-lg mb-0 fw-semibold text-center">{{ projectData.name }}</p>
+
+          <div class="flex-grow-1"></div>
+          @if (projectData.tag) {
+            <div class="align-self-center align-items-center bg-tile rounded-5 p-2 me-2">
+              <p class="fs-6 lh-1 mb-0 text-nowrap">{{ projectData.tag }}</p>
+            </div>
+          }
+        </div>
+        <!-- Body Icons -->
+        <div class="d-flex overflow-scroll overflow-visible align-items-center ps-2 gap-1">
+          @for (studentData of projectData.studentData; track studentData) {
+            <fa-icon
+              [icon]="facPersonThinIcon"
+              class="lh-1"
+              style="font-size: 3rem"
+              [ngStyle]="{ color: studentData.color }"
+              [ngbTooltip]="studentData.tooltip"
+              [openDelay]="300"
+              triggers="hover"></fa-icon>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>
