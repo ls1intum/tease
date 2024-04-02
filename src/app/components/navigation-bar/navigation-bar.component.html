@@ -4,6 +4,22 @@
     <div class="text-white fs-3 fw-light">TEASE</div>
   </div>
 
+  <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+    @for (viewMode of viewModes; track viewMode) {
+      <input
+        type="radio"
+        class="btn-check"
+        name="btnradio"
+        [id]="viewMode.mode"
+        autocomplete="off"
+        [checked]="viewMode.mode == selectedSkillViewMode"
+        (click)="selectSkillViewMode(viewMode.mode)" />
+      <label class="btn btn-outline-primary" [for]="viewMode.mode">
+        <fa-icon [icon]="viewMode.icon"></fa-icon>
+      </label>
+    }
+  </div>
+
   <div class="d-flex gap-2">
     <button
       type="button"

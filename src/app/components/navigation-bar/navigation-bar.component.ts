@@ -25,6 +25,9 @@ export class NavigationBarComponent {
   facImportIcon = teaseIconPack['facImportIcon'];
   facExportIcon = teaseIconPack['facExportIcon'];
   facRestartIcon = teaseIconPack['facRestartIcon'];
+  facSkillCircleIcon = teaseIconPack['facSkillCircleIcon'];
+  facSkillSideIcon = teaseIconPack['facSkillSideIcon'];
+  facSkillDeathIcon = teaseIconPack['facSkillDeathIcon'];
 
   constructor(
     private overlayService: OverlayService,
@@ -94,4 +97,33 @@ export class NavigationBarComponent {
     this.constraintsService.deleteConstraints();
     this.locksService.deleteLocks();
   }
+
+  //Delete after Kickoff
+  //Delete after Kickoff
+  //Delete after Kickoff
+  SkillViewMode = SkillViewMode;
+  viewModes = [
+    { mode: SkillViewMode.CIRCLE, icon: this.facSkillCircleIcon },
+    { mode: SkillViewMode.SIDE, icon: this.facSkillSideIcon },
+    { mode: SkillViewMode.DEATH, icon: this.facSkillDeathIcon },
+  ];
+  selectedSkillViewMode: SkillViewMode =
+    (localStorage.getItem('skillViewMode') as SkillViewMode) || SkillViewMode.CIRCLE;
+
+  selectSkillViewMode(skillViewMode: SkillViewMode) {
+    this.selectedSkillViewMode = skillViewMode;
+    localStorage.setItem('skillViewMode', skillViewMode);
+
+    //force update of student preview cards
+    this.studentsService.setStudents(this.studentsService.getStudents());
+  }
+}
+
+//Delete after Kickoff
+//Delete after Kickoff
+//Delete after Kickoff
+export enum SkillViewMode {
+  CIRCLE = 'circle',
+  SIDE = 'side',
+  DEATH = 'death',
 }

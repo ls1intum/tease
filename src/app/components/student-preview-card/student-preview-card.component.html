@@ -1,85 +1,94 @@
 <div
-  class="bg-card rounded-3 p-2 d-inline-flex flex-column gap-2 default-cursor student-preview-card overflow-hidden no-select"
+  class="rounded-3 p-2 default-cursor student-preview-card overflow-hidden no-select position-relative"
   (click)="showPersonDetails(student)"
   id="{{ student.id }}"
-  [ngClass]="{ locked: isLocked }">
-  <div class="d-flex justify-content-between">
-    <div class="d-flex flex-column gap-1">
-      <div class="d-flex gap-1">
-        <p class="text-prefix mb-0 lh-1">{{ genderIcon }}</p>
-        <div class="d-flex flex-column">
-          <div class="student-name-wrapper">
-            <p class="fs-s text-truncate text-dark mb-0 lh-sm">{{ name }}</p>
+  [ngClass]="{ locked: isLocked }"
+  [ngStyle]="{ 'background-color': backgroundColor }">
+  @if (selectedViewMode == ViewMode.SIDE) {
+    <div class="position-absolute h-100 top-0 start-0 skill-level-sidebar" [ngClass]="'bg-' + skillColors[0]"></div>
+  }
+
+  <div class="d-flex flex-column gap-2" [ngClass]="{ 'ps-1': selectedViewMode == ViewMode.SIDE }">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex flex-column gap-1">
+        <div class="d-flex gap-1">
+          <p class="text-prefix mb-0 lh-1">{{ genderIcon }}</p>
+          <div class="d-flex flex-column">
+            <div class="student-name-wrapper">
+              <p class="fs-s text-truncate text-dark mb-0 lh-sm">{{ name }}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="d-flex justify-content-start">
-        <div class="d-inline-flex gap-1">
-          @for (skillColor of skillColors; track skillColor) {
-            <div class="rounded-circle student-skill-circle" [ngClass]="'bg-' + skillColor"></div>
-          }
-        </div>
-      </div>
-    </div>
-    <div class="profile-picture-wrapper position-relative">
-      <img
-        class="w-100 h-100 rounded-circle overflow-hidden"
-        src="{{ gravatarURL }}"
-        alt="Profile Picture of {{ name }}"
-        onerror="this.onerror=null; this.src='/assets/images/placeholder.png'" />
-      <div
-        class="student-nationality-tile position-absolute bg-tile rounded-4 d-flex justify-content-center align-items-center p-1">
-        <p class="student-nationality-description mb-0 lh-1 fs-xxs text-nowrap">
-          {{ nationalityText }}
-        </p>
-        <div
-          class="student-nationality-emoji-wrapper d-flex justify-content-center align-items-center"
-          (click)="(facIpadIcon)">
-          <p class="mb-0 lh-1 fs-xxs">{{ nationalityEmoji }}</p>
-        </div>
-      </div>
-      @if (projectId) {
-        <div
-          role="button"
-          class="lock-wrapper position-absolute d-flex bg-tile rounded-5 justify-content-center align-items-center"
-          [ngClass]="{ locked: isLocked }"
-          (click)="$event.stopPropagation(); toggleLock()">
-          <fa-icon [icon]="isLocked ? facLockClosedIcon : facLockOpenIcon" class="text-dark lh-1 fs-s"></fa-icon>
-        </div>
-      }
-    </div>
-  </div>
-  <div class="d-flex flex-column gap-1">
-    <div class="d-flex gap-1">
-      <div class="d-flex justify-content-center align-items-center flex-grow-1 px-2 py-1 bg-tile rounded-4">
-        <fa-icon [icon]="facMacIcon" class="lh-1" [ngClass]="ownsMac ? 'text-dark' : 'text-inactive'"></fa-icon>
-        <fa-icon [icon]="facIphoneIcon" class="lh-1" [ngClass]="ownsIPhone ? 'text-dark' : 'text-inactive'"></fa-icon>
-        <fa-icon [icon]="facIpadIcon" class="lh-1" [ngClass]="ownsIPad ? 'text-dark' : 'text-inactive'"></fa-icon>
-        <fa-icon [icon]="facWatchIcon" class="lh-1" [ngClass]="ownsWatch ? 'text-dark' : 'text-inactive'"></fa-icon>
-      </div>
-      <div class="d-flex justify-content-center align-items-center flex-grow-1 px-2 py-1 bg-tile rounded-4">
-        <div class="d-flex gap-05">
-          <p class="text-prefix mb-0 lh-sm fs-xxs">de</p>
-          <p class="text-dark mb-0 lh-1 fs-xs">{{ germanProficiency }}</p>
-        </div>
-      </div>
-    </div>
-    <div class="d-flex justify-content-start align-items-center flex-grow-1 ps-05 pe-1 bg-tile rounded-4 gap-1">
-      <div class="project-preference-score-circle d-flex justify-content-center align-items-center bg-dark rounded-4">
-        <p class="text-white p-05 mb-0 lh-1 fs-xxs">{{ projectPreferenceScore }}</p>
-      </div>
-      <div class="d-flex gap-05 py-1">
-        @for (projectPreference of projectPreferences; track projectPreference) {
-          <div
-            class="project-preference-tile d-flex justify-content-center align-items-center px-1 rounded-4"
-            [ngClass]="projectPreference.assigned ? 'bg-primary-20' : 'bg-tile-priority'">
-            <p
-              class="mb-0 fs-xxs text-truncate"
-              [ngClass]="projectPreference.assigned ? 'text-primary-high-contrast' : 'text-dark'">
-              {{ projectPreference.name }}
-            </p>
+        @if (selectedViewMode == ViewMode.CIRCLE) {
+          <div class="d-flex justify-content-start">
+            <div class="d-inline-flex gap-1">
+              @for (skillColor of skillColors; track skillColor) {
+                <div class="rounded-circle student-skill-circle" [ngClass]="'bg-' + skillColor"></div>
+              }
+            </div>
           </div>
         }
+      </div>
+      <div class="profile-picture-wrapper position-relative">
+        <img
+          class="w-100 h-100 rounded-circle overflow-hidden"
+          src="{{ gravatarURL }}"
+          alt="Profile Picture of {{ name }}"
+          onerror="this.onerror=null; this.src='/assets/images/placeholder.png'" />
+        <div
+          class="student-nationality-tile position-absolute bg-tile rounded-4 d-flex justify-content-center align-items-center p-1">
+          <p class="student-nationality-description mb-0 lh-1 fs-xxs text-nowrap">
+            {{ nationalityText }}
+          </p>
+          <div
+            class="student-nationality-emoji-wrapper d-flex justify-content-center align-items-center"
+            (click)="(facIpadIcon)">
+            <p class="mb-0 lh-1 fs-xxs">{{ nationalityEmoji }}</p>
+          </div>
+        </div>
+        @if (projectId) {
+          <div
+            role="button"
+            class="lock-wrapper position-absolute d-flex bg-tile rounded-5 justify-content-center align-items-center"
+            [ngClass]="{ locked: isLocked }"
+            (click)="$event.stopPropagation(); toggleLock()">
+            <fa-icon [icon]="isLocked ? facLockClosedIcon : facLockOpenIcon" class="text-dark lh-1 fs-s"></fa-icon>
+          </div>
+        }
+      </div>
+    </div>
+    <div class="d-flex flex-column gap-1">
+      <div class="d-flex gap-1">
+        <div class="d-flex justify-content-center align-items-center flex-grow-1 px-2 py-1 bg-tile rounded-4">
+          <fa-icon [icon]="facMacIcon" class="lh-1" [ngClass]="ownsMac ? 'text-dark' : 'text-inactive'"></fa-icon>
+          <fa-icon [icon]="facIphoneIcon" class="lh-1" [ngClass]="ownsIPhone ? 'text-dark' : 'text-inactive'"></fa-icon>
+          <fa-icon [icon]="facIpadIcon" class="lh-1" [ngClass]="ownsIPad ? 'text-dark' : 'text-inactive'"></fa-icon>
+          <fa-icon [icon]="facWatchIcon" class="lh-1" [ngClass]="ownsWatch ? 'text-dark' : 'text-inactive'"></fa-icon>
+        </div>
+        <div class="d-flex justify-content-center align-items-center flex-grow-1 px-2 py-1 bg-tile rounded-4">
+          <div class="d-flex gap-05">
+            <p class="text-prefix mb-0 lh-sm fs-xxs">de</p>
+            <p class="text-dark mb-0 lh-1 fs-xs">{{ germanProficiency }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-start align-items-center flex-grow-1 ps-05 pe-1 bg-tile rounded-4 gap-1">
+        <div class="project-preference-score-circle d-flex justify-content-center align-items-center bg-dark rounded-4">
+          <p class="text-white p-05 mb-0 lh-1 fs-xxs">{{ projectPreferenceScore }}</p>
+        </div>
+        <div class="d-flex gap-05 py-1">
+          @for (projectPreference of projectPreferences; track projectPreference) {
+            <div
+              class="project-preference-tile d-flex justify-content-center align-items-center px-1 rounded-4"
+              [ngClass]="projectPreference.assigned ? 'bg-primary-20' : 'bg-tile-priority'">
+              <p
+                class="mb-0 fs-xxs text-truncate"
+                [ngClass]="projectPreference.assigned ? 'text-primary-high-contrast' : 'text-dark'">
+                {{ projectPreference.name }}
+              </p>
+            </div>
+          }
+        </div>
       </div>
     </div>
   </div>
