@@ -52,6 +52,6 @@ export class PromptService {
   }
 
   private getCourseIteration(): string | null {
-    return localStorage.getItem('course_iteration');
+    return localStorage.getItem('course-iteration');
   }
 }
