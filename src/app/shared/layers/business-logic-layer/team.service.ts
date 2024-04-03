@@ -4,7 +4,6 @@ import { Team } from '../../models/team';
 import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
 import { CSVPersonDataAccessService } from '../data-access-layer/csv-person-data-access.service';
-import { ConstraintLoggingService } from './constraint-logging.service';
 
 @Injectable()
 export class TeamService {
@@ -19,30 +18,24 @@ export class TeamService {
   // derived properties
   personsWithoutTeam: Person[];
 
-  private load(data: [Person[], Team[]]) {
+  public load(data: [Person[], Team[]]) {
     [this.persons, this.teams] = data;
     this.updateDerivedProperties();
   }
 
   public getTeamByName(teamName: string): Team {
-    return this.teams.find(team => team.name === teamName) // assumes multiple teams do not exist with the same name
+    return this.teams.find(team => team.name === teamName); // assumes multiple teams do not exist with the same name
   }
 
   public getPersonById(tumId: string): Person {
-    return this.persons.find(person => person.tumId == tumId) // assumes multiple people do not exist with same TUM id
+    return this.persons.find(person => person.tumId == tumId); // assumes multiple people do not exist with same TUM id
   }
 
-  public updateDerivedProperties() {
-    this.personsWithoutTeam = this.persons.filter(person => person.team === null);
+  public updateDerivedProperties(): void {
+    this.personsWithoutTeam = this.persons.filter(person => !person.teamName);
   }
 
-  public updateReverseReferences() {
-    this.teams.forEach(team => team.persons.forEach(person => (person.team = team)));
-    this.personsWithoutTeam.forEach(person => (person.team = null));
-    this.updateDerivedProperties();
-  }
-
-  public sortPersons() {
+  public sortPersons(): void {
     const compareFunction = (personA, personB) => personB.supervisorRating - personA.supervisorRating;
 
     this.teams.forEach(team => team.persons.sort(compareFunction));
@@ -51,7 +44,7 @@ export class TeamService {
   }
 
   // removes all persons from their team
-  public resetTeamAllocation() {
+  public resetTeamAllocation(): void {
     this.teams.forEach(team => team.clear());
     this.updateDerivedProperties();
   }
@@ -91,12 +84,11 @@ export class TeamService {
     });
   }
 
-  public exportSavedState() {
+  public exportSavedState(): void {
     const csvData = CSVPersonDataAccessService.getSavedDataFromBrowserStorage();
     const blob = new Blob([csvData], { type: this.EXPORT_DATA_TYPE });
 
     const zip = new JSZip();
-    zip.file(this.LOG_EXPORT_FILE_NAME, ConstraintLoggingService.getLog());
     zip.file(this.CSV_EXPORT_FILE_NAME, blob);
 
     zip.generateAsync({ type: 'blob' }).then(content => {
@@ -106,9 +98,7 @@ export class TeamService {
 
   public saveToLocalBrowserStorage(): Promise<boolean> {
     console.log('saving...');
-
     return new Promise((resolve, reject) => {
-      this.updateReverseReferences();
       CSVPersonDataAccessService.saveToBrowserStorage(this.persons).then(success => {
         console.log('done');
         resolve(success);
@@ -116,15 +106,15 @@ export class TeamService {
     });
   }
 
-  public clearSavedData() {
+  public clearSavedData(): void {
     CSVPersonDataAccessService.clearSavedData();
   }
 
-  resetUnpinnedPersons() {
+  resetUnpinnedPersons(): void {
     this.teams.forEach(team => {
       const personsToRemove = team.persons.filter(person => !person.isPinned);
       team.persons = team.persons.filter(person => person.isPinned);
-      personsToRemove.forEach(person => (person.team = null));
+      personsToRemove.forEach(person => (person.teamName = null));
       this.personsWithoutTeam.push(...personsToRemove);
     });
   }

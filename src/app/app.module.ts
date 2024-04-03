@@ -1,67 +1,70 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule, HammerModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { NgModule, Provider, forwardRef } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DragulaModule } from 'ng2-dragula';
+import { ToastrModule } from 'ngx-toastr';
+
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+
 import { SharedModule } from './shared/shared.module';
+import { ComponentsModule } from './components/components.module';
+import { ApiModule } from './api/api.module';
+
 import { TeamService } from './shared/layers/business-logic-layer/team.service';
 import { ConstraintService } from './shared/layers/business-logic-layer/constraint.service';
-import { DashboardModule } from './dashboard/dashboard.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { PersonDetailOverlayComponent } from './dashboard/person-detail-overlay/person-detail-overlay.component';
-import { OverlayHostDirective } from './overlay-host.directive';
 import { OverlayService } from './overlay.service';
 import { PersonStatisticsService } from './shared/layers/business-logic-layer/person-statistics.service';
-import { NgChartsModule } from 'ng2-charts';
-import { DragulaModule } from 'ng2-dragula';
-import { ImportOverlayComponent } from './dashboard/import-overlay/import-overlay.component';
-import { ConstraintsOverlayComponent } from './dashboard/constraints-overlay/constraints-overlay.component';
-import { TeamGenerationService } from './shared/layers/business-logic-layer/team-generation/team-generation.service';
-import { LPTeamGenerationService } from './shared/layers/business-logic-layer/team-generation/lp-team-generation.service';
-import { ConfirmationOverlayComponent } from './dashboard/confirmation-overlay/confirmation-overlay.component';
-import { PersonHighlightingOverlayComponent } from './dashboard/person-highlighting-overlay/person-highlighting-overlay.component';
-import { HighlightingToolbarComponent } from './highlighting-toolbar/highlighting-toolbar.component';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { ExportOverlayComponent } from './dashboard/export-overlay/export-overlay.component';
-import { ReactiveFormsModule } from '@angular/forms';
+
+import { PromptService } from './shared/services/prompt.service';
+
+import { OverlayHostDirective } from './overlay-host.directive';
+import { environment } from '../environments/environment';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { teaseIconPack } from 'src/assets/icons/icons';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+export const API_INTERCEPTOR_PROVIDER: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  useExisting: forwardRef(() => AuthInterceptor),
+  multi: true,
+};
 
 @NgModule({
-  declarations: [AppComponent, OverlayHostDirective, HighlightingToolbarComponent],
+  declarations: [AppComponent, OverlayHostDirective],
   imports: [
     /* external modules */
     BrowserModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatIconModule,
     NgbModule,
-    NgChartsModule,
     AppRoutingModule,
-    HammerModule,
     DragulaModule.forRoot(),
     ReactiveFormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     /* own modules */
     SharedModule,
-    DashboardModule,
+    ComponentsModule,
+    environment.production ? ApiModule : ApiModule.forRoot({ rootUrl: 'http://localhost:3001/api/tease' }),
+    FontAwesomeModule,
   ],
   providers: [
     TeamService,
     ConstraintService,
     OverlayService,
     PersonStatisticsService,
-    [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }],
-    { provide: TeamGenerationService, useClass: LPTeamGenerationService },
+    PromptService,
+    AuthInterceptor,
+    API_INTERCEPTOR_PROVIDER,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [
-    PersonDetailOverlayComponent,
-    ImportOverlayComponent,
-    ConstraintsOverlayComponent,
-    ConfirmationOverlayComponent,
-    PersonHighlightingOverlayComponent,
-    ExportOverlayComponent,
-  ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIconPacks(teaseIconPack);
+  }
+}

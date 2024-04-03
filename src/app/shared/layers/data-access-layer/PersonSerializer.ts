@@ -36,7 +36,7 @@ export class PersonSerializer {
     personProps[CSVConstants.Person.TutorComments] = person.tutorComments;
     personProps[CSVConstants.Person.IsPinned] = String(person.isPinned);
 
-    personProps[CSVConstants.Team.TeamName] = person.team ? person.team.name : '';
+    personProps[CSVConstants.Team.TeamName] = person.teamName ?? '';
 
     return personProps;
   }
@@ -45,7 +45,7 @@ export class PersonSerializer {
     for (const teamPrio of person.teamPriorities) {
       const columnName = StringHelper.format(CSVConstants.Team.Priority, person.getTeamPriority(teamPrio));
 
-      personProps[columnName] = teamPrio.name;
+      personProps[columnName] = teamPrio;
     }
   }
 
@@ -55,8 +55,9 @@ export class PersonSerializer {
 
       personProps[CSVConstants.Skills.ExpInterPrefix + skillAbbreviation + CSVConstants.Skills.ExperiencePostfix] =
         CSVConstants.Skills.SkillLevelAnswers[skill.skillLevel];
-      personProps[CSVConstants.Skills.ExpInterPrefix + skillAbbreviation + CSVConstants.Skills.InterestPostfix] =
-        CSVConstants.Skills.InterestLevelAnswers[skill.interestLevel];
+      // At the moment there is no interestLevel in the Prompt CSV file
+      // personProps[CSVConstants.Skills.ExpInterPrefix + skillAbbreviation + CSVConstants.Skills.InterestPostfix] =
+      // CSVConstants.Skills.InterestLevelAnswers[skill.interestLevel];
       personProps[CSVConstants.Skills.JustifyPrefix + skillAbbreviation] = skill.justification;
     }
   }

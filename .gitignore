@@ -46,3 +46,4 @@ logs
 *.log
 
 desktop.ini
+/.cache

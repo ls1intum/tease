@@ -1,6 +1,5 @@
 import { PersonConstraint } from './person-constraint';
-import { Gender, Person } from '../person';
-import { SkillLevel } from '../skill';
+import { Person } from '../person';
 import { Device } from '../device';
 
 export class DevicePossessionPersonConstraint extends PersonConstraint {

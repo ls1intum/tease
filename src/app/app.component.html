@@ -1,85 +1,21 @@
-<div>
-  <!-- title bar -->
-  <div class="title-bar">
-    <div class="title-bar-item-container flex-row flex-center">
-      <img class="icon" src="/assets/images/icon.png" />
-      <div class="app-title toolbar-items-spacing flex-grow">TEASE</div>
-    </div>
+@if (dataLoaded) {
+  <div class="bg-bright h-100 d-flex flex-column gap-2">
+    <app-navigation-bar></app-navigation-bar>
+    <app-projects class="flex-grow-1 overflow-hidden" [projectsData]="allocationData.projectsData"></app-projects>
+    <app-utility [allocationData]="allocationData"></app-utility>
   </div>
-
-  <!-- overlay (if visible) -->
-  <div
-    class="overlay-container"
-    (click)="overlayService.closeOverlay()"
-    [ngClass]="{ 'dialog-container-hidden': !overlayVisible }">
-    <div class="dialog-content" [ngClass]="{ 'dialog-content-hidden': !overlayVisible }">
-      <ng-template appOverlayHost></ng-template>
-    </div>
+} @else {
+  <div class="d-flex justify-content-center align-items-center h-100">
+    <app-intro-card></app-intro-card>
   </div>
+}
 
-  <!-- dashboard -->
-  <div class="app-content position-fixed-fill">
-    <app-dashboard
-      (onImportPressed)="showImportOverlay()"
-      [onTeamStatisticsButtonPressed]="onTeamStatisticsButtonPressed"></app-dashboard>
-  </div>
-
-  <!-- buttons overlay -->
-  <div class="buttons-overlay flex-row-reverse pointer-events-none">
-    <div class="buttons-overlay-item pointer-events-auto">
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="
-          onTeamStatisticsButtonPressed.emit(toggleTeamStatisticsButtonState);
-          toggleTeamStatisticsButtonState = !toggleTeamStatisticsButtonState
-        ">
-        <div class="flex-row flex-center">
-          <mat-icon class="material-icon-trailing-space">timeline</mat-icon>
-          <div *ngIf="toggleTeamStatisticsButtonState">Show Team Statistics</div>
-          <div *ngIf="!toggleTeamStatisticsButtonState">Hide Team Statistics</div>
-        </div>
-      </button>
-    </div>
-
-    <div class="buttons-overlay-item pointer-events-auto">
-      <button mat-raised-button color="primary" (click)="showExportOverlay()">
-        <div class="flex-row flex-center">
-          <mat-icon class="material-icon-trailing-space">file_download</mat-icon>
-          <div>Export</div>
-        </div>
-      </button>
-    </div>
-
-    <div class="buttons-overlay-item pointer-events-auto">
-      <button mat-raised-button color="primary" (click)="showResetTeamAllocationConfirmation()">
-        <div class="flex-row flex-center">
-          <mat-icon class="material-icon-trailing-space">replay</mat-icon>
-          <div>Reset</div>
-        </div>
-      </button>
-    </div>
-
-    <div class="buttons-overlay-item pointer-events-auto">
-      <button mat-raised-button color="primary" (click)="showSortConfirmation()">
-        <div class="flex-row flex-center">
-          <mat-icon class="material-icon-trailing-space">sort</mat-icon>
-          <div>Sort</div>
-        </div>
-      </button>
-    </div>
-
-    <div class="buttons-overlay-item pointer-events-auto">
-      <button mat-raised-button color="primary" (click)="showImportOverlay()">
-        <div class="flex-row flex-center">
-          <mat-icon class="material-icon-trailing-space">file_upload</mat-icon>
-          <div>Import</div>
-        </div>
-      </button>
-    </div>
-
-    <div class="buttons-overlay-item pointer-events-auto">
-      <app-highlighting-toolbar></app-highlighting-toolbar>
-    </div>
+<!-- overlay (if visible) -->
+<div
+  class="custom-overlay-container"
+  (click)="overlayService.closeOverlay()"
+  [ngClass]="{ 'dialog-container-hidden': !overlayVisible }">
+  <div class="dialog-content" [ngClass]="{ 'dialog-content-hidden': !overlayVisible }">
+    <ng-template appOverlayHost></ng-template>
   </div>
 </div>

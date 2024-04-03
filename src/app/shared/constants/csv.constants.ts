@@ -1,15 +1,14 @@
 /**
  * Created by Malte Bucksch on 20/11/2016.
  */
-import { SkillLevel } from '../models/skill';
 
 export class CSVConstants {
   static readonly Person = {
-    FirstName: 'firstname',
-    LastName: 'lastname',
+    FirstName: 'firstName',
+    LastName: 'lastName',
     Email: 'email',
-    TumId: 'attribute_2',
-    Gender: 'attribute_3',
+    TumId: 'tumId',
+    Gender: 'gender',
     Nationality: 'nationality',
     Major: 'major',
     MajorOther: 'major[other]',
@@ -19,22 +18,10 @@ export class CSVConstants {
     IosDevExperience: 'iOSDev',
     IosDevAppStoreLink: 'appStoreLink',
     IosDevExperienceExplained: 'iOSDevExplained',
-    IntroAssessment: 'introAssessment[INTRO]',
+    IntroAssessment: 'supervisorAssessment',
     IntroAssessmentTutor: 'introAssessmentTutor[INTRO]',
-    IntroAssessmentAnswers: [
-      'extremely challenging',
-      'very challenging',
-      'medium challenging',
-      'hardly challenging',
-      'not challenging at all',
-    ],
-    IntroAssessmentTutorAnswers: [
-      'strongly below average',
-      'below average',
-      'average',
-      'above average',
-      'strongly above average',
-    ],
+    IntroAssessmentAnswers: ['NO', 'NOVICE', 'INTERMEDIATE', 'ADVANCED', 'EXPERT'],
+    IntroAssessmentTutorAnswers: ['NO', 'NOVICE', 'INTERMEDIATE', 'ADVANCED', 'EXPERT'],
 
     /* (devices) */
     /* (skills) */
@@ -44,32 +31,28 @@ export class CSVConstants {
     /* (priorities) */
 
     StudentComments: 'Comments',
-    SupervisorRating: 'supervisorRating',
+    SupervisorRating: 'supervisorAssessment',
     TutorComments: 'CommentsTutor',
     IsPinned: 'IsPinned',
   };
 
   static readonly Skills = {
     JustifyPrefix: 'justify',
-    ExpInterPrefix: 'expinter',
-    ExperiencePostfix: '[expinter][1]',
-    InterestPostfix: '[expinter][2]',
+    ExpInterPrefix: 'Skills',
+    ExperiencePostfix: '',
+    InterestPostfix: '',
     SkillNameAbbreviationPairs: [
-      ['Frontend Development', 'WEBFE'],
-      ['Server-side Development', 'SSDEV'],
-      ['UI / UX', 'UIUX'],
-      ['Embedded Development', 'EMBED'],
-      ['Virtual & Augmented Reality', 'VRAR'],
-      ['Machine Learning & Algorithms', 'MLALG'],
+      ['Machine Learning', '[Machine Learning]'],
+      ['Server-side development', '[Server-side development]'],
+      ['Flutter', '[Flutter]'],
+      ['Web Development', '[Web Development]'],
+      ['Cloud infrastructure', '[Cloud infrastructure providers]'],
+      ['Computer Graphics / Vision', '[Computer Graphics / Vision]'],
+      ['Docker, Kubernetes', '[DockerKubernetes]'],
+      ['Games Engineering', '[Games Engineering]'],
     ],
-    SkillLevelAnswers: ['no skills', 'beginner skills', 'average skills', 'advanced skills', 'expert skills'],
-    InterestLevelAnswers: [
-      'not interested at all',
-      'hardly interested',
-      'average interest',
-      'high interest',
-      'extremely interested',
-    ],
+    SkillLevelAnswers: ['NO', 'NOVICE', 'INTERMEDIATE', 'ADVANCED', 'EXPERT'],
+    InterestLevelAnswers: ['NO', 'NOVICE', 'INTERMEDIATE', 'ADVANCED', 'EXPERT'],
   };
 
   static readonly Devices = {
@@ -92,14 +75,14 @@ export class CSVConstants {
   static readonly ArrayBraces = { Open: '[', Close: ']' };
 
   static readonly SkillLevelValue = {
-    VeryHigh: 'Expert',
-    High: 'Advanced',
-    Medium: 'Normal',
-    Low: 'Novice',
-    None: 'No',
+    VeryHigh: 'EXPERT',
+    High: 'ADVANCED',
+    Medium: 'INTERMEDIATE',
+    Low: 'NOVICE',
+    None: 'NO',
   };
 
-  static readonly GenderValue = { Male: 'male', Female: 'female' };
+  static readonly GenderValue = { Male: 'MALE', Female: 'FEMALE' };
 
   static readonly DeviceAvailableBooleanValue = { Available: 'Yes', Unavailable: 'No' };
 

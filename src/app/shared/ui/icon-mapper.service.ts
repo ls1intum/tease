@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
 import { SkillLevel } from '../models/skill';
 import { Gender } from '../models/person';
 import { Device } from '../models/device';
-import { Md5 } from 'ts-md5/dist/md5';
+import { MD5 } from 'crypto-js';
 /**
  * Created by Malte Bucksch on 10/12/2016.
  */
@@ -10,8 +9,6 @@ import { Md5 } from 'ts-md5/dist/md5';
 export class IconMapperService {
   private static readonly BASE_PATH_IMAGES = '/assets/images/';
   private static readonly GRAVATAR_URL = 'http://www.gravatar.com/avatar/';
-
-  constructor() {}
 
   static getSkillIconPath(skillLevel: SkillLevel): string {
     switch (skillLevel) {
@@ -55,9 +52,8 @@ export class IconMapperService {
   }
 
   static getGravatarIcon(email: string, size = 200): string {
-    if (email === undefined) return IconMapperService.GRAVATAR_URL;
-
-    const emailHash = Md5.hashStr(email);
+    if (!email) return IconMapperService.GRAVATAR_URL;
+    const emailHash = MD5(email).toString();
     return IconMapperService.GRAVATAR_URL + emailHash + '?s=' + size.toString() + '&d=mm';
   }
 }

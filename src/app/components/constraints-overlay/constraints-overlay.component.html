@@ -1,0 +1,32 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="w-75">
+    <div class="bg-white p-4" (click)="$event.stopPropagation()">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Project Names</th>
+            <th scope="col">Constraint Function</th>
+            <th scope="col">Threshold</th>
+            <th scope="col">#Students</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (constraint of constraints; track constraint) {
+            <tr>
+              <td>{{ constraint.projectIds.join(', ') }}</td>
+              <td>
+                {{ constraint.constraintFunctionProperty }}, {{ constraint.constraintFunctionOperator }},
+                {{ constraint.constraintFunctionValue }}
+              </td>
+              <td>{{ constraint.constraintOperator }}, {{ constraint.constraintThreshold }}</td>
+              <td>{{ constraint.students.length }}</td>
+              <td><button (click)="deleteConstraint(constraint)">Delete</button></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <button (click)="distributeTeams()">Match</button>
+    </div>
+  </div>
+</div>

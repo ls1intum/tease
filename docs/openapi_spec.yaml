@@ -1,131 +1,234 @@
 openapi: 3.1.0
 info:
   title: TEASE & PROMPT
-  version: 1.1.0
+  version: 3.0.0
   description: |-
     Work-in-progress example API to enable the TEASE UI to communicate with a service (PROMPT) that can deliver information on students participating in the iPraktikum at TUM.
     ---
     Using this API you can retrieve information on students and their associated attributes.
 servers:
-  - url: https://my.api.com/id/{number}
+  - url: https://prompt.ase.cit.tum.de/api/tease
 paths:
-  /v1/students:
-    get:
-      tags:
-        - Students
-      summary: Get data of all iPraktikum students
-      description: Retrieve collected information on all students accepted to this semesters cohort of students participating in the iPraktikum course at TUM, this data will populate the UI and also be used in the initial algorithmic allocation
-      responses:
-        '200':
-          description: An array of students in JSON format
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Student'
-  /v1/projects:
+  /course-iterations/{courseIterationId}/projects:
     get:
       tags:
         - Projects
-      summary: Get the names of the iPraktikum projects
-      description: "Send a list of all projects/teams that students can work on during this semesters iteration of the iPraktikum course at TUM"
+      summary: Retrieve projects from a specific course iteration
+      description: Returns projects from a course iteration based on the provided ID.
+      parameters:
+        - in: path
+          name: courseIterationId
+          required: true
+          description: Unique identifier of the course iteration
+          schema:
+            type: string
       responses:
         '200':
-          description: An array of project (names) in JSON format
+          description: Successfully retrieved course iteration projects
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Project'
-  /v1/allocation:
+  /course-iterations/{courseIterationId}/students:
+    get:
+      tags:
+        - Students
+      summary: Retrieve students from a specific course iteration
+      description: Returns students from a course iteration based on the provided ID.
+      parameters:
+        - in: path
+          name: courseIterationId
+          required: true
+          description: Unique identifier of the course iteration
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved course iteration students
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+  /course-iterations/{courseIterationId}/allocations:
     post:
       tags:
-        - Allocation Result
+        - Allocations
       summary: Submit the final result of the matching/allocation
       description: After the allocation is concluded, TEASE can report the results (which team each student was assigned to) to PROMPT without needing to repeat/send back all of the information that was initially sent
+      parameters:
+        - in: path
+          name: courseIterationId
+          required: true
+          description: Unique identifier of the course iteration
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Allocation'
+      responses:
+        '200':
+          description: OK
+    get:
+      tags:
+        - Allocations
+      summary: Retrieve the final result of the matching/allocation
+      description: After the allocation is concluded, TEASE can report the results (which team each student was assigned to) to PROMPT without needing to repeat/send back all of the information that was initially sent
+      parameters:
+        - in: path
+          name: courseIterationId
+          required: true
+          description: Unique identifier of the course iteration
+          schema:
+            type: string
       responses:
         '200':
           description: An array of arrays, each inner array contains the unique identifiers of students that were allocated to the same project
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Allocation'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Allocation'
+  /course-iterations/{courseIterationId}/skills:
+    get:
+      tags:
+        - Skills
+      summary: Retrieve the skills from a specific course iteration
+      description: After the allocation is concluded, TEASE can report the results (which team each student was assigned to) to PROMPT without needing to repeat/send back all of the information that was initially sent
+      parameters:
+        - in: path
+          name: courseIterationId
+          required: true
+          description: Unique identifier of the course iteration
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Skill'
 components:
   schemas:
     Student:
       type: object
       description: A person enrolled in the iPraktikum course at TUM
       properties:
+        id:
+          type: string
+          format: tum id
         firstName:
           type: string
         lastName:
-          type: string
-        image:
-          type: string
-          format: base64
-        email:
-          type: string
-        tumId:
           type: string
         gender:
           $ref: '#/components/schemas/Gender'
         nationality:
           type: string
+          format: iso 3166-1 alpha-2
+        email:
+          type: string
         studyProgram:
+          type: string
+        studyDegree:
           type: string
         semester:
           type: integer
-        germanLanguageLevel:
-          $ref: '#/components/schemas/LanguageProficiency'
-        englishLanguageLevel:
-          $ref: '#/components/schemas/LanguageProficiency'
+        languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Language'
         introSelfAssessment:
-          $ref: '#/components/schemas/SkillProficiencyLevel'
+          $ref: '#/components/schemas/SkillProficiency'
+        introCourseProficiency:
+          $ref: '#/components/schemas/SkillProficiency'
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentSkill'
         devices:
           type: array
           items:
             $ref: '#/components/schemas/Device'
-        skills:
-          type: array
-          items:
-            $ref: '#/components/schemas/Skill'
-        projectPriorities:
-          type: array
-          items:
-            $ref: '#/components/schemas/Project'
         studentComments:
-          type: string
-        # Aassessment given by a tutor, or the overwritten rating by an instructor, TEASE itself does not differentiate
-        supervisorAssessment:
-          description: General assessment given either initially by a tutor or overwritten at a later point by an instructor during the matching process, TEASE does not differentiate between the original tutor assessment and subsequent supervisor assessments but on the side of PROMPT the original tutor assessment should be kept saved in some form
-          $ref: '#/components/schemas/SkillProficiencyLevel'
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
         tutorComments:
-          type: string
-      example:
-        firstName: Aerandir
-        lastName: Brandybuck
-        image: "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"
-        email: aerandir.brandybuck@tum.de
-        tumId: 046035297
-        gender: Prefer not to say
-        nationality: DE
-        studyProgram: IN-B
-        semester: 6
-        germanLanguageLevel: Native
-        englishLanguageLevel: B1/B2
-        introSelfAssessment: Intermediate
-        devices: [IPhone, Mac]
-        skills:
-          - { title: iOS, description: Development of applications for the iOS mobile operating system, skillLevel: Novice}
-          - { title: CI/CD, description: Continuous integration and delivery/deployment using automated tools, skillLevel: Intermediate}
-        projectPriorities:
-          - { name: Quartett, id: ios2223quartett}
-          - { name: BSH, id: ios2223bsh}
-        studentComments: I would prefer to work in an international team (diverse nationalities), thanks!
-        supervisorAssessment: Novice
-        tutorComments: Motivated, good at accepting constructive criticism
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+        projectPreferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectPreference'
+      required:
+        - id
+        - firstName
+        - lastName
+        - gender
+        - nationality
+        - email
+        - studyProgram
+        - studyDegree
+        - semester
+        - languages
+        - introSelfAssessment
+        - introCourseProficiency
+        - skills
+        - devices
+        - studentComments
+        - tutorComments
+        - projectPreferences
+      examples:
+        - id: tum_id_1
+          firstName: Aerandir
+          lastName: Brandybuck
+          email: aerandir.brandybuck@tum.de
+          gender: Prefer not to say
+          nationality: DE
+          studyProgram: Information Systems
+          studyDegree: Bachelor
+          semester: 5
+          languages:
+            - language: en
+              proficiency: C1/C2
+            - language: de
+              proficiency: Native
+          introSelfAssessment: Intermediate
+          introCourseProficiency: Novice
+          devices: [IPhone, Mac]
+          skills:
+            - { id: key_iOS, proficiency: Novice }
+            - { id: key_CI/CD, proficiency: Intermediate }
+          projectPreferences:
+            - { priority: 1, projectId: ios2223quartett }
+            - { priority: 2, projectId: ios2223bsh }
+          studentComments:
+            - author: Aerandir Brandybuck
+              description: Reason for first choice
+              text: I love cars
+              date: 2024-02-15
+            - author: Aerandir Brandybuck
+              description: Intro course
+              text: I would prefer to work in an international team
+              date: 2024-01-11
+          tutorComments:
+            - author: Liam Nguyen
+              description: Intro course
+              text: Motivated, good at accepting constructive criticism
+              date: 2024-01-12
     Project:
       type: object
       properties:
@@ -133,9 +236,28 @@ components:
           type: string
         id:
           type: string
-      example:
-        name: Quartett
-        id: ios2223quartett
+      required:
+        - name
+        - id
+      examples:
+        - name: Quartett
+          id: ios2223quartett
+        - name: BSH
+          id: ios2223bsh
+    ProjectPreference:
+      type: object
+      description: A student's preference for a project. Priority starting from 0 (highest)
+      properties:
+        projectId:
+          type: string
+        priority:
+          type: integer
+      required:
+        - projectId
+        - priority
+      examples:
+        - projectId: ios2223bsh
+          priority: 1
     Device:
       type: string
       enum:
@@ -143,6 +265,7 @@ components:
         - IPad
         - Mac
         - Watch
+        - Raspberry Pi
     Skill:
       type: object
       properties:
@@ -150,29 +273,51 @@ components:
           type: string
         description:
           type: string
-        # self assessment for skill as reported by the student
-        skillLevel:
-          $ref: '#/components/schemas/SkillProficiencyLevel'
-      example:
-        title: UI/UX
-        description: Development/design of user interfaces and the user experience
-        skillLevel: Advanced
-    SkillProficiencyLevel:
+        id:
+          type: string
+      required:
+        - description
+        - title
+        - id
+      examples:
+        - title: UI/UX
+          id: key
+          description: Development/design of user interfaces and the user experience
+    StudentSkill:
+      type: object
+      properties:
+        id:
+          type: string
+        proficiency:
+          $ref: '#/components/schemas/SkillProficiency'
+      required:
+        - id
+        - proficiency
+      examples:
+        - id: key
+          proficiency: Advanced
+    SkillProficiency:
       type: string
-      description: Proficiency in some skillset, also used to for assessments of students, in particular their performance in the Swift/iOS intro course, for the self assessment we also this enum internally o store a students answer, but the UI should display strings that make more sense, see the deprecated SelfAssessmentLevel enum below
+      description: Proficiency in a skill
       enum:
         - Novice
         - Intermediate
         - Advanced
         - Expert
-    # deprecated, see SkillProficiencyLevel
-    # SelfAssessmentLevel:
-      # enum:
-        # - Not challenging at all
-        # - Hardly challenging
-        # - Medium challenging
-        # - Very challenging
-        # - Extremely challenging
+    Language:
+      type: object
+      properties:
+        language:
+          type: string
+          format: ISO 639-1
+        proficiency:
+          $ref: '#/components/schemas/LanguageProficiency'
+      required:
+        - language
+        - proficiency
+      examples:
+        - language: en
+          proficiency: Native
     LanguageProficiency:
       type: string
       enum:
@@ -187,29 +332,43 @@ components:
         - Male
         - Other
         - Prefer not to say
-    StudentReference:
+    Comment:
       type: object
-      description: Object to only send a subset of the properties of the Student object, used for sending data about the allocation back to PROMPT, contains solely a property to uniquely identify a student as well as the last assessment stored in TEASE (to let PROMPT know about changes made to the assessment)
       properties:
-        studentId:
+        author:
           type: string
-        supervisorAssessment:
-          $ref: '#/components/schemas/SkillProficiencyLevel'
-      example:
-        studentId: 056036237
-        supervisorAssessment: Expert
+        description:
+          type: string
+        text:
+          type: string
+        date:
+          type: string
+      required:
+        - author
+        - description
+        - text
+        - date
+      examples:
+        - author: Aerandir Brandybuck
+          description: Reason for first choice
+          text: I love cars
+          date: 2024-02-15
     Allocation:
-      type: array
-      description: All projects with their respective assigned students
-      items:
-        $ref: '#/components/schemas/ProjectAllocation'
-    ProjectAllocation:
       type: object
       description: A project with references to the students assigned to this project as part of the matching result
       properties:
-        project:
-          $ref: '#/components/schemas/Project'
+        projectId:
+          type: string
         students:
           type: array
           items:
-            $ref: '#/components/schemas/StudentReference'
+            type: string
+            format: tum id
+      required:
+        - projectId
+        - students
+      examples:
+        - projectId: ios2223quartett
+          students:
+            - '9d0e016b-5019-41fe-9ae9-8b6784080693'
+            - '704f39d9-3936-4005-a0ca-2cc2fe989cec'

@@ -1,0 +1,37 @@
+<div class="d-flex gap-2 px-2 h-100 overflow-x-scroll">
+  @for (projectData of projectsData; track projectData) {
+    <!-- Project Card -->
+    <div class="d-flex flex-column p-2 rounded-3 bg-white">
+      <!-- Header -->
+      <div class="ps-2 d-flex justify-content-between">
+        <p class="text-dark fs-5 fw-semibold mb-2">{{ projectData.project.name }}</p>
+        <div class="d-flex gap-2">
+          <div
+            class="bg-card rounded-circle project-circle d-flex justify-content-center align-items-center lh-1 text-dark">
+            {{ projectData.students.length }}
+          </div>
+          <div
+            class="rounded-circle project-circle d-flex justify-content-center align-items-center lh-1 fs-5 text-dark"
+            [ngbTooltip]="projectData.error.info"
+            [ngClass]="projectData.error.error ? 'bg-warn' : 'bg-card'">
+            <fa-icon
+              [icon]="projectData.error.error ? facErrorIcon : facCheckIcon"
+              [ngClass]="projectData.error.error ? 'text-white' : 'text-dark'"></fa-icon>
+          </div>
+        </div>
+      </div>
+      <!-- Students -->
+      <div
+        dragula="STUDENTS"
+        class="d-flex flex-column gap-1 project-width overflow-scroll flex-grow-1 pt-1"
+        id="{{ projectData.project.id }}">
+        @for (student of projectData.students; track student) {
+          <app-student-preview-card
+            [student]="student"
+            [projectId]="projectData.project.id"
+            [lockedStudents]="lockedStudents"></app-student-preview-card>
+        }
+      </div>
+    </div>
+  }
+</div>
