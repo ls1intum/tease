@@ -1,0 +1,23 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="w-75">
+    <div class="bg-white p-4 rounded-3" (click)="$event.stopPropagation()">
+      <h4>Constraint Builder</h4>
+      <h5>Projects</h5>
+
+      <form [formGroup]="form">
+        @for (checkbox of form['items']; track checkbox) {
+          <input type="checkbox" [formControlName]="checkbox" />
+          <label formArrayName="items">
+            <!-- {{ items[checkbox.index].name }} -->
+            Test
+          </label>
+        }
+      </form>
+
+      <code>{{ control.value | json }}</code>
+
+      <h5>Constraint Function</h5>
+      <h5>Threshold</h5>
+    </div>
+  </div>
+</div>

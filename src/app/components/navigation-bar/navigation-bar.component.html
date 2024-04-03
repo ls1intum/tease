@@ -24,6 +24,14 @@
     <button
       type="button"
       class="btn btn-icon"
+      (click)="showConstraintBuilder2Overlay()"
+      ngbTooltip="Constraints"
+      triggers="hover">
+      <fa-icon [icon]="facConstraintIcon" class="fs-3 text-white"></fa-icon>
+    </button>
+    <button
+      type="button"
+      class="btn btn-icon"
       (click)="showConstraintBuilderOverlay()"
       ngbTooltip="Add Constraint"
       triggers="hover">

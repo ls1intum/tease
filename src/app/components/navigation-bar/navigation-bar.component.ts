@@ -12,6 +12,7 @@ import { StudentsService } from 'src/app/shared/data/students.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { teaseIconPack } from 'src/assets/icons/icons';
 import { LocksService } from 'src/app/shared/data/locks.service';
+import { ConstraintBuilder2Component } from '../constraint-builder-2/constraint-builder-2.component';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -28,6 +29,7 @@ export class NavigationBarComponent {
   facSkillCircleIcon = teaseIconPack['facSkillCircleIcon'];
   facSkillSideIcon = teaseIconPack['facSkillSideIcon'];
   facSkillDeathIcon = teaseIconPack['facSkillDeathIcon'];
+  facConstraintIcon = teaseIconPack['facConstraintIcon'];
 
   constructor(
     private overlayService: OverlayService,
@@ -53,6 +55,10 @@ export class NavigationBarComponent {
 
   showConstraintBuilderOverlay(): void {
     this.overlayService.displayComponent(ConstraintBuilderComponent, {});
+  }
+
+  showConstraintBuilder2Overlay(): void {
+    this.overlayService.displayComponent(ConstraintBuilder2Component, {});
   }
 
   showConstraintsOverlay(): void {

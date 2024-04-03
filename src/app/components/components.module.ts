@@ -18,6 +18,7 @@ import { UtilityComponent } from './utility/utility.component';
 import { ConstraintBuilderComponent } from './constraint-builder-overlay/constraint-builder.component';
 import { ConstraintsOverlayComponent } from './constraints-overlay/constraints-overlay.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { ConstraintBuilder2Component } from './constraint-builder-2/constraint-builder-2.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
     ConstraintBuilderComponent,
     ConstraintsOverlayComponent,
     NavigationBarComponent,
+    ConstraintBuilder2Component,
   ],
   exports: [NavigationBarComponent, ProjectsComponent, UtilityComponent, IntroCardComponent],
   providers: [],
