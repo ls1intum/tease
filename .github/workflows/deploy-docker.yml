@@ -36,6 +36,7 @@ jobs:
 
       - name: SSH to VM and Execute Docker-Compose Down
         uses: appleboy/ssh-action@v1.0.3
+        continue-on-error: true
         with:
           host: ${{ matrix.hostname }}
           username: ${{ vars.VM_USERNAME }}
