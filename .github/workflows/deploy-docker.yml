@@ -7,7 +7,18 @@ on:
       - main
     types: 
       - completed
+
+  workflow_call:
+    inputs: 
+      image_tag: 
+        required: true
+        type: string 
+
   workflow_dispatch:
+    inputs: 
+      image_tag: 
+        required: true
+        type: string 
 
 jobs:
   deploy:
@@ -16,9 +27,13 @@ jobs:
         fail-fast: false
         matrix:
           include:
+            # TODO: Split this into envs
             - hostname: "prompt-dev.ase.cit.tum.de"
             - hostname: "prompt.ase.cit.tum.de"
     steps:
+      - name: Print Tag
+        run: echo "The computed tag is ${{ inputs.server_image_tag }}"
+
       - name: SSH to VM and Execute Docker-Compose Down
         uses: appleboy/ssh-action@v1.0.3
         with:

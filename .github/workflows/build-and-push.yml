@@ -10,6 +10,11 @@ on:
   release:
     types:
     - created
+  workflow_call:
+    outputs:
+      image_tag: 
+        description: "The tag of the tease image that was built"
+        value: "${{ jobs.buildx.outputs.result }}"
 
 jobs:
   buildx:
