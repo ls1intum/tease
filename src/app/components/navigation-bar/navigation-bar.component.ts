@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
 import { ConfirmationOverlayComponent } from '../confirmation-overlay/confirmation-overlay.component';
-import { ConstraintBuilderComponent } from '../constraint-builder-overlay/constraint-builder.component';
-import { ConstraintsOverlayComponent } from '../constraints-overlay/constraints-overlay.component';
 import { ExportOverlayComponent } from '../export-overlay/export-overlay.component';
 import { ImportOverlayComponent } from '../import-overlay/import-overlay.component';
 import { AllocationsService } from 'src/app/shared/data/allocations.service';
@@ -12,7 +10,8 @@ import { StudentsService } from 'src/app/shared/data/students.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { teaseIconPack } from 'src/assets/icons/icons';
 import { LocksService } from 'src/app/shared/data/locks.service';
-import { ConstraintBuilder2Component } from '../constraint-builder-2/constraint-builder-2.component';
+import { ConstraintBuilderOverlayComponent } from '../constraint-builder-overlay/constraint-builder-overlay.component';
+import { ConstraintSummaryViewComponent } from '../constraint-summary-view/constraint-summary-view.component';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -53,16 +52,12 @@ export class NavigationBarComponent {
     { action: this.deleteData.bind(this), icon: this.facDeleteIcon, label: 'Delete', class: 'text-warn' },
   ];
 
-  showConstraintBuilderOverlay(): void {
-    this.overlayService.displayComponent(ConstraintBuilderComponent, {});
-  }
-
-  showConstraintBuilder2Overlay(): void {
-    this.overlayService.displayComponent(ConstraintBuilder2Component, {});
+  showConstraintSummaryOverlay(): void {
+    this.overlayService.displayComponent(ConstraintSummaryViewComponent, {});
   }
 
   showConstraintsOverlay(): void {
-    this.overlayService.displayComponent(ConstraintsOverlayComponent, {});
+    this.overlayService.displayComponent(ConstraintSummaryViewComponent, {});
   }
 
   showResetTeamAllocationConfirmation() {

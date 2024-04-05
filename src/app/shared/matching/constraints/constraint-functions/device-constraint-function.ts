@@ -1,10 +1,10 @@
-import { ConstraintFunction, SelectData, PropertySelectGroup } from './constraint-function';
+import { ConstraintFunction, SelectData, PropertySelectGroup, ConstraintFunctionValues } from './constraint-function';
 import { Device, Skill, Student } from 'src/app/api/models';
 import { Operator } from '../constraint-utils';
 
 export class DeviceConstraintFunction extends ConstraintFunction {
   constructor(students: Student[], skills: Skill[]) {
-    super(students, skills, [Operator.EQUALS]);
+    super(students, skills, 'Device', [Operator.EQUALS]);
   }
 
   override filterStudentsByConstraintFunction(property: string, operator: Operator, value: string): Student[] {

@@ -62,3 +62,8 @@
 .fs-xxs {
   font-size: $font-size-xxsmall;
 }
+
+/* Other */
+.no-select {
+  user-select: none;
+}

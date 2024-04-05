@@ -1,0 +1,40 @@
+<div class="d-flex flex-column gap-2">
+  <div class="d-flex gap-3" [formGroup]="form">
+    <div class="form-floating w-100">
+      <select class="form-select" id="property" formControlName="property">
+        @for (property of propertyData; track property) {
+          <option [value]="property.id">
+            {{ property.name }}
+          </option>
+        }
+      </select>
+      <label for="property">Property</label>
+    </div>
+
+    <div class="form-floating w-100">
+      <select class="form-select" id="operator" formControlName="operator">
+        @for (operator of operatorData; track operator) {
+          <option [value]="operator.id">
+            {{ operator.name }}
+          </option>
+        }
+      </select>
+      <label for="operator">Operator</label>
+    </div>
+
+    <div class="form-floating w-100">
+      <select class="form-select" id="value" formControlName="value">
+        @for (value of valueData; track value) {
+          <option [value]="value.id">
+            {{ value.name }}
+          </option>
+        }
+      </select>
+      <label for="operator">Value</label>
+    </div>
+  </div>
+  <div>
+    Amount of students that fullfill this constraint function:
+    <span class="fw-semibold">{{ filteredStudentCount }}</span>
+  </div>
+</div>

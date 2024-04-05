@@ -1,8 +1,12 @@
 import { ConstraintFunction, SelectData, PropertySelectGroup } from './constraint-function';
 import { Operator, SkillLevels, Comparator } from '../constraint-utils';
-import { SkillProficiency, Student, StudentSkill } from 'src/app/api/models';
+import { Skill, SkillProficiency, Student, StudentSkill } from 'src/app/api/models';
 
 export class SkillConstraintFunction extends ConstraintFunction {
+  constructor(students: Student[], skills: Skill[]) {
+    super(students, skills, 'Skill');
+  }
+
   override filterStudentsByConstraintFunction(property: string, operator: Operator, value: string): Student[] {
     return this.students.filter(student =>
       this.fulfillsConstraint(student.skills, property, operator, value as SkillProficiency)

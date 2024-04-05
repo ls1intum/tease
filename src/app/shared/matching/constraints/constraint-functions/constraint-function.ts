@@ -2,9 +2,11 @@ import { Skill, Student } from 'src/app/api/models';
 import { Operator, OperatorMapping } from '../constraint-utils';
 
 export interface ConstraintFunctionValues {
-  property: string;
-  operator: Operator;
-  value: string;
+  property: SelectData;
+  operators: SelectData[];
+  values: SelectData[];
+  name: string;
+  constraintFunction: ConstraintFunction;
 }
 
 export interface SelectData {
@@ -22,8 +24,8 @@ export abstract class ConstraintFunction {
   constructor(
     protected readonly students: Student[],
     protected readonly skills: Skill[],
-    protected operators: Operator[] = Object.values(Operator),
-    readonly id: string = 'cf-abstract'
+    protected readonly constraintFunctionType: string,
+    protected operators: Operator[] = Object.values(Operator)
   ) {}
 
   abstract filterStudentsByConstraintFunction(property: string, operator: Operator, value: string): Student[];
@@ -37,5 +39,17 @@ export abstract class ConstraintFunction {
       id: operator,
       name: OperatorMapping[operator],
     }));
+  }
+
+  getConstraintFunctionFormData(): ConstraintFunctionValues[] {
+    return this.getProperties().values.map(value => {
+      return {
+        property: { id: value.id, name: value.name },
+        operators: this.getOperators(),
+        values: this.getValues(),
+        name: this.constraintFunctionType,
+        constraintFunction: this,
+      };
+    });
   }
 }

@@ -54,16 +54,17 @@ export class ConstraintBuilderService {
       return this.buildConstraint(filteredStudents, projectId, constraintOperator, constraintThreshold);
     });
 
-    return new ConstraintWrapper(
-      constraint,
-      filteredStudents,
-      projectIds,
-      this.findConstraintFunctionProperty(constraintFunction, id),
-      constraintFunctionOperator,
-      constraintFunctionValue,
-      constraintOperator,
-      constraintThreshold
-    );
+    return null;
+    // return new ConstraintWrapper(
+    //   constraint,
+    //   filteredStudents,
+    //   projectIds,
+    //   this.findConstraintFunctionProperty(constraintFunction, id),
+    //   constraintFunctionOperator,
+    //   constraintFunctionValue,
+    //   constraintOperator,
+    //   constraintThreshold
+    // );
   }
 
   private buildConstraint(

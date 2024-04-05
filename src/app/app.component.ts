@@ -18,7 +18,7 @@ import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { SkillsService } from 'src/app/shared/data/skills.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { Subscription } from 'rxjs';
-import { Comparator } from './shared/matching/constraints/constraint-utils';
+import { Comparator, Operator } from './shared/matching/constraints/constraint-utils';
 import { ConstraintWrapper } from './shared/matching/constraints/constraint';
 import { AllocationData, ProjectData, ProjectError } from './shared/models/allocation-data';
 
@@ -175,16 +175,24 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
     for (const constraint of this.constraints) {
       if (!constraint.projectIds.includes(projectId)) continue;
 
-      const studentIdsInConstraint = constraint.students.map(studentInConstraint => studentInConstraint.id);
+      const studentIdsInConstraint = constraint.constraintFunction.students.map(
+        studentInConstraint => studentInConstraint.id
+      );
       const studentsPassing = students.filter(student => studentIdsInConstraint.includes(student.id));
 
-      const passesConstraint = Comparator[constraint.constraintOperator](
+      const passesLowerBound = Comparator[Operator.GREATER_THAN_OR_EQUAL](
         studentsPassing.length,
-        constraint.constraintThreshold
+        constraint.threshold.lowerBound
       );
-      if (!passesConstraint) {
+
+      const passesUpperBound = Comparator[Operator.LESS_THAN_OR_EQUAL](
+        studentsPassing.length,
+        constraint.threshold.upperBound
+      );
+
+      if (!passesLowerBound || !passesUpperBound) {
         error = true;
-        info += `${constraint.constraintFunctionProperty} ${constraint.constraintOperator} ${constraint.constraintThreshold} has ${studentsPassing.length};\n`;
+        info += '';
       }
     }
     return { error: error, info: info };

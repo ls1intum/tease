@@ -4,7 +4,7 @@ import { Gender, Student, Skill } from 'src/app/api/models';
 
 export class GenderConstraintFunction extends ConstraintFunction {
   constructor(students: Student[], skills: Skill[]) {
-    super(students, skills, [Operator.EQUALS, Operator.NOT_EQUALS]);
+    super(students, skills, 'Gender', [Operator.EQUALS, Operator.NOT_EQUALS]);
   }
 
   override filterStudentsByConstraintFunction(property: string, operator: Operator, value: string): Student[] {
