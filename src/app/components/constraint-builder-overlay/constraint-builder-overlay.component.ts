@@ -14,7 +14,9 @@ import { ConstraintSummaryViewComponent } from '../constraint-summary-view/const
   styleUrl: './constraint-builder-overlay.component.scss',
 })
 export class ConstraintBuilderOverlayComponent implements OverlayComponent {
-  data = {};
+  data = {
+    onClosed: () => {},
+  };
   private projectIds: string[] = [];
   private constraintFunctionWrapper: ConstraintFunctionWrapper;
   private thresholdWrapper: ThresholdWrapper;
@@ -64,9 +66,6 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponent {
   }
 
   private openConstrainstView(): void {
-    this.overlayService.closeOverlay();
-    setTimeout(() => {
-      this.overlayService.displayComponent(ConstraintSummaryViewComponent, {});
-    }, 10);
+    this.data.onClosed();
   }
 }

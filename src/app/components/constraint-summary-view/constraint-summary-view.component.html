@@ -79,8 +79,18 @@
         </table>
       </div>
       <div class="flex-grow-1"></div>
-      <div class="d-flex justify-content-end">
-        <button type="button" class="btn btn-primary" (click)="showConstraintBuilderOverlay()">Add Constraint</button>
+      <div class="d-flex justify-content-end gap-2">
+        <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+        <div class="flex-grow-1"></div>
+
+        <button type="button" class="btn btn-outline-primary" (click)="showConstraintBuilderOverlay()">
+          <fa-icon [icon]="facConstraintIcon"></fa-icon>
+          Add Constraint
+        </button>
+        <button type="button" class="btn btn-primary" (click)="distributeTeams()">
+          <fa-icon [icon]="facGroupsIcon"></fa-icon>
+          Distribute Teams
+        </button>
       </div>
     </div>
   </div>

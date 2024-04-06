@@ -56,8 +56,10 @@ export class NavigationBarComponent {
     this.overlayService.displayComponent(ConstraintSummaryViewComponent, {});
   }
 
-  showConstraintsOverlay(): void {
-    this.overlayService.displayComponent(ConstraintSummaryViewComponent, {});
+  showConstraintBuilderOverlay(): void {
+    this.overlayService.displayComponent(ConstraintBuilderOverlayComponent, {
+      onClosed: () => this.overlayService.closeOverlay(),
+    });
   }
 
   showResetTeamAllocationConfirmation() {

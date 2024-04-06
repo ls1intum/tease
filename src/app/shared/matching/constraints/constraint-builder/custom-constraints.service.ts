@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { IdMappingService } from '../../data/id-mapping.service';
+import { IdMappingService } from '../../../data/id-mapping.service';
 import { Project, Student } from 'src/app/api/models';
-import { StudentIdToProjectIdMapping } from '../../data/locks.service';
-import { ConstraintWrapper } from './constraint';
-import { Operator } from './constraint-utils';
+import { StudentIdToProjectIdMapping } from '../../../data/locks.service';
+import { ConstraintWrapper } from '../constraint';
+import { Operator } from '../constraint-utils';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class CustomConstraintsService {
     );
   }
 
-  createConstraintForConstraintWrapper(constraintWrapper: ConstraintWrapper): string[] {
+  private createConstraintForConstraintWrapper(constraintWrapper: ConstraintWrapper): string[] {
     const projectIds = constraintWrapper.projectIds;
     const constraints: string[] = [];
     const students = constraintWrapper.constraintFunction.students;
@@ -26,17 +26,17 @@ export class CustomConstraintsService {
 
     projectIds.forEach(projectId => {
       constraints.push(
-        this.createConstraintForProjectIdAndBound(projectId, students, Operator.LESS_THAN_OR_EQUAL, lowerBound)
+        this.createConstraintForProjectIdAndBound(projectId, students, Operator.GREATER_THAN_OR_EQUAL, lowerBound)
       );
       constraints.push(
-        this.createConstraintForProjectIdAndBound(projectId, students, Operator.GREATER_THAN_OR_EQUAL, upperBound)
+        this.createConstraintForProjectIdAndBound(projectId, students, Operator.LESS_THAN_OR_EQUAL, upperBound)
       );
     });
 
     return constraints;
   }
 
-  createConstraintForProjectIdAndBound(
+  private createConstraintForProjectIdAndBound(
     projectId: string,
     students: Student[],
     operator: Operator,
