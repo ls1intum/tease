@@ -240,6 +240,18 @@ export const facConstraintIcon: IconDefinition = {
   ],
 } as IconDefinition;
 
+export const facSortIcon: IconDefinition = {
+  prefix: 'fac' as IconPrefix,
+  iconName: 'Sort-icon' as IconName,
+  icon: [
+    24, // SVG view box width
+    24, // SVG view box height
+    [],
+    '',
+    'M3.5 17.5V16H8.87498V17.5H3.5ZM3.5 12.75V11.25H14.6827V12.75H3.5ZM3.5 8.00001V6.50003H20.5V8.00001H3.5Z',
+  ],
+} as IconDefinition;
+
 export const teaseIconPack: IconPack = {
   facIphoneIcon,
   facIpadIcon,
@@ -261,4 +273,5 @@ export const teaseIconPack: IconPack = {
   facSkillSideIcon,
   facSkillDeathIcon,
   facConstraintIcon,
+  facSortIcon,
 };

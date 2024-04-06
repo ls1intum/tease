@@ -12,6 +12,7 @@ import { teaseIconPack } from 'src/assets/icons/icons';
 import { LocksService } from 'src/app/shared/data/locks.service';
 import { ConstraintBuilderOverlayComponent } from '../constraint-builder-overlay/constraint-builder-overlay.component';
 import { ConstraintSummaryViewComponent } from '../constraint-summary-view/constraint-summary-view.component';
+import { StudentSortService } from 'src/app/shared/services/student-sort.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -29,6 +30,7 @@ export class NavigationBarComponent {
   facSkillSideIcon = teaseIconPack['facSkillSideIcon'];
   facSkillDeathIcon = teaseIconPack['facSkillDeathIcon'];
   facConstraintIcon = teaseIconPack['facConstraintIcon'];
+  facSortIcon = teaseIconPack['facSortIcon'];
 
   constructor(
     private overlayService: OverlayService,
@@ -37,7 +39,8 @@ export class NavigationBarComponent {
     private projectsService: ProjectsService,
     private skillsService: SkillsService,
     private constraintsService: ConstraintsService,
-    private locksService: LocksService
+    private locksService: LocksService,
+    private studentSortService: StudentSortService
   ) {}
 
   dropdownItems = [
@@ -49,7 +52,7 @@ export class NavigationBarComponent {
       label: 'Restart',
       class: 'text-dark',
     },
-    { action: this.deleteData.bind(this), icon: this.facDeleteIcon, label: 'Delete', class: 'text-warn' },
+    { action: this.showDeleteConfirmation.bind(this), icon: this.facDeleteIcon, label: 'Delete', class: 'text-warn' },
   ];
 
   showConstraintSummaryOverlay(): void {
@@ -67,8 +70,7 @@ export class NavigationBarComponent {
       action: 'Reset',
       actionDescription: 'Resetting the team allocation will unpin all persons and remove them from their teams.',
       onConfirmed: () => {
-        this.locksService.deleteLocks();
-        this.allocationsService.deleteAllocations();
+        this.deleteDynamicData();
         this.overlayService.closeOverlay();
       },
       onCancelled: () => this.overlayService.closeOverlay(),
@@ -92,13 +94,49 @@ export class NavigationBarComponent {
     });
   }
 
-  deleteData() {
+  showSortConfirmation() {
+    this.overlayService.displayComponent(ConfirmationOverlayComponent, {
+      action: 'Sort',
+      actionDescription: 'Sort students by their intro course proficiency.',
+      onConfirmed: () => {
+        this.allocationsService.setAllocations(
+          this.studentSortService.sortStudentsInAllocations(
+            this.studentsService.getStudents(),
+            this.allocationsService.getAllocations()
+          )
+        );
+        this.overlayService.closeOverlay();
+      },
+      onCancelled: () => this.overlayService.closeOverlay(),
+    });
+  }
+
+  showDeleteConfirmation() {
+    this.overlayService.displayComponent(ConfirmationOverlayComponent, {
+      action: 'Delete',
+      actionDescription: 'Delete all data. This action cannot be undone.',
+      onConfirmed: () => {
+        this.deleteData();
+        this.overlayService.closeOverlay();
+      },
+      onCancelled: () => this.overlayService.closeOverlay(),
+    });
+  }
+
+  private deleteData() {
     this.studentsService.deleteStudents();
     this.projectsService.deleteProjects();
     this.allocationsService.deleteAllocations();
     this.skillsService.deleteSkills();
+
     this.constraintsService.deleteConstraints();
+
+    this.overlayService.closeOverlay();
+  }
+
+  private deleteDynamicData() {
     this.locksService.deleteLocks();
+    this.allocationsService.deleteAllocations();
   }
 
   //Delete after Kickoff
