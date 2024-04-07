@@ -114,7 +114,7 @@ export class StudentPreviewCardComponent implements OnInit {
   }
 
   private findGermanProficiency(): LanguageProficiency {
-    return this.student.languages.find(language => language.language === 'de').proficiency;
+    return this.student.languages.find(language => language.language === 'de')?.proficiency;
   }
 
   showPersonDetails(student: Student) {
