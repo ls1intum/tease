@@ -158,8 +158,15 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
         students = allocation.students.map(studentId => this.students.find(student => student.id === studentId));
       }
       const errorData = this.getErrorData(project.id, students);
+      const constraintWrappers = this.constraints.filter(constraint => constraint.projectIds.includes(project.id));
+      const constraints = constraintWrappers.map(constraintWrapper => {
+        const amountOfStudents = constraintWrapper.constraintFunction.students.filter(student =>
+          students.map(student => student.id).includes(student.id)
+        ).length;
+        return { constraintWrapper: constraintWrapper, numberOfStudents: amountOfStudents };
+      });
 
-      return { project: project, error: errorData, students: students };
+      return { project: project, constraints: constraints, error: errorData, students: students };
     });
   }
 
