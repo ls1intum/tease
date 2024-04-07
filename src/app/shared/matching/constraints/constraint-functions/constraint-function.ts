@@ -3,15 +3,16 @@ import { Operator, OperatorMapping } from '../constraint-utils';
 
 export interface ConstraintFunctionValues {
   property: SelectData;
+  name: string;
   operators: SelectData[];
   values: SelectData[];
-  name: string;
   constraintFunction: ConstraintFunction;
 }
 
 export interface SelectData {
   name: string; //shown in the dropdown
   id: string; //value to be used in constraint
+  group?: string; //grouping for the dropdown
 }
 
 export interface PropertySelectGroup {

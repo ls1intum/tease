@@ -21,6 +21,7 @@ import { ConstraintFunctionBuilderComponent } from './constraint-builder-overlay
 import { ConstraintThresholdBuilderComponent } from './constraint-builder-overlay/constraint-threshold-builder/constraint-threshold-builder.component';
 import { ConstraintProjectsBuilderComponent } from './constraint-builder-overlay/constraint-projects-builder/constraint-projects-builder.component';
 import { ConstraintSummaryViewComponent } from './constraint-summary-view/constraint-summary-view.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { ConstraintSummaryViewComponent } from './constraint-summary-view/constr
     ReactiveFormsModule,
     FontAwesomeModule,
     StatisticsModule,
+    SharedModule,
   ],
 })
 export class ComponentsModule {}
