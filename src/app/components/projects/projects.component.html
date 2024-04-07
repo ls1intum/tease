@@ -34,7 +34,7 @@
       <!-- Constraints -->
       <div [class]="{ 'd-none': !constraintsVisible }" class="d-flex flex-column gap-05 mb-1">
         @for (constraint of projectData.constraints; track constraint) {
-          <div class="row m-0 bg-card rounded-3">
+          <div class="row m-0 bg-card rounded-3 default-cursor">
             <div class="col-4 p-0">
               <div
                 class="ms-1 my-1 px-2 text-center text-white rounded-3 fs-xs text-truncate"
@@ -43,7 +43,13 @@
                   constraint.numberOfStudents <= constraint.constraintWrapper.threshold.upperBound
                     ? 'bg-dark'
                     : 'bg-warn'
-                ">
+                "
+                [ngbTooltip]="
+                  constraint.constraintWrapper.constraintFunction.operator +
+                  constraint.constraintWrapper.constraintFunction.value
+                "
+                triggers="hover"
+                [openDelay]="300">
                 {{ constraint.constraintWrapper.constraintFunction.property }}
               </div>
             </div>
