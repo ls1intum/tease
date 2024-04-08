@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 import { AllocationData } from 'src/app/shared/models/allocation-data';
 import { facCloseIcon } from 'src/assets/icons/icons';
 
@@ -23,8 +24,8 @@ export class UtilityComponent {
   viewMode = ViewMode.Statistics;
   ViewMode = ViewMode;
 
-  StatisticsViewMode = StatisticsViewMode;
-  statisticsViewMode = StatisticsViewMode.PriorityDistribution;
+  statisticsSelectData: SelectData[] = [];
+  selectedStatistics: string = 'statistics-priority-distribution';
 
   utilityContainerVisible = true;
 
@@ -34,11 +35,14 @@ export class UtilityComponent {
     this.viewMode = viewMode;
   }
 
-  selectStatisticsViewMode(statisticsViewMode: StatisticsViewMode): void {
-    this.statisticsViewMode = statisticsViewMode;
-  }
-
   toggleUtilityContainer(): void {
     this.utilityContainerVisible = !this.utilityContainerVisible;
+  }
+
+  statisticsSelectDataChange(selectData: SelectData[]): void {
+    this.statisticsSelectData = selectData;
+    if (!!selectData && selectData.length > 0 && !this.selectedStatistics) {
+      this.selectedStatistics = selectData[0].name;
+    }
   }
 }

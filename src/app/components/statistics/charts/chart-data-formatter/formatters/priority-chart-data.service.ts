@@ -4,6 +4,7 @@ import { AllocationData } from 'src/app/shared/models/allocation-data';
 import { ChartDataFormatter } from '../chart-data-formatter';
 import { Student } from 'src/app/api/models';
 import { PeopleChartProjectData, PeopleChartStudentData } from '../people-chart-data';
+import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,10 @@ import { PeopleChartProjectData, PeopleChartStudentData } from '../people-chart-
 export class PriorityChartDataService implements ChartDataFormatter {
   private readonly PRIORITY_ZONE_LABELS = ['High Priority', 'Medium Priority', 'Low Priority', 'Unassigned'];
   private readonly BACKGROUND_COLORS = ['#94DA7C', '#EED373', '#E16868', '#E0E0E0'];
+
+  getSelectData(): SelectData[] {
+    return [{ name: 'Priority Distribution', id: 'statistics-priority-distribution', group: 'Other', reference: this }];
+  }
 
   getDoughnutData(allocationData: AllocationData): ChartData<'doughnut', number[], unknown> {
     const priorityZoneCounts = new Map(this.PRIORITY_ZONE_LABELS.map(priority => [priority, 0]));
