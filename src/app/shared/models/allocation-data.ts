@@ -17,8 +17,3 @@ export interface AllocationData {
   studentsWithoutTeam: Student[];
   projectsData: ProjectData[];
 }
-
-// export interface ProjectError {
-//   error: boolean;
-//   info: string;
-// }
