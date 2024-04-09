@@ -15,9 +15,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProjectsComponent } from './projects/projects.component';
 import { StatisticsModule } from './statistics/statistics.module';
 import { UtilityComponent } from './utility/utility.component';
-import { ConstraintBuilderComponent } from './constraint-builder-overlay/constraint-builder.component';
-import { ConstraintsOverlayComponent } from './constraints-overlay/constraints-overlay.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { ConstraintBuilderOverlayComponent } from './constraint-builder-overlay/constraint-builder-overlay.component';
+import { ConstraintFunctionBuilderComponent } from './constraint-builder-overlay/constraint-function-builder/constraint-function-builder.component';
+import { ConstraintThresholdBuilderComponent } from './constraint-builder-overlay/constraint-threshold-builder/constraint-threshold-builder.component';
+import { ConstraintProjectsBuilderComponent } from './constraint-builder-overlay/constraint-projects-builder/constraint-projects-builder.component';
+import { ConstraintSummaryViewComponent } from './constraint-summary-view/constraint-summary-view.component';
 
 @NgModule({
   declarations: [
@@ -29,9 +32,12 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
     StudentPreviewCardComponent,
     ProjectsComponent,
     UtilityComponent,
-    ConstraintBuilderComponent,
-    ConstraintsOverlayComponent,
     NavigationBarComponent,
+    ConstraintBuilderOverlayComponent,
+    ConstraintFunctionBuilderComponent,
+    ConstraintThresholdBuilderComponent,
+    ConstraintProjectsBuilderComponent,
+    ConstraintSummaryViewComponent,
   ],
   exports: [NavigationBarComponent, ProjectsComponent, UtilityComponent, IntroCardComponent],
   providers: [],

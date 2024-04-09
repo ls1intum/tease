@@ -1,0 +1,27 @@
+@import '/src/scss/style-constants.scss';
+
+th {
+  font-weight: bold;
+}
+
+td,
+th {
+  vertical-align: middle;
+  text-align: center;
+}
+
+table .btn-icon-s:hover {
+  background-color: $warn !important;
+  fa-icon {
+    color: $white !important;
+  }
+}
+
+table .btn-icon-s {
+  margin-top: -0.35rem;
+  margin-bottom: -0.35rem;
+}
+
+.project-header {
+  max-width: 3rem;
+}

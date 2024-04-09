@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { IdMappingService } from '../../data/id-mapping.service';
+import { IdMappingService } from '../../../data/id-mapping.service';
 import { Project, Student } from 'src/app/api/models';
-import { StudentIdToProjectIdMapping } from '../../data/locks.service';
+import { StudentIdToProjectIdMapping } from '../../../data/locks.service';
 
 @Injectable({
   providedIn: 'root',

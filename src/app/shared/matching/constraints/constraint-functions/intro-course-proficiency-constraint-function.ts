@@ -4,7 +4,7 @@ import { Student, Skill, SkillProficiency } from 'src/app/api/models';
 
 export class IntroCourseProficiencyConstraintFunction extends ConstraintFunction {
   constructor(students: Student[], skills: Skill[]) {
-    super(students, skills);
+    super(students, skills, 'Intro Course Proficiency');
   }
 
   override filterStudentsByConstraintFunction(property: string, operator: Operator, value: string): Student[] {

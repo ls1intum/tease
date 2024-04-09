@@ -1,14 +1,28 @@
 import { Student } from 'src/app/api/models';
+import { Operator } from './constraint-utils';
 
 export class ConstraintWrapper {
   constructor(
-    readonly constraint: string[],
-    readonly students: Student[],
     readonly projectIds: string[],
-    readonly constraintFunctionProperty: string,
-    readonly constraintFunctionOperator: string,
-    readonly constraintFunctionValue: string,
-    readonly constraintOperator: string,
-    readonly constraintThreshold: number
+    readonly constraintFunction: ConstraintFunctionWrapper,
+    readonly threshold: ThresholdWrapper
+  ) {}
+}
+
+export class ConstraintFunctionWrapper {
+  constructor(
+    readonly property: string,
+    readonly propertyId: string,
+    readonly operator: Operator,
+    readonly value: string,
+    readonly valueId: string,
+    readonly students: Student[]
+  ) {}
+}
+
+export class ThresholdWrapper {
+  constructor(
+    readonly lowerBound: number,
+    readonly upperBound: number
   ) {}
 }

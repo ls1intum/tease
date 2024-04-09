@@ -6,7 +6,7 @@ export class LanguageProficiencyConstraintFunction extends ConstraintFunction {
   private languages: Set<string> = new Set();
 
   constructor(students: Student[], skills: Skill[]) {
-    super(students, skills);
+    super(students, skills, 'Language Proficiency');
     this.languages = new Set();
     students.forEach(student => {
       student.languages.forEach(language => {

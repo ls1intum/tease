@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IdMappingService } from '../../data/id-mapping.service';
+import { IdMappingService } from '../../../data/id-mapping.service';
 import { Project, Student } from 'src/app/api/models';
 
 @Injectable({
@@ -8,9 +8,9 @@ import { Project, Student } from 'src/app/api/models';
 export class MandatoryConstraintsService {
   constructor(private constraintMappingService: IdMappingService) {}
 
-  createMandatoryConstraints(students: Student[], projects: Project[]): string[] {
+  createConstraints(students: Student[], projectIds: string[]): string[] {
     const studentNumericalIds = students.map(student => this.constraintMappingService.getNumericalId(student.id));
-    const projectNumericalIds = projects.map(project => this.constraintMappingService.getNumericalId(project.id));
+    const projectNumericalIds = projectIds.map(projectId => this.constraintMappingService.getNumericalId(projectId));
 
     const constraints = this.createIntegerConstraints(studentNumericalIds, projectNumericalIds);
     constraints.push(...this.createOneStudentConstraint(studentNumericalIds, projectNumericalIds));
