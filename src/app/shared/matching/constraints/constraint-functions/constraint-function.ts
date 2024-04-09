@@ -13,6 +13,7 @@ export interface SelectData {
   name: string; //shown in the dropdown
   id: string; //value to be used in constraint
   group?: string; //grouping for the dropdown
+  reference?: any; //reference to the object
 }
 
 export interface PropertySelectGroup {

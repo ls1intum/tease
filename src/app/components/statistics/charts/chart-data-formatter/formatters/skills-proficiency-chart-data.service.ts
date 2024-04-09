@@ -6,21 +6,35 @@ import { ColorService } from 'src/app/shared/constants/color.service';
 import { SkillProficiency, Student } from 'src/app/api/models';
 import { Comparator, Operator, SkillLevels } from 'src/app/shared/matching/constraints/constraint-utils';
 import { PeopleChartProjectData, PeopleChartStudentData } from '../people-chart-data';
+import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
+import { SkillsService } from 'src/app/shared/data/skills.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProficiencyChartDataService implements ChartDataFormatter {
+export class SkillsProficiencyChartDataService implements ChartDataFormatter {
   private readonly SKILL_PROFICIENCY_LABELS = Object.values(SkillProficiency);
   private readonly BACKGROUND_COLORS = [...ColorService.getSkillProficiencyColors()];
 
-  getDoughnutData(allocationData: AllocationData): ChartData<'doughnut', number[], unknown> {
+  constructor(private skillsService: SkillsService) {}
+
+  getSelectData(): SelectData[] {
+    const skills = this.skillsService.getSkills();
+    return skills.map(skill => ({
+      name: skill.title,
+      id: `${skill.id}`,
+      group: 'Skills',
+      reference: this,
+    }));
+  }
+
+  getDoughnutData(allocationData: AllocationData, skillId: string): ChartData<'doughnut', number[], unknown> {
     const skillProficiencies = Object.values(SkillProficiency);
     const skillProficienciesMap = new Map(skillProficiencies.map(skill => [skill, 0]));
 
     let students = allocationData.projectsData.flatMap(projectData => projectData.students);
     students = students.concat(allocationData.studentsWithoutTeam);
-    students.forEach(student => this.updateSkillProficiencyCount(skillProficienciesMap, student));
+    students.forEach(student => this.updateSkillProficiencyCount(skillProficienciesMap, student, skillId));
 
     const datasets = [
       {
@@ -32,24 +46,30 @@ export class ProficiencyChartDataService implements ChartDataFormatter {
     return { labels: skillProficiencies, datasets: datasets };
   }
 
-  getPeopleData(allocationData: AllocationData): PeopleChartProjectData[] {
+  getPeopleData(allocationData: AllocationData, skillId: string): PeopleChartProjectData[] {
     const data: PeopleChartProjectData[] = [];
 
     allocationData.projectsData.forEach(projectData => {
       const studentData: PeopleChartStudentData[] = [];
 
-      const students = [...projectData.students].sort((a, b) =>
-        Comparator[Operator.GREATER_THAN_OR_EQUAL](
-          SkillLevels[a.introCourseProficiency],
-          SkillLevels[b.introCourseProficiency]
-        )
+      const students = projectData.students.map(student => {
+        const skill = student.skills.find(skill => skill.id === skillId);
+        return {
+          skill: skill,
+          firstName: student.firstName,
+          lastName: student.lastName,
+        };
+      });
+
+      students.sort((a, b) =>
+        Comparator[Operator.GREATER_THAN_OR_EQUAL](SkillLevels[a.skill.proficiency], SkillLevels[b.skill.proficiency])
           ? -1
           : 1
       );
 
       students.forEach(student => {
         studentData.push({
-          color: ColorService.getSkillProficiencyColor(student.introCourseProficiency),
+          color: ColorService.getSkillProficiencyColor(student.skill.proficiency),
           tooltip: this.getTooltip(student),
         });
       });
@@ -64,13 +84,17 @@ export class ProficiencyChartDataService implements ChartDataFormatter {
     return data;
   }
 
-  private updateSkillProficiencyCount(skillProficienciesMap: Map<SkillProficiency, number>, student: Student): void {
-    const skillProficiency = student.introCourseProficiency;
+  private updateSkillProficiencyCount(
+    skillProficienciesMap: Map<SkillProficiency, number>,
+    student: Student,
+    skillId: string
+  ): void {
+    const skillProficiency = student.skills.find(skill => skill.id === skillId).proficiency;
     const skillProficiencyCount = skillProficienciesMap.get(skillProficiency);
     skillProficienciesMap.set(skillProficiency, skillProficiencyCount + 1);
   }
 
   private getTooltip(student): string {
-    return student.firstName + ' ' + student.lastName + ': ' + student.introCourseProficiency;
+    return student.firstName + ' ' + student.lastName + ': ' + student.skill.proficiency;
   }
 }

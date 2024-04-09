@@ -25,9 +25,20 @@
       @if (viewMode === ViewMode.Statistics) {
         <div>
           <div class="form">
-            <select class="form-select" id="ConstraintPropertySelect" [(ngModel)]="statisticsViewMode">
-              <option [value]="StatisticsViewMode.Proficiency" ngModelChange="">Intro Course Proficiency</option>
-              <option [value]="StatisticsViewMode.PriorityDistribution">Priority Distribution</option>
+            <select
+              class="form-select"
+              id="ConstraintPropertySelect"
+              [(ngModel)]="selectedStatisticsId"
+              (ngModelChange)="changeSelectedStatisticsId()">
+              @for (selectDataGroup of statisticsSelectData | groupBy: 'group'; track selectDataGroup) {
+                <optgroup [label]="selectDataGroup.key">
+                  @for (selectData of selectDataGroup.value; track selectData) {
+                    <option [value]="selectData.id">
+                      {{ selectData.name }}
+                    </option>
+                  }
+                </optgroup>
+              }
             </select>
           </div>
         </div>
@@ -55,11 +66,12 @@
   <div
     class="utility-container d-flex overflow-y-scroll mt-2"
     [ngClass]="utilityContainerVisible ? 'visible' : 'hidden'">
-    @if (viewMode === ViewMode.Statistics) {
+    @if (viewMode === ViewMode.Statistics && selectedStatisticsFormatter) {
       <app-statistics
         class="d-flex flex-grow-1"
         [allocationData]="allocationData"
-        [statisticsViewMode]="statisticsViewMode"></app-statistics>
+        [selectedDataId]="selectedStatisticsId"
+        [formatter]="selectedStatisticsFormatter"></app-statistics>
     }
     @if (viewMode === ViewMode.Students) {
       @for (students of [allocationData.studentsWithoutTeam]; track students) {
