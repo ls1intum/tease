@@ -5,15 +5,16 @@ import { RouterModule } from '@angular/router';
 import { PersonStatisticsService } from './layers/business-logic-layer/person-statistics.service';
 import { ConstraintAccessService } from './layers/data-access-layer/constraint.access.service';
 import { KeyValueConstraintAccessService } from './layers/data-access-layer/keyvalue.constraint.access.service';
+import { GroupByPipe } from './pipes/group-by.pipe';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
  */
 
 @NgModule({
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, GroupByPipe],
   declarations: [],
-  exports: [CommonModule, FormsModule, RouterModule],
+  exports: [CommonModule, FormsModule, RouterModule, GroupByPipe],
   providers: [PersonStatisticsService, { provide: ConstraintAccessService, useClass: KeyValueConstraintAccessService }],
 })
 export class SharedModule {

@@ -18,9 +18,8 @@ import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { SkillsService } from 'src/app/shared/data/skills.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { Subscription } from 'rxjs';
-import { Comparator, Operator } from './shared/matching/constraints/constraint-utils';
 import { ConstraintWrapper } from './shared/matching/constraints/constraint';
-import { AllocationData, ProjectData, ProjectError } from './shared/models/allocation-data';
+import { AllocationData, ProjectConstraint, ProjectData } from './shared/models/allocation-data';
 
 @Component({
   selector: 'app-root',
@@ -41,7 +40,7 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
   private projects: Project[];
   private skills: Skill[];
   private allocations: Allocation[];
-  private constraints: ConstraintWrapper[];
+  private constraintWrappers: ConstraintWrapper[];
 
   constructor(
     public overlayService: OverlayService,
@@ -84,8 +83,8 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
         this.skills = skills;
         this.updateData();
       }),
-      this.constraintsService.constraints$.subscribe(constraints => {
-        this.constraints = constraints;
+      this.constraintsService.constraints$.subscribe(constraintWrappers => {
+        this.constraintWrappers = constraintWrappers;
         this.updateData();
       })
     );
@@ -97,7 +96,7 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
       this.projects?.length &&
       this.skills?.length &&
       this.allocations &&
-      this.constraints
+      this.constraintWrappers
     );
   }
 
@@ -151,50 +150,62 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
   }
 
   private updateProjectsData(): ProjectData[] {
-    return this.projects.map(project => {
-      const allocation = this.allocations.find(allocation => project.id === allocation.projectId);
-      let students = [];
-      if (allocation) {
-        students = allocation.students.map(studentId => this.students.find(student => student.id === studentId));
-      }
-      const errorData = this.getErrorData(project.id, students);
+    return this.projects.map(project => this.updateProjectData(project));
+  }
 
-      return { project: project, error: errorData, students: students };
+  private updateProjectData(project: Project): ProjectData {
+    let studentsOfProject = this.getStudentsOfProject(project.id);
+    const { projectConstraints, fulfillsAllConstraints } = this.getProjectConstraints(project.id, studentsOfProject);
+
+    return {
+      project: project,
+      projectConstraints: projectConstraints,
+      fulfillsAllConstraints: fulfillsAllConstraints,
+      students: studentsOfProject,
+    };
+  }
+
+  private getStudentsOfProject(projectId: string): Student[] {
+    const allocation = this.allocations.find(allocation => allocation.projectId === projectId);
+    return allocation
+      ? allocation.students.map(studentId => this.students.find(student => student.id === studentId))
+      : [];
+  }
+
+  private getProjectConstraints(
+    projectId: string,
+    students: Student[]
+  ): { projectConstraints: ProjectConstraint[]; fulfillsAllConstraints: Boolean } {
+    let fulfillsAllConstraints = true;
+    const constraintWrappersOfProject = this.getConstraintWrappersOfProject(projectId);
+    const projectConstraints = constraintWrappersOfProject.map(constraintWrapper => {
+      const numberOfStudents = this.getNumberOfStudents(constraintWrapper, students);
+
+      const fulfillsLowerBound = constraintWrapper.threshold.lowerBound <= numberOfStudents;
+      const fulfillsUpperBound = constraintWrapper.threshold.upperBound >= numberOfStudents;
+      if (!fulfillsLowerBound || !fulfillsUpperBound) {
+        fulfillsAllConstraints = false;
+      }
+
+      return { constraintWrapper: constraintWrapper, numberOfStudents: numberOfStudents };
     });
+
+    return { projectConstraints: projectConstraints, fulfillsAllConstraints: fulfillsAllConstraints };
+  }
+
+  private getConstraintWrappersOfProject(projectId: string): ConstraintWrapper[] {
+    return this.constraintWrappers.filter(constraintWrapper => constraintWrapper.projectIds.includes(projectId));
+  }
+
+  private getNumberOfStudents(constraintWrapper: ConstraintWrapper, students: Student[]): number {
+    const studentIdsOfProject = students.map(student => student.id);
+    return constraintWrapper.constraintFunction.students.filter(student => studentIdsOfProject.includes(student.id))
+      .length;
   }
 
   private updateStudentsWithoutTeam(): Student[] {
     return this.students.filter(
       student => !this.allocations.some(allocation => allocation.students.includes(student.id))
     );
-  }
-
-  private getErrorData(projectId: string, students: Student[]): ProjectError {
-    let error = false;
-    let info = '';
-    for (const constraint of this.constraints) {
-      if (!constraint.projectIds.includes(projectId)) continue;
-
-      const studentIdsInConstraint = constraint.constraintFunction.students.map(
-        studentInConstraint => studentInConstraint.id
-      );
-      const studentsPassing = students.filter(student => studentIdsInConstraint.includes(student.id));
-
-      const passesLowerBound = Comparator[Operator.GREATER_THAN_OR_EQUAL](
-        studentsPassing.length,
-        constraint.threshold.lowerBound
-      );
-
-      const passesUpperBound = Comparator[Operator.LESS_THAN_OR_EQUAL](
-        studentsPassing.length,
-        constraint.threshold.upperBound
-      );
-
-      if (!passesLowerBound || !passesUpperBound) {
-        error = true;
-        info += '';
-      }
-    }
-    return { error: error, info: info };
   }
 }

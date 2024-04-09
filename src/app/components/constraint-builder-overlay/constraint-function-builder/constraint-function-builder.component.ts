@@ -18,6 +18,7 @@ import { LanguageProficiencyConstraintFunction } from 'src/app/shared/matching/c
 import { NationalityConstraintFunction } from 'src/app/shared/matching/constraints/constraint-functions/nationality-constraint-function';
 import { SkillConstraintFunction } from 'src/app/shared/matching/constraints/constraint-functions/skill-constraint-function';
 import { TeamSizeConstraintFunction } from 'src/app/shared/matching/constraints/constraint-functions/team-size-constraint-function';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Component({
   selector: 'app-constraint-function-builder',
@@ -90,7 +91,7 @@ export class ConstraintFunctionBuilderComponent implements OnInit, OnDestroy {
 
   createPropertySelectGroup(): void {
     this.propertyData = this.constraintFunctionData.flatMap(formData => {
-      return { name: formData.property.name, id: formData.property.id };
+      return { name: formData.property.name, id: formData.property.id, group: formData.name };
     });
     this.form.get('property').setValue(this.propertyData[0].id);
     this.updateOperatorsAndValues();
@@ -136,6 +137,7 @@ export class ConstraintFunctionBuilderComponent implements OnInit, OnDestroy {
     const constraintFunction = this.getConstraintFunctionValue().constraintFunction;
     const filteredStudents = constraintFunction.filterStudentsByConstraintFunction(propertyId, operator, valueId);
     this.filteredStudentCount = filteredStudents.length;
+
     this.constraintFunctionChange.emit({
       property: property.name,
       propertyId: propertyId,

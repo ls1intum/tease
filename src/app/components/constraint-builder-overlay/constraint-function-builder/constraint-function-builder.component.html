@@ -2,10 +2,14 @@
   <div class="d-flex gap-3" [formGroup]="form">
     <div class="form-floating w-100">
       <select class="form-select" id="property" formControlName="property">
-        @for (property of propertyData; track property) {
-          <option [value]="property.id">
-            {{ property.name }}
-          </option>
+        @for (propertyGroup of propertyData | groupBy: 'group'; track propertyGroup) {
+          <optgroup [label]="propertyGroup.key">
+            @for (property of propertyGroup.value; track property) {
+              <option [value]="property.id">
+                {{ property.name }}
+              </option>
+            }
+          </optgroup>
         }
       </select>
       <label for="property">Property</label>

@@ -16,6 +16,6 @@ export class GenderConstraintFunction extends ConstraintFunction {
   }
 
   override getValues(): SelectData[] {
-    return Object.values(Gender).map(gender => ({ id: gender, name: gender }));
+    return Object.values(Gender).map(gender => ({ id: gender, name: gender, icon: 'icon' }));
   }
 }

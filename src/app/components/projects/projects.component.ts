@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { facCheckIcon, facErrorIcon } from 'src/assets/icons/icons';
+import { facCheckIcon, facErrorIcon, facInfoIcon } from 'src/assets/icons/icons';
 import { ProjectData } from 'src/app/shared/models/allocation-data';
 import { LocksService } from 'src/app/shared/data/locks.service';
 import { Subscription } from 'rxjs';
@@ -12,8 +12,10 @@ import { Subscription } from 'rxjs';
 export class ProjectsComponent implements OnInit, OnDestroy {
   facErrorIcon = facErrorIcon;
   facCheckIcon = facCheckIcon;
+  facInfoIcon = facInfoIcon;
 
   @Input({ required: true }) projectsData: ProjectData[];
+  constraintsVisible = false;
 
   lockedStudents: string[] = [];
   private locksSubscription: Subscription;

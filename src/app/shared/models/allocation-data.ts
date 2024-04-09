@@ -1,9 +1,16 @@
 import { Project, Student } from 'src/app/api/models';
+import { ConstraintWrapper } from '../matching/constraints/constraint';
 
 export interface ProjectData {
   project: Project;
-  error: ProjectError;
+  projectConstraints: ProjectConstraint[];
+  fulfillsAllConstraints: Boolean;
   students: Student[];
+}
+
+export interface ProjectConstraint {
+  constraintWrapper: ConstraintWrapper;
+  numberOfStudents: number;
 }
 
 export interface AllocationData {
@@ -11,7 +18,7 @@ export interface AllocationData {
   projectsData: ProjectData[];
 }
 
-export interface ProjectError {
-  error: boolean;
-  info: string;
-}
+// export interface ProjectError {
+//   error: boolean;
+//   info: string;
+// }
