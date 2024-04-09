@@ -1,8 +1,9 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { StudentsService } from 'src/app/shared/data/students.service';
 import { ThresholdWrapper } from 'src/app/shared/matching/constraints/constraint';
+import { integerValidator, positiveValidator } from 'src/app/shared/utils/validators.utils';
 
 @Component({
   selector: 'app-constraint-threshold-builder',
@@ -19,8 +20,8 @@ export class ConstraintThresholdBuilderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const maxValue = this.studentsService.getStudents().length;
     this.form = new FormGroup({
-      lowerBound: new FormControl<number>(0, [this.integerValidator, this.positiveValidator]),
-      upperBound: new FormControl<number>(maxValue, [this.integerValidator, this.positiveValidator]),
+      lowerBound: new FormControl<number>(0, [integerValidator, positiveValidator]),
+      upperBound: new FormControl<number>(maxValue, [integerValidator, positiveValidator]),
     });
     this.thresholdChange.emit(new ThresholdWrapper(0, maxValue));
 
@@ -40,14 +41,4 @@ export class ConstraintThresholdBuilderComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription?.unsubscribe());
   }
-
-  positiveValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-    const value = control.value;
-    return value >= 0 ? null : { notPositive: true };
-  };
-
-  integerValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-    const value = control.value;
-    return Number.isInteger(value) ? null : { notInteger: true };
-  };
 }

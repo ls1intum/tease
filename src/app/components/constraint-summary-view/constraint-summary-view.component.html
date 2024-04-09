@@ -62,9 +62,8 @@
                 <td class="text-nowrap">{{ constraintWrapper.constraintFunction.students.length }}</td>
                 <td class="text-nowrap">
                   {{
-                    (
-                      constraintWrapper.constraintFunction.students.length / constraintWrapper.projectIds.length
-                    ).toFixed(1)
+                    constraintWrapper.constraintFunction.students.length / constraintWrapper.projectIds.length
+                      | number: '1.1-1'
                   }}
                 </td>
 

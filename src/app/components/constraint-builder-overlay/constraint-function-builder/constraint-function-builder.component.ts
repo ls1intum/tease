@@ -85,7 +85,7 @@ export class ConstraintFunctionBuilderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions.forEach(subscription => subscription?.unsubscribe());
   }
 
   createPropertySelectGroup(): void {
@@ -105,7 +105,6 @@ export class ConstraintFunctionBuilderComponent implements OnInit, OnDestroy {
   updateOperators(operatorData: SelectData[]): void {
     this.operatorData = operatorData;
     this.form.get('operator').setValue(operatorData[0].id);
-    console.log(operatorData);
     if (operatorData.length < 2) {
       this.form.get('operator').disable();
     } else {

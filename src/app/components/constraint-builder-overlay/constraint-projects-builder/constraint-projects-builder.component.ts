@@ -34,7 +34,7 @@ export class ConstraintProjectsBuilderComponent implements OnInit {
   }
 
   toggleAllProjectsSelection() {
-    if (this.selectedProjectIds.length == this.projects.length) {
+    if (this.selectedProjectIds.length === this.projects.length) {
       this.selectedProjectIds = [];
     } else {
       this.selectedProjectIds = this.projects.map(project => project.id);
