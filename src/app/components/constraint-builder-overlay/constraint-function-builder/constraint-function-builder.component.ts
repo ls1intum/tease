@@ -138,7 +138,6 @@ export class ConstraintFunctionBuilderComponent implements OnInit, OnDestroy {
     const filteredStudents = constraintFunction.filterStudentsByConstraintFunction(propertyId, operator, valueId);
     this.filteredStudentCount = filteredStudents.length;
 
-    console.log(this.propertyData);
     this.constraintFunctionChange.emit({
       property: property.name,
       propertyId: propertyId,

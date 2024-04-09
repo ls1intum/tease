@@ -3,8 +3,8 @@ import { ConstraintWrapper } from '../matching/constraints/constraint';
 
 export interface ProjectData {
   project: Project;
-  constraints: ProjectConstraint[];
-  error: ProjectError;
+  constraintData: ProjectConstraint[];
+  fulfillsAllConstraints: Boolean;
   students: Student[];
 }
 
@@ -18,7 +18,7 @@ export interface AllocationData {
   projectsData: ProjectData[];
 }
 
-export interface ProjectError {
-  error: boolean;
-  info: string;
-}
+// export interface ProjectError {
+//   error: boolean;
+//   info: string;
+// }

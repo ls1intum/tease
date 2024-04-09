@@ -6,14 +6,16 @@
       <div class="ps-2 d-flex justify-content-between">
         <div class="d-flex align-items-center mb-2 gap-1">
           <p class="text-dark fs-5 fw-semibold mb-0">{{ projectData.project.name }}</p>
-          <fa-icon
-            role="button"
-            [icon]="facInfoIcon"
-            class="text-dark mb-0"
-            ngbTooltip="Info"
-            triggers="hover"
-            [openDelay]="400"
-            (click)="constraintsVisible = !constraintsVisible"></fa-icon>
+          @if (projectData.constraintData.length) {
+            <fa-icon
+              role="button"
+              [icon]="facInfoIcon"
+              class="text-dark mb-0"
+              ngbTooltip="Info"
+              triggers="hover"
+              [openDelay]="400"
+              (click)="constraintsVisible = !constraintsVisible"></fa-icon>
+          }
         </div>
 
         <div class="d-flex gap-2">
@@ -23,46 +25,47 @@
           </div>
           <div
             class="rounded-circle project-circle d-flex justify-content-center align-items-center lh-1 fs-5 text-dark"
-            [ngbTooltip]="projectData.error.info"
-            [ngClass]="projectData.error.error ? 'bg-warn' : 'bg-card'">
+            [ngClass]="projectData.fulfillsAllConstraints ? 'bg-card' : 'bg-warn'">
             <fa-icon
-              [icon]="projectData.error.error ? facErrorIcon : facCheckIcon"
-              [ngClass]="projectData.error.error ? 'text-white' : 'text-dark'"></fa-icon>
+              [icon]="projectData.fulfillsAllConstraints ? facCheckIcon : facErrorIcon"
+              [ngClass]="projectData.fulfillsAllConstraints ? 'text-dark' : 'text-white'"></fa-icon>
           </div>
         </div>
       </div>
       <!-- Constraints -->
-      <div [class]="{ 'd-none': !constraintsVisible }" class="d-flex flex-column gap-05 mb-1">
-        @for (constraint of projectData.constraints; track constraint) {
-          <div class="row m-0 bg-card rounded-3 default-cursor">
-            <div class="col-4 p-0">
-              <div
-                class="ms-1 my-1 px-2 text-center text-white rounded-3 fs-xs text-truncate"
-                [ngClass]="
-                  constraint.numberOfStudents >= constraint.constraintWrapper.threshold.lowerBound &&
-                  constraint.numberOfStudents <= constraint.constraintWrapper.threshold.upperBound
-                    ? 'bg-dark'
-                    : 'bg-warn'
-                "
-                [ngbTooltip]="
-                  constraint.constraintWrapper.constraintFunction.operator +
-                  constraint.constraintWrapper.constraintFunction.value
-                "
-                triggers="hover"
-                [openDelay]="300">
-                {{ constraint.constraintWrapper.constraintFunction.property }}
+      @if (constraintsVisible) {
+        <div class="d-flex flex-column gap-05 mb-1">
+          @for (constraint of projectData.constraintData; track constraint) {
+            <div class="row m-0 bg-card rounded-3 default-cursor">
+              <div class="col-4 p-0">
+                <div
+                  class="ms-1 my-1 px-2 text-center text-white rounded-3 fs-xs text-truncate"
+                  [ngClass]="
+                    constraint.numberOfStudents >= constraint.constraintWrapper.threshold.lowerBound &&
+                    constraint.numberOfStudents <= constraint.constraintWrapper.threshold.upperBound
+                      ? 'bg-dark'
+                      : 'bg-warn'
+                  "
+                  [ngbTooltip]="
+                    constraint.constraintWrapper.constraintFunction.operator +
+                    constraint.constraintWrapper.constraintFunction.value
+                  "
+                  triggers="hover"
+                  [openDelay]="300">
+                  {{ constraint.constraintWrapper.constraintFunction.property }}
+                </div>
+              </div>
+              <div class="col-8 d-flex constraint-tile">
+                <div class="text-center flex-grow-1">{{ constraint.constraintWrapper.threshold.lowerBound }}</div>
+                <div class="text-center flex-grow-1">≤</div>
+                <div class="text-center flex-grow-1">{{ constraint.numberOfStudents }}</div>
+                <div class="text-center flex-grow-1">≤</div>
+                <div class="text-center flex-grow-1">{{ constraint.constraintWrapper.threshold.upperBound }}</div>
               </div>
             </div>
-            <div class="col-8 d-flex constraint-tile">
-              <div class="text-center flex-grow-1">{{ constraint.constraintWrapper.threshold.lowerBound }}</div>
-              <div class="text-center flex-grow-1">≤</div>
-              <div class="text-center flex-grow-1">{{ constraint.numberOfStudents }}</div>
-              <div class="text-center flex-grow-1">≤</div>
-              <div class="text-center flex-grow-1">{{ constraint.constraintWrapper.threshold.upperBound }}</div>
-            </div>
-          </div>
-        }
-      </div>
+          }
+        </div>
+      }
       <!-- Students -->
       <div
         dragula="STUDENTS"
