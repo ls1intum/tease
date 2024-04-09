@@ -6,7 +6,7 @@
       <div class="ps-2 d-flex justify-content-between">
         <div class="d-flex align-items-center mb-2 gap-1">
           <p class="text-dark fs-5 fw-semibold mb-0">{{ projectData.project.name }}</p>
-          @if (projectData.constraintData.length) {
+          @if (projectData.projectConstraints.length) {
             <fa-icon
               role="button"
               [icon]="facInfoIcon"
@@ -35,7 +35,7 @@
       <!-- Constraints -->
       @if (constraintsVisible) {
         <div class="d-flex flex-column gap-05 mb-1">
-          @for (constraint of projectData.constraintData; track constraint) {
+          @for (constraint of projectData.projectConstraints; track constraint) {
             <div class="row m-0 bg-card rounded-3 default-cursor">
               <div class="col-4 p-0">
                 <div

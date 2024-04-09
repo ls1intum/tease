@@ -3,7 +3,7 @@ import { ConstraintWrapper } from '../matching/constraints/constraint';
 
 export interface ProjectData {
   project: Project;
-  constraintData: ProjectConstraint[];
+  projectConstraints: ProjectConstraint[];
   fulfillsAllConstraints: Boolean;
   students: Student[];
 }
