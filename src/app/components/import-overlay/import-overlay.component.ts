@@ -18,6 +18,7 @@ import { TeamToProjectService } from 'src/app/shared/services/team-to-project.se
 import { PersonToStudentService } from 'src/app/shared/services/person-to-student.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { IdMappingService } from 'src/app/shared/data/id-mapping.service';
+import { LocksService } from 'src/app/shared/data/locks.service';
 
 @Component({
   selector: 'app-import-overlay',
@@ -39,6 +40,7 @@ export class ImportOverlayComponent implements OverlayComponent {
     private studentService: StudentsService,
     private constraintsService: ConstraintsService,
     private idMappingService: IdMappingService,
+    private locksService: LocksService,
     private toastsService: ToastsService,
     private teamToProjectService: TeamToProjectService,
     private personToStudentService: PersonToStudentService,
@@ -104,6 +106,7 @@ export class ImportOverlayComponent implements OverlayComponent {
   private setStudentData(students: Student[], projects: Project[], skills: Skill[], allocations: Allocation[]): void {
     this.idMappingService.deleteMapping();
     this.constraintsService.deleteConstraints();
+    this.locksService.deleteLocks();
     this.studentService.setStudents(students);
     this.projectsService.setProjects(projects);
     this.skillsService.setSkills(skills);

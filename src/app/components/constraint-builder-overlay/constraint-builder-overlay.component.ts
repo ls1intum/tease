@@ -22,10 +22,7 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponent {
   private thresholdWrapper: ThresholdWrapper;
   isFormValid = false;
 
-  constructor(
-    private overlayService: OverlayService,
-    private constraintsService: ConstraintsService
-  ) {}
+  constructor(private constraintsService: ConstraintsService) {}
 
   selectedProjectsChange(projectIds: string[]): void {
     this.projectIds = projectIds;

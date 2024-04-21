@@ -20,9 +20,10 @@ export class StudentSortService {
   }
 
   sortStudentsInAllocation(students: Student[], allocation: Allocation): Allocation {
-    const studentsInAllocation = allocation.students.map(studentId => {
-      return students.find(student => student.id == studentId);
-    });
+    const studentsInAllocation =
+      allocation.students.map(studentId => {
+        return students.find(student => student.id == studentId);
+      }) || [];
     const sortedStudents = this.sortStudentsByProficiency(studentsInAllocation);
     const sortedStudentIds = sortedStudents.map(student => student.id);
     return { projectId: allocation.projectId, students: sortedStudentIds };

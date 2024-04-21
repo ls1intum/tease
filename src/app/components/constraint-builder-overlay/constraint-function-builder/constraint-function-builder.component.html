@@ -16,25 +16,29 @@
     </div>
 
     <div class="form-floating w-100">
-      <select class="form-select" id="operator" formControlName="operator">
-        @for (operator of operatorData; track operator) {
-          <option [value]="operator.id">
-            {{ operator.name }}
-          </option>
-        }
-      </select>
-      <label for="operator">Operator</label>
+      @if (showOperatorData) {
+        <select class="form-select" id="operator" formControlName="operator">
+          @for (operator of operatorData; track operator) {
+            <option [value]="operator.id">
+              {{ operator.name }}
+            </option>
+          }
+        </select>
+        <label for="operator">Operator</label>
+      }
     </div>
 
     <div class="form-floating w-100">
-      <select class="form-select" id="value" formControlName="value">
-        @for (value of valueData; track value) {
-          <option [value]="value.id">
-            {{ value.name }}
-          </option>
-        }
-      </select>
-      <label for="operator">Value</label>
+      @if (showValueData) {
+        <select class="form-select" id="value" formControlName="value">
+          @for (value of valueData; track value) {
+            <option [value]="value.id">
+              {{ value.name }}
+            </option>
+          }
+        </select>
+        <label for="operator">Value</label>
+      }
     </div>
   </div>
   <div>

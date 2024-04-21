@@ -1,12 +1,14 @@
 import { ConstraintFunction, PropertySelectGroup, SelectData } from './constraint-function';
 import { Comparator, Operator } from '../constraint-utils';
 import { Student, Skill } from 'src/app/api/models';
+import { NationalityService } from 'src/app/shared/helpers/nationality.service';
 
 export class NationalityConstraintFunction extends ConstraintFunction {
   private nationalities: Set<string> = new Set();
+  private nationalityService: NationalityService = new NationalityService();
 
   constructor(students: Student[], skills: Skill[]) {
-    super(students, skills, 'Nationality', [Operator.EQUALS, Operator.NOT_EQUALS]);
+    super(students, skills, 'Nationality', [Operator.EQUALS]);
     this.nationalities = new Set();
     students.forEach(student => {
       this.nationalities.add(student.nationality);
@@ -30,9 +32,15 @@ export class NationalityConstraintFunction extends ConstraintFunction {
   }
 
   override getValues(): SelectData[] {
-    return Array.from(this.nationalities).map(nationality => ({
-      id: nationality,
-      name: nationality,
-    }));
+    return Array.from(this.nationalities)
+      .map(nationality => {
+        const name = this.nationalityService.getNameFromCode(nationality);
+        const emoji = this.nationalityService.getEmojiFromCode(nationality);
+        return {
+          id: nationality,
+          name: `${emoji} ${name}`,
+        };
+      })
+      .sort((a, b) => a.name.localeCompare(b.name));
   }
 }
