@@ -11,6 +11,8 @@ import { ConstraintBuilderService } from 'src/app/shared/matching/constraints/co
 import { StudentsService } from 'src/app/shared/data/students.service';
 import { MatchingService } from 'src/app/shared/matching/matching.service';
 import { AllocationsService } from 'src/app/shared/data/allocations.service';
+import { ToastsService } from 'src/app/shared/services/toasts.service';
+import { StudentSortService } from 'src/app/shared/services/student-sort.service';
 
 @Component({
   selector: 'app-constraint-summary-view',
@@ -34,7 +36,9 @@ export class ConstraintSummaryViewComponent implements OverlayComponent, OnInit 
     private locksService: LocksService,
     private constraintsBuilderService: ConstraintBuilderService,
     private matchingService: MatchingService,
-    private allocationsService: AllocationsService
+    private allocationsService: AllocationsService,
+    private toastsService: ToastsService,
+    private studentSortService: StudentSortService
   ) {}
 
   ngOnInit(): void {
@@ -75,8 +79,11 @@ export class ConstraintSummaryViewComponent implements OverlayComponent, OnInit 
     );
     const allocations = await this.matchingService.getAllocations(constraints);
     if (allocations) {
-      this.allocationsService.setAllocations(allocations);
-      close();
+      this.allocationsService.setAllocations(
+        this.studentSortService.sortStudentsInAllocations(this.studentsService.getStudents(), allocations)
+      );
+      this.cancel();
+      this.toastsService.showToast('Distribution Complete', 'Success', true);
     }
   }
 }

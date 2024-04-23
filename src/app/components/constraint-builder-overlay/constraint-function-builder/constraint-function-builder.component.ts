@@ -1,8 +1,7 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Skill, Student } from 'src/app/api/models';
-import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { SkillsService } from 'src/app/shared/data/skills.service';
 import { StudentsService } from 'src/app/shared/data/students.service';
 import { ConstraintFunctionWrapper } from 'src/app/shared/matching/constraints/constraint';
@@ -18,7 +17,6 @@ import { LanguageProficiencyConstraintFunction } from 'src/app/shared/matching/c
 import { NationalityConstraintFunction } from 'src/app/shared/matching/constraints/constraint-functions/nationality-constraint-function';
 import { SkillConstraintFunction } from 'src/app/shared/matching/constraints/constraint-functions/skill-constraint-function';
 import { TeamSizeConstraintFunction } from 'src/app/shared/matching/constraints/constraint-functions/team-size-constraint-function';
-import { Pipe, PipeTransform } from '@angular/core';
 
 @Component({
   selector: 'app-constraint-function-builder',
@@ -37,12 +35,15 @@ export class ConstraintFunctionBuilderComponent implements OnInit, OnDestroy {
   operatorData: SelectData[];
   valueData: SelectData[];
   filteredStudentCount: number;
+  showOperatorData = false;
+  showValueData = false;
 
   private subscriptions: Subscription[] = [];
 
   constructor(
     private studentsService: StudentsService,
-    private skillsService: SkillsService
+    private skillsService: SkillsService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -107,9 +108,9 @@ export class ConstraintFunctionBuilderComponent implements OnInit, OnDestroy {
     this.operatorData = operatorData;
     this.form.get('operator').setValue(operatorData[0].id);
     if (operatorData.length < 2) {
-      this.form.get('operator').disable();
+      this.showOperatorData = false;
     } else {
-      this.form.get('operator').enable();
+      this.showOperatorData = true;
     }
   }
 
@@ -117,9 +118,9 @@ export class ConstraintFunctionBuilderComponent implements OnInit, OnDestroy {
     this.valueData = valueData;
     this.form.get('value').setValue(valueData[0].id);
     if (valueData.length < 2) {
-      this.form.get('value').disable();
+      this.showValueData = false;
     } else {
-      this.form.get('value').enable();
+      this.showValueData = true;
     }
   }
 
