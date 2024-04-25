@@ -15,6 +15,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   facInfoIcon = facInfoIcon;
 
   @Input({ required: true }) projectsData: ProjectData[];
+  @Input() imageExport: Boolean = false;
   constraintsVisible = false;
 
   lockedStudents: string[] = [];

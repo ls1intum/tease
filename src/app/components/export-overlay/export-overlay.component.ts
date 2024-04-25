@@ -1,10 +1,6 @@
-import { ApplicationRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { OverlayComponent } from '../../overlay.service';
-import { TeamService } from '../../shared/layers/business-logic-layer/team.service';
-import html2canvas from 'html2canvas';
-import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
-import { Person } from '../../shared/models/person';
 import { PromptService } from 'src/app/shared/services/prompt.service';
 import { ToastsService } from 'src/app/shared/services/toasts.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -13,6 +9,9 @@ import { saveAs } from 'file-saver';
 import { Allocation } from 'src/app/api/models';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { StudentsService } from 'src/app/shared/data/students.service';
+import { AllocationData } from 'src/app/shared/models/allocation-data';
+import { NgxCaptureService } from 'ngx-capture';
+import { Observable, forkJoin, map } from 'rxjs';
 
 @Component({
   selector: 'app-export-overlay',
@@ -21,37 +20,26 @@ import { StudentsService } from 'src/app/shared/data/students.service';
 })
 export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
   public data: {
-    onDownloadFinished: () => void;
+    allocationData: AllocationData;
   };
-  destroyed = false;
-  imageExportRunning = false;
-  imageExportProgress = 0;
-  imageExportMaxProgress = 1;
-
-  html2canvasOptions = {
-    allowTaint: false,
-    backgroundColor: null,
-    scale: 2.0,
-    useCORS: true,
-    logging: false,
-  };
-
   private readonly EXPORT_FILE_NAME = 'TEASE-mappings.csv';
   private readonly EXPORT_DATA_TYPE = 'text/csv;charset=utf-8';
+  private readonly EXPORT_PROJECT_IMAGES_NAME = 'TEASE-projects.zip';
+
+  @ViewChild('projectsScreen', { static: true }) projectsScreen: ElementRef;
+
+  isLoading = false;
 
   constructor(
-    private teamService: TeamService,
-    private applicationRef: ApplicationRef,
     private promptService: PromptService,
     private toastsService: ToastsService,
     private allocationsService: AllocationsService,
     private projectsService: ProjectsService,
-    private studentsService: StudentsService
+    private studentsService: StudentsService,
+    private captureService: NgxCaptureService
   ) {}
 
-  ngOnDestroy() {
-    this.destroyed = true;
-  }
+  ngOnDestroy() {}
 
   async exportPrompt() {
     const allocations = this.allocationsService.getAllocations();
@@ -91,116 +79,36 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
     return csvData;
   }
 
-  getImageExportMaxProgress(onlyTeamOverview: boolean) {
-    return onlyTeamOverview
-      ? this.teamService.teams.reduce(acc => acc + 1, 0) + 1
-      : this.teamService.teams.reduce((acc, team) => acc + 1 + team.persons.length, 0) + 1;
-  }
+  async exportProjectImages(): Promise<void> {
+    this.isLoading = true;
 
-  exportScreenshots(onlyTeamOverview: boolean) {
-    this.imageExportRunning = true;
-    this.imageExportProgress = 0;
-    this.imageExportMaxProgress = this.getImageExportMaxProgress(onlyTeamOverview);
-    let currentPromise = Promise.resolve();
-    const zip = JSZip();
-
-    this.teamService.teams.forEach(team => {
-      const teamFolder = zip.folder(onlyTeamOverview ? 'Team-Overview' : team.name);
-
-      currentPromise = currentPromise.then(
-        () => {
-          this.imageExportProgress++;
-          // return this.exportTeamScreenshot(team, teamFolder, team.name + '-0-overview.png');
-        },
-        () => Promise.reject(null)
-      );
-
-      if (!onlyTeamOverview) {
-        team.persons.forEach(
-          (person, i) =>
-            (currentPromise = currentPromise.then(
-              () => {
-                this.imageExportProgress++;
-                return this.exportPersonScreenshot(person, teamFolder, team.name + '-' + (i + 1) + '.png');
-              },
-              () => Promise.reject(null)
-            ))
-        );
-      }
-    });
-
-    currentPromise = currentPromise.then(
-      () =>
-        zip.generateAsync({ type: 'blob' }).then(content => {
-          FileSaver.saveAs(content, 'TEASE-image-export.zip');
-          this.imageExportProgress++;
-          this.imageExportRunning = false;
-          this.data.onDownloadFinished();
-        }),
-      () => {
-        console.log('export cancelled');
-        this.imageExportRunning = false;
-      }
+    const projectElements: HTMLElement[] = Array.from(
+      this.projectsScreen.nativeElement.getElementsByClassName('project')
     );
+    projectElements.push(this.projectsScreen.nativeElement);
+
+    setTimeout(() => {
+      const zip = new JSZip();
+
+      const imageObservables = projectElements.map(projectElement => {
+        const filename = projectElement.getAttribute('id');
+        return this.getImage(projectElement).pipe(map(image => ({ filename, image })));
+      });
+
+      forkJoin(imageObservables).subscribe(images => {
+        images.forEach(({ filename, image }) => {
+          zip.file(`${filename}.png`, image.split(',')[1], { base64: true });
+        });
+
+        zip.generateAsync({ type: 'blob' }).then(content => {
+          saveAs(content, this.EXPORT_PROJECT_IMAGES_NAME);
+          this.isLoading = false;
+        });
+      });
+    }, 100);
   }
 
-  getImageExportProgressPercentage(): number {
-    return (this.imageExportProgress / this.imageExportMaxProgress) * 100;
+  private getImage(element: HTMLElement): Observable<string> {
+    return this.captureService.getImage(element, true);
   }
-
-  exportPersonScreenshot(person: Person, zip: JSZip, filename: string): Promise<void> {
-    console.log('exporting person ' + person.tumId + '...');
-    return new Promise<void>((resolve, reject) => {
-      if (this.destroyed) {
-        reject();
-        return;
-      }
-      //this.personDetailCardComponent.person = person;
-
-      if (this.destroyed) {
-        reject();
-        return;
-      }
-
-      // setTimeout(
-      //   () =>
-      //     html2canvas(this.personDetailCardComponentRef.nativeElement, this.html2canvasOptions).then(canvas => {
-      //       canvas.toBlob(function (blob) {
-      //         zip.file(filename, blob);
-      //         resolve();
-      //       });
-      //     }),
-      //   500
-      // );
-    });
-  }
-
-  // exportTeamScreenshot(team: Team, zip: JSZip, filename: string): Promise<void> {
-  //   console.log('exporting team ' + team.name + '...');
-  //   return new Promise<void>((resolve, reject) => {
-  //     if (this.destroyed) {
-  //       reject();
-  //       return;
-  //     }
-
-  //     this.teamComponent.team = team;
-  //     this.teamComponent.screenshotMode = true;
-  //     this.teamComponent.statisticsVisible = true;
-
-  //     if (this.destroyed) {
-  //       reject();
-  //       return;
-  //     }
-  //     setTimeout(
-  //       () =>
-  //         html2canvas(this.teamComponentRef.nativeElement, this.html2canvasOptions).then(canvas => {
-  //           canvas.toBlob(function (blob) {
-  //             zip.file(filename, blob);
-  //             resolve();
-  //           });
-  //         }),
-  //       500
-  //     );
-  //   });
-  // }
 }
