@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 import { AllocationData } from 'src/app/shared/models/allocation-data';
-import { facCloseIcon } from 'src/assets/icons/icons';
+import { facCloseIcon, facWarnIcon } from 'src/assets/icons/icons';
 import { IntroCourseProficiencyChartDataService } from '../statistics/charts/chart-data-formatter/formatters/intro-course-proficiency-chart-data.service';
 import { PriorityChartDataService } from '../statistics/charts/chart-data-formatter/formatters/priority-chart-data.service';
 import { SkillsProficiencyChartDataService } from '../statistics/charts/chart-data-formatter/formatters/skills-proficiency-chart-data.service';
@@ -18,6 +18,7 @@ enum ViewMode {
 })
 export class UtilityComponent implements OnInit, OnChanges {
   facCloseIcon = facCloseIcon;
+  facWarnIcon = facWarnIcon;
 
   viewMode = ViewMode.Statistics;
   ViewMode = ViewMode;

@@ -264,6 +264,18 @@ export const facInfoIcon: IconDefinition = {
   ],
 } as IconDefinition;
 
+export const facWarnIcon: IconDefinition = {
+  prefix: 'fac' as IconPrefix,
+  iconName: 'Info-icon' as IconName,
+  icon: [
+    24, // SVG view box width
+    24, // SVG view box height
+    [],
+    '',
+    'M2.73071 20L12 4L21.2692 20H2.73071ZM4.44996 19H19.55L12 6L4.44996 19ZM12 17.6154C12.1743 17.6154 12.3205 17.5564 12.4384 17.4385C12.5564 17.3205 12.6153 17.1744 12.6153 17C12.6153 16.8256 12.5564 16.6795 12.4384 16.5615C12.3205 16.4436 12.1743 16.3846 12 16.3846C11.8256 16.3846 11.6794 16.4436 11.5615 16.5615C11.4436 16.6795 11.3846 16.8256 11.3846 17C11.3846 17.1744 11.4436 17.3205 11.5615 17.4385C11.6794 17.5564 11.8256 17.6154 12 17.6154ZM11.5 15.3846H12.5V10.3846H11.5V15.3846Z',
+  ],
+} as IconDefinition;
+
 export const teaseIconPack: IconPack = {
   facIphoneIcon,
   facIpadIcon,
