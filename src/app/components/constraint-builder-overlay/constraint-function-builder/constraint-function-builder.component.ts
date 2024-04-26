@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ChangeDetectorRef, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Skill, Student } from 'src/app/api/models';
@@ -29,6 +29,7 @@ export class ConstraintFunctionBuilderComponent implements OnInit, OnDestroy {
   private constraintFunctions: ConstraintFunction[] = [];
   private constraintFunctionData: ConstraintFunctionValues[] = [];
   @Output() constraintFunctionChange = new EventEmitter<ConstraintFunctionWrapper>();
+  @Input() constraintFunctionWrapper: ConstraintFunctionWrapper;
 
   form: FormGroup;
   propertyData: SelectData[];
@@ -84,6 +85,11 @@ export class ConstraintFunctionBuilderComponent implements OnInit, OnDestroy {
     );
 
     this.createPropertySelectGroup();
+    if (this.constraintFunctionWrapper) {
+      this.form.get('property').setValue(this.constraintFunctionWrapper.propertyId);
+      this.form.get('operator').setValue(this.constraintFunctionWrapper.operator);
+      this.form.get('value').setValue(this.constraintFunctionWrapper.valueId);
+    }
   }
 
   ngOnDestroy(): void {

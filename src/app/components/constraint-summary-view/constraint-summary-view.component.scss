@@ -10,8 +10,15 @@ th {
   text-align: center;
 }
 
-table .btn-icon-s:hover {
+table .btn-icon-warn:hover {
   background-color: $warn !important;
+  fa-icon {
+    color: $white !important;
+  }
+}
+
+table .btn-icon-dark:hover {
+  background-color: $dark !important;
   fa-icon {
     color: $white !important;
   }

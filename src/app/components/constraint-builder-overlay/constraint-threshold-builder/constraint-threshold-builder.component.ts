@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { StudentsService } from 'src/app/shared/data/students.service';
@@ -14,6 +14,7 @@ export class ConstraintThresholdBuilderComponent implements OnInit, OnDestroy {
   form: FormGroup;
   private subscriptions: Subscription[] = [];
   @Output() thresholdChange = new EventEmitter<ThresholdWrapper>();
+  @Input() thresholdWrapper: ThresholdWrapper;
 
   constructor(private studentsService: StudentsService) {}
 
@@ -36,6 +37,11 @@ export class ConstraintThresholdBuilderComponent implements OnInit, OnDestroy {
         this.thresholdChange.emit(new ThresholdWrapper(lowerBound, upperBound));
       })
     );
+
+    if (this.thresholdWrapper) {
+      this.form.get('lowerBound').setValue(this.thresholdWrapper.lowerBound);
+      this.form.get('upperBound').setValue(this.thresholdWrapper.upperBound);
+    }
   }
 
   ngOnDestroy(): void {

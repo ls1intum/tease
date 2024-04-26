@@ -41,10 +41,25 @@ export class ConstraintsService {
     return this.constraintsSubject$.getValue();
   }
 
-  deleteConstraint(constraint: ConstraintWrapper): void {
-    const constraints = this.getConstraints();
-    const index = constraints.indexOf(constraint);
-    constraints.splice(index, 1);
+  getConstraint(id: string): ConstraintWrapper {
+    return this.getConstraints().find(constraint => constraint.id === id);
+  }
+
+  deleteConstraint(id: string): void {
+    let constraints = this.getConstraints();
+    constraints = constraints.filter(constraint => constraint.id !== id);
     this.setConstraints(constraints);
+  }
+
+  replaceConstraint(id: string, newConstraint: ConstraintWrapper): void {
+    let constraints = this.getConstraints();
+    if (this.getConstraint(id)) {
+      constraints = constraints.map(storedConstraint =>
+        storedConstraint.id === id ? newConstraint : storedConstraint
+      );
+      this.setConstraints(constraints);
+      return;
+    }
+    this.addConstraint(newConstraint);
   }
 }

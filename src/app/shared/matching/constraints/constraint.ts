@@ -5,7 +5,8 @@ export class ConstraintWrapper {
   constructor(
     readonly projectIds: string[],
     readonly constraintFunction: ConstraintFunctionWrapper,
-    readonly threshold: ThresholdWrapper
+    readonly threshold: ThresholdWrapper,
+    readonly id: string
   ) {}
 }
 
