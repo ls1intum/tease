@@ -24,7 +24,7 @@
     <div>
       <button
         type="button"
-        class="btn btn-icon"
+        class="btn btn-icon btn-icon-primary"
         (click)="showSortConfirmation()"
         ngbTooltip="Sort Students"
         triggers="hover">
@@ -32,7 +32,7 @@
       </button>
       <button
         type="button"
-        class="btn btn-icon"
+        class="btn btn-icon btn-icon-primary"
         (click)="showConstraintBuilderOverlay()"
         ngbTooltip="Add Constraint"
         triggers="hover">
@@ -45,7 +45,7 @@
     </button>
 
     <div ngbDropdown class="d-inline-block">
-      <button type="button" class="btn btn-icon" id="moreDropdown" ngbDropdownToggle>
+      <button type="button" class="btn btn-icon btn-icon-primary" id="moreDropdown" ngbDropdownToggle>
         <fa-icon [icon]="facMoreIcon" class="fs-3 text-white"></fa-icon>
       </button>
       <div ngbDropdownMenu>

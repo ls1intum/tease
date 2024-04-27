@@ -1,24 +1,41 @@
 <div class="d-flex justify-content-center align-items-center vh-100">
   <div class="w-75">
     <div class="bg-white p-4 rounded-3 d-flex flex-column gap-4" (click)="$event.stopPropagation()">
-      <h3 class="fw-semibold mb-1">Constraint Builder</h3>
+      <div class="d-flex">
+        <h3 class="fw-semibold mb-1">Constraint Builder</h3>
+        <div class="flex-grow-1"></div>
+        <button
+          type="button"
+          class="btn btn-icon btn-icon-primary"
+          (click)="showConstraintHelpOverlay()"
+          ngbTooltip="Help"
+          triggers="hover">
+          <fa-icon [icon]="facQuestionIcon" class="fs-3 text-dark"></fa-icon>
+        </button>
+      </div>
 
       <div>
-        <h4 class="fw-semibold mb-3">Projects</h4>
+        <h4 class="fw-semibold mb-2">Projects</h4>
+        <p>Select the projects where the following constraint will be applied.</p>
         <app-constraint-projects-builder
           (selectedProjectsChange)="selectedProjectsChange($event)"
           [selectedProjectIds]="projectIds"></app-constraint-projects-builder>
       </div>
 
       <div>
-        <h4 class="fw-semibold mb-3">Constraint Function</h4>
+        <h4 class="fw-semibold mb-2">Constraint Function</h4>
+        <p><b>Filter</b> students based on whether they fulfill the constraint.</p>
         <app-constraint-function-builder
           (constraintFunctionChange)="constraintFunctionChange($event)"
           [constraintFunctionWrapper]="constraintFunctionWrapper"></app-constraint-function-builder>
       </div>
 
       <div>
-        <h4 class="fw-semibold mb-3">Threshold</h4>
+        <h4 class="fw-semibold mb-2">Threshold</h4>
+        <p>
+          Set the <b>minimum</b> and <b>maximum</b> number of students that need to fulfill the constraint
+          <b>per project</b>.
+        </p>
         <app-constraint-threshold-builder
           (thresholdChange)="thresholdChange($event)"
           [thresholdWrapper]="thresholdWrapper"></app-constraint-threshold-builder>
