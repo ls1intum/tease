@@ -22,25 +22,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Compute Tag
-        uses: actions/github-script@v6
-        id: compute-tag
-        with:
-          result-encoding: string
-          script: |
-            if (context.eventName === "pull_request") {
-              return "pr-" + context.issue.number;
-            }
-            if (context.eventName === "push") {
-              if (context.ref.startsWith("refs/tags/")) {
-                return context.ref.slice(10);
-              }
-              if (context.ref === "refs/heads/main") {
-                return "latest";
-              }
-            }
-            return "FALSE";
-
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -61,7 +42,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-        if: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -71,16 +51,23 @@ jobs:
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@master
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
         with:
-          version: latest
+          images: |
+            ls1tum/tease
+            ghcr.io/ls1intum/tease
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=branch
+            type=ref,event=pr
 
       - name: Build Image and Push to GitHub Container Registry and DockerHub
         uses: docker/build-push-action@v4
-        if: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
         with:
           context: .
-          tags: |
-            ls1tum/tease:${{ steps.compute-tag.outputs.result }}
-            ghcr.io/ls1intum/tease:${{ steps.compute-tag.outputs.result }}
+          tags: ${{ steps.meta.outputs.tags }}
           platforms: linux/amd64,linux/arm64/v8
           push: true
