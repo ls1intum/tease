@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: ${{ (github.ref == 'refs/heads/main') && 'PROMPT-Prod' || (github.ref == 'refs/heads/develop') && 'PROMPT-Dev' }}
-      url: ${{ vars.VM_HOST }}
+      url: 'https://${{ vars.VM_HOST }}'
     steps:
       - name: SSH to VM and Execute Docker-Compose Down
         uses: appleboy/ssh-action@v1.0.3
