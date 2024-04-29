@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: ${{ (github.ref == 'refs/heads/main') && 'PROMPT-Prod' || (github.ref == 'refs/heads/develop') && 'PROMPT-Dev' }}
-      url: ${{ vars.VM_HOST }}
+      url: 'https://${{ vars.VM_HOST }}'
     steps:
       - name: Print Tag
         run: echo "The computed tag is ${{ inputs.image_tag }} and the environment is ${{ env.environment.name }}"
