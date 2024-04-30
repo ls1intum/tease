@@ -17,22 +17,12 @@
         Images of all team representations and person cards can be exported to visualize the team allocation and person
         information.
 
-        <div class="d-flex gap-2 align-items-start">
-          <button
-            type="button"
-            class="btn btn-primary"
-            [disabled]="imageExportRunning"
-            (click)="exportScreenshots(false)">
-            Download Team Overview + Members
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            [disabled]="imageExportRunning"
-            (click)="exportScreenshots(true)">
-            Download Team Overview
-          </button>
-        </div>
+        <button class="btn btn-primary" type="button" [disabled]="isLoading" (click)="exportProjectImages()">
+          <span class="pe-2" [ngClass]="{ 'visually-hidden': !isLoading }">
+            <span class="spinner-border spinner-border-sm"></span>
+          </span>
+          <span>Download Project Images</span>
+        </button>
       </div>
 
       <div class="d-flex flex-column gap-2 align-items-start">
@@ -41,13 +31,14 @@
         <button type="button" class="btn btn-primary" (click)="exportPrompt()">Export to Prompt</button>
       </div>
     </div>
+  </div>
+</div>
 
-    <div class="capturing-parent">
-      <!-- <app-person-detail-card></app-person-detail-card> -->
-    </div>
-
-    <div class="capturing-parent">
-      <!-- <app-team></app-team> -->
-    </div>
+<div class="position-absolute">
+  <div class="bg-bright py-2" id="projects" #projectsScreen>
+    <app-projects
+      class="flex-grow-1 overflow-hidden"
+      [projectsData]="data.allocationData.projectsData"
+      [imageExport]="true" />
   </div>
 </div>

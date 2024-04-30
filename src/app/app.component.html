@@ -1,6 +1,6 @@
 @if (dataLoaded) {
   <div class="bg-bright h-100 d-flex flex-column gap-2">
-    <app-navigation-bar></app-navigation-bar>
+    <app-navigation-bar [allocationData]="allocationData"></app-navigation-bar>
     <app-projects class="flex-grow-1 overflow-hidden" [projectsData]="allocationData.projectsData"></app-projects>
     <app-utility [allocationData]="allocationData"></app-utility>
   </div>
