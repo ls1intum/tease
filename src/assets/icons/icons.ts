@@ -264,6 +264,18 @@ export const facInfoIcon: IconDefinition = {
   ],
 } as IconDefinition;
 
+export const facEditIcon: IconDefinition = {
+  prefix: 'fac' as IconPrefix,
+  iconName: 'Edit-icon' as IconName,
+  icon: [
+    24, // SVG view box width
+    24, // SVG view box height
+    [],
+    '',
+    'M5 19H6.2615L16.498 8.7635L15.2365 7.502L5 17.7385V19ZM3.5 20.5V17.1155L16.6905 3.93075C16.8417 3.79342 17.0086 3.68733 17.1913 3.6125C17.3741 3.5375 17.5658 3.5 17.7663 3.5C17.9668 3.5 18.1609 3.53558 18.3488 3.60675C18.5368 3.67792 18.7032 3.79108 18.848 3.94625L20.0693 5.18275C20.2244 5.32758 20.335 5.49425 20.401 5.68275C20.467 5.87125 20.5 6.05975 20.5 6.24825C20.5 6.44942 20.4657 6.64133 20.397 6.824C20.3283 7.00683 20.2191 7.17383 20.0693 7.325L6.8845 20.5H3.5ZM15.8563 8.14375L15.2365 7.502L16.498 8.7635L15.8563 8.14375Z',
+  ],
+} as IconDefinition;
+
 export const facWarnIcon: IconDefinition = {
   prefix: 'fac' as IconPrefix,
   iconName: 'Info-icon' as IconName,
@@ -299,4 +311,5 @@ export const teaseIconPack: IconPack = {
   facConstraintIcon,
   facSortIcon,
   facInfoIcon,
+  facEditIcon,
 };

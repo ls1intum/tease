@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Project } from 'src/app/api/models';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
@@ -11,7 +11,7 @@ import { SelectData } from 'src/app/shared/matching/constraints/constraint-funct
 export class ConstraintProjectsBuilderComponent implements OnInit {
   private projects: Project[] = [];
   projectData: SelectData[] = [];
-  selectedProjectIds: string[] = [];
+  @Input() selectedProjectIds: string[] = [];
   @Output() selectedProjectsChange = new EventEmitter<string[]>();
 
   constructor(private projectsService: ProjectsService) {}

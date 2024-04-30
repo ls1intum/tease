@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { OverlayComponent, OverlayService } from 'src/app/overlay.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import {
@@ -7,22 +7,35 @@ import {
   ThresholdWrapper,
 } from 'src/app/shared/matching/constraints/constraint';
 import { ConstraintSummaryViewComponent } from '../constraint-summary-view/constraint-summary-view.component';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-constraint-builder-overlay',
   templateUrl: './constraint-builder-overlay.component.html',
   styleUrl: './constraint-builder-overlay.component.scss',
 })
-export class ConstraintBuilderOverlayComponent implements OverlayComponent {
-  data = {
-    onClosed: () => {},
+export class ConstraintBuilderOverlayComponent implements OverlayComponent, OnInit {
+  data: {
+    constraintWrapper: ConstraintWrapper;
+    onClosed: () => {};
   };
-  private projectIds: string[] = [];
-  private constraintFunctionWrapper: ConstraintFunctionWrapper;
-  private thresholdWrapper: ThresholdWrapper;
+  id: string;
+  projectIds: string[] = [];
+  constraintFunctionWrapper: ConstraintFunctionWrapper;
+  thresholdWrapper: ThresholdWrapper;
   isFormValid = false;
 
   constructor(private constraintsService: ConstraintsService) {}
+
+  ngOnInit(): void {
+    if (this.data.constraintWrapper) {
+      const constraintWrapper = this.data.constraintWrapper;
+      this.projectIds = constraintWrapper.projectIds;
+      this.constraintFunctionWrapper = constraintWrapper.constraintFunction;
+      this.thresholdWrapper = constraintWrapper.threshold;
+      this.id = constraintWrapper.id;
+    }
+  }
 
   selectedProjectsChange(projectIds: string[]): void {
     this.projectIds = projectIds;
@@ -56,8 +69,13 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponent {
       return;
     }
 
-    const constraint = new ConstraintWrapper(this.projectIds, this.constraintFunctionWrapper, this.thresholdWrapper);
-    this.constraintsService.addConstraint(constraint);
+    const constraint = new ConstraintWrapper(
+      this.projectIds,
+      this.constraintFunctionWrapper,
+      this.thresholdWrapper,
+      uuid()
+    );
+    this.constraintsService.replaceConstraint(this.id, constraint);
 
     this.openConstrainstView();
   }

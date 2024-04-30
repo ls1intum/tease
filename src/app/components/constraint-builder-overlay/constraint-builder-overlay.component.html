@@ -6,26 +6,29 @@
       <div>
         <h4 class="fw-semibold mb-3">Projects</h4>
         <app-constraint-projects-builder
-          (selectedProjectsChange)="selectedProjectsChange($event)"></app-constraint-projects-builder>
+          (selectedProjectsChange)="selectedProjectsChange($event)"
+          [selectedProjectIds]="projectIds"></app-constraint-projects-builder>
       </div>
 
       <div>
         <h4 class="fw-semibold mb-3">Constraint Function</h4>
         <app-constraint-function-builder
-          (constraintFunctionChange)="constraintFunctionChange($event)"></app-constraint-function-builder>
+          (constraintFunctionChange)="constraintFunctionChange($event)"
+          [constraintFunctionWrapper]="constraintFunctionWrapper"></app-constraint-function-builder>
       </div>
 
       <div>
         <h4 class="fw-semibold mb-3">Threshold</h4>
         <app-constraint-threshold-builder
-          (thresholdChange)="thresholdChange($event)"></app-constraint-threshold-builder>
+          (thresholdChange)="thresholdChange($event)"
+          [thresholdWrapper]="thresholdWrapper"></app-constraint-threshold-builder>
       </div>
 
       <div class="d-flex mt-5">
         <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
         <div class="flex-grow-1"></div>
         <button type="button" class="btn btn-primary" (click)="addConstraint()" [disabled]="!isFormValid">
-          Add Constraint
+          {{ id ? 'Save Changes' : 'Add Constraint' }}
         </button>
       </div>
     </div>

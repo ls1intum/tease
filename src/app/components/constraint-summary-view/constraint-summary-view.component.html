@@ -67,8 +67,17 @@
                   }}
                 </td>
 
-                <td class="">
-                  <button type="button" class="btn btn-icon-s" (click)="deleteConstraintWrapper(constraintWrapper)">
+                <td class="text-nowrap p-0">
+                  <button
+                    type="button"
+                    class="btn btn-icon-s btn-icon-dark me-2"
+                    (click)="showConstraintBuilderOverlay(constraintWrapper)">
+                    <fa-icon [icon]="facEditIcon" class="text-dark"></fa-icon>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-icon-s btn-icon-warn"
+                    (click)="deleteConstraintWrapper(constraintWrapper.id)">
                     <fa-icon [icon]="facDeleteIcon" class="text-danger"></fa-icon>
                   </button>
                 </td>
@@ -82,7 +91,7 @@
         <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
         <div class="flex-grow-1"></div>
 
-        <button type="button" class="btn btn-outline-primary" (click)="showConstraintBuilderOverlay()">
+        <button type="button" class="btn btn-outline-primary" (click)="showConstraintBuilderOverlay(null)">
           <fa-icon [icon]="facConstraintIcon"></fa-icon>
           Add Constraint
         </button>

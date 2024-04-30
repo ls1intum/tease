@@ -4,7 +4,7 @@ import { OverlayComponent, OverlayService } from 'src/app/overlay.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { ConstraintWrapper } from 'src/app/shared/matching/constraints/constraint';
-import { facConstraintIcon, facDeleteIcon, facGroupsIcon } from 'src/assets/icons/icons';
+import { facConstraintIcon, facDeleteIcon, facEditIcon, facGroupsIcon } from 'src/assets/icons/icons';
 import { ConstraintBuilderOverlayComponent } from '../constraint-builder-overlay/constraint-builder-overlay.component';
 import { LocksService } from 'src/app/shared/data/locks.service';
 import { ConstraintBuilderService } from 'src/app/shared/matching/constraints/constraint-builder/constraint-builder.service';
@@ -24,6 +24,7 @@ export class ConstraintSummaryViewComponent implements OverlayComponent, OnInit 
   facDeleteIcon = facDeleteIcon;
   facGroupsIcon = facGroupsIcon;
   facConstraintIcon = facConstraintIcon;
+  facEditIcon = facEditIcon;
 
   constraintWrappers: ConstraintWrapper[] = [];
   projects: Project[] = [];
@@ -46,10 +47,11 @@ export class ConstraintSummaryViewComponent implements OverlayComponent, OnInit 
     this.projects = this.projectsService.getProjects();
   }
 
-  showConstraintBuilderOverlay(): void {
+  showConstraintBuilderOverlay(constraintWrapper: ConstraintWrapper): void {
     this.cancel();
     setTimeout(() => {
       this.overlayService.displayComponent(ConstraintBuilderOverlayComponent, {
+        constraintWrapper: constraintWrapper,
         onClosed: () => {
           this.overlayService.closeOverlay();
           setTimeout(() => {
@@ -64,8 +66,8 @@ export class ConstraintSummaryViewComponent implements OverlayComponent, OnInit 
     this.overlayService.closeOverlay();
   }
 
-  deleteConstraintWrapper(constraintWrapper: ConstraintWrapper): void {
-    this.constraintsService.deleteConstraint(constraintWrapper);
+  deleteConstraintWrapper(id: string): void {
+    this.constraintsService.deleteConstraint(id);
     this.constraintWrappers = this.constraintsService.getConstraints();
   }
 
