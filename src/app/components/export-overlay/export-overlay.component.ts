@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { OverlayComponent } from '../../overlay.service';
 import * as JSZip from 'jszip';
 import { PromptService } from 'src/app/shared/services/prompt.service';
@@ -18,7 +18,7 @@ import { Observable, forkJoin, map } from 'rxjs';
   templateUrl: './export-overlay.component.html',
   styleUrls: ['./export-overlay.component.scss'],
 })
-export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
+export class ExportOverlayComponent implements OverlayComponent {
   public data: {
     allocationData: AllocationData;
   };
@@ -38,8 +38,6 @@ export class ExportOverlayComponent implements OnDestroy, OverlayComponent {
     private studentsService: StudentsService,
     private captureService: NgxCaptureService
   ) {}
-
-  ngOnDestroy() {}
 
   async exportPrompt() {
     const allocations = this.allocationsService.getAllocations();
