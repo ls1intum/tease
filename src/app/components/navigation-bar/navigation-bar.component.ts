@@ -30,7 +30,7 @@ export class NavigationBarComponent {
   facSkillCircleIcon = teaseIconPack['facSkillCircleIcon'];
   facSkillSideIcon = teaseIconPack['facSkillSideIcon'];
   facSkillDeathIcon = teaseIconPack['facSkillDeathIcon'];
-  facConstraintIcon = teaseIconPack['facConstraintIcon'];
+  facAddIcon = teaseIconPack['facAddIcon'];
   facSortIcon = teaseIconPack['facSortIcon'];
 
   @Input({ required: true }) allocationData: AllocationData;

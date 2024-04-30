@@ -1,0 +1,37 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="w-75 bg-white d-flex flex-column p-4 rounded-3 gap-4" (click)="$event.stopPropagation()">
+    <div>
+      <h4 class="fw-semibold">Blacklisted Nationalities</h4>
+    </div>
+    <div>
+      <h4 class="fw-semibold mb-3">Projects</h4>
+      <app-select [elementsData]="projectsSelectData" title="Projects" />
+    </div>
+
+    <div>
+      <div class="d-flex mb-2 align-items-center">
+        <h4 class="fw-semibold mb-0 lh-1">Nationalities</h4>
+        <div class="flex-grow-1"></div>
+        <div ngbDropdown class="d-inline-block">
+          <button type="button" class="btn btn-icon" id="moreDropdown" ngbDropdownToggle>
+            <fa-icon [icon]="facMoreIcon" class="fs-3 text-dark"></fa-icon>
+          </button>
+          <div ngbDropdownMenu>
+            <button ngbDropdownItem (click)="selectFromStaatenliste()" class="btn-icon-text py-2 text-dark">
+              Staatenliste im Sinne von § 13 Abs. 1 Nr. 17 SÜG (06.08.2022)
+            </button>
+          </div>
+        </div>
+      </div>
+      <p>Select the nationalities that are black listed for a given project.</p>
+      <app-select [elementsData]="nationalitiesSelectData" title="Nationalities" />
+    </div>
+
+    <div class="d-flex mt-5">
+      <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+
+      <div class="flex-grow-1"></div>
+      <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!true">Save</button>
+    </div>
+  </div>
+</div>

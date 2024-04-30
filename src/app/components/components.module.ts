@@ -22,6 +22,8 @@ import { ConstraintThresholdBuilderComponent } from './constraint-builder-overla
 import { ConstraintProjectsBuilderComponent } from './constraint-builder-overlay/constraint-projects-builder/constraint-projects-builder.component';
 import { ConstraintSummaryViewComponent } from './constraint-summary-view/constraint-summary-view.component';
 import { SharedModule } from '../shared/shared.module';
+import { ConstraintBuilderNationalityComponent } from './constraint-builder-nationality/constraint-builder-nationality.component';
+import { SelectComponent } from './select/select.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { SharedModule } from '../shared/shared.module';
     ConstraintThresholdBuilderComponent,
     ConstraintProjectsBuilderComponent,
     ConstraintSummaryViewComponent,
+    ConstraintBuilderNationalityComponent,
+    SelectComponent,
   ],
   exports: [NavigationBarComponent, ProjectsComponent, UtilityComponent, IntroCardComponent],
   providers: [],

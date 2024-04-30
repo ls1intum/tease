@@ -1,0 +1,22 @@
+<div class="d-flex flex-column gap-2">
+  <div class="d-flex flex-wrap gap-2">
+    @for (element of elementsData; track element) {
+      <div (click)="toggleProjectsSelection(element.id)" role="button" class="no-select">
+        <div
+          class="py-1 px-3 rounded-5"
+          [ngClass]="element.selected ? 'bg-primary-20 text-primary-high-contrast' : 'bg-card text-dark'">
+          {{ element.name }}
+        </div>
+      </div>
+    }
+  </div>
+  <div class="d-flex flex-wrap gap-2">
+    <div (click)="toggleAllProjectsSelection()" role="button" class="no-select">
+      <div
+        class="py-1 px-3 rounded-5 fst-italic"
+        [ngClass]="allSelected ? 'bg-primary-20 text-primary-high-contrast' : 'bg-card text-dark'">
+        All {{ title }}
+      </div>
+    </div>
+  </div>
+</div>
