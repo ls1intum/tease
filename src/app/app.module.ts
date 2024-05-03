@@ -15,10 +15,7 @@ import { SharedModule } from './shared/shared.module';
 import { ComponentsModule } from './components/components.module';
 import { ApiModule } from './api/api.module';
 
-import { TeamService } from './shared/layers/business-logic-layer/team.service';
-import { ConstraintService } from './shared/layers/business-logic-layer/constraint.service';
 import { OverlayService } from './overlay.service';
-import { PersonStatisticsService } from './shared/layers/business-logic-layer/person-statistics.service';
 
 import { PromptService } from './shared/services/prompt.service';
 
@@ -52,15 +49,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     environment.production ? ApiModule : ApiModule.forRoot({ rootUrl: 'http://localhost:3001/api/tease' }),
     FontAwesomeModule,
   ],
-  providers: [
-    TeamService,
-    ConstraintService,
-    OverlayService,
-    PersonStatisticsService,
-    PromptService,
-    AuthInterceptor,
-    API_INTERCEPTOR_PROVIDER,
-  ],
+  providers: [OverlayService, PromptService, AuthInterceptor, API_INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent],
 })
 export class AppModule {
