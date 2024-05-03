@@ -30,9 +30,13 @@ export class ConstraintBuilderNationalityComponent implements OverlayComponent, 
 
   data: {};
   projectsSelectData: SelectData[] = [];
+  selectedProjectIds: string[] = [];
   nationalitiesSelectData: SelectData[] = [];
+  selectedNationalityIds: string[] = [];
 
   constraintFunction: NationalityConstraintFunction;
+
+  isFormValid = false;
 
   // "Staatenliste im Sinne von § 13 Abs. 1 Nr. 17 SÜG" accessed on 30.04.2024
   readonly STAATENLISTE = [
@@ -83,15 +87,14 @@ export class ConstraintBuilderNationalityComponent implements OverlayComponent, 
       name: project.name,
     }));
   }
-  close() {
+  close(): void {
     this.overlayService.closeOverlay();
     setTimeout(() => {
       this.overlayService.displayComponent(ConstraintSummaryViewComponent, {});
     }, 10);
   }
 
-  save() {
-    const selectedProjectIds = this.selectDataService.getSelectedIds(this.projectsSelectData);
+  save(): void {
     const thresholdWrapper = this.getThresholdWrapper();
 
     this.nationalitiesSelectData.forEach(nationality => {
@@ -100,7 +103,7 @@ export class ConstraintBuilderNationalityComponent implements OverlayComponent, 
       }
       const constraintFunctionWrapper = this.getConstraintFunctionWrapper(nationality);
       const constraint: ConstraintWrapper = {
-        projectIds: selectedProjectIds,
+        projectIds: this.selectedProjectIds,
         constraintFunction: constraintFunctionWrapper,
         threshold: thresholdWrapper,
         id: uuid(),
@@ -111,7 +114,7 @@ export class ConstraintBuilderNationalityComponent implements OverlayComponent, 
     this.close();
   }
 
-  getConstraintFunctionWrapper(nationality: SelectData): ConstraintFunctionWrapper {
+  private getConstraintFunctionWrapper(nationality: SelectData): ConstraintFunctionWrapper {
     const property = this.constraintFunction.getProperties().values[0];
     const operator = Operator.EQUALS;
     const filteredStudents = this.constraintFunction.filterStudentsByConstraintFunction(
@@ -130,21 +133,42 @@ export class ConstraintBuilderNationalityComponent implements OverlayComponent, 
     };
   }
 
-  getThresholdWrapper(): ThresholdWrapper {
+  private getThresholdWrapper(): ThresholdWrapper {
     return {
       lowerBound: 0,
       upperBound: 0,
     };
   }
 
-  selectFromStaatenliste() {
+  selectFromStaatenliste(): void {
+    this.selectedNationalityIds = [];
     this.nationalitiesSelectData.forEach(nationality => {
       if (this.STAATENLISTE.includes(nationality.id)) {
+        this.selectedNationalityIds.push(nationality.id);
         nationality.selected = true;
         return;
       }
       nationality.selected = false;
     });
     this.nationalitySelect.updateAllSelected();
+    this.updateFormValid();
+  }
+
+  projectsSelectionChange(projectIds: string[]): void {
+    this.selectedProjectIds = projectIds;
+    this.updateFormValid();
+  }
+
+  nationalitiesSelectionChange(nationalityIds: string[]): void {
+    this.selectedNationalityIds = nationalityIds;
+    this.updateFormValid();
+  }
+
+  updateFormValid(): void {
+    if (this.selectedProjectIds.length && this.selectedNationalityIds.length) {
+      this.isFormValid = true;
+      return;
+    }
+    this.isFormValid = false;
   }
 }

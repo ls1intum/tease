@@ -19,7 +19,6 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
 import { ConstraintBuilderOverlayComponent } from './constraint-builder-overlay/constraint-builder-overlay.component';
 import { ConstraintFunctionBuilderComponent } from './constraint-builder-overlay/constraint-function-builder/constraint-function-builder.component';
 import { ConstraintThresholdBuilderComponent } from './constraint-builder-overlay/constraint-threshold-builder/constraint-threshold-builder.component';
-import { ConstraintProjectsBuilderComponent } from './constraint-builder-overlay/constraint-projects-builder/constraint-projects-builder.component';
 import { ConstraintSummaryViewComponent } from './constraint-summary-view/constraint-summary-view.component';
 import { SharedModule } from '../shared/shared.module';
 import { ConstraintBuilderNationalityComponent } from './constraint-builder-nationality/constraint-builder-nationality.component';
@@ -39,7 +38,6 @@ import { SelectComponent } from './select/select.component';
     ConstraintBuilderOverlayComponent,
     ConstraintFunctionBuilderComponent,
     ConstraintThresholdBuilderComponent,
-    ConstraintProjectsBuilderComponent,
     ConstraintSummaryViewComponent,
     ConstraintBuilderNationalityComponent,
     SelectComponent,

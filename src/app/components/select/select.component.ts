@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 
 @Component({
@@ -9,6 +9,7 @@ import { SelectData } from 'src/app/shared/matching/constraints/constraint-funct
 export class SelectComponent implements OnInit {
   @Input({ required: true }) elementsData: SelectData[] = [];
   @Input() title: string;
+  @Output() selectionChange = new EventEmitter<string[]>();
   allSelected: boolean;
 
   constructor() {}
@@ -33,6 +34,7 @@ export class SelectComponent implements OnInit {
       this.elementsData.find(element => element.id === elementId).selected = true;
       this.updateAllSelected();
     }
+    this.selectionChange.emit(this.selectedElementIds);
   }
 
   toggleAllProjectsSelection() {
@@ -43,5 +45,6 @@ export class SelectComponent implements OnInit {
       this.elementsData.forEach(element => (element.selected = true));
       this.allSelected = true;
     }
+    this.selectionChange.emit(this.selectedElementIds);
   }
 }
