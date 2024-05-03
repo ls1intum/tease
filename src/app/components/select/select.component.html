@@ -3,8 +3,10 @@
     @for (element of elementsData; track element) {
       <div (click)="toggleProjectsSelection(element.id)" role="button" class="no-select">
         <div
-          class="py-1 px-3 rounded-5"
-          [ngClass]="element.selected ? 'bg-primary-20 text-primary-high-contrast' : 'bg-card text-dark'">
+          class="py-1 px-3 rounded-5 tile border-1"
+          [ngClass]="
+            element.selected ? 'bg-primary-20 text-primary-high-contrast active' : 'bg-card text-dark inactive'
+          ">
           {{ element.name }}
         </div>
       </div>
@@ -13,8 +15,8 @@
   <div class="d-flex flex-wrap gap-2">
     <div (click)="toggleAllProjectsSelection()" role="button" class="no-select">
       <div
-        class="py-1 px-3 rounded-5 fst-italic"
-        [ngClass]="allSelected ? 'bg-primary-20 text-primary-high-contrast' : 'bg-card text-dark'">
+        class="py-1 px-3 rounded-5 fst-italic tile border-1"
+        [ngClass]="allSelected ? 'bg-primary-20 text-primary-high-contrast active' : 'bg-card text-dark inactive'">
         All {{ title }}
       </div>
     </div>
