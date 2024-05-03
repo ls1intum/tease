@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 
 @Component({
@@ -14,6 +14,10 @@ export class SelectComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    this.updateAllSelected();
+  }
+
+  updateAllSelected() {
     this.allSelected = this.selectedElementIds.length === this.elementsData.length;
   }
 
@@ -27,7 +31,7 @@ export class SelectComponent implements OnInit {
       this.allSelected = false;
     } else {
       this.elementsData.find(element => element.id === elementId).selected = true;
-      this.allSelected = this.selectedElementIds.length === this.elementsData.length;
+      this.updateAllSelected();
     }
   }
 

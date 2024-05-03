@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { OverlayComponent, OverlayService } from 'src/app/overlay.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
@@ -18,6 +18,7 @@ import {
 } from 'src/app/shared/matching/constraints/constraint';
 import { v4 as uuid } from 'uuid';
 import { facMoreIcon } from 'src/assets/icons/icons';
+import { SelectComponent } from '../select/select.component';
 
 @Component({
   selector: 'app-constraint-builder-nationality',
@@ -62,6 +63,8 @@ export class ConstraintBuilderNationalityComponent implements OverlayComponent, 
     'UZ',
     'VN',
   ];
+
+  @ViewChild('nationalitySelect') nationalitySelect: SelectComponent;
 
   constructor(
     private constraintsService: ConstraintsService,
@@ -142,5 +145,6 @@ export class ConstraintBuilderNationalityComponent implements OverlayComponent, 
       }
       nationality.selected = false;
     });
+    this.nationalitySelect.updateAllSelected();
   }
 }
