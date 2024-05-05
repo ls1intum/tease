@@ -11,6 +11,7 @@ import { Allocation, Project, Skill, Student } from 'src/app/api/models';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { IdMappingService } from 'src/app/shared/data/id-mapping.service';
 import { LocksService } from 'src/app/shared/data/locks.service';
+import { CsvParserService } from 'src/app/shared/services/csv-parser.service';
 
 @Component({
   selector: 'app-import-overlay',
@@ -34,7 +35,8 @@ export class ImportOverlayComponent implements OverlayComponent {
     private locksService: LocksService,
 
     private toastsService: ToastsService,
-    private overlayService: OverlayService
+    private overlayService: OverlayService,
+    private csvParserService: CsvParserService
   ) {}
 
   importFromCSV() {
@@ -69,15 +71,22 @@ export class ImportOverlayComponent implements OverlayComponent {
     }
   }
 
-  onFileChanged(event) {
+  async onFileChanged(event) {
     const files = event.target.files;
     if (files.length !== 1) return;
 
-    // TODO: Implement CSV Import
+    const file = files[0];
+    const data = await this.csvParserService.getData(file);
+    if (!data) {
+      this.toastsService.showToast('Invalid CSV file', 'Import ', false);
+      return;
+    }
+
+    this.setStudentData(data.students, data.projects, data.skills, []);
   }
 
-  public loadExampleData() {
-    // TODO: Implement Sample Data Import
+  async loadExampleData() {
+    this.onFileChanged({ target: { files: ['/assets/persons_example.csv'] } });
   }
 
   private setStudentData(students: Student[], projects: Project[], skills: Skill[], allocations: Allocation[]): void {
@@ -89,6 +98,7 @@ export class ImportOverlayComponent implements OverlayComponent {
     this.skillsService.setSkills(skills);
     this.allocationsService.setAllocations(allocations);
 
+    this.toastsService.showToast('Import successful', 'Import', true);
     this.overlayService.closeOverlay();
   }
 }
