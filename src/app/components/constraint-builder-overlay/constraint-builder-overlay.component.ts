@@ -8,6 +8,9 @@ import {
 } from 'src/app/shared/matching/constraints/constraint';
 import { ConstraintSummaryViewComponent } from '../constraint-summary-view/constraint-summary-view.component';
 import { v4 as uuid } from 'uuid';
+import { Operator } from 'src/app/shared/matching/constraints/constraint-utils';
+import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
+import { ProjectsService } from 'src/app/shared/data/projects.service';
 
 @Component({
   selector: 'app-constraint-builder-overlay',
@@ -20,20 +23,32 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponent, OnIn
     onClosed: () => {};
   };
   id: string;
+  projectsSelectData: SelectData[] = [];
   projectIds: string[] = [];
   constraintFunctionWrapper: ConstraintFunctionWrapper;
   thresholdWrapper: ThresholdWrapper;
   isFormValid = false;
 
-  constructor(private constraintsService: ConstraintsService) {}
+  constructor(
+    private constraintsService: ConstraintsService,
+    private projectsService: ProjectsService
+  ) {}
 
   ngOnInit(): void {
+    this.projectsSelectData = this.projectsService.getProjects().map(project => ({
+      id: project.id,
+      name: project.name,
+    }));
+
     if (this.data.constraintWrapper) {
       const constraintWrapper = this.data.constraintWrapper;
       this.projectIds = constraintWrapper.projectIds;
       this.constraintFunctionWrapper = constraintWrapper.constraintFunction;
       this.thresholdWrapper = constraintWrapper.threshold;
       this.id = constraintWrapper.id;
+    } else {
+      this.constraintFunctionWrapper = new ConstraintFunctionWrapper('', '', null, '', '', []);
+      this.thresholdWrapper = new ThresholdWrapper(0, 10);
     }
   }
 

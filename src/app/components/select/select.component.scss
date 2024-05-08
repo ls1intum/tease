@@ -1,0 +1,15 @@
+@import '/src/scss/style-constants.scss';
+
+.tile.active:hover {
+  border-color: $primary-60;
+}
+
+.tile.inactive:hover {
+  border-color: $inactive;
+}
+
+.tile {
+  box-sizing: border-box;
+  border: solid;
+  border-color: transparent;
+}

@@ -5,9 +5,10 @@
 
       <div>
         <h4 class="fw-semibold mb-3">Projects</h4>
-        <app-constraint-projects-builder
-          (selectedProjectsChange)="selectedProjectsChange($event)"
-          [selectedProjectIds]="projectIds"></app-constraint-projects-builder>
+        <app-select
+          [elementsData]="projectsSelectData"
+          (selectionChange)="selectedProjectsChange($event)"
+          title="Projects" />
       </div>
 
       <div>
