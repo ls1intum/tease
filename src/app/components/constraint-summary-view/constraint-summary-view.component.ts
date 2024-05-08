@@ -4,7 +4,14 @@ import { OverlayComponent, OverlayService } from 'src/app/overlay.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { ConstraintWrapper } from 'src/app/shared/matching/constraints/constraint';
-import { facConstraintIcon, facDeleteIcon, facEditIcon, facGroupsIcon } from 'src/assets/icons/icons';
+import {
+  facAddIcon,
+  facConstraintIcon,
+  facDeleteIcon,
+  facEditIcon,
+  facFlagIcon,
+  facGroupsIcon,
+} from 'src/assets/icons/icons';
 import { ConstraintBuilderOverlayComponent } from '../constraint-builder-overlay/constraint-builder-overlay.component';
 import { LocksService } from 'src/app/shared/data/locks.service';
 import { ConstraintBuilderService } from 'src/app/shared/matching/constraints/constraint-builder/constraint-builder.service';
@@ -13,6 +20,7 @@ import { MatchingService } from 'src/app/shared/matching/matching.service';
 import { AllocationsService } from 'src/app/shared/data/allocations.service';
 import { ToastsService } from 'src/app/shared/services/toasts.service';
 import { StudentSortService } from 'src/app/shared/services/student-sort.service';
+import { ConstraintBuilderNationalityComponent } from '../constraint-builder-nationality/constraint-builder-nationality.component';
 
 @Component({
   selector: 'app-constraint-summary-view',
@@ -23,8 +31,9 @@ export class ConstraintSummaryViewComponent implements OverlayComponent, OnInit 
   data = {};
   facDeleteIcon = facDeleteIcon;
   facGroupsIcon = facGroupsIcon;
-  facConstraintIcon = facConstraintIcon;
+  facAddIcon = facAddIcon;
   facEditIcon = facEditIcon;
+  facFlagIcon = facFlagIcon;
 
   constraintWrappers: ConstraintWrapper[] = [];
   projects: Project[] = [];
@@ -45,6 +54,13 @@ export class ConstraintSummaryViewComponent implements OverlayComponent, OnInit 
   ngOnInit(): void {
     this.constraintWrappers = this.constraintsService.getConstraints();
     this.projects = this.projectsService.getProjects();
+  }
+
+  showConstraintNationalityBuilderOverlay(): void {
+    this.cancel();
+    setTimeout(() => {
+      this.overlayService.displayComponent(ConstraintBuilderNationalityComponent, {});
+    }, 10);
   }
 
   showConstraintBuilderOverlay(constraintWrapper: ConstraintWrapper): void {

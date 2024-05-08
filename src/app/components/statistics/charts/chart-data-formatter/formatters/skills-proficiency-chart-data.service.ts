@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ChartData } from 'chart.js';
-import { AllocationData } from 'src/app/shared/models/allocation-data';
+import { AllocationData, ProjectData } from 'src/app/shared/models/allocation-data';
 import { ChartDataFormatter } from '../chart-data-formatter';
 import { ColorService } from 'src/app/shared/constants/color.service';
 import { SkillProficiency, Student } from 'src/app/api/models';
@@ -47,41 +47,47 @@ export class SkillsProficiencyChartDataService implements ChartDataFormatter {
   }
 
   getPeopleData(allocationData: AllocationData, skillId: string): PeopleChartProjectData[] {
-    const data: PeopleChartProjectData[] = [];
-
-    allocationData.projectsData.forEach(projectData => {
-      const studentData: PeopleChartStudentData[] = [];
-
-      const students = projectData.students.map(student => {
-        const skill = student.skills.find(skill => skill.id === skillId);
-        return {
-          skill: skill,
-          firstName: student.firstName,
-          lastName: student.lastName,
-        };
-      });
-
-      students.sort((a, b) =>
-        Comparator[Operator.GREATER_THAN_OR_EQUAL](SkillLevels[a.skill.proficiency], SkillLevels[b.skill.proficiency])
-          ? -1
-          : 1
-      );
-
-      students.forEach(student => {
-        studentData.push({
-          color: ColorService.getSkillProficiencyColor(student.skill.proficiency),
-          tooltip: this.getTooltip(student),
-        });
-      });
-
-      data.push({
-        name: projectData.project.name,
-        tag: null,
-        studentData: studentData,
-      });
+    const data: PeopleChartProjectData[] = allocationData.projectsData.map(projectData => {
+      return this.getPeopleChartProjectData(projectData, skillId);
     });
 
     return data;
+  }
+
+  private getPeopleChartProjectData(projectData: ProjectData, skillId: string): PeopleChartProjectData {
+    const studentData = this.getPeopleChartStudentData(projectData, skillId);
+
+    return {
+      name: projectData.project.name,
+      tag: null,
+      studentData: studentData,
+    };
+  }
+
+  private getPeopleChartStudentData(projectData: ProjectData, skillId: string): PeopleChartStudentData[] {
+    const students = projectData.students.map(student => {
+      const skill = student.skills.find(skill => skill.id === skillId);
+      return {
+        skill: skill,
+        firstName: student.firstName,
+        lastName: student.lastName,
+      };
+    });
+
+    students.sort((a, b) =>
+      Comparator[Operator.GREATER_THAN_OR_EQUAL](SkillLevels[a.skill.proficiency], SkillLevels[b.skill.proficiency])
+        ? -1
+        : 1
+    );
+
+    const studentData: PeopleChartStudentData[] = students.map(student => {
+      return {
+        color: ColorService.getSkillProficiencyColor(student.skill.proficiency),
+        tooltip: this.getTooltip(student),
+      };
+    });
+
+    return studentData;
   }
 
   private updateSkillProficiencyCount(
