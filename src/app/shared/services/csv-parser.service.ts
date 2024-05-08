@@ -10,7 +10,6 @@ import {
   SkillProficiency,
   Student,
   StudentSkill,
-  Comment,
 } from 'src/app/api/models';
 import { CsvStudent } from '../models/csvStudent';
 import { ToastsService } from './toasts.service';
@@ -37,10 +36,7 @@ export class CsvParserService {
   readonly DEFAULT_SKILL_PROFICIENCY = SkillProficiency.Novice;
   readonly DEFAULT_GENDER = Gender.PreferNotToSay;
 
-  constructor(
-    private enumService: EnumService,
-    private toastsService: ToastsService
-  ) {}
+  constructor(private enumService: EnumService) {}
 
   async getData(file: any): Promise<ImportData> {
     try {
@@ -52,7 +48,7 @@ export class CsvParserService {
   }
 
   async getCsvDataFromFile(file: any): Promise<CsvStudent[]> {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       Papa.parse(file, {
         complete: results => {
           resolve(results.data);
@@ -97,9 +93,11 @@ export class CsvParserService {
     const deviceAttributes = this.findAttributes(referenceStudent, 'device');
     const skillAttributes = this.findAttributes(referenceStudent, 'skill');
     const projectPreferenceAttributes = this.findAttributes(referenceStudent, 'projectPreference');
-    const tutorCommentAttributes = this.findAttributes(referenceStudent, 'tutorComment');
 
-    const students: Student[] = csvStudents.map(student => {
+    var students: Student[] = csvStudents.map(student => {
+      if (!student.id) {
+        return null;
+      }
       return this.getStudent(
         student,
         projects,
@@ -107,10 +105,11 @@ export class CsvParserService {
         languageAttributes,
         deviceAttributes,
         skillAttributes,
-        projectPreferenceAttributes,
-        tutorCommentAttributes
+        projectPreferenceAttributes
       );
     });
+
+    students = students.filter(student => student !== null);
 
     return { students, projects, skills };
   }
@@ -122,8 +121,7 @@ export class CsvParserService {
     languageAttributes: Attribute[],
     deviceAttributes: Attribute[],
     skillAttributes: Attribute[],
-    projectPreferenceAttributes: Attribute[],
-    tutorCommentAttributes: Attribute[]
+    projectPreferenceAttributes: Attribute[]
   ): Student {
     return {
       firstName: student.firstName,
@@ -144,7 +142,7 @@ export class CsvParserService {
       languages: this.getLanguages(student, languageAttributes),
       skills: this.getStudentSkills(student, skillAttributes, skills),
       projectPreferences: this.getProjetPreferences(student, projectPreferenceAttributes, projects),
-      tutorComments: this.getTutorComments(student, tutorCommentAttributes),
+      tutorComments: [],
       studentComments: [],
       introSelfAssessment: null,
     };
@@ -204,18 +202,5 @@ export class CsvParserService {
       const project = projects.find(project => project.name === projectPreferenceAttribute.value);
       return { projectId: project.id, priority: parseInt(student[projectPreferenceAttribute.attribute]) };
     });
-  }
-
-  private getTutorComments(student: CsvStudent, tutorCommentAttributes: Attribute[]): Comment[] {
-    return tutorCommentAttributes
-      .map(tutorCommentAttribute => {
-        const text = student[tutorCommentAttribute.attribute];
-        if (text) {
-          return { text: text, author: null, date: null, description: null };
-        } else {
-          return null;
-        }
-      })
-      .filter(comment => comment !== null);
   }
 }

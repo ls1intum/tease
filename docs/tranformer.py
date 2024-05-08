@@ -48,12 +48,6 @@ def get_project_preference(length) -> [str]:
     random.shuffle(priorities)
     return priorities
 
-def get_comment() -> str:
-    return fake.text().replace('\n', ' ')
-
-def get_comments() -> [str]:
-    return [get_comment() for _ in range(random.randint(0, 2))]
-
 data = []
 
 for index in range(1, 61):
@@ -88,12 +82,6 @@ for index in range(1, 61):
 
     for project in projects:
         row[f'projectPreference[{project}]'] = priorities.pop()
-
-    comments = get_comments()
-    
-    for index in range(2):
-        row[f'tutorComment[{index}]'] = comments[index] if index < len(comments) else ''
-
 
     skills = [
         'Machine Learning',
