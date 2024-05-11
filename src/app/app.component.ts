@@ -194,7 +194,8 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
   }
 
   private getConstraintWrappersOfProject(projectId: string): ConstraintWrapper[] {
-    return this.constraintWrappers.filter(constraintWrapper => constraintWrapper.projectIds.includes(projectId));
+    const activeConstraintWrappers = this.constraintWrappers.filter(constraintWrapper => constraintWrapper.active);
+    return activeConstraintWrappers.filter(constraintWrapper => constraintWrapper.projectIds.includes(projectId));
   }
 
   private getNumberOfStudents(constraintWrapper: ConstraintWrapper, students: Student[]): number {
