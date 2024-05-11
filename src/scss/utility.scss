@@ -5,6 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border-color: transparent !important;
 }
 
 .btn-icon fa-icon {
@@ -51,6 +52,10 @@
   box-shadow: 0 0 0px 0 rgba(0, 0, 0, 0) !important;
 }
 
+.fs-l {
+  font-size: 4rem;
+}
+
 .fs-s {
   font-size: $font-size-small;
 }
@@ -66,4 +71,10 @@
 /* Other */
 .no-select {
   user-select: none;
+}
+
+/* Border */
+.border-dashed {
+  border: 1.5px dashed $prefix;
+  border-radius: 0.5rem;
 }

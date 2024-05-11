@@ -1,10 +1,5 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { PersonStatisticsService } from './layers/business-logic-layer/person-statistics.service';
-import { ConstraintAccessService } from './layers/data-access-layer/constraint.access.service';
-import { KeyValueConstraintAccessService } from './layers/data-access-layer/keyvalue.constraint.access.service';
 import { GroupByPipe } from './pipes/group-by.pipe';
 
 /**
@@ -12,10 +7,10 @@ import { GroupByPipe } from './pipes/group-by.pipe';
  */
 
 @NgModule({
-  imports: [CommonModule, RouterModule, GroupByPipe],
+  imports: [CommonModule, GroupByPipe],
   declarations: [],
-  exports: [CommonModule, FormsModule, RouterModule, GroupByPipe],
-  providers: [PersonStatisticsService, { provide: ConstraintAccessService, useClass: KeyValueConstraintAccessService }],
+  exports: [CommonModule, GroupByPipe],
+  providers: [],
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders<SharedModule> {

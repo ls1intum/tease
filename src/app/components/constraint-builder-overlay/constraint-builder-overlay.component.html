@@ -15,11 +15,11 @@
       </div>
 
       <div>
-        <h4 class="fw-semibold mb-2">Projects</h4>
-        <p>Select the projects where the following constraint will be applied.</p>
-        <app-constraint-projects-builder
-          (selectedProjectsChange)="selectedProjectsChange($event)"
-          [selectedProjectIds]="projectIds"></app-constraint-projects-builder>
+        <h4 class="fw-semibold mb-3">Projects</h4>
+        <app-select
+          [elementsData]="projectsSelectData"
+          (selectionChange)="selectedProjectsChange($event)"
+          title="Projects" />
       </div>
 
       <div>

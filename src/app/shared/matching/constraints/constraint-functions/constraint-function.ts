@@ -14,6 +14,7 @@ export interface SelectData {
   id: string; //value to be used in constraint
   group?: string; //grouping for the dropdown
   reference?: any; //reference to the object
+  selected?: boolean; //if the element is selected
 }
 
 export interface PropertySelectGroup {

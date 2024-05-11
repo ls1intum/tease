@@ -8,7 +8,7 @@ export class NationalityConstraintFunction extends ConstraintFunction {
   private nationalityService: NationalityService = new NationalityService();
 
   constructor(students: Student[], skills: Skill[]) {
-    super(students, skills, 'Nationality', [Operator.EQUALS]);
+    super(students, skills, 'Nationality', [Operator.EQUALS, Operator.NOT_EQUALS]);
     this.nationalities = new Set();
     students.forEach(student => {
       this.nationalities.add(student.nationality);

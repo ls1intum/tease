@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
 import { ConfirmationOverlayComponent } from '../confirmation-overlay/confirmation-overlay.component';
 import { ExportOverlayComponent } from '../export-overlay/export-overlay.component';
@@ -13,6 +13,7 @@ import { LocksService } from 'src/app/shared/data/locks.service';
 import { ConstraintBuilderOverlayComponent } from '../constraint-builder-overlay/constraint-builder-overlay.component';
 import { ConstraintSummaryViewComponent } from '../constraint-summary-view/constraint-summary-view.component';
 import { StudentSortService } from 'src/app/shared/services/student-sort.service';
+import { AllocationData } from 'src/app/shared/models/allocation-data';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -29,8 +30,10 @@ export class NavigationBarComponent {
   facSkillCircleIcon = teaseIconPack['facSkillCircleIcon'];
   facSkillSideIcon = teaseIconPack['facSkillSideIcon'];
   facSkillDeathIcon = teaseIconPack['facSkillDeathIcon'];
-  facConstraintIcon = teaseIconPack['facConstraintIcon'];
+  facAddIcon = teaseIconPack['facAddIcon'];
   facSortIcon = teaseIconPack['facSortIcon'];
+
+  @Input({ required: true }) allocationData: AllocationData;
 
   constructor(
     private overlayService: OverlayService,
@@ -88,9 +91,7 @@ export class NavigationBarComponent {
 
   showExportOverlay() {
     this.overlayService.displayComponent(ExportOverlayComponent, {
-      onDownloadFinished: () => {
-        this.overlayService.closeOverlay();
-      },
+      allocationData: this.allocationData,
     });
   }
 

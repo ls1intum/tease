@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { StudentsService } from 'src/app/shared/data/students.service';
 import { ThresholdWrapper } from 'src/app/shared/matching/constraints/constraint';
 import { integerValidator, positiveValidator } from 'src/app/shared/utils/validators.utils';
 
@@ -16,32 +15,33 @@ export class ConstraintThresholdBuilderComponent implements OnInit, OnDestroy {
   @Output() thresholdChange = new EventEmitter<ThresholdWrapper>();
   @Input() thresholdWrapper: ThresholdWrapper;
 
-  constructor(private studentsService: StudentsService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    const maxValue = this.studentsService.getStudents().length;
+    const lowerBound = this.thresholdWrapper.lowerBound;
+    const upperBound = this.thresholdWrapper.upperBound;
+
     this.form = new FormGroup({
-      lowerBound: new FormControl<number>(0, [integerValidator, positiveValidator]),
-      upperBound: new FormControl<number>(maxValue, [integerValidator, positiveValidator]),
+      lowerBound: new FormControl<number>(lowerBound, [integerValidator, positiveValidator]),
+      upperBound: new FormControl<number>(upperBound, [integerValidator, positiveValidator]),
     });
-    this.thresholdChange.emit(new ThresholdWrapper(0, maxValue));
+    this.thresholdChange.emit(new ThresholdWrapper(0, upperBound));
 
     this.subscriptions.push(
       this.form.valueChanges.subscribe(() => {
-        if (this.form.invalid) {
-          this.thresholdChange.emit(null);
-          return;
-        }
-        const lowerBound = this.form.get('lowerBound').value;
-        const upperBound = this.form.get('upperBound').value;
-        this.thresholdChange.emit(new ThresholdWrapper(lowerBound, upperBound));
+        this.updateThreshold();
       })
     );
+  }
 
-    if (this.thresholdWrapper) {
-      this.form.get('lowerBound').setValue(this.thresholdWrapper.lowerBound);
-      this.form.get('upperBound').setValue(this.thresholdWrapper.upperBound);
+  private updateThreshold(): void {
+    if (this.form.invalid) {
+      this.thresholdChange.emit(null);
+      return;
     }
+    const lowerBound = this.form.get('lowerBound').value;
+    const upperBound = this.form.get('upperBound').value;
+    this.thresholdChange.emit(new ThresholdWrapper(lowerBound, upperBound));
   }
 
   ngOnDestroy(): void {
