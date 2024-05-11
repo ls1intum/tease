@@ -3,6 +3,7 @@ import { OverlayComponent, OverlayService } from 'src/app/overlay.service';
 import { ConstraintWrapper } from 'src/app/shared/matching/constraints/constraint';
 import { facCloseIcon, facPersonThinIcon } from 'src/assets/icons/icons';
 import { ConstraintBuilderOverlayComponent } from '../constraint-builder-overlay/constraint-builder-overlay.component';
+import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 
 interface ProjectExample {
   valid: boolean;
@@ -28,6 +29,12 @@ export class ConstraintHelpComponent implements OverlayComponent {
   };
   facCloseIcon = facCloseIcon;
   facPersonThinIcon = facPersonThinIcon;
+
+  projectsSelectData: SelectData[] = [
+    { id: '1', name: 'Project A', selected: true },
+    { id: '2', name: 'Project B', selected: true },
+    { id: '3', name: 'Project C' },
+  ];
 
   distributionExamples: DistributionExample[] = [
     {

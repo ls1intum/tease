@@ -33,7 +33,7 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponent, OnIn
 
   constructor(
     private constraintsService: ConstraintsService,
-    private projectsService: ProjectsService
+    private projectsService: ProjectsService,
     private overlayService: OverlayService
   ) {}
 
