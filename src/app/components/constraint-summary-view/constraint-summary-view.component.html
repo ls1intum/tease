@@ -32,6 +32,7 @@
                 </div>
               </th>
               <th>Action</th>
+              <th>Active</th>
             </tr>
           </thead>
           <tbody class="">
@@ -80,6 +81,13 @@
                     (click)="deleteConstraintWrapper(constraintWrapper.id)">
                     <fa-icon [icon]="facDeleteIcon" class="text-danger"></fa-icon>
                   </button>
+                </td>
+                <td class="text-nowrap p-0">
+                  <input
+                    class="form-check-input active"
+                    type="checkbox"
+                    [checked]="constraintWrapper.isActive"
+                    (click)="setActive(constraintWrapper.id, !constraintWrapper.isActive)" />
                 </td>
               </tr>
             }

@@ -62,4 +62,13 @@ export class ConstraintsService {
     }
     this.addConstraint(newConstraint);
   }
+
+  setActive(id: string, active: boolean): void {
+    const constraint = this.getConstraint(id);
+    if (!constraint) {
+      return;
+    }
+    constraint.isActive = active;
+    this.replaceConstraint(id, constraint);
+  }
 }
