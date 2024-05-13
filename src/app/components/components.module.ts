@@ -23,6 +23,7 @@ import { ConstraintSummaryViewComponent } from './constraint-summary-view/constr
 import { SharedModule } from '../shared/shared.module';
 import { ConstraintBuilderNationalityComponent } from './constraint-builder-nationality/constraint-builder-nationality.component';
 import { SelectComponent } from './select/select.component';
+import { ConstraintHelpComponent } from './constraint-help/constraint-help.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { SelectComponent } from './select/select.component';
     ConstraintSummaryViewComponent,
     ConstraintBuilderNationalityComponent,
     SelectComponent,
+    ConstraintHelpComponent,
   ],
   exports: [NavigationBarComponent, ProjectsComponent, UtilityComponent, IntroCardComponent],
   providers: [],

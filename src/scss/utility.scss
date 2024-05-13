@@ -12,7 +12,12 @@
   line-height: 1rem;
 }
 
-.btn-icon:hover fa-icon {
+.btn-icon:active,
+.btn-icon:focus {
+  border-color: transparent !important;
+}
+
+.btn-icon-primary:hover fa-icon {
   color: $primary !important;
 }
 
