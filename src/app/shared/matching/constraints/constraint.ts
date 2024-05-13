@@ -7,7 +7,7 @@ export class ConstraintWrapper {
     readonly constraintFunction: ConstraintFunctionWrapper,
     readonly threshold: ThresholdWrapper,
     readonly id: string,
-    public active: boolean = true
+    public isActive: boolean = true
   ) {}
 }
 

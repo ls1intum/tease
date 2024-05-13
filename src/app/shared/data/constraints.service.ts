@@ -68,7 +68,7 @@ export class ConstraintsService {
     if (!constraint) {
       return;
     }
-    constraint.active = active;
+    constraint.isActive = active;
     this.replaceConstraint(id, constraint);
   }
 }

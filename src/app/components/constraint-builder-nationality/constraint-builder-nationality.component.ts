@@ -107,7 +107,7 @@ export class ConstraintBuilderNationalityComponent implements OverlayComponent, 
         constraintFunction: constraintFunctionWrapper,
         threshold: thresholdWrapper,
         id: uuid(),
-        active: true,
+        isActive: true,
       };
       this.constraintsService.addConstraint(constraint);
     });

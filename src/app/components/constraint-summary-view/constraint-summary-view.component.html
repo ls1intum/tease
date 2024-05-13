@@ -86,8 +86,8 @@
                   <input
                     class="form-check-input active"
                     type="checkbox"
-                    [checked]="constraintWrapper.active"
-                    (click)="setActive(constraintWrapper.id, !constraintWrapper.active)" />
+                    [checked]="constraintWrapper.isActive"
+                    (click)="setActive(constraintWrapper.id, !constraintWrapper.isActive)" />
                 </td>
               </tr>
             }

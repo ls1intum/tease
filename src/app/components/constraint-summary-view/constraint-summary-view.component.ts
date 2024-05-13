@@ -94,7 +94,7 @@ export class ConstraintSummaryViewComponent implements OverlayComponent, OnInit 
 
   async distributeTeams(): Promise<void> {
     const locks = this.locksService.getLocks();
-    const activeConstraintWrappers = this.constraintWrappers.filter(constraintWrapper => constraintWrapper.active);
+    const activeConstraintWrappers = this.constraintWrappers.filter(constraintWrapper => constraintWrapper.isActive);
     const constraints = this.constraintsBuilderService.createConstraints(
       this.studentsService.getStudents(),
       this.projects.map(project => project.id),
