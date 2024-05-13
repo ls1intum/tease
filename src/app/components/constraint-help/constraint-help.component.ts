@@ -8,7 +8,7 @@ import { SelectData } from 'src/app/shared/matching/constraints/constraint-funct
 interface ProjectExample {
   valid: boolean;
   name: string;
-  students: boolean[];
+  students: boolean[]; // true if student fulfills the constraint
 }
 
 interface DistributionExample {
@@ -73,29 +73,9 @@ export class ConstraintHelpComponent implements OverlayComponent {
         { name: 'Project C', valid: true, students: [false, false, false, false, false] },
       ],
     },
-    // [
-    //   { name: 'Project A', valid: true, students: [true, false, false, false, false] },
-    //   { name: 'Project B', valid: true, students: [true, false, false, false, false] },
-    //   { name: 'Project C', valid: true, students: [true, true, true, false, false] },
-    // ],
-    // [
-    //   { name: 'Project A', valid: false, students: [false, false, false, false, false] },
-    //   { name: 'Project B', valid: true, students: [true, true, true, false, false] },
-    //   { name: 'Project C', valid: true, students: [true, true, false, false, false] },
-    // ],
-    // [
-    //   { name: 'Project A', valid: true, students: [true, false, false, false, false] },
-    //   { name: 'Project B', valid: false, students: [true, true, true, true, false] },
-    //   { name: 'Project C', valid: true, students: [false, false, false, false, false] },
-    // ],
   ];
 
-  studentsData = [false, false, true, true, true, false, true, false, true];
-  projectsData: { name: string; active: boolean }[] = [
-    { name: 'Project A', active: true },
-    { name: 'Project B', active: true },
-    { name: 'Project C', active: false },
-  ];
+  studentsData = [false, false, true, true, true, false, true, false, true]; // true if student fulfills the constraint
 
   constructor(private overlayService: OverlayService) {}
 
