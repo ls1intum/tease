@@ -18,7 +18,6 @@ export class SkillsService {
     }
   }
 
-  // TODO: Delete with person code
   getSkills(): Skill[] {
     return this.skillsSubject$.getValue();
   }

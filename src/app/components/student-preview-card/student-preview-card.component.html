@@ -1,14 +1,9 @@
 <div
-  class="rounded-3 p-2 default-cursor student-preview-card overflow-hidden no-select position-relative"
+  class="rounded-3 p-2 default-cursor student-preview-card overflow-hidden no-select position-relative bg-card"
   (click)="showPersonDetails(student)"
   id="{{ student.id }}"
-  [ngClass]="{ locked: isLocked }"
-  [ngStyle]="{ 'background-color': backgroundColor }">
-  @if (selectedViewMode == ViewMode.SIDE) {
-    <div class="position-absolute h-100 top-0 start-0 skill-level-sidebar" [ngClass]="'bg-' + skillColors[0]"></div>
-  }
-
-  <div class="d-flex flex-column gap-2" [ngClass]="{ 'ps-1': selectedViewMode == ViewMode.SIDE }">
+  [ngClass]="{ locked: isLocked }">
+  <div class="d-flex flex-column gap-2">
     <div class="d-flex justify-content-between">
       <div class="d-flex flex-column gap-1">
         <div class="d-flex gap-1">
@@ -19,15 +14,14 @@
             </div>
           </div>
         </div>
-        @if (selectedViewMode == ViewMode.CIRCLE) {
-          <div class="d-flex justify-content-start">
-            <div class="d-inline-flex gap-1">
-              @for (skillColor of skillColors; track skillColor) {
-                <div class="rounded-circle student-skill-circle" [ngClass]="'bg-' + skillColor"></div>
-              }
-            </div>
+
+        <div class="d-flex justify-content-start">
+          <div class="d-inline-flex gap-1">
+            @for (skillColor of skillColors; track skillColor) {
+              <div class="rounded-circle student-skill-circle" [ngClass]="'bg-' + skillColor"></div>
+            }
           </div>
-        }
+        </div>
       </div>
       <div class="profile-picture-wrapper position-relative">
         <img
