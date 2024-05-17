@@ -75,7 +75,7 @@ export class DevicesChartDataService implements ChartDataFormatter {
     });
 
     allocationData.studentsWithoutTeam.forEach(student => {
-      deviceCount += student.devices.filter(d => d === device).length;
+      deviceCount += student.devices.filter(studentDevice => studentDevice === device).length;
     });
 
     return deviceCount;
