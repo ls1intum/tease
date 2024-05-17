@@ -20,7 +20,7 @@ export class UtilityComponent implements OnInit, OnChanges {
   facCloseIcon = facCloseIcon;
   facWarnIcon = facWarnIcon;
 
-  viewMode = ViewMode.Statistics;
+  viewMode = ViewMode.Students;
   ViewMode = ViewMode;
 
   statisticsSelectData: SelectData[] = [];
