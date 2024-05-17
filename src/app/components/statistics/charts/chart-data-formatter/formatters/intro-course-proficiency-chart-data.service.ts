@@ -21,7 +21,7 @@ export class IntroCourseProficiencyChartDataService implements ChartDataFormatte
     ];
   }
 
-  getDoughnutData(allocationData: AllocationData, id: string): ChartData<'doughnut', number[], unknown> {
+  getDoughnutData(allocationData: AllocationData): ChartData<'doughnut', number[], unknown> {
     const skillProficienciesMap = new Map(this.SKILL_PROFICIENCY_LABELS.map(skill => [skill, 0]));
 
     let students = allocationData.projectsData.flatMap(projectData => projectData.students);
@@ -38,7 +38,7 @@ export class IntroCourseProficiencyChartDataService implements ChartDataFormatte
     return { labels: this.SKILL_PROFICIENCY_LABELS, datasets: datasets };
   }
 
-  getPeopleData(allocationData: AllocationData, id: string): PeopleChartProjectData[] {
+  getPeopleData(allocationData: AllocationData): PeopleChartProjectData[] {
     const data: PeopleChartProjectData[] = [];
 
     allocationData.projectsData.forEach(projectData => {

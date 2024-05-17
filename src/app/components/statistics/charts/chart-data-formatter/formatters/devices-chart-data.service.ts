@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ChartData } from 'chart.js';
-import { AllocationData } from 'src/app/shared/models/allocation-data';
+import { AllocationData, ProjectData } from 'src/app/shared/models/allocation-data';
 import { ChartDataFormatter } from '../chart-data-formatter';
 import { ColorService } from 'src/app/shared/constants/color.service';
 import { Device, SkillProficiency, Student } from 'src/app/api/models';
@@ -12,8 +12,7 @@ import { SelectData } from 'src/app/shared/matching/constraints/constraint-funct
   providedIn: 'root',
 })
 export class DevicesChartDataService implements ChartDataFormatter {
-  getDoughnutData(allocationData: AllocationData, id: string): ChartData<'doughnut', number[], unknown> {
-    const device = id as Device;
+  getDoughnutData(allocationData: AllocationData, device: Device): ChartData<'doughnut', number[], unknown> {
     const deviceCount = this.getDeviceCount(allocationData, device);
     const studentCount = this.getStudentCount(allocationData);
 
@@ -51,7 +50,7 @@ export class DevicesChartDataService implements ChartDataFormatter {
 
       data.push({
         name: projectData.project.name,
-        tag: null,
+        tag: this.getTag(projectData, device),
         studentData: studentData,
       });
     });
@@ -99,5 +98,11 @@ export class DevicesChartDataService implements ChartDataFormatter {
     return student.devices.includes(device)
       ? ColorService.getSkillProficiencyColor(SkillProficiency.Advanced)
       : ColorService.getSkillProficiencyColor();
+  }
+
+  private getTag(projectData: ProjectData, device: Device): string {
+    const deviceCount = this.getDeviceCount({ studentsWithoutTeam: [], projectsData: [projectData] }, device);
+    const studentCount = projectData.students.length;
+    return `${deviceCount} / ${studentCount}`;
   }
 }
