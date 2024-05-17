@@ -4,7 +4,6 @@ import { AllocationData, ProjectData } from 'src/app/shared/models/allocation-da
 import { ChartDataFormatter } from '../chart-data-formatter';
 import { ColorService } from 'src/app/shared/constants/color.service';
 import { Device, SkillProficiency, Student } from 'src/app/api/models';
-import { Comparator, Operator, SkillLevels } from 'src/app/shared/matching/constraints/constraint-utils';
 import { PeopleChartProjectData, PeopleChartStudentData } from '../people-chart-data';
 import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 
@@ -30,8 +29,7 @@ export class DevicesChartDataService implements ChartDataFormatter {
     };
   }
 
-  getPeopleData(allocationData: AllocationData, id: string): PeopleChartProjectData[] {
-    const device = id as Device;
+  getPeopleData(allocationData: AllocationData, device: Device): PeopleChartProjectData[] {
     const data: PeopleChartProjectData[] = [];
 
     allocationData.projectsData.forEach(projectData => {
@@ -72,7 +70,7 @@ export class DevicesChartDataService implements ChartDataFormatter {
     let deviceCount = 0;
     allocationData.projectsData.forEach(projectData => {
       projectData.students.forEach(student => {
-        deviceCount += student.devices.filter(d => d === device).length;
+        deviceCount += student.devices.filter(studentDevice => studentDevice === device).length;
       });
     });
 
