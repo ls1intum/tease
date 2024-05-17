@@ -5,8 +5,9 @@ export class ColorService {
   private static readonly INTERMEDIATE = '#eed373';
   private static readonly ADVANCED = '#94da7c';
   private static readonly EXPERT = '#4e8cb9';
+  private static readonly INACTIVE = '#d7dadd';
 
-  static getSkillProficiencyColor(proficiency: SkillProficiency): string {
+  static getSkillProficiencyColor(proficiency?: SkillProficiency): string {
     switch (proficiency) {
       case SkillProficiency.Novice:
         return this.NOVICE;
@@ -16,6 +17,8 @@ export class ColorService {
         return this.ADVANCED;
       case SkillProficiency.Expert:
         return this.EXPERT;
+      default:
+        return this.INACTIVE;
     }
   }
 
