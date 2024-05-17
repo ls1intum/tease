@@ -38,7 +38,7 @@ export class CsvParserService {
 
   constructor(private enumService: EnumService) {}
 
-  async getData(file: any): Promise<ImportData> {
+  async getData(file: File): Promise<ImportData> {
     try {
       const csvStudents = await this.getCsvDataFromFile(file);
       return this.getImportData(csvStudents);
@@ -47,7 +47,7 @@ export class CsvParserService {
     }
   }
 
-  async getCsvDataFromFile(file: any): Promise<CsvStudent[]> {
+  async getCsvDataFromFile(file: File): Promise<CsvStudent[]> {
     return new Promise(resolve => {
       Papa.parse(file, {
         complete: results => {

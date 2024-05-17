@@ -72,10 +72,10 @@ export class ImportOverlayComponent implements OverlayComponent {
   }
 
   async onFileChanged(event) {
-    const files = event.target.files;
+    const files: File[] = event.target.files;
     if (files.length !== 1) return;
 
-    const file = files[0];
+    const file: File = files[0];
     const data = await this.csvParserService.getData(file);
     if (!data) {
       this.toastsService.showToast('Invalid CSV file', 'Import ', false);
