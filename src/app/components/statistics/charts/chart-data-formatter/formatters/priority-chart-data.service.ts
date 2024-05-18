@@ -161,6 +161,7 @@ export class PriorityChartDataService implements ChartDataFormatter {
   ): ChartConfiguration<'bar'>['options'] {
     return {
       responsive: true,
+      maintainAspectRatio: false,
       layout: {
         autoPadding: false,
       },
