@@ -4,7 +4,7 @@ import { AllocationData, ProjectData } from 'src/app/shared/models/allocation-da
 import { ChartDataFormatter } from '../chart-data-formatter';
 import { ColorService } from 'src/app/shared/constants/color.service';
 import { Device, SkillProficiency, Student } from 'src/app/api/models';
-import { PeopleChartProjectData, PeopleChartStudentData } from '../people-chart-data';
+import { ChartProjectData, PeopleChartStudentData } from '../people-chart-data';
 import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 
 @Injectable({
@@ -29,8 +29,8 @@ export class DevicesChartDataService implements ChartDataFormatter {
     };
   }
 
-  getPeopleData(allocationData: AllocationData, device: Device): PeopleChartProjectData[] {
-    const data: PeopleChartProjectData[] = [];
+  getProjectData(allocationData: AllocationData, device: Device): ChartProjectData[] {
+    const data: ChartProjectData[] = [];
 
     allocationData.projectsData.forEach(projectData => {
       const studentData: PeopleChartStudentData[] = [];
@@ -49,7 +49,7 @@ export class DevicesChartDataService implements ChartDataFormatter {
       data.push({
         name: projectData.project.name,
         tag: this.getTag(projectData, device),
-        studentData: studentData,
+        peopleStudentData: studentData,
       });
     });
 

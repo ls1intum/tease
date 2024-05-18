@@ -14,18 +14,29 @@
           }
         </div>
         <!-- Body Icons -->
-        <div class="d-flex overflow-scroll overflow-visible align-items-center ps-2 gap-1 people-chart-icon-wrapper">
-          @for (studentData of projectData.studentData; track studentData) {
-            <fa-icon
-              [icon]="facPersonThinIcon"
-              class="lh-1"
-              style="font-size: 3rem"
-              [ngStyle]="{ color: studentData.color }"
-              [ngbTooltip]="studentData.tooltip"
-              [openDelay]="300"
-              triggers="hover"></fa-icon>
-          }
-        </div>
+        @if (projectData.barStudentData) {
+          <div style="height: 8rem; width: 100%">
+            <canvas
+              baseChart
+              [data]="projectData.barStudentData.data"
+              [options]="projectData.barStudentData.options"
+              [plugins]="projectData.barStudentData.plugins"
+              class="people-chart-bar"></canvas>
+          </div>
+        } @else if (projectData.peopleStudentData) {
+          <div class="d-flex overflow-scroll overflow-visible align-items-center ps-2 gap-1 people-chart-icon-wrapper">
+            @for (studentData of projectData.peopleStudentData; track studentData) {
+              <fa-icon
+                [icon]="facPersonThinIcon"
+                class="lh-1"
+                style="font-size: 3rem"
+                [ngStyle]="{ color: studentData.color }"
+                [ngbTooltip]="studentData.tooltip"
+                [openDelay]="300"
+                triggers="hover"></fa-icon>
+            }
+          </div>
+        }
       </div>
     </div>
   }
