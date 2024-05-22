@@ -4,14 +4,7 @@ import { OverlayComponent, OverlayService } from 'src/app/overlay.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { ConstraintWrapper } from 'src/app/shared/matching/constraints/constraint';
-import {
-  facAddIcon,
-  facConstraintIcon,
-  facDeleteIcon,
-  facEditIcon,
-  facFlagIcon,
-  facGroupsIcon,
-} from 'src/assets/icons/icons';
+import { facAddIcon, facDeleteIcon, facEditIcon, facFlagIcon, facGroupsIcon } from 'src/assets/icons/icons';
 import { ConstraintBuilderOverlayComponent } from '../constraint-builder-overlay/constraint-builder-overlay.component';
 import { LocksService } from 'src/app/shared/data/locks.service';
 import { ConstraintBuilderService } from 'src/app/shared/matching/constraints/constraint-builder/constraint-builder.service';

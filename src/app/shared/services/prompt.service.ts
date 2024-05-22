@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../api/api.service';
 import { ApiFnRequired } from '../../api/api.service';
-import { courseIterationsCourseIterationIdProjectsGet as getProjects } from '../../api/fn/projects/course-iterations-course-iteration-id-projects-get';
-import { courseIterationsCourseIterationIdSkillsGet as getSkills } from '../../api/fn/skills/course-iterations-course-iteration-id-skills-get';
-import { courseIterationsCourseIterationIdStudentsGet as getStudents } from '../../api/fn/students/course-iterations-course-iteration-id-students-get';
-import { courseIterationsCourseIterationIdAllocationsGet as getAllocations } from '../../api/fn/allocations/course-iterations-course-iteration-id-allocations-get';
-import { courseIterationsCourseIterationIdAllocationsPost as postAllocations } from 'src/app/api/fn/allocations/course-iterations-course-iteration-id-allocations-post';
+import { teaseCourseIterationsCourseIterationIdProjectsGet as getProjects } from '../../api/fn/projects/tease-course-iterations-course-iteration-id-projects-get';
+import { teaseCourseIterationsCourseIterationIdSkillsGet as getSkills } from '../../api/fn/skills/tease-course-iterations-course-iteration-id-skills-get';
+import { teaseCourseIterationsCourseIterationIdStudentsGet as getStudents } from '../../api/fn/students/tease-course-iterations-course-iteration-id-students-get';
+import { teaseCourseIterationsCourseIterationIdAllocationsGet as getAllocations } from '../../api/fn/allocations/tease-course-iterations-course-iteration-id-allocations-get';
+import { teaseCourseIterationsCourseIterationIdAllocationsPost as postAllocations } from 'src/app/api/fn/allocations/tease-course-iterations-course-iteration-id-allocations-post';
+import { courseIterationsGet as getCourseIterations } from 'src/app/api/fn/course-iterations/course-iterations-get';
 import { Observable, lastValueFrom } from 'rxjs';
-import { Skill, Student, Project, Allocation } from 'src/app/api/models';
+import { Skill, Student, Project, Allocation, CourseIteration } from 'src/app/api/models';
 import { StrictHttpResponse } from 'src/app/api/strict-http-response';
 
 @Injectable({
@@ -16,42 +17,42 @@ import { StrictHttpResponse } from 'src/app/api/strict-http-response';
 export class PromptService {
   constructor(private apiService: ApiService) {}
 
-  private async fetchValue<P, R>(fn: ApiFnRequired<P, R>): Promise<R> {
-    const param: P = { courseIterationId: this.getCourseIteration() } as P;
+  private async fetchValue<P, R>(fn: ApiFnRequired<P, R>, courseIterationId?: string): Promise<R> {
+    const param: P = { courseIterationId: courseIterationId } as P;
     const values$ = this.apiService.invoke(fn, param);
     return lastValueFrom(values$);
   }
 
-  async getProjects(): Promise<Project[]> {
-    return this.fetchValue(getProjects);
+  async getProjects(courseIterationId: string): Promise<Project[]> {
+    return this.fetchValue(getProjects, courseIterationId);
   }
 
-  async getSkills(): Promise<Skill[]> {
-    return this.fetchValue(getSkills);
+  async getSkills(courseIterationId: string): Promise<Skill[]> {
+    return this.fetchValue(getSkills, courseIterationId);
   }
 
-  async getStudents(): Promise<Student[]> {
-    return this.fetchValue(getStudents);
+  async getStudents(courseIterationId: string): Promise<Student[]> {
+    return this.fetchValue(getStudents, courseIterationId);
   }
 
-  async getAllocations(): Promise<Allocation[]> {
-    return this.fetchValue(getAllocations);
+  async getAllocations(courseIterationId: string): Promise<Allocation[]> {
+    return this.fetchValue(getAllocations, courseIterationId);
   }
 
-  async postAllocations(allocations: Allocation[]): Promise<boolean> {
+  async postAllocations(allocations: Allocation[], courseIterationId: string): Promise<boolean> {
     const params = {
-      courseIterationId: this.getCourseIteration(),
+      courseIterationId: courseIterationId,
       body: allocations,
     };
     const result: Observable<StrictHttpResponse<void>> = this.apiService.invoke$Response(postAllocations, params);
     return (await lastValueFrom(result)).ok;
   }
 
-  isImportPossible(): boolean {
-    return this.getCourseIteration() !== null;
+  async getCourseIterations(): Promise<CourseIteration[]> {
+    return this.fetchValue(getCourseIterations);
   }
 
-  private getCourseIteration(): string | null {
-    return localStorage.getItem('course-iteration');
+  isImportPossible(): boolean {
+    return localStorage.getItem('jwt_token') !== null;
   }
 }

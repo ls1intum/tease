@@ -20,6 +20,10 @@ import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { Subscription } from 'rxjs';
 import { ConstraintWrapper } from './shared/matching/constraints/constraint';
 import { AllocationData, ProjectConstraint, ProjectData } from './shared/models/allocation-data';
+import { PromptService } from './shared/services/prompt.service';
+import { CourseIterationsService } from './shared/data/course-iteration.service';
+import { ConfirmationOverlayComponent } from './components/confirmation-overlay/confirmation-overlay.component';
+import { ImportOverlayComponent } from './components/import-overlay/import-overlay.component';
 
 @Component({
   selector: 'app-root',
@@ -51,6 +55,8 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
     private projectsService: ProjectsService,
     private skillsService: SkillsService,
     private constraintsService: ConstraintsService,
+    private courseIterationsService: CourseIterationsService,
+    private promptService: PromptService,
     private changeDetectorRef: ChangeDetectorRef
   ) {
     this.overlayService.host = this;
@@ -88,6 +94,8 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
         this.updateData();
       })
     );
+
+    this.fetchCourseIterations();
   }
 
   private updateDataLoaded(): void {
@@ -146,7 +154,47 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
     this.allocationData = {
       projectsData: this.updateProjectsData(),
       studentsWithoutTeam: this.updateStudentsWithoutTeam(),
+      courseIteration: this.courseIterationsService.getCourseIteration(),
     };
+  }
+
+  private async fetchCourseIterations() {
+    const courseIteration = this.courseIterationsService.getCourseIteration();
+    if (!courseIteration || !this.promptService.isImportPossible()) {
+      return;
+    }
+    const courseIterations = await this.promptService.getCourseIterations();
+    if (!courseIterations) {
+      return;
+    }
+
+    const courseIterationDate = new Date(courseIteration.kickoffSubmissionPeriodEnd);
+
+    var newCourseIterationAvailable = false;
+    courseIterations.forEach(async courseIteration => {
+      const courseIterationDateToCompare = new Date(courseIteration.kickoffSubmissionPeriodEnd);
+      if (courseIterationDateToCompare > courseIterationDate) {
+        newCourseIterationAvailable = true;
+      }
+    });
+
+    if (newCourseIterationAvailable) {
+      this.showImportOverlay();
+    }
+  }
+
+  private showImportOverlay() {
+    this.overlayService.displayComponent(ConfirmationOverlayComponent, {
+      action: 'Open Import',
+      actionDescription: 'There is a newer course iteration available.',
+      onConfirmed: () => {
+        this.overlayService.closeOverlay();
+        setTimeout(() => {
+          this.overlayService.displayComponent(ImportOverlayComponent, {});
+        }, 10);
+      },
+      onCancelled: () => this.overlayService.closeOverlay(),
+    });
   }
 
   private updateProjectsData(): ProjectData[] {

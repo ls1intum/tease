@@ -46,7 +46,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     /* own modules */
     SharedModule,
     ComponentsModule,
-    environment.production ? ApiModule : ApiModule.forRoot({ rootUrl: 'http://localhost:3001/api/tease' }),
+    environment.production ? ApiModule : ApiModule.forRoot({ rootUrl: 'http://localhost:3001/api' }),
     FontAwesomeModule,
   ],
   providers: [OverlayService, PromptService, AuthInterceptor, API_INTERCEPTOR_PROVIDER],

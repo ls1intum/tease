@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { OverlayComponent, OverlayService } from '../../overlay.service';
 import { PromptService } from 'src/app/shared/services/prompt.service';
 import { SkillsService } from 'src/app/shared/data/skills.service';
@@ -7,21 +7,27 @@ import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { StudentsService } from 'src/app/shared/data/students.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastsService } from 'src/app/shared/services/toasts.service';
-import { Allocation, Project, Skill, Student } from 'src/app/api/models';
+import { Allocation, CourseIteration, Project, Skill, Student } from 'src/app/api/models';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { IdMappingService } from 'src/app/shared/data/id-mapping.service';
 import { LocksService } from 'src/app/shared/data/locks.service';
 import { CsvParserService } from 'src/app/shared/services/csv-parser.service';
+import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { CourseIterationsService } from 'src/app/shared/data/course-iteration.service';
 
 @Component({
   selector: 'app-import-overlay',
   templateUrl: './import-overlay.component.html',
   styleUrls: ['./import-overlay.component.scss'],
 })
-export class ImportOverlayComponent implements OverlayComponent {
-  // TODO: Fix Overlay Component
+export class ImportOverlayComponent implements OverlayComponent, OnInit {
   public data: any;
   @ViewChild('fileInput') fileInput: ElementRef;
+  private courseIterations: CourseIteration[];
+  courseIterationSelectData: SelectData[] = [];
+  form: FormGroup;
 
   constructor(
     private promptService: PromptService,
@@ -33,11 +39,21 @@ export class ImportOverlayComponent implements OverlayComponent {
     private constraintsService: ConstraintsService,
     private idMappingService: IdMappingService,
     private locksService: LocksService,
+    private courseIterationsService: CourseIterationsService,
 
     private toastsService: ToastsService,
     private overlayService: OverlayService,
     private csvParserService: CsvParserService
   ) {}
+
+  ngOnInit(): void {
+    if (this.isImportPossible()) {
+      this.getCourseIterations();
+      this.form = new FormGroup({
+        courseIteration: new FormControl<string>(null, Validators.required),
+      });
+    }
+  }
 
   importFromCSV() {
     this.fileInput.nativeElement.click();
@@ -47,24 +63,40 @@ export class ImportOverlayComponent implements OverlayComponent {
     return this.promptService.isImportPossible();
   }
 
+  async getCourseIterations(): Promise<void> {
+    try {
+      this.courseIterations = await this.promptService.getCourseIterations();
+      this.courseIterationSelectData = this.courseIterations.map(courseIteration => {
+        return { id: courseIteration.id, name: courseIteration.semesterName };
+      });
+    } catch (error) {
+      this.toastsService.showToast(`Error while fetching course iterations`, 'Import failed', false);
+    }
+  }
+
   async importFromPrompt(): Promise<void> {
     if (!this.isImportPossible()) {
       return;
     }
 
     try {
-      const students = await this.promptService.getStudents();
-      const projects = await this.promptService.getProjects();
-      const skills = await this.promptService.getSkills();
-      const allocations = await this.promptService.getAllocations();
+      const courseIterationId = this.form.get('courseIteration').value;
+      const courseIteration = this.courseIterations.find(courseIteration => courseIteration.id === courseIterationId);
+      if (!courseIteration) {
+        this.toastsService.showToast('Invalid course iteration', 'Import failed', false);
+        return;
+      }
 
-      this.setStudentData(students, projects, skills, allocations);
+      const students = await this.promptService.getStudents(courseIterationId);
+      const projects = await this.promptService.getProjects(courseIterationId);
+      const skills = await this.promptService.getSkills(courseIterationId);
+      const allocations = await this.promptService.getAllocations(courseIterationId);
+
+      this.setStudentData(students, projects, skills, allocations, courseIteration);
     } catch (error) {
       if (error instanceof HttpErrorResponse) {
-        console.log('Error while fetching data: ', error);
         this.toastsService.showToast(`Error ${error.status}: ${error.statusText}`, 'Import failed', false);
       } else {
-        console.log('Unknown error: ', error);
         this.toastsService.showToast(`Unknown error`, 'Import failed', false);
       }
       return;
@@ -89,7 +121,15 @@ export class ImportOverlayComponent implements OverlayComponent {
     this.onFileChanged({ target: { files: ['/assets/persons_example.csv'] } });
   }
 
-  private setStudentData(students: Student[], projects: Project[], skills: Skill[], allocations: Allocation[]): void {
+  private setStudentData(
+    students: Student[],
+    projects: Project[],
+    skills: Skill[],
+    allocations: Allocation[],
+    courseIteration?: CourseIteration
+  ): void {
+    this.courseIterationsService.setCourseIteration(courseIteration);
+
     this.idMappingService.deleteMapping();
     this.constraintsService.deleteConstraints();
     this.locksService.deleteLocks();

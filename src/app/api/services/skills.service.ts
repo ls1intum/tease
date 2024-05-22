@@ -9,9 +9,9 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { courseIterationsCourseIterationIdSkillsGet } from '../fn/skills/course-iterations-course-iteration-id-skills-get';
-import { CourseIterationsCourseIterationIdSkillsGet$Params } from '../fn/skills/course-iterations-course-iteration-id-skills-get';
 import { Skill } from '../models/skill';
+import { teaseCourseIterationsCourseIterationIdSkillsGet } from '../fn/skills/tease-course-iterations-course-iteration-id-skills-get';
+import { TeaseCourseIterationsCourseIterationIdSkillsGet$Params } from '../fn/skills/tease-course-iterations-course-iteration-id-skills-get';
 
 @Injectable({ providedIn: 'root' })
 export class SkillsService extends BaseService {
@@ -19,8 +19,8 @@ export class SkillsService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `courseIterationsCourseIterationIdSkillsGet()` */
-  static readonly CourseIterationsCourseIterationIdSkillsGetPath = '/course-iterations/{courseIterationId}/skills';
+  /** Path part for operation `teaseCourseIterationsCourseIterationIdSkillsGet()` */
+  static readonly TeaseCourseIterationsCourseIterationIdSkillsGetPath = '/tease/course-iterations/{courseIterationId}/skills';
 
   /**
    * Retrieve the skills from a specific course iteration.
@@ -28,12 +28,12 @@ export class SkillsService extends BaseService {
    * After the allocation is concluded, TEASE can report the results (which team each student was assigned to) to PROMPT without needing to repeat/send back all of the information that was initially sent
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `courseIterationsCourseIterationIdSkillsGet()` instead.
+   * To access only the response body, use `teaseCourseIterationsCourseIterationIdSkillsGet()` instead.
    *
    * This method doesn't expect any request body.
    */
-  courseIterationsCourseIterationIdSkillsGet$Response(params: CourseIterationsCourseIterationIdSkillsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Skill>>> {
-    return courseIterationsCourseIterationIdSkillsGet(this.http, this.rootUrl, params, context);
+  teaseCourseIterationsCourseIterationIdSkillsGet$Response(params: TeaseCourseIterationsCourseIterationIdSkillsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Skill>>> {
+    return teaseCourseIterationsCourseIterationIdSkillsGet(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -42,12 +42,12 @@ export class SkillsService extends BaseService {
    * After the allocation is concluded, TEASE can report the results (which team each student was assigned to) to PROMPT without needing to repeat/send back all of the information that was initially sent
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `courseIterationsCourseIterationIdSkillsGet$Response()` instead.
+   * To access the full response (for headers, for example), `teaseCourseIterationsCourseIterationIdSkillsGet$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  courseIterationsCourseIterationIdSkillsGet(params: CourseIterationsCourseIterationIdSkillsGet$Params, context?: HttpContext): Observable<Array<Skill>> {
-    return this.courseIterationsCourseIterationIdSkillsGet$Response(params, context).pipe(
+  teaseCourseIterationsCourseIterationIdSkillsGet(params: TeaseCourseIterationsCourseIterationIdSkillsGet$Params, context?: HttpContext): Observable<Array<Skill>> {
+    return this.teaseCourseIterationsCourseIterationIdSkillsGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<Skill>>): Array<Skill> => r.body)
     );
   }

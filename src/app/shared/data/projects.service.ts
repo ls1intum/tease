@@ -38,6 +38,6 @@ export class ProjectsService {
   getProjectNameById(id: string): string {
     const projects = this.getProjects();
     const project = projects.find(project => project.id === id);
-    return project.name;
+    return project?.name;
   }
 }
