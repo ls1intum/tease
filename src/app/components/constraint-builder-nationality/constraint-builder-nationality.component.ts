@@ -8,7 +8,7 @@ import {
   SelectData,
 } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 import { NationalityConstraintFunction } from 'src/app/shared/matching/constraints/constraint-functions/nationality-constraint-function';
-import { ConstraintSummaryViewComponent } from '../constraint-summary-view/constraint-summary-view.component';
+import { ConstraintSummaryComponent } from '../constraint-summary-view/constraint-summary.component';
 import { SelectDataService } from 'src/app/shared/services/select-data.service';
 import { Operator } from 'src/app/shared/matching/constraints/constraint-utils';
 import {
@@ -90,7 +90,7 @@ export class ConstraintBuilderNationalityComponent implements OverlayComponent, 
   close(): void {
     this.overlayService.closeOverlay();
     setTimeout(() => {
-      this.overlayService.displayComponent(ConstraintSummaryViewComponent, {});
+      this.overlayService.displayComponent(ConstraintSummaryComponent, {});
     }, 10);
   }
 
@@ -131,6 +131,7 @@ export class ConstraintBuilderNationalityComponent implements OverlayComponent, 
       value: nationality.name,
       valueId: nationality.id,
       students: filteredStudents,
+      description: this.constraintFunction.getDescription(property.name, operator, nationality.name),
     };
   }
 
