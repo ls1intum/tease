@@ -7,10 +7,15 @@ import { ConstraintWrapper } from 'src/app/shared/matching/constraints/constrain
 import {
   facAddIcon,
   facConstraintIcon,
+  facCheckExtraBoldIcon,
   facDeleteIcon,
   facEditIcon,
   facFlagIcon,
   facGroupsIcon,
+  facMoreIcon,
+  facMoreExtraBoldIcon,
+  facToggleOnIcon,
+  facWarnIcon,
 } from 'src/assets/icons/icons';
 import { ConstraintBuilderOverlayComponent } from '../constraint-builder-overlay/constraint-builder-overlay.component';
 import { LocksService } from 'src/app/shared/data/locks.service';
@@ -23,17 +28,22 @@ import { StudentSortService } from 'src/app/shared/services/student-sort.service
 import { ConstraintBuilderNationalityComponent } from '../constraint-builder-nationality/constraint-builder-nationality.component';
 
 @Component({
-  selector: 'app-constraint-summary-view',
-  templateUrl: './constraint-summary-view.component.html',
-  styleUrl: './constraint-summary-view.component.scss',
+  selector: 'app-constraint-summary',
+  templateUrl: './constraint-summary.component.html',
+  styleUrl: './constraint-summary.component.scss',
 })
-export class ConstraintSummaryViewComponent implements OverlayComponent, OnInit {
+export class ConstraintSummaryComponent implements OverlayComponent, OnInit {
   data = {};
   facDeleteIcon = facDeleteIcon;
   facGroupsIcon = facGroupsIcon;
   facAddIcon = facAddIcon;
   facEditIcon = facEditIcon;
   facFlagIcon = facFlagIcon;
+  facMoreIcon = facMoreIcon;
+  facMoreExtraBoldIcon = facMoreExtraBoldIcon;
+  facCheckExtraBoldIcon = facCheckExtraBoldIcon;
+  facToggleOnIcon = facToggleOnIcon;
+  facWarnIcon = facWarnIcon;
 
   constraintWrappers: ConstraintWrapper[] = [];
   projects: Project[] = [];
@@ -71,7 +81,7 @@ export class ConstraintSummaryViewComponent implements OverlayComponent, OnInit 
         onClosed: () => {
           this.overlayService.closeOverlay();
           setTimeout(() => {
-            this.overlayService.displayComponent(ConstraintSummaryViewComponent, {});
+            this.overlayService.displayComponent(ConstraintSummaryComponent, {});
           }, 10);
         },
       });
@@ -84,11 +94,6 @@ export class ConstraintSummaryViewComponent implements OverlayComponent, OnInit 
 
   deleteConstraintWrapper(id: string): void {
     this.constraintsService.deleteConstraint(id);
-    this.constraintWrappers = this.constraintsService.getConstraints();
-  }
-
-  setActive(id: string, active: boolean): void {
-    this.constraintsService.setActive(id, active);
     this.constraintWrappers = this.constraintsService.getConstraints();
   }
 
@@ -109,5 +114,10 @@ export class ConstraintSummaryViewComponent implements OverlayComponent, OnInit 
       this.cancel();
       this.toastsService.showToast('Distribution Complete', 'Success', true);
     }
+  }
+
+  setActive(id: string, active: boolean): void {
+    this.constraintsService.setActive(id, active);
+    this.constraintWrappers = this.constraintsService.getConstraints();
   }
 }

@@ -1,0 +1,41 @@
+@import '/src/scss/style-constants.scss';
+
+th {
+  font-weight: bold;
+}
+
+td,
+th {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.project-header {
+  max-width: 3rem;
+}
+
+.active-state-wrapper {
+  width: 5.5rem;
+}
+
+.table-container {
+  tr:first-child {
+    th:first-child {
+      border-radius: 0.5rem 0 0 0;
+    }
+    th:last-child {
+      border-radius: 0 0.5rem 0 0;
+    }
+  }
+  tr:last-child {
+    td:first-child {
+      border-radius: 0 0 0 0.5rem;
+    }
+    td:last-child {
+      border-radius: 0 0 0.5rem 0;
+    }
+    td {
+      border-bottom: 0px;
+    }
+  }
+}

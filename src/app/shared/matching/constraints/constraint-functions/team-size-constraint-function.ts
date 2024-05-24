@@ -18,4 +18,8 @@ export class TeamSizeConstraintFunction extends ConstraintFunction {
   override getValues(): SelectData[] {
     return [{ id: 'cf-team-size-default-value', name: 'true' }];
   }
+
+  override getDescription(property: string, operator: Operator, value: string): string {
+    return `Team Size`;
+  }
 }

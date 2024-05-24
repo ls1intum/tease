@@ -37,6 +37,10 @@ export abstract class ConstraintFunction {
 
   abstract getValues(): SelectData[];
 
+  getDescription(property: string, operator: Operator, value: string): string {
+    return `${property} ${OperatorMapping[operator]} ${value}`;
+  }
+
   getOperators(): SelectData[] {
     return this.operators.map(operator => ({
       id: operator,
