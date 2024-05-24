@@ -1,7 +1,9 @@
-export interface PeopleChartProjectData {
+import { ChartConfiguration } from 'chart.js';
+export interface ChartProjectData {
   name: string;
   tag: string;
-  studentData: PeopleChartStudentData[];
+  peopleStudentData?: PeopleChartStudentData[];
+  barStudentData?: ChartConfiguration<'bar'>;
 }
 
 export interface PeopleChartStudentData {

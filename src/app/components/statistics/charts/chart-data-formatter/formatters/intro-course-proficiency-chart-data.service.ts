@@ -5,7 +5,7 @@ import { ChartDataFormatter } from '../chart-data-formatter';
 import { ColorService } from 'src/app/shared/constants/color.service';
 import { SkillProficiency, Student } from 'src/app/api/models';
 import { Comparator, Operator, SkillLevels } from 'src/app/shared/matching/constraints/constraint-utils';
-import { PeopleChartProjectData, PeopleChartStudentData } from '../people-chart-data';
+import { ChartProjectData, PeopleChartStudentData } from '../people-chart-data';
 import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 
 @Injectable({
@@ -38,8 +38,8 @@ export class IntroCourseProficiencyChartDataService implements ChartDataFormatte
     return { labels: this.SKILL_PROFICIENCY_LABELS, datasets: datasets };
   }
 
-  getPeopleData(allocationData: AllocationData): PeopleChartProjectData[] {
-    const data: PeopleChartProjectData[] = [];
+  getProjectData(allocationData: AllocationData): ChartProjectData[] {
+    const data: ChartProjectData[] = [];
 
     allocationData.projectsData.forEach(projectData => {
       const studentData: PeopleChartStudentData[] = [];
@@ -63,7 +63,7 @@ export class IntroCourseProficiencyChartDataService implements ChartDataFormatte
       data.push({
         name: projectData.project.name,
         tag: null,
-        studentData: studentData,
+        peopleStudentData: studentData,
       });
     });
 

@@ -5,7 +5,7 @@ import { ChartDataFormatter } from '../chart-data-formatter';
 import { ColorService } from 'src/app/shared/constants/color.service';
 import { SkillProficiency, Student } from 'src/app/api/models';
 import { Comparator, Operator, SkillLevels } from 'src/app/shared/matching/constraints/constraint-utils';
-import { PeopleChartProjectData, PeopleChartStudentData } from '../people-chart-data';
+import { ChartProjectData, PeopleChartStudentData } from '../people-chart-data';
 import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 import { SkillsService } from 'src/app/shared/data/skills.service';
 
@@ -46,21 +46,21 @@ export class SkillsProficiencyChartDataService implements ChartDataFormatter {
     return { labels: skillProficiencies, datasets: datasets };
   }
 
-  getPeopleData(allocationData: AllocationData, skillId: string): PeopleChartProjectData[] {
-    const data: PeopleChartProjectData[] = allocationData.projectsData.map(projectData => {
+  getProjectData(allocationData: AllocationData, skillId: string): ChartProjectData[] {
+    const data: ChartProjectData[] = allocationData.projectsData.map(projectData => {
       return this.getPeopleChartProjectData(projectData, skillId);
     });
 
     return data;
   }
 
-  private getPeopleChartProjectData(projectData: ProjectData, skillId: string): PeopleChartProjectData {
+  private getPeopleChartProjectData(projectData: ProjectData, skillId: string): ChartProjectData {
     const studentData = this.getPeopleChartStudentData(projectData, skillId);
 
     return {
       name: projectData.project.name,
       tag: null,
-      studentData: studentData,
+      peopleStudentData: studentData,
     };
   }
 

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ChartData } from 'chart.js';
-import { AllocationData } from 'src/app/shared/models/allocation-data';
+import { ChartConfiguration, ChartData, TooltipItem } from 'chart.js';
+import { AllocationData, ProjectData } from 'src/app/shared/models/allocation-data';
 import { ChartDataFormatter } from '../chart-data-formatter';
 import { Student } from 'src/app/api/models';
-import { PeopleChartProjectData, PeopleChartStudentData } from '../people-chart-data';
+import { ChartProjectData } from '../people-chart-data';
 import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 
 @Injectable({
@@ -12,6 +12,7 @@ import { SelectData } from 'src/app/shared/matching/constraints/constraint-funct
 export class PriorityChartDataService implements ChartDataFormatter {
   private readonly PRIORITY_ZONE_LABELS = ['High Priority', 'Medium Priority', 'Low Priority', 'Unassigned'];
   private readonly BACKGROUND_COLORS = ['#94DA7C', '#EED373', '#E16868', '#E0E0E0'];
+  private readonly DEFAULT_X_MAX = 4;
 
   getSelectData(): SelectData[] {
     return [{ name: 'Priority Distribution', id: 'statistics-priority-distribution', group: 'Other', reference: this }];
@@ -42,34 +43,58 @@ export class PriorityChartDataService implements ChartDataFormatter {
     };
   }
 
-  getPeopleData(allocationData: AllocationData): PeopleChartProjectData[] {
-    const data: PeopleChartProjectData[] = [];
+  getProjectData(allocationData: AllocationData): ChartProjectData[] {
+    const data: ChartProjectData[] = [];
+
+    const projectCount = allocationData.projectsData.length;
+    let priorityMaps = this.getPriorityMaps(allocationData.projectsData);
+    const highestPriorityCount = this.getHighestPriorityCount(priorityMaps);
 
     allocationData.projectsData.forEach(projectData => {
-      const studentData: PeopleChartStudentData[] = [];
-      const studentPriorities: number[] = [];
+      const priorityMap = priorityMaps.get(projectData.project.id);
+      const barChartOptions = this.getChartConfigurationOptions(
+        projectData,
+        priorityMap,
+        projectCount,
+        highestPriorityCount
+      );
 
-      const mappedStudents = projectData.students.map(student => {
-        const priority = this.getStudentPriorityForProject(student, projectData.project.id);
-        const color = this.getColorForPriority(priority);
-        const tooltip = this.getTooltip(student.firstName, student.lastName, priority);
-        studentPriorities.push(priority);
-        return { priority, color, tooltip };
-      });
-      mappedStudents
-        .sort((a, b) => a.priority - b.priority)
-        .forEach(student => studentData.push({ color: student.color, tooltip: student.tooltip }));
+      const labels = Array.from({ length: projectCount }, (_, index) => index.toString());
 
-      const peopleChartData = {
-        name: projectData.project.name,
-        tag: this.getTag(studentPriorities),
-        studentData: studentData,
+      const chartConfiguration: ChartConfiguration<'bar'> = {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: projectData.project.id,
+              data: priorityMap,
+              backgroundColor: priorityMap.map((_, index) => this.getColorForPriority(index)),
+            },
+          ],
+        },
+        options: barChartOptions,
       };
 
-      data.push(peopleChartData);
+      data.push({
+        name: projectData.project.name,
+        tag: this.getTag(priorityMap),
+        barStudentData: chartConfiguration,
+      });
     });
 
     return data;
+  }
+
+  private getHighestPriorityCount(priorityMaps: Map<string, number[]>): number {
+    let max = this.DEFAULT_X_MAX;
+    priorityMaps.forEach(priorityMap => {
+      const projectMax = Math.max(...priorityMap);
+      if (projectMax > max) {
+        max = projectMax;
+      }
+    });
+    return max;
   }
 
   private getPriorityZone(priority: number): number {
@@ -89,7 +114,7 @@ export class PriorityChartDataService implements ChartDataFormatter {
   }
 
   private getStudentPriorityForProject(student: Student, projectId: string): number {
-    return student.projectPreferences.find(project => project.projectId === projectId)?.priority + 1 ?? 0;
+    return student.projectPreferences.find(project => project.projectId === projectId)?.priority ?? 0;
   }
 
   private getColorForPriority(priority: number): string {
@@ -98,10 +123,77 @@ export class PriorityChartDataService implements ChartDataFormatter {
   }
 
   private getTag(priorities: number[]): string {
-    return 'Ø ' + (priorities.reduce((acc, priority) => acc + priority, 0) / priorities.length || 0).toFixed(1);
+    let priorityCount = 0;
+    let studentCount = 0;
+
+    priorities.forEach((priority, index) => {
+      priorityCount += priority * (index + 1);
+      studentCount += priority;
+    });
+
+    return 'Ø ' + (priorityCount / studentCount || 0).toFixed(1);
   }
 
-  private getTooltip(firstName: string, lastName: string, priority: number): string {
-    return firstName + ' ' + lastName + ': ' + priority;
+  private getPriorityMaps(projectsData: ProjectData[]): Map<string, number[]> {
+    const priorityMaps = new Map<string, number[]>();
+    projectsData.forEach(projectData => {
+      const priorityMap = new Array(projectsData.length).fill(0);
+      projectData.students.forEach(student => {
+        const priority = this.getStudentPriorityForProject(student, projectData.project.id);
+        priorityMap[priority] += 1;
+      });
+      priorityMaps.set(projectData.project.id, priorityMap);
+    });
+    return priorityMaps;
+  }
+
+  private getTooltipLabel(context: TooltipItem<'bar'>, priorityMap: number[]): string {
+    const studentCount = context.parsed.y;
+    const priority = context.dataIndex;
+    return `Priority ${priority + 1}: ${studentCount}`;
+  }
+
+  private getChartConfigurationOptions(
+    projectData: ProjectData,
+    priorityMap: number[],
+    xMax: number,
+    yMax: number
+  ): ChartConfiguration<'bar'>['options'] {
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: {
+        autoPadding: false,
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          max: xMax,
+          ticks: {
+            callback: (value: number) => {
+              return (value + 1).toString();
+            },
+          },
+        },
+        y: {
+          beginAtZero: true,
+          max: yMax,
+          ticks: {
+            stepSize: 1,
+          },
+        },
+      },
+      plugins: {
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          callbacks: {
+            title: _ => projectData.project.name,
+            label: context => this.getTooltipLabel(context, priorityMap),
+          },
+        },
+      },
+    };
   }
 }
