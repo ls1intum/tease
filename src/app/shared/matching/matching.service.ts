@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ReformatLP, Solve } from 'javascript-lp-solver';
-import { Allocation, Student } from 'src/app/api/models';
+import { Allocation } from 'src/app/api/models';
 import { IdMappingService } from '../data/id-mapping.service';
 import { ToastsService } from '../services/toasts.service';
 

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
 import { ConfirmationOverlayComponent } from '../confirmation-overlay/confirmation-overlay.component';
 import { ExportOverlayComponent } from '../export-overlay/export-overlay.component';
@@ -14,13 +14,14 @@ import { ConstraintBuilderOverlayComponent } from '../constraint-builder-overlay
 import { ConstraintSummaryComponent } from '../constraint-summary-view/constraint-summary.component';
 import { StudentSortService } from 'src/app/shared/services/student-sort.service';
 import { AllocationData } from 'src/app/shared/models/allocation-data';
+import { WebsocketService } from 'src/app/shared/network/websocket.service';
 
 @Component({
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',
   styleUrl: './navigation-bar.component.scss',
 })
-export class NavigationBarComponent {
+export class NavigationBarComponent implements OnInit {
   facGroupsIcon = teaseIconPack['facGroupsIcon'];
   facDeleteIcon = teaseIconPack['facDeleteIcon'];
   facMoreIcon = teaseIconPack['facMoreIcon'];
@@ -32,6 +33,7 @@ export class NavigationBarComponent {
   facSkillDeathIcon = teaseIconPack['facSkillDeathIcon'];
   facAddIcon = teaseIconPack['facAddIcon'];
   facSortIcon = teaseIconPack['facSortIcon'];
+  facCheckIcon = teaseIconPack['facCheckIcon'];
 
   @Input({ required: true }) allocationData: AllocationData;
 
@@ -43,8 +45,48 @@ export class NavigationBarComponent {
     private skillsService: SkillsService,
     private constraintsService: ConstraintsService,
     private locksService: LocksService,
-    private studentSortService: StudentSortService
+    private studentSortService: StudentSortService,
+    public websocketService: WebsocketService
   ) {}
+
+  ngOnInit(): void {
+    // this.listen();
+  }
+
+  listen() {
+    this.websocketService.listen(
+      localStorage.getItem('course-iteration'),
+      allocations => {
+        console.log('app comp');
+        this.allocationsService.setAllocations(allocations, false);
+      },
+      allocations => {
+        console.log('app discovery');
+        if (!allocations) {
+          return;
+        }
+        const storedAllocations = this.allocationsService.getAllocations();
+
+        if (JSON.stringify(storedAllocations) === JSON.stringify(allocations)) {
+          return;
+        }
+
+        this.overlayService.displayComponent(ConfirmationOverlayComponent, {
+          action: 'Load Allocation',
+          actionDescription:
+            'There is a different allocation state available. Do you want to load it? This will overwrite your current allocation. Not loading it will overwrite the other allocation.',
+          onConfirmed: () => {
+            this.allocationsService.setAllocations(allocations, true);
+            this.overlayService.closeOverlay();
+          },
+          onCancelled: () => {
+            this.allocationsService.setAllocations(storedAllocations, true);
+            this.overlayService.closeOverlay();
+          },
+        });
+      }
+    );
+  }
 
   dropdownItems = [
     { action: this.showExportOverlay.bind(this), icon: this.facExportIcon, label: 'Export', class: 'text-dark' },

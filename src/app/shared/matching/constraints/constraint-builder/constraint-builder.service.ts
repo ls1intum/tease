@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Student } from 'src/app/api/models';
-import { IdMappingService } from '../../../data/id-mapping.service';
 import { ConstraintWrapper } from '../constraint';
 import { MandatoryConstraintsService } from './mandatory-contraints.service';
 import { CustomConstraintsService } from './custom-constraints.service';

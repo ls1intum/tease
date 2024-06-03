@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Allocation } from 'src/app/api/models';
+import { WebsocketService } from '../network/websocket.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { Allocation } from 'src/app/api/models';
 export class AllocationsService {
   private allocationsSubject$: BehaviorSubject<Allocation[]> = new BehaviorSubject<Allocation[]>([]);
 
-  constructor() {
+  constructor(private webSocketService: WebsocketService) {
     try {
       const storedAllocations = localStorage.getItem('allocations') || '[]';
       const allocations = JSON.parse(storedAllocations);
@@ -18,9 +19,14 @@ export class AllocationsService {
     }
   }
 
-  setAllocations(allocations: Allocation[]): void {
+  setAllocations(allocations: Allocation[], sentWebSocketUpdate: Boolean = true): void {
     this.allocationsSubject$.next(allocations);
-    localStorage.setItem('allocations', JSON.stringify(allocations));
+    const allocationsAsString = JSON.stringify(allocations);
+    localStorage.setItem('allocations', allocationsAsString);
+    // TODO: Fix Course Iteration ID
+    if (sentWebSocketUpdate) {
+      this.webSocketService.send(localStorage.getItem('courseIterationId') || 'x', '/allocations', allocationsAsString);
+    }
   }
 
   deleteAllocations(): void {
