@@ -40,3 +40,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 For the deprecated documentation of previous versions of this repository (including info regarding build & deployment, code structure, older known issues and miscellaneous notes) please see the README from older commits.
 
 ---
+
+## Deployment 
+
+Upon a new commit to the `main` branch in the Tease repository, an automatic build pipeline is triggered. This pipeline builds a new Docker image for Tease. The image is then deployed to the same virtual machine that hosts Prompt. Once deployed, all incoming HTTP requests to the URL `prompt.ase.cit.tum.de/tease` are automatically routed to and served by the newly deployed Tease Docker image running on the virtual machine. To facilitate data exchange between Prompt and Tease, it is necessary to log in to Prompt as a member of the project management team. This step allows to import student data from Prompt into Tease and later export the allocation back to Prompt.
