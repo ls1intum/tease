@@ -2,6 +2,7 @@
 /* eslint-disable */
 export { Allocation } from './models/allocation';
 export { Comment } from './models/comment';
+export { CourseIteration } from './models/course-iteration';
 export { Device } from './models/device';
 export { Gender } from './models/gender';
 export { Language } from './models/language';

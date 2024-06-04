@@ -14,6 +14,7 @@ import { ConstraintBuilderOverlayComponent } from '../constraint-builder-overlay
 import { ConstraintSummaryComponent } from '../constraint-summary-view/constraint-summary.component';
 import { StudentSortService } from 'src/app/shared/services/student-sort.service';
 import { AllocationData } from 'src/app/shared/models/allocation-data';
+import { CourseIterationsService } from 'src/app/shared/data/course-iteration.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -43,7 +44,8 @@ export class NavigationBarComponent {
     private skillsService: SkillsService,
     private constraintsService: ConstraintsService,
     private locksService: LocksService,
-    private studentSortService: StudentSortService
+    private studentSortService: StudentSortService,
+    private courseIterationsService: CourseIterationsService
   ) {}
 
   dropdownItems = [
@@ -131,6 +133,7 @@ export class NavigationBarComponent {
     this.skillsService.deleteSkills();
 
     this.constraintsService.deleteConstraints();
+    this.courseIterationsService.setCourseIteration();
 
     this.overlayService.closeOverlay();
   }

@@ -7,9 +7,9 @@ info:
     ---
     Using this API you can retrieve information on students and their associated attributes.
 servers:
-  - url: https://prompt.ase.cit.tum.de/api/tease
+  - url: https://prompt.ase.cit.tum.de/api
 paths:
-  /course-iterations/{courseIterationId}/projects:
+  /tease/course-iterations/{courseIterationId}/projects:
     get:
       tags:
         - Projects
@@ -31,7 +31,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Project'
-  /course-iterations/{courseIterationId}/students:
+  /tease/course-iterations/{courseIterationId}/students:
     get:
       tags:
         - Students
@@ -53,7 +53,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Student'
-  /course-iterations/{courseIterationId}/allocations:
+  /tease/course-iterations/{courseIterationId}/allocations:
     post:
       tags:
         - Allocations
@@ -97,7 +97,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Allocation'
-  /course-iterations/{courseIterationId}/skills:
+  /tease/course-iterations/{courseIterationId}/skills:
     get:
       tags:
         - Skills
@@ -119,6 +119,20 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Skill'
+  /course-iterations:
+    get:
+      tags:
+        - Course Iterations
+      summary: Retrieve all course iterations
+      responses:
+        '200':
+          description: Successfully retrieved course iterations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseIteration'
 components:
   schemas:
     Student:
@@ -372,3 +386,14 @@ components:
           students:
             - '9d0e016b-5019-41fe-9ae9-8b6784080693'
             - '704f39d9-3936-4005-a0ca-2cc2fe989cec'
+    CourseIteration:
+      type: object
+      description: A course iteration from PROMPT
+      properties:
+        id:
+          type: string
+        semesterName:
+          type: string
+        kickoffSubmissionPeriodEnd:
+          type: string
+          format: date

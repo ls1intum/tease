@@ -8,7 +8,7 @@ import { RequestBuilder } from '../../request-builder';
 
 import { Allocation } from '../../models/allocation';
 
-export interface CourseIterationsCourseIterationIdAllocationsPost$Params {
+export interface TeaseCourseIterationsCourseIterationIdAllocationsPost$Params {
 
 /**
  * Unique identifier of the course iteration
@@ -17,8 +17,8 @@ export interface CourseIterationsCourseIterationIdAllocationsPost$Params {
       body?: Array<Allocation>
 }
 
-export function courseIterationsCourseIterationIdAllocationsPost(http: HttpClient, rootUrl: string, params: CourseIterationsCourseIterationIdAllocationsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, courseIterationsCourseIterationIdAllocationsPost.PATH, 'post');
+export function teaseCourseIterationsCourseIterationIdAllocationsPost(http: HttpClient, rootUrl: string, params: TeaseCourseIterationsCourseIterationIdAllocationsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, teaseCourseIterationsCourseIterationIdAllocationsPost.PATH, 'post');
   if (params) {
     rb.path('courseIterationId', params.courseIterationId, {});
     rb.body(params.body, 'application/json');
@@ -34,4 +34,4 @@ export function courseIterationsCourseIterationIdAllocationsPost(http: HttpClien
   );
 }
 
-courseIterationsCourseIterationIdAllocationsPost.PATH = '/course-iterations/{courseIterationId}/allocations';
+teaseCourseIterationsCourseIterationIdAllocationsPost.PATH = '/tease/course-iterations/{courseIterationId}/allocations';
