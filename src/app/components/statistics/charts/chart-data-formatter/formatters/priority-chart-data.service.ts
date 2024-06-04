@@ -47,7 +47,7 @@ export class PriorityChartDataService implements ChartDataFormatter {
     const data: ChartProjectData[] = [];
 
     const projectCount = allocationData.projectsData.length;
-    var priorityMaps = this.getPriorityMaps(allocationData.projectsData);
+    let priorityMaps = this.getPriorityMaps(allocationData.projectsData);
     const highestPriorityCount = this.getHighestPriorityCount(priorityMaps);
 
     allocationData.projectsData.forEach(projectData => {
@@ -123,8 +123,8 @@ export class PriorityChartDataService implements ChartDataFormatter {
   }
 
   private getTag(priorities: number[]): string {
-    var priorityCount = 0;
-    var studentCount = 0;
+    let priorityCount = 0;
+    let studentCount = 0;
 
     priorities.forEach((priority, index) => {
       priorityCount += priority * (index + 1);

@@ -170,7 +170,7 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
 
     const courseIterationDate = new Date(courseIteration.kickoffSubmissionPeriodEnd);
 
-    var newCourseIterationAvailable = false;
+    let newCourseIterationAvailable = false;
     courseIterations.forEach(async courseIteration => {
       const courseIterationDateToCompare = new Date(courseIteration.kickoffSubmissionPeriodEnd);
       if (courseIterationDateToCompare > courseIterationDate) {

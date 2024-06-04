@@ -48,10 +48,10 @@ export class ImportOverlayComponent implements OverlayComponent, OnInit {
 
   ngOnInit(): void {
     if (this.isImportPossible()) {
-      this.getCourseIterations();
       this.form = new FormGroup({
         courseIteration: new FormControl<string>(null, Validators.required),
       });
+      this.getCourseIterations();
     }
   }
 
@@ -69,6 +69,7 @@ export class ImportOverlayComponent implements OverlayComponent, OnInit {
       this.courseIterationSelectData = this.courseIterations.map(courseIteration => {
         return { id: courseIteration.id, name: courseIteration.semesterName };
       });
+      this.form.get('courseIteration').patchValue(this.courseIterations[0]?.id);
     } catch (error) {
       this.toastsService.showToast(`Error while fetching course iterations`, 'Import failed', false);
     }
