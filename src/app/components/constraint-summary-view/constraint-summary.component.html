@@ -1,0 +1,123 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="w-75" style="height: 65vh">
+    <div class="bg-white p-4 rounded-3 d-flex flex-column gap-4 h-100" (click)="$event.stopPropagation()">
+      <h3 class="fw-semibold mb-1">Constraint Summary</h3>
+      @if (constraintWrappers.length) {
+        <div class="border border-1 rounded-3 table-container">
+          <table class="table table-hover mb-0">
+            <thead class="table-light">
+              <tr>
+                <th class="text-start">Constraint</th>
+                <th class="text-center">Min</th>
+                <th class="text-center">Max</th>
+
+                @for (project of projects; track project) {
+                  <th class="project-header overflow-hidden user-select-none text-center">
+                    <div class="text-truncate" [ngbTooltip]="project.name" triggers="hover">
+                      {{ project.name[0] }}{{ project.name[1] }}{{ project.name[2] }}
+                    </div>
+                  </th>
+                }
+                <th class="text-center"><div>Status</div></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (constraintWrapper of constraintWrappers; track constraintWrapper) {
+                <tr>
+                  <td class="text-nowrap border-end-0 border-start-1 text-start">
+                    {{ constraintWrapper.constraintFunction.description }}
+                  </td>
+                  <td class="fw-semibold text-center">{{ constraintWrapper.threshold.lowerBound }}</td>
+                  <td class="fw-semibold text-center">{{ constraintWrapper.threshold.upperBound }}</td>
+                  @for (project of projects; track project) {
+                    <td>
+                      <div class="d-flex align-items-center justify-content-center">
+                        @if (constraintWrapper.projectIds | includes: project.id) {
+                          <fa-icon [icon]="facCheckExtraBoldIcon" class="text-success fs-4 lh-1"></fa-icon>
+                        } @else {
+                          -
+                        }
+                      </div>
+                    </td>
+                  }
+                  <td class="active-state-wrapper">
+                    @if (!constraintWrapper.isActive) {
+                      <div
+                        class="rounded-4 px-05 d-flex align-items-center justify-content-center bg-warn-60 text-warn">
+                        inactive
+                      </div>
+                    } @else {
+                      <div
+                        class="rounded-4 px-05 d-flex align-items-center justify-content-center bg-success-20 text-success">
+                        active
+                      </div>
+                    }
+                  </td>
+
+                  <td class="text-nowrap p-0 text-center">
+                    <div ngbDropdown class="d-inline-block">
+                      <button
+                        type="button"
+                        class="btn btn-icon btn-icon-primary border-0"
+                        id="moreDropdown"
+                        ngbDropdownToggle>
+                        <fa-icon [icon]="facMoreExtraBoldIcon" class="fs-6 text-dark"></fa-icon>
+                      </button>
+                      <div ngbDropdownMenu>
+                        <button
+                          ngbDropdownItem
+                          (click)="showConstraintBuilderOverlay(constraintWrapper)"
+                          class="btn-icon-text py-2 text-dark">
+                          <fa-icon [icon]="facEditIcon" class="pe-4 fs-5"></fa-icon>Edit
+                        </button>
+                        <button
+                          ngbDropdownItem
+                          (click)="setActive(constraintWrapper.id, !constraintWrapper.isActive)"
+                          class="btn-icon-text py-2 text-dark">
+                          <fa-icon [icon]="facToggleOnIcon" class="pe-4 fs-5"></fa-icon>Active
+                        </button>
+                        <button
+                          ngbDropdownItem
+                          (click)="deleteConstraintWrapper(constraintWrapper.id)"
+                          class="btn-icon-text py-2 text-warn">
+                          <fa-icon [icon]="facDeleteIcon" class="pe-4 fs-5"></fa-icon>Delete
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      } @else {
+        <div class="d-flex flex-grow-1 h-100 align-items-center justify-content-center">
+          <div class="d-flex flex-column gap-2 align-items-center">
+            <fa-icon [icon]="facWarnIcon" class="text-warn fs-l lh-1"></fa-icon>
+            <div class="text-prefix fw-semibold fs-5">No Constraints Created</div>
+            <div class="text-prefix fs-6">Click 'Add Constraint' to create a Constraint</div>
+          </div>
+        </div>
+      }
+      <div class="flex-grow-1"></div>
+      <div class="d-flex justify-content-end gap-2">
+        <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+        <div class="flex-grow-1"></div>
+
+        <button type="button" class="btn btn-outline-primary" (click)="showConstraintNationalityBuilderOverlay()">
+          <fa-icon [icon]="facFlagIcon"></fa-icon>
+          Add Country List
+        </button>
+        <button type="button" class="btn btn-outline-primary" (click)="showConstraintBuilderOverlay(null)">
+          <fa-icon [icon]="facAddIcon"></fa-icon>
+          Add Constraint
+        </button>
+        <button type="button" class="btn btn-primary" (click)="distributeTeams()">
+          <fa-icon [icon]="facGroupsIcon"></fa-icon>
+          Distribute Teams
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

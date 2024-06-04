@@ -18,7 +18,8 @@ export class ConstraintFunctionWrapper {
     readonly operator: Operator,
     readonly value: string,
     readonly valueId: string,
-    readonly students: Student[]
+    readonly students: Student[],
+    readonly description: string
   ) {}
 }
 

@@ -156,6 +156,7 @@ export class ConstraintFunctionBuilderComponent implements OnInit, OnDestroy {
       value: value.name,
       valueId: valueId,
       students: filteredStudents,
+      description: constraintFunction.getDescription(property.name, operator, value.name),
     });
   }
 

@@ -59,7 +59,7 @@ export class PriorityChartDataService implements ChartDataFormatter {
         highestPriorityCount
       );
 
-      const labels = Array.from({ length: projectCount }, (_, i) => i.toString());
+      const labels = Array.from({ length: projectCount }, (_, index) => index.toString());
 
       const chartConfiguration: ChartConfiguration<'bar'> = {
         type: 'bar',

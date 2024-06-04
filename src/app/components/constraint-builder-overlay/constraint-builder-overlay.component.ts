@@ -50,7 +50,7 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponent, OnIn
       this.thresholdWrapper = constraintWrapper.threshold;
       this.id = constraintWrapper.id;
     } else {
-      this.constraintFunctionWrapper = new ConstraintFunctionWrapper('', '', null, '', '', []);
+      this.constraintFunctionWrapper = new ConstraintFunctionWrapper('', '', null, '', '', [], '');
       this.thresholdWrapper = new ThresholdWrapper(0, 10);
     }
   }

@@ -11,7 +11,7 @@ import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { teaseIconPack } from 'src/assets/icons/icons';
 import { LocksService } from 'src/app/shared/data/locks.service';
 import { ConstraintBuilderOverlayComponent } from '../constraint-builder-overlay/constraint-builder-overlay.component';
-import { ConstraintSummaryViewComponent } from '../constraint-summary-view/constraint-summary-view.component';
+import { ConstraintSummaryComponent } from '../constraint-summary-view/constraint-summary.component';
 import { StudentSortService } from 'src/app/shared/services/student-sort.service';
 import { AllocationData } from 'src/app/shared/models/allocation-data';
 import { CourseIterationsService } from 'src/app/shared/data/course-iteration.service';
@@ -61,7 +61,7 @@ export class NavigationBarComponent {
   ];
 
   showConstraintSummaryOverlay(): void {
-    this.overlayService.displayComponent(ConstraintSummaryViewComponent, {});
+    this.overlayService.displayComponent(ConstraintSummaryComponent, {});
   }
 
   showConstraintBuilderOverlay(): void {
