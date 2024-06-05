@@ -67,7 +67,7 @@ jobs:
       - name: Build Image and Push to GitHub Container Registry and DockerHub
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: ./client
           tags: ${{ steps.meta.outputs.tags }}
           platforms: linux/amd64,linux/arm64/v8
           push: true
