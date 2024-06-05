@@ -24,6 +24,7 @@ import { PromptService } from './shared/services/prompt.service';
 import { CourseIterationsService } from './shared/data/course-iteration.service';
 import { ConfirmationOverlayComponent } from './components/confirmation-overlay/confirmation-overlay.component';
 import { ImportOverlayComponent } from './components/import-overlay/import-overlay.component';
+import { LockedStudentsService } from './shared/data/locked-students.service';
 
 @Component({
   selector: 'app-root',
@@ -57,7 +58,8 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
     private constraintsService: ConstraintsService,
     private courseIterationsService: CourseIterationsService,
     private promptService: PromptService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private lockedStudentsService: LockedStudentsService
   ) {
     this.overlayService.host = this;
   }
@@ -91,6 +93,9 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
       }),
       this.constraintsService.constraints$.subscribe(constraintWrappers => {
         this.constraintWrappers = constraintWrappers;
+        this.updateData();
+      }),
+      this.lockedStudentsService.locks$.subscribe(() => {
         this.updateData();
       })
     );
@@ -248,7 +253,7 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
 
   private getNumberOfStudents(constraintWrapper: ConstraintWrapper, students: Student[]): number {
     const studentIdsOfProject = students.map(student => student.id);
-    return constraintWrapper.constraintFunction.students.filter(student => studentIdsOfProject.includes(student.id))
+    return constraintWrapper.constraintFunction.studentIds.filter(studentId => studentIdsOfProject.includes(studentId))
       .length;
   }
 

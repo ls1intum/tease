@@ -5,7 +5,7 @@ import { MandatoryConstraintsService } from './mandatory-contraints.service';
 import { CustomConstraintsService } from './custom-constraints.service';
 import { CostFunctionsService } from './cost-functions.service';
 import { LockedConstraintsService } from './locked-constraints.service';
-import { StudentIdToProjectIdMapping } from 'src/app/shared/data/locks.service';
+import { StudentIdToProjectIdMapping } from 'src/app/shared/data/locked-students.service';
 
 @Injectable({
   providedIn: 'root',

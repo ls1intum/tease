@@ -9,7 +9,7 @@ import { SkillsService } from 'src/app/shared/data/skills.service';
 import { StudentsService } from 'src/app/shared/data/students.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { teaseIconPack } from 'src/assets/icons/icons';
-import { LocksService } from 'src/app/shared/data/locks.service';
+import { LockedStudentsService } from 'src/app/shared/data/locked-students.service';
 import { ConstraintBuilderOverlayComponent } from '../constraint-builder-overlay/constraint-builder-overlay.component';
 import { ConstraintSummaryComponent } from '../constraint-summary-view/constraint-summary.component';
 import { StudentSortService } from 'src/app/shared/services/student-sort.service';
@@ -45,49 +45,77 @@ export class NavigationBarComponent implements OnInit {
     private projectsService: ProjectsService,
     private skillsService: SkillsService,
     private constraintsService: ConstraintsService,
-    private locksService: LocksService,
+    private lockedStudentsService: LockedStudentsService,
     private studentSortService: StudentSortService,
-    private courseIterationsService: CourseIterationsService
+    private courseIterationsService: CourseIterationsService,
     public websocketService: WebsocketService
   ) {}
 
-  ngOnInit(): void {
-    // this.listen();
+  ngOnInit(): void {}
+
+  async discover() {
+    const courseIterationId = this.allocationData.courseIteration.id;
+    if (!courseIterationId) {
+      return;
+    }
+    const serverCollaborationData = await this.websocketService.discover(courseIterationId);
+    if (!serverCollaborationData) {
+      this.subscribe();
+      return;
+    }
+    // const storedAllocations = this.allocationsService.getAllocations();
+    // if (JSON.stringify(storedAllocations) === JSON.stringify(serverAllocations)) {
+    //   this.subscribe();
+    //   return;
+    // }
+
+    this.overlayService.displayComponent(ConfirmationOverlayComponent, {
+      action: 'Overwrite Allocations & Constraints',
+      actionDescription:
+        'There is a different allocation state available. Do you want to load it? This will overwrite your current allocation. Not loading it will overwrite the other allocation.',
+      onConfirmed: async () => {
+        await this.subscribe();
+        this.overlayService.closeOverlay();
+      },
+      onCancelled: async () => {
+        const serverCollaborationData = await this.websocketService.discover(courseIterationId);
+        this.allocationsService.setAllocations(serverCollaborationData.allocations, false);
+        this.constraintsService.setConstraints(serverCollaborationData.constraints, false);
+        this.lockedStudentsService.setLocksAsArray(serverCollaborationData.lockedStudents, false);
+        await this.subscribe();
+        this.overlayService.closeOverlay();
+      },
+    });
   }
 
-  listen() {
-    this.websocketService.listen(
-      localStorage.getItem('course-iteration'),
-      allocations => {
-        console.log('app comp');
-        this.allocationsService.setAllocations(allocations, false);
-      },
-      allocations => {
-        console.log('app discovery');
-        if (!allocations) {
-          return;
-        }
-        const storedAllocations = this.allocationsService.getAllocations();
+  async subscribe() {
+    const courseIterationId = this.allocationData.courseIteration.id;
+    if (!courseIterationId) {
+      return;
+    }
 
-        if (JSON.stringify(storedAllocations) === JSON.stringify(allocations)) {
-          return;
-        }
-
-        this.overlayService.displayComponent(ConfirmationOverlayComponent, {
-          action: 'Load Allocation',
-          actionDescription:
-            'There is a different allocation state available. Do you want to load it? This will overwrite your current allocation. Not loading it will overwrite the other allocation.',
-          onConfirmed: () => {
-            this.allocationsService.setAllocations(allocations, true);
-            this.overlayService.closeOverlay();
-          },
-          onCancelled: () => {
-            this.allocationsService.setAllocations(storedAllocations, true);
-            this.overlayService.closeOverlay();
-          },
-        });
-      }
+    this.websocketService.send(
+      courseIterationId,
+      'allocations',
+      JSON.stringify(this.allocationsService.getAllocations())
     );
+
+    this.websocketService.subscribe(courseIterationId, 'allocations', allocations => {
+      this.allocationsService.setAllocations(allocations, false);
+    });
+
+    this.websocketService.send(courseIterationId, 'lockedStudents', this.lockedStudentsService.getLocksAsString());
+
+    this.websocketService.subscribe(courseIterationId, 'lockedStudents', lockedStudents => {
+      this.lockedStudentsService.setLocksAsArray(lockedStudents, false);
+    });
+
+    this.websocketService.send(courseIterationId, 'constraints', this.constraintsService.getConstraintsAsString());
+
+    this.websocketService.subscribe(courseIterationId, 'constraints', constraints => {
+      console.log(constraints);
+      this.constraintsService.setConstraints(constraints, false);
+    });
   }
 
   dropdownItems = [
@@ -181,7 +209,7 @@ export class NavigationBarComponent implements OnInit {
   }
 
   private deleteDynamicData() {
-    this.locksService.deleteLocks();
+    this.lockedStudentsService.deleteLocks();
     this.allocationsService.deleteAllocations();
   }
 }

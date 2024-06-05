@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Project } from 'src/app/api/models';
 import { OverlayComponent, OverlayService } from 'src/app/overlay.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
@@ -18,7 +18,7 @@ import {
   facWarnIcon,
 } from 'src/assets/icons/icons';
 import { ConstraintBuilderOverlayComponent } from '../constraint-builder-overlay/constraint-builder-overlay.component';
-import { LocksService } from 'src/app/shared/data/locks.service';
+import { LockedStudentsService } from 'src/app/shared/data/locked-students.service';
 import { ConstraintBuilderService } from 'src/app/shared/matching/constraints/constraint-builder/constraint-builder.service';
 import { StudentsService } from 'src/app/shared/data/students.service';
 import { MatchingService } from 'src/app/shared/matching/matching.service';
@@ -26,13 +26,14 @@ import { AllocationsService } from 'src/app/shared/data/allocations.service';
 import { ToastsService } from 'src/app/shared/services/toasts.service';
 import { StudentSortService } from 'src/app/shared/services/student-sort.service';
 import { ConstraintBuilderNationalityComponent } from '../constraint-builder-nationality/constraint-builder-nationality.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-constraint-summary',
   templateUrl: './constraint-summary.component.html',
   styleUrl: './constraint-summary.component.scss',
 })
-export class ConstraintSummaryComponent implements OverlayComponent, OnInit {
+export class ConstraintSummaryComponent implements OverlayComponent, OnInit, OnDestroy {
   data = {};
   facDeleteIcon = facDeleteIcon;
   facGroupsIcon = facGroupsIcon;
@@ -48,12 +49,14 @@ export class ConstraintSummaryComponent implements OverlayComponent, OnInit {
   constraintWrappers: ConstraintWrapper[] = [];
   projects: Project[] = [];
 
+  private subscription: Subscription;
+
   constructor(
     private overlayService: OverlayService,
     private constraintsService: ConstraintsService,
     private projectsService: ProjectsService,
     private studentsService: StudentsService,
-    private locksService: LocksService,
+    private lockedStudentsService: LockedStudentsService,
     private constraintsBuilderService: ConstraintBuilderService,
     private matchingService: MatchingService,
     private allocationsService: AllocationsService,
@@ -62,8 +65,14 @@ export class ConstraintSummaryComponent implements OverlayComponent, OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.constraintWrappers = this.constraintsService.getConstraints();
+    this.subscription = this.constraintsService.constraints$.subscribe(constraintWrappers => {
+      this.constraintWrappers = constraintWrappers;
+    });
     this.projects = this.projectsService.getProjects();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   showConstraintNationalityBuilderOverlay(): void {
@@ -98,7 +107,7 @@ export class ConstraintSummaryComponent implements OverlayComponent, OnInit {
   }
 
   async distributeTeams(): Promise<void> {
-    const locks = this.locksService.getLocks();
+    const locks = this.lockedStudentsService.getLocks();
     const activeConstraintWrappers = this.constraintWrappers.filter(constraintWrapper => constraintWrapper.isActive);
     const constraints = this.constraintsBuilderService.createConstraints(
       this.studentsService.getStudents(),

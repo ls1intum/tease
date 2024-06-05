@@ -118,11 +118,9 @@ export class ConstraintBuilderNationalityComponent implements OverlayComponent, 
   private getConstraintFunctionWrapper(nationality: SelectData): ConstraintFunctionWrapper {
     const property = this.constraintFunction.getProperties().values[0];
     const operator = Operator.EQUALS;
-    const filteredStudents = this.constraintFunction.filterStudentsByConstraintFunction(
-      null,
-      Operator.EQUALS,
-      nationality.id
-    );
+    const filteredStudentIds = this.constraintFunction
+      .filterStudentsByConstraintFunction(null, Operator.EQUALS, nationality.id)
+      .map(student => student.id);
 
     return {
       property: property.name,
@@ -130,7 +128,7 @@ export class ConstraintBuilderNationalityComponent implements OverlayComponent, 
       operator: operator,
       value: nationality.name,
       valueId: nationality.id,
-      students: filteredStudents,
+      studentIds: filteredStudentIds,
       description: this.constraintFunction.getDescription(property.name, operator, nationality.name),
     };
   }

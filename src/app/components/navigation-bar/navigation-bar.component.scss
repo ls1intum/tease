@@ -1,12 +1,11 @@
 @import '/src/scss/style-constants.scss';
-@import '/src/scss/bootstrap-theme.scss';
 
 .collaboration-indicator {
   font-size: 1.65rem;
 }
 
 .collaboration-indicator.success {
-  color: $success;
+  color: green;
 }
 
 .collaboration-indicator.error {

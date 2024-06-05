@@ -112,7 +112,8 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponent, OnIn
       this.projectIds,
       this.constraintFunctionWrapper,
       this.thresholdWrapper,
-      tempConstraint ? this.id : uuid()
+      tempConstraint ? this.id : uuid(),
+      true
     );
   }
 }

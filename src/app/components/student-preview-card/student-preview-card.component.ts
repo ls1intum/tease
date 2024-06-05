@@ -8,7 +8,7 @@ import { NationalityService } from 'src/app/shared/helpers/nationality.service';
 import { teaseIconPack } from 'src/assets/icons/icons';
 import { PersonDetailOverlayComponent } from '../person-detail-overlay/person-detail-overlay.component';
 import { ColorService } from 'src/app/shared/constants/color.service';
-import { LocksService } from 'src/app/shared/data/locks.service';
+import { LockedStudentsService } from 'src/app/shared/data/locked-students.service';
 
 class AssignedProjectPreference {
   name: string;
@@ -55,7 +55,7 @@ export class StudentPreviewCardComponent implements OnInit {
     private genderService: GenderService,
     private gravatarService: GravatarService,
     private overlayService: OverlayService,
-    private locksService: LocksService,
+    private lockedStudentsService: LockedStudentsService,
     private changeDetectorRef: ChangeDetectorRef
   ) {}
 
@@ -115,10 +115,10 @@ export class StudentPreviewCardComponent implements OnInit {
 
   toggleLock() {
     if (this.isLocked) {
-      this.locksService.removeLock(this.student.id);
+      this.lockedStudentsService.removeLock(this.student.id);
       this.isLocked = false;
     } else {
-      this.locksService.addLock(this.student.id, this.projectId);
+      this.lockedStudentsService.addLock(this.student.id, this.projectId);
       this.isLocked = true;
     }
   }

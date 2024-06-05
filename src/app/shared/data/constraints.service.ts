@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ConstraintWrapper } from '../matching/constraints/constraint';
+import { WebsocketService } from '../network/websocket.service';
+import { CourseIterationsService } from './course-iteration.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +10,10 @@ import { ConstraintWrapper } from '../matching/constraints/constraint';
 export class ConstraintsService {
   private constraintsSubject$: BehaviorSubject<ConstraintWrapper[]> = new BehaviorSubject<ConstraintWrapper[]>([]);
 
-  constructor() {
+  constructor(
+    private websocketService: WebsocketService,
+    private courseIterationsService: CourseIterationsService
+  ) {
     try {
       const storedConstraints = localStorage.getItem('constraints') || '[]';
       const constraints: ConstraintWrapper[] = JSON.parse(storedConstraints);
@@ -22,9 +27,18 @@ export class ConstraintsService {
     return this.constraintsSubject$.asObservable();
   }
 
-  setConstraints(constraints: ConstraintWrapper[]): void {
+  setConstraints(constraints: ConstraintWrapper[], sentWebSocketUpdate: Boolean = true): void {
+    if (!constraints) {
+      constraints = [];
+    }
+
     this.constraintsSubject$.next(constraints);
     localStorage.setItem('constraints', JSON.stringify(constraints));
+
+    const courseIterationId = this.courseIterationsService.getCourseIteration()?.id;
+    if (sentWebSocketUpdate && courseIterationId) {
+      this.websocketService.send(courseIterationId, 'constraints', this.getConstraintsAsString());
+    }
   }
 
   addConstraint(constraint: ConstraintWrapper): void {
@@ -39,6 +53,10 @@ export class ConstraintsService {
 
   getConstraints(): ConstraintWrapper[] {
     return this.constraintsSubject$.getValue();
+  }
+
+  getConstraintsAsString(): string {
+    return JSON.stringify(this.getConstraints());
   }
 
   getConstraint(id: string): ConstraintWrapper {

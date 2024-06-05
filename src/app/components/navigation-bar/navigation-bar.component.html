@@ -2,6 +2,9 @@
   <div class="d-flex align-items-center gap-3 justify-content-center">
     <img src="/assets/images/logo-s.svg" />
     <div class="text-white fs-3 fw-light">TEASE</div>
+    @if (allocationData.courseIteration) {
+      <div class="text-prefix fs-5">{{ allocationData.courseIteration.semesterName }}</div>
+    }
     @if (websocketService.connection?.connected) {
       <fa-icon
         [icon]="facCheckIcon"
@@ -12,12 +15,9 @@
         ngbTooltip="Reconnect to Collaboration"
         class="collaboration-indicator error"
         role="button"
-        (click)="listen()">
+        (click)="discover()">
         <fa-icon [icon]="facRestartIcon"></fa-icon>
       </div>
-    }
-    @if (allocationData.courseIteration) {
-      <div class="text-prefix fs-5">{{ allocationData.courseIteration.semesterName }}</div>
     }
   </div>
 

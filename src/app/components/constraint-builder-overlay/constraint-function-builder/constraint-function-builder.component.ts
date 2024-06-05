@@ -146,8 +146,10 @@ export class ConstraintFunctionBuilderComponent implements OnInit, OnDestroy {
     const values = this.constraintFunctionData.flatMap(data => data.values);
     const value = values.find(value => value.id === valueId);
     const constraintFunction = this.getConstraintFunctionValue().constraintFunction;
-    const filteredStudents = constraintFunction.filterStudentsByConstraintFunction(propertyId, operator, valueId);
-    this.filteredStudentCount = filteredStudents.length;
+    const filteredStudentIds = constraintFunction
+      .filterStudentsByConstraintFunction(propertyId, operator, valueId)
+      .map(student => student.id);
+    this.filteredStudentCount = filteredStudentIds.length;
 
     this.constraintFunctionChange.emit({
       property: property.name,
@@ -155,7 +157,7 @@ export class ConstraintFunctionBuilderComponent implements OnInit, OnDestroy {
       operator: operator,
       value: value.name,
       valueId: valueId,
-      students: filteredStudents,
+      studentIds: filteredStudentIds,
       description: constraintFunction.getDescription(property.name, operator, value.name),
     });
   }

@@ -10,7 +10,7 @@ import { ToastsService } from 'src/app/shared/services/toasts.service';
 import { Allocation, CourseIteration, Project, Skill, Student } from 'src/app/api/models';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { IdMappingService } from 'src/app/shared/data/id-mapping.service';
-import { LocksService } from 'src/app/shared/data/locks.service';
+import { LockedStudentsService } from 'src/app/shared/data/locked-students.service';
 import { CsvParserService } from 'src/app/shared/services/csv-parser.service';
 import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -38,7 +38,7 @@ export class ImportOverlayComponent implements OverlayComponent, OnInit {
     private studentService: StudentsService,
     private constraintsService: ConstraintsService,
     private idMappingService: IdMappingService,
-    private locksService: LocksService,
+    private lockedStudentsService: LockedStudentsService,
     private courseIterationsService: CourseIterationsService,
 
     private toastsService: ToastsService,
@@ -133,7 +133,7 @@ export class ImportOverlayComponent implements OverlayComponent, OnInit {
 
     this.idMappingService.deleteMapping();
     this.constraintsService.deleteConstraints();
-    this.locksService.deleteLocks();
+    this.lockedStudentsService.deleteLocks();
     this.studentService.setStudents(students);
     this.projectsService.setProjects(projects);
     this.skillsService.setSkills(skills);

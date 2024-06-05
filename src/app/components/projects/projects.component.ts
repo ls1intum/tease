@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { facCheckIcon, facErrorIcon, facInfoIcon, facWarnIcon } from 'src/assets/icons/icons';
 import { ProjectData } from 'src/app/shared/models/allocation-data';
-import { LocksService } from 'src/app/shared/data/locks.service';
+import { LockedStudentsService } from 'src/app/shared/data/locked-students.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -22,10 +22,10 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   lockedStudents: string[] = [];
   private locksSubscription: Subscription;
 
-  constructor(private locksService: LocksService) {}
+  constructor(private lockedStudentsService: LockedStudentsService) {}
 
   ngOnInit() {
-    this.locksSubscription = this.locksService.locks$.subscribe(locks => {
+    this.locksSubscription = this.lockedStudentsService.locks$.subscribe(locks => {
       this.lockedStudents = Array.from(locks.keys());
     });
   }

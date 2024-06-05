@@ -7,7 +7,7 @@ export class ConstraintWrapper {
     readonly constraintFunction: ConstraintFunctionWrapper,
     readonly threshold: ThresholdWrapper,
     readonly id: string,
-    public isActive: boolean = true
+    public isActive: boolean
   ) {}
 }
 
@@ -18,7 +18,7 @@ export class ConstraintFunctionWrapper {
     readonly operator: Operator,
     readonly value: string,
     readonly valueId: string,
-    readonly students: Student[],
+    readonly studentIds: string[],
     readonly description: string
   ) {}
 }
