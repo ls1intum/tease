@@ -8,6 +8,7 @@ import { ProjectsService } from './services/projects.service';
 import { StudentsService } from './services/students.service';
 import { AllocationsService } from './services/allocations.service';
 import { SkillsService } from './services/skills.service';
+import { CourseIterationsService } from './services/course-iterations.service';
 
 /**
  * Module that provides all services and configuration.
@@ -21,6 +22,7 @@ import { SkillsService } from './services/skills.service';
     StudentsService,
     AllocationsService,
     SkillsService,
+    CourseIterationsService,
     ApiConfiguration
   ],
 })

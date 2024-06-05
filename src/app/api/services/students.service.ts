@@ -9,9 +9,9 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { courseIterationsCourseIterationIdStudentsGet } from '../fn/students/course-iterations-course-iteration-id-students-get';
-import { CourseIterationsCourseIterationIdStudentsGet$Params } from '../fn/students/course-iterations-course-iteration-id-students-get';
 import { Student } from '../models/student';
+import { teaseCourseIterationsCourseIterationIdStudentsGet } from '../fn/students/tease-course-iterations-course-iteration-id-students-get';
+import { TeaseCourseIterationsCourseIterationIdStudentsGet$Params } from '../fn/students/tease-course-iterations-course-iteration-id-students-get';
 
 @Injectable({ providedIn: 'root' })
 export class StudentsService extends BaseService {
@@ -19,8 +19,8 @@ export class StudentsService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `courseIterationsCourseIterationIdStudentsGet()` */
-  static readonly CourseIterationsCourseIterationIdStudentsGetPath = '/course-iterations/{courseIterationId}/students';
+  /** Path part for operation `teaseCourseIterationsCourseIterationIdStudentsGet()` */
+  static readonly TeaseCourseIterationsCourseIterationIdStudentsGetPath = '/tease/course-iterations/{courseIterationId}/students';
 
   /**
    * Retrieve students from a specific course iteration.
@@ -28,12 +28,12 @@ export class StudentsService extends BaseService {
    * Returns students from a course iteration based on the provided ID.
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `courseIterationsCourseIterationIdStudentsGet()` instead.
+   * To access only the response body, use `teaseCourseIterationsCourseIterationIdStudentsGet()` instead.
    *
    * This method doesn't expect any request body.
    */
-  courseIterationsCourseIterationIdStudentsGet$Response(params: CourseIterationsCourseIterationIdStudentsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Student>>> {
-    return courseIterationsCourseIterationIdStudentsGet(this.http, this.rootUrl, params, context);
+  teaseCourseIterationsCourseIterationIdStudentsGet$Response(params: TeaseCourseIterationsCourseIterationIdStudentsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Student>>> {
+    return teaseCourseIterationsCourseIterationIdStudentsGet(this.http, this.rootUrl, params, context);
   }
 
   /**
@@ -42,12 +42,12 @@ export class StudentsService extends BaseService {
    * Returns students from a course iteration based on the provided ID.
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `courseIterationsCourseIterationIdStudentsGet$Response()` instead.
+   * To access the full response (for headers, for example), `teaseCourseIterationsCourseIterationIdStudentsGet$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  courseIterationsCourseIterationIdStudentsGet(params: CourseIterationsCourseIterationIdStudentsGet$Params, context?: HttpContext): Observable<Array<Student>> {
-    return this.courseIterationsCourseIterationIdStudentsGet$Response(params, context).pipe(
+  teaseCourseIterationsCourseIterationIdStudentsGet(params: TeaseCourseIterationsCourseIterationIdStudentsGet$Params, context?: HttpContext): Observable<Array<Student>> {
+    return this.teaseCourseIterationsCourseIterationIdStudentsGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<Student>>): Array<Student> => r.body)
     );
   }

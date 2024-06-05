@@ -14,6 +14,7 @@ import { ConstraintBuilderOverlayComponent } from '../constraint-builder-overlay
 import { ConstraintSummaryComponent } from '../constraint-summary-view/constraint-summary.component';
 import { StudentSortService } from 'src/app/shared/services/student-sort.service';
 import { AllocationData } from 'src/app/shared/models/allocation-data';
+import { CourseIterationsService } from 'src/app/shared/data/course-iteration.service';
 import { WebsocketService } from 'src/app/shared/network/websocket.service';
 
 @Component({
@@ -46,6 +47,7 @@ export class NavigationBarComponent implements OnInit {
     private constraintsService: ConstraintsService,
     private locksService: LocksService,
     private studentSortService: StudentSortService,
+    private courseIterationsService: CourseIterationsService
     public websocketService: WebsocketService
   ) {}
 
@@ -173,6 +175,7 @@ export class NavigationBarComponent implements OnInit {
     this.skillsService.deleteSkills();
 
     this.constraintsService.deleteConstraints();
+    this.courseIterationsService.setCourseIteration();
 
     this.overlayService.closeOverlay();
   }

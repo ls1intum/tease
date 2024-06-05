@@ -12,6 +12,7 @@ import { StudentsService } from 'src/app/shared/data/students.service';
 import { AllocationData } from 'src/app/shared/models/allocation-data';
 import { NgxCaptureService } from 'ngx-capture';
 import { Observable, forkJoin, map } from 'rxjs';
+import { CourseIterationsService } from 'src/app/shared/data/course-iteration.service';
 
 @Component({
   selector: 'app-export-overlay',
@@ -36,13 +37,15 @@ export class ExportOverlayComponent implements OverlayComponent {
     private allocationsService: AllocationsService,
     private projectsService: ProjectsService,
     private studentsService: StudentsService,
+    private courseIterationsService: CourseIterationsService,
     private captureService: NgxCaptureService
   ) {}
 
   async exportPrompt() {
     const allocations = this.allocationsService.getAllocations();
     try {
-      if (await this.promptService.postAllocations(allocations)) {
+      const courseIteration = this.courseIterationsService.getCourseIteration();
+      if (await this.promptService.postAllocations(allocations, courseIteration.id)) {
         this.toastsService.showToast('Export successful', 'Export', true);
       } else {
         this.toastsService.showToast('Export failed', 'Export', false);

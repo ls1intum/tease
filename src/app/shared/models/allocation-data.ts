@@ -1,4 +1,4 @@
-import { Project, Student } from 'src/app/api/models';
+import { CourseIteration, Project, Student } from 'src/app/api/models';
 import { ConstraintWrapper } from '../matching/constraints/constraint';
 
 export interface ProjectData {
@@ -16,6 +16,7 @@ export interface ProjectConstraint {
 export interface AllocationData {
   studentsWithoutTeam: Student[];
   projectsData: ProjectData[];
+  courseIteration?: CourseIteration;
 }
 
 // export interface ProjectError {

@@ -1,5 +1,5 @@
 <div class="w-100 d-flex bg-dark justify-content-between p-3 align-items-center">
-  <div class="d-flex align-items-center gap-3">
+  <div class="d-flex align-items-center gap-3 justify-content-center">
     <img src="/assets/images/logo-s.svg" />
     <div class="text-white fs-3 fw-light">TEASE</div>
     @if (websocketService.connection?.connected) {
@@ -15,6 +15,9 @@
         (click)="listen()">
         <fa-icon [icon]="facRestartIcon"></fa-icon>
       </div>
+    }
+    @if (allocationData.courseIteration) {
+      <div class="text-prefix fs-5">{{ allocationData.courseIteration.semesterName }}</div>
     }
   </div>
 
