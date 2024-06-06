@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@CrossOrigin
 public class TeaseController {
     private final Map<String, List<Allocation>> allocationsMapping = new HashMap<>();
     private final Map<String, List<List<String>>> lockedStudentsMapping = new HashMap<>();
