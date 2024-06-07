@@ -35,8 +35,7 @@ export class WebsocketService implements OnDestroy {
         resolve(true);
         return;
       }
-      // TODO - maybe hardcode wss instead of ws? 
-      this.connection = Stomp.client(`ws://${this.url}/ws`);
+      this.connection = Stomp.client(`wss://${this.url}/ws`);
 
       try {
         this.connection.connect({}, () => {
