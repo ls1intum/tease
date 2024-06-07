@@ -1,13 +1,13 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # Compiled output
-/dist
+/client/dist
 /tmp
 /out-tsc
 /bazel-out
 
 # Node
-/node_modules
+/client/node_modules
 npm-debug.log
 yarn-error.log
 
@@ -46,4 +46,4 @@ logs
 *.log
 
 desktop.ini
-/.cache
+/client/.cache

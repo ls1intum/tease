@@ -14,6 +14,20 @@ services:
     networks:
       - prompt-network
 
+  tease-server:
+    image: ghcr.io/ls1intum/tease-server:latest
+    container_name: tease-server
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tease-server.rule=PathPrefix(`/ws`)"
+      - "traefik.http.services.tease-server.loadbalancer.server.port=8081"
+      - "traefik.http.routers.tease-server.entrypoints=websecure"
+      - "traefik.http.routers.tease-server.tls.certresolver=letsencrypt"
+    expose:
+      - "8081"
+    networks:
+      - prompt-network
+
 networks:
   prompt-network:
     external: true

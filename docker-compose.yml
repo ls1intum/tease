@@ -1,7 +1,37 @@
 services:
+  traefik:
+    image: traefik:v2.10
+    command:
+      - "--api.insecure=true" # Enables the dashboard
+      - "--providers.docker=true"
+      - "--log.level=DEBUG"
+    labels: 
+      - "traefik.http.routers.api.service=api@internal"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "80:80"
+      - "8080:8080"
   tease:
     image: ghcr.io/ls1intum/tease:latest
-    build: .
     container_name: tease
-    ports:
-      - "8080:80"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tease.rule=PathPrefix(`/tease`)"
+      - "traefik.http.routers.tease.service=tease"
+      - "traefik.http.middlewares.tease-stripprefix.stripprefix.prefixes=/tease"
+      - "traefik.http.routers.tease.middlewares=tease-stripprefix"
+      - "traefik.http.services.tease.loadbalancer.server.port=80"
+    build: ./client
+    expose:
+      - "80"
+  tease-server:
+    image: ghcr.io/ls1intum/tease-server:latest
+    build: ./server
+    container_name: tease-server
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tease-server.rule=PathPrefix(`/ws`)"
+      - "traefik.http.services.tease-server.loadbalancer.server.port=8081"
+    expose:
+      - "8081"
