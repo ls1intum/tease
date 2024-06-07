@@ -8,7 +8,7 @@ services:
     ports:
       - "80:80"
   tease:
-    # image: ghcr.io/ls1intum/tease:latest
+    image: ghcr.io/ls1intum/tease:latest
     container_name: tease
     labels:
       - "traefik.enable=true"
@@ -21,7 +21,7 @@ services:
     expose:
       - "80"
   tease-server:
-    # image: ghcr.io/ls1intum/tease-server:latest
+    image: ghcr.io/ls1intum/tease-server:latest
     build: ./server
     container_name: tease-server
     ports:
