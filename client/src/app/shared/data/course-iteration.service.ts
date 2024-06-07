@@ -10,8 +10,6 @@ export class CourseIterationsService {
   getCourseIteration(): CourseIteration {
     const courseIteration = localStorage.getItem(this.COURSE_ITERATION_KEY);
     if (!courseIteration) {
-      console.log('No course iteration found in local storage');
-      console.log(localStorage.getItem(this.COURSE_ITERATION_KEY));
       return null;
     }
     return JSON.parse(courseIteration);

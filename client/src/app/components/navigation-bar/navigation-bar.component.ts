@@ -63,11 +63,20 @@ export class NavigationBarComponent implements OnInit {
       this.subscribe();
       return;
     }
-    // const storedAllocations = this.allocationsService.getAllocations();
-    // if (JSON.stringify(storedAllocations) === JSON.stringify(serverAllocations)) {
-    //   this.subscribe();
-    //   return;
-    // }
+
+    const storedAllocations = this.allocationsService.getAllocations();
+    const storedConstraints = this.constraintsService.getConstraints();
+    const storedLockedStudents = this.lockedStudentsService.getLocks();
+    const storedCollaborationData = {
+      allocations: storedAllocations,
+      constraints: storedConstraints,
+      lockedStudents: storedLockedStudents,
+    };
+
+    if (JSON.stringify(serverCollaborationData) === JSON.stringify(storedCollaborationData)) {
+      this.subscribe();
+      return;
+    }
 
     this.overlayService.displayComponent(ConfirmationOverlayComponent, {
       action: 'Overwrite Allocations & Constraints',
@@ -113,7 +122,6 @@ export class NavigationBarComponent implements OnInit {
     this.websocketService.send(courseIterationId, 'constraints', this.constraintsService.getConstraintsAsString());
 
     this.websocketService.subscribe(courseIterationId, 'constraints', constraints => {
-      console.log(constraints);
       this.constraintsService.setConstraints(constraints, false);
     });
   }

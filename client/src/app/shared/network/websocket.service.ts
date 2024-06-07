@@ -1,10 +1,9 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
-import { CompatClient, IMessage, Stomp } from '@stomp/stompjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { CompatClient, Stomp } from '@stomp/stompjs';
 import { StompSubscription } from '@stomp/stompjs/src/stomp-subscription';
-import { AllocationsService } from '../data/allocations.service';
 import { Allocation } from 'src/app/api/models';
-import { Subscription } from 'rxjs';
 import { ConstraintWrapper } from '../matching/constraints/constraint';
+import { environment } from 'src/environments/environment';
 
 export interface CollaborationData {
   allocations: Allocation[];
@@ -20,7 +19,7 @@ export class WebsocketService implements OnDestroy {
   private discoverySubscription: StompSubscription | undefined;
 
   private readonly url = location.hostname;
-  private readonly port = '8080';
+  private readonly port = environment.production ? '443' : '8080';
 
   constructor() {}
 
@@ -34,11 +33,9 @@ export class WebsocketService implements OnDestroy {
   private async connect(): Promise<Boolean> {
     return new Promise((resolve, reject) => {
       if (this.connection?.connected) {
-        console.log('connected');
         resolve(true);
         return;
       }
-      console.log(`Connecting to ws://${this.url}:${this.port}/ws`);
       this.connection = Stomp.client(`ws://${this.url}:${this.port}/ws`);
 
       try {
@@ -56,7 +53,6 @@ export class WebsocketService implements OnDestroy {
     if (!this.connection?.connected) {
       return;
     }
-    console.log('Sending: ', text);
     this.connection.send(`/app/course-iteration/${courseIterationId}/${path}`, {}, text);
   }
 
@@ -66,7 +62,6 @@ export class WebsocketService implements OnDestroy {
       throw new Error('Could not connect to STOMP');
     }
 
-    console.log(`Subscribing to /topic/course-iteration/${courseIterationId}/${topic}`);
     this.subscriptions.push(
       this.connection?.subscribe(`/topic/course-iteration/${courseIterationId}/${topic}`, message => {
         callback(JSON.parse(message.body));

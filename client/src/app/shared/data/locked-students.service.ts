@@ -40,7 +40,6 @@ export class LockedStudentsService {
 
     const courseIterationId = this.courseIterationsService.getCourseIteration()?.id;
     if (sentWebSocketUpdate && courseIterationId) {
-      console.log('Sending locks: ', this.getLocksAsString());
       this.websocketService.send(courseIterationId, 'lockedStudents', this.getLocksAsString());
     }
   }
