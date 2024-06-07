@@ -19,7 +19,6 @@ export class WebsocketService implements OnDestroy {
   private discoverySubscription: StompSubscription | undefined;
 
   private readonly url = location.hostname;
-  private readonly port = '8081';
 
   constructor() {}
 
@@ -36,7 +35,8 @@ export class WebsocketService implements OnDestroy {
         resolve(true);
         return;
       }
-      this.connection = Stomp.client(`ws://${this.url}:${this.port}/ws`);
+      // TODO - maybe hardcode wss instead of ws? 
+      this.connection = Stomp.client(`ws://${this.url}/ws`);
 
       try {
         this.connection.connect({}, () => {
