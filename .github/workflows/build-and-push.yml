@@ -22,13 +22,14 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: ./client/Dockerfile
-            image: ghcr.io/ls1intum/tease
+          - image-name: ls1intum/tease
+            docker-file: ./client/Dockerfile
             docker-context: ./client
-          - dockerfile: ./server/Dockerfile
-            image: ghcr.io/ls1intum/tease-server
+          - image-name: ls1intum/tease-server
+            docker-file: ./server/Dockerfile
             docker-context: ./server
     uses: ls1intum/.github/.github/workflows/build-and-push-docker-image.yml@main
     with:
-      image-name: ${{ matrix.image }}
-      docker-file: ${{ matrix.dockerfile }}
+      image-name: ${{ matrix.image-name }}
+      docker-file: ${{ matrix.docker-file }}
+      docker-context: ${{ matrix.docker-context }}
