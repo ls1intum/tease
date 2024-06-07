@@ -65,11 +65,15 @@ export class ImportOverlayComponent implements OverlayComponent, OnInit {
 
   async getCourseIterations(): Promise<void> {
     try {
-      this.courseIterations = await this.promptService.getCourseIterations();
+      this.courseIterations = (await this.promptService.getCourseIterations()) || [];
       this.courseIterationSelectData = this.courseIterations.map(courseIteration => {
         return { id: courseIteration.id, name: courseIteration.semesterName };
       });
-      this.form.get('courseIteration').patchValue(this.courseIterations[0]?.id);
+      if (this.courseIterations) {
+        this.form.get('courseIteration').patchValue(this.courseIterations[0]?.id);
+      } else {
+        this.toastsService.showToast(`No course iterations found`, 'Import failed', false);
+      }
     } catch (error) {
       this.toastsService.showToast(`Error while fetching course iterations`, 'Import failed', false);
     }

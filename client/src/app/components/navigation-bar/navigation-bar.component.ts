@@ -54,7 +54,8 @@ export class NavigationBarComponent implements OnInit {
   ngOnInit(): void {}
 
   async discover() {
-    const courseIterationId = this.allocationData.courseIteration.id;
+    const courseIterationId = this.allocationData.courseIteration?.id;
+    console.log('Discovering', courseIterationId);
     if (!courseIterationId) {
       return;
     }
@@ -98,7 +99,7 @@ export class NavigationBarComponent implements OnInit {
   }
 
   async subscribe() {
-    const courseIterationId = this.allocationData.courseIteration.id;
+    const courseIterationId = this.allocationData.courseIteration?.id;
     if (!courseIterationId) {
       return;
     }

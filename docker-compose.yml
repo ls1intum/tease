@@ -1,12 +1,28 @@
 services:
-  tease:
-    image: ghcr.io/ls1intum/tease:latest
-    build: .
-    container_name: tease
+  traefik:
+    image: traefik:v2.10
+    command:
+      - "--providers.docker=true"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - "8080:80"
-  tease-server:
-    image: ghcr.io/ls1intum/tease-server:latest
-    container_name: tease-server
+      - "80:80"
+  tease:
+    # image: ghcr.io/ls1intum/tease:latest
+    container_name: tease
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tease.rule=PathPrefix(`/tease`)"
+      - "traefik.http.routers.tease.service=tease"
+      - "traefik.http.middlewares.tease-stripprefix.stripprefix.prefixes=/tease"
+      - "traefik.http.routers.tease.middlewares=tease-stripprefix"
+      - "traefik.http.services.tease.loadbalancer.server.port=80"
+    build: ./client
     expose:
-      - "8081:8080"
+      - "80"
+  tease-server:
+    # image: ghcr.io/ls1intum/tease-server:latest
+    build: ./server
+    container_name: tease-server
+    ports:
+      - "8081:8081"

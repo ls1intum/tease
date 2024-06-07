@@ -14,14 +14,13 @@ services:
     networks:
       - prompt-network
 
-  tease-server: 
+  tease-server:
     image: ghcr.io/ls1intum/tease-server:latest
     container_name: tease-server
     expose:
-      - "8080"
+      - "8081"
     networks:
       - prompt-network
-
 
 networks:
   prompt-network:

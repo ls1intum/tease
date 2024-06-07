@@ -19,7 +19,7 @@ export class WebsocketService implements OnDestroy {
   private discoverySubscription: StompSubscription | undefined;
 
   private readonly url = location.hostname;
-  private readonly port = environment.production ? '443' : '8080';
+  private readonly port = '8081';
 
   constructor() {}
 

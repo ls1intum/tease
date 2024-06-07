@@ -45,7 +45,7 @@ export class ExportOverlayComponent implements OverlayComponent {
     const allocations = this.allocationsService.getAllocations();
     try {
       const courseIteration = this.courseIterationsService.getCourseIteration();
-      if (await this.promptService.postAllocations(allocations, courseIteration.id)) {
+      if (await this.promptService.postAllocations(allocations, courseIteration?.id)) {
         this.toastsService.showToast('Export successful', 'Export', true);
       } else {
         this.toastsService.showToast('Export failed', 'Export', false);
