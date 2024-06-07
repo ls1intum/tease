@@ -2,7 +2,7 @@
 FROM maven:3.8.1-openjdk-17-slim as build
 WORKDIR /app
 COPY pom.xml .
-COPY ./src ./src
+COPY src ./src
 RUN mvn clean package
 
 # Stage 2: Run the application

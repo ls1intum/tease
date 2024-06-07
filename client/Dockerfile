@@ -15,5 +15,5 @@ RUN npm run build:traefik --omit=dev
 # second stage - serve compiled output via nginx server #
 FROM nginx:latest AS ngi
 COPY --from=build /dist/src/app/dist/tease /usr/share/nginx/html
-COPY ./nginx.conf  /etc/nginx/conf.d/default.conf
+COPY nginx.conf  /etc/nginx/conf.d/default.conf
 EXPOSE 80
