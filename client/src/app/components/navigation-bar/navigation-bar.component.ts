@@ -92,7 +92,7 @@ export class NavigationBarComponent implements OnInit {
         await this.subscribe();
         this.overlayService.closeOverlay();
       },
-      isDissmissable: false,
+      isDismissable: false,
     };
 
     this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
@@ -192,7 +192,6 @@ export class NavigationBarComponent implements OnInit {
         this.overlayService.closeOverlay();
       },
     };
-
     this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
   }
 

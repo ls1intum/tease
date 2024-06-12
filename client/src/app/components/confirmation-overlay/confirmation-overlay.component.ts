@@ -8,11 +8,6 @@ import { OverlayComponent, OverlayService } from '../../overlay.service';
 })
 export class ConfirmationOverlayComponent implements OverlayComponent, OnInit {
   data: {
-    action: string;
-    actionDescription: string;
-    onConfirmed: () => void;
-    onCancelled: () => void;
-
     title: string;
     description: string;
 
@@ -23,7 +18,7 @@ export class ConfirmationOverlayComponent implements OverlayComponent, OnInit {
     secondaryText: string;
     secondaryButtonStyle: string;
 
-    isDismisable: boolean;
+    isDismissable: boolean;
   };
 
   private defaultData = {
@@ -40,7 +35,7 @@ export class ConfirmationOverlayComponent implements OverlayComponent, OnInit {
     secondaryText: 'Cancel',
     secondaryButtonStyle: 'btn-secondary',
 
-    isDismisable: true,
+    isDismissable: true,
   };
 
   constructor(private overlayService: OverlayService) {}
