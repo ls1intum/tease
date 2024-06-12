@@ -11,18 +11,21 @@
   margin-bottom: auto;
 
   position: fixed;
+  background-color: rgba(255, 255, 255, 0.3);
+
+  backdrop-filter: blur(2.5px);
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
   z-index: 1000;
-  background-color: $dialog-background;
-  transition: background-color 0.5s;
+  transition: background-color backdrop-filter 0.5s;
 }
 
 .dialog-container-hidden {
   pointer-events: none;
   background-color: transparent;
+  backdrop-filter: blur(0px);
 }
 
 .dialog-content {
