@@ -189,17 +189,16 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
   }
 
   private showImportOverlay() {
-    this.overlayService.displayComponent(ConfirmationOverlayComponent, {
-      action: 'Open Import',
-      actionDescription: 'There is a newer course iteration available.',
-      onConfirmed: () => {
-        this.overlayService.closeOverlay();
-        setTimeout(() => {
-          this.overlayService.displayComponent(ImportOverlayComponent, {});
-        }, 10);
-      },
-      onCancelled: () => this.overlayService.closeOverlay(),
-    });
+    const overlayData = {
+      description:
+        'You are currently working on an outdated course iteration. Do you want to import the new course iteration?',
+      title: 'New Course Iteration Available',
+      primaryText: 'Open Import',
+      primaryButtonClass: 'btn-primary',
+      primaryAction: () => this.overlayService.switchComponent(ImportOverlayComponent, {}),
+    };
+
+    this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
   }
 
   private updateProjectsData(): ProjectData[] {

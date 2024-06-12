@@ -11,10 +11,10 @@ export interface OverlayServiceHost {
 
 @Injectable()
 export class OverlayService {
-  public host: OverlayServiceHost;
+  host: OverlayServiceHost;
   private displayedComponentData: any = null;
 
-  public displayComponent(component: Type<OverlayComponent>, data: any) {
+  displayComponent(component: Type<OverlayComponent>, data: any): void {
     if (this.displayedComponentData && this.displayedComponentData.onClose) {
       this.displayedComponentData.onClose();
     }
@@ -25,7 +25,7 @@ export class OverlayService {
     }
   }
 
-  public closeOverlay() {
+  closeOverlay(): void {
     if (this.displayedComponentData && this.displayedComponentData.onClose) {
       this.displayedComponentData.onClose();
     }
@@ -34,5 +34,12 @@ export class OverlayService {
       this.host.closeOverlay();
       this.displayedComponentData = null;
     }
+  }
+
+  switchComponent(component: Type<OverlayComponent>, data: any): void {
+    this.closeOverlay();
+    setTimeout(() => {
+      this.displayComponent(component, data);
+    }, 10);
   }
 }

@@ -150,15 +150,19 @@ export class NavigationBarComponent implements OnInit {
   }
 
   showResetTeamAllocationConfirmation() {
-    this.overlayService.displayComponent(ConfirmationOverlayComponent, {
-      action: 'Reset',
-      actionDescription: 'Resetting the team allocation will unpin all persons and remove them from their teams.',
-      onConfirmed: () => {
+    const overlayData = {
+      title: 'Reset Team Allocation',
+      description:
+        'Are you sure you want to reset the team allocation? Resetting the team allocation will unpin all students and remove them from their projects. This action cannot be undone.',
+      primaryText: 'Reset',
+      primaryButtonClass: 'btn-warn',
+      primaryAction: () => {
         this.deleteDynamicData();
         this.overlayService.closeOverlay();
       },
-      onCancelled: () => this.overlayService.closeOverlay(),
-    });
+    };
+
+    this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
   }
 
   showImportOverlay() {
@@ -177,10 +181,12 @@ export class NavigationBarComponent implements OnInit {
   }
 
   showSortConfirmation() {
-    this.overlayService.displayComponent(ConfirmationOverlayComponent, {
-      action: 'Sort',
-      actionDescription: 'Sort students by their intro course proficiency.',
-      onConfirmed: () => {
+    const overlayData = {
+      title: 'Sort Students',
+      description: 'Sort students inside projects by their intro course proficiency. This action cannot be undone.',
+      primaryText: 'Sort Students',
+      primaryButtonClass: 'btn-primary',
+      primaryAction: () => {
         this.allocationsService.setAllocations(
           this.studentSortService.sortStudentsInAllocations(
             this.studentsService.getStudents(),
@@ -189,20 +195,27 @@ export class NavigationBarComponent implements OnInit {
         );
         this.overlayService.closeOverlay();
       },
-      onCancelled: () => this.overlayService.closeOverlay(),
-    });
+    };
+
+    this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
   }
 
   showDeleteConfirmation() {
-    this.overlayService.displayComponent(ConfirmationOverlayComponent, {
-      action: 'Delete',
-      actionDescription: 'Delete all data. This action cannot be undone.',
-      onConfirmed: () => {
+    const overlayData = {
+      title: 'Delete',
+      description:
+        'Permanently erase all data, including students, allocations and constraints. This action cannot be undone.',
+      primaryText: 'DELETE',
+      primaryButtonClass: 'btn-warn',
+      primaryAction: () => {
         this.deleteData();
         this.overlayService.closeOverlay();
       },
-      onCancelled: () => this.overlayService.closeOverlay(),
-    });
+      secondaryText: 'Keep Data',
+      secondaryButtonStyle: 'btn-primary',
+    };
+
+    this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
   }
 
   private deleteData() {
