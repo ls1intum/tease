@@ -76,25 +76,18 @@ export class ConstraintSummaryComponent implements OverlayComponent, OnInit, OnD
   }
 
   showConstraintNationalityBuilderOverlay(): void {
-    this.cancel();
-    setTimeout(() => {
-      this.overlayService.displayComponent(ConstraintBuilderNationalityComponent, {});
-    }, 10);
+    this.overlayService.switchComponent(ConstraintBuilderNationalityComponent, {});
   }
 
   showConstraintBuilderOverlay(constraintWrapper: ConstraintWrapper): void {
-    this.cancel();
-    setTimeout(() => {
-      this.overlayService.displayComponent(ConstraintBuilderOverlayComponent, {
-        constraintWrapper: constraintWrapper,
-        onClosed: () => {
-          this.overlayService.closeOverlay();
-          setTimeout(() => {
-            this.overlayService.displayComponent(ConstraintSummaryComponent, {});
-          }, 10);
-        },
-      });
-    }, 10);
+    const overlayData = {
+      constraintWrapper: constraintWrapper,
+      onClosed: () => {
+        this.overlayService.switchComponent(ConstraintSummaryComponent, {});
+      },
+    };
+
+    this.overlayService.switchComponent(ConstraintBuilderOverlayComponent, overlayData);
   }
 
   cancel(): void {

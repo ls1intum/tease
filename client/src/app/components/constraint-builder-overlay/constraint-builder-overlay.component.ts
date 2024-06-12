@@ -79,7 +79,7 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponent, OnIn
   }
 
   cancel(): void {
-    this.openConstrainstView();
+    this.data.onClosed();
   }
 
   addConstraint(): void {
@@ -90,21 +90,14 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponent, OnIn
     const constraint = this.createConstraintWrapper(false);
     this.constraintsService.replaceConstraint(this.id, constraint);
 
-    this.openConstrainstView();
-  }
-
-  private openConstrainstView(): void {
-    this.data.onClosed();
+    this.cancel();
   }
 
   showConstraintHelpOverlay(): void {
-    this.cancel();
-    setTimeout(() => {
-      this.overlayService.displayComponent(ConstraintHelpComponent, {
-        constraintWrapper: this.createConstraintWrapper(true),
-        onClosed: this.data.onClosed,
-      });
-    }, 10);
+    this.overlayService.switchComponent(ConstraintHelpComponent, {
+      constraintWrapper: this.createConstraintWrapper(true),
+      onClosed: this.data.onClosed,
+    });
   }
 
   private createConstraintWrapper(tempConstraint: Boolean): ConstraintWrapper {

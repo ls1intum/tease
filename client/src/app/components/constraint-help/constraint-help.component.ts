@@ -80,12 +80,9 @@ export class ConstraintHelpComponent implements OverlayComponent {
   constructor(private overlayService: OverlayService) {}
 
   close(): void {
-    this.overlayService.closeOverlay();
-    setTimeout(() => {
-      this.overlayService.displayComponent(ConstraintBuilderOverlayComponent, {
-        constraintWrapper: this.data.constraintWrapper,
-        onClosed: this.data.onClosed,
-      });
-    }, 10);
+    this.overlayService.switchComponent(ConstraintBuilderOverlayComponent, {
+      constraintWrapper: this.data.constraintWrapper,
+      onClosed: this.data.onClosed,
+    });
   }
 }

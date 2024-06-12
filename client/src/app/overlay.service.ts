@@ -40,6 +40,6 @@ export class OverlayService {
     this.closeOverlay();
     setTimeout(() => {
       this.displayComponent(component, data);
-    }, 10);
+    }, 1);
   }
 }

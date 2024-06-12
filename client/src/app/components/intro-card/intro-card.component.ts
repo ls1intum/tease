@@ -14,11 +14,13 @@ export class IntroCardComponent {
   constructor(private overlayService: OverlayService) {}
 
   showImportOverlay() {
-    this.overlayService.displayComponent(ImportOverlayComponent, {
+    const overlayData = {
       onTeamsImported: () => {
         this.overlayService.closeOverlay();
       },
       overwriteWarning: false,
-    });
+    };
+
+    this.overlayService.displayComponent(ImportOverlayComponent, overlayData);
   }
 }

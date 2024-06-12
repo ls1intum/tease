@@ -3,7 +3,7 @@
     <div class="bg-white shadow-lg p-4 rounded-3 d-flex flex-column gap-4 h-100" (click)="$event.stopPropagation()">
       <h3 class="fw-semibold mb-1">Constraint Summary</h3>
       @if (constraintWrappers.length) {
-        <div class="border border-1 rounded-3 table-container">
+        <div class="border border-1 rounded-3 table-container overflow-y-scroll">
           <table class="table table-hover mb-0">
             <thead class="table-light">
               <tr>
@@ -101,13 +101,13 @@
         </div>
       }
       <div class="flex-grow-1"></div>
-      <div class="d-flex justify-content-end gap-2">
+      <div class="d-flex justify-content-end gap-2 flex-wrap">
         <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
         <div class="flex-grow-1"></div>
 
         <button type="button" class="btn btn-outline-primary" (click)="showConstraintNationalityBuilderOverlay()">
           <fa-icon [icon]="facFlagIcon"></fa-icon>
-          Add Country List
+          Add Nationality Constraints
         </button>
         <button type="button" class="btn btn-outline-primary" (click)="showConstraintBuilderOverlay(null)">
           <fa-icon [icon]="facAddIcon"></fa-icon>

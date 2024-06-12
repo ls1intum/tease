@@ -107,10 +107,12 @@ export class StudentPreviewCardComponent implements OnInit {
   }
 
   showPersonDetails(student: Student) {
-    this.overlayService.displayComponent(PersonDetailOverlayComponent, {
+    const overlayData = {
       student: student,
       projectId: this.projectId,
-    });
+    };
+
+    this.overlayService.displayComponent(PersonDetailOverlayComponent, overlayData);
   }
 
   toggleLock() {
