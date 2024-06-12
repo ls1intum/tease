@@ -45,10 +45,13 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponent, OnIn
 
     if (this.data.constraintWrapper) {
       const constraintWrapper = this.data.constraintWrapper;
-      this.projectIds = constraintWrapper.projectIds;
       this.constraintFunctionWrapper = constraintWrapper.constraintFunction;
       this.thresholdWrapper = constraintWrapper.threshold;
       this.id = constraintWrapper.id;
+
+      constraintWrapper.projectIds.forEach(projectId => {
+        this.projectsSelectData.find(project => project.id === projectId).selected = true;
+      });
     } else {
       this.constraintFunctionWrapper = new ConstraintFunctionWrapper('', '', null, '', '', [], '');
       this.thresholdWrapper = new ThresholdWrapper(0, 10);
