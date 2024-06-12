@@ -55,39 +55,30 @@ export class NavigationBarComponent implements OnInit {
 
   async discover() {
     const courseIterationId = this.allocationData.courseIteration?.id;
-    console.log('Discovering', courseIterationId);
     if (!courseIterationId) {
       return;
     }
     const serverCollaborationData = await this.websocketService.discover(courseIterationId);
-    if (!serverCollaborationData) {
+    if (!serverCollaborationData || !serverCollaborationData.allocations) {
       this.subscribe();
       return;
     }
 
-    const storedAllocations = this.allocationsService.getAllocations();
-    const storedConstraints = this.constraintsService.getConstraints();
-    const storedLockedStudents = this.lockedStudentsService.getLocks();
-    const storedCollaborationData = {
-      allocations: storedAllocations,
-      constraints: storedConstraints,
-      lockedStudents: storedLockedStudents,
-    };
-
-    if (JSON.stringify(serverCollaborationData) === JSON.stringify(storedCollaborationData)) {
+    if (
+      this.allocationsService.equals(serverCollaborationData.allocations) &&
+      this.constraintsService.equals(serverCollaborationData.constraints) &&
+      this.lockedStudentsService.equalsAsArray(serverCollaborationData.lockedStudents)
+    ) {
       this.subscribe();
       return;
     }
 
-    this.overlayService.displayComponent(ConfirmationOverlayComponent, {
-      action: 'Overwrite Allocations & Constraints',
-      actionDescription:
-        'There is a different allocation state available. Do you want to load it? This will overwrite your current allocation. Not loading it will overwrite the other allocation.',
-      onConfirmed: async () => {
-        await this.subscribe();
-        this.overlayService.closeOverlay();
-      },
-      onCancelled: async () => {
+    const overlayData = {
+      title: 'Connected to Collaboration Service',
+      description:
+        'The Collaboration Service has a different allocations and constraints state available. Do you want to load it? This will overwrite your current allocations, constraints and locked students. Not loading it will overwrite the other data. Be careful, this action cannot be undone.',
+      primaryText: 'Use Collaboration Data',
+      primaryAction: async () => {
         const serverCollaborationData = await this.websocketService.discover(courseIterationId);
         this.allocationsService.setAllocations(serverCollaborationData.allocations, false);
         this.constraintsService.setConstraints(serverCollaborationData.constraints, false);
@@ -95,7 +86,16 @@ export class NavigationBarComponent implements OnInit {
         await this.subscribe();
         this.overlayService.closeOverlay();
       },
-    });
+      secondaryText: 'Overwrite Collaboration Data',
+      secondaryButtonStyle: 'btn-warn',
+      secondaryAction: async () => {
+        await this.subscribe();
+        this.overlayService.closeOverlay();
+      },
+      isDissmissable: false,
+    };
+
+    this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
   }
 
   async subscribe() {
@@ -104,11 +104,7 @@ export class NavigationBarComponent implements OnInit {
       return;
     }
 
-    this.websocketService.send(
-      courseIterationId,
-      'allocations',
-      JSON.stringify(this.allocationsService.getAllocations())
-    );
+    this.websocketService.send(courseIterationId, 'allocations', this.allocationsService.getAllocationsAsString());
 
     this.websocketService.subscribe(courseIterationId, 'allocations', allocations => {
       this.allocationsService.setAllocations(allocations, false);

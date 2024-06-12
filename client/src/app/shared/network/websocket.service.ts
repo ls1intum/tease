@@ -19,6 +19,7 @@ export class WebsocketService implements OnDestroy {
   private discoverySubscription: StompSubscription | undefined;
 
   private readonly url = location.hostname;
+  private readonly secure = location.protocol === 'https:';
 
   constructor() {}
 
@@ -35,7 +36,7 @@ export class WebsocketService implements OnDestroy {
         resolve(true);
         return;
       }
-      this.connection = Stomp.client(`wss://${this.url}/ws`);
+      this.connection = Stomp.client(`${this.secure ? 'wss' : 'ws'}://${this.url}/ws`);
 
       try {
         this.connection.connect({}, () => {

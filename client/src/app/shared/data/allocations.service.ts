@@ -29,12 +29,11 @@ export class AllocationsService {
     }
 
     this.allocationsSubject$.next(allocations);
-    const allocationsAsString = JSON.stringify(allocations);
-    localStorage.setItem('allocations', allocationsAsString);
+    localStorage.setItem('allocations', this.getAllocationsAsString());
 
     const courseIterationId = this.courseIterationsService.getCourseIteration()?.id;
     if (sentWebSocketUpdate && courseIterationId) {
-      this.websocketService.send(courseIterationId, 'allocations', allocationsAsString);
+      this.websocketService.send(courseIterationId, 'allocations', this.getAllocationsAsString());
     }
   }
 
@@ -90,5 +89,17 @@ export class AllocationsService {
 
   private getAllocationForProjectId(projectId: string): Allocation {
     return this.getAllocations().find(allocation => allocation.projectId === projectId);
+  }
+
+  private toString(allocations: Allocation[]): string {
+    return JSON.stringify(allocations);
+  }
+
+  equals(allocations: Allocation[]): boolean {
+    return this.toString(allocations) === this.getAllocationsAsString();
+  }
+
+  getAllocationsAsString(): string {
+    return this.toString(this.getAllocations());
   }
 }
