@@ -16,6 +16,7 @@ import { SelectData } from 'src/app/shared/matching/constraints/constraint-funct
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CourseIterationsService } from 'src/app/shared/data/course-iteration.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-import-overlay',
@@ -123,7 +124,7 @@ export class ImportOverlayComponent implements OverlayComponent, OnInit {
   }
 
   async loadExampleData() {
-    this.onFileChanged({ target: { files: ['/assets/persons_example.csv'] } });
+    this.onFileChanged({ target: { files: ['assets/persons_example.csv'] } });
   }
 
   private setStudentData(
