@@ -91,15 +91,11 @@ export class AllocationsService {
     return this.getAllocations().find(allocation => allocation.projectId === projectId);
   }
 
-  private toString(allocations: Allocation[]): string {
-    return JSON.stringify(allocations);
-  }
-
-  equals(allocations: Allocation[]): boolean {
-    return this.toString(allocations) === this.getAllocationsAsString();
+  equalsCurrentAllocations(allocations: Allocation[]): boolean {
+    return JSON.stringify(allocations) === this.getAllocationsAsString();
   }
 
   getAllocationsAsString(): string {
-    return this.toString(this.getAllocations());
+    return JSON.stringify(this.getAllocations());
   }
 }

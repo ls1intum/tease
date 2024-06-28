@@ -15,7 +15,6 @@ export class SelectComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.elementsData);
     this.updateAllSelected();
   }
 

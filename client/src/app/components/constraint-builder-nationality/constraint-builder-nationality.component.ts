@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OverlayComponent, OverlayService } from 'src/app/overlay.service';
+import { OverlayComponentData, OverlayService } from 'src/app/overlay.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { StudentsService } from 'src/app/shared/data/students.service';
@@ -21,10 +21,10 @@ import { SelectComponent } from '../select/select.component';
   templateUrl: './constraint-builder-nationality.component.html',
   styleUrl: './constraint-builder-nationality.component.scss',
 })
-export class ConstraintBuilderNationalityComponent implements OverlayComponent, OnInit {
+export class ConstraintBuilderNationalityComponent implements OverlayComponentData, OnInit {
   facMoreIcon = facMoreIcon;
 
-  data: {};
+  data = null;
   projectsSelectData: SelectData[] = [];
   selectedProjectIds: string[] = [];
   nationalitiesSelectData: SelectData[] = [];
@@ -83,7 +83,7 @@ export class ConstraintBuilderNationalityComponent implements OverlayComponent, 
     }));
   }
   close(): void {
-    this.overlayService.switchComponent(ConstraintSummaryComponent, {});
+    this.overlayService.switchComponent(ConstraintSummaryComponent);
   }
 
   save(): void {

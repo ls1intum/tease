@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OverlayComponent, OverlayService } from 'src/app/overlay.service';
+import { OverlayComponentData, OverlayService } from 'src/app/overlay.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import {
   ConstraintFunctionWrapper,
@@ -18,7 +18,7 @@ import { ConstraintHelpComponent } from '../constraint-help/constraint-help.comp
   templateUrl: './constraint-builder-overlay.component.html',
   styleUrl: './constraint-builder-overlay.component.scss',
 })
-export class ConstraintBuilderOverlayComponent implements OverlayComponent, OnInit {
+export class ConstraintBuilderOverlayComponent implements OverlayComponentData, OnInit {
   facQuestionIcon = facQuestionIcon;
   data: {
     constraintWrapper: ConstraintWrapper;

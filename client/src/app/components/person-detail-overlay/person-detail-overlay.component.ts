@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OverlayComponent } from 'src/app/overlay.service';
+import { OverlayComponentData } from 'src/app/overlay.service';
 import { Student, Device, SkillProficiency, LanguageProficiency, Skill, StudentSkill } from 'src/app/api/models';
 import { OverlayService } from 'src/app/overlay.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
@@ -25,7 +25,7 @@ class SkillDescription {
   templateUrl: './person-detail-overlay.component.html',
   styleUrls: ['./person-detail-overlay.component.scss'],
 })
-export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
+export class PersonDetailOverlayComponent implements OnInit, OverlayComponentData {
   facMacIcon = facMacIcon;
   facIphoneIcon = facIphoneIcon;
   facIpadIcon = facIpadIcon;
@@ -114,11 +114,5 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponent {
 
   private getLanguageProficiency(isoCode: string): LanguageProficiency {
     return this.student.languages.find(language => language.language === isoCode).proficiency;
-  }
-
-  showPersonDetails(student: Student) {
-    this.overlayService.displayComponent(PersonDetailOverlayComponent, {
-      student: student,
-    });
   }
 }

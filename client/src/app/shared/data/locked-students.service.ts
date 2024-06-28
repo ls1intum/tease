@@ -76,11 +76,11 @@ export class LockedStudentsService {
     return JSON.stringify(Array.from(mapping.entries()));
   }
 
-  equals(mapping: StudentIdToProjectIdMapping): boolean {
+  equalsCurrentLockedStudents(mapping: StudentIdToProjectIdMapping): boolean {
     return this.toString(mapping) === this.getLocksAsString();
   }
 
-  equalsAsArray(mapping: [string, string][]): boolean {
+  equalsCurrentLockedStudentsUsingKeyValuePair(mapping: [string, string][]): boolean {
     return this.getLocksAsString() === JSON.stringify(mapping);
   }
 

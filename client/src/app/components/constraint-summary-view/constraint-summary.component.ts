@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Project } from 'src/app/api/models';
-import { OverlayComponent, OverlayService } from 'src/app/overlay.service';
+import { OverlayComponentData, OverlayService } from 'src/app/overlay.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { ConstraintWrapper } from 'src/app/shared/matching/constraints/constraint';
@@ -33,8 +33,8 @@ import { Subscription } from 'rxjs';
   templateUrl: './constraint-summary.component.html',
   styleUrl: './constraint-summary.component.scss',
 })
-export class ConstraintSummaryComponent implements OverlayComponent, OnInit, OnDestroy {
-  data = {};
+export class ConstraintSummaryComponent implements OverlayComponentData, OnInit, OnDestroy {
+  data = null;
   facDeleteIcon = facDeleteIcon;
   facGroupsIcon = facGroupsIcon;
   facAddIcon = facAddIcon;
@@ -76,14 +76,14 @@ export class ConstraintSummaryComponent implements OverlayComponent, OnInit, OnD
   }
 
   showConstraintNationalityBuilderOverlay(): void {
-    this.overlayService.switchComponent(ConstraintBuilderNationalityComponent, {});
+    this.overlayService.switchComponent(ConstraintBuilderNationalityComponent);
   }
 
   showConstraintBuilderOverlay(constraintWrapper: ConstraintWrapper): void {
     const overlayData = {
       constraintWrapper: constraintWrapper,
       onClosed: () => {
-        this.overlayService.switchComponent(ConstraintSummaryComponent, {});
+        this.overlayService.switchComponent(ConstraintSummaryComponent);
       },
     };
 

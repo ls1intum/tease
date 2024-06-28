@@ -65,9 +65,9 @@ export class NavigationBarComponent implements OnInit {
     }
 
     if (
-      this.allocationsService.equals(serverCollaborationData.allocations) &&
-      this.constraintsService.equals(serverCollaborationData.constraints) &&
-      this.lockedStudentsService.equalsAsArray(serverCollaborationData.lockedStudents)
+      this.allocationsService.equalsCurrentAllocations(serverCollaborationData.allocations) &&
+      this.constraintsService.equalsCurrentConstraints(serverCollaborationData.constraints) &&
+      this.lockedStudentsService.equalsCurrentLockedStudentsUsingKeyValuePair(serverCollaborationData.lockedStudents)
     ) {
       this.subscribe();
       return;
@@ -78,6 +78,7 @@ export class NavigationBarComponent implements OnInit {
       description:
         'The Collaboration Service has a different allocations and constraints state available. Do you want to load it? This will overwrite your current allocations, constraints and locked students. Not loading it will overwrite the other data. Be careful, this action cannot be undone.',
       primaryText: 'Use Collaboration Data',
+      primaryButtonStyle: 'btn-secondary',
       primaryAction: async () => {
         const serverCollaborationData = await this.websocketService.discover(courseIterationId);
         this.allocationsService.setAllocations(serverCollaborationData.allocations, false);
@@ -136,7 +137,7 @@ export class NavigationBarComponent implements OnInit {
   ];
 
   showConstraintSummaryOverlay(): void {
-    this.overlayService.displayComponent(ConstraintSummaryComponent, {});
+    this.overlayService.displayComponent(ConstraintSummaryComponent);
   }
 
   showConstraintBuilderOverlay(): void {
@@ -162,12 +163,7 @@ export class NavigationBarComponent implements OnInit {
   }
 
   showImportOverlay() {
-    this.overlayService.displayComponent(ImportOverlayComponent, {
-      onTeamsImported: () => {
-        this.overlayService.closeOverlay();
-      },
-      overwriteWarning: false,
-    });
+    this.overlayService.displayComponent(ImportOverlayComponent);
   }
 
   showExportOverlay() {
@@ -181,7 +177,6 @@ export class NavigationBarComponent implements OnInit {
       title: 'Sort Students',
       description: 'Sort students inside projects by their intro course proficiency. This action cannot be undone.',
       primaryText: 'Sort Students',
-      primaryButtonClass: 'btn-primary',
       primaryAction: () => {
         this.allocationsService.setAllocations(
           this.studentSortService.sortStudentsInAllocations(
@@ -200,14 +195,13 @@ export class NavigationBarComponent implements OnInit {
       title: 'Delete',
       description:
         'Permanently erase all data, including students, allocations and constraints. This action cannot be undone.',
-      primaryText: 'DELETE',
+      primaryText: 'Delete',
       primaryButtonClass: 'btn-warn',
       primaryAction: () => {
         this.deleteData();
         this.overlayService.closeOverlay();
       },
       secondaryText: 'Keep Data',
-      secondaryButtonStyle: 'btn-primary',
     };
 
     this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);

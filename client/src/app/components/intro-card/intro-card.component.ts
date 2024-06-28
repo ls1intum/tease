@@ -14,13 +14,6 @@ export class IntroCardComponent {
   constructor(private overlayService: OverlayService) {}
 
   showImportOverlay() {
-    const overlayData = {
-      onTeamsImported: () => {
-        this.overlayService.closeOverlay();
-      },
-      overwriteWarning: false,
-    };
-
-    this.overlayService.displayComponent(ImportOverlayComponent, overlayData);
+    this.overlayService.displayComponent(ImportOverlayComponent);
   }
 }

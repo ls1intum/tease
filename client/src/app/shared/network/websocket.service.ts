@@ -43,7 +43,6 @@ export class WebsocketService implements OnDestroy {
           resolve(true);
         });
       } catch (error) {
-        console.log(error);
         reject(false);
       }
     });

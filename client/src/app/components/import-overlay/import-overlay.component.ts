@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { OverlayComponent, OverlayService } from '../../overlay.service';
+import { OverlayComponentData, OverlayService } from '../../overlay.service';
 import { PromptService } from 'src/app/shared/services/prompt.service';
 import { SkillsService } from 'src/app/shared/data/skills.service';
 import { AllocationsService } from 'src/app/shared/data/allocations.service';
@@ -23,8 +23,8 @@ import { environment } from 'src/environments/environment';
   templateUrl: './import-overlay.component.html',
   styleUrls: ['./import-overlay.component.scss'],
 })
-export class ImportOverlayComponent implements OverlayComponent, OnInit {
-  public data: any;
+export class ImportOverlayComponent implements OverlayComponentData, OnInit {
+  data = null;
   @ViewChild('fileInput') fileInput: ElementRef;
   private courseIterations: CourseIteration[];
   courseIterationSelectData: SelectData[] = [];

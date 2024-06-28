@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { OverlayComponent } from '../../overlay.service';
+import { OverlayComponentData } from '../../overlay.service';
 import * as JSZip from 'jszip';
 import { PromptService } from 'src/app/shared/services/prompt.service';
 import { ToastsService } from 'src/app/shared/services/toasts.service';
@@ -19,7 +19,7 @@ import { CourseIterationsService } from 'src/app/shared/data/course-iteration.se
   templateUrl: './export-overlay.component.html',
   styleUrls: ['./export-overlay.component.scss'],
 })
-export class ExportOverlayComponent implements OverlayComponent {
+export class ExportOverlayComponent implements OverlayComponentData {
   public data: {
     allocationData: AllocationData;
   };
