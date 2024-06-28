@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { OverlayComponent, OverlayService } from '../../overlay.service';
+import { OverlayComponentData, OverlayService } from '../../overlay.service';
 import { PromptService } from 'src/app/shared/services/prompt.service';
 import { SkillsService } from 'src/app/shared/data/skills.service';
 import { AllocationsService } from 'src/app/shared/data/allocations.service';
@@ -16,14 +16,15 @@ import { SelectData } from 'src/app/shared/matching/constraints/constraint-funct
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CourseIterationsService } from 'src/app/shared/data/course-iteration.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-import-overlay',
   templateUrl: './import-overlay.component.html',
   styleUrls: ['./import-overlay.component.scss'],
 })
-export class ImportOverlayComponent implements OverlayComponent, OnInit {
-  public data: any;
+export class ImportOverlayComponent implements OverlayComponentData, OnInit {
+  data = null;
   @ViewChild('fileInput') fileInput: ElementRef;
   private courseIterations: CourseIteration[];
   courseIterationSelectData: SelectData[] = [];
@@ -123,7 +124,7 @@ export class ImportOverlayComponent implements OverlayComponent, OnInit {
   }
 
   async loadExampleData() {
-    this.onFileChanged({ target: { files: ['/assets/persons_example.csv'] } });
+    this.onFileChanged({ target: { files: ['assets/persons_example.csv'] } });
   }
 
   private setStudentData(

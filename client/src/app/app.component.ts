@@ -9,7 +9,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { OverlayHostDirective } from './overlay-host.directive';
-import { OverlayComponent, OverlayService, OverlayServiceHost } from './overlay.service';
+import { OverlayComponentData, OverlayService, OverlayServiceHost } from './overlay.service';
 import { DragulaService } from 'ng2-dragula';
 import { Allocation, Project, Skill, Student } from 'src/app/api/models';
 import { StudentsService } from 'src/app/shared/data/students.service';
@@ -141,12 +141,12 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
   }
 
   /* OverlayServiceHost interface */
-  public displayComponent(component: Type<OverlayComponent>, data: any) {
+  public displayComponent(component: Type<OverlayComponentData>, data: any) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
     const viewContainerRef = this.overlayHostDirective.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    (componentRef.instance as OverlayComponent).data = data;
+    (componentRef.instance as OverlayComponentData).data = data;
     this.overlayVisible = true;
   }
 
@@ -189,17 +189,16 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
   }
 
   private showImportOverlay() {
-    this.overlayService.displayComponent(ConfirmationOverlayComponent, {
-      action: 'Open Import',
-      actionDescription: 'There is a newer course iteration available.',
-      onConfirmed: () => {
-        this.overlayService.closeOverlay();
-        setTimeout(() => {
-          this.overlayService.displayComponent(ImportOverlayComponent, {});
-        }, 10);
-      },
-      onCancelled: () => this.overlayService.closeOverlay(),
-    });
+    const overlayData = {
+      description:
+        'You are currently working on an outdated course iteration. Do you want to import the new course iteration?',
+      title: 'New Course Iteration Available',
+      primaryText: 'Open Import',
+      primaryButtonClass: 'btn-primary',
+      primaryAction: () => this.overlayService.switchComponent(ImportOverlayComponent),
+    };
+
+    this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
   }
 
   private updateProjectsData(): ProjectData[] {

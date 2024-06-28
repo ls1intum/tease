@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OverlayComponent, OverlayService } from 'src/app/overlay.service';
+import { OverlayComponentData, OverlayService } from 'src/app/overlay.service';
 import { ConstraintWrapper } from 'src/app/shared/matching/constraints/constraint';
 import { facCloseIcon, facPersonThinIcon } from 'src/assets/icons/icons';
 import { ConstraintBuilderOverlayComponent } from '../constraint-builder-overlay/constraint-builder-overlay.component';
@@ -22,7 +22,7 @@ interface DistributionExample {
   templateUrl: './constraint-help.component.html',
   styleUrl: './constraint-help.component.scss',
 })
-export class ConstraintHelpComponent implements OverlayComponent {
+export class ConstraintHelpComponent implements OverlayComponentData {
   data: {
     constraintWrapper: ConstraintWrapper;
     onClosed: () => {};
@@ -80,12 +80,9 @@ export class ConstraintHelpComponent implements OverlayComponent {
   constructor(private overlayService: OverlayService) {}
 
   close(): void {
-    this.overlayService.closeOverlay();
-    setTimeout(() => {
-      this.overlayService.displayComponent(ConstraintBuilderOverlayComponent, {
-        constraintWrapper: this.data.constraintWrapper,
-        onClosed: this.data.onClosed,
-      });
-    }, 10);
+    this.overlayService.switchComponent(ConstraintBuilderOverlayComponent, {
+      constraintWrapper: this.data.constraintWrapper,
+      onClosed: this.data.onClosed,
+    });
   }
 }

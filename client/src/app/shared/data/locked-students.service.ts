@@ -69,7 +69,19 @@ export class LockedStudentsService {
   }
 
   getLocksAsString(): string {
-    return JSON.stringify(Array.from(this.getLocks().entries()));
+    return this.toString(this.getLocks());
+  }
+
+  private toString(mapping: StudentIdToProjectIdMapping): string {
+    return JSON.stringify(Array.from(mapping.entries()));
+  }
+
+  equalsCurrentLockedStudents(mapping: StudentIdToProjectIdMapping): boolean {
+    return this.toString(mapping) === this.getLocksAsString();
+  }
+
+  equalsCurrentLockedStudentsUsingKeyValuePair(mapping: [string, string][]): boolean {
+    return this.getLocksAsString() === JSON.stringify(mapping);
   }
 
   private newMapping(): StudentIdToProjectIdMapping {

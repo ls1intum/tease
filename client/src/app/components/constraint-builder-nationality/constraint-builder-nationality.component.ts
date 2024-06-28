@@ -1,15 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OverlayComponent, OverlayService } from 'src/app/overlay.service';
+import { OverlayComponentData, OverlayService } from 'src/app/overlay.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { StudentsService } from 'src/app/shared/data/students.service';
-import {
-  ConstraintFunction,
-  SelectData,
-} from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
+import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 import { NationalityConstraintFunction } from 'src/app/shared/matching/constraints/constraint-functions/nationality-constraint-function';
 import { ConstraintSummaryComponent } from '../constraint-summary-view/constraint-summary.component';
-import { SelectDataService } from 'src/app/shared/services/select-data.service';
 import { Operator } from 'src/app/shared/matching/constraints/constraint-utils';
 import {
   ConstraintFunctionWrapper,
@@ -25,10 +21,10 @@ import { SelectComponent } from '../select/select.component';
   templateUrl: './constraint-builder-nationality.component.html',
   styleUrl: './constraint-builder-nationality.component.scss',
 })
-export class ConstraintBuilderNationalityComponent implements OverlayComponent, OnInit {
+export class ConstraintBuilderNationalityComponent implements OverlayComponentData, OnInit {
   facMoreIcon = facMoreIcon;
 
-  data: {};
+  data = null;
   projectsSelectData: SelectData[] = [];
   selectedProjectIds: string[] = [];
   nationalitiesSelectData: SelectData[] = [];
@@ -74,8 +70,7 @@ export class ConstraintBuilderNationalityComponent implements OverlayComponent, 
     private constraintsService: ConstraintsService,
     private studentsService: StudentsService,
     private projectsService: ProjectsService,
-    private overlayService: OverlayService,
-    private selectDataService: SelectDataService
+    private overlayService: OverlayService
   ) {}
 
   ngOnInit(): void {
@@ -88,10 +83,7 @@ export class ConstraintBuilderNationalityComponent implements OverlayComponent, 
     }));
   }
   close(): void {
-    this.overlayService.closeOverlay();
-    setTimeout(() => {
-      this.overlayService.displayComponent(ConstraintSummaryComponent, {});
-    }, 10);
+    this.overlayService.switchComponent(ConstraintSummaryComponent);
   }
 
   save(): void {

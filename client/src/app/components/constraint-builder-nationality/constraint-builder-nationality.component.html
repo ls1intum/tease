@@ -1,9 +1,10 @@
 <div class="d-flex justify-content-center align-items-center vh-100">
-  <div class="w-75 bg-white d-flex flex-column p-4 rounded-3 gap-4" (click)="$event.stopPropagation()">
-    <h3 class="fw-semibold">Blacklisted Nationalities</h3>
+  <div class="w-75 bg-white shadow-lg d-flex flex-column p-4 rounded-3 gap-4" (click)="$event.stopPropagation()">
+    <h3 class="fw-semibold">Nationalitiy Constraints Builder</h3>
 
     <div>
-      <h4 class="fw-semibold mb-3">Projects</h4>
+      <h4 class="fw-semibold mb-1">Projects</h4>
+      <p>Select the projects to which you want to apply the nationality constraints.</p>
       <app-select
         [elementsData]="projectsSelectData"
         (selectionChange)="projectsSelectionChange($event)"
@@ -11,21 +12,23 @@
     </div>
 
     <div>
-      <div class="d-flex mb-2 align-items-center">
-        <h4 class="fw-semibold mb-0 lh-1">Nationalities</h4>
-        <div class="flex-grow-1"></div>
-        <div ngbDropdown class="d-inline-block">
-          <button type="button" class="btn btn-icon" id="moreDropdown" ngbDropdownToggle>
-            <fa-icon [icon]="facMoreIcon" class="fs-3 text-dark"></fa-icon>
-          </button>
-          <div ngbDropdownMenu>
-            <button ngbDropdownItem (click)="selectFromStaatenliste()" class="btn-icon-text py-2 text-dark">
-              Staatenliste im Sinne von § 13 Abs. 1 Nr. 17 SÜG (06.08.2022)
-            </button>
-          </div>
+      <div class="d-flex mb-1 align-items-start">
+        <div>
+          <h4 class="fw-semibold mb-1 lh-0">Nationalities</h4>
+          <p>Select the nationalities that are not allowed within a project.</p>
         </div>
+
+        <div class="flex-grow-1"></div>
+
+        <button
+          type="button"
+          class="btn btn-outline-secondary btn-sm"
+          (click)="selectFromStaatenliste()"
+          ngbTooltip="Staatenliste im Sinne von § 13 Abs. 1 Nr. 17 SÜG (06.08.2022)"
+          [openDelay]="500">
+          Apply "Staatenliste"
+        </button>
       </div>
-      <p>Select the nationalities that are black listed for a given project.</p>
       <app-select
         [elementsData]="nationalitiesSelectData"
         (selectionChange)="nationalitiesSelectionChange($event)"

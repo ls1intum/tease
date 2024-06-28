@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OverlayComponent, OverlayService } from 'src/app/overlay.service';
+import { OverlayComponentData, OverlayService } from 'src/app/overlay.service';
 import { ConstraintsService } from 'src/app/shared/data/constraints.service';
 import {
   ConstraintFunctionWrapper,
@@ -18,7 +18,7 @@ import { ConstraintHelpComponent } from '../constraint-help/constraint-help.comp
   templateUrl: './constraint-builder-overlay.component.html',
   styleUrl: './constraint-builder-overlay.component.scss',
 })
-export class ConstraintBuilderOverlayComponent implements OverlayComponent, OnInit {
+export class ConstraintBuilderOverlayComponent implements OverlayComponentData, OnInit {
   facQuestionIcon = facQuestionIcon;
   data: {
     constraintWrapper: ConstraintWrapper;
@@ -45,10 +45,13 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponent, OnIn
 
     if (this.data.constraintWrapper) {
       const constraintWrapper = this.data.constraintWrapper;
-      this.projectIds = constraintWrapper.projectIds;
       this.constraintFunctionWrapper = constraintWrapper.constraintFunction;
       this.thresholdWrapper = constraintWrapper.threshold;
       this.id = constraintWrapper.id;
+
+      constraintWrapper.projectIds.forEach(projectId => {
+        this.projectsSelectData.find(project => project.id === projectId).selected = true;
+      });
     } else {
       this.constraintFunctionWrapper = new ConstraintFunctionWrapper('', '', null, '', '', [], '');
       this.thresholdWrapper = new ThresholdWrapper(0, 10);
@@ -79,7 +82,7 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponent, OnIn
   }
 
   cancel(): void {
-    this.openConstrainstView();
+    this.data.onClosed();
   }
 
   addConstraint(): void {
@@ -90,21 +93,14 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponent, OnIn
     const constraint = this.createConstraintWrapper(false);
     this.constraintsService.replaceConstraint(this.id, constraint);
 
-    this.openConstrainstView();
-  }
-
-  private openConstrainstView(): void {
-    this.data.onClosed();
+    this.cancel();
   }
 
   showConstraintHelpOverlay(): void {
-    this.cancel();
-    setTimeout(() => {
-      this.overlayService.displayComponent(ConstraintHelpComponent, {
-        constraintWrapper: this.createConstraintWrapper(true),
-        onClosed: this.data.onClosed,
-      });
-    }, 10);
+    this.overlayService.switchComponent(ConstraintHelpComponent, {
+      constraintWrapper: this.createConstraintWrapper(true),
+      onClosed: this.data.onClosed,
+    });
   }
 
   private createConstraintWrapper(tempConstraint: Boolean): ConstraintWrapper {

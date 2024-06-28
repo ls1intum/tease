@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center align-items-center vh-100">
   <div class="w-75">
-    <div class="bg-white p-4 rounded-3 d-flex flex-column gap-4" (click)="$event.stopPropagation()">
+    <div class="bg-white shadow-lg p-4 rounded-3 d-flex flex-column gap-4" (click)="$event.stopPropagation()">
       <div class="d-flex">
         <h3 class="fw-semibold mb-1">Constraint Builder</h3>
         <div class="flex-grow-1"></div>
@@ -15,7 +15,8 @@
       </div>
 
       <div>
-        <h4 class="fw-semibold mb-3">Projects</h4>
+        <h4 class="fw-semibold mb-1">Projects</h4>
+        <p>Select the projects to which you want to apply the constraint.</p>
         <app-select
           [elementsData]="projectsSelectData"
           (selectionChange)="selectedProjectsChange($event)"
@@ -23,7 +24,7 @@
       </div>
 
       <div>
-        <h4 class="fw-semibold mb-2">Constraint Function</h4>
+        <h4 class="fw-semibold mb-1">Constraint Function</h4>
         <p><b>Filter</b> students based on whether they fulfill the constraint.</p>
         <app-constraint-function-builder
           (constraintFunctionChange)="constraintFunctionChange($event)"
@@ -31,7 +32,7 @@
       </div>
 
       <div>
-        <h4 class="fw-semibold mb-2">Threshold</h4>
+        <h4 class="fw-semibold mb-1">Threshold</h4>
         <p>
           Set the <b>minimum</b> and <b>maximum</b> number of students that need to fulfill the constraint
           <b>per project</b>.

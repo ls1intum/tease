@@ -33,7 +33,7 @@ export class ConstraintsService {
     }
 
     this.constraintsSubject$.next(constraints);
-    localStorage.setItem('constraints', JSON.stringify(constraints));
+    localStorage.setItem('constraints', this.getConstraintsAsString());
 
     const courseIterationId = this.courseIterationsService.getCourseIteration()?.id;
     if (sentWebSocketUpdate && courseIterationId) {
@@ -88,5 +88,9 @@ export class ConstraintsService {
     }
     constraint.isActive = active;
     this.replaceConstraint(id, constraint);
+  }
+
+  equalsCurrentConstraints(constraints: ConstraintWrapper[]): boolean {
+    return JSON.stringify(constraints) === this.getConstraintsAsString();
   }
 }
