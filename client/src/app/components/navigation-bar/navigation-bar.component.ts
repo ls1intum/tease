@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
 import { ConfirmationOverlayComponent } from '../confirmation-overlay/confirmation-overlay.component';
 import { ExportOverlayComponent } from '../export-overlay/export-overlay.component';
@@ -16,13 +16,14 @@ import { StudentSortService } from 'src/app/shared/services/student-sort.service
 import { AllocationData } from 'src/app/shared/models/allocation-data';
 import { CourseIterationsService } from 'src/app/shared/data/course-iteration.service';
 import { WebsocketService } from 'src/app/shared/network/websocket.service';
+import { CollaborationService } from 'src/app/shared/services/collaboration.service';
 
 @Component({
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',
   styleUrl: './navigation-bar.component.scss',
 })
-export class NavigationBarComponent implements OnInit {
+export class NavigationBarComponent {
   facGroupsIcon = teaseIconPack['facGroupsIcon'];
   facDeleteIcon = teaseIconPack['facDeleteIcon'];
   facMoreIcon = teaseIconPack['facMoreIcon'];
@@ -48,80 +49,18 @@ export class NavigationBarComponent implements OnInit {
     private lockedStudentsService: LockedStudentsService,
     private studentSortService: StudentSortService,
     private courseIterationsService: CourseIterationsService,
+    private collaborationService: CollaborationService,
     public websocketService: WebsocketService
   ) {}
 
-  ngOnInit(): void {}
-
-  async discover() {
-    const courseIterationId = this.allocationData.courseIteration?.id;
-    if (!courseIterationId) {
-      return;
-    }
-    const serverCollaborationData = await this.websocketService.discover(courseIterationId);
-    if (!serverCollaborationData || !serverCollaborationData.allocations) {
-      this.subscribe();
-      return;
-    }
-
-    if (
-      this.allocationsService.equalsCurrentAllocations(serverCollaborationData.allocations) &&
-      this.constraintsService.equalsCurrentConstraints(serverCollaborationData.constraints) &&
-      this.lockedStudentsService.equalsCurrentLockedStudentsUsingKeyValuePair(serverCollaborationData.lockedStudents)
-    ) {
-      this.subscribe();
-      return;
-    }
-
-    const overlayData = {
-      title: 'Connected to Collaboration Service',
-      description:
-        'The Collaboration Service has a different allocations and constraints state available. Do you want to load it? This will overwrite your current allocations, constraints and locked students. Not loading it will overwrite the other data. Be careful, this action cannot be undone.',
-      primaryText: 'Use Collaboration Data',
-      primaryButtonStyle: 'btn-secondary',
-      primaryAction: async () => {
-        const serverCollaborationData = await this.websocketService.discover(courseIterationId);
-        this.allocationsService.setAllocations(serverCollaborationData.allocations, false);
-        this.constraintsService.setConstraints(serverCollaborationData.constraints, false);
-        this.lockedStudentsService.setLocksAsArray(serverCollaborationData.lockedStudents, false);
-        await this.subscribe();
-        this.overlayService.closeOverlay();
-      },
-      secondaryText: 'Overwrite Collaboration Data',
-      secondaryButtonStyle: 'btn-warn',
-      secondaryAction: async () => {
-        await this.subscribe();
-        this.overlayService.closeOverlay();
-      },
-      isDismissable: false,
-    };
-
-    this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
+  async connect(): Promise<void> {
+    console.log('Connecting to collaboration service');
+    await this.collaborationService.connect(this.allocationData.courseIteration.id);
   }
 
-  async subscribe() {
-    const courseIterationId = this.allocationData.courseIteration?.id;
-    if (!courseIterationId) {
-      return;
-    }
-
-    this.websocketService.send(courseIterationId, 'allocations', this.allocationsService.getAllocationsAsString());
-
-    this.websocketService.subscribe(courseIterationId, 'allocations', allocations => {
-      this.allocationsService.setAllocations(allocations, false);
-    });
-
-    this.websocketService.send(courseIterationId, 'lockedStudents', this.lockedStudentsService.getLocksAsString());
-
-    this.websocketService.subscribe(courseIterationId, 'lockedStudents', lockedStudents => {
-      this.lockedStudentsService.setLocksAsArray(lockedStudents, false);
-    });
-
-    this.websocketService.send(courseIterationId, 'constraints', this.constraintsService.getConstraintsAsString());
-
-    this.websocketService.subscribe(courseIterationId, 'constraints', constraints => {
-      this.constraintsService.setConstraints(constraints, false);
-    });
+  async disconnect(): Promise<void> {
+    console.log('Disconnecting from collaboration service');
+    await this.collaborationService.disconnect();
   }
 
   dropdownItems = [

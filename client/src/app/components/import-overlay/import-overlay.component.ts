@@ -139,6 +139,9 @@ export class ImportOverlayComponent implements OverlayComponentData, OnInit {
     this.idMappingService.deleteMapping();
     this.constraintsService.deleteConstraints();
     this.lockedStudentsService.deleteLocks();
+    this.studentService.deleteStudents();
+    this.projectsService.deleteProjects();
+    this.skillsService.deleteSkills();
     this.studentService.setStudents(students);
     this.projectsService.setProjects(projects);
     this.skillsService.setSkills(skills);

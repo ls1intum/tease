@@ -50,12 +50,15 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponentData, 
       this.id = constraintWrapper.id;
 
       constraintWrapper.projectIds.forEach(projectId => {
+        this.projectIds.push(projectId);
         this.projectsSelectData.find(project => project.id === projectId).selected = true;
       });
     } else {
       this.constraintFunctionWrapper = new ConstraintFunctionWrapper('', '', null, '', '', [], '');
       this.thresholdWrapper = new ThresholdWrapper(0, 10);
     }
+
+    this.updateFormValid();
   }
 
   selectedProjectsChange(projectIds: string[]): void {

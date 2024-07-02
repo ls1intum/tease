@@ -4,20 +4,22 @@
     <div class="text-white fs-3 fw-light">TEASE</div>
     @if (allocationData.courseIteration) {
       <div class="text-prefix fs-5">{{ allocationData.courseIteration.semesterName }}</div>
-    }
-    @if (websocketService.connection?.connected) {
-      <fa-icon
-        [icon]="facCheckIcon"
-        class="collaboration-indicator success"
-        ngbTooltip="Connected to Collaboration"></fa-icon>
-    } @else {
-      <div
-        ngbTooltip="Reconnect to Collaboration"
-        class="collaboration-indicator error"
-        role="button"
-        (click)="discover()">
-        <fa-icon [icon]="facRestartIcon"></fa-icon>
-      </div>
+
+      @if (websocketService.connection?.connected) {
+        <fa-icon
+          [icon]="facCheckIcon"
+          class="collaboration-indicator success"
+          (click)="disconnect()"
+          ngbTooltip="Connected to Collaboration"></fa-icon>
+      } @else {
+        <div
+          ngbTooltip="Reconnect to Collaboration"
+          class="collaboration-indicator error"
+          role="button"
+          (click)="connect()">
+          <fa-icon [icon]="facRestartIcon"></fa-icon>
+        </div>
+      }
     }
   </div>
 
