@@ -95,7 +95,6 @@
           </div>
         </div>
       </div>
-      <!-- Study Information -->
       <div class="col-12 pt-3">
         <h5 class="fw-semibold mb-2">Information</h5>
       </div>
@@ -108,17 +107,18 @@
           <p class="fs-s text-prefix mb-0">Degree</p>
           <p class="fs-6 fw-semibold mb-0">{{ student.studyDegree }}</p>
         </div>
-        <div class="col">
-          <p class="fs-s text-prefix mb-0">Semester</p>
-          <p class="fs-6 fw-semibold mb-0">{{ student.semester }}</p>
-        </div>
       </div>
-      <!-- Mail and ID -->
       <div class="col-12 row">
         <div class="col">
           <p class="fs-s text-prefix mb-0">Mail</p>
           <p class="fs-6 fw-semibold mb-0">{{ student.email }}</p>
         </div>
+        <div class="col">
+          <p class="fs-s text-prefix mb-0">Semester</p>
+          <p class="fs-6 fw-semibold mb-0">{{ student.semester }}</p>
+        </div>
+      </div>
+      <div class="col-12 row">
         <div class="col">
           <p class="fs-s text-prefix mb-0">ID</p>
           <p class="fs-6 fw-semibold text-nowrap mb-0">{{ student.id }}</p>
@@ -127,9 +127,9 @@
       <div class="col-12 pt-3">
         <h5 class="fw-semibold mb-2">Skills</h5>
       </div>
-      <div class="col-12 row">
+      <div class="d-flex flex-wrap">
         @for (skill of skills; track skill) {
-          <div class="col-4 p-2">
+          <div class="flex-grow p-2">
             <div class="bg-card rounded-3 p-3">
               <p class="fs-6 text-dark mb-2">{{ skill.title }}</p>
               <div class="d-flex gap-05">

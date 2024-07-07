@@ -17,6 +17,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CourseIterationsService } from 'src/app/shared/data/course-iteration.service';
 import { environment } from 'src/environments/environment';
+import { CollaborationService } from 'src/app/shared/services/collaboration.service';
 
 @Component({
   selector: 'app-import-overlay',
@@ -44,7 +45,8 @@ export class ImportOverlayComponent implements OverlayComponentData, OnInit {
 
     private toastsService: ToastsService,
     private overlayService: OverlayService,
-    private csvParserService: CsvParserService
+    private csvParserService: CsvParserService,
+    private collaborationService: CollaborationService
   ) {}
 
   ngOnInit(): void {
@@ -99,6 +101,7 @@ export class ImportOverlayComponent implements OverlayComponentData, OnInit {
       const allocations = await this.promptService.getAllocations(courseIterationId);
 
       this.setStudentData(students, projects, skills, allocations, courseIteration);
+      this.collaborationService.connect(courseIterationId);
     } catch (error) {
       if (error instanceof HttpErrorResponse) {
         this.toastsService.showToast(`Error ${error.status}: ${error.statusText}`, 'Import failed', false);

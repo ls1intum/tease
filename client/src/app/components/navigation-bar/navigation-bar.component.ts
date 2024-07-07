@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
 import { ConfirmationOverlayComponent } from '../confirmation-overlay/confirmation-overlay.component';
 import { ExportOverlayComponent } from '../export-overlay/export-overlay.component';
@@ -23,7 +23,7 @@ import { CollaborationService } from 'src/app/shared/services/collaboration.serv
   templateUrl: './navigation-bar.component.html',
   styleUrl: './navigation-bar.component.scss',
 })
-export class NavigationBarComponent {
+export class NavigationBarComponent implements OnInit, OnChanges {
   facGroupsIcon = teaseIconPack['facGroupsIcon'];
   facDeleteIcon = teaseIconPack['facDeleteIcon'];
   facMoreIcon = teaseIconPack['facMoreIcon'];
@@ -36,8 +36,23 @@ export class NavigationBarComponent {
   facAddIcon = teaseIconPack['facAddIcon'];
   facSortIcon = teaseIconPack['facSortIcon'];
   facCheckIcon = teaseIconPack['facCheckIcon'];
+  facErrorIcon = teaseIconPack['facErrorIcon'];
 
   @Input({ required: true }) allocationData: AllocationData;
+
+  dropdownItems = [
+    { action: this.showExportOverlay.bind(this), icon: this.facExportIcon, label: 'Export', class: 'text-dark' },
+    { action: this.showImportOverlay.bind(this), icon: this.facImportIcon, label: 'Import', class: 'text-dark' },
+    {
+      action: this.showResetTeamAllocationConfirmation.bind(this),
+      icon: this.facRestartIcon,
+      label: 'Restart',
+      class: 'text-dark',
+    },
+    { action: this.showDeleteConfirmation.bind(this), icon: this.facDeleteIcon, label: 'Delete', class: 'text-warn' },
+  ];
+
+  fulfillsAllConstraints = true;
 
   constructor(
     private overlayService: OverlayService,
@@ -53,6 +68,14 @@ export class NavigationBarComponent {
     public websocketService: WebsocketService
   ) {}
 
+  ngOnInit(): void {
+    this.updateFulfillsAllConstraints();
+  }
+
+  ngOnChanges(): void {
+    this.updateFulfillsAllConstraints();
+  }
+
   async connect(): Promise<void> {
     console.log('Connecting to collaboration service');
     await this.collaborationService.connect(this.allocationData.courseIteration.id);
@@ -62,18 +85,6 @@ export class NavigationBarComponent {
     console.log('Disconnecting from collaboration service');
     await this.collaborationService.disconnect();
   }
-
-  dropdownItems = [
-    { action: this.showExportOverlay.bind(this), icon: this.facExportIcon, label: 'Export', class: 'text-dark' },
-    { action: this.showImportOverlay.bind(this), icon: this.facImportIcon, label: 'Import', class: 'text-dark' },
-    {
-      action: this.showResetTeamAllocationConfirmation.bind(this),
-      icon: this.facRestartIcon,
-      label: 'Restart',
-      class: 'text-dark',
-    },
-    { action: this.showDeleteConfirmation.bind(this), icon: this.facDeleteIcon, label: 'Delete', class: 'text-warn' },
-  ];
 
   showConstraintSummaryOverlay(): void {
     this.overlayService.displayComponent(ConstraintSummaryComponent);
@@ -161,5 +172,9 @@ export class NavigationBarComponent {
   private deleteDynamicData() {
     this.lockedStudentsService.deleteLocks();
     this.allocationsService.deleteAllocations();
+  }
+
+  private updateFulfillsAllConstraints(): void {
+    this.fulfillsAllConstraints = this.allocationData.projectsData.every(project => project.fulfillsAllConstraints);
   }
 }

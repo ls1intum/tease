@@ -26,6 +26,7 @@ import { ConfirmationOverlayComponent } from './components/confirmation-overlay/
 import { ImportOverlayComponent } from './components/import-overlay/import-overlay.component';
 import { LockedStudentsService } from './shared/data/locked-students.service';
 import { AllocationDataService } from './shared/services/allocation-data.service';
+import { CollaborationService } from './shared/services/collaboration.service';
 
 @Component({
   selector: 'app-root',
@@ -59,9 +60,9 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
     private constraintsService: ConstraintsService,
     private courseIterationsService: CourseIterationsService,
     private promptService: PromptService,
-    private changeDetectorRef: ChangeDetectorRef,
     private lockedStudentsService: LockedStudentsService,
-    private allocationDataService: AllocationDataService
+    private allocationDataService: AllocationDataService,
+    private collaborationService: CollaborationService
   ) {
     this.overlayService.host = this;
   }
@@ -103,6 +104,11 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
     );
 
     this.fetchCourseIterations();
+
+    const courseIterationId = this.courseIterationsService.getCourseIteration()?.id;
+    if (courseIterationId) {
+      this.collaborationService.connect(courseIterationId);
+    }
   }
 
   ngOnDestroy(): void {
