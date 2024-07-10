@@ -27,7 +27,9 @@ export class WebsocketService {
         resolve(true);
         return;
       }
-      this.connection = Stomp.client(`${this.secure ? 'wss' : 'ws'}://${this.url}/ws`);
+      this.connection = Stomp.client(
+        `${this.secure ? 'wss' : 'ws'}://${this.url}/ws?token=${localStorage.getItem('jwt_token')}`
+      );
 
       try {
         this.connection.connect({}, () => {
