@@ -4,6 +4,7 @@ import { StompSubscription } from '@stomp/stompjs/src/stomp-subscription';
 import { Allocation } from 'src/app/api/models';
 import { ConstraintWrapper } from '../matching/constraints/constraint';
 import { environment } from 'src/environments/environment';
+import { GLOBALS } from '../utils/constants';
 
 export interface CollaborationData {
   allocations: Allocation[];
@@ -13,22 +14,13 @@ export interface CollaborationData {
 @Injectable({
   providedIn: 'root',
 })
-export class WebsocketService implements OnDestroy {
+export class WebsocketService {
   connection: CompatClient | undefined = undefined;
-  private subscriptions: StompSubscription[] = [];
-  private discoverySubscription: StompSubscription | undefined;
 
   private readonly url = location.hostname;
   private readonly secure = location.protocol === 'https:';
 
   constructor() {}
-
-  ngOnDestroy(): void {
-    for (const subscription of this.subscriptions || []) {
-      subscription.unsubscribe();
-    }
-    this.discoverySubscription?.unsubscribe();
-  }
 
   private async connect(): Promise<Boolean> {
     return new Promise((resolve, reject) => {
@@ -36,7 +28,9 @@ export class WebsocketService implements OnDestroy {
         resolve(true);
         return;
       }
-      this.connection = Stomp.client(`${this.secure ? 'wss' : 'ws'}://${this.url}/ws`);
+      this.connection = Stomp.client(
+        `${this.secure ? 'wss' : 'ws'}://${this.url}/ws?token=${localStorage.getItem(GLOBALS.LS_KEY_JWT)}`
+      );
 
       try {
         this.connection.connect({}, () => {
@@ -55,41 +49,18 @@ export class WebsocketService implements OnDestroy {
     this.connection.send(`/app/course-iteration/${courseIterationId}/${path}`, {}, text);
   }
 
-  async subscribe(courseIterationId: string, topic: string, callback: (data: any) => void): Promise<void> {
+  async subscribe(
+    courseIterationId: string,
+    topic: string,
+    onMessage: (data: any) => void
+  ): Promise<StompSubscription> {
     const connected = await this.connect();
     if (!connected) {
       throw new Error('Could not connect to STOMP');
     }
 
-    this.subscriptions.push(
-      this.connection?.subscribe(`/topic/course-iteration/${courseIterationId}/${topic}`, message => {
-        callback(JSON.parse(message.body));
-      })
-    );
-  }
-
-  async discover(courseIterationId: string): Promise<CollaborationData> {
-    this.subscriptions = [];
-    this.discoverySubscription?.unsubscribe();
-    const connected = await this.connect();
-    if (!connected) {
-      throw new Error('Could not connect to STOMP');
-    }
-
-    return new Promise(async (resolve, reject) => {
-      let timeout = setTimeout(() => {
-        reject(new Error('Timeout waiting for message'));
-      }, 5000);
-
-      this.discoverySubscription = this.connection?.subscribe(
-        `/topic/course-iteration/${courseIterationId}/discovery`,
-        message => {
-          clearTimeout(timeout);
-          resolve(JSON.parse(message.body));
-        }
-      );
-
-      this.send(courseIterationId, 'discovery');
+    return this.connection?.subscribe(`/topic/course-iteration/${courseIterationId}/${topic}`, message => {
+      onMessage(JSON.parse(message.body));
     });
   }
 }

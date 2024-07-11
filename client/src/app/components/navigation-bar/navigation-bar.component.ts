@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
 import { ConfirmationOverlayComponent } from '../confirmation-overlay/confirmation-overlay.component';
 import { ExportOverlayComponent } from '../export-overlay/export-overlay.component';
@@ -16,13 +16,15 @@ import { StudentSortService } from 'src/app/shared/services/student-sort.service
 import { AllocationData } from 'src/app/shared/models/allocation-data';
 import { CourseIterationsService } from 'src/app/shared/data/course-iteration.service';
 import { WebsocketService } from 'src/app/shared/network/websocket.service';
+import { CollaborationService } from 'src/app/shared/services/collaboration.service';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',
   styleUrl: './navigation-bar.component.scss',
 })
-export class NavigationBarComponent implements OnInit {
+export class NavigationBarComponent implements OnInit, OnChanges {
   facGroupsIcon = teaseIconPack['facGroupsIcon'];
   facDeleteIcon = teaseIconPack['facDeleteIcon'];
   facMoreIcon = teaseIconPack['facMoreIcon'];
@@ -35,8 +37,13 @@ export class NavigationBarComponent implements OnInit {
   facAddIcon = teaseIconPack['facAddIcon'];
   facSortIcon = teaseIconPack['facSortIcon'];
   facCheckIcon = teaseIconPack['facCheckIcon'];
+  facErrorIcon = teaseIconPack['facErrorIcon'];
 
   @Input({ required: true }) allocationData: AllocationData;
+
+  dropdownItems: { action: () => void; icon: IconDefinition; label: string; class: string }[];
+
+  fulfillsAllConstraints = true;
 
   constructor(
     private overlayService: OverlayService,
@@ -48,93 +55,32 @@ export class NavigationBarComponent implements OnInit {
     private lockedStudentsService: LockedStudentsService,
     private studentSortService: StudentSortService,
     private courseIterationsService: CourseIterationsService,
+    private collaborationService: CollaborationService,
     public websocketService: WebsocketService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.updateFulfillsAllConstraints();
 
-  async discover() {
-    const courseIterationId = this.allocationData.courseIteration?.id;
-    if (!courseIterationId) {
-      return;
-    }
-    const serverCollaborationData = await this.websocketService.discover(courseIterationId);
-    if (!serverCollaborationData || !serverCollaborationData.allocations) {
-      this.subscribe();
-      return;
-    }
-
-    if (
-      this.allocationsService.equalsCurrentAllocations(serverCollaborationData.allocations) &&
-      this.constraintsService.equalsCurrentConstraints(serverCollaborationData.constraints) &&
-      this.lockedStudentsService.equalsCurrentLockedStudentsUsingKeyValuePair(serverCollaborationData.lockedStudents)
-    ) {
-      this.subscribe();
-      return;
-    }
-
-    const overlayData = {
-      title: 'Connected to Collaboration Service',
-      description:
-        'The Collaboration Service has a different allocations and constraints state available. Do you want to load it? This will overwrite your current allocations, constraints and locked students. Not loading it will overwrite the other data. Be careful, this action cannot be undone.',
-      primaryText: 'Use Collaboration Data',
-      primaryButtonStyle: 'btn-secondary',
-      primaryAction: async () => {
-        const serverCollaborationData = await this.websocketService.discover(courseIterationId);
-        this.allocationsService.setAllocations(serverCollaborationData.allocations, false);
-        this.constraintsService.setConstraints(serverCollaborationData.constraints, false);
-        this.lockedStudentsService.setLocksAsArray(serverCollaborationData.lockedStudents, false);
-        await this.subscribe();
-        this.overlayService.closeOverlay();
-      },
-      secondaryText: 'Overwrite Collaboration Data',
-      secondaryButtonStyle: 'btn-warn',
-      secondaryAction: async () => {
-        await this.subscribe();
-        this.overlayService.closeOverlay();
-      },
-      isDismissable: false,
-    };
-
-    this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
+    this.dropdownItems = [
+      { action: this.showExportOverlay, icon: this.facExportIcon, label: 'Export', class: 'text-dark' },
+      { action: this.showImportOverlay, icon: this.facImportIcon, label: 'Import', class: 'text-dark' },
+      { action: this.showResetConfirmation, icon: this.facRestartIcon, label: 'Restart', class: 'text-dark' },
+      { action: this.showDeleteConfirmation, icon: this.facDeleteIcon, label: 'Delete', class: 'text-warn' },
+    ];
   }
 
-  async subscribe() {
-    const courseIterationId = this.allocationData.courseIteration?.id;
-    if (!courseIterationId) {
-      return;
-    }
-
-    this.websocketService.send(courseIterationId, 'allocations', this.allocationsService.getAllocationsAsString());
-
-    this.websocketService.subscribe(courseIterationId, 'allocations', allocations => {
-      this.allocationsService.setAllocations(allocations, false);
-    });
-
-    this.websocketService.send(courseIterationId, 'lockedStudents', this.lockedStudentsService.getLocksAsString());
-
-    this.websocketService.subscribe(courseIterationId, 'lockedStudents', lockedStudents => {
-      this.lockedStudentsService.setLocksAsArray(lockedStudents, false);
-    });
-
-    this.websocketService.send(courseIterationId, 'constraints', this.constraintsService.getConstraintsAsString());
-
-    this.websocketService.subscribe(courseIterationId, 'constraints', constraints => {
-      this.constraintsService.setConstraints(constraints, false);
-    });
+  ngOnChanges(): void {
+    this.updateFulfillsAllConstraints();
   }
 
-  dropdownItems = [
-    { action: this.showExportOverlay.bind(this), icon: this.facExportIcon, label: 'Export', class: 'text-dark' },
-    { action: this.showImportOverlay.bind(this), icon: this.facImportIcon, label: 'Import', class: 'text-dark' },
-    {
-      action: this.showResetTeamAllocationConfirmation.bind(this),
-      icon: this.facRestartIcon,
-      label: 'Restart',
-      class: 'text-dark',
-    },
-    { action: this.showDeleteConfirmation.bind(this), icon: this.facDeleteIcon, label: 'Delete', class: 'text-warn' },
-  ];
+  async connect(): Promise<void> {
+    await this.collaborationService.connect(this.allocationData.courseIteration.id);
+  }
+
+  async disconnect(): Promise<void> {
+    await this.collaborationService.disconnect();
+  }
 
   showConstraintSummaryOverlay(): void {
     this.overlayService.displayComponent(ConstraintSummaryComponent);
@@ -146,7 +92,7 @@ export class NavigationBarComponent implements OnInit {
     });
   }
 
-  showResetTeamAllocationConfirmation() {
+  showResetConfirmation = () => {
     const overlayData = {
       title: 'Reset Team Allocation',
       description:
@@ -160,17 +106,17 @@ export class NavigationBarComponent implements OnInit {
     };
 
     this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
-  }
+  };
 
-  showImportOverlay() {
+  showImportOverlay = () => {
     this.overlayService.displayComponent(ImportOverlayComponent);
-  }
+  };
 
-  showExportOverlay() {
+  showExportOverlay = () => {
     this.overlayService.displayComponent(ExportOverlayComponent, {
       allocationData: this.allocationData,
     });
-  }
+  };
 
   showSortConfirmation() {
     const overlayData = {
@@ -190,7 +136,7 @@ export class NavigationBarComponent implements OnInit {
     this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
   }
 
-  showDeleteConfirmation() {
+  showDeleteConfirmation = () => {
     const overlayData = {
       title: 'Delete',
       description:
@@ -205,7 +151,7 @@ export class NavigationBarComponent implements OnInit {
     };
 
     this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
-  }
+  };
 
   private deleteData() {
     this.studentsService.deleteStudents();
@@ -222,5 +168,9 @@ export class NavigationBarComponent implements OnInit {
   private deleteDynamicData() {
     this.lockedStudentsService.deleteLocks();
     this.allocationsService.deleteAllocations();
+  }
+
+  private updateFulfillsAllConstraints(): void {
+    this.fulfillsAllConstraints = this.allocationData.projectsData.every(project => project.fulfillsAllConstraints);
   }
 }

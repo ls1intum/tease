@@ -1,27 +1,37 @@
-<div class="w-100 d-flex bg-dark justify-content-between p-3 align-items-center">
-  <div class="d-flex align-items-center gap-3 justify-content-center">
+<div class="w-100 d-flex bg-dark justify-content-between p-3 align-items-center flex-wrap">
+  <div class="d-flex align-items-center gap-3 justify-content-center flex-wrap">
     <img src="assets/images/logo-s.svg" />
     <div class="text-white fs-3 fw-light">TEASE</div>
     @if (allocationData.courseIteration) {
       <div class="text-prefix fs-5">{{ allocationData.courseIteration.semesterName }}</div>
-    }
-    @if (websocketService.connection?.connected) {
-      <fa-icon
-        [icon]="facCheckIcon"
-        class="collaboration-indicator success"
-        ngbTooltip="Connected to Collaboration"></fa-icon>
-    } @else {
-      <div
-        ngbTooltip="Reconnect to Collaboration"
-        class="collaboration-indicator error"
-        role="button"
-        (click)="discover()">
-        <fa-icon [icon]="facRestartIcon"></fa-icon>
-      </div>
+
+      @if (websocketService.connection?.connected) {
+        <fa-icon
+          [icon]="facCheckIcon"
+          class="collaboration-indicator success"
+          role="button"
+          (click)="disconnect()"
+          ngbTooltip="Disconnect from Collaboration"></fa-icon>
+      } @else {
+        <div
+          ngbTooltip="Reconnect to Collaboration"
+          class="collaboration-indicator error"
+          role="button"
+          (click)="connect()">
+          <fa-icon [icon]="facRestartIcon"></fa-icon>
+        </div>
+      }
     }
   </div>
 
-  <div class="d-flex gap-2">
+  <div class="d-flex gap-2 align-items-center flex-wrap">
+    @if (!fulfillsAllConstraints) {
+      <div
+        class="wh-4 bg-warn rounded-circle d-flex align-items-center justify-content-center"
+        ngbTooltip="Unfulfilled Constraints!">
+        <fa-icon [icon]="facErrorIcon" class="text-white fs-3 lh-1"></fa-icon>
+      </div>
+    }
     <div>
       <button
         type="button"

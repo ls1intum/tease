@@ -23,6 +23,7 @@ services:
       - "traefik.http.services.tease-server.loadbalancer.server.port=8081"
       - "traefik.http.routers.tease-server.entrypoints=websecure"
       - "traefik.http.routers.tease-server.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.tease-server.middlewares=jwt-middleware"
     expose:
       - "8081"
     networks:

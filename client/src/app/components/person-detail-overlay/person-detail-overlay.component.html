@@ -1,3 +1,10 @@
+<ng-template #studentInfo let-label="label" let-value="value">
+  <div class="col">
+    <p class="fs-s text-prefix mb-0">{{ label }}</p>
+    <p class="fs-6 fw-semibold mb-0">{{ value }}</p>
+  </div>
+</ng-template>
+
 <div class="d-flex justify-content-center align-items-center vh-100">
   <div
     class="w-75 h-75 bg-white shadow-lg d-flex flex-column p-4 rounded-3 overflow-hidden overflow-y-scroll"
@@ -95,34 +102,22 @@
           </div>
         </div>
       </div>
-      <!-- Study Information -->
       <div class="col-12 pt-3">
         <h5 class="fw-semibold mb-2">Information</h5>
       </div>
+
       <div class="col-12 row">
-        <div class="col">
-          <p class="fs-s text-prefix mb-0">Programm</p>
-          <p class="fs-6 fw-semibold mb-0">{{ student.studyProgram }}</p>
-        </div>
-        <div class="col">
-          <p class="fs-s text-prefix mb-0">Degree</p>
-          <p class="fs-6 fw-semibold mb-0">{{ student.studyDegree }}</p>
-        </div>
-        <div class="col">
-          <p class="fs-s text-prefix mb-0">Semester</p>
-          <p class="fs-6 fw-semibold mb-0">{{ student.semester }}</p>
-        </div>
+        <ng-container
+          *ngTemplateOutlet="
+            studentInfo;
+            context: { label: 'Program', value: student.studyProgram + ' - ' + student.studyDegree }
+          "></ng-container>
+        <ng-container
+          *ngTemplateOutlet="studentInfo; context: { label: 'Semester', value: student.semester }"></ng-container>
       </div>
-      <!-- Mail and ID -->
       <div class="col-12 row">
-        <div class="col">
-          <p class="fs-s text-prefix mb-0">Mail</p>
-          <p class="fs-6 fw-semibold mb-0">{{ student.email }}</p>
-        </div>
-        <div class="col">
-          <p class="fs-s text-prefix mb-0">ID</p>
-          <p class="fs-6 fw-semibold text-nowrap mb-0">{{ student.id }}</p>
-        </div>
+        <ng-container *ngTemplateOutlet="studentInfo; context: { label: 'Mail', value: student.email }"></ng-container>
+        <ng-container *ngTemplateOutlet="studentInfo; context: { label: 'ID', value: student.id }"></ng-container>
       </div>
       <div class="col-12 pt-3">
         <h5 class="fw-semibold mb-2">Skills</h5>

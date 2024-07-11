@@ -10,6 +10,7 @@ import { courseIterationsGet as getCourseIterations } from 'src/app/api/fn/cours
 import { Observable, lastValueFrom } from 'rxjs';
 import { Skill, Student, Project, Allocation, CourseIteration } from 'src/app/api/models';
 import { StrictHttpResponse } from 'src/app/api/strict-http-response';
+import { GLOBALS } from '../utils/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -53,6 +54,6 @@ export class PromptService {
   }
 
   isImportPossible(): boolean {
-    return localStorage.getItem('jwt_token') !== null;
+    return localStorage.getItem(GLOBALS.LS_KEY_JWT) !== null;
   }
 }
