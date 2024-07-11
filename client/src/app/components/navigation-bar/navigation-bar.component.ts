@@ -17,6 +17,7 @@ import { AllocationData } from 'src/app/shared/models/allocation-data';
 import { CourseIterationsService } from 'src/app/shared/data/course-iteration.service';
 import { WebsocketService } from 'src/app/shared/network/websocket.service';
 import { CollaborationService } from 'src/app/shared/services/collaboration.service';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -40,17 +41,7 @@ export class NavigationBarComponent implements OnInit, OnChanges {
 
   @Input({ required: true }) allocationData: AllocationData;
 
-  dropdownItems = [
-    { action: this.showExportOverlay.bind(this), icon: this.facExportIcon, label: 'Export', class: 'text-dark' },
-    { action: this.showImportOverlay.bind(this), icon: this.facImportIcon, label: 'Import', class: 'text-dark' },
-    {
-      action: this.showResetTeamAllocationConfirmation.bind(this),
-      icon: this.facRestartIcon,
-      label: 'Restart',
-      class: 'text-dark',
-    },
-    { action: this.showDeleteConfirmation.bind(this), icon: this.facDeleteIcon, label: 'Delete', class: 'text-warn' },
-  ];
+  dropdownItems: { action: () => void; icon: IconDefinition; label: string; class: string }[];
 
   fulfillsAllConstraints = true;
 
@@ -70,6 +61,13 @@ export class NavigationBarComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.updateFulfillsAllConstraints();
+
+    this.dropdownItems = [
+      { action: this.showExportOverlay, icon: this.facExportIcon, label: 'Export', class: 'text-dark' },
+      { action: this.showImportOverlay, icon: this.facImportIcon, label: 'Import', class: 'text-dark' },
+      { action: this.showResetConfirmation, icon: this.facRestartIcon, label: 'Restart', class: 'text-dark' },
+      { action: this.showDeleteConfirmation, icon: this.facDeleteIcon, label: 'Delete', class: 'text-warn' },
+    ];
   }
 
   ngOnChanges(): void {
@@ -77,12 +75,10 @@ export class NavigationBarComponent implements OnInit, OnChanges {
   }
 
   async connect(): Promise<void> {
-    console.log('Connecting to collaboration service');
     await this.collaborationService.connect(this.allocationData.courseIteration.id);
   }
 
   async disconnect(): Promise<void> {
-    console.log('Disconnecting from collaboration service');
     await this.collaborationService.disconnect();
   }
 
@@ -96,7 +92,7 @@ export class NavigationBarComponent implements OnInit, OnChanges {
     });
   }
 
-  showResetTeamAllocationConfirmation() {
+  showResetConfirmation = () => {
     const overlayData = {
       title: 'Reset Team Allocation',
       description:
@@ -110,17 +106,17 @@ export class NavigationBarComponent implements OnInit, OnChanges {
     };
 
     this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
-  }
+  };
 
-  showImportOverlay() {
+  showImportOverlay = () => {
     this.overlayService.displayComponent(ImportOverlayComponent);
-  }
+  };
 
-  showExportOverlay() {
+  showExportOverlay = () => {
     this.overlayService.displayComponent(ExportOverlayComponent, {
       allocationData: this.allocationData,
     });
-  }
+  };
 
   showSortConfirmation() {
     const overlayData = {
@@ -140,7 +136,7 @@ export class NavigationBarComponent implements OnInit, OnChanges {
     this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
   }
 
-  showDeleteConfirmation() {
+  showDeleteConfirmation = () => {
     const overlayData = {
       title: 'Delete',
       description:
@@ -155,7 +151,7 @@ export class NavigationBarComponent implements OnInit, OnChanges {
     };
 
     this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
-  }
+  };
 
   private deleteData() {
     this.studentsService.deleteStudents();

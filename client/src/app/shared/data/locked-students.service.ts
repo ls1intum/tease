@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { WebsocketService } from '../network/websocket.service';
 import { CourseIterationsService } from './course-iteration.service';
+import { GLOBALS } from '../utils/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +41,7 @@ export class LockedStudentsService {
 
     const courseIterationId = this.courseIterationsService.getCourseIteration()?.id;
     if (sentWebSocketUpdate && courseIterationId) {
-      this.websocketService.send(courseIterationId, 'lockedStudents', this.getLocksAsString());
+      this.websocketService.send(courseIterationId, GLOBALS.WS_TOPIC_LOCKED_STUDENTS, this.getLocksAsString());
     }
   }
 

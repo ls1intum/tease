@@ -4,6 +4,7 @@ import { StompSubscription } from '@stomp/stompjs/src/stomp-subscription';
 import { Allocation } from 'src/app/api/models';
 import { ConstraintWrapper } from '../matching/constraints/constraint';
 import { environment } from 'src/environments/environment';
+import { GLOBALS } from '../utils/constants';
 
 export interface CollaborationData {
   allocations: Allocation[];
@@ -28,7 +29,7 @@ export class WebsocketService {
         return;
       }
       this.connection = Stomp.client(
-        `${this.secure ? 'wss' : 'ws'}://${this.url}/ws?token=${localStorage.getItem('jwt_token')}`
+        `${this.secure ? 'wss' : 'ws'}://${this.url}/ws?token=${localStorage.getItem(GLOBALS.LS_KEY_JWT)}`
       );
 
       try {

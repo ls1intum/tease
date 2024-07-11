@@ -6,6 +6,7 @@ import { ConstraintsService } from '../data/constraints.service';
 import { LockedStudentsService } from '../data/locked-students.service';
 import { StompSubscription } from '@stomp/stompjs';
 import { ConfirmationOverlayComponent } from 'src/app/components/confirmation-overlay/confirmation-overlay.component';
+import { GLOBALS } from '../utils/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -30,30 +31,30 @@ export class CollaborationService implements OnDestroy {
   }
 
   private async discover(courseIterationId: string): Promise<CollaborationData> {
-    this.discoverySubscription?.unsubscribe();
-
-    return new Promise(async (resolve, reject) => {
-      let timeout = setTimeout(() => {
+    return new Promise<CollaborationData>((resolve, reject) => {
+      const timeout = setTimeout(() => {
         reject(new Error('Timeout waiting for message'));
       }, 5000);
 
-      this.discoverySubscription = await this.websocketService.subscribe(
-        courseIterationId,
-        'discovery',
-        collaborationData => {
+      this.websocketService
+        .subscribe(courseIterationId, GLOBALS.WS_TOPIC_DISCOVERY, collaborationData => {
           clearTimeout(timeout);
           this.discoverySubscription?.unsubscribe();
           console.log('Discovered collaboration data');
           resolve(collaborationData);
-        }
-      );
-
-      this.websocketService.send(courseIterationId, 'discovery');
+        })
+        .then(subscription => {
+          this.discoverySubscription = subscription;
+          this.websocketService.send(courseIterationId, GLOBALS.WS_TOPIC_DISCOVERY);
+        })
+        .catch(error => {
+          clearTimeout(timeout);
+          reject(error);
+        });
     });
   }
 
   private async subscribe(courseIterationId: string): Promise<void> {
-    console.log('Subscribing to data!!!');
     await this.subscribeToAllocations(courseIterationId);
     await this.subscribeToLockedStudents(courseIterationId);
     await this.subscribeToConstraints(courseIterationId);
@@ -115,10 +116,14 @@ export class CollaborationService implements OnDestroy {
   }
 
   private async subscribeToAllocations(courseIterationId: string): Promise<void> {
-    this.websocketService.send(courseIterationId, 'allocations', this.allocationsService.getAllocationsAsString());
+    this.websocketService.send(
+      courseIterationId,
+      GLOBALS.WS_TOPIC_ALLOCATIONS,
+      this.allocationsService.getAllocationsAsString()
+    );
 
     this.subscriptions.push(
-      await this.websocketService.subscribe(courseIterationId, 'allocations', allocations => {
+      await this.websocketService.subscribe(courseIterationId, GLOBALS.WS_TOPIC_ALLOCATIONS, allocations => {
         console.log('Received allocations');
         this.allocationsService.setAllocations(allocations, false);
       })
@@ -126,20 +131,28 @@ export class CollaborationService implements OnDestroy {
   }
 
   private async subscribeToLockedStudents(courseIterationId: string): Promise<void> {
-    this.websocketService.send(courseIterationId, 'lockedStudents', this.lockedStudentsService.getLocksAsString());
+    this.websocketService.send(
+      courseIterationId,
+      GLOBALS.WS_TOPIC_LOCKED_STUDENTS,
+      this.lockedStudentsService.getLocksAsString()
+    );
 
     this.subscriptions.push(
-      await this.websocketService.subscribe(courseIterationId, 'lockedStudents', lockedStudents => {
+      await this.websocketService.subscribe(courseIterationId, GLOBALS.WS_TOPIC_LOCKED_STUDENTS, lockedStudents => {
         this.lockedStudentsService.setLocksAsArray(lockedStudents, false);
       })
     );
   }
 
   private async subscribeToConstraints(courseIterationId: string): Promise<void> {
-    this.websocketService.send(courseIterationId, 'constraints', this.constraintsService.getConstraintsAsString());
+    this.websocketService.send(
+      courseIterationId,
+      GLOBALS.WS_TOPIC_CONSTRAINTS,
+      this.constraintsService.getConstraintsAsString()
+    );
 
     this.subscriptions.push(
-      await this.websocketService.subscribe(courseIterationId, 'constraints', constraints => {
+      await this.websocketService.subscribe(courseIterationId, GLOBALS.WS_TOPIC_CONSTRAINTS, constraints => {
         this.constraintsService.setConstraints(constraints, false);
       })
     );

@@ -16,7 +16,7 @@ export class AllocationDataService {
     allocations: Allocation[],
     constraintWrappers: ConstraintWrapper[],
     skills: Skill[]
-  ): Boolean {
+  ): boolean {
     return !!(projects?.length && students?.length && allocations && constraintWrappers && skills?.length);
   }
 
@@ -30,38 +30,38 @@ export class AllocationDataService {
     if (!this.isDataLoaded(projects, students, allocations, constraintWrappers, skills)) {
       return null;
     }
-    return this.updateAllocation(projects, students, allocations, constraintWrappers);
+    return this.getAllocation(projects, students, allocations, constraintWrappers);
   }
 
-  private updateAllocation(
+  private getAllocation(
     projects: Project[],
     students: Student[],
     allocations: Allocation[],
     constraintWrappers: ConstraintWrapper[]
   ): AllocationData {
     return {
-      projectsData: this.updateProjectsData(projects, students, allocations, constraintWrappers),
-      studentsWithoutTeam: this.updateStudentsWithoutTeam(students, allocations),
+      projectsData: this.getProjectsData(projects, students, allocations, constraintWrappers),
+      studentsWithoutTeam: this.getStudentsWithoutTeam(students, allocations),
       courseIteration: this.courseIterationsService.getCourseIteration(),
     };
   }
 
-  private updateProjectsData(
+  private getProjectsData(
     projects: Project[],
     students: Student[],
     allocations: Allocation[],
     constraintWrappers: ConstraintWrapper[]
   ): ProjectData[] {
-    return projects.map(project => this.updateProjectData(project, students, allocations, constraintWrappers));
+    return projects.map(project => this.getProjectData(project, students, allocations, constraintWrappers));
   }
 
-  private updateProjectData(
+  private getProjectData(
     project: Project,
     students: Student[],
     allocations: Allocation[],
     constraintWrappers: ConstraintWrapper[]
   ): ProjectData {
-    let studentsOfProject = this.getStudentsOfProject(students, project.id, allocations);
+    const studentsOfProject = this.getStudentsOfProject(students, project.id, allocations);
     const { projectConstraints, fulfillsAllConstraints } = this.getProjectConstraints(
       constraintWrappers,
       project.id,
@@ -85,7 +85,7 @@ export class AllocationDataService {
     constraintWrappers: ConstraintWrapper[],
     projectId: string,
     students: Student[]
-  ): { projectConstraints: ProjectConstraint[]; fulfillsAllConstraints: Boolean } {
+  ): { projectConstraints: ProjectConstraint[]; fulfillsAllConstraints: boolean } {
     let fulfillsAllConstraints = true;
     const constraintWrappersOfProject = this.getConstraintWrappersOfProject(constraintWrappers, projectId);
     const projectConstraints = constraintWrappersOfProject.map(constraintWrapper => {
@@ -117,7 +117,7 @@ export class AllocationDataService {
       .length;
   }
 
-  private updateStudentsWithoutTeam(students: Student[], allocations: Allocation[]): Student[] {
+  private getStudentsWithoutTeam(students: Student[], allocations: Allocation[]): Student[] {
     return students.filter(student => !allocations.some(allocation => allocation.students.includes(student.id)));
   }
 }
