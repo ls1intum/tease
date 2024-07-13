@@ -6,7 +6,7 @@ import {
   ConstraintWrapper,
   ThresholdWrapper,
 } from 'src/app/shared/matching/constraints/constraint';
-import { v4 as uuid } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import { Operator } from 'src/app/shared/matching/constraints/constraint-utils';
 import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
@@ -111,7 +111,7 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponentData, 
       this.projectIds,
       this.constraintFunctionWrapper,
       this.thresholdWrapper,
-      tempConstraint ? this.id : uuid(),
+      tempConstraint ? this.id : uuidv4(),
       true
     );
   }

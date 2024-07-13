@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import * as countries from 'i18n-iso-countries';
-declare const require;
+import * as en from 'i18n-iso-countries/langs/en.json';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NationalityService {
   constructor() {
-    countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
+    countries.registerLocale(en);
   }
 
   getNameFromCode(nationality: string): string {
     return countries.getName(nationality, 'en');
+    return '';
   }
 
   getEmojiFromCode(alpha2: string): string {

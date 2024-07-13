@@ -13,7 +13,7 @@ import {
 } from 'src/app/api/models';
 import { CsvStudent } from '../models/csvStudent';
 import { ToastsService } from './toasts.service';
-import { v4 as uuid } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import { EnumService } from '../utils/enum.service';
 import * as Papa from 'papaparse';
 
@@ -150,13 +150,13 @@ export class CsvParserService {
 
   private getProjects(reference: CsvStudent): Project[] {
     return this.getAttributes<Project>(reference, 'projectPreference', value => {
-      return { id: uuid(), name: value };
+      return { id: uuidv4(), name: value };
     });
   }
 
   private getSkills(reference: CsvStudent): Skill[] {
     return this.getAttributes<Skill>(reference, 'skill', value => {
-      return { id: uuid(), title: value, description: '' };
+      return { id: uuidv4(), title: value, description: '' };
     });
   }
 
