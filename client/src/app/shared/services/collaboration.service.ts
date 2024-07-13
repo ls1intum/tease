@@ -35,7 +35,7 @@ export class CollaborationService implements OnDestroy {
   private async discover(courseIterationId: string): Promise<CollaborationData> {
     return new Promise<CollaborationData>((resolve, reject) => {
       const timeout = setTimeout(() => {
-        this.toatsService.showToast('Login to PROMPT', 'Collaboration Connection Failed', false);
+        this.toatsService.showToast('Login to PROMPT', 'Collaboration Failed', false);
         reject(new Error('Timeout waiting for message'));
       }, 3000);
 
@@ -51,7 +51,7 @@ export class CollaborationService implements OnDestroy {
         })
         .catch(error => {
           clearTimeout(timeout);
-          this.toatsService.showToast('Login to PROMPT', 'Collaboration Connection Failed', false);
+          this.toatsService.showToast('Login to PROMPT', 'Collaboration Failed', false);
           reject(error);
         });
     });
