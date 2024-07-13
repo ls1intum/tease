@@ -5,6 +5,8 @@ WORKDIR /dist/src/app
 RUN npm cache clean --force
 # copy files from local machine to virtual directory in image
 COPY . .
+# install python3 and other dependencies for node-gyp (which is somehow required by the angular build)
+RUN apk add --no-cache --virtual .build-deps alpine-sdk python3
 # install dependencies
 RUN npm install
 RUN npm run build:traefik
