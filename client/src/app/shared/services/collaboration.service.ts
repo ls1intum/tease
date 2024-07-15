@@ -7,6 +7,7 @@ import { LockedStudentsService } from '../data/locked-students.service';
 import { StompSubscription } from '@stomp/stompjs';
 import { ConfirmationOverlayComponent } from 'src/app/components/confirmation-overlay/confirmation-overlay.component';
 import { GLOBALS } from '../utils/constants';
+import { ToastsService } from './toasts.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,8 @@ export class CollaborationService implements OnDestroy {
     private overlayService: OverlayService,
     private allocationsService: AllocationsService,
     private constraintsService: ConstraintsService,
-    private lockedStudentsService: LockedStudentsService
+    private lockedStudentsService: LockedStudentsService,
+    private toatsService: ToastsService
   ) {}
 
   ngOnDestroy(): void {
@@ -33,14 +35,14 @@ export class CollaborationService implements OnDestroy {
   private async discover(courseIterationId: string): Promise<CollaborationData> {
     return new Promise<CollaborationData>((resolve, reject) => {
       const timeout = setTimeout(() => {
+        this.toatsService.showToast('Login to PROMPT', 'Collaboration Failed', false);
         reject(new Error('Timeout waiting for message'));
-      }, 5000);
+      }, 3000);
 
       this.websocketService
         .subscribe(courseIterationId, GLOBALS.WS_TOPIC_DISCOVERY, collaborationData => {
           clearTimeout(timeout);
           this.discoverySubscription?.unsubscribe();
-          console.log('Discovered collaboration data');
           resolve(collaborationData);
         })
         .then(subscription => {
@@ -49,6 +51,7 @@ export class CollaborationService implements OnDestroy {
         })
         .catch(error => {
           clearTimeout(timeout);
+          this.toatsService.showToast('Login to PROMPT', 'Collaboration Failed', false);
           reject(error);
         });
     });
@@ -58,6 +61,7 @@ export class CollaborationService implements OnDestroy {
     await this.subscribeToAllocations(courseIterationId);
     await this.subscribeToLockedStudents(courseIterationId);
     await this.subscribeToConstraints(courseIterationId);
+    this.toatsService.showToast('Connected to Collaboration', 'Success', true);
   }
 
   async connect(courseIterationId: string): Promise<void> {
