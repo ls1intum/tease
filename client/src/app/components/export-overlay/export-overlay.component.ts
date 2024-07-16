@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { OverlayComponentData } from '../../overlay.service';
-import * as JSZip from 'jszip';
+import JSZip from 'jszip';
 import { PromptService } from 'src/app/shared/services/prompt.service';
 import { ToastsService } from 'src/app/shared/services/toasts.service';
 import { HttpErrorResponse } from '@angular/common/http';

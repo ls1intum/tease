@@ -1,6 +1,6 @@
 import { NgModule, Provider, forwardRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -31,27 +31,21 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
   multi: true,
 };
 
-@NgModule({
-  declarations: [AppComponent, OverlayHostDirective],
-  imports: [
-    /* external modules */
-    BrowserModule,
-    NgbModule,
-    AppRoutingModule,
-    DragulaModule.forRoot(),
-    ReactiveFormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot(),
-    /* own modules */
-    SharedModule,
-    ComponentsModule,
-    environment.production ? ApiModule : ApiModule.forRoot({ rootUrl: 'http://localhost:3001/api' }),
-    FontAwesomeModule,
-  ],
-  providers: [OverlayService, PromptService, AuthInterceptor, API_INTERCEPTOR_PROVIDER],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [AppComponent, OverlayHostDirective],
+    bootstrap: [AppComponent], imports: [
+        /* external modules */
+        BrowserModule,
+        NgbModule,
+        AppRoutingModule,
+        DragulaModule.forRoot(),
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot(),
+        /* own modules */
+        SharedModule,
+        ComponentsModule,
+        environment.production ? ApiModule : ApiModule.forRoot({ rootUrl: 'http://localhost:3001/api' }),
+        FontAwesomeModule], providers: [OverlayService, PromptService, AuthInterceptor, API_INTERCEPTOR_PROVIDER, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIconPacks(teaseIconPack);
