@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="w-75 bg-white shadow-lg d-flex flex-column p-4 rounded-3 gap-4" (click)="$event.stopPropagation()">
+    <h3 class="fw-semibold">Nationalitiy Constraints Builder</h3>
+
+    <div>
+      <h4 class="fw-semibold mb-1">Projects</h4>
+      <p>Select the projects to which you want to apply the nationality constraints.</p>
+      <app-select
+        [elementsData]="projectsSelectData"
+        (selectionChange)="projectsSelectionChange($event)"
+        title="Projects" />
+    </div>
+
+    <div>
+      <div class="d-flex mb-1 align-items-start">
+        <div>
+          <h4 class="fw-semibold mb-1 lh-0">Nationalities</h4>
+          <p>Select the nationalities that are not allowed within a project.</p>
+        </div>
+
+        <div class="flex-grow-1"></div>
+
+        <button
+          type="button"
+          class="btn btn-outline-secondary btn-sm"
+          (click)="selectFromStaatenliste()"
+          ngbTooltip="Staatenliste im Sinne von § 13 Abs. 1 Nr. 17 SÜG (06.08.2022)"
+          [openDelay]="500">
+          Apply "Staatenliste"
+        </button>
+      </div>
+      <app-select
+        [elementsData]="nationalitiesSelectData"
+        (selectionChange)="nationalitiesSelectionChange($event)"
+        title="Nationalities"
+        #nationalitySelect />
+    </div>
+
+    <div class="d-flex mt-5">
+      <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+
+      <div class="flex-grow-1"></div>
+      <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!isFormValid">Save</button>
+    </div>
+  </div>
+</div>

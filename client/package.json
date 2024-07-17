@@ -1,0 +1,101 @@
+{
+  "name": "tease",
+  "version": "3.0.0",
+  "description": "A reference implementation of a decision-support system for software engineering team allocation for multi-project courses.",
+  "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "ASE TUM",
+    "email": "krusche@tum.de",
+    "url": "https://ase.cit.tum.de"
+  },
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --configuration development --host 0.0.0.0 --port 80",
+    "build": "ng build --stats-json",
+    "build:prod": "ng build --configuration production --stats-json",
+    "build:traefik": "ng build --configuration production --base-href /tease/ --stats-json",
+    "watch": "ng build --watch --configuration development",
+    "lint": "ng lint",
+    "lint:fix": "eslint --fix --ext .ts \"src/{app,test}/**/*.ts\"",
+    "update": "npm-upgrade",
+    "prettier:write": "prettier --write \"src/{app,test}/**/*.{json,ts,js,css,scss,html}\"",
+    "prettier:check": "prettier --check \"src/{app,test}/**/*.{json,ts,js,css,scss,html}\"",
+    "openapi:generate": "ng-openapi-gen -c docs/ng-openapi-gen.json"
+  },
+  "contributors": [
+    "Stephan Krusche <krusche@tum.de>",
+    "Adrian Sohn <adrian.sohn@tum.de>",
+    "Malte Bucksch <malte.bucksch@quickbirdstudios.com>",
+    "Eric Gopak <eric.gopak@tum.de>",
+    "Quirin Schweigert <quirin.schweigert@tum.de>",
+    "Dora Dzvonyar <dora.dzvonyar@tum.de>"
+  ],
+  "dependencies": {
+    "@angular/animations": "18.1.0",
+    "@angular/cdk": "18.1.0",
+    "@angular/common": "18.1.0",
+    "@angular/compiler": "18.1.0",
+    "@angular/core": "18.1.0",
+    "@angular/forms": "18.1.0",
+    "@angular/platform-browser": "18.1.0",
+    "@angular/platform-browser-dynamic": "18.1.0",
+    "@angular/router": "18.1.0",
+    "@fortawesome/angular-fontawesome": "0.15.0",
+    "@fortawesome/fontawesome-svg-core": "6.5.2",
+    "@ng-bootstrap/ng-bootstrap": "17.0.0",
+    "@stomp/stompjs": "^7.0.0",
+    "bootstrap": "5.3.3",
+    "chart.js": "^4.4.3",
+    "crypto-js": "4.2.0",
+    "dragula": "3.7.3",
+    "file-saver": "2.0.5",
+    "html2canvas": "1.4.1",
+    "i18n-iso-countries": "^7.11.2",
+    "javascript-lp-solver": "0.4.24",
+    "jszip": "3.10.1",
+    "ng2-charts": "^6.0.1",
+    "ng2-dragula": "5.1.0",
+    "ngx-capture": "^0.14.0",
+    "ngx-toastr": "^19.0.0",
+    "papaparse": "5.4.1",
+    "rxjs": "7.8.1",
+    "tslib": "2.6.3",
+    "uuid": "^10.0.0"
+  },
+  "overrides": {
+    "semver": "7.5.4",
+    "postcss": "8.4.31",
+    "ng2-dragula": {
+      "@angular/common": "$@angular/common",
+      "@angular/core": "$@angular/core",
+      "@angular/animations": "$@angular/animations"
+    }
+  },
+  "browser": {
+    "fs": false,
+    "child_process": false
+  },
+  "devDependencies": {
+    "@angular-eslint/builder": "18.1.0",
+    "@angular-eslint/eslint-plugin": "18.1.0",
+    "@angular-eslint/eslint-plugin-template": "18.1.0",
+    "@angular-eslint/schematics": "18.1.0",
+    "@angular-eslint/template-parser": "18.1.0",
+    "@angular/build": "^18.1.0",
+    "@angular/cli": "18.1.0",
+    "@angular/compiler-cli": "18.1.0",
+    "@angular/localize": "18.1.0",
+    "@cypress/schematic": "^2.5.2",
+    "@types/crypto-js": "^4.2.2",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "eslint": "^8.53.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-prettier": "5.1.3",
+    "ng-openapi-gen": "^0.51.0",
+    "prettier": "^3.3.3",
+    "prettier-eslint": "^16.3.0",
+    "typescript": "5.5.3"
+  }
+}

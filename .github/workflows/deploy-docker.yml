@@ -5,24 +5,22 @@ on:
     workflows: ["Build and Push"]
     branches: 
       - main
+      - develop
     types: 
       - completed
-  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    strategy:
-        fail-fast: false
-        matrix:
-          include:
-            - hostname: "prompt-dev.ase.cit.tum.de"
-            - hostname: "prompt.ase.cit.tum.de"
+    environment:
+      name: ${{ (github.ref == 'refs/heads/main') && 'PROMPT-Prod' || (github.ref == 'refs/heads/develop') && 'PROMPT-Dev' }}
+      url: 'https://${{ vars.VM_HOST }}'
     steps:
       - name: SSH to VM and Execute Docker-Compose Down
         uses: appleboy/ssh-action@v1.0.3
+        continue-on-error: true
         with:
-          host: ${{ matrix.hostname }}
+          host: ${{ vars.VM_HOST }}
           username: ${{ vars.VM_USERNAME }}
           key: ${{ secrets.VM_SSH_PRIVATE_KEY }}
           proxy_host: ${{ vars.DEPLOYMENT_GATEWAY_HOST }}
@@ -38,7 +36,7 @@ jobs:
       - name: Copy Docker Compose File From Repo to VM Host
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ matrix.hostname }}
+          host: ${{ vars.VM_HOST }}
           username: ${{ vars.VM_USERNAME }}
           key: ${{ secrets.VM_SSH_PRIVATE_KEY }}
           proxy_host: ${{ vars.DEPLOYMENT_GATEWAY_HOST }}
@@ -51,7 +49,7 @@ jobs:
       - name: SSH to VM and Execute Docker-Compose Up
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ matrix.hostname }}
+          host: ${{ vars.VM_HOST }}
           username: ${{ vars.VM_USERNAME }}
           key: ${{ secrets.VM_SSH_PRIVATE_KEY }}
           proxy_host: ${{ vars.DEPLOYMENT_GATEWAY_HOST }}

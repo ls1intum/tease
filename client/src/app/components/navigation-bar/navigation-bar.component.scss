@@ -1,0 +1,22 @@
+@import '/src/scss/style-constants.scss';
+
+.collaboration-indicator {
+  font-size: 1.65rem;
+}
+
+.collaboration-indicator.success {
+  color: green;
+}
+
+.collaboration-indicator.error {
+  color: $warn;
+}
+
+.collaboration-indicator:hover.error {
+  color: $primary;
+}
+
+.wh-4 {
+  width: 2rem;
+  height: 2rem;
+}

@@ -1,0 +1,21 @@
+@if (dataLoaded) {
+  <div class="bg-bright h-100 d-flex flex-column gap-2">
+    <app-navigation-bar [allocationData]="allocationData"></app-navigation-bar>
+    <app-projects class="flex-grow-1 overflow-hidden" [projectsData]="allocationData.projectsData"></app-projects>
+    <app-utility [allocationData]="allocationData"></app-utility>
+  </div>
+} @else {
+  <div class="d-flex justify-content-center align-items-center h-100">
+    <app-intro-card></app-intro-card>
+  </div>
+}
+
+<!-- overlay (if visible) -->
+<div
+  class="custom-overlay-container"
+  (click)="overlayService.closeOverlay()"
+  [ngClass]="{ 'dialog-container-hidden': !overlayVisible }">
+  <div class="dialog-content" [ngClass]="{ 'dialog-content-hidden': !overlayVisible }">
+    <ng-template appOverlayHost></ng-template>
+  </div>
+</div>

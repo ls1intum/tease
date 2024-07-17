@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="w-50 bg-white shadow-lg d-flex flex-column p-4 rounded-3 gap-4" (click)="$event.stopPropagation()">
+    <!-- heading -->
+    <h4 class="fw-semibold">Export</h4>
+
+    <!-- dialog body -->
+    <div class="d-flex flex-column gap-5">
+      <div class="d-flex flex-column gap-2 align-items-start">
+        <h5 class="fw-semibold">Team Allocation Data</h5>
+        This exports the current team allocation as CSV file that you can use to backup and share the current project.
+        Additionally, a text file containing a history of constraint applications is provided.
+        <button type="button" class="btn btn-primary" (click)="exportCSV()">Download Archive</button>
+      </div>
+
+      <div class="d-flex flex-column gap-2 align-items-start">
+        <h5 class="fw-semibold">Team and Person Card Images</h5>
+        Images of all team representations and person cards can be exported to visualize the team allocation and person
+        information.
+
+        <button class="btn btn-primary" type="button" [disabled]="isLoading" (click)="exportProjectImages()">
+          <span class="pe-2" [ngClass]="{ 'visually-hidden': !isLoading }">
+            <span class="spinner-border spinner-border-sm"></span>
+          </span>
+          <span>Download Project Images</span>
+        </button>
+      </div>
+
+      <div class="d-flex flex-column gap-2 align-items-start">
+        <h5 class="fw-semibold">Prompt Export</h5>
+        This exports the current team allocation to prompt
+        <button type="button" class="btn btn-primary" (click)="exportPrompt()">Export to Prompt</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="position-absolute">
+  <div class="bg-bright py-2" id="projects" #projectsScreen>
+    <app-projects
+      class="flex-grow-1 overflow-hidden"
+      [projectsData]="data.allocationData.projectsData"
+      [imageExport]="true" />
+  </div>
+</div>

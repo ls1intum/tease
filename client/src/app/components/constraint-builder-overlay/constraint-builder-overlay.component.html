@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="w-75">
+    <div class="bg-white shadow-lg p-4 rounded-3 d-flex flex-column gap-4" (click)="$event.stopPropagation()">
+      <div class="d-flex">
+        <h3 class="fw-semibold mb-1">Constraint Builder</h3>
+        <div class="flex-grow-1"></div>
+        <button
+          type="button"
+          class="btn btn-icon btn-icon-primary"
+          (click)="showConstraintHelpOverlay()"
+          ngbTooltip="Help"
+          triggers="hover">
+          <fa-icon [icon]="facQuestionIcon" class="fs-3 text-dark"></fa-icon>
+        </button>
+      </div>
+
+      <div>
+        <h4 class="fw-semibold mb-1">Projects</h4>
+        <p><b>Select</b> the <b>projects</b> to which you want to apply the constraint.</p>
+        <app-select
+          [elementsData]="projectsSelectData"
+          (selectionChange)="selectedProjectsChange($event)"
+          title="Projects" />
+      </div>
+
+      <div>
+        <h4 class="fw-semibold mb-1">Constraint Function</h4>
+        <p><b>Filter</b> students based on whether they fulfill the constraint.</p>
+        <app-constraint-function-builder
+          (constraintFunctionChange)="constraintFunctionChange($event)"
+          [constraintFunctionWrapper]="constraintFunctionWrapper"></app-constraint-function-builder>
+      </div>
+
+      <div>
+        <h4 class="fw-semibold mb-1">Threshold</h4>
+        <p>
+          Set the <b>minimum</b> and <b>maximum</b> number of students that need to fulfill the constraint
+          <b>per project</b>.
+        </p>
+        <app-constraint-threshold-builder
+          (thresholdChange)="thresholdChange($event)"
+          [thresholdWrapper]="thresholdWrapper"></app-constraint-threshold-builder>
+      </div>
+
+      <div class="d-flex mt-5">
+        <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+        <div class="flex-grow-1"></div>
+        <button type="button" class="btn btn-primary" (click)="addConstraint()" [disabled]="!isFormValid">
+          {{ id ? 'Save Changes' : 'Add Constraint' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="w-100 d-flex bg-dark justify-content-between p-3 align-items-center flex-wrap">
+  <div class="d-flex align-items-center gap-3 justify-content-center flex-wrap">
+    <img src="assets/images/logo-s.svg" />
+    <div class="text-white fs-3 fw-light">TEASE</div>
+    @if (allocationData.courseIteration) {
+      <div class="text-prefix fs-5">{{ allocationData.courseIteration.semesterName }}</div>
+
+      @if (websocketService.connection?.connected) {
+        <fa-icon
+          [icon]="facCheckIcon"
+          class="collaboration-indicator success"
+          role="button"
+          (click)="disconnect()"
+          ngbTooltip="Disconnect from Collaboration"></fa-icon>
+      } @else {
+        <div
+          ngbTooltip="Reconnect to Collaboration"
+          class="collaboration-indicator error"
+          role="button"
+          (click)="connect()">
+          <fa-icon [icon]="facRestartIcon"></fa-icon>
+        </div>
+      }
+    }
+  </div>
+
+  <div class="d-flex gap-2 align-items-center flex-wrap">
+    @if (!fulfillsAllConstraints) {
+      <div
+        class="wh-4 bg-warn rounded-circle d-flex align-items-center justify-content-center"
+        ngbTooltip="Unfulfilled Constraints!">
+        <fa-icon [icon]="facErrorIcon" class="text-white fs-3 lh-1"></fa-icon>
+      </div>
+    }
+    <div>
+      <button
+        type="button"
+        class="btn btn-icon btn-icon-primary"
+        (click)="showSortConfirmation()"
+        ngbTooltip="Sort Students"
+        triggers="hover">
+        <fa-icon [icon]="facSortIcon" class="fs-3 text-white"></fa-icon>
+      </button>
+      <button
+        type="button"
+        class="btn btn-icon btn-icon-primary"
+        (click)="showConstraintBuilderOverlay()"
+        ngbTooltip="Add Constraint"
+        triggers="hover">
+        <fa-icon [icon]="facAddIcon" class="fs-3 text-white"></fa-icon>
+      </button>
+    </div>
+    <button type="button" class="btn btn-primary btn-icon-text" (click)="showConstraintSummaryOverlay()">
+      <fa-icon [icon]="facGroupsIcon" class="pe-2 fs-3"></fa-icon>
+      <div>Distribute Projects</div>
+    </button>
+
+    <div ngbDropdown class="d-inline-block">
+      <button type="button" class="btn btn-icon btn-icon-primary" id="moreDropdown" ngbDropdownToggle>
+        <fa-icon [icon]="facMoreIcon" class="fs-3 text-white"></fa-icon>
+      </button>
+      <div ngbDropdownMenu>
+        @for (item of dropdownItems; track item) {
+          <button ngbDropdownItem (click)="item.action()" class="btn-icon-text py-2" [ngClass]="item.class">
+            <fa-icon [icon]="item.icon" class="pe-2 fs-3"></fa-icon>{{ item.label }}
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+</div>

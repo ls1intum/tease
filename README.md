@@ -1,42 +1,58 @@
-# Tease
+# TEASE
 
 Team allocation decision support system as used in the iPraktikum.
 
-## Prerequisites
+## Usage
 
-1. Install [Docker](https://docs.docker.com/get-docker/)
-2. Either clone this repository or download one of the images found under the packages menu
+### Starting TEASE Client and Server
 
-## Usage - Starting TEASE
+To start the TEASE application, follow the steps below:
 
-If you downloaded the repository, build the docker image (from inside the repositorie's root directory):
+#### Option A: Using Remote Docker Images 
+Ensure that the docker-compose.yml file is in the directory, then run:
 ```
-docker build -t <image-name> .
-```
-
-The container will take a little while to download the node dependencies and then compile the Angular project.
-
-Run the docker image using:
-```
-docker run -it -p 8080:80 --name tease-container ghcr.io/ls1intum/tease
+docker compose up
 ```
 
-After Angular is done preparing the application open [localhost:8080](https://localhost:8080) and choose to either import the example team data that is shipped with the repository or specify a different file.
+#### Option B: Using Local Repository
+If you want to build the images locally from the repository, run:
+```
+docker compose up --build
+```
 
-![import](src/assets/images/import.png)
+### Access TEASE
+Once the application is running, open `http://localhost/tease` in your browser. 
 
-In **Distribute With Constraints** you can set global and team-specific constraints (e.g. minimum or maximum number of experienced developers, female developers, developers with a mac, etc.). People can be pinned to a team and assigned manually.
+![Dashboard](docs/Dashboard.jpeg)
 
-![constraints](src/assets/images/constraints.png)
+You can either import the example student data or specify a different file. If running together with [PROMPT](https://github.com/ls1intum/prompt) and previously logged in, student data can be directly imported. 
 
-The result can be exported as a CSV file, which can later be imported again to change the team allocation. Additionally team cards can be imported which generates images of the teams.
+Constraints can be created for team size, skills, gender, nationality, device ownership, and language. After applying constraints, students will be automatically assigned to their highest project team preference while fulfilling all set constraints.
 
-## Development server
+When used with PROMPT, constraints, allocations, and locked students can be synchronized in real-time between multiple clients.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The result can be exported as a CSV file or directly to PROMPT to continue the workflow there. Additionally, the team cards can be exported as images.
 
----
+## Development 
 
-For the deprecated documentation of previous versions of this repository (including info regarding build & deployment, code structure, older known issues and miscellaneous notes) please see the README from older commits.
+TEASE consists of a client and a server. The client is built with Angular, while the server utilizes Spring Boot with Java and functions as a STOMP WebSocket Broker.
 
----
+#### Client
+
+In the client directory, run `npm install` to install all necessary dependencies.
+
+To start the client, run `npm start` for a development server. After successful compilation, the client can be accessed at `http://localhost:80/`.
+
+The application will automatically reload if you change any of the source files.
+
+#### Server
+
+In the server directory, run `mvn install` to install all necessary dependencies.
+
+To start the server, run `mvn spring-boot:run`. After successful startup, the server can be accessed at `http://localhost:8081/`.
+
+## Deployment
+
+Upon a new commit to the `main` branch in the Tease repository, an automatic build pipeline is triggered. This pipeline builds a new Docker image for Tease. The image is then deployed to the same virtual machine that hosts Prompt. Once deployed, all incoming HTTP requests to the URL `prompt.ase.cit.tum.de/tease` are automatically routed to and served by the newly deployed Tease Docker image running on the virtual machine. To facilitate data exchange between Prompt and Tease, it is necessary to log in to Prompt as a member of the project management team. This step allows to import student data from Prompt into Tease and later export the allocation back to Prompt.
+
+![Deployment Diagram](docs/DeploymentDiagram.svg)
