@@ -2,19 +2,16 @@ name: Build and Push
 
 on:
   pull_request:
-  push:
-    branches:
-      - develop
-      - main
-    tags: "[0-9]+.[0-9]+.[0-9]+"
+  # push:
+  #   branches:
+  #     - develop
+  #     - main
+  #   tags: "[0-9]+.[0-9]+.[0-9]+"
+  # TODO: Design a release workflow
   release:
     types:
       - created
   workflow_call:
-    outputs:
-      image_tag:
-        description: "The tag of the tease image that was built"
-        value: "${{ jobs.buildx.outputs.result }}"
 
 jobs:
   build-and-push:
