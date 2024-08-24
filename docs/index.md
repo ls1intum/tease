@@ -1,4 +1,4 @@
-## Table of Contents
+# Table of Contents
 
 1. [Introduction](#Introduction)
 2. [User Guide](#User-Guide)
@@ -14,7 +14,7 @@
 
 
 
-## Introduction
+# Introduction
 
 The **Team Allocator for Software Engineering courses (TEASE)** is an open source team allocation decision support system for project-based courses.
 With TEASE one can import student data from [Prompt](https://github.com/ls1intum/prompt) or from a CSV file.
@@ -23,9 +23,9 @@ The matching algorithm evaluates all constraints and selects the solution with t
 Statistics allow for detailed analysis and the ability to fine-tune allocations with manual adjustments.
 The live collaboration feature enables multiple program managers to work on the same course iteration and update data in real time.
 
-## User Guide
+# User Guide
 
-### Overview
+## Overview
 The main view of TEASE can be divided into 3 sections:
 - **Navigation Bar**: The navigation bar provides access to various actions such as importing and exporting data, assigning students to project teams, and creating constraints.
 - **Project Team Section**: The Project Team section displays all project teams and their members. It also shows the number of students in each team and whether the constraints are met.
@@ -33,19 +33,19 @@ The main view of TEASE can be divided into 3 sections:
 ![TEASE Overview Image](Dashboard.jpeg)
 
 
-### Import Data
+## Import Data
 TEASE offers two ways to import student and project team data:
 - PROMPT Integration
 - CSV File
 
 
-#### PROMPT Integration
+### PROMPT Integration
 To use the PROMPT integration, TEASE must be deployed on PROMPT.
 For authentication and authorization, logging in to PROMPT as a program manager is mandatory for secure use of student data.
 
 Once these requirements are met, TEASE will ask if it should import the latest data from PROMPT.
 
-#### CSV File
+### CSV File
 
 To use the CSV File import, the use of a specific format is required.
 
@@ -71,7 +71,7 @@ Carol,Lee,carol.lee@email.com,Male,003,7,Bachelor,Computer Science,Expert,Native
 - **Device**: true, false
 
 
-### Matching
+## Matching
 After importing the data, all students can be found in the student pool.
 They can be manually dragged into the project teams or
 automatically allocated using the matching algorithm.
@@ -80,7 +80,7 @@ For good results, it is important to have a set of constraints before running th
 All constraints can be viewed in detail in the constraint summary.
 ![Constraint Summary](ConstraintSummary.jpeg)
 
-#### Constraints
+### Constraints
 Constraints can be defined based on factors such as skills, development devices, gender, nationality, language proficiency, and team size.
 Students are dynamically filtered according to their properties.
 Each constraint has an upper and lower limit.
@@ -88,13 +88,13 @@ Constraints can be applied to all or specific project teams.
 
 ![Constraint Builder](ConstraintBuilder.jpeg)
 
-#### Matching Algorithm
+### Matching Algorithm
 The matching algorithm uses a linear programming approach to match students to projects using the defined constraints.
 Each student is matched to exactly one project team, with the optimization objective focused on maximizing project preferences.
 The algorithm generates only valid project team allocations.
 
 
-### Statistics
+## Statistics
 The Statistics section allows users to view detailed statistics about project teams and students.
 The statistics use different charts to visualize different metrics.
 Possible metrics to analyze are
@@ -105,34 +105,34 @@ Possible metrics to analyze are
 ![Statistics](Statistics.png)
 
 
-### Live Collaboration
+## Live Collaboration
 The live collaboration feature updates all dynamic data in real-time between program managers.
 This dynamic data includes students locked to project teams, project team allocations, and constraints.
 To utilize this feature, users must be logged in to PROMPT for authentication.
 The course iteration ID from PROMPT is used to match and synchronize different sessions.
 
 
-### Export Data
+## Export Data
 TEASE offers three ways to export data:
 - PROMPT Integration
 - CSV File
 - Images
 
-#### PROMPT Integration
+### PROMPT Integration
 Similar to the import, the TEASE application must be deployed on PROMPT to use the integration.
 For authentication and authorization, logging in to PROMPT as a program manager is mandatory for secure use of student data.
 Only data that has been imported from PROMPT can be exported back to PROMPT.
 
 Once these requirements are met, TEASE will display the possibility to export the data to PROMPT.
 
-#### CSV File
+### CSV File
 The CSV File export generates a file with all student data and project team allocations.
 
-#### Images
+### Images
 The images export generates a ZIP file with all images of the project teams.
 
 
-## Installation
+# Installation
 
 To start the TEASE application, follow the steps below:
 
@@ -146,14 +146,14 @@ Use `docker compose up --build` to build the images locally from the repository.
 
 
 
-## Development
+# Development
 
 TEASE consists of a client and a server. The client is built with Angular, while the server utilizes Spring Boot with Java and functions as a STOMP WebSocket Broker.
 
 The API is automatically generated using `npm run openapi:generate` and documented with the OpenAPI Specification in [openapi_spec.yaml](../client/docs/openapi_spec.yaml)
 
 
-### Client
+## Client
 
 In the client directory, run `npm install` to install all necessary dependencies.
 
@@ -162,7 +162,7 @@ To start the client, run `npm start` for a development server. After successful 
 The application will automatically reload if you change any of the source files.
 
 
-### Server
+## Server
 
 In the server directory, run `mvn install` to install all necessary dependencies.
 
@@ -170,7 +170,7 @@ To start the server, run `mvn spring-boot:run`. After successful startup, the se
 
 
 
-## Deployment
+# Deployment
 
 Upon a new commit to the main branch in the TEASE repository, an automatic build pipeline is triggered.
 This pipeline builds a new Docker image for Tease. The image is then deployed to the same virtual machine that hosts PROMPT.
