@@ -167,7 +167,7 @@ Use `docker compose up --build` to build the images locally from the repository.
 
 TEASE consists of a client and a server. The client is built with Angular, while the server utilizes Spring Boot with Java and functions as a STOMP WebSocket Broker.
 
-The API is automatically generated using `npm run openapi:generate` and documented with the OpenAPI Specification in [openapi_spec.yaml](../client/docs/openapi_spec.yaml)
+The API is automatically generated using `npm run openapi:generate` and documented with the OpenAPI Specification in [openapi_spec.yaml](https://github.com/ls1intum/tease/blob/main/client/docs/openapi_spec.yaml)
 
 ## Client
 
