@@ -190,4 +190,5 @@ This pipeline builds a new Docker image for TEASE. The image is then deployed to
 Once deployed, all incoming HTTP requests to the URL prompt.ase.cit.tum.de/tease are automatically routed to and served by the newly deployed TEASE Docker image running on the virtual machine.
 To facilitate data exchange between PROMPT and TEASE, it is necessary to log in to PROMPT as a member of the project management team.
 This step allows to import student data from PROMPT into TEASE and later export the allocation back to PROMPT.
+
 ![DeploymentDiagram](DeploymentDiagram.svg)
