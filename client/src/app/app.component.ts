@@ -124,7 +124,7 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
     if (!studentId) return;
 
     if (!projectId) {
-      this.allocationsService.removeStudentFromProjects(studentId);
+      this.allocationsService.removeStudentFromAllocations(studentId);
       return;
     }
 

@@ -53,6 +53,15 @@ export class AllocationsService {
     this.moveStudentToProjectAtPosition(studentId, projectId);
   }
 
+  /**
+   * Moves a student to a specified project at a given position relative to a sibling.
+   * If no siblings is provided, the student is added to the end of the project.
+   *
+   * @param {string} studentId - The ID of the student to move.
+   * @param {string} projectId - The ID of the project to which the student will be moved.
+   * @param {string} [siblingId] - The ID of the sibling student. If provided, the student will be placed next to this sibling. If not found or not provided, the student is added to the end.
+   * @returns {void}
+   */
   moveStudentToProjectAtPosition(studentId: string, projectId: string, siblingId?: string): void {
     const allocations = this.getAllocationsWithoutStudent(studentId);
     const allocation = this.getAllocationForProjectId(projectId);
@@ -71,6 +80,13 @@ export class AllocationsService {
     this.setAllocations(allocations);
   }
 
+  /**
+   * Retrieves all allocations and filters out the specified student from each allocation.
+   *
+   * @private
+   * @param {string} studentId - The ID of the student to be removed from the allocations.
+   * @returns {Allocation[]} - An array of allocations with the specified student removed.
+   */
   private getAllocationsWithoutStudent(studentId: string): Allocation[] {
     const allocations = this.getAllocations();
     allocations.forEach(allocation => {
@@ -79,7 +95,7 @@ export class AllocationsService {
     return allocations;
   }
 
-  removeStudentFromProjects(studentId: string): void {
+  removeStudentFromAllocations(studentId: string): void {
     const allocations = this.getAllocations();
     allocations.forEach(allocation => {
       allocation.students = allocation.students.filter(id => id !== studentId);
