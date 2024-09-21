@@ -47,12 +47,13 @@ TEASE offers two ways to import student and project team data:
 - PROMPT
 - CSV File
 
-A sample dataset is also available for testing purposes.
+A sample dataset is also available for testing purposes and is displayed in the import modal for direct import.
+The CSV file is also available [here](https://github.com/ls1intum/tease/blob/main/client/src/assets/persons_example.csv).
 
 ### PROMPT
 
 To use the PROMPT import, TEASE must be deployed on PROMPT.
-For authentication and authorization, logging in to PROMPT as a program manager is mandatory for secure use of student data.
+Log in to PROMPT as a program manager to authenticate and authorize secure access to student data.
 For detailed information about the PROMPT integration, see the [PROMPT Integration](#prompt-integration) section.
 
 To ensure that the requirements are met, open TEASE with PROMPT from the team allocation section.
@@ -90,7 +91,7 @@ Carol,Lee,carol.lee@email.com,Male,003,7,Bachelor,Computer Science,Expert,Native
 - studyProgram
 - skillLevel
 - nationality
-- device
+- devices
   - device[IPhone]
   - device[Mac]
   - device[IPad]
@@ -98,14 +99,14 @@ Carol,Lee,carol.lee@email.com,Male,003,7,Bachelor,Computer Science,Expert,Native
 
 #### Dynamic Header Fields
 
-- language[X] (where X is the language format (ISO 639-1), currently required: **de** & **en**)
+- language[X] (where X is the language format (ISO 639-1), currently the system requires: **de** & **en**)
 - projectPreference[X] (where X is the project team name)
 - skill[X] (where X is the skill name)
 
 #### Permitted Values:
 
 - **gender**: Female, Male, Other, Prefer not to say
-- **projectPreference[x]**: 0, 1, 2, ... (0 is the highest priority; values must be strictly sequential from 0 to n with no duplicates)
+- **projectPreference[x]**: 0, 1, 2, ..., n (0 is the highest priority; values must be strictly sequential from 0 to n with no duplicates)
 - **skill[x]/skillLevel**: Novice, Intermediate, Advanced, Expert (where Novice < Intermediate < Advanced < Expert)
 - **language[x]**: A1/A2, B1/B2, C1/C2, Native (where A1/A2 < B1/B2 < C1/C2 < Native)
 - **nationality**: ISO 3166-1 alpha-2
@@ -134,7 +135,7 @@ A constraint consists of three parts: project selection, filter, and limits.
 #### Project Selection
 
 A constraint can be set for one or more project teams.
-The constraint must be fullfilled for each project team.
+Each project team must fulfill the constraint.
 
 #### Filter
 
@@ -142,7 +143,7 @@ A filter consists of a property and a value, with some filters using comparison 
 For example, intro course proficiency can use the "at least" operator to filter for students with a minimum skill proficiency level of advanced.
 This includes all students with an advanced or expert skill proficiency level.
 
-Filters can be defined based on the following properties:
+Define filters based on the following properties:
 
 - skill proficiencies
 - language proficiencies
@@ -152,19 +153,61 @@ Filters can be defined based on the following properties:
 - nationality
 - team size
 
-Students are then dynamically filtered based on their properties.
+The system dynamically filters students based on their properties.
 
 #### Limits
 
 Each constraint has an upper and lower limit.
 These limits refer to the number of students who meet the filter criteria and are assigned to the project team.
-The limits must be fullfilled for each project team.
+The limits must be fulfilled for each selected project team.
+
+#### Example Constraints
+
+For a better understanding of the constraint creation process, this section contains some sample constraints.
+
+##### Team Size Constraint
+
+This example demonstrates how to create a constraint ensuring that each project team has a minimum of 4 and a maximum of 5 students.
+
+- **Project Selection**: All project teams
+- **Filter**: Team size
+- **Limits**: Min: 4, Max: 5 (for each project team)
+
+##### Gender Constraint
+
+This example demonstrates how to create a constraint ensuring that each project team includes at least one female student.
+
+- **Project Selection**: All project teams
+- **Filter**: Gender equals female
+- **Limits**: Min: 1 (for each project team)
+
+##### Development Device Constraint
+
+This example demonstrates how to create a constraint ensuring each project team includes at least one student with an iPhone.
+
+- **Project Selection**: All project teams
+- **Filter**: Development device equals iPhone
+- **Limits**: Min: 1 (for each project team)
+
+##### Machine Learning Constraint
+
+This example demonstrates how to create a constraint ensuring that the TUM project team has at least 1 student with advanced skills in machine learning.
+
+- **Project Selection**: TUM
+- **Filter**: Machine Learning skill level at least advanced
+- **Limits**: Min: 1 (for each project team)
 
 ### Matching Algorithm
 
-The matching algorithm uses a linear programming approach to assign students to projects based on the defined constraints.
-It ensures each student is assigned to exactly one project team, optimizing to maximize project preferences.
-The algorithm generates only valid project team allocations, meaning that all constraints must be met.
+TEASE's matching algorithm assigns students to project teams using a linear programming approach based on the defined constraints.
+A linear programming problem is a mathematical optimization problem that consits of a linear objective function and linear constraints.
+More information on linear programming can be found [here](https://www.geeksforgeeks.org/linear-programming/).
+
+The algorithm ensures that each student is placed on exactly one project team while optimizing to maximize project preferences.
+It generates only valid project team allocations, meaning that all constraints must be met.
+In the case of conflicting constraints no solution can be found, and TEASE will display an error message.
+
+TEASE solves the linear programming problem using the [jsLPSolver](https://www.npmjs.com/package/javascript-lp-solver) library.
 
 ### Constraint Summary
 
@@ -214,12 +257,12 @@ TEASE offers three ways to export data:
 ### PROMPT
 
 Similar to the import, to use the PROMPT export, TEASE must be deployed on PROMPT.
-For authentication and authorization, logging in to PROMPT as a program manager is mandatory for secure use of student data.
-For detailed information about the PROMPT integration, see the [PROMPT Integration](#prompt-integration) section.
+Log in to PROMPT as a program manager to authenticate and authorize secure access to student data.
+For more details on the PROMPT integration, see the [PROMPT Integration](#prompt-integration) section.
 
 To ensure that the requirements are met, open TEASE with PROMPT from the team allocation section.
 Only data that has been imported from PROMPT can be exported back to PROMPT.
-A message will appear indicating successful export.
+A message will appear indicating that the export was successful.
 
 ![PROMPT Export](prompt-export.gif)
 
@@ -248,7 +291,7 @@ The image export generates a ZIP file containing a canvas of all project teams a
 
 # Installation
 
-To start the TEASE application, ensure Docker is installed on your system. You can follow the installation guide [here](https://docs.docker.com/engine/install/).
+To run the TEASE application, ensure Docker is installed on the system. Follow the installation instructions [here](https://docs.docker.com/engine/install/)
 
 Once Docker is installed, follow these steps:
 
@@ -266,19 +309,19 @@ The application will be available at `http://localhost:80/tease`.
 
 # Development
 
-TEASE consists of a client and a server. The client is built with Angular, while the server utilizes Spring Boot with Java and functions as a STOMP WebSocket Broker.
+TEASE consists of a client and a server. The client is built with [Angular](https://angular.dev/), while the server utilizes [Spring Boot](https://spring.io/projects/spring-boot) with Java and functions as a [STOMP WebSocket Broker](https://docs.spring.io/spring-framework/reference/web/websocket/stomp.html).
 
 ## Client
 
 In the client directory, run `npm install` to install all necessary dependencies.
 
-To start the client, run `npm start` for a development server. After successful compilation, the client can be accessed at `http://localhost:80/`.
+To start the client, run `npm start` for a development server. After successful compilation, the client is available at `http://localhost:80/`.
 
-The application will automatically reload if you change any of the source files.
+The application will automatically reload if any of the source files changes.
 
 The PROMPT API is automatically generated using `npm run openapi:generate` and is documented in [openapi_spec.yaml](https://github.com/ls1intum/tease/blob/main/client/docs/openapi_spec.yaml).
 To explore the API documentation use the [Swagger Editor](https://editor.swagger.io/).
-This documentation declares all data objects used in TEASE.
+This documentation declares all data objects in TEASE.
 
 ## Server
 
@@ -295,26 +338,46 @@ In general, there are four main STOMP paths:
 - course-iteration/{id}/locked-students
 
 When a new client sends a message to the discovery channel, they receive all current states of the dynamic data through the other channels.
-Any message sent to the allocations, constraints, or locked-students channels will be broadcasted to all connected clients, updating them with the latest information.
+Any message sent to the allocations, constraints, or locked-students channels broadcasts to all connected clients, updating them with the latest information.
 
 # PROMPT Integration
 
-[PROMPT](https://github.com/ls1intum/prompt) is a support tool designed to assist program management in project-based courses.
+[PROMPT](https://github.com/ls1intum/prompt) is a support tool for managing project-oriented courses.
 TEASE integrates closely with PROMPT, enabling direct import and export of student and project team data.
 The file [openapi_spec.yaml](https://github.com/ls1intum/tease/blob/main/client/docs/openapi_spec.yaml) documents the API using the OpenAPI Specification.
-To explore the API documentation use the [Swagger Editor](https://editor.swagger.io/).
+Explore the API documentation using the [Swagger Editor](https://editor.swagger.io/).
 
 To deploy TEASE alongside PROMPT, install both on the same machine.
 Start by deploying PROMPT first.
 Next, deploy TEASE into a directory named `tease`, which should be located directly below the top-level directory named `prompt`.
-Detailed installation instructions for TEASE can be found in the [Installation](#installation) section.
+Find detailed installation instructions for TEASE in the [Installation](#installation) section.
 
 # Deployment
 
-Upon a new commit to the main branch in the TEASE repository, an automatic build pipeline is triggered.
-This pipeline builds a new Docker image for TEASE. The image is then deployed to the same virtual machine that hosts PROMPT.
-Once deployed, all incoming HTTP requests to the URL prompt.ase.cit.tum.de/tease are automatically routed to and served by the newly deployed TEASE Docker image running on the virtual machine.
+Upon a new commit to the main branch in the TEASE repository, the system triggers an automatic build pipeline.
+This pipeline builds a new Docker image for TEASE and deploys it to the virtual machine hosting PROMPT.
+When the system is running, all incoming HTTP requests to the URL prompt.ase.cit.tum.de/tease are automatically routed to the newly deployed TEASE Docker image running on the virtual machine.e.
 To facilitate data exchange between PROMPT and TEASE, it is necessary to log in to PROMPT as a member of the project management team.
 This step allows to import student data from PROMPT into TEASE and later export the allocation back to PROMPT.
 
 ![DeploymentDiagram](DeploymentDiagram.svg)
+
+To deploy TEASE on a different server for production, first deploy PROMPT.
+Next, deploy TEASE into a directory named `tease`, which should be located directly below the top-level directory named `prompt`.
+Then configure the following environment variables in a `.tease-env.prod` file within the TEASE folder:
+
+- **TEASE_IMAGE_TAG**: The Docker image tag of the TEASE image. By default, this is set to `latest`
+- **SERVER_HOST**: The hostname of the server
+- **KEYCLOAK_JWK_SET_URI**: The URI that provides the JSON Web Key Set (JWKs), which includes public keys used for token verification
+
+Use the following command to deploy TEASE on the production server:
+
+```bash
+docker compose -f tease/docker-compose.prod.yml --env-file=.env.prod --env-file=tease/.tease-env.prod up --pull=always -d
+```
+
+To stop the TEASE application, use the following command:
+
+```bash
+docker compose -f tease/docker-compose.prod.yml --env-file=.env.prod -env-file=tease/tease-env.prod down --remove-orphans --rmi all
+```
