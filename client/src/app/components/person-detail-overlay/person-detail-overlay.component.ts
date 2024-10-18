@@ -93,7 +93,7 @@ export class PersonDetailOverlayComponent implements OnInit, OverlayComponentDat
   }
 
   private getProjectPreferenceScore(): string {
-    if (this.projectId) {
+    if (this.projectId && this.projectPreferences.length) {
       const priority = this.student.projectPreferences.find(project => project.projectId === this.projectId)?.priority;
       // +1 because the priority is 0-based
       return (priority + 1).toString() || '#';
