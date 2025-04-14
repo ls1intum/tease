@@ -97,7 +97,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Allocation'
-  /tease/course_phase/{courseIterationId}//skills:
+  /tease/course_phase/{courseIterationId}/skills:
     get:
       tags:
         - Skills
