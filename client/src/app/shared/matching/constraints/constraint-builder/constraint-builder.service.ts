@@ -18,6 +18,17 @@ export class ConstraintBuilderService {
     private lockedConstraintsService: LockedConstraintsService
   ) {}
 
+  /**
+   * Creates a list of constraints for the linear program based on the provided students, projects, custom constraints, and locks.
+   * The constraints generated follow the format:
+   * `x[numericalId of student]y[numericalId of project] + x[numericalId of student]y[numericalId of project] + ... <= [threshold]`.
+   *
+   * @param {Student[]} students - An array of `Student` objects for whom the constraints are being generated.
+   * @param {string[]} projectIds - An array of project IDs that the students can be assigned to.
+   * @param {ConstraintWrapper[]} constraintWrappers - An array of custom constraints that need to be applied.
+   * @param {StudentIdToProjectIdMapping} locks - A mapping of locked student-to-project assignments.
+   * @returns {string[]} - An array of constraint strings, each following the specified format.
+   */
   createConstraints(
     students: Student[],
     projectIds: string[],

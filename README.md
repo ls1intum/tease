@@ -2,30 +2,37 @@
 
 Team allocation decision support system as used in the iPraktikum.
 
+A more detailed documentation can be found at [https://ls1intum.github.io/tease](https://ls1intum.github.io/tease).
+
 ## Usage
 
 ### Starting TEASE Client and Server
 
 To start the TEASE application, follow the steps below:
 
-#### Option A: Using Remote Docker Images 
+#### Option A: Using Remote Docker Images
+
 Ensure that the docker-compose.yml file is in the directory, then run:
+
 ```
 docker compose up
 ```
 
 #### Option B: Using Local Repository
+
 If you want to build the images locally from the repository, run:
+
 ```
 docker compose up --build
 ```
 
 ### Access TEASE
-Once the application is running, open `http://localhost/tease` in your browser. 
+
+Once the application is running, open `http://localhost/tease` in your browser.
 
 ![Dashboard](docs/Dashboard.jpeg)
 
-You can either import the example student data or specify a different file. If running together with [PROMPT](https://github.com/ls1intum/prompt) and previously logged in, student data can be directly imported. 
+You can either import the example student data or specify a different file. If running together with [PROMPT](https://github.com/ls1intum/prompt) and previously logged in, student data can be directly imported.
 
 Constraints can be created for team size, skills, gender, nationality, device ownership, and language. After applying constraints, students will be automatically assigned to their highest project team preference while fulfilling all set constraints.
 
@@ -33,7 +40,7 @@ When used with PROMPT, constraints, allocations, and locked students can be sync
 
 The result can be exported as a CSV file or directly to PROMPT to continue the workflow there. Additionally, the team cards can be exported as images.
 
-## Development 
+## Development
 
 TEASE consists of a client and a server. The client is built with Angular, while the server utilizes Spring Boot with Java and functions as a STOMP WebSocket Broker.
 

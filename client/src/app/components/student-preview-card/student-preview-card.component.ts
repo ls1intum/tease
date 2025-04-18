@@ -77,7 +77,7 @@ export class StudentPreviewCardComponent implements OnInit {
   }
 
   private getProjectPreferenceScore(): string {
-    if (this.projectId) {
+    if (this.projectId && this.projectPreferences.length) {
       return (
         (
           this.student.projectPreferences.find(project => project.projectId === this.projectId).priority + 1
