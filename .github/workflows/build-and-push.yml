@@ -16,7 +16,6 @@ on:
 jobs:
   build-and-push:
     strategy:
-      fail-fast: false
       matrix:
         include:
           - image-name: ls1intum/tease
@@ -25,7 +24,8 @@ jobs:
           - image-name: ls1intum/tease-server
             docker-file: ./server/Dockerfile
             docker-context: ./server
-    uses: ls1intum/.github/.github/workflows/build-and-push-docker-image.yml@main
+    uses: ./.github/workflows/build-and-push-docker-image-local.yml
+    secrets: inherit
     with:
       image-name: ${{ matrix.image-name }}
       docker-file: ${{ matrix.docker-file }}
