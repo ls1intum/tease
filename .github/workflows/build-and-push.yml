@@ -12,6 +12,11 @@ on:
     types:
       - created
   workflow_call:
+    inputs:
+      image_tag:
+        description: "Optional image tag override"
+        required: false
+        type: string
 
 jobs:
   build-and-push:
@@ -25,8 +30,9 @@ jobs:
           - image-name: ls1intum/tease-server
             docker-file: ./server/Dockerfile
             docker-context: ./server
-    uses: ls1intum/.github/.github/workflows/build-and-push-docker-image.yml@main
+    uses: ls1intum/.github/.github/workflows/build-and-push-docker-image.yml@v1.1.1
     with:
       image-name: ${{ matrix.image-name }}
       docker-file: ${{ matrix.docker-file }}
       docker-context: ${{ matrix.docker-context }}
+      tags: ${{ inputs.image_tag }}
