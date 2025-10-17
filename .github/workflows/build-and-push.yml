@@ -2,15 +2,8 @@ name: Build and Push
 
 on:
   pull_request:
-  # push:
-  #   branches:
-  #     - develop
-  #     - main
-  #   tags: "[0-9]+.[0-9]+.[0-9]+"
-  # TODO: Design a release workflow
-  release:
-    types:
-      - created
+    branches: [main]
+
   workflow_call:
     inputs:
       image_tag:
