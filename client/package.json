@@ -5,9 +5,9 @@
   "private": true,
   "license": "MIT",
   "author": {
-    "name": "ASE TUM",
+    "name": "AET TUM",
     "email": "krusche@tum.de",
-    "url": "https://ase.cit.tum.de"
+    "url": "https://aet.cit.tum.de"
   },
   "scripts": {
     "ng": "ng",
@@ -62,7 +62,7 @@
     "rxjs": "7.8.1",
     "tslib": "2.6.3",
     "uuid": "^10.0.0",
-    "zone.js": "~0.14.0"
+    "zone.js": "^0.14.10"
   },
   "overrides": {
     "semver": "7.5.4",

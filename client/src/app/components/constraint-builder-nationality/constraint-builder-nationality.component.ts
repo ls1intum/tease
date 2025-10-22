@@ -81,6 +81,9 @@ export class ConstraintBuilderNationalityComponent implements OverlayComponentDa
       id: project.id,
       name: project.name,
     }));
+    this.projectsService.getProjects().forEach(project => {
+      this.projectsSelectData.find(p => p.id === project.id).selected = true;
+    });
   }
   close(): void {
     this.overlayService.switchComponent(ConstraintSummaryComponent);

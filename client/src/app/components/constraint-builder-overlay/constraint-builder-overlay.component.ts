@@ -7,7 +7,6 @@ import {
   ThresholdWrapper,
 } from 'src/app/shared/matching/constraints/constraint';
 import { v4 as uuidv4 } from 'uuid';
-import { Operator } from 'src/app/shared/matching/constraints/constraint-utils';
 import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { facQuestionIcon } from 'src/assets/icons/icons';
@@ -22,7 +21,7 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponentData, 
   facQuestionIcon = facQuestionIcon;
   data: {
     constraintWrapper: ConstraintWrapper;
-    onClosed: () => {};
+    onClosed: () => void;
   };
   id: string;
   projectsSelectData: SelectData[] = [];
@@ -54,6 +53,10 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponentData, 
         this.projectsSelectData.find(project => project.id === projectId).selected = true;
       });
     } else {
+      this.projectsService.getProjects().forEach(project => {
+        this.projectIds.push(project.id);
+        this.projectsSelectData.find(p => p.id === project.id).selected = true;
+      });
       this.constraintFunctionWrapper = new ConstraintFunctionWrapper('', '', null, '', '', [], '');
       this.thresholdWrapper = new ThresholdWrapper(0, 10);
     }
@@ -106,7 +109,7 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponentData, 
     });
   }
 
-  private createConstraintWrapper(tempConstraint: Boolean): ConstraintWrapper {
+  private createConstraintWrapper(tempConstraint: boolean): ConstraintWrapper {
     return new ConstraintWrapper(
       this.projectIds,
       this.constraintFunctionWrapper,
