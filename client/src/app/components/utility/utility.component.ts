@@ -7,6 +7,9 @@ import { PriorityChartDataService } from '../statistics/charts/chart-data-format
 import { SkillsProficiencyChartDataService } from '../statistics/charts/chart-data-formatter/formatters/skills-proficiency-chart-data.service';
 import { ChartDataFormatter } from '../statistics/charts/chart-data-formatter/chart-data-formatter';
 import { DevicesChartDataService } from '../statistics/charts/chart-data-formatter/formatters/devices-chart-data.service';
+import { GenderChartDataService } from '../statistics/charts/chart-data-formatter/formatters/gender-chart-data.service';
+import { StudyProgramChartDataService } from '../statistics/charts/chart-data-formatter/formatters/study-program-chart-data.service';
+import { StudyDegreeChartDataService } from '../statistics/charts/chart-data-formatter/formatters/study-degree-chart-data.service';
 
 enum ViewMode {
   Students,
@@ -36,7 +39,10 @@ export class UtilityComponent implements OnInit, OnChanges {
     private introCourseProficencyChartDataService: IntroCourseProficiencyChartDataService,
     private priorityChartDataService: PriorityChartDataService,
     private skillsProficiencyChartDataService: SkillsProficiencyChartDataService,
-    private devicesChartDataService: DevicesChartDataService
+    private devicesChartDataService: DevicesChartDataService,
+    private genderChartDataService: GenderChartDataService,
+    private studyProgramChartDataService: StudyProgramChartDataService,
+    private studyDegreeChartDataService: StudyDegreeChartDataService
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +78,9 @@ export class UtilityComponent implements OnInit, OnChanges {
       this.introCourseProficencyChartDataService,
       this.skillsProficiencyChartDataService,
       this.devicesChartDataService,
+      this.genderChartDataService,
+      this.studyProgramChartDataService,
+      this.studyDegreeChartDataService,
     ];
     this.statisticsSelectData = formatters.flatMap(formatter => formatter.getSelectData());
   }
