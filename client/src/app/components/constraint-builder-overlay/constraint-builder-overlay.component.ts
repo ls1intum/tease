@@ -53,6 +53,10 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponentData, 
         this.projectsSelectData.find(project => project.id === projectId).selected = true;
       });
     } else {
+      this.projectsService.getProjects().forEach(project => {
+        this.projectIds.push(project.id);
+        this.projectsSelectData.find(p => p.id === project.id).selected = true;
+      });
       this.constraintFunctionWrapper = new ConstraintFunctionWrapper('', '', null, '', '', [], '');
       this.thresholdWrapper = new ThresholdWrapper(0, 10);
     }
