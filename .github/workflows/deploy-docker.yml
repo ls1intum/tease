@@ -10,6 +10,10 @@ on:
         default: "latest"
         type: string
 
+    secrets:
+      VM_SSH_PRIVATE_KEY:
+        required: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
