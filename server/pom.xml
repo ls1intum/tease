@@ -15,6 +15,8 @@
 	<description>WebSockets for TEASE</description>
 	<properties>
 		<java.version>17</java.version>
+		<logback.version>1.5.19</logback.version>
+        <spring.version>6.2.12</spring.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -22,6 +24,17 @@
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
 
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
