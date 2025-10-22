@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 import { AllocationData } from 'src/app/shared/models/allocation-data';
 import { facCloseIcon, facWarnIcon } from 'src/assets/icons/icons';

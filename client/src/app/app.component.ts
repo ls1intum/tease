@@ -1,5 +1,4 @@
 import {
-  ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   OnDestroy,
@@ -9,7 +8,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { OverlayHostDirective } from './overlay-host.directive';
-import { OverlayComponentData, OverlayService, OverlayServiceHost } from './overlay.service';
+import { OverlayComponentData, OverlayData, OverlayService, OverlayServiceHost } from './overlay.service';
 import { DragulaService } from 'ng2-dragula';
 import { Allocation, Project, Skill, Student } from 'src/app/api/models';
 import { StudentsService } from 'src/app/shared/data/students.service';
@@ -132,7 +131,7 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
   }
 
   /* OverlayServiceHost interface */
-  public displayComponent(component: Type<OverlayComponentData>, data: any) {
+  public displayComponent(component: Type<OverlayComponentData>, data: OverlayData) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
     const viewContainerRef = this.overlayHostDirective.viewContainerRef;
     viewContainerRef.clear();

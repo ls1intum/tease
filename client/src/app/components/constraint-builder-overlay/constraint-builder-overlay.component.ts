@@ -7,7 +7,6 @@ import {
   ThresholdWrapper,
 } from 'src/app/shared/matching/constraints/constraint';
 import { v4 as uuidv4 } from 'uuid';
-import { Operator } from 'src/app/shared/matching/constraints/constraint-utils';
 import { SelectData } from 'src/app/shared/matching/constraints/constraint-functions/constraint-function';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { facQuestionIcon } from 'src/assets/icons/icons';
@@ -22,7 +21,7 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponentData, 
   facQuestionIcon = facQuestionIcon;
   data: {
     constraintWrapper: ConstraintWrapper;
-    onClosed: () => {};
+    onClosed: () => void;
   };
   id: string;
   projectsSelectData: SelectData[] = [];
@@ -106,7 +105,7 @@ export class ConstraintBuilderOverlayComponent implements OverlayComponentData, 
     });
   }
 
-  private createConstraintWrapper(tempConstraint: Boolean): ConstraintWrapper {
+  private createConstraintWrapper(tempConstraint: boolean): ConstraintWrapper {
     return new ConstraintWrapper(
       this.projectIds,
       this.constraintFunctionWrapper,

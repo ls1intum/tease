@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ThresholdWrapper } from 'src/app/shared/matching/constraints/constraint';
 import { integerValidator, positiveValidator } from 'src/app/shared/utils/validators.utils';
