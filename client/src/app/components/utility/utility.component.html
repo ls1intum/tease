@@ -74,7 +74,10 @@
         [formatter]="selectedStatisticsFormatter"></app-statistics>
     }
     @if (viewMode === ViewMode.Students) {
-      <div dragula="STUDENTS" class="d-flex flex-wrap flex-grow-1 gap-1 position-relative">
+      <div
+        dragula="STUDENTS"
+        class="d-flex flex-wrap flex-grow-1 gap-1 position-relative"
+        [ngClass]="allocationData.studentsWithoutTeam.length ? 'mb-auto' : ''">
         @if (!allocationData.studentsWithoutTeam.length) {
           <div class="d-flex flex-column flex-grow-1 rounded-2 border-dashed pe-none position-absolute w-100 h-100">
             <div class="d-flex flex-column justify-content-center align-items-center flex-grow-1">

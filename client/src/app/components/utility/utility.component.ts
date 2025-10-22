@@ -28,7 +28,7 @@ export class UtilityComponent implements OnInit, OnChanges {
   selectedStatisticsId: string;
   selectedStatisticsFormatter: ChartDataFormatter;
 
-  utilityContainerVisible = true;
+  public utilityContainerVisible = true;
 
   @Input({ required: true }) allocationData: AllocationData;
 
