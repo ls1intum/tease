@@ -50,6 +50,7 @@ jobs:
           proxy_port: ${{ vars.DEPLOYMENT_GATEWAY_PORT }}
           source: "./docker-compose.prod.yml"
           target: /home/${{ vars.VM_USERNAME }}/tease
+          overwrite: true
 
       - name: SSH to VM and create .tease-env.prod file
         uses: appleboy/ssh-action@v1.0.3
