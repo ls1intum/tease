@@ -1,15 +1,16 @@
 name: Build and Push
 
 on:
-  pull_request:
-    branches: [main]
-
   workflow_call:
     inputs:
       image_tag:
         description: "Optional image tag override"
         required: false
         type: string
+    outputs:
+      tease_image_tag:
+        description: "The pushed image tag for the tease image"
+        value: ${{ jobs.build-and-push.outputs.image_tag }}
 
 jobs:
   build-and-push:
