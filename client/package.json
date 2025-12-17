@@ -45,7 +45,7 @@
     "@fortawesome/fontawesome-svg-core": "6.5.2",
     "@ng-bootstrap/ng-bootstrap": "17.0.0",
     "@stomp/stompjs": "^7.0.0",
-    "bootstrap": "5.3.3",
+    "bootstrap": "5.3.8",
     "chart.js": "^4.4.3",
     "crypto-js": "4.2.0",
     "dragula": "3.7.3",
