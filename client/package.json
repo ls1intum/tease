@@ -59,7 +59,7 @@
     "ngx-capture": "^0.14.0",
     "ngx-toastr": "^19.0.0",
     "papaparse": "5.4.1",
-    "rxjs": "7.8.1",
+    "rxjs": "7.8.2",
     "tslib": "2.6.3",
     "uuid": "^10.0.0"
   },
