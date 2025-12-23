@@ -18,7 +18,7 @@ jobs:
       url: "https://${{ vars.VM_HOST }}"
     steps:
       - name: SSH to VM and Execute Docker-Compose Down
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.4
         continue-on-error: true
         with:
           host: ${{ vars.VM_HOST }}
@@ -48,7 +48,7 @@ jobs:
           target: /home/${{ vars.VM_USERNAME }}/tease
 
       - name: SSH to VM and create .tease-env.prod file
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.4
         with:
           host: ${{ vars.VM_HOST }}
           username: ${{ vars.VM_USERNAME }}
@@ -62,7 +62,7 @@ jobs:
             echo "TEASE_IMAGE_TAG=${{ inputs.tease_image_tag }}" >> tease/.tease-env.prod
 
       - name: SSH to VM and Execute Docker-Compose Up
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.4
         with:
           host: ${{ vars.VM_HOST }}
           username: ${{ vars.VM_USERNAME }}
