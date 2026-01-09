@@ -1,5 +1,8 @@
 name: Deploy Docker Image
 
+permissions:
+  contents: read
+
 on:
   workflow_call:
     inputs:
@@ -66,6 +69,7 @@ jobs:
           script: |
             touch tease/.tease-env.prod 
             echo "TEASE_IMAGE_TAG=${{ inputs.tease_image_tag }}" >> tease/.tease-env.prod
+            echo "KEYCLOAK_JWT_URI=${{ vars.KEYCLOAK_JWT_URI }}" >> tease/.tease-env.prod
 
       - name: SSH to VM and Execute Docker-Compose Up
         uses: appleboy/ssh-action@v1.0.3

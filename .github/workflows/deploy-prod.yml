@@ -1,5 +1,9 @@
 name: Build and Deploy to Prod
 
+permissions:
+  contents: read
+  packages: write
+
 on:
   release:
     types: [published]
