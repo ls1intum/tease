@@ -23,7 +23,7 @@ jobs:
           - image-name: ls1intum/tease-server
             docker-file: ./server/Dockerfile
             docker-context: ./server
-    uses: ./.github/workflows/build-and-push-docker-image-local.yml
+    uses: ls1intum/.github/.github/workflows/build-and-push-docker-image.yml@v1.1.0
     secrets: inherit
     with:
       image-name: ${{ matrix.image-name }}
