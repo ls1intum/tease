@@ -31,6 +31,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-constraint-summary',
   templateUrl: './constraint-summary.component.html',
   styleUrl: './constraint-summary.component.scss',
+  standalone: false,
 })
 export class ConstraintSummaryComponent implements OverlayComponentData, OnInit, OnDestroy {
   data = null;

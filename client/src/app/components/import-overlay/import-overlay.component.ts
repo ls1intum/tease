@@ -21,6 +21,7 @@ import { CollaborationService } from 'src/app/shared/services/collaboration.serv
   selector: 'app-import-overlay',
   templateUrl: './import-overlay.component.html',
   styleUrls: ['./import-overlay.component.scss'],
+  standalone: false,
 })
 export class ImportOverlayComponent implements OverlayComponentData, OnInit {
   data = null;

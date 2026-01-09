@@ -34,6 +34,7 @@ import { ResizeService } from './shared/services/resize.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None, // This is needed to get the material icons to work. Angular bug?
+  standalone: false,
 })
 export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
   overlayVisible = false;

@@ -22,6 +22,7 @@ import { TeamSizeConstraintFunction } from 'src/app/shared/matching/constraints/
   selector: 'app-constraint-function-builder',
   templateUrl: './constraint-function-builder.component.html',
   styleUrl: './constraint-function-builder.component.scss',
+  standalone: false,
 })
 export class ConstraintFunctionBuilderComponent implements OnInit, OnDestroy {
   private students: Student[] = [];

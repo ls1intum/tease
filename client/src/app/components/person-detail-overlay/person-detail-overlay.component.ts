@@ -24,6 +24,7 @@ class SkillDescription {
   selector: 'app-person-detail-overlay',
   templateUrl: './person-detail-overlay.component.html',
   styleUrls: ['./person-detail-overlay.component.scss'],
+  standalone: false,
 })
 export class PersonDetailOverlayComponent implements OnInit, OverlayComponentData {
   facMacIcon = facMacIcon;

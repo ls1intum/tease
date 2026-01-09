@@ -8,6 +8,7 @@ import { integerValidator, positiveValidator } from 'src/app/shared/utils/valida
   selector: 'app-constraint-threshold-builder',
   templateUrl: './constraint-threshold-builder.component.html',
   styleUrl: './constraint-threshold-builder.component.scss',
+  standalone: false,
 })
 export class ConstraintThresholdBuilderComponent implements OnInit, OnDestroy {
   form: FormGroup;

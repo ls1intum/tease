@@ -7,6 +7,7 @@ import { facImportIcon } from 'src/assets/icons/icons';
   selector: 'app-intro-card',
   templateUrl: './intro-card.component.html',
   styleUrls: ['./intro-card.component.scss'],
+  standalone: false,
 })
 export class IntroCardComponent {
   facImportIcon = facImportIcon;

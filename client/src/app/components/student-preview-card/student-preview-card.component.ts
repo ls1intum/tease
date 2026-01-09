@@ -19,6 +19,7 @@ class AssignedProjectPreference {
   selector: 'app-student-preview-card',
   templateUrl: './student-preview-card.component.html',
   styleUrl: './student-preview-card.component.scss',
+  standalone: false,
 })
 export class StudentPreviewCardComponent implements OnInit {
   @Input({ required: true }) student: Student;

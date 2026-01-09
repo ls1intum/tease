@@ -5,6 +5,7 @@ import { ChartProjectData } from './charts/chart-data-formatter/people-chart-dat
 import { ChartDataFormatter } from './charts/chart-data-formatter/chart-data-formatter';
 
 @Component({
+  standalone: false,
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
   styleUrl: './statistics.component.scss',

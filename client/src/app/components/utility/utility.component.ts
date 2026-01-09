@@ -19,6 +19,7 @@ enum ViewMode {
   selector: 'app-utility',
   templateUrl: './utility.component.html',
   styleUrl: './utility.component.scss',
+  standalone: false,
 })
 export class UtilityComponent implements OnInit, OnChanges {
   facCloseIcon = facCloseIcon;
