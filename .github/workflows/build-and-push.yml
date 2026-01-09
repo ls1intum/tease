@@ -2,16 +2,14 @@ name: Build and Push
 
 on:
   pull_request:
-  # push:
-  #   branches:
-  #     - develop
-  #     - main
-  #   tags: "[0-9]+.[0-9]+.[0-9]+"
-  # TODO: Design a release workflow
-  release:
-    types:
-      - created
+    branches: [main]
+
   workflow_call:
+    inputs:
+      image_tag:
+        description: "Optional image tag override"
+        required: false
+        type: string
 
 jobs:
   build-and-push:
@@ -30,3 +28,4 @@ jobs:
       image-name: ${{ matrix.image-name }}
       docker-file: ${{ matrix.docker-file }}
       docker-context: ${{ matrix.docker-context }}
+      tags: ${{ inputs.image_tag }}
