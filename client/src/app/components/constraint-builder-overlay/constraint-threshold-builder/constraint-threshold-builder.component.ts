@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ThresholdWrapper } from 'src/app/shared/matching/constraints/constraint';
 import { integerValidator, positiveValidator } from 'src/app/shared/utils/validators.utils';
@@ -26,7 +26,7 @@ export class ConstraintThresholdBuilderComponent implements OnInit, OnDestroy {
       lowerBound: new FormControl<number>(lowerBound, [integerValidator, positiveValidator]),
       upperBound: new FormControl<number>(upperBound, [integerValidator, positiveValidator]),
     });
-    this.thresholdChange.emit(new ThresholdWrapper(0, upperBound));
+    this.thresholdChange.emit(new ThresholdWrapper(lowerBound, upperBound));
 
     this.subscriptions.push(
       this.form.valueChanges.subscribe(() => {

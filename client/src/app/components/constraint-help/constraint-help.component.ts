@@ -26,7 +26,7 @@ interface DistributionExample {
 export class ConstraintHelpComponent implements OverlayComponentData {
   data: {
     constraintWrapper: ConstraintWrapper;
-    onClosed: () => {};
+    onClosed: () => void;
   };
   facCloseIcon = facCloseIcon;
   facPersonThinIcon = facPersonThinIcon;

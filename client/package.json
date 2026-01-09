@@ -5,9 +5,9 @@
   "private": true,
   "license": "MIT",
   "author": {
-    "name": "ASE TUM",
+    "name": "AET TUM",
     "email": "krusche@tum.de",
-    "url": "https://ase.cit.tum.de"
+    "url": "https://aet.cit.tum.de"
   },
   "scripts": {
     "ng": "ng",

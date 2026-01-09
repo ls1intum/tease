@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { Student, Device, SkillProficiency, LanguageProficiency } from 'src/app/api/models';
+import { Student, Device, LanguageProficiency } from 'src/app/api/models';
 import { OverlayService } from 'src/app/overlay.service';
 import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { GenderService } from 'src/app/shared/helpers/gender.service';

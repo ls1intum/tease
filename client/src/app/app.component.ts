@@ -1,5 +1,4 @@
 import {
-  ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   OnDestroy,
@@ -9,7 +8,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { OverlayHostDirective } from './overlay-host.directive';
-import { OverlayComponentData, OverlayService, OverlayServiceHost } from './overlay.service';
+import { OverlayComponentData, OverlayData, OverlayService, OverlayServiceHost } from './overlay.service';
 import { DragulaService } from 'ng2-dragula';
 import { Allocation, Project, Skill, Student } from 'src/app/api/models';
 import { StudentsService } from 'src/app/shared/data/students.service';
@@ -27,6 +26,8 @@ import { ImportOverlayComponent } from './components/import-overlay/import-overl
 import { LockedStudentsService } from './shared/data/locked-students.service';
 import { AllocationDataService } from './shared/services/allocation-data.service';
 import { CollaborationService } from './shared/services/collaboration.service';
+import { UtilityComponent } from './components/utility/utility.component';
+import { ResizeService } from './shared/services/resize.service';
 
 @Component({
   selector: 'app-root',
@@ -42,6 +43,8 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
 
   @ViewChild(OverlayHostDirective)
   private overlayHostDirective: OverlayHostDirective;
+  @ViewChild('utilityRef')
+  utilityComponent!: UtilityComponent;
 
   private subscriptions: Subscription[] = [];
   private students: Student[];
@@ -63,7 +66,8 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
     private promptService: PromptService,
     private lockedStudentsService: LockedStudentsService,
     private allocationDataService: AllocationDataService,
-    private collaborationService: CollaborationService
+    private collaborationService: CollaborationService,
+    private resizeService: ResizeService
   ) {
     this.overlayService.host = this;
   }
@@ -110,10 +114,13 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
     if (courseIterationId) {
       this.collaborationService.connect(courseIterationId);
     }
+
+    document.documentElement.style.setProperty('--utility-height', `${256}px`);
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription?.unsubscribe());
+    this.resizeService.cleanup();
   }
 
   private handleStudentDrop(el: Element, target: Element, sibling: Element): void {
@@ -133,7 +140,7 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
   }
 
   /* OverlayServiceHost interface */
-  public displayComponent(component: Type<OverlayComponentData>, data: any) {
+  public displayComponent(component: Type<OverlayComponentData>, data: OverlayData) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
     const viewContainerRef = this.overlayHostDirective.viewContainerRef;
     viewContainerRef.clear();
@@ -199,5 +206,13 @@ export class AppComponent implements OverlayServiceHost, OnInit, OnDestroy {
     };
 
     this.overlayService.displayComponent(ConfirmationOverlayComponent, overlayData);
+  }
+
+  startResize(event: MouseEvent): void {
+    if (!this.utilityComponent?.utilityContainerVisible) {
+      return;
+    }
+
+    this.resizeService.startResize(event);
   }
 }
