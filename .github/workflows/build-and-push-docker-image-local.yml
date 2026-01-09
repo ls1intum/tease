@@ -43,6 +43,9 @@ jobs:
   build:
     name: Build Docker Image for ${{ inputs.image-name }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     outputs:
       image_tag: "${{ steps.output-image-tag.outputs.image_tag }}"
     steps:
