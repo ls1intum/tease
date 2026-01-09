@@ -17,6 +17,7 @@ import { ConstraintHelpComponent } from '../constraint-help/constraint-help.comp
   selector: 'app-constraint-builder-overlay',
   templateUrl: './constraint-builder-overlay.component.html',
   styleUrl: './constraint-builder-overlay.component.scss',
+  standalone: false,
 })
 export class ConstraintBuilderOverlayComponent implements OverlayComponentData, OnInit {
   facQuestionIcon = facQuestionIcon;

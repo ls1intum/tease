@@ -21,6 +21,7 @@ interface DistributionExample {
   selector: 'app-constraint-help',
   templateUrl: './constraint-help.component.html',
   styleUrl: './constraint-help.component.scss',
+  standalone: false,
 })
 export class ConstraintHelpComponent implements OverlayComponentData {
   data: {

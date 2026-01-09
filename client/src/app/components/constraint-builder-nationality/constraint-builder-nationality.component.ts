@@ -20,6 +20,7 @@ import { SelectComponent } from '../select/select.component';
   selector: 'app-constraint-builder-nationality',
   templateUrl: './constraint-builder-nationality.component.html',
   styleUrl: './constraint-builder-nationality.component.scss',
+  standalone: false,
 })
 export class ConstraintBuilderNationalityComponent implements OverlayComponentData, OnInit {
   facMoreIcon = facMoreIcon;

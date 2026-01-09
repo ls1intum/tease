@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
+  standalone: false,
 })
 export class ProjectsComponent implements OnInit, OnDestroy {
   facErrorIcon = facErrorIcon;

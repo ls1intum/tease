@@ -9,6 +9,7 @@ import { ChartDataFormatter } from './charts/chart-data-formatter/chart-data-for
 import { SkillsProficiencyChartDataService } from './charts/chart-data-formatter/formatters/skills-proficiency-chart-data.service';
 
 @Component({
+  standalone: false,
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
   styleUrl: './statistics.component.scss',
