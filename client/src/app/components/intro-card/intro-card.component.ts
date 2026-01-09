@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
 import { ImportOverlayComponent } from '../import-overlay/import-overlay.component';
 import { facImportIcon } from 'src/assets/icons/icons';
