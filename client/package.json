@@ -79,11 +79,11 @@
     "child_process": false
   },
   "devDependencies": {
-    "@angular-eslint/builder": "19.0.2",
-    "@angular-eslint/eslint-plugin": "19.0.2",
-    "@angular-eslint/eslint-plugin-template": "19.0.2",
-    "@angular-eslint/schematics": "19.0.2",
-    "@angular-eslint/template-parser": "19.0.2",
+    "@angular-eslint/builder": "19.8.1",
+    "@angular-eslint/eslint-plugin": "19.8.1",
+    "@angular-eslint/eslint-plugin-template": "19.8.1",
+    "@angular-eslint/schematics": "19.8.1",
+    "@angular-eslint/template-parser": "19.8.1",
     "@angular/build": "^19.1.1",
     "@angular/cli": "19.1.1",
     "@angular/compiler-cli": "19.1.1",
