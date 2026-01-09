@@ -6,7 +6,6 @@ import { ProjectsService } from 'src/app/shared/data/projects.service';
 import { ConstraintWrapper } from 'src/app/shared/matching/constraints/constraint';
 import {
   facAddIcon,
-  facConstraintIcon,
   facCheckExtraBoldIcon,
   facDeleteIcon,
   facEditIcon,
